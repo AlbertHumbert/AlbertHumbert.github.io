@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Albert&#39;s Blog</title>
+  <subtitle>Always and evermore</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://alberthumbert.github.io/"/>
+  <updated>2017-06-03T15:55:53.000Z</updated>
+  <id>https://alberthumbert.github.io/</id>
+  
+  <author>
+    <name>Albert Humbert</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pro git 笔记</title>
+    <link href="https://alberthumbert.github.io/2017/05/22/proGit/"/>
+    <id>https://alberthumbert.github.io/2017/05/22/proGit/</id>
+    <published>2017-05-22T15:48:31.000Z</published>
+    <updated>2017-06-03T15:55:53.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;onCreate&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android 群英传 笔记</title>
+    <link href="https://alberthumbert.github.io/2017/05/20/AndroidHeros/"/>
+    <id>https://alberthumbert.github.io/2017/05/20/AndroidHeros/</id>
+    <published>2017-05-20T07:27:01.000Z</published>
+    <updated>2017-06-03T17:54:10.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;onStop&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="安卓" scheme="https://alberthumbert.github.io/tags/%E5%AE%89%E5%8D%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第一行代码 笔记</title>
+    <link href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/"/>
+    <id>https://alberthumbert.github.io/2017/04/30/firstCodeLine/</id>
+    <published>2017-04-30T02:58:00.000Z</published>
+    <updated>2017-06-03T17:55:24.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;onRestart&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="安卓" scheme="https://alberthumbert.github.io/tags/%E5%AE%89%E5%8D%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Core Java 笔记</title>
+    <link href="https://alberthumbert.github.io/2017/03/26/javaCore/"/>
+    <id>https://alberthumbert.github.io/2017/03/26/javaCore/</id>
+    <published>2017-03-26T06:49:40.000Z</published>
+    <updated>2017-06-03T17:56:49.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;onRestart&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Java" scheme="https://alberthumbert.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>unix网络编程 笔记</title>
+    <link href="https://alberthumbert.github.io/2017/02/21/unp/"/>
+    <id>https://alberthumbert.github.io/2017/02/21/unp/</id>
+    <published>2017-02-21T12:44:06.000Z</published>
+    <updated>2017-06-03T17:58:22.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;onDestroy&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="unix" scheme="https://alberthumbert.github.io/tags/unix/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu 16.04 开启daytime服务（端口13）</title>
+    <link href="https://alberthumbert.github.io/2017/02/20/daytime/"/>
+    <id>https://alberthumbert.github.io/2017/02/20/daytime/</id>
+    <published>2017-02-20T15:00:56.000Z</published>
+    <updated>2017-06-03T17:56:13.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="unix" scheme="https://alberthumbert.github.io/tags/unix/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>新年贺图</title>
+    <link href="https://alberthumbert.github.io/2017/01/25/2017/"/>
+    <id>https://alberthumbert.github.io/2017/01/25/2017/</id>
+    <published>2017-01-25T07:00:48.000Z</published>
+    <updated>2017-06-03T17:52:28.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;不肝了，不肝了&lt;br&gt;
+    
+    </summary>
+    
+      <category term="创作" scheme="https://alberthumbert.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
+    
+    
+      <category term="涂鸦" scheme="https://alberthumbert.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>简单栈和树的简单操作</title>
+    <link href="https://alberthumbert.github.io/2017/01/23/linear-list2/"/>
+    <id>https://alberthumbert.github.io/2017/01/23/linear-list2/</id>
+    <published>2017-01-23T14:17:02.000Z</published>
+    <updated>2017-06-03T17:57:34.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+    
+    </summary>
+    
+      <category term="代码" scheme="https://alberthumbert.github.io/categories/%E4%BB%A3%E7%A0%81/"/>
+    
+    
+      <category term="数据结构" scheme="https://alberthumbert.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>各类简单线性表的简单操作</title>
+    <link href="https://alberthumbert.github.io/2017/01/11/linear-list/"/>
+    <id>https://alberthumbert.github.io/2017/01/11/linear-list/</id>
+    <published>2017-01-11T14:40:27.000Z</published>
+    <updated>2017-06-03T17:57:19.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+    
+    </summary>
+    
+      <category term="代码" scheme="https://alberthumbert.github.io/categories/%E4%BB%A3%E7%A0%81/"/>
+    
+    
+      <category term="数据结构" scheme="https://alberthumbert.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git学习笔记</title>
+    <link href="https://alberthumbert.github.io/2016/12/06/git/"/>
+    <id>https://alberthumbert.github.io/2016/12/06/git/</id>
+    <published>2016-12-06T10:47:42.000Z</published>
+    <updated>2017-06-03T17:55:37.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;onDestroy&lt;br&gt;&lt;img src=&quot;http://p1.bpimg.com/4851/923b28f3dcd37179.jpg&quot; class=&quot;img-topic&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="git" scheme="https://alberthumbert.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>混乱的贪吃蛇C代码</title>
+    <link href="https://alberthumbert.github.io/2016/11/14/snakec/"/>
+    <id>https://alberthumbert.github.io/2016/11/14/snakec/</id>
+    <published>2016-11-14T04:51:00.000Z</published>
+    <updated>2017-06-03T17:58:06.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;咳咳！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="代码" scheme="https://alberthumbert.github.io/categories/%E4%BB%A3%E7%A0%81/"/>
+    
+    
+      <category term="C" scheme="https://alberthumbert.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>酷炫的终端配置入门指南</title>
+    <link href="https://alberthumbert.github.io/2016/11/13/iTerm2/"/>
+    <id>https://alberthumbert.github.io/2016/11/13/iTerm2/</id>
+    <published>2016-11-12T16:19:19.000Z</published>
+    <updated>2017-06-03T17:56:33.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://p1.bqimg.com/4851/fa551cd95e4fdbc4.jpg&quot; class=&quot;img-topic&quot;&gt;&lt;br&gt;记录一些自己的配置，只是入门级别而已&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="终端配置" scheme="https://alberthumbert.github.io/tags/%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建hexo＋github博客</title>
+    <link href="https://alberthumbert.github.io/2016/10/15/hexo/"/>
+    <id>https://alberthumbert.github.io/2016/10/15/hexo/</id>
+    <published>2016-10-15T10:49:57.000Z</published>
+    <updated>2017-06-03T17:56:01.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://p1.bpimg.com/567571/334398904d749981.jpg&quot; class=&quot;img-topic&quot;&gt;&lt;/p&gt;
+&lt;p&gt;花一天半的时间搭了hexo博客，&lt;br&gt;整理一下参考链接&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="https://alberthumbert.github.io/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我的涂鸦</title>
+    <link href="https://alberthumbert.github.io/2016/10/15/mypaintings/"/>
+    <id>https://alberthumbert.github.io/2016/10/15/mypaintings/</id>
+    <published>2016-10-15T06:52:14.000Z</published>
+    <updated>2017-06-03T17:57:53.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这是一个存放半成品的地方，线稿居多&lt;/p&gt;
+&lt;p&gt;也许哪天会想要继续画的东西，大概吧&lt;br&gt;
+    
+    </summary>
+    
+      <category term="创作" scheme="https://alberthumbert.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
+    
+    
+      <category term="涂鸦" scheme="https://alberthumbert.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello world</title>
+    <link href="https://alberthumbert.github.io/2016/10/14/hello-world/"/>
+    <id>https://alberthumbert.github.io/2016/10/14/hello-world/</id>
+    <published>2016-10-14T11:25:40.000Z</published>
+    <updated>2017-06-03T13:29:30.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;缘起&lt;/p&gt;
+&lt;p&gt;欢迎来到我的小窝&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

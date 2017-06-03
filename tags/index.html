@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: 我唔识画画啊 | 
+            tags | 
         
         Albert&#39;s Blog
     </title>
@@ -63,9 +63,9 @@
     <meta name="apple-mobile-web-app-title" content="Albert&#39;s Blog">
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: 我唔识画画啊 | Albert&#39;s Blog">
+    <meta property="og:title" content="tags | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="developing">
     
@@ -73,15 +73,15 @@
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: 我唔识画画啊 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="tags | Albert&#39;s Blog">
     <meta name="twitter:description" content="developing">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="http://yoursite.com" />
+    <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/tags/我唔识画画啊/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/tags/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -275,95 +275,63 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
-    
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="http://p1.bpimg.com/567571/49b24aac8aef4874.jpg">
-    
+<!-- Layouts -->
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/10/15/mypaintings/">我的涂鸦</a></p>
-    </div>
+    <!-- Tags Cloud -->
+    <style>
+    #bottom{
+        position: relative;
+    }
 
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/10/15/mypaintings/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 15, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/creation/">creation</a>
-            </span>
+    @media screen and (max-width: 480px) {
+        .material-tagscloud{
+            margin: 6em 2em 0;
+        }
+    }
 
-            
+    .material-tagscloud a{
+        text-decoration:none;
+        padding: 1px 9px;
+        margin: 9px 1px;
+        line-height: 40px;
+        white-space: nowrap;
+        transition: .6s;
+        opacity: .85;
+    }
 
-            
+    .material-tagscloud a:hover{
+        transition: .6s;
+        opacity: 1;
+        background: #FAFAFA;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    }
+</style>
 
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
+<div class=" material-tagscloud">
+    <div class="material-post mdl-grid">
+        <a href="/tags/C/" style="font-size: 16px; color: #757575">C</a> <a href="/tags/Hexo/" style="font-size: 16px; color: #757575">Hexo</a> <a href="/tags/Java/" style="font-size: 16px; color: #757575">Java</a> <a href="/tags/git/" style="font-size: 16px; color: #757575">git</a> <a href="/tags/notes/" style="font-size: 16px; color: #757575">notes</a> <a href="/tags/unix/" style="font-size: 35px; color: #212121">unix</a> <a href="/tags/安卓/" style="font-size: 35px; color: #212121">安卓</a> <a href="/tags/数据结构/" style="font-size: 35px; color: #212121">数据结构</a> <a href="/tags/涂鸦/" style="font-size: 35px; color: #212121">涂鸦</a> <a href="/tags/终端配置/" style="font-size: 16px; color: #757575">终端配置</a>
     </div>
 </div>
 
-            
-            
-        
-    
 
-    
+<script type="text/ls-javascript" id="page-tagcloud-script">
+    var adjustFooter = function() {
+        if( ($('#bottom').offset().top + $('#bottom').outerHeight() ) < $(window).height() ) {
+            var footerBottom = $(window).height() - $('#bottom').outerHeight() - $('#bottom').offset().top;
+            $('#bottom').css('bottom', '-' + footerBottom + 'px');
+        }
+    };
 
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
+    $(document).ready(function() {
+        adjustFooter();
+    });
 </script>
 
-    
-</div>
+
+
 
 
                     
@@ -453,6 +421,36 @@
     
 
     <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="标签索引">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                标签索引
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
     
 
     <!-- Article Number  -->
