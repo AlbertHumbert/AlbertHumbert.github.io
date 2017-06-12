@@ -1298,18 +1298,125 @@ public int getItemCount() {
 </code></pre><ul>
 <li>通过指定LinearLayoutManager，GridLayoutManager，StaggeredGridLayoutManager 分别可以实现线性，网格布局，瀑布流布局    </li>
 </ul>
-<h3 id="编写界面实践"><a href="#编写界面实践" class="headerlink" title="编写界面实践"></a>编写界面实践</h3><hr>
-<p><strong>（待续）</strong></p>
 <p><br></p>
 <h2 id="第四章-探究碎片"><a href="#第四章-探究碎片" class="headerlink" title="第四章 探究碎片"></a>第四章 探究碎片</h2><hr>
+<p><br></p>
 <h3 id="碎片的使用方式"><a href="#碎片的使用方式" class="headerlink" title="碎片的使用方式"></a>碎片的使用方式</h3><hr>
-<h4 id="简单用法-1"><a href="#简单用法-1" class="headerlink" title="- 简单用法"></a>- 简单用法</h4><h4 id="模拟返回栈"><a href="#模拟返回栈" class="headerlink" title="- 模拟返回栈"></a>- 模拟返回栈</h4><h4 id="碎片与活动进行通信"><a href="#碎片与活动进行通信" class="headerlink" title="- 碎片与活动进行通信"></a>- 碎片与活动进行通信</h4><h3 id="碎片的生命周期"><a href="#碎片的生命周期" class="headerlink" title="碎片的生命周期"></a>碎片的生命周期</h3><hr>
-<h4 id="碎片的状态与回调"><a href="#碎片的状态与回调" class="headerlink" title="- 碎片的状态与回调"></a>- 碎片的状态与回调</h4><h3 id="动态加载布局"><a href="#动态加载布局" class="headerlink" title="动态加载布局"></a>动态加载布局</h3><hr>
-<h4 id="使用限定符"><a href="#使用限定符" class="headerlink" title="- 使用限定符"></a>- 使用限定符</h4><h4 id="使用最小宽度限定符"><a href="#使用最小宽度限定符" class="headerlink" title="- 使用最小宽度限定符"></a>- 使用最小宽度限定符</h4><p><strong>（待续）</strong></p>
 <p><br></p>
-<h2 id="第五章-广播机制"><a href="#第五章-广播机制" class="headerlink" title="第五章 广播机制"></a>第五章 广播机制</h2><hr>
-<p><strong>（待续）</strong></p>
+<h4 id="简单用法-1"><a href="#简单用法-1" class="headerlink" title="- 简单用法"></a>- 简单用法</h4><ul>
+<li>为碎片设置布局</li>
+</ul>
+<pre><code> ...
+&lt;fragment
+    android:id=&quot;@+id/left_fragment&quot;
+    android:name=&quot;com.linjiamin.myapplication.LeftFragment&quot;
+    android:layout_width=&quot;0dp&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:layout_weight=&quot;1&quot;/&gt;
+
+&lt;fragment
+    android:id=&quot;@+id/right_fragment&quot; 
+    android:name=&quot;com.linjiamin.myapplication.RightFragment&quot;
+    android:layout_width=&quot;0dp&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:layout_weight=&quot;1&quot;/&gt;
+ ...
+</code></pre><ul>
+<li>创建碎片</li>
+</ul>
+<pre><code>public class LeftFragment extends Fragment{
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.left_fragment,container,false);
+        return view;
+    }
+}
+</code></pre><p><br></p>
+<h4 id="动态加载碎片"><a href="#动态加载碎片" class="headerlink" title="- 动态加载碎片"></a>- 动态加载碎片</h4><ul>
+<li>创建待添加的碎片实例</li>
+<li>获取FragmentManager，在活动中调用getSupportFragementManage 方法</li>
+<li>开启一个事务，调用beginTransaction 方法</li>
+<li>向容器类添加或替换碎片，调用事务的replace 方法，需要传入容器的id和待添加的碎片实例</li>
+<li>提交事务，调用事务的commit 方法</li>
+</ul>
+<pre><code>public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button = (Button)findViewById(R.id.button);
+        button.setOnClickListener(this);
+        replaceFragment(new RightFragment());
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.right_layout,fragment);
+        transaction.commit();
+    }
+
+    @Override
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.button:
+                replaceFragment(new AnotherFragment());
+                break;
+            default:
+                break;
+        }
+    }
+}
+</code></pre><p><br></p>
+<h4 id="模拟返回栈"><a href="#模拟返回栈" class="headerlink" title="- 模拟返回栈"></a>- 模拟返回栈</h4><ul>
+<li>调用事务的addBackStack 方法，需要传入一个名字用于描述返回栈的状态，一般传入null即可</li>
+</ul>
 <p><br></p>
+<h4 id="碎片与活动进行通信"><a href="#碎片与活动进行通信" class="headerlink" title="- 碎片与活动进行通信"></a>- 碎片与活动进行通信</h4><ul>
+<li>调用FragmentManager的findViewById 方法，可以在活动中获取相应碎片的实例</li>
+<li>调用Fragment的 getActivity 方法，可以在碎片中获取活动</li>
+<li>利用活动为桥梁，可以在碎片和碎片之间通信</li>
+</ul>
+<p><br></p>
+<h3 id="碎片的生命周期"><a href="#碎片的生命周期" class="headerlink" title="碎片的生命周期"></a>碎片的生命周期</h3><hr>
+<p><br></p>
+<h4 id="碎片的状态与回调"><a href="#碎片的状态与回调" class="headerlink" title="- 碎片的状态与回调"></a>- 碎片的状态与回调</h4><ul>
+<li>Running，碎片可见，关联的活动正处于运行状态</li>
+<li>Pause，碎片可见，关联的活动进入暂停状态，</li>
+<li>Stop，碎片不可见，关联的活动进入停止状态，或调用了事务的remove，replace 方法</li>
+<li>Killed，活动被销毁，或调用了事务的remove，replace 方法</li>
+</ul>
+<h4 id="附加的回调方法"><a href="#附加的回调方法" class="headerlink" title="- 附加的回调方法"></a>- 附加的回调方法</h4><ul>
+<li>onAttach，碎片和活动建立关联的时候调用</li>
+<li>onCreateView，为碎片创立视图的时候调用</li>
+<li>onActivityCreated，确保碎片相关联的活动已经创立完毕的时候调用</li>
+<li>onDestoryView，当碎片相关联的视图被移除的时候调用</li>
+<li>onDetach，当碎片和活动接触关联的时候调用</li>
+</ul>
+<p><br></p>
+<h3 id="动态加载布局"><a href="#动态加载布局" class="headerlink" title="动态加载布局"></a>动态加载布局</h3><hr>
+<p><br></p>
+<h4 id="使用限定符"><a href="#使用限定符" class="headerlink" title="- 使用限定符"></a>- 使用限定符</h4><ul>
+<li>程序会通过在文件夹名称后追加 -限定符 来判断使用何种布局，形如 layout-large</li>
+<li>small，normal，large，xlarge，提供给不同大小的屏幕使用</li>
+<li>ldpi，mdpi，hdpi，xhdpi，xxhdpi，提供给不同分辨率的设备使用</li>
+<li>land，port，提供横屏和竖屏的设备使用</li>
+<li>swXXXdp，用于指定最小宽度</li>
+</ul>
+<p><br></p>
+<h2 id="第五章-详解广播"><a href="#第五章-详解广播" class="headerlink" title="第五章 详解广播"></a>第五章 详解广播</h2><hr>
+<p><br></p>
+<h3 id="广播机制"><a href="#广播机制" class="headerlink" title="广播机制"></a>广播机制</h3><hr>
+<p><br></p>
+<h3 id="接受系统广播"><a href="#接受系统广播" class="headerlink" title="接受系统广播"></a>接受系统广播</h3><hr>
+<p><br></p>
+<h4 id="动态注册监听网络变化"><a href="#动态注册监听网络变化" class="headerlink" title="- 动态注册监听网络变化"></a>- 动态注册监听网络变化</h4><p><br></p>
+<h4 id="静态注册开机启动"><a href="#静态注册开机启动" class="headerlink" title="- 静态注册开机启动"></a>- 静态注册开机启动</h4><p><br></p>
+<h3 id="发送自定义广播"><a href="#发送自定义广播" class="headerlink" title="发送自定义广播"></a>发送自定义广播</h3><p><br></p>
+<h4 id="发送标准广播"><a href="#发送标准广播" class="headerlink" title="- 发送标准广播"></a>- 发送标准广播</h4><p><br></p>
+<h4 id="发送有序广播"><a href="#发送有序广播" class="headerlink" title="- 发送有序广播"></a>- 发送有序广播</h4><p><br></p>
+<h4 id="使用本地广播"><a href="#使用本地广播" class="headerlink" title="- 使用本地广播"></a>- 使用本地广播</h4><p><br></p>
 <h2 id="第六章-数据储存"><a href="#第六章-数据储存" class="headerlink" title="第六章 数据储存"></a>第六章 数据储存</h2><hr>
 <p><br></p>
 <h3 id="文件储存"><a href="#文件储存" class="headerlink" title="文件储存"></a>文件储存</h3><p><strong>——最基本的一种储存方式，不对内容进行任何格式化处理，所有数据原封不动地保存到文件当中</strong></p>
@@ -1414,10 +1521,8 @@ public int getItemCount() {
 <li>使用SQLiteOpenHelper帮助类可以非常简单地对数据库进行创建和升级</li>
 <li>SQLiteOpenHelper有两个抽象方法，onCreate()和onUpgrade()用于创建和升级数据库的逻辑</li>
 <li>SQLiteOpenHelper有两个实例方法，getReadableDatabase()和getWritableDatabase()，用于获取一个现有或新建的数据库</li>
-<li><p>SQLiteOpenHelper有两个构造方法可供重写，其中一个接受Context，数据库名，Cursor，版本号为参数</p>
-</li>
-<li><p>使用数据库</p>
-</li>
+<li>SQLiteOpenHelper有两个构造方法可供重写，其中一个接受Context，数据库名，Cursor，版本号为参数</li>
+<li>使用数据库</li>
 </ul>
 <pre><code>public class MainActivity extends AppCompatActivity {
 
