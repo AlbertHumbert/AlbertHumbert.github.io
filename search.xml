@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[pro git 笔记]]></title>
+      <title><![CDATA[pro git 1-6章 笔记]]></title>
       <url>/2017/05/22/proGit/</url>
       <content type="html"><![CDATA[<p>onCreate</p>
 <a id="more"></a>
@@ -16,11 +16,11 @@
 <p><br></p>
 <h4 id="git-init-初始化仓库"><a href="#git-init-初始化仓库" class="headerlink" title="git init - 初始化仓库"></a>git init - 初始化仓库</h4><p><strong>创建.git目录</strong></p>
 <ul>
-<li><p>.git，包含一个git仓库中所有必须的文件，这即是说当要清除版本控制时只需要执行：</p>
+<li>.git，包含一个git仓库中所有必须的文件，这即是说当要清除版本控制时只需要执行：</li>
+</ul>
 <pre><code>$ rm -rf .git
-</code></pre></li>
-<li><p>init 参数只会执行初始化操作，所以还需要对现有文件进行选择性的跟踪和提交：</p>
-</li>
+</code></pre><ul>
+<li>init 参数只会执行初始化操作，所以还需要对现有文件进行选择性的跟踪和提交：</li>
 </ul>
 <pre><code>$ git add *.c
 $ git add LICENSE
@@ -29,7 +29,8 @@ $ git commit -m &apos;initial project version&apos;
 <li>init执行后 .git 中至少包含：</li>
 </ul>
 <pre><code>refs/
-# 指向commit的指针，即commit的hash值
+# 指向commit的指针，即commit的SHA-1值
+
 HEAD
 # 指示目前被检出的分支
 # 内容形如： ref: refs/heads/master
@@ -68,7 +69,7 @@ objects/
 <h3 id="记录每次更新到仓库"><a href="#记录每次更新到仓库" class="headerlink" title="记录每次更新到仓库"></a>记录每次更新到仓库</h3><hr>
 <p><br></p>
 <h4 id="git-status-检查当前文件状态"><a href="#git-status-检查当前文件状态" class="headerlink" title="git status - 检查当前文件状态"></a>git status - 检查当前文件状态</h4><ul>
-<li>文件根据是否纳入版本控制存在两种状态，已跟踪未跟踪</li>
+<li>文件根据是否纳入版本控制存在两种状态，已跟踪和未跟踪</li>
 <li>已跟踪文件分为三种状态，未修改，已修改，已暂存</li>
 <li>Changes not staged for commit 下的文件属于已修改状态</li>
 <li>Changes to be committed 下的文件处于已暂存状态</li>
@@ -107,11 +108,11 @@ objects/
 <li>git commit -a 允许跳过暂存操作，所有跟踪过的文件会被一并提交</li>
 </ul>
 <p><br></p>
-<h4 id="git-rm-file-移除文件"><a href="#git-rm-file-移除文件" class="headerlink" title="git rm [file]- 移除文件"></a>git rm [file]- 移除文件</h4><ul>
+<h4 id="git-rm-file-移除文件"><a href="#git-rm-file-移除文件" class="headerlink" title="git rm [file] - 移除文件"></a>git rm [file] - 移除文件</h4><ul>
 <li>rm 参数只对已跟踪的文件起作用</li>
 <li>git rm 会将文件从将暂存区和工作目录中删除</li>
 <li>git rm -f 删除修改过并且已放到暂存区的文件</li>
-<li>git rm –cached 只将文件从暂存区中移除，文件会恢复为未跟踪状态，需要手动添加到.gitignore</li>
+<li>git rm –cached 只将文件从暂存区中移除，文件会恢复为未跟踪状态，不会被删除，因此可能需要手动添加到.gitignore</li>
 </ul>
 <p><br></p>
 <h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><hr>
@@ -127,12 +128,14 @@ objects/
 <h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><hr>
 <p><br></p>
 <h4 id="git-commit-–amend-修改提交"><a href="#git-commit-–amend-修改提交" class="headerlink" title="git commit –amend -修改提交"></a>git commit –amend -修改提交</h4><ul>
-<li>git commit –amend 会将暂存中的文件与上一次提交合并，可以用来补充遗漏的文件</li>
+<li>git commit –amend 会将暂存中的文件与上一次提交合并，可以用来补充遗漏</li>
 <li>amend选项覆盖的提交是可恢复的，详见数据恢复章节</li>
 </ul>
 <p><br></p>
 <h4 id="git-reset-取消暂存的文件"><a href="#git-reset-取消暂存的文件" class="headerlink" title="git reset - 取消暂存的文件"></a>git reset - 取消暂存的文件</h4><ul>
 <li>git reset HEAD [file] 可以将文件修改为未暂存状态</li>
+<li>reset 和 rm –cached 的区别：reset不会使文件变为未跟踪状态 </li>
+<li><a href="https://stackoverflow.com/questions/17122480/difference-between-git-rm-cached-and-git-reset-head" target="_blank" rel="external">https://stackoverflow.com/questions/17122480/difference-between-git-rm-cached-and-git-reset-head</a></li>
 </ul>
 <p><br></p>
 <h4 id="git-checkout-–-file-撤销修改"><a href="#git-checkout-–-file-撤销修改" class="headerlink" title="git checkout – [file] - 撤销修改"></a>git checkout – [file] - 撤销修改</h4><ul>
@@ -170,17 +173,17 @@ objects/
 <h3 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h3><hr>
 <p><br></p>
 <h4 id="git-tag-列出标签"><a href="#git-tag-列出标签" class="headerlink" title="git tag - 列出标签"></a>git tag - 列出标签</h4><ul>
-<li>git tag 会已字母顺序列出标签</li>
-<li><p>可以用特点的模式查找标签，如</p>
+<li>git tag 会以字母顺序列出标签</li>
+<li>可以用特定的模式查找标签，如</li>
+</ul>
 <pre><code>git tag -l &apos; v1.* &apos;
 </code></pre><p><br></p>
-<h4 id="git-tag-a-创建标签"><a href="#git-tag-a-创建标签" class="headerlink" title="git tag -a 创建标签"></a>git tag -a 创建标签</h4></li>
-<li><p>git tag -a (v1.0) -m ‘my version 1.0’ ，为最新的提交打上附注标签，若无 -m参数，编辑器会被打开</p>
-</li>
+<h4 id="git-tag-a-创建标签"><a href="#git-tag-a-创建标签" class="headerlink" title="git tag -a 创建标签"></a>git tag -a 创建标签</h4><ul>
+<li>git tag -a (v1.0) -m ‘my version 1.0’ ，为最新的提交打上附注标签，若无 -m参数，编辑器会被打开</li>
 <li>git tag -a v1.0 9fceb02，为指定提交打标签，需要在末尾指定提交的校验和</li>
 <li>git tag (v1.0)  ,为最新的提交打上轻量标签</li>
 <li>附注标签是Git数据库中的一个完整对象，可以被校验，包含多种信息</li>
-<li>轻量标签是一个特定提交的引用，类似分支，只是将一个校验和存储到文件中</li>
+<li>轻量标签是一个特定提交的引用，类似分支，只是将校验和存储到一个文件里而已</li>
 </ul>
 <p><br></p>
 <h3 id="git别名"><a href="#git别名" class="headerlink" title="git别名"></a>git别名</h3><p><strong> 略 </strong></p>
@@ -190,9 +193,9 @@ objects/
 <p><br></p>
 <h3 id="commit-object-提交对象"><a href="#commit-object-提交对象" class="headerlink" title="commit object - 提交对象"></a>commit object - 提交对象</h3><ul>
 <li>git保存的不是文件的变化和差异，而是不同时刻的文件快照</li>
-<li>除首次提交外，每次提交产生的提交对象都有父对象，多分支合并产生的提交有多个父对象，构成提交对象的树结构</li>
-<li>提交操作后git仓库会有5个对象，三个blob对象（保存文件快照），一个树对象（记录目录结构和blob对象索引）以及一个提交对象（包含指向树对象的指针和所有提交信息）</li>
-<li>git init默认创建的分支名是master，master不是一个特殊的分支，它和其他分支完全没有区别</li>
+<li>除首次提交外，每次提交产生的提交对象都有父对象，多分支合并产生的提交有多个父对象，构成提交对象的树（图）结构</li>
+<li>git仓库至少有三种对象，包括 blob对象（保存文件快照），树对象（记录目录结构和blob对象索引）以及提交对象（包含指向树对象的指针和所有提交信息）</li>
+<li>git init默认创建的分支名是master，master不是一个特殊的分支，它和其他分支相比没有任何本质区别</li>
 <li><strong>git分支本质上只是指向提交对象的可变指针</strong></li>
 </ul>
 <p><br></p>
@@ -212,7 +215,7 @@ objects/
 <p><br></p>
 <h4 id="git-checkout-分支切换"><a href="#git-checkout-分支切换" class="headerlink" title="git checkout - 分支切换"></a>git checkout - 分支切换</h4><ul>
 <li>git checkout [branchname] ，会将HEAD切换到新分支，即更换当前分支</li>
-<li>提交更新时head指向的分支会向前移动，其他分支则依然停留在原先的版本</li>
+<li>提交更新时只有head指向的分支会向前移动，其他分支则依然停留在原先的版本</li>
 <li>git checkout [branchname] 本质上做了两件事，将head指向另外的分支，将工作目录恢复为该分支所指向的快照内容</li>
 </ul>
 <p><br></p>
@@ -236,14 +239,15 @@ objects/
 </ul>
 <p><br></p>
 <h4 id="远程跟踪分支"><a href="#远程跟踪分支" class="headerlink" title="远程跟踪分支"></a>远程跟踪分支</h4><ul>
-<li>远程跟踪分支，以[remote] / [branch] 形式命名，是不能移动的本地引用，当进行网络通信操作时会自动移动</li>
+<li>远程跟踪分支，以[remote] / [branch] 形式命名，是不能手动移动的本地引用，当进行网络通信操作时会自动移动</li>
 <li>远程跟踪分支类似上次连接到远程仓库时的书签</li>
 <li>当使用git clone时，git会自动将远程仓库命名为origin并创建一个名为origin/master的远程分支，同时还会创建一个相同的本地master分支</li>
-<li>origin无特殊含义，和其他所有远程仓库应用是一致的，如果喜欢可以使用 git clone -o [name] 来自己命名</li>
+<li>origin无特殊含义，和其他所有远程仓库引用是一致的，如果喜欢可以使用 git clone -o [name] 来自己命名</li>
 <li>git remote add [shortname] [url] ，会添加一个新的远程仓库引用到当前项目</li>
 </ul>
 <p><br></p>
-<h4 id="git-fetch-更新远程仓库引用"><a href="#git-fetch-更新远程仓库引用" class="headerlink" title="git fetch - 更新远程仓库引用"></a>git fetch - 更新远程仓库引用</h4><ul>
+<h4 id="git-fetch-更新远程仓库引用"><a href="#git-fetch-更新远程仓库引用" class="headerlink" title="git fetch - 更新远程仓库引用"></a>git fetch - 更新远程仓库引用</h4><p><strong>以origin为例</strong></p>
+<ul>
 <li>只要不与服务器连接，origin/master就不会移动</li>
 <li>git fetch origin ， 将会查找origin指代的服务器，抓取本地没有的数据并更新本地数据库，移动origin/master指针</li>
 </ul>
@@ -252,7 +256,7 @@ objects/
 <li>想要公开分享一个分支时，需要将其推送到有写入权限的远程仓库上</li>
 <li>git push [remote][branch]，可以更新远程分支</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 列：</div><div class="line">$ git push origin serverfix</div><div class="line"># git 会自动将serverfix展开为refs/heads/serverfix:refs/heads/serverfix</div><div class="line"># 这意味着本地serverfix会更新远程仓库的serverfix分支</div><div class="line"># 它相当于 git push serverfix:serverfix</div><div class="line"># 详见 章节 Git内部原理</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 例：</div><div class="line">$ git push origin serverfix</div><div class="line"># git 会自动将serverfix展开为refs/heads/serverfix:refs/heads/serverfix</div><div class="line"># 这意味着本地serverfix会更新远程仓库的serverfix分支</div><div class="line"># 它相当于 git push serverfix:serverfix</div><div class="line"># 详见 Git内部原理 章节</div></pre></td></tr></table></figure>
 <ul>
 <li>抓取远程分支时不会自动形成可编辑的副本拷贝，被抓取的[remote][branch] 只有不可修改的指针，需要使用 git merge [remote][branch] 将这个分支合并到当前分支</li>
 <li>git push [remote] –delete [branchname] 可以在服务器上删除远程分支</li>
@@ -267,7 +271,7 @@ objects/
 <li>git branch -u [remotename]/[branchname]，可以初始化或修改当前分支跟踪的远程分支，-u全写为 –set-upstream-to</li>
 <li>git branch -vv，查看所有的本地跟踪分支</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">列：</div><div class="line">$git branch -vv</div><div class="line">* serverfix f8674d9 [teamone/server-fix-good: ahead 3, behind 1] this should do it</div><div class="line"># 当前分支为 serverfix</div><div class="line"># 跟踪的分支为 teamone/server-fix-good</div><div class="line"># 本地有三次提交未上传合并，服务器上有一次提交未拉取合并</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">例：</div><div class="line">$git branch -vv</div><div class="line">* serverfix f8674d9 [teamone/server-fix-good: ahead 3, behind 1] this should do it</div><div class="line"># 当前分支为 serverfix</div><div class="line"># 跟踪的分支为 teamone/server-fix-good</div><div class="line"># 本地有三次提交未上传合并，服务器上有一次提交未拉取合并</div></pre></td></tr></table></figure>
 <ul>
 <li>可以使用@{upstream}或@{u}快捷方式来引用当前分支跟踪的远程分支</li>
 </ul>
@@ -280,7 +284,7 @@ objects/
 <p><br></p>
 <h3 id="变基"><a href="#变基" class="headerlink" title="变基"></a>变基</h3><hr>
 <p><strong>gayhub的由来(才怪)</strong></p>
-<p><strong>非常用，仅作了解</strong><br><br></p>
+<p><strong>不常用，仅作了解</strong><br><br></p>
 <h4 id="git-rebase-变基的基本操作"><a href="#git-rebase-变基的基本操作" class="headerlink" title="git rebase - 变基的基本操作"></a>git rebase - 变基的基本操作</h4><ul>
 <li>merge 被称为三方合并，它选取两个分支的最新快照与两者最近的共同祖先合并形成一个新的快照</li>
 <li>rebese 命令将提交到某一分支上的修改移到另一分支上，它造成的结果和merge是一样的，但提交历史会是更加简洁的一条直线</li>
@@ -334,6 +338,8 @@ objects/
 <p><br></p>
 <h2 id="第七章-Git-工具"><a href="#第七章-Git-工具" class="headerlink" title="第七章 Git 工具"></a>第七章 Git 工具</h2><hr>
 <p><br>     </p>
+<h3 id="引用技巧"><a href="#引用技巧" class="headerlink" title="引用技巧"></a>引用技巧</h3><hr>
+<p><br>     </p>
 <h4 id="简短的SHA-1"><a href="#简短的SHA-1" class="headerlink" title="- 简短的SHA-1"></a>- 简短的SHA-1</h4><ul>
 <li>可以使用开头的几个字符（不少于4个）代替完整SHA-1</li>
 <li>git log –abbrev-commit，会显示简短且唯一的值，默认7个字符，如果有冲突会增加字符</li>
@@ -359,7 +365,67 @@ objects/
 </code></pre></li>
 </ul>
 <p><br>        </p>
-<h4 id="祖先引用"><a href="#祖先引用" class="headerlink" title="^ - 祖先引用"></a>^ - 祖先引用</h4>]]></content>
+<h4 id="祖先引用"><a href="#祖先引用" class="headerlink" title="^~ - 祖先引用"></a>^~ - 祖先引用</h4><ul>
+<li>祖先引用符号 ^ 会被解析为它前面的引用的上一个版本，HEAD^、d9219970^等写法都是合理的</li>
+<li>祖先引用符号 ~ 一般和 ^ 是等价的，唯一的区别在于，~后的数字为倒退的次数，^后的数字为父提交的序号（只有存在多个父提交时才能这么使用），即 ~3 等价于 ^^^，而 ^2 相当于父提交中被合并的次级分支</li>
+</ul>
+<pre><code>例：
+   $ git show HEAD^^^
+</code></pre><h4 id="…-提交区间"><a href="#…-提交区间" class="headerlink" title="^… - 提交区间"></a>^… - 提交区间</h4><ul>
+<li>双点符号 .. ，用于列出在一个分支而不在另一个分支的提交</li>
+</ul>
+<pre><code>例：
+$ git log master..experiment
+  D
+  C
+</code></pre><ul>
+<li>双点常被用来查看即将推送的内容</li>
+</ul>
+<pre><code>$ git log origin/master..HEAD
+
+# 等价于
+
+$ git log origin/master..
+
+# HEAD可以省略
+</code></pre><ul>
+<li>多点符号^，用于列出不被包含在其中的提交</li>
+</ul>
+<pre><code>$ git log refA..refB
+
+# 等价于
+
+$ git log ^refA refB
+
+# 等价于
+
+$ git log refB --not refA
+</code></pre><ul>
+<li>多点符号存在的意义在于它可以查询两个以上的引用</li>
+</ul>
+<pre><code>$ git log refA refB --not refC
+</code></pre><ul>
+<li>三点符号 … ，用于列出被两个引用中的一个包含但又不被两者同时包含的提交</li>
+</ul>
+<pre><code>$ git log master...experiment
+  F
+  E
+  D
+C
+
+# EF只在master分支上，CD只在experiment分支上        # 等价于
+
+
+$ git log --left-right master...experiment 
+&lt;F
+&lt;E
+&gt;D
+&gt;C
+</code></pre><h3 id="交互式暂存"><a href="#交互式暂存" class="headerlink" title="交互式暂存"></a>交互式暂存</h3><p><strong>略</strong></p>
+<h3 id="git-stash-储藏与清理"><a href="#git-stash-储藏与清理" class="headerlink" title="git stash 储藏与清理"></a>git stash 储藏与清理</h3><h4 id="储藏工作"><a href="#储藏工作" class="headerlink" title="- 储藏工作"></a>- 储藏工作</h4><ul>
+<li></li>
+</ul>
+]]></content>
       
         <categories>
             
