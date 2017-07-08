@@ -3,6 +3,352 @@
   
     
     <entry>
+      <title><![CDATA[Gradle 从入门到......]]></title>
+      <url>/2017/07/08/aboutGradle/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>Gradle是一种依赖管理工具，它使用一种基于jvm的动态语言Groovy</strong></p>
+<p><br></p>
+<h3 id="Project-和-Task"><a href="#Project-和-Task" class="headerlink" title="Project 和 Task"></a>Project 和 Task</h3><p><strong><br>这是gradle中最基本的概念，其中Project并非Android Stuido所指的Project
+</strong></p>
+<ul>
+<li>每一个build.gradle对应一个project，每一个project对应一个相对完整的构建部分，如module</li>
+<li>执行build.gradle会为每个Project创建和配置所有task，每一个task对应一个逻辑上的执行单元，task又由一系列的action组成</li>
+</ul>
+<pre><code>//在最外层的build.gradle中可以看见这样一个task
+//它用于删除bulid目录
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</code></pre><ul>
+<li>为更好地理解task，可以自定义一个task，在任意层级的build.gradle中加入如下代码</li>
+</ul>
+<pre><code>task hello &lt;&lt; {
+    println &apos;hello&apos;
+}
+</code></pre><p>在终端界面中输入 ./gradlew hello （*nix），gradlew hello（windows，maybe…），会出现</p>
+<pre><code>:hello
+hello
+</code></pre><p>这说明这个任务被成功执行了，由于我没有安装ndk所以还输出了一大堆诸如 NDK is missing a “platforms” directory的提示，另外输出的提示还有</p>
+<pre><code>The Task.leftShift(Closure) method has been deprecated and is scheduled to be removed in Gradle 5.0. Please use Task.doLast(Action) instead.
+</code></pre><p>leftShift(Closure)？？为什么出现它？？其实 &lt;&lt; 就相当于 leftShift() 方法，它是一个重载，表示添加一个action，并且已经过时了，可以修改为</p>
+<pre><code>task hello {  
+    doLast {      
+        println &apos;hello&apos;      
+    }      
+}      
+</code></pre><p><br>        </p>
+<h3 id="gradle-脚本"><a href="#gradle-脚本" class="headerlink" title="gradle 脚本"></a>gradle 脚本</h3><p><strong><br>暂时需要了解的只有build.gradle和setting.gradle
+</strong></p>
+<p><br></p>
+<h4 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="- settings.gradle"></a>- settings.gradle</h4><ul>
+<li>这个文件在初始化时期执行，定义了需要被构建的module</li>
+</ul>
+<pre><code>include &apos;:app&apos;, &apos;:newsmodule&apos;, &apos;:newslibrary&apos;
+</code></pre><ul>
+<li>如果只有一个模块，它将会长成下面这样子，而且可以被删除</li>
+</ul>
+<pre><code>include &apos;:app&apos;
+</code></pre><p><br>        </p>
+<h4 id="根目录的build-gradle"><a href="#根目录的build-gradle" class="headerlink" title="- 根目录的build.gradle"></a>- 根目录的build.gradle</h4><pre><code>// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &apos;com.android.tools.build:gradle:2.3.1&apos;
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</code></pre><h5 id="repositorie"><a href="#repositorie" class="headerlink" title="repositorie"></a>repositorie</h5><ul>
+<li><a href="#repositories">详见</a></li>
+</ul>
+<h5 id="buildscript"><a href="#buildscript" class="headerlink" title="buildscript"></a>buildscript</h5><ul>
+<li>buildscript，该闭包中是关于gradle的构建工具的配置，dependecbies就是所依赖的构建工具的信息，由于在AS中，所以用到的是Android Gradle plugin</li>
+</ul>
+<h5 id="allprojects"><a href="#allprojects" class="headerlink" title="allprojects"></a>allprojects</h5><ul>
+<li>allprojects，该闭包中是关于所有子项目的配置，这意味着可以直接在里面添加任务</li>
+<li>buildscript和allprojects的本质不同在于，buildscript用于配置gradle本身，而allprojects用于配置需要被构建的子项目    <a href="https://stackoverflow.com/questions/30158971/whats-the-difference-between-buildscript-and-allprojects-in-build-gradle" target="_blank" rel="external">difference between buildscript and allprojects</a></li>
+</ul>
+<p><br></p>
+<h4 id="模块内的build-gradle"><a href="#模块内的build-gradle" class="headerlink" title="- 模块内的build.gradle"></a>- 模块内的build.gradle</h4><pre><code>apply plugin: &apos;com.android.application&apos;
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion &quot;25.0.3&quot;
+    defaultConfig {
+        applicationId &quot;com.linjiamin.daily_linjiamin&quot;
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName &quot;1.0&quot;
+        testInstrumentationRunner         &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])
+    androidTestCompile(&apos;com.android.support.test.espresso:espresso-core:2.2.2&apos;, {
+        exclude group: &apos;com.android.support&apos;, module: &apos;support-annotations&apos;
+    })
+    compile &apos;com.android.support:appcompat-v7:24.2.1&apos;
+    compile &apos;com.android.support.constraint:constraint-layout:1.0.2&apos;
+
+    testCompile &apos;junit:junit:4.12&apos;
+}
+</code></pre><p><br>        </p>
+<h5 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h5><ul>
+<li>apply plugin，表示为脚本添加插件，插件包括了已经定义好的属性和task，可以提供扩展功能，如下面的android标签就是Android application所插件提供，只有添加了它才能使用</li>
+</ul>
+<p><br></p>
+<h5 id="compileSdkVersion"><a href="#compileSdkVersion" class="headerlink" title="compileSdkVersion"></a>compileSdkVersion</h5><ul>
+<li>编译时使用的API版本</li>
+</ul>
+<p><br></p>
+<h5 id="buildToolsVersion"><a href="#buildToolsVersion" class="headerlink" title="buildToolsVersion"></a>buildToolsVersion</h5><ul>
+<li>构建工具的版本号，构建工具包括了一系列的命令</li>
+</ul>
+<p><br></p>
+<h5 id="defaultConfig"><a href="#defaultConfig" class="headerlink" title="defaultConfig"></a>defaultConfig</h5><ul>
+<li>关于app的属性配置，它将重写AndroidManifest.xml</li>
+</ul>
+<p><br></p>
+<h5 id="applicationId"><a href="#applicationId" class="headerlink" title="applicationId"></a>applicationId</h5><ul>
+<li>用于标识不同的app版本，不直接使用包名划分是因为包名会用于命名R文件，如果创建新版本时还需要修改R文件那将十分麻烦 </li>
+</ul>
+<p><br></p>
+<h5 id="versionCode"><a href="#versionCode" class="headerlink" title="versionCode"></a>versionCode</h5><ul>
+<li>versionCode 和 versionName 用于标识app版本，程序本身不会在任何地方调用到这个值，在开发过程中versionCode往往会变化非常快，会成为一个很大的值，这对用户来说不便，于是就产生了versionName这一字符串标识</li>
+</ul>
+<p><br></p>
+<h5 id="buildTypes"><a href="#buildTypes" class="headerlink" title="buildTypes"></a>buildTypes</h5><ul>
+<li>设置构建版本和混淆文件</li>
+</ul>
+<p><br></p>
+<h5 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h5><ul>
+<li><a href="#dependencies">详见</a></li>
+</ul>
+<p><br></p>
+<h3 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h3><p><strong><br>当项目需要用到其他开发者的依赖库时，我们不需要手动下载jar包so包到指定位置，更不需要未版本的迭代而操心，gradle已经解决了这些问题
+</strong></p>
+<p><br></p>
+<h4 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a><span id="repositories">仓库</span></h4><ul>
+<li>repositories，远程仓库，它是依赖包的来源，Android Studio默认为jcenter，也可以为maven，Ivy等</li>
+<li>当执行build构建时依赖包会从这些远程仓库里下载并在本地留下缓存</li>
+<li>Gradle默认使用三个maven仓库，mavenCrentral，jcenter，mavenLocal，有些依赖包并不在其中，这时只需</li>
+</ul>
+<pre><code>repositories {
+       maven {
+           url &quot;.....&quot;//填写maven仓库地址
+       }
+}
+</code></pre><p><br></p>
+<h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a><span id="dependencies">依赖</span></h4><ul>
+<li>完整的依赖包含三个元素，group，通常为包名，name，library的唯一标识，version，版本号，通常写法为</li>
+</ul>
+<pre><code>dependencies {
+       compile &apos;com.google.code.gson:gson:2.7&apos;
+}
+</code></pre><ul>
+<li>也可以这样展开</li>
+</ul>
+<pre><code>dependencies {
+  compile group: &apos;com.google.code.gson&apos;, name: &apos;gson&apos;, version:&apos;2.7&apos;
+ }
+</code></pre><ul>
+<li>为避免键入错误，还可以在File-&gt;Project Structure-Dependencies 中联网查找并导入</li>
+</ul>
+<p><br></p>
+<h4 id="本地依赖"><a href="#本地依赖" class="headerlink" title="本地依赖"></a>本地依赖</h4><p><br></p>
+<h4 id="导入jar包"><a href="#导入jar包" class="headerlink" title="- 导入jar包"></a>- 导入jar包</h4><ul>
+<li>在一个app的build.gradle中我们可以找到如下配置</li>
+</ul>
+<pre><code>compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)
+</code></pre><ul>
+<li>这意味着需要使用本地jar包时只要将其放入模块的libs文件即可</li>
+</ul>
+<p><br></p>
+<h4 id="导入aar包"><a href="#导入aar包" class="headerlink" title="- 导入aar包"></a>- 导入aar包</h4><ul>
+<li><p>添加文件夹 </p>
+<pre><code>repositories {
+    flatDir {
+    dirs &apos;aarlibs&apos;
+}
+</code></pre></li>
+<li><p>添加依赖</p>
+<pre><code>compile(name:&apos;aarlibrary&apos;, ext:&apos;aar&apos;)  
+</code></pre></li>
+</ul>
+<p><br></p>
+<h4 id="导入so包"><a href="#导入so包" class="headerlink" title="- 导入so包"></a>- 导入so包</h4><ul>
+<li>指定文件夹位置，将so包放入文件夹中即可</li>
+</ul>
+<pre><code>sourceSets {
+    main {
+        jniLibs.srcDirs = [&apos;src/main/LibsName&apos;]
+    }
+}
+</code></pre><ul>
+<li>Android Studio 默认 src/main/jniLibs 放置so包，这意味着可以直接新建一个jniLibs文件夹而不需要进行任何配置</li>
+</ul>
+<p><br></p>
+<h4 id="使用模块"><a href="#使用模块" class="headerlink" title="- 使用模块"></a>- 使用模块</h4><ul>
+<li>创建一个模块作为依赖包(library)时，Android Studio会自动在它的build.gradle配置对应的插件</li>
+</ul>
+<pre><code>apply plugin: &apos;com.android.library&apos;
+</code></pre><ul>
+<li>并且会在setting.gradle添加模块</li>
+</ul>
+<pre><code>include &apos;:app&apos;, &apos;:mylibrary&apos;
+</code></pre><ul>
+<li>所有只需要在调用到该模块的app的build.module中添加依赖即可，同样可以在File-&gt;Project Structure-Dependencies中导入</li>
+</ul>
+<pre><code> dependencies {
+     compile project(&apos;:mylibrary&apos;)
+}        
+</code></pre><h4 id="其他配置"><a href="#其他配置" class="headerlink" title="- 其他配置"></a>- 其他配置</h4><ul>
+<li>build.gradle中还能看到</li>
+</ul>
+<pre><code>testCompile &apos;junit:junit:4.12&apos;
+androidTestCompile(&apos;com.android.support.test.espresso:espresso-core:2.2.2&apos;, {
+        exclude group: &apos;com.android.support&apos;, module: &apos;support-annotations&apos;
+    })            
+</code></pre><ul>
+<li>依赖本身有五种配置，compile只是默认的一个，其他可能用到的一般只有提供单元测试的testCompile和androidTestCompile，有空再来学习</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Studio 基本操作]]></title>
+      <url>/2017/07/05/ASShortcut/</url>
+      <content type="html"><![CDATA[<p>还有这种操作？</p>
+<a id="more"></a>
+<p><br></p>
+<h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p><strong><br>Android Studio提供了大量的默认快捷键，当然用户也可以自定义快捷键。<br>Preference-&gt;keymap中可查看所有快键键，右键选择Add Keyboard shortcut 或 Add Mouse Shortcut 可自定义快捷键，<br>注意有些快捷键在特定的情况下才会触发。<br>浏览 Tip of the day 弹窗的每日介绍，是熟悉上手这些快捷键的好方法。
+</strong></p>
+<ul>
+<li><strong>Cmd + “-“/“+”</strong> (mac)，<strong>Ctrl + Shift + “+”/”-“</strong> (win) ，展开或者以更简洁的方式显示代码</li>
+<li><strong>Cmd + F</strong>(mac)，<strong>Ctrl + F</strong>(win)，快速查找，在对应的窗口中进行模糊查找</li>
+<li><strong>Cmd + B</strong>(mac)，<strong>Ctrl + B</strong>(win)，查看类文件或方法的内容或变量被使用的地方</li>
+<li><strong>Cmd + P</strong>(mac)，<strong>Ctrl + P</strong>(win)，查看方法所需变量类型</li>
+<li><strong>Cmd + D</strong>(mac)，<strong>Ctrl + D</strong>(win)，复制并粘贴选中内容或当前光标所在行</li>
+<li><strong>Cmd + N</strong>(mac)，<strong>Alt＋Insert</strong>(win)，添加构造器，getter，setter等</li>
+<li><strong>Cmd + O</strong>(mac)，<strong>Ctrl + N</strong>(win)，快速打开类</li>
+<li><strong>Cmd + /</strong>(mac)，<strong>Ctrl + /</strong>(win)，将当前行改为注释</li>
+<li><strong>Cmd + F12</strong>(mac)，<strong>Ctrl + F12</strong>(win)，显示当前类结构</li>
+<li><strong>Cmd + Shift + /</strong>(mac)，<strong>Ctrl + Shift + /</strong>(win)，添加注释，mac可能会同时触发Help-&gt;search的快捷键，建议在Keymap中修改</li>
+<li><strong>Cmd + W</strong>(mac)，关闭当前窗口</li>
+<li><strong>Cmd + Q</strong>(mac)，退出Android studio</li>
+<li><strong>Alt +↑↓← →</strong>，快速 选择块/移动光标</li>
+<li><strong>Ctrl + O / I</strong>，显示所有可 重写/实现 的方法，选中后输入模板</li>
+<li><strong>Shift + F1</strong>，打开光标所在元素的网页文档，<strong>然而你可能被墙了</strong></li>
+<li><strong>Ctrl + ~</strong>，更改显示选项</li>
+</ul>
+<p><br></p>
+<h2 id="实用功能"><a href="#实用功能" class="headerlink" title="实用功能"></a>实用功能</h2><p><br></p>
+<h3 id="书签"><a href="#书签" class="headerlink" title="- 书签"></a>- 书签</h3><p><strong><br>书签为代码位置提供一个标记。<br>在 Navigate-&gt;bookmark 中可对书签进行相应管理。
+</strong></p>
+<ul>
+<li><strong>F3</strong> (mac)，<strong>F11</strong> (win)，添加/删除 书签</li>
+<li><strong>Alt + F3</strong> (mac)，<strong>Ctrl + F11</strong> (win)，添加/删除 带有名称的书签</li>
+<li><strong>Cmd + F3</strong> (mac) ，<strong>Shift + F11</strong> (win)，查看和管理所有标签</li>
+<li><strong>Ctrl + NAME</strong>，当书签带有名称，可使用该操作进行快速跳转</li>
+</ul>
+<p><br></p>
+<h3 id="版本控制"><a href="#版本控制" class="headerlink" title="- 版本控制"></a>- 版本控制</h3><p><strong><br>VCS-&gt;git 中可以实现常用git命令的功能，Android Stuido 还提供了图形化的比较工具
+</strong></p>
+<ul>
+<li><strong>Ctrl + V</strong>(mac)，<strong>Alt + `</strong>(win)，弹出版本控制菜单</li>
+<li>git-&gt;Compare With Branch，比较当前文件与分支中的修改</li>
+<li>Version Control-&gt;Log，显示git log –graph日志</li>
+</ul>
+<p><br></p>
+<h3 id="正则表达式检查工具"><a href="#正则表达式检查工具" class="headerlink" title="- 正则表达式检查工具"></a>- 正则表达式检查工具</h3><p><strong><br>将普通正则转化为Java中的正则表达式，并提供用实例检查的功能
+</strong></p>
+<ul>
+<li><strong>Alt + Enter</strong>，需要在matches(“”)的双引号中才会触发</li>
+<li>Sample 中输入例子进行检查</li>
+</ul>
+<p><br></p>
+<h3 id="模板"><a href="#模板" class="headerlink" title="- 模板"></a>- 模板</h3><p><strong><br>模板，Live Template，是一种输入特定字符并利用编译器自动补全的方法
+</strong></p>
+<ul>
+<li><strong>Cmd + J</strong>(mac)，<strong>Ctrl + J</strong>(win)，列出所有模板，这意味着并不需要记住所有匹配字符</li>
+<li>Preference &gt; Editor &gt; Live Templates 可自定义模板，注意使用$符号将变量名包围</li>
+<li>File and Code Template 中还可以自定义文件创建时自动添加的模板，Android Studio 中类开头的文档注释就是这么生成的</li>
+</ul>
+<p><br></p>
+<h2 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h2><ul>
+<li>preference-&gt;plugins中可以在线下载插件，下载完后点击重启AS即可，十分方便</li>
+<li><a href="http://www.open-open.com/lib/view/open1480329318348.html" target="_blank" rel="external">插件能够提供的功能非常丰富</a></li>
+<li><a href="http://blog.csdn.net/lmj623565791/article/details/51548272" target="_blank" rel="external">通过编写jar程序也可以实现简单的插件</a></li>
+</ul>
+<p><br></p>
+<h2 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h2><p><strong><br>Android Studio中的Project-Module关系相当于，Eclipse中的Workplace-Project，VS中的解决方法-工程。
+</strong><br><br></p>
+<h3 id="创建Module"><a href="#创建Module" class="headerlink" title="创建Module"></a>创建Module</h3><ul>
+<li>File-&gt;new-&gt;new module中可选择新建或导入不同类型的module</li>
+<li>Phone &amp; Table Module，Android Module，Android TV module，Google Cloud Module，分别对应不同平台上的程序</li>
+<li>Android Library，Java Library，分别生成aar和jar文件作为依赖库</li>
+<li>每个module作为一个独立的程序可以单独运行和调试</li>
+<li>原则上Android Library可以当做Java Library来使用，区别在于aar可以携带文件，调用android API<br><a href="https://stackoverflow.com/questions/28154681/android-studio-java-library-module-vs-android-library-module" target="_blank" rel="external">Difference between Android library and Java library</a></li>
+</ul>
+<p><br></p>
+<h3 id="调用Module"><a href="#调用Module" class="headerlink" title="- 调用Module"></a>- 调用Module</h3><ul>
+<li><a href="http://localhost:4000/2017/07/08/aboutGradle/" target="_blank" rel="external">详见</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[pro git 1-6章 笔记]]></title>
       <url>/2017/05/22/proGit/</url>
       <content type="html"><![CDATA[<p>onCreate</p>
@@ -3417,7 +3763,7 @@ counter = 1
 <p>过几天再来看才感觉饱和度用低了，这个习惯很难改啊</p>
 <p>pixiv地址：<a href="http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=61224806" target="_blank" rel="external">http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=61224806</a></p>
 <p>个人页面：<a href="http://www.pixiv.net/member.php?id=7314348" target="_blank" rel="external">http://www.pixiv.net/member.php?id=7314348</a></p>
-<p>whatever：<a href="https://alberthumbert.github.io/2016/10/15/mypaintings/" target="_blank" rel="external">https://alberthumbert.github.io/2016/10/15/mypaintings/</a></p>
+<p>whatever：<a href="https://alberthumbert.github.io/2016/10/15/mypaintings/">https://alberthumbert.github.io/2016/10/15/mypaintings/</a></p>
 ]]></content>
       
         <categories>

@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2016/10 | 
+            Gradle 从入门到...... | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2016/10 | Albert&#39;s Blog">
+    <meta property="og:title" content="Gradle 从入门到...... | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="7月 08, 2017" />
+        <meta property="article:modified_time" content="7月 08, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2016/10 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="Gradle 从入门到...... | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/archives/2016/10/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "Gradle 从入门到......",
+    "url": "https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html",
+    "datePublished": "7月 08, 2017",
+    "dateModified": "7月 08, 2017",
+    "description": "-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -275,216 +308,467 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Project-和-Task"><span class="post-toc-number">1.</span> <span class="post-toc-text">Project 和 Task</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#gradle-脚本"><span class="post-toc-number">2.</span> <span class="post-toc-text">gradle 脚本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#settings-gradle"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">- settings.gradle</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#根目录的build-gradle"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">- 根目录的build.gradle</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#repositorie"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">repositorie</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#buildscript"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">buildscript</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#allprojects"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">allprojects</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模块内的build-gradle"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">- 模块内的build.gradle</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#plugin"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">plugin</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#compileSdkVersion"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">compileSdkVersion</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#buildToolsVersion"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">buildToolsVersion</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#defaultConfig"><span class="post-toc-number">2.3.4.</span> <span class="post-toc-text">defaultConfig</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#applicationId"><span class="post-toc-number">2.3.5.</span> <span class="post-toc-text">applicationId</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#versionCode"><span class="post-toc-number">2.3.6.</span> <span class="post-toc-text">versionCode</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#buildTypes"><span class="post-toc-number">2.3.7.</span> <span class="post-toc-text">buildTypes</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#dependencies"><span class="post-toc-number">2.3.8.</span> <span class="post-toc-text">dependencies</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#依赖管理"><span class="post-toc-number">3.</span> <span class="post-toc-text">依赖管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#仓库"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">仓库</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#依赖"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">依赖</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#本地依赖"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">本地依赖</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#导入jar包"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">- 导入jar包</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#导入aar包"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">- 导入aar包</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#导入so包"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">- 导入so包</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用模块"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">- 使用模块</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#其他配置"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">- 其他配置</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/10/15/hexo/">搭建hexo＋github博客</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-花一天半的时间搭了hexo博客，整理一下参考链接
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/10/15/hexo/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 15, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="http://p1.bpimg.com/567571/49b24aac8aef4874.jpg">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/10/15/mypaintings/">我的涂鸦</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/10/15/mypaintings/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 15, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/创作/">创作</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/10/14/hello-world/">hello world</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            缘起
-欢迎来到我的小窝
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/10/14/hello-world/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 14, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Gradle 从入门到......
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>7月 08, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Gradle 从入门到......&url=https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Gradle 从入门到......&url=https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html&title=Gradle 从入门到......" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Gradle 从入门到......&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/08/aboutGradle/index.html&text=Gradle 从入门到......" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>-</p>
+<a id="more"></a>
+<p><strong>Gradle是一种依赖管理工具，它使用一种基于jvm的动态语言Groovy</strong></p>
+<p><br></p>
+<h3 id="Project-和-Task"><a href="#Project-和-Task" class="headerlink" title="Project 和 Task"></a>Project 和 Task</h3><p><strong><br>这是gradle中最基本的概念，其中Project并非Android Stuido所指的Project
+</strong></p>
+<ul>
+<li>每一个build.gradle对应一个project，每一个project对应一个相对完整的构建部分，如module</li>
+<li>执行build.gradle会为每个Project创建和配置所有task，每一个task对应一个逻辑上的执行单元，task又由一系列的action组成</li>
+</ul>
+<pre><code>//在最外层的build.gradle中可以看见这样一个task
+//它用于删除bulid目录
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</code></pre><ul>
+<li>为更好地理解task，可以自定义一个task，在任意层级的build.gradle中加入如下代码</li>
+</ul>
+<pre><code>task hello &lt;&lt; {
+    println &apos;hello&apos;
+}
+</code></pre><p>在终端界面中输入 ./gradlew hello （*nix），gradlew hello（windows，maybe…），会出现</p>
+<pre><code>:hello
+hello
+</code></pre><p>这说明这个任务被成功执行了，由于我没有安装ndk所以还输出了一大堆诸如 NDK is missing a “platforms” directory的提示，另外输出的提示还有</p>
+<pre><code>The Task.leftShift(Closure) method has been deprecated and is scheduled to be removed in Gradle 5.0. Please use Task.doLast(Action) instead.
+</code></pre><p>leftShift(Closure)？？为什么出现它？？其实 &lt;&lt; 就相当于 leftShift() 方法，它是一个重载，表示添加一个action，并且已经过时了，可以修改为</p>
+<pre><code>task hello {  
+    doLast {      
+        println &apos;hello&apos;      
+    }      
+}      
+</code></pre><p><br>        </p>
+<h3 id="gradle-脚本"><a href="#gradle-脚本" class="headerlink" title="gradle 脚本"></a>gradle 脚本</h3><p><strong><br>暂时需要了解的只有build.gradle和setting.gradle
+</strong></p>
+<p><br></p>
+<h4 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="- settings.gradle"></a>- settings.gradle</h4><ul>
+<li>这个文件在初始化时期执行，定义了需要被构建的module</li>
+</ul>
+<pre><code>include &apos;:app&apos;, &apos;:newsmodule&apos;, &apos;:newslibrary&apos;
+</code></pre><ul>
+<li>如果只有一个模块，它将会长成下面这样子，而且可以被删除</li>
+</ul>
+<pre><code>include &apos;:app&apos;
+</code></pre><p><br>        </p>
+<h4 id="根目录的build-gradle"><a href="#根目录的build-gradle" class="headerlink" title="- 根目录的build.gradle"></a>- 根目录的build.gradle</h4><pre><code>// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &apos;com.android.tools.build:gradle:2.3.1&apos;
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</code></pre><h5 id="repositorie"><a href="#repositorie" class="headerlink" title="repositorie"></a>repositorie</h5><ul>
+<li><a href="#repositories">详见</a></li>
+</ul>
+<h5 id="buildscript"><a href="#buildscript" class="headerlink" title="buildscript"></a>buildscript</h5><ul>
+<li>buildscript，该闭包中是关于gradle的构建工具的配置，dependecbies就是所依赖的构建工具的信息，由于在AS中，所以用到的是Android Gradle plugin</li>
+</ul>
+<h5 id="allprojects"><a href="#allprojects" class="headerlink" title="allprojects"></a>allprojects</h5><ul>
+<li>allprojects，该闭包中是关于所有子项目的配置，这意味着可以直接在里面添加任务</li>
+<li>buildscript和allprojects的本质不同在于，buildscript用于配置gradle本身，而allprojects用于配置需要被构建的子项目    <a href="https://stackoverflow.com/questions/30158971/whats-the-difference-between-buildscript-and-allprojects-in-build-gradle" target="_blank" rel="external">difference between buildscript and allprojects</a></li>
+</ul>
+<p><br></p>
+<h4 id="模块内的build-gradle"><a href="#模块内的build-gradle" class="headerlink" title="- 模块内的build.gradle"></a>- 模块内的build.gradle</h4><pre><code>apply plugin: &apos;com.android.application&apos;
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion &quot;25.0.3&quot;
+    defaultConfig {
+        applicationId &quot;com.linjiamin.daily_linjiamin&quot;
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName &quot;1.0&quot;
+        testInstrumentationRunner         &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])
+    androidTestCompile(&apos;com.android.support.test.espresso:espresso-core:2.2.2&apos;, {
+        exclude group: &apos;com.android.support&apos;, module: &apos;support-annotations&apos;
+    })
+    compile &apos;com.android.support:appcompat-v7:24.2.1&apos;
+    compile &apos;com.android.support.constraint:constraint-layout:1.0.2&apos;
+
+    testCompile &apos;junit:junit:4.12&apos;
+}
+</code></pre><p><br>        </p>
+<h5 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h5><ul>
+<li>apply plugin，表示为脚本添加插件，插件包括了已经定义好的属性和task，可以提供扩展功能，如下面的android标签就是Android application所插件提供，只有添加了它才能使用</li>
+</ul>
+<p><br></p>
+<h5 id="compileSdkVersion"><a href="#compileSdkVersion" class="headerlink" title="compileSdkVersion"></a>compileSdkVersion</h5><ul>
+<li>编译时使用的API版本</li>
+</ul>
+<p><br></p>
+<h5 id="buildToolsVersion"><a href="#buildToolsVersion" class="headerlink" title="buildToolsVersion"></a>buildToolsVersion</h5><ul>
+<li>构建工具的版本号，构建工具包括了一系列的命令</li>
+</ul>
+<p><br></p>
+<h5 id="defaultConfig"><a href="#defaultConfig" class="headerlink" title="defaultConfig"></a>defaultConfig</h5><ul>
+<li>关于app的属性配置，它将重写AndroidManifest.xml</li>
+</ul>
+<p><br></p>
+<h5 id="applicationId"><a href="#applicationId" class="headerlink" title="applicationId"></a>applicationId</h5><ul>
+<li>用于标识不同的app版本，不直接使用包名划分是因为包名会用于命名R文件，如果创建新版本时还需要修改R文件那将十分麻烦 </li>
+</ul>
+<p><br></p>
+<h5 id="versionCode"><a href="#versionCode" class="headerlink" title="versionCode"></a>versionCode</h5><ul>
+<li>versionCode 和 versionName 用于标识app版本，程序本身不会在任何地方调用到这个值，在开发过程中versionCode往往会变化非常快，会成为一个很大的值，这对用户来说不便，于是就产生了versionName这一字符串标识</li>
+</ul>
+<p><br></p>
+<h5 id="buildTypes"><a href="#buildTypes" class="headerlink" title="buildTypes"></a>buildTypes</h5><ul>
+<li>设置构建版本和混淆文件</li>
+</ul>
+<p><br></p>
+<h5 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h5><ul>
+<li><a href="#dependencies">详见</a></li>
+</ul>
+<p><br></p>
+<h3 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h3><p><strong><br>当项目需要用到其他开发者的依赖库时，我们不需要手动下载jar包so包到指定位置，更不需要未版本的迭代而操心，gradle已经解决了这些问题
+</strong></p>
+<p><br></p>
+<h4 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a><span id="repositories">仓库</span></h4><ul>
+<li>repositories，远程仓库，它是依赖包的来源，Android Studio默认为jcenter，也可以为maven，Ivy等</li>
+<li>当执行build构建时依赖包会从这些远程仓库里下载并在本地留下缓存</li>
+<li>Gradle默认使用三个maven仓库，mavenCrentral，jcenter，mavenLocal，有些依赖包并不在其中，这时只需</li>
+</ul>
+<pre><code>repositories {
+       maven {
+           url &quot;.....&quot;//填写maven仓库地址
+       }
+}
+</code></pre><p><br></p>
+<h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a><span id="dependencies">依赖</span></h4><ul>
+<li>完整的依赖包含三个元素，group，通常为包名，name，library的唯一标识，version，版本号，通常写法为</li>
+</ul>
+<pre><code>dependencies {
+       compile &apos;com.google.code.gson:gson:2.7&apos;
+}
+</code></pre><ul>
+<li>也可以这样展开</li>
+</ul>
+<pre><code>dependencies {
+  compile group: &apos;com.google.code.gson&apos;, name: &apos;gson&apos;, version:&apos;2.7&apos;
+ }
+</code></pre><ul>
+<li>为避免键入错误，还可以在File-&gt;Project Structure-Dependencies 中联网查找并导入</li>
+</ul>
+<p><br></p>
+<h4 id="本地依赖"><a href="#本地依赖" class="headerlink" title="本地依赖"></a>本地依赖</h4><p><br></p>
+<h4 id="导入jar包"><a href="#导入jar包" class="headerlink" title="- 导入jar包"></a>- 导入jar包</h4><ul>
+<li>在一个app的build.gradle中我们可以找到如下配置</li>
+</ul>
+<pre><code>compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)
+</code></pre><ul>
+<li>这意味着需要使用本地jar包时只要将其放入模块的libs文件即可</li>
+</ul>
+<p><br></p>
+<h4 id="导入aar包"><a href="#导入aar包" class="headerlink" title="- 导入aar包"></a>- 导入aar包</h4><ul>
+<li><p>添加文件夹 </p>
+<pre><code>repositories {
+    flatDir {
+    dirs &apos;aarlibs&apos;
+}
+</code></pre></li>
+<li><p>添加依赖</p>
+<pre><code>compile(name:&apos;aarlibrary&apos;, ext:&apos;aar&apos;)  
+</code></pre></li>
+</ul>
+<p><br></p>
+<h4 id="导入so包"><a href="#导入so包" class="headerlink" title="- 导入so包"></a>- 导入so包</h4><ul>
+<li>指定文件夹位置，将so包放入文件夹中即可</li>
+</ul>
+<pre><code>sourceSets {
+    main {
+        jniLibs.srcDirs = [&apos;src/main/LibsName&apos;]
+    }
+}
+</code></pre><ul>
+<li>Android Studio 默认 src/main/jniLibs 放置so包，这意味着可以直接新建一个jniLibs文件夹而不需要进行任何配置</li>
+</ul>
+<p><br></p>
+<h4 id="使用模块"><a href="#使用模块" class="headerlink" title="- 使用模块"></a>- 使用模块</h4><ul>
+<li>创建一个模块作为依赖包(library)时，Android Studio会自动在它的build.gradle配置对应的插件</li>
+</ul>
+<pre><code>apply plugin: &apos;com.android.library&apos;
+</code></pre><ul>
+<li>并且会在setting.gradle添加模块</li>
+</ul>
+<pre><code>include &apos;:app&apos;, &apos;:mylibrary&apos;
+</code></pre><ul>
+<li>所有只需要在调用到该模块的app的build.module中添加依赖即可，同样可以在File-&gt;Project Structure-Dependencies中导入</li>
+</ul>
+<pre><code> dependencies {
+     compile project(&apos;:mylibrary&apos;)
+}        
+</code></pre><h4 id="其他配置"><a href="#其他配置" class="headerlink" title="- 其他配置"></a>- 其他配置</h4><ul>
+<li>build.gradle中还能看到</li>
+</ul>
+<pre><code>testCompile &apos;junit:junit:4.12&apos;
+androidTestCompile(&apos;com.android.support.test.espresso:espresso-core:2.2.2&apos;, {
+        exclude group: &apos;com.android.support&apos;, module: &apos;support-annotations&apos;
+    })            
+</code></pre><ul>
+<li>依赖本身有五种配置，compile只是默认的一个，其他可能用到的一般只有提供单元测试的testCompile和androidTestCompile，有空再来学习</li>
+</ul>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/07/05/ASShortcut/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     

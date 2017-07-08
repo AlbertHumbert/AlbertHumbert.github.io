@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2016/10 | 
+            Android Studio 基本操作 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="还有这种操作？">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2016/10 | Albert&#39;s Blog">
+    <meta property="og:title" content="Android Studio 基本操作 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="还有这种操作？">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="7月 05, 2017" />
+        <meta property="article:modified_time" content="7月 08, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2016/10 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="Android Studio 基本操作 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="还有这种操作？">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/archives/2016/10/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "Android Studio 基本操作",
+    "url": "https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html",
+    "datePublished": "7月 05, 2017",
+    "dateModified": "7月 08, 2017",
+    "description": "还有这种操作？",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -275,216 +308,321 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用快捷键"><span class="post-toc-number">1.</span> <span class="post-toc-text">常用快捷键</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实用功能"><span class="post-toc-number">2.</span> <span class="post-toc-text">实用功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#书签"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">- 书签</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#版本控制"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">- 版本控制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正则表达式检查工具"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">- 正则表达式检查工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模板"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">- 模板</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用插件"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用插件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Module"><span class="post-toc-number">4.</span> <span class="post-toc-text">Module</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建Module"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">创建Module</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调用Module"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">- 调用Module</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/10/15/hexo/">搭建hexo＋github博客</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-花一天半的时间搭了hexo博客，整理一下参考链接
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/10/15/hexo/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 15, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="http://p1.bpimg.com/567571/49b24aac8aef4874.jpg">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/10/15/mypaintings/">我的涂鸦</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/10/15/mypaintings/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 15, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/创作/">创作</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/10/14/hello-world/">hello world</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            缘起
-欢迎来到我的小窝
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/10/14/hello-world/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 14, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Android Studio 基本操作
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>7月 05, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android Studio 基本操作&url=https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android Studio 基本操作&url=https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html&title=Android Studio 基本操作" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android Studio 基本操作&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/05/ASShortcut/index.html&text=Android Studio 基本操作" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>还有这种操作？</p>
+<a id="more"></a>
+<p><br></p>
+<h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p><strong><br>Android Studio提供了大量的默认快捷键，当然用户也可以自定义快捷键。<br>Preference-&gt;keymap中可查看所有快键键，右键选择Add Keyboard shortcut 或 Add Mouse Shortcut 可自定义快捷键，<br>注意有些快捷键在特定的情况下才会触发。<br>浏览 Tip of the day 弹窗的每日介绍，是熟悉上手这些快捷键的好方法。
+</strong></p>
+<ul>
+<li><strong>Cmd + “-“/“+”</strong> (mac)，<strong>Ctrl + Shift + “+”/”-“</strong> (win) ，展开或者以更简洁的方式显示代码</li>
+<li><strong>Cmd + F</strong>(mac)，<strong>Ctrl + F</strong>(win)，快速查找，在对应的窗口中进行模糊查找</li>
+<li><strong>Cmd + B</strong>(mac)，<strong>Ctrl + B</strong>(win)，查看类文件或方法的内容或变量被使用的地方</li>
+<li><strong>Cmd + P</strong>(mac)，<strong>Ctrl + P</strong>(win)，查看方法所需变量类型</li>
+<li><strong>Cmd + D</strong>(mac)，<strong>Ctrl + D</strong>(win)，复制并粘贴选中内容或当前光标所在行</li>
+<li><strong>Cmd + N</strong>(mac)，<strong>Alt＋Insert</strong>(win)，添加构造器，getter，setter等</li>
+<li><strong>Cmd + O</strong>(mac)，<strong>Ctrl + N</strong>(win)，快速打开类</li>
+<li><strong>Cmd + /</strong>(mac)，<strong>Ctrl + /</strong>(win)，将当前行改为注释</li>
+<li><strong>Cmd + F12</strong>(mac)，<strong>Ctrl + F12</strong>(win)，显示当前类结构</li>
+<li><strong>Cmd + Shift + /</strong>(mac)，<strong>Ctrl + Shift + /</strong>(win)，添加注释，mac可能会同时触发Help-&gt;search的快捷键，建议在Keymap中修改</li>
+<li><strong>Cmd + W</strong>(mac)，关闭当前窗口</li>
+<li><strong>Cmd + Q</strong>(mac)，退出Android studio</li>
+<li><strong>Alt +↑↓← →</strong>，快速 选择块/移动光标</li>
+<li><strong>Ctrl + O / I</strong>，显示所有可 重写/实现 的方法，选中后输入模板</li>
+<li><strong>Shift + F1</strong>，打开光标所在元素的网页文档，<strong>然而你可能被墙了</strong></li>
+<li><strong>Ctrl + ~</strong>，更改显示选项</li>
+</ul>
+<p><br></p>
+<h2 id="实用功能"><a href="#实用功能" class="headerlink" title="实用功能"></a>实用功能</h2><p><br></p>
+<h3 id="书签"><a href="#书签" class="headerlink" title="- 书签"></a>- 书签</h3><p><strong><br>书签为代码位置提供一个标记。<br>在 Navigate-&gt;bookmark 中可对书签进行相应管理。
+</strong></p>
+<ul>
+<li><strong>F3</strong> (mac)，<strong>F11</strong> (win)，添加/删除 书签</li>
+<li><strong>Alt + F3</strong> (mac)，<strong>Ctrl + F11</strong> (win)，添加/删除 带有名称的书签</li>
+<li><strong>Cmd + F3</strong> (mac) ，<strong>Shift + F11</strong> (win)，查看和管理所有标签</li>
+<li><strong>Ctrl + NAME</strong>，当书签带有名称，可使用该操作进行快速跳转</li>
+</ul>
+<p><br></p>
+<h3 id="版本控制"><a href="#版本控制" class="headerlink" title="- 版本控制"></a>- 版本控制</h3><p><strong><br>VCS-&gt;git 中可以实现常用git命令的功能，Android Stuido 还提供了图形化的比较工具
+</strong></p>
+<ul>
+<li><strong>Ctrl + V</strong>(mac)，<strong>Alt + `</strong>(win)，弹出版本控制菜单</li>
+<li>git-&gt;Compare With Branch，比较当前文件与分支中的修改</li>
+<li>Version Control-&gt;Log，显示git log –graph日志</li>
+</ul>
+<p><br></p>
+<h3 id="正则表达式检查工具"><a href="#正则表达式检查工具" class="headerlink" title="- 正则表达式检查工具"></a>- 正则表达式检查工具</h3><p><strong><br>将普通正则转化为Java中的正则表达式，并提供用实例检查的功能
+</strong></p>
+<ul>
+<li><strong>Alt + Enter</strong>，需要在matches(“”)的双引号中才会触发</li>
+<li>Sample 中输入例子进行检查</li>
+</ul>
+<p><br></p>
+<h3 id="模板"><a href="#模板" class="headerlink" title="- 模板"></a>- 模板</h3><p><strong><br>模板，Live Template，是一种输入特定字符并利用编译器自动补全的方法
+</strong></p>
+<ul>
+<li><strong>Cmd + J</strong>(mac)，<strong>Ctrl + J</strong>(win)，列出所有模板，这意味着并不需要记住所有匹配字符</li>
+<li>Preference &gt; Editor &gt; Live Templates 可自定义模板，注意使用$符号将变量名包围</li>
+<li>File and Code Template 中还可以自定义文件创建时自动添加的模板，Android Studio 中类开头的文档注释就是这么生成的</li>
+</ul>
+<p><br></p>
+<h2 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h2><ul>
+<li>preference-&gt;plugins中可以在线下载插件，下载完后点击重启AS即可，十分方便</li>
+<li><a href="http://www.open-open.com/lib/view/open1480329318348.html" target="_blank" rel="external">插件能够提供的功能非常丰富</a></li>
+<li><a href="http://blog.csdn.net/lmj623565791/article/details/51548272" target="_blank" rel="external">通过编写jar程序也可以实现简单的插件</a></li>
+</ul>
+<p><br></p>
+<h2 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h2><p><strong><br>Android Studio中的Project-Module关系相当于，Eclipse中的Workplace-Project，VS中的解决方法-工程。
+</strong><br><br></p>
+<h3 id="创建Module"><a href="#创建Module" class="headerlink" title="创建Module"></a>创建Module</h3><ul>
+<li>File-&gt;new-&gt;new module中可选择新建或导入不同类型的module</li>
+<li>Phone &amp; Table Module，Android Module，Android TV module，Google Cloud Module，分别对应不同平台上的程序</li>
+<li>Android Library，Java Library，分别生成aar和jar文件作为依赖库</li>
+<li>每个module作为一个独立的程序可以单独运行和调试</li>
+<li>原则上Android Library可以当做Java Library来使用，区别在于aar可以携带文件，调用android API<br><a href="https://stackoverflow.com/questions/28154681/android-studio-java-library-module-vs-android-library-module" target="_blank" rel="external">Difference between Android library and Java library</a></li>
+</ul>
+<p><br></p>
+<h3 id="调用Module"><a href="#调用Module" class="headerlink" title="- 调用Module"></a>- 调用Module</h3><ul>
+<li><a href="http://localhost:4000/2017/07/08/aboutGradle/" target="_blank" rel="external">详见</a></li>
+</ul>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/07/08/aboutGradle/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/05/22/proGit/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-06-15T16:16:53.000Z</updated>
+  <updated>2017-07-08T15:24:53.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Gradle 从入门到......</title>
+    <link href="https://alberthumbert.github.io/2017/07/08/aboutGradle/"/>
+    <id>https://alberthumbert.github.io/2017/07/08/aboutGradle/</id>
+    <published>2017-07-08T15:17:41.000Z</published>
+    <updated>2017-07-08T15:24:53.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Studio 基本操作</title>
+    <link href="https://alberthumbert.github.io/2017/07/05/ASShortcut/"/>
+    <id>https://alberthumbert.github.io/2017/07/05/ASShortcut/</id>
+    <published>2017-07-05T13:54:18.000Z</published>
+    <updated>2017-07-08T15:24:51.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;还有这种操作？&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>pro git 1-6章 笔记</title>
