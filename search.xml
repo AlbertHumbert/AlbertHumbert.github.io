@@ -46,7 +46,7 @@ hello
 </ul>
 <pre><code>include &apos;:app&apos;, &apos;:newsmodule&apos;, &apos;:newslibrary&apos;
 </code></pre><ul>
-<li>如果只有一个模块，它将会长成下面这样子，而且可以被删除</li>
+<li>如果只有一个模块，它将会长成下面这样子，而且这个文件可以被删除</li>
 </ul>
 <pre><code>include &apos;:app&apos;
 </code></pre><p><br>        </p>
@@ -330,6 +330,34 @@ androidTestCompile(&apos;com.android.support.test.espresso:espresso-core:2.2.2&a
 <p><br></p>
 <h3 id="调用Module"><a href="#调用Module" class="headerlink" title="- 调用Module"></a>- 调用Module</h3><ul>
 <li><a href="https://alberthumbert.github.io/2017/07/08/aboutGradle/">详见</a></li>
+</ul>
+<h2 id="性能分析工具"><a href="#性能分析工具" class="headerlink" title="性能分析工具"></a>性能分析工具</h2><h3 id="Profile-GPU-Rendering"><a href="#Profile-GPU-Rendering" class="headerlink" title="Profile GPU Rendering"></a>Profile GPU Rendering</h3><p><strong><br>当一个view被绘制，主要经过三个过程，GPU准备数据，GPU从缓存列表获取数据，Display设备绘制，这三个过程的耗时可通过 Profile GPU Rendering 查看
+</strong></p>
+<ul>
+<li>在开发者选项中找到 Profile GPU Rendering 开关（或者叫GPU呈现模式分析），打开后可以看见一系列彩色柱状图</li>
+<li>红，黄，蓝，紫分别对应每一帧在不同阶段的耗时情况</li>
+<li>蓝 ,表示创建Display List所花费的时间，具体来说就是执行onDraw方法的时间，当蓝色的线很高时可能需要考虑优化onDraw方法</li>
+<li>红，表示2D渲染Display List所消耗的时间，过高时可能是重新提交视图所致</li>
+<li>黄，CPU告诉GPU进行绘制每一帧会后会等待GPU的回复，如果柱状图过高，表示GUP繁忙</li>
+<li>紫，资源转移到渲染线程的时间</li>
+</ul>
+<h3 id="Trace-View"><a href="#Trace-View" class="headerlink" title="Trace View"></a>Trace View</h3><p><strong><br>Profile GPU Rendering提供的信息非常模糊，无法满足优化代码的需求，Trace View 可以分析到具体每一个方法的耗时
+</strong></p>
+<h4 id="获取-Trace-文件"><a href="#获取-Trace-文件" class="headerlink" title="- 获取 Trace 文件"></a>- 获取 Trace 文件</h4><ul>
+<li>调试应用</li>
+<li>打开DDMS</li>
+<li>点击Strarted Method Profiling</li>
+<li>操作应用后点击Stop Method Profiling会跳出一个非常丑的界面，它就是Trace View分析视图</li>
+</ul>
+<h4 id="TraceView-视图"><a href="#TraceView-视图" class="headerlink" title="- TraceView 视图"></a>- TraceView 视图</h4><ul>
+<li>Timeline Panel 面板，X轴表示时间，Y轴表示不同的线程</li>
+<li>Profile Panel 面板，主要关注Calls+Recur Calls / Total 和CPU time / call，表示调用次数和耗时</li>
+</ul>
+<h3 id="SYStrace-UI"><a href="#SYStrace-UI" class="headerlink" title="SYStrace UI"></a>SYStrace UI</h3><ul>
+<li>打开DDMS，点击 SYStrace按钮（capture system wide…）</li>
+<li>配置信息后生成Trace文件，用Chrome打开（只能用chrome），这个更丑的界面就是SYStrace UI类</li>
+<li>Alert界面，标记了有问题的地方并提供了描述</li>
+<li>点击 F字母标记的圆，当显示为红色或黄色时表示渲染耗时过长，达不到60fps，查看提示以及系统正在进行的任务以分析问题</li>
 </ul>
 ]]></content>
       
