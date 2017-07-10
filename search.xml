@@ -3,9 +3,157 @@
   
     
     <entry>
+      <title><![CDATA[服务相关]]></title>
+      <url>/2017/07/10/aboutService/</url>
+      <content type="html"><![CDATA[<p>onCreate</p>
+<a id="more"></a>
+<p><strong>主要是通过实践对Service的内容进行复习</strong></p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="startService形式"><a href="#startService形式" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
+<li>在Activity中使用 startService来启动服务，必要数据可以通过Intent来传递</li>
+</ul>
+<pre><code>...
+
+Intent(HomeActivity.this,NewsService.class);
+
+...
+
+vpDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new 
+                intent.putExtra(&quot;date&quot;,GetDate.today());
+                startService(intent);
+            }
+});
+</code></pre><ul>
+<li><p>在Service的 onStartCommand中开启线程，注意需要返回父类方法的结果</p>
+<pre><code>public int onStartCommand(final Intent intent, int flags, int startId) {
+</code></pre></li>
+</ul>
+<pre><code>new Thread(new Runnable() {
+    @Override
+    public void run() {
+        String date = intent.getStringExtra(&quot;date&quot;);
+        if(date == null)return;
+        JsonFromUrl jsonFromUrl= new JsonFromUrl();
+        jsonFromUrl.setApi(NewsApi.COMMON+NewsApi.BEFORE+date);
+        Log.d(TAG, &quot;run: &quot;+NewsApi.COMMON+NewsApi.BEFORE+date);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = jsonFromUrl.getJson();
+            Log.d(TAG, &quot;run: &quot;+jsonObject.toString());
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        List newsList = new ArrayList();
+        JsonAnalysis.analyze(newsList,jsonObject,NewsApi.BEFORE,null);
+    }
+}).start();
+
+return super.onStartCommand(intent, flags, startId);
+}
+</code></pre><ul>
+<li><p>为避免内存泄漏，必须在内部或外部将service停止</p>
+<pre><code>//in activity
+protected void onStop(){
+        super.onStop();
+        stopService(intent);
+    } 
+
+    //in service
+    ...
+    stopSelf()
+   ...
+</code></pre><ul>
+<li>注意当一个service被多次执行时请使用 stopSelf(Int startId)方法保证请求被正确终止，    startId由service的onStartCommand参数提供，它标记了请求的编号用以一一对应</li>
+</ul>
+</li>
+</ul>
+<h3 id="bindService形式"><a href="#bindService形式" class="headerlink" title="bindService形式"></a>bindService形式</h3><p><strong><br>引入binder机制，实现Activity与service的通信
+</strong></p>
+<ul>
+<li>这次我们使用bindService形式启动</li>
+</ul>
+<pre><code>vpDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(&quot;date&quot;,GetDate.today());
+                bindService(intent, HomeActivity.this,Service.BIND_AUTO_CREATE);                
+            }
+        });
+</code></pre><ul>
+<li><p>在service中应当实现一个binder，用以传递service的句柄，如此Activity便可以持有service从而调用service的方法了，这个binder在onBind中被传递</p>
+<pre><code>@Override
+public IBinder onBind(Intent intent) {
+    return new Binder();
+}
+
+public class Binder extends android.os.Binder{
+     public NewsService getService(){
+        return NewsService.this;
+    }
+}
+</code></pre></li>
+<li><p>注意此时，线程应该写在onCreate中，如果不混合使用两种启动方式，此时的onStartCommand是不会被调用的</p>
+<pre><code>@Override
+public void onCreate(){
+    super.onCreate();
+    //write your THREAD here !!
+    Log.d(TAG, &quot;onCreate: &quot;);
+}
+</code></pre></li>
+<li><p>返回到Activity中，再实现一个ServiceConnection接口，这个接口只有两个方法必须实现，可以看到service成功进入到了我们的Activity内</p>
+<pre><code>@Override
+public void onServiceConnected(ComponentName name, IBinder service) {
+    binder = (NewsService.Binder)service;
+    NewsService newsService = binder.getService();
+    newsService.showConnection();
+}
+
+@Override
+public void onServiceDisconnected(ComponentName name) {
+
+} 
+</code></pre></li>
+<li><p><a href="http://blog.csdn.net/u013553529/article/details/54754491?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">多次调用bindService()，onBind()只会执行一次</a></p>
+</li>
+</ul>
+<h2 id="service-生命周期"><a href="#service-生命周期" class="headerlink" title="service 生命周期"></a>service 生命周期</h2><h3 id="startService形式-1"><a href="#startService形式-1" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
+<li>startService()-&gt;onCreate()-&gt;onStartCommand()-&gt;onDestroy</li>
+<li>必须显式关闭service</li>
+</ul>
+<h3 id="bindService形式-1"><a href="#bindService形式-1" class="headerlink" title="bindService形式"></a>bindService形式</h3><ul>
+<li>bindService()-&gt;onCreate()-&gt;onBind()-&gt;onUnbind()-&gt;onDestriy</li>
+<li>service和所有客户端接触绑定之后才会被系统销毁，因此它的生命周期不用过多关心</li>
+</ul>
+<h2 id="Service的存在意义"><a href="#Service的存在意义" class="headerlink" title="Service的存在意义"></a>Service的存在意义</h2><p><strong>service本身是在主线程运行的，这是就是使用service还需要另外开启子线程的原因，那么为什么还要用到service？</strong></p>
+<ul>
+<li>service的运行是不依赖UI的，即使活动被销毁，service也可以一直运行</li>
+<li>Activity很难对内部创建的子线程进行控制，而service可以和所有Activity进行通信</li>
+<li>通过前台service提高优先级，在状态栏可以一直为用户提供功能，这是简单地在Activity中创建一个子线程所办不到的</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Activity 知识补充]]></title>
       <url>/2017/07/10/additionOfActivity/</url>
-      <content type="html"><![CDATA[<p>onCreate</p>
+      <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong>本文参考资料</strong></p>
 <p><a href="http://blog.csdn.net/liuhe688/article/details/6733407" target="_blank" rel="external">liuhe688</a></p>

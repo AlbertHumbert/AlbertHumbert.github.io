@@ -12,7 +12,7 @@
     
     <title>
         
-            我的涂鸦 | 
+            服务相关 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,9 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧">
-    <meta name="keywords" content="null,涂鸦">
+    <meta name="description" itemprop="description" content="onCreate">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -66,28 +65,26 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="我的涂鸦 | Albert&#39;s Blog">
+    <meta property="og:title" content="服务相关 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧">
-    <meta property="og:article:tag" content="涂鸦"> 
+    <meta property="og:description" content="onCreate">
+    <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="10月 15, 2016" />
-        <meta property="article:modified_time" content="6月 04, 2017" />
+        <meta property="article:published_time" content="7月 10, 2017" />
+        <meta property="article:modified_time" content="7月 10, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="我的涂鸦 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧">
+    <meta name="twitter:title" content="服务相关 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="onCreate">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/10/aboutService/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -113,12 +110,11 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "我的涂鸦",
-    "url": "https://alberthumbert.github.io/2016/10/15/mypaintings/index.html",
-    "datePublished": "10月 15, 2016",
-    "dateModified": "6月 04, 2017",
-    "description": "这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧",
+    "headline": "服务相关",
+    "url": "https://alberthumbert.github.io/2017/07/10/aboutService/index.html",
+    "datePublished": "7月 10, 2017",
+    "dateModified": "7月 10, 2017",
+    "description": "onCreate",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
@@ -339,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本用法"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本用法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#startService形式"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">startService形式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bindService形式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">bindService形式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#service-生命周期"><span class="post-toc-number">2.</span> <span class="post-toc-text">service 生命周期</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#startService形式-1"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">startService形式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bindService形式-1"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">bindService形式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Service的存在意义"><span class="post-toc-number">3.</span> <span class="post-toc-text">Service的存在意义</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -364,11 +360,20 @@
                 
     <!-- Paradox Post Header -->
     
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://p1.bpimg.com/567571/49b24aac8aef4874.jpg)">
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
     
             <p class="article-headline-p">
-                我的涂鸦
+                服务相关
             </p>
         </div>
 
@@ -387,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>10月 15, 2016</span>
+        <span>7月 10, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -411,7 +416,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/涂鸦/">涂鸦</a>
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
     </ul>
     
 
@@ -427,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=我的涂鸦&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=服务相关&url=https://alberthumbert.github.io/2017/07/10/aboutService/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -436,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=我的涂鸦&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=服务相关&url=https://alberthumbert.github.io/2017/07/10/aboutService/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -445,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/10/aboutService/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -454,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/10/aboutService/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -463,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&title=我的涂鸦" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/10/aboutService/index.html&title=服务相关" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -472,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=我的涂鸦&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=服务相关&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/10/aboutService/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -481,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&text=我的涂鸦" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/10/aboutService/index.html&text=服务相关" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -496,14 +501,134 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>这是一个存放半成品的地方，线稿居多</p>
-<p>也许哪天会想要继续画的东西，大概吧<br><a id="more"></a><br><img src="http://p1.bqimg.com/567571/2b22b63555a8a112.jpg" alt="光影部分没有完成，不肝了:("></p>
-<p><img src="http://p1.bpimg.com/567571/49b24aac8aef4874.jpg" alt="自用的logo（并没有用 "></p>
-<p><img src="http://p1.bqimg.com/567571/9c34ec604599fff3.jpg" alt="久违的同人"></p>
-<p><img src="http://p1.bqimg.com/567571/095305f6498ebb45.jpg" alt="为什么以前总是能画出现在都没办法上色的稿呢:("></p>
-<p><img src="http://p1.bqimg.com/567571/e61bab9ccfe04d9d.jpg" alt="维持线描风更好吧！"></p>
-<p><img src="http://p1.bqimg.com/567571/96551e32716e8e5c.jpg" alt="看完岚少的夜回，徊，佪，廻..hui字有几种写法，本来打算做生贺图的，但是sai文件丢了"></p>
-<p><img src="http://p1.bqimg.com/567571/006ca391246954a4.jpg" alt=""></p>
+        <p>onCreate</p>
+<a id="more"></a>
+<p><strong>主要是通过实践对Service的内容进行复习</strong></p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="startService形式"><a href="#startService形式" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
+<li>在Activity中使用 startService来启动服务，必要数据可以通过Intent来传递</li>
+</ul>
+<pre><code>...
+
+Intent(HomeActivity.this,NewsService.class);
+
+...
+
+vpDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new 
+                intent.putExtra(&quot;date&quot;,GetDate.today());
+                startService(intent);
+            }
+});
+</code></pre><ul>
+<li><p>在Service的 onStartCommand中开启线程，注意需要返回父类方法的结果</p>
+<pre><code>public int onStartCommand(final Intent intent, int flags, int startId) {
+</code></pre></li>
+</ul>
+<pre><code>new Thread(new Runnable() {
+    @Override
+    public void run() {
+        String date = intent.getStringExtra(&quot;date&quot;);
+        if(date == null)return;
+        JsonFromUrl jsonFromUrl= new JsonFromUrl();
+        jsonFromUrl.setApi(NewsApi.COMMON+NewsApi.BEFORE+date);
+        Log.d(TAG, &quot;run: &quot;+NewsApi.COMMON+NewsApi.BEFORE+date);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = jsonFromUrl.getJson();
+            Log.d(TAG, &quot;run: &quot;+jsonObject.toString());
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        List newsList = new ArrayList();
+        JsonAnalysis.analyze(newsList,jsonObject,NewsApi.BEFORE,null);
+    }
+}).start();
+
+return super.onStartCommand(intent, flags, startId);
+}
+</code></pre><ul>
+<li><p>为避免内存泄漏，必须在内部或外部将service停止</p>
+<pre><code>//in activity
+protected void onStop(){
+        super.onStop();
+        stopService(intent);
+    } 
+
+    //in service
+    ...
+    stopSelf()
+   ...
+</code></pre><ul>
+<li>注意当一个service被多次执行时请使用 stopSelf(Int startId)方法保证请求被正确终止，    startId由service的onStartCommand参数提供，它标记了请求的编号用以一一对应</li>
+</ul>
+</li>
+</ul>
+<h3 id="bindService形式"><a href="#bindService形式" class="headerlink" title="bindService形式"></a>bindService形式</h3><p><strong><br>引入binder机制，实现Activity与service的通信
+</strong></p>
+<ul>
+<li>这次我们使用bindService形式启动</li>
+</ul>
+<pre><code>vpDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(&quot;date&quot;,GetDate.today());
+                bindService(intent, HomeActivity.this,Service.BIND_AUTO_CREATE);                
+            }
+        });
+</code></pre><ul>
+<li><p>在service中应当实现一个binder，用以传递service的句柄，如此Activity便可以持有service从而调用service的方法了，这个binder在onBind中被传递</p>
+<pre><code>@Override
+public IBinder onBind(Intent intent) {
+    return new Binder();
+}
+
+public class Binder extends android.os.Binder{
+     public NewsService getService(){
+        return NewsService.this;
+    }
+}
+</code></pre></li>
+<li><p>注意此时，线程应该写在onCreate中，如果不混合使用两种启动方式，此时的onStartCommand是不会被调用的</p>
+<pre><code>@Override
+public void onCreate(){
+    super.onCreate();
+    //write your THREAD here !!
+    Log.d(TAG, &quot;onCreate: &quot;);
+}
+</code></pre></li>
+<li><p>返回到Activity中，再实现一个ServiceConnection接口，这个接口只有两个方法必须实现，可以看到service成功进入到了我们的Activity内</p>
+<pre><code>@Override
+public void onServiceConnected(ComponentName name, IBinder service) {
+    binder = (NewsService.Binder)service;
+    NewsService newsService = binder.getService();
+    newsService.showConnection();
+}
+
+@Override
+public void onServiceDisconnected(ComponentName name) {
+
+} 
+</code></pre></li>
+<li><p><a href="http://blog.csdn.net/u013553529/article/details/54754491?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">多次调用bindService()，onBind()只会执行一次</a></p>
+</li>
+</ul>
+<h2 id="service-生命周期"><a href="#service-生命周期" class="headerlink" title="service 生命周期"></a>service 生命周期</h2><h3 id="startService形式-1"><a href="#startService形式-1" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
+<li>startService()-&gt;onCreate()-&gt;onStartCommand()-&gt;onDestroy</li>
+<li>必须显式关闭service</li>
+</ul>
+<h3 id="bindService形式-1"><a href="#bindService形式-1" class="headerlink" title="bindService形式"></a>bindService形式</h3><ul>
+<li>bindService()-&gt;onCreate()-&gt;onBind()-&gt;onUnbind()-&gt;onDestriy</li>
+<li>service和所有客户端接触绑定之后才会被系统销毁，因此它的生命周期不用过多关心</li>
+</ul>
+<h2 id="Service的存在意义"><a href="#Service的存在意义" class="headerlink" title="Service的存在意义"></a>Service的存在意义</h2><p><strong>service本身是在主线程运行的，这是就是使用service还需要另外开启子线程的原因，那么为什么还要用到service？</strong></p>
+<ul>
+<li>service的运行是不依赖UI的，即使活动被销毁，service也可以一直运行</li>
+<li>Activity很难对内部创建的子线程进行控制，而service可以和所有Activity进行通信</li>
+<li>通过前台service提高优先级，在状态栏可以一直为用户提供功能，这是简单地在Activity中创建一个子线程所办不到的</li>
+</ul>
 
     
 
@@ -523,21 +648,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2016/10/15/hexo/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2016/10/14/hello-world/" id="post_nav-older" class="next-content">
+        <a href="/2017/07/10/additionOfActivity/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
