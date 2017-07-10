@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: C | 
+            Activity 知识补充 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="onCreate">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: C | Albert&#39;s Blog">
+    <meta property="og:title" content="Activity 知识补充 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="onCreate">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="7月 10, 2017" />
+        <meta property="article:modified_time" content="7月 10, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: C | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="Activity 知识补充 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="onCreate">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/tags/C/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "Activity 知识补充",
+    "url": "https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html",
+    "datePublished": "7月 10, 2017",
+    "dateModified": "7月 10, 2017",
+    "description": "onCreate",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -275,96 +308,477 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onWindowFocusChanged"><span class="post-toc-number">2.</span> <span class="post-toc-text">onWindowFocusChanged</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onSaveInstanceState"><span class="post-toc-number">3.</span> <span class="post-toc-text">onSaveInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onRestoreInstanceState"><span class="post-toc-number">4.</span> <span class="post-toc-text">onRestoreInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动模式与Flags"><span class="post-toc-number">5.</span> <span class="post-toc-text">启动模式与Flags</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用Bundle传递数据"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用Bundle传递数据</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/11/14/snakec/">混乱的贪吃蛇C代码</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            咳咳！
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/11/14/snakec/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>11月 14, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/代码/">代码</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Activity 知识补充
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>7月 10, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Activity 知识补充&url=https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Activity 知识补充&url=https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html&title=Activity 知识补充" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Activity 知识补充&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html&text=Activity 知识补充" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>onCreate</p>
+<a id="more"></a>
+<p><strong>本文参考资料</strong></p>
+<p><a href="http://blog.csdn.net/liuhe688/article/details/6733407" target="_blank" rel="external">liuhe688</a></p>
+<p><a href="http://blog.csdn.net/weizongwei5/article/details/50515719" target="_blank" rel="external">weizongwei5</a></p>
+<p><a href="http://download.csdn.net/detail/jsntghf/9602444" target="_blank" rel="external">Android开发艺术探索</a></p>
+<p><strong><br>第一行代码中Activity的内容比较简单，因此额外找了一些内容进一步学习
+</strong></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li>首先看一下<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#活动生命周期">Android生命周期的普通过程</a>，这一部分应该已经学习过几遍了，不再赘述，通过一个简单的demo进行回顾，稍后修改这个demo并切入主题</li>
+</ul>
+<pre><code>public class LifeActivity extends AppCompatActivity {
+
+    private static final String TAG = &quot;LifeActivity&quot;;
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_life);
+        Log.i(TAG, &quot;onCreate called&quot;);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, &quot;onStart called&quot;);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, &quot;nRestart called&quot;);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, &quot;onResume called&quot;);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, &quot;onPause called&quot;);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, &quot;onStop called&quot;);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, &quot;onDestroy called&quot;);
+    }
+}
+</code></pre><ul>
+<li>启动Activity</li>
+</ul>
+<pre><code>LifeActivity: onCreate called
+LifeActivity: onStart called
+LifeActivity: onResume called
+</code></pre><ul>
+<li>启动另一个Activity，可以看到前一个Activity的onPause执行之后下一个Activity的onCreated才会执行，这就是onPause耗时操作要少的原因，应当考虑能否将这部分操作在onStoped进行</li>
+</ul>
+<pre><code>LifeActivity: onPause called
+AnotherActivity: onCreate called
+AnotherActivity: onStart called
+AnotherActivity: onResume called
+LifeActivity: onStop called
+</code></pre><ul>
+<li>back键返回LifeActivity，同样前一个Activity的onPause执行后下一个Acti* vity的onRestart才会执行</li>
+</ul>
+<pre><code>AnotherActivity: onPause called
+LifeActivity: onRestart called
+LifeActivity: onStart called
+AnotherActivity: onStop called
+AnotherActivity: onDestroy called
+</code></pre><ul>
+<li>点击home键</li>
+</ul>
+<pre><code>LifeActivity: onPause called
+LifeActivity: onStop called        
+</code></pre><ul>
+<li>点击home键后回到应用</li>
+</ul>
+<pre><code>lifeActivity: oRestart called
+ifeActivity: onStart called
+LifeActivity: onResume called
+</code></pre><p><strong><br>接下来对这些调用方法进行一些奇怪的操作
+</strong></p>
+<ul>
+<li>在onCreate执行之前让Activity结束</li>
+</ul>
+<pre><code>...
+finish();
+super.onCreate(savedInstanceState);
+...
+</code></pre><ul>
+<li>输出</li>
+</ul>
+<pre><code>LifeActivity: onCreate called
+LifeActivity: onDestroy called
+</code></pre><ul>
+<li>很正常，onCreate被完整执行后onDestory()被执行了</li>
+</ul>
+<ul>
+<li>在onStart()中执行finish()，从结果可见没有进入前台期，与onStart对应的onStop被执行了</li>
+</ul>
+<pre><code>onStart called
+onStop called
+onDestroy called
+</code></pre><ul>
+<li>接下来尝试在onRestart()中执行finish()，然后在第二个Activity中按back键。有点奇怪，LifeActivity并不直接执行onStop，而是回到了前台，经历了一个非常完整的生命周期并且在第二个Activity之前被销毁</li>
+</ul>
+<pre><code>AnotherActivity: onPause called
+LifeActivity: onRestart called
+LifeActivity: onStart called
+LifeActivity: onResume called
+LifeActivity: onPause called
+LifeActivity: onStop called
+LifeActivity: onDestroy called
+AnotherActivity: onStop called
+AnotherActivity: onDestroy called
+</code></pre><ul>
+<li>到这里本来想测试一下Activity因内存不足而被销毁会经历什么过程，于是把虚拟机内存调为了128m，但是没能成功实现内存不足的情况…搜索到了使用adb模拟内存不足销毁应用的方法</li>
+</ul>
+<pre><code>adb shell am kill-all
+adb shell am kill package-name 
+# 我们关注的应用只有一个，所以这两个命令是一样的
+</code></pre><ul>
+<li>如无意外，应用会被kill，然而这里出现一个错误导致缓冲区被锁，log无法打印，暂时没有找到解决办法，实在不行以后下载个大点的游戏进行真机调试……</li>
+</ul>
+<pre><code>E/Surface: getSlotFromBufferLocked: unknown buffer: 0xb40152c0
+</code></pre><ul>
+<li>另外屏幕旋转会导致Activity被销毁重建，销毁过程为</li>
+</ul>
+<pre><code>AnotherActivity: onPause called
+AnotherActivity: onStop called
+AnotherActivity: onDestroy called
+</code></pre><h2 id="onWindowFocusChanged"><a href="#onWindowFocusChanged" class="headerlink" title="onWindowFocusChanged"></a>onWindowFocusChanged</h2><p><strong><br>这个方法会在Activity窗口获得或失去焦点被调用，和生命周期方法一样，程序员不应该自己去调用它
+</strong></p>
+<pre><code>onResume called
+onWindowFocusChanged called
+</code></pre><ul>
+<li>当我们在想在onCreate方法中获取组件大小时，有可能会因为window对象未创建而失败，必须保证在onCreate方法完成之后再执行</li>
+<li>重写onWindowFocusChanged方法可以解决这个问题</li>
+</ul>
+<h2 id="onSaveInstanceState"><a href="#onSaveInstanceState" class="headerlink" title="onSaveInstanceState"></a>onSaveInstanceState</h2><p><strong><br>这是一个为了Activity被调离栈顶时保存数据而存在的方法
+</strong></p>
+<ul>
+<li>被调用的位置，下一个活动进入前台，而之前的活动转为不可见时</li>
+</ul>
+<pre><code>AnotherActivity: onResume called
+LifeActivity: onSaveInstanceState called
+LifeActivity: onStop called
+</code></pre><ul>
+<li>注意一个会被销毁的Activity是不会调用这个方法的，只在可以被返回的Activity中重写它</li>
+</ul>
+<pre><code>     @Override
+    protected void onSaveInstanceState(Bundle outState){
+    outState.putInt(&quot;param&quot;,param);
+    Log.i(TAG, &quot;onSaveInstanceState called&quot;);
+}
+</code></pre><h2 id="onRestoreInstanceState"><a href="#onRestoreInstanceState" class="headerlink" title="onRestoreInstanceState"></a>onRestoreInstanceState</h2><p><strong><br>生命周期相关的方法总是两两配对，而onRestoreInstanceState的作用自然是获取保留下来的数据了，不过它的情况有点特殊，只会在Activity在后台被杀死或者屏幕旋转时被调用
+</strong></p>
+<ul>
+<li>同样重写这个方法，以键值对的形式得到数据</li>
+</ul>
+<pre><code>@Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        param = savedInstanceState.getInt(&quot;param&quot;);
+        Log.i(TAG, &quot;onRestoreInstanceState called get&quot;+param);
+        super.onRestoreInstanceState(savedInstanceState);
+    } 
+</code></pre><ul>
+<li>旋转屏幕并恢复</li>
+</ul>
+<pre><code>LifeActivity: onCreate called
+LifeActivity: onStart called
+LifeActivity: onRestoreInstanceState called get 1
+LifeActivity: onResume called
+LifeActivity: onWindowFocusChanged called 
+</code></pre><h2 id="启动模式与Flags"><a href="#启动模式与Flags" class="headerlink" title="启动模式与Flags"></a>启动模式与Flags</h2><p><strong><br>除了<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#四个启动模式">在XML中设置启动模式</a>，<br>下面还有一种设置启动模式的方法
+</strong></p>
+<ul>
+<li>Flags标记位有许多作用，其中一种是设置启动模式</li>
+<li>Flags标记位的优先级要大于XML属性，但它无法设置singleInstance模式，使用方式如下</li>
+</ul>
+<pre><code>public static void actionStart(Context context){
+
+        Intent intent = new Intent(context,FlagActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        context.startActivity(intent);
+    }
+</code></pre><ul>
+<li>几种常用的Flags</li>
+</ul>
+<pre><code>FLAG_ACTIVITY_NEW_TASK
+//指定singleTask模式
+
+FLAG_ACTIVITY_SINGLE_TOP
+//指定singleTop模式
+
+FLAG_ACTIVITY_CLEAR_TOP
+//启动时所用该Activity之上的Activity全部出栈，一般与singleTask一起使用
+//如果采用standard模式，该Activity与其上的Activity会出栈并建立新的Activity
+
+FLAG_ACTIVITY_FROM_RECENTS
+//Activity不出现在历史列表中
+</code></pre><h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p><strong><br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#使用Intent在活动之间穿梭">只使用Intent</a>是否会相当麻烦？
+</strong></p>
+<ul>
+<li><p>使用Bundle可以使数据的传输变得简单许多，创建Bundle并调用intent的putExtras(Bundle extras)方法即可</p>
+<pre><code>        button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(&quot;aBooleanParam&quot;,false);
+        bundle.putInt(&quot;anIntParam&quot;,1);
+        bundle.putString(&quot;aStringParam&quot;,&quot;2&quot;);
+        Intent intent = new Intent(AnotherActivity.this,FlagActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+});    
+</code></pre></li>
+<li><p>获取数据的方法和intent相同，也可以用putParcelable传递自定义的类型</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_flag);
+    Bundle bundle = getIntent().getExtras();
+    Log.d(TAG, &quot;onCreate: &quot;+bundle.getBoolean(&quot;aBooleanParam&quot;));
+    Log.d(TAG, &quot;onCreate: &quot;+bundle.getInt(&quot;anIntParam&quot;));
+    Log.d(TAG, &quot;onCreate: &quot;+bundle.getString(&quot;aStringParam&quot;));
+}           
+</code></pre></li>
+</ul>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/07/08/aboutGradle/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -540,6 +954,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-07-09T10:13:07.000Z</updated>
+  <updated>2017-07-10T08:45:39.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Activity 知识补充</title>
+    <link href="https://alberthumbert.github.io/2017/07/10/additionOfActivity/"/>
+    <id>https://alberthumbert.github.io/2017/07/10/additionOfActivity/</id>
+    <published>2017-07-10T01:36:24.000Z</published>
+    <updated>2017-07-10T08:45:39.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;onCreate&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Gradle 从入门到......</title>
@@ -40,7 +60,7 @@
     <link href="https://alberthumbert.github.io/2017/07/05/ASShortcut/"/>
     <id>https://alberthumbert.github.io/2017/07/05/ASShortcut/</id>
     <published>2017-07-05T13:54:18.000Z</published>
-    <updated>2017-07-09T10:14:52.000Z</updated>
+    <updated>2017-07-09T10:15:01.000Z</updated>
     
     <summary type="html">
     

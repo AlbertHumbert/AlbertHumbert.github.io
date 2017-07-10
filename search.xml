@@ -3,6 +3,266 @@
   
     
     <entry>
+      <title><![CDATA[Activity 知识补充]]></title>
+      <url>/2017/07/10/additionOfActivity/</url>
+      <content type="html"><![CDATA[<p>onCreate</p>
+<a id="more"></a>
+<p><strong>本文参考资料</strong></p>
+<p><a href="http://blog.csdn.net/liuhe688/article/details/6733407" target="_blank" rel="external">liuhe688</a></p>
+<p><a href="http://blog.csdn.net/weizongwei5/article/details/50515719" target="_blank" rel="external">weizongwei5</a></p>
+<p><a href="http://download.csdn.net/detail/jsntghf/9602444" target="_blank" rel="external">Android开发艺术探索</a></p>
+<p><strong><br>第一行代码中Activity的内容比较简单，因此额外找了一些内容进一步学习
+</strong></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li>首先看一下<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#活动生命周期">Android生命周期的普通过程</a>，这一部分应该已经学习过几遍了，不再赘述，通过一个简单的demo进行回顾，稍后修改这个demo并切入主题</li>
+</ul>
+<pre><code>public class LifeActivity extends AppCompatActivity {
+
+    private static final String TAG = &quot;LifeActivity&quot;;
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_life);
+        Log.i(TAG, &quot;onCreate called&quot;);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, &quot;onStart called&quot;);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, &quot;nRestart called&quot;);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, &quot;onResume called&quot;);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, &quot;onPause called&quot;);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, &quot;onStop called&quot;);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, &quot;onDestroy called&quot;);
+    }
+}
+</code></pre><ul>
+<li>启动Activity</li>
+</ul>
+<pre><code>LifeActivity: onCreate called
+LifeActivity: onStart called
+LifeActivity: onResume called
+</code></pre><ul>
+<li>启动另一个Activity，可以看到前一个Activity的onPause执行之后下一个Activity的onCreated才会执行，这就是onPause耗时操作要少的原因，应当考虑能否将这部分操作在onStoped进行</li>
+</ul>
+<pre><code>LifeActivity: onPause called
+AnotherActivity: onCreate called
+AnotherActivity: onStart called
+AnotherActivity: onResume called
+LifeActivity: onStop called
+</code></pre><ul>
+<li>back键返回LifeActivity，同样前一个Activity的onPause执行后下一个Acti* vity的onRestart才会执行</li>
+</ul>
+<pre><code>AnotherActivity: onPause called
+LifeActivity: onRestart called
+LifeActivity: onStart called
+AnotherActivity: onStop called
+AnotherActivity: onDestroy called
+</code></pre><ul>
+<li>点击home键</li>
+</ul>
+<pre><code>LifeActivity: onPause called
+LifeActivity: onStop called        
+</code></pre><ul>
+<li>点击home键后回到应用</li>
+</ul>
+<pre><code>lifeActivity: oRestart called
+ifeActivity: onStart called
+LifeActivity: onResume called
+</code></pre><p><strong><br>接下来对这些调用方法进行一些奇怪的操作
+</strong></p>
+<ul>
+<li>在onCreate执行之前让Activity结束</li>
+</ul>
+<pre><code>...
+finish();
+super.onCreate(savedInstanceState);
+...
+</code></pre><ul>
+<li>输出</li>
+</ul>
+<pre><code>LifeActivity: onCreate called
+LifeActivity: onDestroy called
+</code></pre><ul>
+<li>很正常，onCreate被完整执行后onDestory()被执行了</li>
+</ul>
+<ul>
+<li>在onStart()中执行finish()，从结果可见没有进入前台期，与onStart对应的onStop被执行了</li>
+</ul>
+<pre><code>onStart called
+onStop called
+onDestroy called
+</code></pre><ul>
+<li>接下来尝试在onRestart()中执行finish()，然后在第二个Activity中按back键。有点奇怪，LifeActivity并不直接执行onStop，而是回到了前台，经历了一个非常完整的生命周期并且在第二个Activity之前被销毁</li>
+</ul>
+<pre><code>AnotherActivity: onPause called
+LifeActivity: onRestart called
+LifeActivity: onStart called
+LifeActivity: onResume called
+LifeActivity: onPause called
+LifeActivity: onStop called
+LifeActivity: onDestroy called
+AnotherActivity: onStop called
+AnotherActivity: onDestroy called
+</code></pre><ul>
+<li>到这里本来想测试一下Activity因内存不足而被销毁会经历什么过程，于是把虚拟机内存调为了128m，但是没能成功实现内存不足的情况…搜索到了使用adb模拟内存不足销毁应用的方法</li>
+</ul>
+<pre><code>adb shell am kill-all
+adb shell am kill package-name 
+# 我们关注的应用只有一个，所以这两个命令是一样的
+</code></pre><ul>
+<li>如无意外，应用会被kill，然而这里出现一个错误导致缓冲区被锁，log无法打印，暂时没有找到解决办法，实在不行以后下载个大点的游戏进行真机调试……</li>
+</ul>
+<pre><code>E/Surface: getSlotFromBufferLocked: unknown buffer: 0xb40152c0
+</code></pre><ul>
+<li>另外屏幕旋转会导致Activity被销毁重建，销毁过程为</li>
+</ul>
+<pre><code>AnotherActivity: onPause called
+AnotherActivity: onStop called
+AnotherActivity: onDestroy called
+</code></pre><h2 id="onWindowFocusChanged"><a href="#onWindowFocusChanged" class="headerlink" title="onWindowFocusChanged"></a>onWindowFocusChanged</h2><p><strong><br>这个方法会在Activity窗口获得或失去焦点被调用，和生命周期方法一样，程序员不应该自己去调用它
+</strong></p>
+<pre><code>onResume called
+onWindowFocusChanged called
+</code></pre><ul>
+<li>当我们在想在onCreate方法中获取组件大小时，有可能会因为window对象未创建而失败，必须保证在onCreate方法完成之后再执行</li>
+<li>重写onWindowFocusChanged方法可以解决这个问题</li>
+</ul>
+<h2 id="onSaveInstanceState"><a href="#onSaveInstanceState" class="headerlink" title="onSaveInstanceState"></a>onSaveInstanceState</h2><p><strong><br>这是一个为了Activity被调离栈顶时保存数据而存在的方法
+</strong></p>
+<ul>
+<li>被调用的位置，下一个活动进入前台，而之前的活动转为不可见时</li>
+</ul>
+<pre><code>AnotherActivity: onResume called
+LifeActivity: onSaveInstanceState called
+LifeActivity: onStop called
+</code></pre><ul>
+<li>注意一个会被销毁的Activity是不会调用这个方法的，只在可以被返回的Activity中重写它</li>
+</ul>
+<pre><code>     @Override
+    protected void onSaveInstanceState(Bundle outState){
+    outState.putInt(&quot;param&quot;,param);
+    Log.i(TAG, &quot;onSaveInstanceState called&quot;);
+}
+</code></pre><h2 id="onRestoreInstanceState"><a href="#onRestoreInstanceState" class="headerlink" title="onRestoreInstanceState"></a>onRestoreInstanceState</h2><p><strong><br>生命周期相关的方法总是两两配对，而onRestoreInstanceState的作用自然是获取保留下来的数据了，不过它的情况有点特殊，只会在Activity在后台被杀死或者屏幕旋转时被调用
+</strong></p>
+<ul>
+<li>同样重写这个方法，以键值对的形式得到数据</li>
+</ul>
+<pre><code>@Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        param = savedInstanceState.getInt(&quot;param&quot;);
+        Log.i(TAG, &quot;onRestoreInstanceState called get&quot;+param);
+        super.onRestoreInstanceState(savedInstanceState);
+    } 
+</code></pre><ul>
+<li>旋转屏幕并恢复</li>
+</ul>
+<pre><code>LifeActivity: onCreate called
+LifeActivity: onStart called
+LifeActivity: onRestoreInstanceState called get 1
+LifeActivity: onResume called
+LifeActivity: onWindowFocusChanged called 
+</code></pre><h2 id="启动模式与Flags"><a href="#启动模式与Flags" class="headerlink" title="启动模式与Flags"></a>启动模式与Flags</h2><p><strong><br>除了<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#四个启动模式">在XML中设置启动模式</a>，<br>下面还有一种设置启动模式的方法
+</strong></p>
+<ul>
+<li>Flags标记位有许多作用，其中一种是设置启动模式</li>
+<li>Flags标记位的优先级要大于XML属性，但它无法设置singleInstance模式，使用方式如下</li>
+</ul>
+<pre><code>public static void actionStart(Context context){
+
+        Intent intent = new Intent(context,FlagActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        context.startActivity(intent);
+    }
+</code></pre><ul>
+<li>几种常用的Flags</li>
+</ul>
+<pre><code>FLAG_ACTIVITY_NEW_TASK
+//指定singleTask模式
+
+FLAG_ACTIVITY_SINGLE_TOP
+//指定singleTop模式
+
+FLAG_ACTIVITY_CLEAR_TOP
+//启动时所用该Activity之上的Activity全部出栈，一般与singleTask一起使用
+//如果采用standard模式，该Activity与其上的Activity会出栈并建立新的Activity
+
+FLAG_ACTIVITY_FROM_RECENTS
+//Activity不出现在历史列表中
+</code></pre><h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p><strong><br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#使用Intent在活动之间穿梭">只使用Intent</a>是否会相当麻烦？
+</strong></p>
+<ul>
+<li><p>使用Bundle可以使数据的传输变得简单许多，创建Bundle并调用intent的putExtras(Bundle extras)方法即可</p>
+<pre><code>        button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(&quot;aBooleanParam&quot;,false);
+        bundle.putInt(&quot;anIntParam&quot;,1);
+        bundle.putString(&quot;aStringParam&quot;,&quot;2&quot;);
+        Intent intent = new Intent(AnotherActivity.this,FlagActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+});    
+</code></pre></li>
+<li><p>获取数据的方法和intent相同，也可以用putParcelable传递自定义的类型</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_flag);
+    Bundle bundle = getIntent().getExtras();
+    Log.d(TAG, &quot;onCreate: &quot;+bundle.getBoolean(&quot;aBooleanParam&quot;));
+    Log.d(TAG, &quot;onCreate: &quot;+bundle.getInt(&quot;anIntParam&quot;));
+    Log.d(TAG, &quot;onCreate: &quot;+bundle.getString(&quot;aStringParam&quot;));
+}           
+</code></pre></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Gradle 从入门到......]]></title>
       <url>/2017/07/08/aboutGradle/</url>
       <content type="html"><![CDATA[<p>-</p>
