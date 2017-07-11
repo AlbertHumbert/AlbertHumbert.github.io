@@ -7,9 +7,12 @@
       <url>/2017/07/10/aboutService/</url>
       <content type="html"><![CDATA[<p>onCreate</p>
 <a id="more"></a>
+<p><strong><a href="https://alberthumbert.github.io/2017/07/10/aboutService/">或者看这里</a></strong></p>
 <p><strong>本篇未完</strong></p>
 <p><strong>主要通过实践对<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#服务的基本用法">Service的内容</a>进行复习</strong></p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="startService形式"><a href="#startService形式" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
+<p><br></p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p><br></p>
+<h3 id="startService形式"><a href="#startService形式" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
 <li>在Activity中使用 startService来启动服务，必要数据可以通过Intent来传递</li>
 </ul>
 <pre><code>...
@@ -71,6 +74,7 @@ protected void onStop(){
 </code></pre><ul>
 <li>注意当一个service被多次执行时请使用 stopSelf(Int startId)方法保证请求被正确终止，    startId由service的onStartCommand参数提供，它标记了请求的编号用以一一对应</li>
 </ul>
+<p> <br></p>
 <h3 id="bindService形式"><a href="#bindService形式" class="headerlink" title="bindService形式"></a>bindService形式</h3><p><strong><br>引入binder机制，实现Activity与service的通信
 </strong></p>
 <ul>
@@ -122,21 +126,109 @@ public void onServiceDisconnected(ComponentName name) {
 </code></pre><ul>
 <li><a href="http://blog.csdn.net/u013553529/article/details/54754491?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">多次调用bindService()，onBind()只会执行一次</a></li>
 </ul>
-<h2 id="service-生命周期"><a href="#service-生命周期" class="headerlink" title="service 生命周期"></a>service 生命周期</h2><h3 id="startService形式-1"><a href="#startService形式-1" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
+<p><br></p>
+<h2 id="service-生命周期"><a href="#service-生命周期" class="headerlink" title="service 生命周期"></a>service 生命周期</h2><p><br></p>
+<h3 id="startService形式-1"><a href="#startService形式-1" class="headerlink" title="startService形式"></a>startService形式</h3><ul>
 <li>startService()-&gt;onCreate()-&gt;onStartCommand()-&gt;onDestroy</li>
 <li>必须显式关闭service</li>
 </ul>
+<p><br></p>
 <h3 id="bindService形式-1"><a href="#bindService形式-1" class="headerlink" title="bindService形式"></a>bindService形式</h3><ul>
 <li>bindService()-&gt;onCreate()-&gt;onBind()-&gt;onUnbind()-&gt;onDestriy</li>
 <li>service和所有客户端接触绑定之后才会被系统销毁，因此它的生命周期不用过多关心</li>
 </ul>
+<p><br></p>
 <h2 id="Service的存在意义"><a href="#Service的存在意义" class="headerlink" title="Service的存在意义"></a>Service的存在意义</h2><p><strong>service本身是在主线程运行的，这是就是使用service还需要另外开启子线程的原因，那么为什么还要用到service？</strong></p>
 <ul>
 <li>service的运行是不依赖UI的，即使活动被销毁，service也可以一直运行</li>
 <li>Activity很难对内部创建的子线程进行控制，而service可以和所有Activity进行通信</li>
 <li>通过前台service提高优先级，在状态栏可以一直为用户提供功能，这是简单地在Activity中创建一个子线程所办不到的</li>
 </ul>
-]]></content>
+<p><br></p>
+<h2 id="前台service使用实例"><a href="#前台service使用实例" class="headerlink" title="前台service使用实例"></a>前台service使用实例</h2><p><strong>前台service和后台Service的使用方法基本与前述的Service基本无异，需要了解的只有Notification和startForeground方法</strong><br><strong>这次通过bindService和startForeground来发送通知</strong></p>
+<ul>
+<li>前面使用binder获取了service的实例，这个时候只要发送通知和调用service的方法即可，这一部分写在onCreate也是一样的</li>
+</ul>
+<pre><code>binder = (NewsService.Binder)service;
+    final NewsService newsService = binder.getService();
+    new Handler().postDelayed(new Runnable() {
+        @Override
+        public void run() {
+            List list= newsService.getNewsList();
+            if(list==null)return;
+            Notification.Builder builder = new Notification.Builder(HomeActivity.this);
+            Intent intent = new Intent(HomeActivity.this,HomeActivity.class);
+            builder.setContentIntent(PendingIntent.getActivity(HomeActivity.this,0,intent,0))
+                    .setContentTitle(((NewsBase)list.get(1)).getTitle())
+                    .setSmallIcon(R.mipmap.news_ic_launcher);
+            Notification notification = builder.build();
+            newsService.startForeground(1,notification);
+
+        }
+    },1000);
+</code></pre><ul>
+<li>为了使通知能够多次更新，可以考虑使用onStartCommand</li>
+<li>Notification<a href="http://blog.csdn.net/zhou452840622/article/details/52028896" target="_blank" rel="external">可设置的属性</a>非常多，采取了非常典型的构造者模式，内部通过return this实现链式调用</li>
+</ul>
+<p><br></p>
+<h2 id="IntentService使用实例"><a href="#IntentService使用实例" class="headerlink" title="IntentService使用实例"></a>IntentService使用实例</h2><p><strong>当要执行多套后台操作时我们首先使用的是onStartCommand，但是在开启线程和关闭请求时会比较繁琐，而IntentService提供简洁的使用方式</strong></p>
+<ul>
+<li>IntentService必须要有的方法之有两个，构造器和onHandleIntent</li>
+<li>构造器必须调用父类方法</li>
+</ul>
+<pre><code>       public NewsIntentService(String name) {
+    super(name);
+    }
+
+public NewsIntentService() {
+    super();
+    }
+    //使用后发现这两个方法都可行
+    //查看源码发现这两个方法都只是调用他们的父类ContextWrapper的构造器
+    //唯一的区别在于super(name)多了一行用来标记线程的名称，这个名称只在调试时有用
+    //Used to name the worker thread, important only for debugging.
+</code></pre><ul>
+<li>onHandleIntent()该方法运行于子线程中，所以不用自己开启线程</li>
+</ul>
+<pre><code>protected void onHandleIntent(@Nullable Intent intent) {
+
+JsonFromUrl jsonFromUrl= new JsonFromUrl();
+jsonFromUrl.setApi(NewsApi.COMMON+NewsApi.LATEST);
+JSONObject jsonObject = null;
+try {
+    jsonObject = jsonFromUrl.getJson();
+} catch (IOException | JSONException e) {
+    e.printStackTrace();
+}
+setNewsList(JsonAnalysis.analyze(newsList,jsonObject,NewsApi.LATEST,null));
+Notification.Builder builder = new Notification.Builder(this);
+builder.setContentIntent(PendingIntent.getActivity(this,0,intent,0))
+        .setContentTitle(((NewsBase)newsList.get(1)).getTitle())
+        .setSmallIcon(R.mipmap.news_ic_launcher);
+Notification notification = builder.build();
+startForeground(1,notification);
+}
+</code></pre><ul>
+<li>有时我们需要获取数据更新UI，那么只需要将Messenger传递给IntentService即可。利用binder和handler，信息可以很方便地在Activity和service间传输了</li>
+</ul>
+<pre><code>Handler handler = new Handler(){
+
+@Override
+public void handleMessage(Message msg){
+
+    Bundle bundle = msg.getData();
+    String message = bundle.getString(&quot;message&quot;);
+    switch(message){
+        case &quot;update something&quot;:
+        ... 
+    }
+    return;
+}
+};
+
+        intent = new Intent(HomeActivity.this,NewsService.class);
+intent.putExtra(&quot;messager&quot;,new Messenger(handler));
+</code></pre>]]></content>
       
         <categories>
             
@@ -158,7 +250,7 @@ public void onServiceDisconnected(ComponentName name) {
       <url>/2017/07/10/additionOfActivity/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><strong><a href="https://alberthumbert.github.io/2017/07/10/additionOfActivity/">或者看这里</a></strong><br><strong>本文参考资料</strong></p>
+<p><strong>参考资料</strong></p>
 <p><a href="http://blog.csdn.net/liuhe688/article/details/6733407" target="_blank" rel="external">liuhe688</a></p>
 <p><a href="http://blog.csdn.net/weizongwei5/article/details/50515719" target="_blank" rel="external">weizongwei5</a></p>
 <p><a href="http://download.csdn.net/detail/jsntghf/9602444" target="_blank" rel="external">Android开发艺术探索</a></p>
@@ -367,10 +459,58 @@ FLAG_ACTIVITY_CLEAR_TOP
 
 FLAG_ACTIVITY_FROM_RECENTS
 //Activity不出现在历史列表中
-</code></pre><h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p><strong><br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#使用Intent在活动之间穿梭">只使用Intent</a>是否会相当麻烦？
+</code></pre><h2 id="TaskAffinity"><a href="#TaskAffinity" class="headerlink" title="TaskAffinity"></a>TaskAffinity</h2><p><strong>TaskAffinity，指定了Activity将归属于哪一个任务栈，一般只配合singleTask和singleInstance模式使用</strong></p>
+<h3 id="查看和修改任务栈"><a href="#查看和修改任务栈" class="headerlink" title="查看和修改任务栈"></a>查看和修改任务栈</h3><ul>
+<li>首先，需要查看Activity的任务栈信息的手段，使用adb shell dumpsys activity可以查看所有与Activity相关的信息，但是输出非常冗长，不妨这样</li>
+</ul>
+<pre><code>adb shell dumpsys activity activities | sed -En -e &apos;/Running activities/,/Run #0/p&apos;
+</code></pre><ul>
+<li>TaskRecord 信息就是我们需要的，例如 com.linjiamin.lifecycle 就是Task的名字</li>
+</ul>
+<pre><code>TaskRecord{776e103 #53 A=com.linjiamin.lifecycle U=0 sz=3}
+</code></pre><ul>
+<li>taskAffinity指定Activity应属于哪一个任务栈，默认情况下它等于包名，这意味着Activity倾向于属于同一个任务，通过XML可以设置这个属性</li>
+</ul>
+<pre><code>&lt;activity
+    android:name=&quot;.FlagActivity&quot;
+    android:launchMode=&quot;singleTask&quot;
+    android:taskAffinity=&quot;com.linjiamin.lifecycle.task3&quot;&gt;
+    &lt;/activity&gt;
+</code></pre><ul>
+<li>执行 adb shell dumpsys，可见任务栈的已被修改</li>
+</ul>
+<pre><code>TaskRecord{1605ccbd #52 A=com.linjiamin.lifecycle.task3 U=0 sz=1}
+TaskRecord{2300c203 #51 A=com.linjiamin.lifecycle U=0 sz=2}
+</code></pre><h3 id="TaskAffinity与任务栈"><a href="#TaskAffinity与任务栈" class="headerlink" title="TaskAffinity与任务栈"></a>TaskAffinity与任务栈</h3><ul>
+<li>启动一个singleTask属性的Activity，系统首先会查找Activity想要的task，如果task不存在就会重新创建，而Activity具体需的Task名，默认情况是使用包名，当标记了TaskAffinity，就会使用TaskAffinity指定的值</li>
+</ul>
+<ul>
+<li>使用Standard模式启动Activity，会将Activity加入启动它的Activity的任务栈中，除非是用TaskAffinity去标记MainActivity（一般不会这样），否则TaskAffinity和sandard配合时，TaskAffinity是没有意义的</li>
+</ul>
+<pre><code>&lt;activity android:name=&quot;.LifeActivity&quot;
+    android:taskAffinity=&quot;com.linjiamin.lifecycle.task1&quot;
+    android:launchMode=&quot;standard&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+
+//输出为
+ TaskRecord{21a9d665 #57 A=com.linjiamin.lifecycle.task1 U=0 sz=4}
+</code></pre><ul>
+<li>当使用ApplicationContext去启动standard模式的Activity时，Application根本就没有任务栈，这时会报错，为解决这个问题，需要将Activity标记为singleTask，即</li>
+</ul>
+<pre><code>FLAG_ACTIVITY_NEW_TASK
+</code></pre><ul>
+<li>当使用 singleInstance，若实例存在，它的任务栈不会改变，如果实例不存在，会创建TaskAffinity指定的任务栈</li>
+</ul>
+<h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p><strong><br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#使用Intent在活动之间穿梭">只使用Intent</a>是否会相当麻烦？
 </strong></p>
 <ul>
-<li><p>使用Bundle可以使数据的传输变得简单许多，创建Bundle并调用intent的putExtras(Bundle extras)方法即可</p>
+<li>使用Bundle可以使数据的传输变得简单许多，创建Bundle并调用intent的putExtras(Bundle extras)方法即可</li>
+</ul>
 <pre><code>        button.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -383,8 +523,9 @@ FLAG_ACTIVITY_FROM_RECENTS
         startActivity(intent);
     }
 });    
-</code></pre></li>
-<li><p>获取数据的方法和intent相同，也可以用putParcelable传递自定义的类型</p>
+</code></pre><ul>
+<li>获取数据的方法和intent相同，也可以用putParcelable传递自定义的类型</li>
+</ul>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -394,9 +535,7 @@ protected void onCreate(Bundle savedInstanceState) {
     Log.d(TAG, &quot;onCreate: &quot;+bundle.getInt(&quot;anIntParam&quot;));
     Log.d(TAG, &quot;onCreate: &quot;+bundle.getString(&quot;aStringParam&quot;));
 }           
-</code></pre></li>
-</ul>
-]]></content>
+</code></pre>]]></content>
       
         <categories>
             

@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onWindowFocusChanged"><span class="post-toc-number">2.</span> <span class="post-toc-text">onWindowFocusChanged</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onSaveInstanceState"><span class="post-toc-number">3.</span> <span class="post-toc-text">onSaveInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onRestoreInstanceState"><span class="post-toc-number">4.</span> <span class="post-toc-text">onRestoreInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动模式与Flags"><span class="post-toc-number">5.</span> <span class="post-toc-text">启动模式与Flags</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用Bundle传递数据"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用Bundle传递数据</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onWindowFocusChanged"><span class="post-toc-number">2.</span> <span class="post-toc-text">onWindowFocusChanged</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onSaveInstanceState"><span class="post-toc-number">3.</span> <span class="post-toc-text">onSaveInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onRestoreInstanceState"><span class="post-toc-number">4.</span> <span class="post-toc-text">onRestoreInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动模式与Flags"><span class="post-toc-number">5.</span> <span class="post-toc-text">启动模式与Flags</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TaskAffinity"><span class="post-toc-number">6.</span> <span class="post-toc-text">TaskAffinity</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看和修改任务栈"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">查看和修改任务栈</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TaskAffinity与任务栈"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">TaskAffinity与任务栈</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用Bundle传递数据"><span class="post-toc-number">7.</span> <span class="post-toc-text">使用Bundle传递数据</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -503,7 +503,7 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><strong><a href="https://alberthumbert.github.io/2017/07/10/additionOfActivity/">或者看这里</a></strong><br><strong>本文参考资料</strong></p>
+<p><strong>参考资料</strong></p>
 <p><a href="http://blog.csdn.net/liuhe688/article/details/6733407" target="_blank" rel="external">liuhe688</a></p>
 <p><a href="http://blog.csdn.net/weizongwei5/article/details/50515719" target="_blank" rel="external">weizongwei5</a></p>
 <p><a href="http://download.csdn.net/detail/jsntghf/9602444" target="_blank" rel="external">Android开发艺术探索</a></p>
@@ -712,10 +712,58 @@ FLAG_ACTIVITY_CLEAR_TOP
 
 FLAG_ACTIVITY_FROM_RECENTS
 //Activity不出现在历史列表中
-</code></pre><h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p><strong><br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#使用Intent在活动之间穿梭">只使用Intent</a>是否会相当麻烦？
+</code></pre><h2 id="TaskAffinity"><a href="#TaskAffinity" class="headerlink" title="TaskAffinity"></a>TaskAffinity</h2><p><strong>TaskAffinity，指定了Activity将归属于哪一个任务栈，一般只配合singleTask和singleInstance模式使用</strong></p>
+<h3 id="查看和修改任务栈"><a href="#查看和修改任务栈" class="headerlink" title="查看和修改任务栈"></a>查看和修改任务栈</h3><ul>
+<li>首先，需要查看Activity的任务栈信息的手段，使用adb shell dumpsys activity可以查看所有与Activity相关的信息，但是输出非常冗长，不妨这样</li>
+</ul>
+<pre><code>adb shell dumpsys activity activities | sed -En -e &apos;/Running activities/,/Run #0/p&apos;
+</code></pre><ul>
+<li>TaskRecord 信息就是我们需要的，例如 com.linjiamin.lifecycle 就是Task的名字</li>
+</ul>
+<pre><code>TaskRecord{776e103 #53 A=com.linjiamin.lifecycle U=0 sz=3}
+</code></pre><ul>
+<li>taskAffinity指定Activity应属于哪一个任务栈，默认情况下它等于包名，这意味着Activity倾向于属于同一个任务，通过XML可以设置这个属性</li>
+</ul>
+<pre><code>&lt;activity
+    android:name=&quot;.FlagActivity&quot;
+    android:launchMode=&quot;singleTask&quot;
+    android:taskAffinity=&quot;com.linjiamin.lifecycle.task3&quot;&gt;
+    &lt;/activity&gt;
+</code></pre><ul>
+<li>执行 adb shell dumpsys，可见任务栈的已被修改</li>
+</ul>
+<pre><code>TaskRecord{1605ccbd #52 A=com.linjiamin.lifecycle.task3 U=0 sz=1}
+TaskRecord{2300c203 #51 A=com.linjiamin.lifecycle U=0 sz=2}
+</code></pre><h3 id="TaskAffinity与任务栈"><a href="#TaskAffinity与任务栈" class="headerlink" title="TaskAffinity与任务栈"></a>TaskAffinity与任务栈</h3><ul>
+<li>启动一个singleTask属性的Activity，系统首先会查找Activity想要的task，如果task不存在就会重新创建，而Activity具体需的Task名，默认情况是使用包名，当标记了TaskAffinity，就会使用TaskAffinity指定的值</li>
+</ul>
+<ul>
+<li>使用Standard模式启动Activity，会将Activity加入启动它的Activity的任务栈中，除非是用TaskAffinity去标记MainActivity（一般不会这样），否则TaskAffinity和sandard配合时，TaskAffinity是没有意义的</li>
+</ul>
+<pre><code>&lt;activity android:name=&quot;.LifeActivity&quot;
+    android:taskAffinity=&quot;com.linjiamin.lifecycle.task1&quot;
+    android:launchMode=&quot;standard&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+
+//输出为
+ TaskRecord{21a9d665 #57 A=com.linjiamin.lifecycle.task1 U=0 sz=4}
+</code></pre><ul>
+<li>当使用ApplicationContext去启动standard模式的Activity时，Application根本就没有任务栈，这时会报错，为解决这个问题，需要将Activity标记为singleTask，即</li>
+</ul>
+<pre><code>FLAG_ACTIVITY_NEW_TASK
+</code></pre><ul>
+<li>当使用 singleInstance，若实例存在，它的任务栈不会改变，如果实例不存在，会创建TaskAffinity指定的任务栈</li>
+</ul>
+<h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p><strong><br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#使用Intent在活动之间穿梭">只使用Intent</a>是否会相当麻烦？
 </strong></p>
 <ul>
-<li><p>使用Bundle可以使数据的传输变得简单许多，创建Bundle并调用intent的putExtras(Bundle extras)方法即可</p>
+<li>使用Bundle可以使数据的传输变得简单许多，创建Bundle并调用intent的putExtras(Bundle extras)方法即可</li>
+</ul>
 <pre><code>        button.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -728,8 +776,9 @@ FLAG_ACTIVITY_FROM_RECENTS
         startActivity(intent);
     }
 });    
-</code></pre></li>
-<li><p>获取数据的方法和intent相同，也可以用putParcelable传递自定义的类型</p>
+</code></pre><ul>
+<li>获取数据的方法和intent相同，也可以用putParcelable传递自定义的类型</li>
+</ul>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -739,9 +788,7 @@ protected void onCreate(Bundle savedInstanceState) {
     Log.d(TAG, &quot;onCreate: &quot;+bundle.getInt(&quot;anIntParam&quot;));
     Log.d(TAG, &quot;onCreate: &quot;+bundle.getString(&quot;aStringParam&quot;));
 }           
-</code></pre></li>
-</ul>
-
+</code></pre>
     
 
     
