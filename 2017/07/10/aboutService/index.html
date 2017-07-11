@@ -672,16 +672,11 @@ public void onServiceDisconnected(ComponentName name) {
 <li>IntentService必须要有的方法之有两个，构造器和onHandleIntent</li>
 <li>构造器必须调用父类方法</li>
 </ul>
-<pre><code>       public NewsIntentService(String name) {
-    super(name);
+<pre><code>public NewsIntentService() {
+    super(&quot;NewsIntentService&quot;);
     }
 
-public NewsIntentService() {
-    super();
-    }
-    //使用后发现这两个方法都可行
-    //查看源码发现这两个方法都只是调用他们的父类ContextWrapper的构造器
-    //唯一的区别在于super(name)多了一行用来标记线程的名称，这个名称只在调试时有用
+    //查看源码发现super(name)使用它的参数来标记线程的名称，而这个名称只在调试时有用
     //Used to name the worker thread, important only for debugging.
 </code></pre><ul>
 <li>onHandleIntent()该方法运行于子线程中，所以不用自己开启线程</li>
@@ -705,7 +700,7 @@ Notification notification = builder.build();
 startForeground(1,notification);
 }
 </code></pre><ul>
-<li>有时我们需要获取数据更新UI，那么只需要将Messenger传递给IntentService即可。利用binder和handler，信息可以很方便地在Activity和service间传输了</li>
+<li>有时我们需要获取数据更新UI，那么只需要将Messenger传递给IntentService即可。利用binder、handler和broadcastReceiver，信息可以很方便地在Activity和service间传输了</li>
 </ul>
 <pre><code>Handler handler = new Handler(){
 
