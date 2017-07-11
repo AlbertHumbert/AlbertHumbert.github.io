@@ -3,6 +3,315 @@
   
     
     <entry>
+      <title><![CDATA[常用布局的使用方法和场景]]></title>
+      <url>/2017/07/11/aboutLayout/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>本篇未完</strong></p>
+<h2 id="使用RelativeLayout减少层级"><a href="#使用RelativeLayout减少层级" class="headerlink" title="使用RelativeLayout减少层级"></a>使用RelativeLayout减少层级</h2><h3 id="层级的影响"><a href="#层级的影响" class="headerlink" title="层级的影响"></a>层级的影响</h3><ul>
+<li>要完整地显示一个界面就需要对所有的View进行一次绘制工作，Android通过递归查找View树，而多叉树的层级越深，耗时就越长</li>
+<li>布局层次深会增加内存的消耗，甚至会引起栈溢出等问题</li>
+<li>RelativeLayout也有性能的问题，它会对子View进行竖直和水平的两次测量，但如果LinearLayout中含有weight属性那么LinearLayout也同样需要进行两次测量</li>
+<li>可以在XML界面中的Component Tree或是AS自带的Hierachy View 工具中查看一个界面的层级</li>
+</ul>
+<h3 id="RelativeLayout替换LinearLayout"><a href="#RelativeLayout替换LinearLayout" class="headerlink" title="RelativeLayout替换LinearLayout"></a>RelativeLayout替换LinearLayout</h3><ul>
+<li><p>以这个界面为例</p>
+<p>  <img src="http://i2.kiimg.com/1949/a4919b1895abe7ea.png" alt=""></p>
+</li>
+</ul>
+<ul>
+<li>这是一个评论ListView的Item视图，嵌套了三个LinearLayout来实现</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout
+xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:orientation=&quot;vertical&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;wrap_content&quot;
+android:background=&quot;#FFFAFA&quot;&gt;
+
+&lt;LinearLayout
+    android:orientation=&quot;horizontal&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;&gt;
+
+    &lt;ImageView
+        android:id=&quot;@+id/item_iv_avatar&quot;
+        android:layout_width=&quot;36dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:layout_marginStart=&quot;4dp&quot;
+        android:layout_marginTop=&quot;4dp&quot;
+        android:scaleType=&quot;fitXY&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/item_tv_author&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:paddingStart=&quot;8dp&quot;
+        android:paddingEnd=&quot;8dp&quot;
+        android:paddingTop=&quot;8dp&quot;
+        android:textSize=&quot;17sp&quot;
+        android:textColor=&quot;#303030&quot;/&gt;
+    &lt;/LinearLayout&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/item_tv_content&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:paddingStart=&quot;50dp&quot;
+        android:paddingEnd=&quot;8dp&quot;
+        android:lineSpacingMultiplier=&quot;1.2&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textColor=&quot;#3B3B3B&quot;/&gt;
+
+    &lt;LinearLayout
+        android:orientation=&quot;horizontal&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/item_tv_time&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:paddingStart=&quot;50dp&quot;
+            android:paddingEnd=&quot;8dp&quot;
+            android:layout_marginBottom=&quot;8dp&quot;
+            android:textSize=&quot;12sp&quot;
+            android:textColor=&quot;#66000000&quot;/&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/item_tv_likes&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;match_parent&quot;
+            android:paddingStart=&quot;2dp&quot;
+            android:paddingEnd=&quot;2dp&quot;
+            android:paddingTop=&quot;8dp&quot;
+            android:textSize=&quot;12sp&quot;
+            android:textColor=&quot;#AAFF4040&quot;/&gt;
+    &lt;/LinearLayout&gt;
+</code></pre><p></p>
+<ul>
+<li>现在尝试使用一层RelativeLayout来实现，只要确定好子View之间的位置关系，使用 android:layout_toRightOf等<a href="http://blog.csdn.net/notenlife/article/details/7256363" target="_blank" rel="external">相对属性</a>很快就能替换</li>
+</ul>
+<pre><code>    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+    &lt;RelativeLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:orientation=&quot;vertical&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:background=&quot;#FFFAFA&quot;&gt;
+
+
+    &lt;ImageView
+        android:id=&quot;@+id/item_iv_avatar&quot;
+        android:layout_width=&quot;36dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:layout_marginStart=&quot;4dp&quot;
+        android:layout_marginTop=&quot;4dp&quot;
+        android:scaleType=&quot;fitXY&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/item_tv_author&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_toRightOf=&quot;@id/item_iv_avatar&quot;
+        android:paddingStart=&quot;8dp&quot;
+        android:paddingEnd=&quot;8dp&quot;
+        android:paddingTop=&quot;8dp&quot;
+        android:textSize=&quot;15sp&quot;
+        android:textColor=&quot;#303030&quot;/&gt;
+
+
+    &lt;TextView
+        android:id=&quot;@+id/item_tv_content&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_below=&quot;@id/item_tv_author&quot;
+        android:paddingStart=&quot;50dp&quot;
+        android:paddingTop=&quot;18dp&quot;
+        android:paddingEnd=&quot;8dp&quot;
+        android:lineSpacingMultiplier=&quot;1.1&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textColor=&quot;#3B3B3B&quot;/&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/item_tv_time&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_below=&quot;@id/item_tv_content&quot;
+            android:paddingStart=&quot;50dp&quot;
+            android:paddingEnd=&quot;8dp&quot;
+            android:paddingTop=&quot;8dp&quot;
+            android:paddingBottom=&quot;8dp&quot;
+            android:textSize=&quot;12sp&quot;
+            android:textColor=&quot;#66000000&quot;/&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/item_tv_likes&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;match_parent&quot;
+            android:layout_below=&quot;@id/item_tv_content&quot;
+            android:layout_toEndOf=&quot;@id/item_tv_time&quot;
+            android:paddingStart=&quot;2dp&quot;
+            android:paddingEnd=&quot;2dp&quot;
+            android:paddingTop=&quot;8dp&quot;
+            android:paddingBottom=&quot;8dp&quot;
+            android:textSize=&quot;12sp&quot;
+            android:textColor=&quot;#AAFF4040&quot;/&gt;
+
+&lt;/RelativeLayout&gt;
+</code></pre><ul>
+<li>就这两种布局而言，当层级较深时我们可以使用RelativeLayout来优化，层级较浅时则优先使用便捷的LinearLayout</li>
+</ul>
+<h2 id="其他布局"><a href="#其他布局" class="headerlink" title="其他布局"></a>其他布局</h2><p><strong>FrameLayout，LinearLayout比较常用，这里主要了解一下其他布局的属性</strong></p>
+<h3 id="TableLayout"><a href="#TableLayout" class="headerlink" title="- TableLayout"></a>- TableLayout</h3>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[BroadcastReceiver的使用]]></title>
+      <url>/2017/07/11/aboutBroadcast/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p><strong>Intent的四个基本属性包括Action、Data、Category、Extras</strong></p>
+<ul>
+<li>ACTION是一个字符串，它代表一个动作</li>
+<li>ACTION值可以自定义，只要Intent-filter中ACTION的值与自定义的相同，Intent就可以被接收</li>
+<li>自定义ACTION的规范为 package name + activity name + ACTION，ACTION的需要大写并使用下划线隔开</li>
+</ul>
+<h3 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h3><ul>
+<li>有序广播与标准广播发送的过程都是类似的，只是最后发送时调用的方法可能不同而已</li>
+</ul>
+<pre><code>Intent intent = new Intent();
+intent.setAction(&quot;com.linjiamin.broadcast.NORMAL&quot;);
+intent.putExtra(&quot;key&quot;,&quot;value&quot;);
+sendBroadcast(intent);
+//sendOrderedBroadcast(intent,null);
+//有序广播
+//接收至少接收两个参数，一个为intent，另一个为权限，只有持有权限的应用才可以接收
+</code></pre><ul>
+<li>本地广播的发送方式则有些不同，需要获取localBroadcastManager的实例并调用其方法来发送</li>
+</ul>
+<pre><code>Intent intent = new Intent(&quot;com.linjiamin.broadcast.NORMAL&quot;);
+LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(MainActivity.this);
+localBroadcastManager.sendBroadcast(intent);
+</code></pre><h3 id="注册广播"><a href="#注册广播" class="headerlink" title="注册广播"></a>注册广播</h3><p><strong>注册广播分为两种方式，静态和动态</strong>   </p>
+<ul>
+<li>静态注册，在新建BroadcastReceiver子类时，AS会自动生成</li>
+</ul>
+<pre><code>&lt;receiver
+    android:name=&quot;.MyReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot;&gt;
+&lt;/receiver&gt; 
+</code></pre><ul>
+<li>我们只需要添加，intent-filter 属性，通过priority还可以设置优先级，优先级范围在 -1000~1000</li>
+</ul>
+<pre><code>&lt;receiver
+    android:name=&quot;.MyReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.linjiamin.broadcast.NORMAL&quot;/&gt;
+    &lt;/intent-filter&gt;
+
+&lt;/receiver&gt;
+</code></pre><ul>
+<li>动态注册，需要BroadcastReceiver和intentFilter的实例，并调用注册方法</li>
+</ul>
+<pre><code> ....
+
+    MyReceiver receiver = new MyReceiver();
+    IntentFilter intentFilter = new IntentFilter();
+
+ ....     
+   intentFilter.addAction(&quot;com.linjiamin.broadcast.NORMAL&quot;);
+    registerReceiver(receiver,intentFilter);
+
+//LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(MainActivity.this);
+//localBroadcastManager.registerReceiver(receiver,intentFilter);            
+//本地广播注册同样要获取LocalBroadcastManager实例
+</code></pre><ul>
+<li>不要忘记解除注册</li>
+</ul>
+<pre><code>unregisterReceiver(receiver);
+</code></pre><ul>
+<li>如果接收的是有序广播，可以选择终止传递</li>
+</ul>
+<pre><code>    @Override
+public void onReceive(Context context, Intent intent) {
+
+    Log.d(&quot;MyReceiver&quot;, &quot;onReceive: receive&quot;);
+    abortBroadcast();
+}
+</code></pre><ul>
+<li>注册系统广播的方法是相同的，但有时需要在androidManifest中添加权限</li>
+</ul>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+</code></pre><h2 id="自定义权限"><a href="#自定义权限" class="headerlink" title="自定义权限"></a>自定义权限</h2><p><strong>在androidManifest中还可以自定义权限，此时除了权限的名称（规范和action基本一致）外，还有一个protectionLevel需要指定</strong></p>
+<pre><code>&lt;permission
+android:name=&quot;com.linjiamin.permission.TEST&quot;
+android:protectionLevel=&quot;normal&quot; /&gt;
+</code></pre><ul>
+<li>protectionLevel有四个可选值</li>
+</ul>
+<pre><code>normal：无需用户确认，申请了就可使用
+dangerous：需要用户确认申请才有效
+signature：当使用权限的应用与声明权限的应用打包时签名相同申请才有效
+signatureOrSystem：符合上述signature条件或者请求应用为系统应用时申请有效
+</code></pre><ul>
+<li>申请方法是相同的</li>
+</ul>
+<pre><code>&lt;uses-permission android:name=&quot;com.linjiamin.permission.TEST&quot;/&gt;
+</code></pre><ul>
+<li>注册时需要添加权限属性</li>
+</ul>
+<pre><code>&lt;receiver
+    android:name=&quot;.MyReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot;
+    android:permission=&quot;com.linjiamin.permission.TEST&quot;&gt;
+    &lt;action android:name=&quot;com.linjiamin.broadcast.TEST&quot;/&gt;
+&lt;/receiver&gt;
+</code></pre><ul>
+<li><p>使用带权限参数的方法发送广播</p>
+<pre><code>sendBroadcast(intent,&quot;com.linjiamin.permission.TEST&quot;);
+</code></pre></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[实践使用服务]]></title>
       <url>/2017/07/10/aboutService/</url>
       <content type="html"><![CDATA[<p>onCreate</p>
@@ -147,9 +456,9 @@ public void onServiceDisconnected(ComponentName name) {
 <p><br></p>
 <h2 id="前台service使用实例"><a href="#前台service使用实例" class="headerlink" title="前台service使用实例"></a>前台service使用实例</h2><p><strong>前台service和后台Service的使用方法基本与前述的Service基本无异，需要了解的只有Notification和startForeground方法</strong><br><strong>这次通过bindService和startForeground来发送通知</strong></p>
 <ul>
-<li>前面使用binder获取了service的实例，这个时候只要发送通知和调用service的方法即可，这一部分写在onCreate也是一样的</li>
-</ul>
-<pre><code>binder = (NewsService.Binder)service;
+<li><p>前面在onServiceConnected中使用binder获取了service的实例，这个时候只要发送通知并调用service的startForeground即可，这一部分写在onCreate也是一样的</p>
+<pre><code>//in onServiceConnected
+binder = (NewsService.Binder)service;
     final NewsService newsService = binder.getService();
     new Handler().postDelayed(new Runnable() {
         @Override
@@ -166,9 +475,11 @@ public void onServiceDisconnected(ComponentName name) {
 
         }
     },1000);
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>为了使通知能够多次更新，可以考虑使用onStartCommand</li>
-<li>Notification<a href="http://blog.csdn.net/zhou452840622/article/details/52028896" target="_blank" rel="external">可设置的属性</a>非常多，采取了非常典型的构造者模式，内部通过return this实现链式调用</li>
+<li>Notification<a href="http://blog.csdn.net/zhou452840622/article/details/52028896" target="_blank" rel="external">可设置的属性</a>非常多，它采取了非常典型的构造者模式，内部通过return this实现链式调用</li>
 </ul>
 <p><br></p>
 <h2 id="IntentService使用实例"><a href="#IntentService使用实例" class="headerlink" title="IntentService使用实例"></a>IntentService使用实例</h2><p><strong>当要执行多套后台操作时我们首先使用的是onStartCommand，但是在开启线程和关闭请求时会比较繁琐，而IntentService提供简洁的使用方式</strong></p>
@@ -315,7 +626,7 @@ AnotherActivity: onStart called
 AnotherActivity: onResume called
 LifeActivity: onStop called
 </code></pre><ul>
-<li>back键返回LifeActivity，同样前一个Activity的onPause执行后下一个Acti* vity的onRestart才会执行</li>
+<li>back键返回LifeActivity，同样前一个Activity的onPause执行后下一个Activity的onRestart才会执行</li>
 </ul>
 <pre><code>AnotherActivity: onPause called
 LifeActivity: onRestart called
@@ -456,7 +767,7 @@ FLAG_ACTIVITY_FROM_RECENTS
 //Activity不出现在历史列表中
 </code></pre><h2 id="TaskAffinity"><a href="#TaskAffinity" class="headerlink" title="TaskAffinity"></a>TaskAffinity</h2><p><strong>TaskAffinity，指定了Activity将归属于哪一个任务栈，一般只配合singleTask和singleInstance模式使用</strong></p>
 <h3 id="查看和修改任务栈"><a href="#查看和修改任务栈" class="headerlink" title="查看和修改任务栈"></a>查看和修改任务栈</h3><ul>
-<li>首先，需要查看Activity的任务栈信息的手段，使用adb shell dumpsys activity可以查看所有与Activity相关的信息，但是输出非常冗长，不妨这样</li>
+<li>首先，需要查看Activity任务栈信息的手段，使用adb shell dumpsys activity可以查看所有与Activity相关的信息，但是输出非常冗长，不妨这样</li>
 </ul>
 <pre><code>adb shell dumpsys activity activities | sed -En -e &apos;/Running activities/,/Run #0/p&apos;
 </code></pre><ul>
@@ -464,7 +775,7 @@ FLAG_ACTIVITY_FROM_RECENTS
 </ul>
 <pre><code>TaskRecord{776e103 #53 A=com.linjiamin.lifecycle U=0 sz=3}
 </code></pre><ul>
-<li>taskAffinity指定Activity应属于哪一个任务栈，默认情况下它等于包名，这意味着Activity倾向于属于同一个任务，通过XML可以设置这个属性</li>
+<li>taskAffinity指定Activity应属于哪一个任务栈，默认情况下它等于包名，这意味着Activity倾向于属于同一个任务，通过XML可以设置这个属性，以singleTask模式为例</li>
 </ul>
 <pre><code>&lt;activity
     android:name=&quot;.FlagActivity&quot;
@@ -472,15 +783,15 @@ FLAG_ACTIVITY_FROM_RECENTS
     android:taskAffinity=&quot;com.linjiamin.lifecycle.task3&quot;&gt;
     &lt;/activity&gt;
 </code></pre><ul>
-<li>执行 adb shell dumpsys，可见任务栈的已被修改</li>
+<li>执行 adb shell dumpsys，可见任务栈的已被修改，task3出现了</li>
 </ul>
 <pre><code>TaskRecord{1605ccbd #52 A=com.linjiamin.lifecycle.task3 U=0 sz=1}
 TaskRecord{2300c203 #51 A=com.linjiamin.lifecycle U=0 sz=2}
 </code></pre><h3 id="TaskAffinity与任务栈"><a href="#TaskAffinity与任务栈" class="headerlink" title="TaskAffinity与任务栈"></a>TaskAffinity与任务栈</h3><ul>
-<li>启动一个singleTask属性的Activity，系统首先会查找Activity想要的task，如果task不存在就会重新创建，而Activity具体需的Task名，默认情况是使用包名，当标记了TaskAffinity，就会使用TaskAffinity指定的值</li>
+<li>启动一个singleTask属性的Activity，系统首先会查找Activity想要的task，若不存在就会创建这个task。而Activity具体需的Task名，默认情况是使用包名，若标记了TaskAffinity就会使用TaskAffinity指定的值</li>
 </ul>
 <ul>
-<li>使用Standard模式启动Activity，会将Activity加入启动它的Activity的任务栈中，除非是用TaskAffinity去标记MainActivity（一般不会这样），否则TaskAffinity和sandard配合时，TaskAffinity是没有意义的</li>
+<li>使用Standard模式启动Activity，会将Activity加入启动它的Activity的任务栈中，除非是用TaskAffinity去标记MainActivity（一般不会这样），否则TaskAffinity和sandard配合时TaskAffinity是没有意义的</li>
 </ul>
 <pre><code>&lt;activity android:name=&quot;.LifeActivity&quot;
     android:taskAffinity=&quot;com.linjiamin.lifecycle.task1&quot;
@@ -495,11 +806,11 @@ TaskRecord{2300c203 #51 A=com.linjiamin.lifecycle U=0 sz=2}
 //输出为
  TaskRecord{21a9d665 #57 A=com.linjiamin.lifecycle.task1 U=0 sz=4}
 </code></pre><ul>
-<li>当使用ApplicationContext去启动standard模式的Activity时，Application根本就没有任务栈，这时会报错，为解决这个问题，需要将Activity标记为singleTask，即</li>
+<li>当使用ApplicationContext去启动standard模式的Activity时，Application根本就没有任务栈，所以这时会报错，为解决这个问题，需要将Activity的FLAG标记为singleTask模式，即</li>
 </ul>
 <pre><code>FLAG_ACTIVITY_NEW_TASK
 </code></pre><ul>
-<li>当使用 singleInstance，若实例存在，它的任务栈不会改变，如果实例不存在，会创建TaskAffinity指定的任务栈</li>
+<li>当使用 singleInstance，若实例存在，它的任务栈不会改变，如果实例不存在且栈不存在，则会创建TaskAffinity指定的任务栈和实例</li>
 </ul>
 <h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p><strong><br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#使用Intent在活动之间穿梭">只使用Intent</a>是否会相当麻烦？
 </strong></p>
