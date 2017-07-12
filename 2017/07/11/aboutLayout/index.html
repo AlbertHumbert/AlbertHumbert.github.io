@@ -834,40 +834,6 @@ android:layout_height=&quot;match_parent&quot;&gt;
 <li>android:foreground，设置前景图像，前景图像永远不会被覆盖</li>
 <li>android:foregroundGravity，设置背景图像</li>
 <li>当我们需要通过覆盖来实现界面时，会使用到frameLayout</li>
-<li><p>另外还有一种情况，当需要暂时显示一个logo，</p>
-<pre><code>&lt;FrameLayout
-    android:id=&quot;@+id/home_fl_logo&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;&gt;
-    &lt;ImageView
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:scaleType=&quot;centerInside&quot;
-        android:src=&quot;@drawable/ic_logo&quot;
-        android:padding=&quot;80dp&quot;
-        android:layout_marginBottom=&quot;100dp&quot;/&gt;
-    &lt;TextView
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:text=&quot;@string/app_name&quot;
-        android:textColor=&quot;#99000000&quot;
-        android:textSize=&quot;19dp&quot;
-        android:layout_gravity=&quot;bottom|center&quot;
-        android:layout_marginBottom=&quot;190dp&quot;/&gt;
-
-&lt;/FrameLayout&gt;
-</code></pre></li>
-</ul>
-<ul>
-<li><p>使用handler的postDelayed延迟隐藏布局</p>
-<pre><code>new Handler().postDelayed(new Runnable() {
-    @Override
-    public void run() {
-        HomeActivity.this.findViewById(R.id.home_fl_logo)
-                .setVisibility(View.GONE);
-    }
-},3000);
-</code></pre></li>
 </ul>
 
     
