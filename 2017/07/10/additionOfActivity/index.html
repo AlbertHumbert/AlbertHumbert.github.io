@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="7月 10, 2017" />
-        <meta property="article:modified_time" content="7月 11, 2017" />
+        <meta property="article:modified_time" content="7月 12, 2017" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Activity 知识补充",
     "url": "https://alberthumbert.github.io/2017/07/10/additionOfActivity/index.html",
     "datePublished": "7月 10, 2017",
-    "dateModified": "7月 11, 2017",
+    "dateModified": "7月 12, 2017",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -712,7 +712,36 @@ FLAG_ACTIVITY_CLEAR_TOP
 
 FLAG_ACTIVITY_FROM_RECENTS
 //Activity不出现在历史列表中
-</code></pre><h2 id="TaskAffinity"><a href="#TaskAffinity" class="headerlink" title="TaskAffinity"></a>TaskAffinity</h2><p><strong>TaskAffinity，指定了Activity将归属于哪一个任务栈，一般只配合singleTask和singleInstance模式使用</strong></p>
+</code></pre><ul>
+<li><p>我们使用 FLAG_ACTIVITY_NEW_TASK 为例循环启动3个Activity，不在XML中标记，可以看出依然为standard模式</p>
+<pre><code>Run #6: ActivityRecord{fd1d8c9 u0 com.linjiamin.myapplication/.NewTaskActivity t138}
+ Run #5: ActivityRecord{47b8982 u0 com.linjiamin.myapplication/.NewTaskActivity t138}
+ Run #4: ActivityRecord{60095cc u0 com.linjiamin.myapplication/.MainActivity t138}
+ Run #3: ActivityRecord{786e788 u0 com.linjiamin.myapplication/.Main2Activity t138}
+ Run #2: ActivityRecord{87a03a5 u0 com.linjiamin.myapplication/.Main2Activity t138}
+ Run #1: ActivityRecord{9471e17 u0 com.linjiamin.myapplication/.NewTaskActivity t138}
+ Run #0: ActivityRecord{49c4ac2 u0 com.linjiamin.myapplication/.MainActivity t138}
+</code></pre></li>
+<li><p>接着在XML中标记为SingleInstance模式，FLAG依然不起作用，singleTask亦同</p>
+<pre><code>   TaskRecord{bfd2cdd #139 A=com.linjiamin.myapplication U=0 sz=5}
+  Run #5: ActivityRecord{6fd6eee u0 com.linjiamin.myapplication/.Main2Activity t139}
+TaskRecord{98a6f23 #140 A=com.linjiamin.myapplication U=0 sz=1}
+  Run #4: ActivityRecord{1d577f4 u0 com.linjiamin.myapplication/.NewTaskActivity t140}
+TaskRecord{bfd2cdd #139 A=com.linjiamin.myapplication U=0 sz=5}
+  Run #3: ActivityRecord{3ba4af9 u0 com.linjiamin.myapplication/.MainActivity t139}
+  Run #2: ActivityRecord{4a4b5bc u0 com.linjiamin.myapplication/.Main2Activity t139}
+  Run #1: ActivityRecord{5e70342 u0 com.linjiamin.myapplication/.Main2Activity t139}
+  Run #0: ActivityRecord{b3bab83 u0 com.linjiamin.myapplication/.MainActivity t139}
+</code></pre></li>
+<li><p>查看文档，这个Flag确实用来标记(或者曾经用来标记)singleTask模式，实践发现手动设置Flag已经不起作用，但文档却没有修改，存在一定的误导性</p>
+<pre><code>* &lt;p&gt;When using this flag, if a task is already running for the activity
+ * you are now starting, then a new activity will not be started; instead,
+ * the current task will simply be brought to the front of the screen with
+ * the state it was last in.  See {@link #FLAG_ACTIVITY_MULTIPLE_TASK} for a flag
+ * to disable this behavior.
+</code></pre></li>
+</ul>
+<h2 id="TaskAffinity"><a href="#TaskAffinity" class="headerlink" title="TaskAffinity"></a>TaskAffinity</h2><p><strong>TaskAffinity，指定了Activity将归属于哪一个任务栈，一般只配合singleTask和singleInstance模式使用</strong></p>
 <h3 id="查看和修改任务栈"><a href="#查看和修改任务栈" class="headerlink" title="查看和修改任务栈"></a>查看和修改任务栈</h3><ul>
 <li>首先，需要查看Activity任务栈信息的手段，使用adb shell dumpsys activity可以查看所有与Activity相关的信息，但是输出非常冗长，不妨这样</li>
 </ul>
