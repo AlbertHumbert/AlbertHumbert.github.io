@@ -3,6 +3,180 @@
   
     
     <entry>
+      <title><![CDATA[aboutContentProvider]]></title>
+      <url>/2017/07/12/aboutContentProvider/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="运行时权限"><a href="#运行时权限" class="headerlink" title="运行时权限"></a>运行时权限</h2><p><strong>每当跨应用传递数据和信息时都要考虑是否需要申请权限，申请权限的授予分两种情况，系统自动授权和运行时授权</strong></p>
+<ul>
+<li>compileSdk小于23的程序在6.0以上的系统运行，所有的权限只要在XML中注册即可，大于23的版本若需要获取dangerous类型的权限必须动态申请否则程序会崩溃</li>
+<li>动态申请的权限也必须在AndroidManifest中注明</li>
+<li>获取运行时权限的步骤还是比较简单的，首先使用ContextCompat.checkSelfPermission方法检查是否已被授权，若未授权着调用ActivityCompat.requestPermissions方法申请权限，系统会自动调用onRequestPermissionsResult，在里面写入想要进行的操作即可</li>
+</ul>
+<pre><code>button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ContextCompat.checkSelfPermission
+                (MainActivity.this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED){
+
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.CALL_PHONE},1);
+                }
+
+                else{
+                    call();
+                }
+            }
+        });
+
+    }
+
+    public void call(){
+        try{
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse(&quot;tel:10086&quot;));
+            MainActivity.this.startActivity(intent);
+
+        }catch (SecurityException e){
+            e.printStackTrace();
+        }
+    }
+
+@Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case 1:
+                if (grantResults.length&gt;0 &amp;&amp; grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    call();
+                }
+        }
+    }
+}
+</code></pre><ul>
+<li>经过测试在API 23以下的虚拟机自动获取到了这个权限，ContextCompat.checkSelfPermission 返回 PERMISSION_GRANTED</li>
+</ul>
+<h2 id="Uri"><a href="#Uri" class="headerlink" title="Uri"></a>Uri</h2><p><strong>HTTP中规定的资源标识符</strong></p>
+<ul>
+<li>一个Uri由三部分组成，scheme (android中为content://)，主机名或Authority (如com.example.contenttest )，路径 (如/test/20)</li>
+</ul>
+<pre><code>content://com.example.contenttest/test/20
+//test为表名，20位id
+//使用*和#通配符匹配任意长度的字符和数字，可得到一个表中的所有数据
+</code></pre><ul>
+<li>用一个字符串获取Uri，只需调用Uri.parse(“”)方法</li>
+</ul>
+<h2 id="UriMatcher"><a href="#UriMatcher" class="headerlink" title="UriMatcher"></a>UriMatcher</h2><p><strong>Uri匹配工具</strong></p>
+<ul>
+<li>向外界共享数据时，首先要考虑什么数据可以共享，什么数据不可以共享，所以第一步需要将可以匹配的Uri进行注册,这里使用了初始化块</li>
+</ul>
+<pre><code>public class NewsProvider extends ContentProvider {
+    public static final int NEWS_ALL = 0;
+    public static final int NEWS_ITEM = 1;
+
+    public static final String AUTHORITY = &quot;com.linjiamin.provider&quot;;
+    private static UriMatcher uriMatcher;
+
+    static{
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(AUTHORITY,&quot;News&quot;,NEWS_ALL);
+        uriMatcher.addURI(AUTHORITY,&quot;News/#&quot;,NEWS_ITEM);
+    }
+</code></pre><ul>
+<li><p>uriMatcher.addURI中的第三个参数是uri匹配时会返回的值，可以用它来标记查询的内容</p>
+</li>
+<li><p>接着重写几个数据库方法，返回对应的cursor，在switch中我们使用uriMatcher.match(uri)来得到刚刚的NEWS_ALL等标记</p>
+</li>
+</ul>
+<pre><code>@Override
+public Cursor query(Uri uri, String[] projection, String selection,
+                    String[] selectionArgs, String sortOrder) {
+    SQLiteDatabase db = newsDatabaseHelper.getReadableDatabase();
+    Cursor cursor =  null;
+    switch (uriMatcher.match(uri)){
+        case NEWS_ALL:
+            cursor = db.query(&quot;news&quot;,new String[]{&quot;id&quot;,&quot;title&quot;,&quot;image_url&quot;,&quot;has_read&quot;,&quot;multipic&quot;},&quot;date=? and from_Home=?&quot;,new String[]{&quot;20170710&quot;,&quot;true&quot;},null,null,null);
+            break;
+        case NEWS_ITEM:
+            String id = uri.getPathSegments().get(1);
+            cursor = db.query(&quot;news&quot;,new String[]{&quot;id&quot;,&quot;title&quot;,&quot;image_url&quot;,&quot;has_read&quot;,&quot;multipic&quot;},&quot;id=?&quot;,new String[]{id,&quot;true&quot;},null,null,null);
+            break;
+
+        default:
+            break;
+    }
+
+    return cursor;
+}
+</code></pre><ul>
+<li>CRUD的方法只要使用数据库就可以实现了，除此之外只有一个方法比较特殊，它需要返回MIME类型，MIME Type由媒体类型(type)与子类型(subtype)组成，在intent-filter中添加MIME Type属性可以定义一个Activity可以打开什么类型的文件，provider中自定义MIME Type的规范为  vnd.android.cursor.dir(或item)/vnd.com.linjiamin.provider.news(表名)”</li>
+</ul>
+<pre><code>@Override
+    public String getType(Uri uri) {
+        switch(uriMatcher.match(uri)){
+            case NEWS_ALL:
+                return &quot;vnd.android.cursor.dir/vnd.com.linjiamin.provider.news&quot;;
+
+            case NEWS_ITEM:
+                return &quot;vnd.android.cursor.item/vnd.com.linjiamin.provider.news&quot;;
+
+            default:
+                break;
+        }
+</code></pre><ul>
+<li><p>接着在另一个应用中获取数据，调用getContentResolver得到cursor</p>
+<pre><code>button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Uri uri = Uri.parse(&quot;content://com.linjiamin.provider/news&quot;);
+        Cursor cursor = getContentResolver().query(uri,null,null,null,null);
+        if(cursor!=null){
+            cursor.moveToFirst();
+            Log.d(&quot;MainActivity&quot;, &quot;onClick: &quot;+cursor.getString(cursor.getColumnIndex(&quot;title&quot;)));
+        }
+</code></pre></li>
+</ul>
+<ul>
+<li>得到一条新闻标题，可见数据跨应用传输了 </li>
+</ul>
+<pre><code>MainActivity: onClick: 为什么民航航班会在途中绕圈？
+</code></pre><h2 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h2><ul>
+<li>在一个类声明中可以包含多个代码块并在其中进行简单的逻辑操作，这些代码块会在构造器运行之前调用，在JDK6之前一个程序甚至可以没有main入口</li>
+</ul>
+<pre><code>public class Hello{
+    static{
+        System.out.println(&quot;hello world&quot;);
+    }
+}
+</code></pre><ul>
+<li>当一个类的静态域比较复杂，可以使用静态初始化块进行初始化</li>
+</ul>
+<pre><code>static{
+
+    ...
+    ...
+
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[常用布局的使用方法和场景]]></title>
       <url>/2017/07/11/aboutLayout/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -20,7 +194,7 @@
 </li>
 </ul>
 <ul>
-<li>这是一个评论ListView的Item视图，嵌套了三个LinearLayout来实现</li>
+<li>这是一个评论ListView的Item视图，在一个LinearLayout中嵌套了两个LinearLayout来实现，可能还不算太深</li>
 </ul>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;LinearLayout
@@ -191,9 +365,9 @@ android:background=&quot;#FFFAFA&quot;&gt;
 <a id="more"></a>
 <h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p><strong>Intent的四个基本属性包括Action、Data、Category、Extras</strong></p>
 <ul>
-<li>ACTION是一个字符串，它代表一个动作</li>
+<li>ACTION是一个字符串，它代表一个动作，可以是创建一个Activity，启动应用，或者用来发送广播等</li>
 <li>ACTION值可以自定义，只要Intent-filter中ACTION的值与自定义的相同，Intent就可以被接收</li>
-<li>自定义ACTION的规范为 package name + activity name + ACTION，ACTION的需要大写并使用下划线隔开</li>
+<li>自定义ACTION的规范为 package name + activity name + ACTION，ACTION需要大写并使用下划线隔开</li>
 </ul>
 <h3 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h3><ul>
 <li>有序广播与标准广播发送的过程都是类似的，只是最后发送时调用的方法可能不同而已</li>
@@ -221,7 +395,7 @@ localBroadcastManager.sendBroadcast(intent);
     android:exported=&quot;true&quot;&gt;
 &lt;/receiver&gt; 
 </code></pre><ul>
-<li>我们只需要添加，intent-filter 属性，通过priority还可以设置优先级，优先级范围在 -1000~1000</li>
+<li>我们只需要添加Intent-filter 属性，通过priority还可以设置优先级，优先级范围在 -1000~1000</li>
 </ul>
 <pre><code>&lt;receiver
     android:name=&quot;.MyReceiver&quot;
@@ -233,7 +407,7 @@ localBroadcastManager.sendBroadcast(intent);
 
 &lt;/receiver&gt;
 </code></pre><ul>
-<li>动态注册，需要BroadcastReceiver和intentFilter的实例，并调用注册方法</li>
+<li>动态注册，需要BroadcastReceiver和IntentFilter的实例，并调用注册方法</li>
 </ul>
 <pre><code> ....
 
@@ -272,7 +446,7 @@ android:protectionLevel=&quot;normal&quot; /&gt;
 <li>protectionLevel有四个可选值</li>
 </ul>
 <pre><code>normal：无需用户确认，申请了就可使用
-dangerous：需要用户确认申请才有效
+dangerous：用户确认后申请才有效
 signature：当使用权限的应用与声明权限的应用打包时签名相同申请才有效
 signatureOrSystem：符合上述signature条件或者请求应用为系统应用时申请有效
 </code></pre><ul>
@@ -317,7 +491,6 @@ signatureOrSystem：符合上述signature条件或者请求应用为系统应用
       <content type="html"><![CDATA[<p>onCreate</p>
 <a id="more"></a>
 <p><strong><a href="https://alberthumbert.github.io/2017/07/10/aboutService/">或者看这里</a></strong></p>
-<p><strong>本篇未完</strong></p>
 <p><strong>主要通过实践对<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#服务的基本用法">Service的内容</a>进行复习</strong></p>
 <p><br></p>
 <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p><br></p>
@@ -515,7 +688,7 @@ Notification notification = builder.build();
 startForeground(1,notification);
 }
 </code></pre><ul>
-<li>有时我们需要获取数据更新UI，那么只需要将Messenger传递给IntentService即可。利用binder、handler和broadcastReceiver，信息可以很方便地在Activity和service间传输了</li>
+<li>有时我们需要获取数据更新UI，那么只需要将Messenger传递给IntentService即可。现在我们发现，利用binder、handler和broadcastReceiver，信息可以很方便地在Activity和service间传输了</li>
 </ul>
 <pre><code>Handler handler = new Handler(){
 

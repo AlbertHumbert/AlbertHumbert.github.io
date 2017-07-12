@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-07-11T15:43:58.000Z</updated>
+  <updated>2017-07-12T07:16:59.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>aboutContentProvider</title>
+    <link href="https://alberthumbert.github.io/2017/07/12/aboutContentProvider/"/>
+    <id>https://alberthumbert.github.io/2017/07/12/aboutContentProvider/</id>
+    <published>2017-07-12T01:32:54.000Z</published>
+    <updated>2017-07-12T07:16:59.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>常用布局的使用方法和场景</title>
     <link href="https://alberthumbert.github.io/2017/07/11/aboutLayout/"/>
     <id>https://alberthumbert.github.io/2017/07/11/aboutLayout/</id>
     <published>2017-07-11T12:54:54.000Z</published>
-    <updated>2017-07-11T15:43:58.000Z</updated>
+    <updated>2017-07-11T16:00:21.000Z</updated>
     
     <summary type="html">
     
@@ -40,7 +60,7 @@
     <link href="https://alberthumbert.github.io/2017/07/11/aboutBroadcast/"/>
     <id>https://alberthumbert.github.io/2017/07/11/aboutBroadcast/</id>
     <published>2017-07-11T08:12:19.000Z</published>
-    <updated>2017-07-11T12:36:01.000Z</updated>
+    <updated>2017-07-11T16:06:07.000Z</updated>
     
     <summary type="html">
     
@@ -60,7 +80,7 @@
     <link href="https://alberthumbert.github.io/2017/07/10/aboutService/"/>
     <id>https://alberthumbert.github.io/2017/07/10/aboutService/</id>
     <published>2017-07-10T08:57:10.000Z</published>
-    <updated>2017-07-11T15:53:55.000Z</updated>
+    <updated>2017-07-11T16:09:32.000Z</updated>
     
     <summary type="html">
     
@@ -387,27 +407,6 @@
     
     
       <category term="Hexo" scheme="https://alberthumbert.github.io/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的涂鸦</title>
-    <link href="https://alberthumbert.github.io/2016/10/15/mypaintings/"/>
-    <id>https://alberthumbert.github.io/2016/10/15/mypaintings/</id>
-    <published>2016-10-15T06:52:14.000Z</published>
-    <updated>2017-06-03T17:57:53.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这是一个存放半成品的地方，线稿居多&lt;/p&gt;
-&lt;p&gt;也许哪天会想要继续画的东西，大概吧&lt;br&gt;
-    
-    </summary>
-    
-      <category term="创作" scheme="https://alberthumbert.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
-    
-    
-      <category term="涂鸦" scheme="https://alberthumbert.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
     
   </entry>
   
