@@ -12,7 +12,7 @@
     
     <title>
         
-            我的涂鸦 | 
+            ListView基本用法 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,9 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧">
-    <meta name="keywords" content="null,涂鸦">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -66,28 +65,26 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="我的涂鸦 | Albert&#39;s Blog">
+    <meta property="og:title" content="ListView基本用法 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧">
-    <meta property="og:article:tag" content="涂鸦"> 
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="10月 15, 2016" />
-        <meta property="article:modified_time" content="6月 04, 2017" />
+        <meta property="article:published_time" content="7月 12, 2017" />
+        <meta property="article:modified_time" content="7月 12, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="我的涂鸦 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧">
+    <meta name="twitter:title" content="ListView基本用法 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -113,12 +110,11 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "我的涂鸦",
-    "url": "https://alberthumbert.github.io/2016/10/15/mypaintings/index.html",
-    "datePublished": "10月 15, 2016",
-    "dateModified": "6月 04, 2017",
-    "description": "这是一个存放半成品的地方，线稿居多
-也许哪天会想要继续画的东西，大概吧",
+    "headline": "ListView基本用法",
+    "url": "https://alberthumbert.github.io/2017/07/12/aboutListView/index.html",
+    "datePublished": "7月 12, 2017",
+    "dateModified": "7月 12, 2017",
+    "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
@@ -339,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#BaseAdapter"><span class="post-toc-number">1.</span> <span class="post-toc-text">BaseAdapter</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重写方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">重写方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进一步优化"><span class="post-toc-number">2.</span> <span class="post-toc-text">进一步优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LruCache"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">- LruCache</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隐藏滚动条"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">- 隐藏滚动条</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无数据提示"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">- 无数据提示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#滑动监听"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">- 滑动监听</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OnScrollListener"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">- OnScrollListener</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OnTouchListener"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">- OnTouchListener</span></a></li></ol></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -364,11 +360,20 @@
                 
     <!-- Paradox Post Header -->
     
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://p1.bpimg.com/567571/49b24aac8aef4874.jpg)">
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
     
             <p class="article-headline-p">
-                我的涂鸦
+                ListView基本用法
             </p>
         </div>
 
@@ -387,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>10月 15, 2016</span>
+        <span>7月 12, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -411,7 +416,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/涂鸦/">涂鸦</a>
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
     </ul>
     
 
@@ -427,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=我的涂鸦&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ListView基本用法&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -436,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=我的涂鸦&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=ListView基本用法&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -445,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -454,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -463,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&title=我的涂鸦" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&title=ListView基本用法" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -472,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=我的涂鸦&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=ListView基本用法&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -481,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2016/10/15/mypaintings/index.html&text=我的涂鸦" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&text=ListView基本用法" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -496,14 +501,193 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>这是一个存放半成品的地方，线稿居多</p>
-<p>也许哪天会想要继续画的东西，大概吧<br><a id="more"></a><br><img src="http://p1.bqimg.com/567571/2b22b63555a8a112.jpg" alt="光影部分没有完成，不肝了:("></p>
-<p><img src="http://p1.bpimg.com/567571/49b24aac8aef4874.jpg" alt="自用的logo（并没有用 "></p>
-<p><img src="http://p1.bqimg.com/567571/9c34ec604599fff3.jpg" alt="久违的同人"></p>
-<p><img src="http://p1.bqimg.com/567571/095305f6498ebb45.jpg" alt="为什么以前总是能画出现在都没办法上色的稿呢:("></p>
-<p><img src="http://p1.bqimg.com/567571/e61bab9ccfe04d9d.jpg" alt="维持线描风更好吧！"></p>
-<p><img src="http://p1.bqimg.com/567571/96551e32716e8e5c.jpg" alt="看完岚少的夜回，徊，佪，廻..hui字有几种写法，本来打算做生贺图的，但是sai文件丢了"></p>
-<p><img src="http://p1.bqimg.com/567571/006ca391246954a4.jpg" alt=""></p>
+        <p>-</p>
+<a id="more"></a>
+<p><strong>本篇未完</strong></p>
+<h2 id="BaseAdapter"><a href="#BaseAdapter" class="headerlink" title="BaseAdapter"></a>BaseAdapter</h2><p><strong>主要学习BaseAdapter的几个办法，ArrayAdapter是BaseAdapter的子类，用法相似</strong></p>
+<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><p><strong>顾名思义，返回一个View实例，它是一个Adapter中最重要的方法</strong></p>
+<ul>
+<li>BaseAdapter实现了ListAdapter接口，ListAdapter接口继承自Adapter接口，在Adapter中找到getView方法，它需要三个参数，position，view是需要的数据在容器中的位置，convertView是旧的View，Adapter会缓存一个刚离开屏幕的View，使用它可以避免反复的查找子View，parent就是使用Adapter的ListView，当然也可能不是ListView，这要看哪个控件使用这个Adapter</li>
+</ul>
+<pre><code>int position, View convertView, ViewGroup parent
+</code></pre><ul>
+<li><p>getItemId，getItem，item指的是data set中的每一个元素，ItemId是Item的标记，前者返回position指定的item的id，后者返回position指定Item</p>
+</li>
+<li><p>getCount，返回Item的数量，通常为容器的大小</p>
+</li>
+<li>总的来说实现一个adapter的步骤为</li>
+</ul>
+<pre><code>public class NewsListAdapter extends BaseAdapter {
+
+private int mResourceId;
+private BitmapCache mCache;
+private Context mContext;
+private List mDataList;
+
+public NewsListAdapter(Context context, int resourceId, List&lt;NewsBase&gt; dataList){
+mResourceId = resourceId;
+mContext = context;
+mDataList = dataList;
+mCache = new 
+    }
+
+@Override
+public int getCount() {
+return mDataList.size();
+}
+
+@Override
+public Object getItem(int position) {
+return mDataList.get(position);
+}
+
+@Override
+public long getItemId(int position) {
+return position;
+}
+
+@Override
+public @NonNull View getView(int position,View convertView,@NonNull ViewGroup parent){
+
+View view = null;
+ViewHolder viewHolder;
+if(convertView == null) {
+    view = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
+    viewHolder = new ViewHolder();
+    viewHolder.***View = (***View)view.findViewById(R.id.item_***);
+    //通过view.findViewById查找view
+    ...         
+    view.setTag(viewHolder);
+
+}else {
+    view = convertView;
+    viewHolder = (ViewHolder)view.getTag();
+}
+
+Item item = (Item) getItem(position);
+if(item == null)
+    return view;
+
+viewHolder.***View.set(item.get***());
+//设置界面信息
+...
+
+
+return view;
+}
+
+public Context getContext() {
+return mContext;
+}
+
+private class ViewHolder{
+
+***View  ***View;
+//需要缓存子view
+...
+
+      }
+}
+</code></pre><ul>
+<li>有几点需要注意，构造器中传入resourceId是为了可以复用adapter而不去再写新类，为了实现这一点Item的子View中资源名称不要有特殊性，让它们共用名称，这样即使是不同的Item布局也可以用同一个adapter</li>
+<li>一般情况下position和itemId可以共用，getItemId返回position即可，getItem返回data.get(position)即可</li>
+<li>使用ViewHolder，这样我们虽然不能保证convertView每次都缓存成功，但能够保证convertView缓存成功时，我们不用通过convertView的findViewById去查找它的子View</li>
+</ul>
+<h2 id="进一步优化"><a href="#进一步优化" class="headerlink" title="进一步优化"></a>进一步优化</h2><h3 id="LruCache"><a href="#LruCache" class="headerlink" title="- LruCache"></a>- LruCache</h3><ul>
+<li>当convertView被用来修改成新view时，旧的数据也就没有了，这时如果用户往回拖动ListView，又得重新加载，可以使用LruCache保留这些数据</li>
+<li><p>LruCache使用泛型，但对于ListView来说通常需要缓存的是Bitmap，下面实现一个LruCache的工具类</p>
+<pre><code>public class BitmapCache {
+
+public static int MAX_MEMORY = (int)(Runtime.getRuntime().maxMemory()/1024);
+private LruCache&lt;String,Bitmap&gt; mCache;
+
+public BitmapCache(int cacheSize){
+mCache = new LruCache&lt;String,Bitmap&gt;(cacheSize){
+    @Override
+    protected int sizeOf(String url,Bitmap bitmap) {
+        return bitmap.getByteCount() / 1024;
+    }
+};
+}
+
+/**
+ *
+ * 该方法用于将图片放入缓存
+ * @param url 链接，或其他标识
+ * @param bitmap 图片
+ *
+ */
+public void put(String url,Bitmap bitmap){
+    mCache.put(url,bitmap);
+}
+
+/**
+ *
+ * 该方法用于将图片从缓存中取出
+ * @param url 链接，或其他标识
+ * @return 图片，当缓存中没有指定图片时返回null
+ *
+ */
+public Bitmap get(String url){
+    return mCache.get(url);
+    }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>LrCache通常只需要设定类型和缓存大小，这个大小最好不要写入一个常值，而是根据运行时的内存大小来设定</p>
+<pre><code>public static int MAX_MEMORY = (int)(Runtime.getRuntime().maxMemory()/1024);
+</code></pre></li>
+</ul>
+<h3 id="隐藏滚动条"><a href="#隐藏滚动条" class="headerlink" title="- 隐藏滚动条"></a>- 隐藏滚动条</h3><ul>
+<li><p>ListView默认会有一个比较鸡肋的滚动条，可以在XML中隐藏</p>
+<pre><code>android:scrollbars=&quot;none&quot;    
+</code></pre></li>
+</ul>
+<h3 id="无数据提示"><a href="#无数据提示" class="headerlink" title="- 无数据提示"></a>- 无数据提示</h3><ul>
+<li><p>ListView提供了一个方法用来在没有数据时提示用户</p>
+<pre><code>lv.setEmptyView(R.id.empty);
+</code></pre></li>
+</ul>
+<h3 id="滑动监听"><a href="#滑动监听" class="headerlink" title="- 滑动监听"></a>- 滑动监听</h3><h4 id="OnScrollListener"><a href="#OnScrollListener" class="headerlink" title="- OnScrollListener"></a>- OnScrollListener</h4><ul>
+<li><p>实现 OnScrollListener，在不同的状态下自定义ListView        </p>
+<pre><code>lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        switch (scrollState){
+            case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                break;
+            case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                break;
+            case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                break;
+
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
+});
+</code></pre><h4 id="OnTouchListener"><a href="#OnTouchListener" class="headerlink" title="- OnTouchListener"></a>- OnTouchListener</h4></li>
+<li><p>实现 OnTouchListener，在不同的状态下自定义ListView</p>
+<pre><code>lv.setOnTouchListener(new View.OnTouchListener() {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        return false;
+    }
+});
+</code></pre></li>
+</ul>
 
     
 
@@ -523,21 +707,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2016/10/15/hexo/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2016/10/14/hello-world/" id="post_nav-older" class="next-content">
+        <a href="/2017/07/12/aboutContentProvider/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

@@ -3,6 +3,213 @@
   
     
     <entry>
+      <title><![CDATA[ListView基本用法]]></title>
+      <url>/2017/07/12/aboutListView/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>本篇未完</strong></p>
+<h2 id="BaseAdapter"><a href="#BaseAdapter" class="headerlink" title="BaseAdapter"></a>BaseAdapter</h2><p><strong>主要学习BaseAdapter的几个办法，ArrayAdapter是BaseAdapter的子类，用法相似</strong></p>
+<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><p><strong>顾名思义，返回一个View实例，它是一个Adapter中最重要的方法</strong></p>
+<ul>
+<li>BaseAdapter实现了ListAdapter接口，ListAdapter接口继承自Adapter接口，在Adapter中找到getView方法，它需要三个参数，position，view是需要的数据在容器中的位置，convertView是旧的View，Adapter会缓存一个刚离开屏幕的View，使用它可以避免反复的查找子View，parent就是使用Adapter的ListView，当然也可能不是ListView，这要看哪个控件使用这个Adapter</li>
+</ul>
+<pre><code>int position, View convertView, ViewGroup parent
+</code></pre><ul>
+<li><p>getItemId，getItem，item指的是data set中的每一个元素，ItemId是Item的标记，前者返回position指定的item的id，后者返回position指定Item</p>
+</li>
+<li><p>getCount，返回Item的数量，通常为容器的大小</p>
+</li>
+<li>总的来说实现一个adapter的步骤为</li>
+</ul>
+<pre><code>public class NewsListAdapter extends BaseAdapter {
+
+private int mResourceId;
+private BitmapCache mCache;
+private Context mContext;
+private List mDataList;
+
+public NewsListAdapter(Context context, int resourceId, List&lt;NewsBase&gt; dataList){
+mResourceId = resourceId;
+mContext = context;
+mDataList = dataList;
+mCache = new 
+    }
+
+@Override
+public int getCount() {
+return mDataList.size();
+}
+
+@Override
+public Object getItem(int position) {
+return mDataList.get(position);
+}
+
+@Override
+public long getItemId(int position) {
+return position;
+}
+
+@Override
+public @NonNull View getView(int position,View convertView,@NonNull ViewGroup parent){
+
+View view = null;
+ViewHolder viewHolder;
+if(convertView == null) {
+    view = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
+    viewHolder = new ViewHolder();
+    viewHolder.***View = (***View)view.findViewById(R.id.item_***);
+    //通过view.findViewById查找view
+    ...         
+    view.setTag(viewHolder);
+
+}else {
+    view = convertView;
+    viewHolder = (ViewHolder)view.getTag();
+}
+
+Item item = (Item) getItem(position);
+if(item == null)
+    return view;
+
+viewHolder.***View.set(item.get***());
+//设置界面信息
+...
+
+
+return view;
+}
+
+public Context getContext() {
+return mContext;
+}
+
+private class ViewHolder{
+
+***View  ***View;
+//需要缓存子view
+...
+
+      }
+}
+</code></pre><ul>
+<li>有几点需要注意，构造器中传入resourceId是为了可以复用adapter而不去再写新类，为了实现这一点Item的子View中资源名称不要有特殊性，让它们共用名称，这样即使是不同的Item布局也可以用同一个adapter</li>
+<li>一般情况下position和itemId可以共用，getItemId返回position即可，getItem返回data.get(position)即可</li>
+<li>使用ViewHolder，这样我们虽然不能保证convertView每次都缓存成功，但能够保证convertView缓存成功时，我们不用通过convertView的findViewById去查找它的子View</li>
+</ul>
+<h2 id="进一步优化"><a href="#进一步优化" class="headerlink" title="进一步优化"></a>进一步优化</h2><h3 id="LruCache"><a href="#LruCache" class="headerlink" title="- LruCache"></a>- LruCache</h3><ul>
+<li>当convertView被用来修改成新view时，旧的数据也就没有了，这时如果用户往回拖动ListView，又得重新加载，可以使用LruCache保留这些数据</li>
+<li><p>LruCache使用泛型，但对于ListView来说通常需要缓存的是Bitmap，下面实现一个LruCache的工具类</p>
+<pre><code>public class BitmapCache {
+
+public static int MAX_MEMORY = (int)(Runtime.getRuntime().maxMemory()/1024);
+private LruCache&lt;String,Bitmap&gt; mCache;
+
+public BitmapCache(int cacheSize){
+mCache = new LruCache&lt;String,Bitmap&gt;(cacheSize){
+    @Override
+    protected int sizeOf(String url,Bitmap bitmap) {
+        return bitmap.getByteCount() / 1024;
+    }
+};
+}
+
+/**
+ *
+ * 该方法用于将图片放入缓存
+ * @param url 链接，或其他标识
+ * @param bitmap 图片
+ *
+ */
+public void put(String url,Bitmap bitmap){
+    mCache.put(url,bitmap);
+}
+
+/**
+ *
+ * 该方法用于将图片从缓存中取出
+ * @param url 链接，或其他标识
+ * @return 图片，当缓存中没有指定图片时返回null
+ *
+ */
+public Bitmap get(String url){
+    return mCache.get(url);
+    }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>LrCache通常只需要设定类型和缓存大小，这个大小最好不要写入一个常值，而是根据运行时的内存大小来设定</p>
+<pre><code>public static int MAX_MEMORY = (int)(Runtime.getRuntime().maxMemory()/1024);
+</code></pre></li>
+</ul>
+<h3 id="隐藏滚动条"><a href="#隐藏滚动条" class="headerlink" title="- 隐藏滚动条"></a>- 隐藏滚动条</h3><ul>
+<li><p>ListView默认会有一个比较鸡肋的滚动条，可以在XML中隐藏</p>
+<pre><code>android:scrollbars=&quot;none&quot;    
+</code></pre></li>
+</ul>
+<h3 id="无数据提示"><a href="#无数据提示" class="headerlink" title="- 无数据提示"></a>- 无数据提示</h3><ul>
+<li><p>ListView提供了一个方法用来在没有数据时提示用户</p>
+<pre><code>lv.setEmptyView(R.id.empty);
+</code></pre></li>
+</ul>
+<h3 id="滑动监听"><a href="#滑动监听" class="headerlink" title="- 滑动监听"></a>- 滑动监听</h3><h4 id="OnScrollListener"><a href="#OnScrollListener" class="headerlink" title="- OnScrollListener"></a>- OnScrollListener</h4><ul>
+<li><p>实现 OnScrollListener，在不同的状态下自定义ListView        </p>
+<pre><code>lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        switch (scrollState){
+            case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                break;
+            case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                break;
+            case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                break;
+
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
+});
+</code></pre><h4 id="OnTouchListener"><a href="#OnTouchListener" class="headerlink" title="- OnTouchListener"></a>- OnTouchListener</h4></li>
+<li><p>实现 OnTouchListener，在不同的状态下自定义ListView</p>
+<pre><code>lv.setOnTouchListener(new View.OnTouchListener() {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        return false;
+    }
+});
+</code></pre></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ContentProvider基本用法]]></title>
       <url>/2017/07/12/aboutContentProvider/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -181,7 +388,6 @@ public Cursor query(Uri uri, String[] projection, String selection,
       <url>/2017/07/11/aboutLayout/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><strong>本篇未完</strong></p>
 <h2 id="使用RelativeLayout减少层级"><a href="#使用RelativeLayout减少层级" class="headerlink" title="使用RelativeLayout减少层级"></a>使用RelativeLayout减少层级</h2><h3 id="层级的影响"><a href="#层级的影响" class="headerlink" title="层级的影响"></a>层级的影响</h3><ul>
 <li>要完整地显示一个界面就需要对所有的View进行一次绘制工作，Android通过递归查找View树，而多叉树的层级越深，耗时就越长</li>
 <li>布局层次深会增加内存的消耗，甚至会引起栈溢出等问题</li>
