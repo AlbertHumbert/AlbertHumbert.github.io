@@ -3,6 +3,126 @@
   
     
     <entry>
+      <title><![CDATA[aboutHandler]]></title>
+      <url>/2017/07/13/aboutHandler/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[OkHttp基本用法]]></title>
+      <url>/2017/07/13/aboutNet/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="HttpClient"><a href="#HttpClient" class="headerlink" title="HttpClient"></a>HttpClient</h2><p><strong>过时的HttpClient</strong></p>
+<ul>
+<li>Android 5.1后的版本已经废弃HttpClinet，继续使用需要添加依赖</li>
+<li>HttpClinet虽然比较灵活，但是api数量过多使得在Android上使用不稳定，Google已经放弃了对它的扩展，转而推荐使用HttpURLConnection</li>
+</ul>
+<h2 id="OkHttp"><a href="#OkHttp" class="headerlink" title="OkHttp"></a>OkHttp</h2><ul>
+<li>首先需要添加依赖，okhttp目前已更新到3.8.1版本，okio会一并获得</li>
+</ul>
+<pre><code>compile &apos;com.squareup.okhttp3:okhttp:3.8.1&apos;
+</code></pre><ul>
+<li>jar包可以上okhttp官网下载，需要okhttp和okio两个包</li>
+</ul>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><h4 id="同步"><a href="#同步" class="headerlink" title="- 同步"></a>- 同步</h4><ul>
+<li>只要是网络请求，我们就需要在AndroidManifest文件中添加权限，并且开启子线程</li>
+<li>同步的意思是一直等待http请求，直到返回了响应</li>
+<li>一个类库要完成一次请求需要请求方法, 请求地址, 请求协议, 请求头, 请求体，查看okhttp中Request的类属性，除了协议在Response中以外，其他都能找到</li>
+</ul>
+<pre><code>public final class Request {
+  private final HttpUrl url;
+  private final String method;
+  private final Headers headers;
+  private final RequestBody body;
+  private final Object tag;
+</code></pre><ul>
+<li>get方法比较简单，我们需要一个OkHttpClient的实例和Request对象的实例，使用这两者来构造RealCall对象</li>
+<li>RealCall用来发送请求和读取响应，执行execute请求能够得到一个response对象，response.body()返回的ResponseBody对象就是获取的结果</li>
+<li>调用ResponseBody我们可以得到想要的数据或数据流，数据流为大文件下载提供了支持，超过1mb的文档不应该使用string方法，它会把文档加入到内存当中，应当使用流来操作</li>
+</ul>
+<pre><code>new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    Request request = new Request.Builder().url(&quot;Https://baidu.com&quot;).build();
+
+                        Response response = okHttpClient.newCall(request).execute();
+                        Log.d(&quot;MainActivity&quot;,response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+</code></pre><h4 id="异步"><a href="#异步" class="headerlink" title="- 异步"></a>- 异步</h4><ul>
+<li>okhttp支持异步线程，只需要重写传入参数的Callback的两个方法即可，它们分别在请求成功和失败时被调用，回调方法在子线程中调用</li>
+</ul>
+<pre><code>OkHttpClient okHttpClient = new OkHttpClient();
+Request request = new Request.Builder().url(&quot;Https://baidu.com&quot;).build();
+okHttpClient.newCall(request).enqueue(new Callback() {
+    @Override
+    public void onFailure(Call call, IOException e) {
+
+        Log.d(&quot;MainActivity&quot;, &quot;onFailure: &quot;);
+
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+
+        Log.d(&quot;MainActivity&quot;, response.body().string());
+    }
+
+});
+</code></pre><h3 id="post"><a href="#post" class="headerlink" title="post"></a>post</h3><ul>
+<li>post方法和get类似，只需要调用post方法并传入body参数即可</li>
+<li>构建一个body，使用FormBody.Builder，MultipartBody.Builder和使用RequestBody.create()，FormEncodingBuilder已过时，RequestBody.create()可以设定文件的类型，具体的参数在需要时<a href="http://tool.oschina.net/commons/" target="_blank" rel="external">查找</a>即可</li>
+</ul>
+<pre><code>RequestBody RequestBody = new FormBody.Builder().add(&quot;str&quot;,&quot;1&quot;).build();
+RequestBody.create(MediaType.parse(&quot;image/jpeg; charset=utf-8&quot;),new File(path));
+</code></pre><h3 id="取消Call"><a href="#取消Call" class="headerlink" title="取消Call"></a>取消Call</h3><ul>
+<li>调用Call.cancle()可以取消一个call，不论它是同步还是异步的，也可以使用OkHttpClient.cancel(tag)来取消，tag在RequestBuilder的tag()方法中设置</li>
+<li>设置超时响应也可以结束call</li>
+</ul>
+<pre><code>        OkHttpClient okHttpClient = new OkHttpClient();
+new OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(10,TimeUnit.SECONDS).build();
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ListView基本用法]]></title>
       <url>/2017/07/12/aboutListView/</url>
       <content type="html"><![CDATA[<p>-</p>

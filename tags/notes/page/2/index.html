@@ -12,7 +12,7 @@
     
     <title>
         
-            常用布局的使用方法和场景 | 
+            标签: notes | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="-">
-    <meta name="keywords" content="null,notes">
+    <meta name="description" itemprop="description" content="developing">
+    <meta name="keywords" content="null">
 
     <!-- Site Verification -->
     
@@ -65,62 +65,29 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="常用布局的使用方法和场景 | Albert&#39;s Blog">
+    <meta property="og:title" content="标签: notes | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="-">
-    <meta property="og:article:tag" content="notes"> 
-
+    <meta property="og:description" content="developing">
     
-        <meta property="article:published_time" content="7月 11, 2017" />
-        <meta property="article:modified_time" content="7月 13, 2017" />
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="常用布局的使用方法和场景 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="-">
+    <meta name="twitter:title" content="标签: notes | Albert&#39;s Blog">
+    <meta name="twitter:description" content="developing">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/tags/notes/page/2/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Albert&#39;s Blog",
-        "logo": "/img/favicon.png"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Albert Humbert",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/favicon.png"
-        },
-        "description": "Paranoid Android"
-    },
-    "headline": "常用布局的使用方法和场景",
-    "url": "https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html",
-    "datePublished": "7月 11, 2017",
-    "dateModified": "7月 13, 2017",
-    "description": "-",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://alberthumbert.github.io"
-    }
-}
-</script>
 
 
     
@@ -308,576 +275,101 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-    <!-- Left aligned menu below button -->
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用RelativeLayout减少层级"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用RelativeLayout减少层级</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#层级的影响"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">层级的影响</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RelativeLayout替换LinearLayout"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">- RelativeLayout替换LinearLayout</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他布局"><span class="post-toc-number">2.</span> <span class="post-toc-text">其他布局</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TableLayout"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">- TableLayout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AbsoluteLayout"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">- AbsoluteLayout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GridLayout"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">- GridLayout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#frameLayout"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">- frameLayout</span></a></li></ol></li></ol>
-        <!--
-        <li class="mdl-menu__item">
-            Some Action
-        </li>
-        -->
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
         
     
-            <p class="article-headline-p">
-                常用布局的使用方法和场景
-            </p>
-        </div>
 
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Albert Humbert</strong>
-        <span>7月 11, 2017</span>
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2017/05/22/proGit/">pro git 1-6章 笔记</a></p>
     </div>
 
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/notes/">notes</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=常用布局的使用方法和场景&url=https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=常用布局的使用方法和场景&url=https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html&via=Albert Humbert" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html&title=常用布局的使用方法和场景" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 LinkedIn
-            </li>
-        </a>
-    
-
-    <!-- Share QQ -->
-    
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=常用布局的使用方法和场景&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 QQ
-            </li>
-        </a>
-    
-
-    <!-- Share Telegram -->
-    
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/11/aboutLayout/index.html&text=常用布局的使用方法和场景" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Telegram
-            </li>
-        </a>
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <p>-</p>
-<a id="more"></a>
-<h2 id="使用RelativeLayout减少层级"><a href="#使用RelativeLayout减少层级" class="headerlink" title="使用RelativeLayout减少层级"></a>使用RelativeLayout减少层级</h2><h3 id="层级的影响"><a href="#层级的影响" class="headerlink" title="层级的影响"></a>层级的影响</h3><ul>
-<li>要完整地显示一个界面就需要对所有的View进行一次绘制工作，Android通过递归查找View树，而多叉树的层级越深，耗时就越长</li>
-<li>布局层次深会增加内存的消耗，甚至会引起栈溢出等问题</li>
-<li>RelativeLayout也有性能的问题，它会对子View进行竖直和水平的两次测量，但如果LinearLayout中含有weight属性那么LinearLayout也同样需要进行两次测量</li>
-<li>可以在XML界面中的Component Tree或是AS自带的Hierachy View 工具中查看一个界面的层级</li>
-</ul>
-<h3 id="RelativeLayout替换LinearLayout"><a href="#RelativeLayout替换LinearLayout" class="headerlink" title="- RelativeLayout替换LinearLayout"></a>- RelativeLayout替换LinearLayout</h3><ul>
-<li><p>以这个界面为例</p>
-<p>  <img src="http://i2.kiimg.com/1949/a4919b1895abe7ea.png" alt=""></p>
-</li>
-</ul>
-<ul>
-<li>这是一个评论ListView的Item视图，在一个LinearLayout中嵌套了两个LinearLayout来实现，可能还不算太深</li>
-</ul>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;LinearLayout
-xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:orientation=&quot;vertical&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;wrap_content&quot;
-android:background=&quot;#FFFAFA&quot;&gt;
-
-&lt;LinearLayout
-    android:orientation=&quot;horizontal&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;wrap_content&quot;&gt;
-
-    &lt;ImageView
-        android:id=&quot;@+id/item_iv_avatar&quot;
-        android:layout_width=&quot;36dp&quot;
-        android:layout_height=&quot;36dp&quot;
-        android:layout_marginStart=&quot;4dp&quot;
-        android:layout_marginTop=&quot;4dp&quot;
-        android:scaleType=&quot;fitXY&quot; /&gt;
-
-    &lt;TextView
-        android:id=&quot;@+id/item_tv_author&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:paddingStart=&quot;8dp&quot;
-        android:paddingEnd=&quot;8dp&quot;
-        android:paddingTop=&quot;8dp&quot;
-        android:textSize=&quot;17sp&quot;
-        android:textColor=&quot;#303030&quot;/&gt;
-    &lt;/LinearLayout&gt;
-
-    &lt;TextView
-        android:id=&quot;@+id/item_tv_content&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:paddingStart=&quot;50dp&quot;
-        android:paddingEnd=&quot;8dp&quot;
-        android:lineSpacingMultiplier=&quot;1.2&quot;
-        android:layout_marginBottom=&quot;8dp&quot;
-        android:textSize=&quot;16sp&quot;
-        android:textColor=&quot;#3B3B3B&quot;/&gt;
-
-    &lt;LinearLayout
-        android:orientation=&quot;horizontal&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_marginBottom=&quot;8dp&quot;&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/item_tv_time&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:paddingStart=&quot;50dp&quot;
-            android:paddingEnd=&quot;8dp&quot;
-            android:layout_marginBottom=&quot;8dp&quot;
-            android:textSize=&quot;12sp&quot;
-            android:textColor=&quot;#66000000&quot;/&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/item_tv_likes&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;match_parent&quot;
-            android:paddingStart=&quot;2dp&quot;
-            android:paddingEnd=&quot;2dp&quot;
-            android:paddingTop=&quot;8dp&quot;
-            android:textSize=&quot;12sp&quot;
-            android:textColor=&quot;#AAFF4040&quot;/&gt;
-    &lt;/LinearLayout&gt;
-</code></pre><p></p>
-<ul>
-<li>现在尝试使用一层RelativeLayout来实现，只要确定好子View之间的位置关系，使用 android:layout_toRightOf等<a href="http://blog.csdn.net/notenlife/article/details/7256363" target="_blank" rel="external">相对属性</a>很快就能替换</li>
-</ul>
-<pre><code>    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-    &lt;RelativeLayout
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    android:orientation=&quot;vertical&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:background=&quot;#FFFAFA&quot;&gt;
-
-
-    &lt;ImageView
-        android:id=&quot;@+id/item_iv_avatar&quot;
-        android:layout_width=&quot;36dp&quot;
-        android:layout_height=&quot;36dp&quot;
-        android:layout_marginStart=&quot;4dp&quot;
-        android:layout_marginTop=&quot;4dp&quot;
-        android:scaleType=&quot;fitXY&quot; /&gt;
-
-    &lt;TextView
-        android:id=&quot;@+id/item_tv_author&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_toRightOf=&quot;@id/item_iv_avatar&quot;
-        android:paddingStart=&quot;8dp&quot;
-        android:paddingEnd=&quot;8dp&quot;
-        android:paddingTop=&quot;8dp&quot;
-        android:textSize=&quot;15sp&quot;
-        android:textColor=&quot;#303030&quot;/&gt;
-
-
-    &lt;TextView
-        android:id=&quot;@+id/item_tv_content&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_below=&quot;@id/item_tv_author&quot;
-        android:paddingStart=&quot;50dp&quot;
-        android:paddingTop=&quot;18dp&quot;
-        android:paddingEnd=&quot;8dp&quot;
-        android:lineSpacingMultiplier=&quot;1.1&quot;
-        android:layout_marginBottom=&quot;8dp&quot;
-        android:textSize=&quot;16sp&quot;
-        android:textColor=&quot;#3B3B3B&quot;/&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/item_tv_time&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_below=&quot;@id/item_tv_content&quot;
-            android:paddingStart=&quot;50dp&quot;
-            android:paddingEnd=&quot;8dp&quot;
-            android:paddingTop=&quot;8dp&quot;
-            android:paddingBottom=&quot;8dp&quot;
-            android:textSize=&quot;12sp&quot;
-            android:textColor=&quot;#66000000&quot;/&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/item_tv_likes&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;match_parent&quot;
-            android:layout_below=&quot;@id/item_tv_content&quot;
-            android:layout_toEndOf=&quot;@id/item_tv_time&quot;
-            android:paddingStart=&quot;2dp&quot;
-            android:paddingEnd=&quot;2dp&quot;
-            android:paddingTop=&quot;8dp&quot;
-            android:paddingBottom=&quot;8dp&quot;
-            android:textSize=&quot;12sp&quot;
-            android:textColor=&quot;#AAFF4040&quot;/&gt;
-
-&lt;/RelativeLayout&gt;
-</code></pre><ul>
-<li>就这两种布局而言，当层级较深时我们可以使用RelativeLayout来优化，层级较浅时则优先使用便捷的LinearLayout</li>
-</ul>
-<h2 id="其他布局"><a href="#其他布局" class="headerlink" title="其他布局"></a>其他布局</h2><p><strong>RelativeLayout，LinearLayout比较常用，这里主要了解一下其他布局的属性</strong></p>
-<h3 id="TableLayout"><a href="#TableLayout" class="headerlink" title="- TableLayout"></a>- TableLayout</h3><p><strong>表格布局，所有子元素以表格的形式摆放</strong></p>
-<ul>
-<li>android:shrinkColumns，若内容过多，指定的列会收缩，为其他列提供空间</li>
-<li>android:stretchColumns，当内容过少，指定的列会伸展，填满多余空间</li>
-<li>android:collapseColumns，隐藏指定的列</li>
-<li>android:layout_column，设置view的行位置</li>
-<li>android:layout_span，设置view的占据的列数(宽度)</li>
-</ul>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;TableLayout
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
-xmlns:tools=&quot;http://schemas.android.com/tools&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;
-tools:context=&quot;com.linjiamin.layout.MainActivity&quot;
-android:stretchColumns=&quot;0&quot;
-android:collapseColumns=&quot;1&quot;
-android:shrinkColumns =&quot;2&quot;&gt;
-&lt;!--使用stretchColumns，第一行被伸展--&gt;
-&lt;!--使用collapseColumns，第二行被隐藏--&gt;
-&lt;TableRow
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;&gt;
-&lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;0&quot;/&gt;
-&lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;1&quot; /&gt;
-&lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;2&quot;/&gt;
-&lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;3&quot;/&gt;
-&lt;/TableRow&gt;
-&lt;TableRow
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;&gt;
-&lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:text=&quot;4&quot;
-    android:textSize=&quot;80sp&quot; /&gt;
-&lt;/TableRow&gt;
-&lt;TableRow
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;&gt;
-&lt;!-- 使用layout_column ，显示在第三格--&gt;
-&lt;!-- 使用layout_span ，占据两列--&gt;
-&lt;TextView
-    android:layout_column =&quot;2&quot;
-    android:layout_span=&quot;2&quot;
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:text=&quot;5&quot;
-    android:textSize=&quot;80sp&quot;
-    /&gt;
-    &lt;/TableRow&gt;
-&lt;/TableLayout&gt;
-</code></pre><ul>
-<li>显示效果如下</li>
-</ul>
-<p><img src="http://i1.buimg.com/1949/2fffb0e58fd813b1.png" alt=""></p>
-<h3 id="AbsoluteLayout"><a href="#AbsoluteLayout" class="headerlink" title="- AbsoluteLayout"></a>- AbsoluteLayout</h3><p><strong>绝对布局，已淘汰，知道即可</strong></p>
-<ul>
-<li>写swing的时候曾经使用过这种布局，当时在不同的系统上测试时发现界面会出现一定的差异，不过还挺好用的……</li>
-<li>由于手机屏幕的尺寸种类较多，这个布局会对适配造成很大的影响，因此已经被废置了</li>
-<li>android:layout_x  指定X坐标</li>
-<li>android:layout_y 指定Y坐标</li>
-</ul>
-<h3 id="GridLayout"><a href="#GridLayout" class="headerlink" title="- GridLayout"></a>- GridLayout</h3><p><strong>网格布局，使用矩阵排列</strong></p>
-<ul>
-<li>每一个子View都有唯一的坐标，从0开始计数，但大小可以不同</li>
-<li>android:columnCount，最大列数</li>
-<li>android:rowCount，最大行数</li>
-<li>android:useDefaultMargins，使行边距和列边距的大小相同</li>
-<li>android:layout_row，子view的行位置</li>
-<li>android:layout_column，子view的列位置</li>
-<li>android:layout_rowSpan，子view占据的行数</li>
-<li>android:layout_columnSpan，子view占据的列数</li>
-</ul>
-<pre><code>    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-    &lt;GridLayout
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
-    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;
-    tools:context=&quot;com.linjiamin.layout.MainActivity&quot;
-    android:columnCount = &quot;4&quot;
-    android:useDefaultMargins = &quot;true&quot;&gt;
-&lt;!--使用columnCount，最大为4列--&gt;
-&lt;!--使用useDefaultMargins，行距和列距相等--&gt;
-    &lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;0&quot;/&gt;
-
-    &lt;!--使用layout_column，显示在第一行地四列--&gt;
-    &lt;TextView
-    android:layout_column =&quot;3&quot;
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;1&quot;/&gt;
-     &lt;!--使用layout_columnSpan，占据两列--&gt;
-    &lt;TextView
-    android:layout_columnSpan=&quot;2&quot;
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;2&quot;/&gt;
-    &lt;!--使用layout_rowSpan，占据两行，所有下方没有数字--&gt;
-    &lt;TextView
-    android:layout_rowSpan=&quot;2&quot;
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;3&quot;/&gt;
-
-    &lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;4&quot;/&gt;
-
-    &lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;5&quot;/&gt;
-
-    &lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;6&quot;/&gt;
-
-    &lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;80sp&quot;
-    android:text=&quot;7&quot;/&gt;
-    &lt;/GridLayout&gt;
-</code></pre><ul>
-<li>显示效果如下</li>
-</ul>
-<p><img src="http://i2.kiimg.com/1949/964a6d449f23347a.png" alt=""></p>
-<ul>
-<li>Table不能设置Span属性，它的行数和列数不确定，控件不能跨行跨列，实现复杂的界面会比较困难，这种情况下应当使用GridLayout</li>
-</ul>
-<h3 id="frameLayout"><a href="#frameLayout" class="headerlink" title="- frameLayout"></a>- frameLayout</h3><p><strong>帧布局</strong></p>
-<ul>
-<li>帧布局是功能最少的布局</li>
-<li>帧布局的大小由最大的控件决定，底层的控件会被覆盖</li>
-<li>android:foreground，设置前景图像，前景图像永远不会被覆盖</li>
-<li>android:foregroundGravity，设置背景图像</li>
-<li>当我们需要通过覆盖来实现界面时，就会使用到frameLayout</li>
-</ul>
-
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            onCreate
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2017/05/22/proGit/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
             </div>
+            <div>
+                <strong>Albert Humbert</strong>
+                <span>5月 22, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                <a class="post_category-link" href="/categories/dairy/">dairy</a>
+            </span>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-        <a href="/2017/07/12/aboutContentProvider/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
+            
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
+            
 
-    <!-- Next Nav -->
-    
-        <a href="/2017/07/11/aboutBroadcast/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
         </div>
     </div>
+</div>
 
+            
+            
+        
+    
+
+    
+    <!-- Index nav -->
+        <nav class="material-nav mdl-cell mdl-cell--12-col">
+            <a class="extend prev" rel="prev" href="/tags/notes/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/tags/notes/">1</a><span class="page-number current">2</span>
+        </nav>
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
+</script>
+
+    
+</div>
 
 
                     
@@ -1053,14 +545,6 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
-
-                    
-                        <!-- Footer Top Button -->
-                        <div id="back-to-top" class="toTop-wrap">
-    <a href="#top" class="toTop">
-        <i class="material-icons footer_top-i">expand_less</i>
-    </a>
-</div>
 
                     
 

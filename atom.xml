@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-07-13T03:33:28.000Z</updated>
+  <updated>2017-07-13T12:15:09.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>aboutHandler</title>
+    <link href="https://alberthumbert.github.io/2017/07/13/aboutHandler/"/>
+    <id>https://alberthumbert.github.io/2017/07/13/aboutHandler/</id>
+    <published>2017-07-13T12:14:43.000Z</published>
+    <updated>2017-07-13T12:15:09.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OkHttp基本用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/13/aboutNet/"/>
+    <id>https://alberthumbert.github.io/2017/07/13/aboutNet/</id>
+    <published>2017-07-13T06:31:23.000Z</published>
+    <updated>2017-07-13T12:15:07.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>ListView基本用法</title>
@@ -80,7 +120,7 @@
     <link href="https://alberthumbert.github.io/2017/07/11/aboutBroadcast/"/>
     <id>https://alberthumbert.github.io/2017/07/11/aboutBroadcast/</id>
     <published>2017-07-11T08:12:19.000Z</published>
-    <updated>2017-07-13T06:18:53.000Z</updated>
+    <updated>2017-07-13T06:30:39.000Z</updated>
     
     <summary type="html">
     
@@ -370,44 +410,6 @@
     
     
       <category term="git" scheme="https://alberthumbert.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>混乱的贪吃蛇C代码</title>
-    <link href="https://alberthumbert.github.io/2016/11/14/snakec/"/>
-    <id>https://alberthumbert.github.io/2016/11/14/snakec/</id>
-    <published>2016-11-14T04:51:00.000Z</published>
-    <updated>2017-06-03T17:58:06.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;咳咳！&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="代码" scheme="https://alberthumbert.github.io/categories/%E4%BB%A3%E7%A0%81/"/>
-    
-    
-      <category term="C" scheme="https://alberthumbert.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>酷炫的终端配置入门指南</title>
-    <link href="https://alberthumbert.github.io/2016/11/13/iTerm2/"/>
-    <id>https://alberthumbert.github.io/2016/11/13/iTerm2/</id>
-    <published>2016-11-12T16:19:19.000Z</published>
-    <updated>2017-06-03T17:56:33.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://p1.bqimg.com/4851/fa551cd95e4fdbc4.jpg&quot; class=&quot;img-topic&quot;&gt;&lt;br&gt;记录一些自己的配置，只是入门级别而已&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="终端配置" scheme="https://alberthumbert.github.io/tags/%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/"/>
     
   </entry>
   
