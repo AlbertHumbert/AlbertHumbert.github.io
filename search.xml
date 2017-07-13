@@ -8,14 +8,13 @@
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong>本篇未完</strong></p>
-<h2 id="BaseAdapter"><a href="#BaseAdapter" class="headerlink" title="BaseAdapter"></a>BaseAdapter</h2><p><strong>主要学习BaseAdapter的几个办法，ArrayAdapter是BaseAdapter的子类，用法相似</strong></p>
-<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><p><strong>顾名思义，返回一个View实例，它是一个Adapter中最重要的方法</strong></p>
-<ul>
-<li>BaseAdapter实现了ListAdapter接口，ListAdapter接口继承自Adapter接口，在Adapter中找到getView方法，它需要三个参数，position，view是需要的数据在容器中的位置，convertView是旧的View，Adapter会缓存一个刚离开屏幕的View，使用它可以避免反复的查找子View，parent就是使用Adapter的ListView，当然也可能不是ListView，这要看哪个控件使用这个Adapter</li>
+<h2 id="BaseAdapter"><a href="#BaseAdapter" class="headerlink" title="BaseAdapter"></a>BaseAdapter</h2><p><strong>主要学习BaseAdapter的几个方法，ArrayAdapter是BaseAdapter的子类，用法相似</strong></p>
+<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><ul>
+<li>BaseAdapter实现了ListAdapter接口，ListAdapter接口继承自Adapter接口，在Adapter中找到getView方法，它需要三个参数，position，view是需要的数据在数据集合中的位置，convertView是旧的View，Adapter会缓存一个刚离开屏幕的View，使用它可以避免反复的查找子View，parent就是使用Adapter的ListView，当然也可能不是ListView，这要看哪个控件使用这个Adapter</li>
 </ul>
 <pre><code>int position, View convertView, ViewGroup parent
 </code></pre><ul>
-<li><p>getItemId，getItem，item指的是data set中的每一个元素，ItemId是Item的标记，前者返回position指定的item的id，后者返回position指定Item</p>
+<li><p>getItemId，getItem，item指的是数据集合中的每一个元素，ItemId是Item的标记，前者返回position指定的item的id，后者返回position指定Item</p>
 </li>
 <li><p>getCount，返回Item的数量，通常为容器的大小</p>
 </li>
@@ -87,15 +86,14 @@ return mContext;
 private class ViewHolder{
 
 ***View  ***View;
-//需要缓存子view
+//需要缓存的子view引用
 ...
 
       }
 }
 </code></pre><ul>
-<li>有几点需要注意，构造器中传入resourceId是为了可以复用adapter而不去再写新类，为了实现这一点Item的子View中资源名称不要有特殊性，让它们共用名称，这样即使是不同的Item布局也可以用同一个adapter</li>
 <li>一般情况下position和itemId可以共用，getItemId返回position即可，getItem返回data.get(position)即可</li>
-<li>使用ViewHolder，这样我们虽然不能保证convertView每次都缓存成功，但能够保证convertView缓存成功时，我们不用通过convertView的findViewById去查找它的子View</li>
+<li>使用ViewHolder，这样虽然不能保证convertView每次都缓存成功，但能够保证convertView缓存成功时，我们不用通过convertView的findViewById去查找它的子View</li>
 </ul>
 <h2 id="进一步优化"><a href="#进一步优化" class="headerlink" title="进一步优化"></a>进一步优化</h2><h3 id="LruCache"><a href="#LruCache" class="headerlink" title="- LruCache"></a>- LruCache</h3><ul>
 <li>当convertView被用来修改成新view时，旧的数据也就没有了，这时如果用户往回拖动ListView，又得重新加载，可以使用LruCache保留这些数据</li>
@@ -277,7 +275,7 @@ public Bitmap get(String url){
 </ul>
 <h2 id="UriMatcher"><a href="#UriMatcher" class="headerlink" title="UriMatcher"></a>UriMatcher</h2><p><strong>Uri匹配工具</strong></p>
 <ul>
-<li>向外界共享数据时，首先要考虑什么数据可以共享，什么数据不可以共享，所以第一步需要将可以匹配的Uri进行注册,这里使用了初始化块</li>
+<li>向外界共享数据时，首先要考虑什么数据可以共享，什么数据不可以共享，所以第一步需要将可以匹配的Uri进行注册,这里使用了<a href="#初始化块">初始化块</a></li>
 </ul>
 <pre><code>public class NewsProvider extends ContentProvider {
     public static final int NEWS_ALL = 0;
@@ -349,7 +347,7 @@ public Cursor query(Uri uri, String[] projection, String selection,
 <li>得到一条新闻标题，可见数据跨应用传输了 </li>
 </ul>
 <pre><code>MainActivity: onClick: 为什么民航航班会在途中绕圈？
-</code></pre><h2 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h2><ul>
+</code></pre><h2 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a><span id="初始化块">初始化块</span></h2><ul>
 <li>在一个类声明中可以包含多个代码块并在其中进行简单的逻辑操作，这些代码块会在构造器运行之前调用，在JDK6之前一个程序甚至可以没有main入口</li>
 </ul>
 <pre><code>public class Hello{
@@ -546,14 +544,14 @@ android:background=&quot;#FFFAFA&quot;&gt;
 </code></pre><ul>
 <li>就这两种布局而言，当层级较深时我们可以使用RelativeLayout来优化，层级较浅时则优先使用便捷的LinearLayout</li>
 </ul>
-<h2 id="其他布局"><a href="#其他布局" class="headerlink" title="其他布局"></a>其他布局</h2><p><strong>FrameLayout，LinearLayout比较常用，这里主要了解一下其他布局的属性</strong></p>
+<h2 id="其他布局"><a href="#其他布局" class="headerlink" title="其他布局"></a>其他布局</h2><p><strong>RelativeLayout，LinearLayout比较常用，这里主要了解一下其他布局的属性</strong></p>
 <h3 id="TableLayout"><a href="#TableLayout" class="headerlink" title="- TableLayout"></a>- TableLayout</h3><p><strong>表格布局，所有子元素以表格的形式摆放</strong></p>
 <ul>
 <li>android:shrinkColumns，若内容过多，指定的列会收缩，为其他列提供空间</li>
 <li>android:stretchColumns，当内容过少，指定的列会伸展，填满多余空间</li>
 <li>android:collapseColumns，隐藏指定的列</li>
 <li>android:layout_column，设置view的行位置</li>
-<li>android:layout_span，设置view的占据的列数(长度)</li>
+<li>android:layout_span，设置view的占据的列数(宽度)</li>
 </ul>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;TableLayout
@@ -663,16 +661,14 @@ android:layout_height=&quot;match_parent&quot;&gt;
     android:layout_height=&quot;wrap_content&quot;
     android:textSize=&quot;80sp&quot;
     android:text=&quot;1&quot;/&gt;
-
-    &lt;!--使用layout_columnSpan，占据两列--&gt;
+     &lt;!--使用layout_columnSpan，占据两列--&gt;
     &lt;TextView
     android:layout_columnSpan=&quot;2&quot;
     android:layout_width=&quot;wrap_content&quot;
     android:layout_height=&quot;wrap_content&quot;
     android:textSize=&quot;80sp&quot;
     android:text=&quot;2&quot;/&gt;
-
-&lt;!--使用layout_rowSpan，占据两行，所有下方没有数字--&gt;
+    &lt;!--使用layout_rowSpan，占据两行，所有下方没有数字--&gt;
     &lt;TextView
     android:layout_rowSpan=&quot;2&quot;
     android:layout_width=&quot;wrap_content&quot;
@@ -717,7 +713,7 @@ android:layout_height=&quot;match_parent&quot;&gt;
 <li>帧布局的大小由最大的控件决定，底层的控件会被覆盖</li>
 <li>android:foreground，设置前景图像，前景图像永远不会被覆盖</li>
 <li>android:foregroundGravity，设置背景图像</li>
-<li>当我们需要通过覆盖来实现界面时，会使用到frameLayout</li>
+<li>当我们需要通过覆盖来实现界面时，就会使用到frameLayout</li>
 </ul>
 ]]></content>
       

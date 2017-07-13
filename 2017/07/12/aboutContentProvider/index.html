@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="7月 12, 2017" />
-        <meta property="article:modified_time" content="7月 12, 2017" />
+        <meta property="article:modified_time" content="7月 13, 2017" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "ContentProvider基本用法",
     "url": "https://alberthumbert.github.io/2017/07/12/aboutContentProvider/index.html",
     "datePublished": "7月 12, 2017",
-    "dateModified": "7月 12, 2017",
+    "dateModified": "7月 13, 2017",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -566,7 +566,7 @@
 </ul>
 <h2 id="UriMatcher"><a href="#UriMatcher" class="headerlink" title="UriMatcher"></a>UriMatcher</h2><p><strong>Uri匹配工具</strong></p>
 <ul>
-<li>向外界共享数据时，首先要考虑什么数据可以共享，什么数据不可以共享，所以第一步需要将可以匹配的Uri进行注册,这里使用了初始化块</li>
+<li>向外界共享数据时，首先要考虑什么数据可以共享，什么数据不可以共享，所以第一步需要将可以匹配的Uri进行注册,这里使用了<a href="#初始化块">初始化块</a></li>
 </ul>
 <pre><code>public class NewsProvider extends ContentProvider {
     public static final int NEWS_ALL = 0;
@@ -638,7 +638,7 @@ public Cursor query(Uri uri, String[] projection, String selection,
 <li>得到一条新闻标题，可见数据跨应用传输了 </li>
 </ul>
 <pre><code>MainActivity: onClick: 为什么民航航班会在途中绕圈？
-</code></pre><h2 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h2><ul>
+</code></pre><h2 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a><span id="初始化块">初始化块</span></h2><ul>
 <li>在一个类声明中可以包含多个代码块并在其中进行简单的逻辑操作，这些代码块会在构造器运行之前调用，在JDK6之前一个程序甚至可以没有main入口</li>
 </ul>
 <pre><code>public class Hello{
