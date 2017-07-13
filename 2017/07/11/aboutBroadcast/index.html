@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="7月 11, 2017" />
-        <meta property="article:modified_time" content="7月 12, 2017" />
+        <meta property="article:modified_time" content="7月 13, 2017" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "BroadcastReceiver的使用",
     "url": "https://alberthumbert.github.io/2017/07/11/aboutBroadcast/index.html",
     "datePublished": "7月 11, 2017",
-    "dateModified": "7月 12, 2017",
+    "dateModified": "7月 13, 2017",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Action"><span class="post-toc-number">1.</span> <span class="post-toc-text">Action</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#发送广播"><span class="post-toc-number">2.</span> <span class="post-toc-text">发送广播</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注册广播"><span class="post-toc-number">3.</span> <span class="post-toc-text">注册广播</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义权限"><span class="post-toc-number"></span> <span class="post-toc-text">自定义权限</span></a>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Action"><span class="post-toc-number">1.</span> <span class="post-toc-text">Action</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#发送广播"><span class="post-toc-number">2.</span> <span class="post-toc-text">发送广播</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注册广播"><span class="post-toc-number">3.</span> <span class="post-toc-text">注册广播</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本地广播"><span class="post-toc-number"></span> <span class="post-toc-text">本地广播</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义权限"><span class="post-toc-number"></span> <span class="post-toc-text">自定义权限</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#onReceive-耗时操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">onReceive 耗时操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单进程与广播"><span class="post-toc-number">2.</span> <span class="post-toc-text">单进程与广播</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -578,7 +578,11 @@ public void onReceive(Context context, Intent intent) {
 <li>注册系统广播的方法是相同的，但有时需要在androidManifest中添加权限</li>
 </ul>
 <pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
-</code></pre><h2 id="自定义权限"><a href="#自定义权限" class="headerlink" title="自定义权限"></a>自定义权限</h2><p><strong>在androidManifest中还可以自定义权限，此时除了权限的名称（规范和action基本一致）外，还有一个protectionLevel需要指定</strong></p>
+</code></pre><h2 id="本地广播"><a href="#本地广播" class="headerlink" title="本地广播"></a>本地广播</h2><ul>
+<li>本地广播的用法和一般广播类似</li>
+<li>本地广播只会在同一个app中传递，不用担心信息泄露而且可以提高效率</li>
+</ul>
+<h2 id="自定义权限"><a href="#自定义权限" class="headerlink" title="自定义权限"></a>自定义权限</h2><p><strong>在androidManifest中还可以自定义权限，此时除了权限的名称（规范和action基本一致）外，还有一个protectionLevel需要指定</strong></p>
 <pre><code>&lt;permission
 android:name=&quot;com.linjiamin.permission.TEST&quot;
 android:protectionLevel=&quot;normal&quot; /&gt;
@@ -607,6 +611,49 @@ signatureOrSystem：符合上述signature条件或者请求应用为系统应用
 <li><p>使用带权限参数的方法发送广播</p>
 <pre><code>sendBroadcast(intent,&quot;com.linjiamin.permission.TEST&quot;);
 </code></pre></li>
+</ul>
+<h3 id="onReceive-耗时操作"><a href="#onReceive-耗时操作" class="headerlink" title="onReceive 耗时操作"></a>onReceive 耗时操作</h3><ul>
+<li>查看文档我们发现除非使用registerReceiver，onReceive是执行在主线程中的，这意味着一般不能进行耗时操作</li>
+</ul>
+<pre><code>* This method is always called within the main thread of its process, unless you
+* explicitly asked for it to be scheduled on a different thread using
+* {@link android.content.Context#registerReceiver(BroadcastReceiver,
+* IntentFilter, String, android.os.Handler)}. When it runs on the main
+* thread you should
+* never perform long-running operations in it (there is a timeout of
+* 10 seconds that the system allows before considering the receiver to
+* be blocked and a candidate to be killed). You cannot launch a popup dialog
+* in your implementation of onReceive().
+</code></pre><ul>
+<li>那么不妨尝试在onReceive开启一个子线程，同时使用另一个应用发送广播</li>
+</ul>
+<pre><code>    @Override
+    public void onReceive(Context context, Intent intent) {
+
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d(&quot;MyReceiver&quot;, &quot;onReceive: receive&quot;);
+    }
+}).start();
+</code></pre><ul>
+<li>当我们设定sleep方法参数为10秒时，我们可以收到日志，设定为1分钟，依然收到了数据，从日志信息可见确实过了1分钟</li>
+</ul>
+<pre><code>07-13 12:53:35.212 30154-30154/? I/art: Not late-enabling -Xcheck:jni (already on)
+07-13 12:53:35.600 30154-30154/com.linjiamin.broadcast W/System: ClassLoader referenced unknown path: /data/app/com.linjiamin.broadcast-1/lib/x86
+07-13 12:54:35.618 30154-30169/com.linjiamin.broadcast D/MyReceiver: onReceive: receive
+</code></pre><ul>
+<li>但是根据网络上的说法，BroadcastReceiver的生命周期很短，onReceive执行完就结束了，这时我们建立的BroadcastReceiver的进程就成了空进程，很容易被杀死，这里可能跟内存占用有关，不管怎样，在onReceive中开启子线程不太可靠，一般来说会使用service进行耗时操作</li>
+</ul>
+<h3 id="单进程与广播"><a href="#单进程与广播" class="headerlink" title="单进程与广播"></a>单进程与广播</h3><p><a href="http://blog.csdn.net/crazy_yyyyy/article/details/51318092" target="_blank" rel="external">参考</a></p>
+<ul>
+<li>实践上单进程很少使用本地广播，广播是一种相对耗时，占用空间较多的方式，onReceive方法中可以得到context参数，如果不需要用到相关的方法，就不需要使用广播，可以选择EventBus</li>
 </ul>
 
     
