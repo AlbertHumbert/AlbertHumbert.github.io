@@ -3,10 +3,149 @@
   
     
     <entry>
-      <title><![CDATA[aboutHandler]]></title>
+      <title><![CDATA[Handler的基本用法]]></title>
       <url>/2017/07/13/aboutHandler/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
+<h2 id="ANR"><a href="#ANR" class="headerlink" title="ANR"></a>ANR</h2><ul>
+<li><p>application not responding，当线程阻塞超过5秒时会弹出无响应的Dialog</p>
+<pre><code>       button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        Thread thread = Thread.currentThread();
+        try {
+            thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+});
+</code></pre></li>
+</ul>
+<ul>
+<li><img src="http://i2.kiimg.com/1949/7d8478d22d279b6a.png" alt=""></li>
+<li>所以我们需要在子线程中进行耗时操作，但是子线程是不可以更新UI的，这就意味着我们需要一种机制，使子线程中加载完数据可以马上切换到主线程</li>
+</ul>
+<h2 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h2><h3 id="post"><a href="#post" class="headerlink" title="post"></a>post</h3><p><strong>发送线程</strong></p>
+<ul>
+<li><p>post用于投递Runnable，被投递的Runnable的run方法会在UI线程中执行，可以更新UI，尝试运行下面这段代码</p>
+<pre><code>button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+
+                    new Handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText(&quot;clicked&quot;);
+                            Log.d(&quot;MainActivity&quot;, &quot;run: &quot;);
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+});
+</code></pre></li>
+<li><p>抛出了exception， Can’t create handler inside thread that has not called Looper.prepare()，那么这次尝试先执行Looper.prepare()，UI没有更新，原因和looper的机制有关暂时不去研究，只要把handler改为在主线程中创建即可</p>
+<pre><code>handler = new Handler();
+    button.setOnClickListener(new View.OnClickListener() 
+    ...
+</code></pre></li>
+</ul>
+<h3 id="postDelay"><a href="#postDelay" class="headerlink" title="postDelay"></a>postDelay</h3><ul>
+<li><p>postDelay方法提供了一个参数，它用来设定run方法执行的时间，通常可以用来延迟执行UI更新</p>
+</li>
+<li><p>这一段代码可以用来实现应用的启动logo，延迟设定一个宽高属性为match_parent的view的Visibility属性，在它遮盖整个界面的情况下onCreate中界面的初始化还可以进行,一定程度上提高了用户体验</p>
+<pre><code>new Handler().postDelayed(new Runnable() {
+    @Override
+    public void run() {
+        HomeActivity.this.findViewById(R.id.home_fl_logo)
+                .setVisibility(View.GONE);
+    }
+},3000);        
+</code></pre></li>
+</ul>
+<h3 id="sendMessage"><a href="#sendMessage" class="headerlink" title="sendMessage"></a>sendMessage</h3><ul>
+<li>查看源码发现它是一个空方法，接受message必须重写它才行</li>
+</ul>
+<pre><code>/**
+ * Subclasses must implement this to receive messages.
+ */
+public void handleMessage(Message msg) {
+} 
+</code></pre><ul>
+<li>这次使用sendMessage更新UI</li>
+</ul>
+<pre><code>handler = new Handler(){
+
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        switch (msg.what){
+            case 1:
+                textView.setText(&quot;clicked&quot;);
+                Log.d(&quot;MainActivity&quot;, &quot;run: &quot;);
+                break;
+            default:
+                break;
+        }
+    }
+}; 
+
+...
+
+new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+</code></pre><ul>
+<li>这种方式分为两个步骤，重写 handleMessage 在switch语句中以Message.what为标识更新UI，调用sendMessage传入message对象</li>
+<li>注意，msg.setData()方法可以接受一个Bundle对象为参数，利用Bundle的putParcelable()就可以传递自定义的数据了</li>
+<li>使用Message.obtain()方法获取Message对象，避免反复创建实例        </li>
+</ul>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><h3 id="原因"><a href="#原因" class="headerlink" title="- 原因"></a>- 原因</h3><ul>
+<li>handler的生命周期与activity不一致，handler关联了looper管理message队列，这个队列在整个Application的生命周期中存在，handler不会因为Activity的finish()被销毁</li>
+<li>非静态（匿名）内部类会持有外部对象，当我们这样重写handler时它就成了一个匿名内部类，这样结合前面如果finish时handler有message未处理，Activity就不能被销毁</li>
+</ul>
+<pre><code> handler = new Handler(){
+
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        switch (msg.what){
+            case 1:
+                textView.setText(&quot;clicked&quot;);
+                Log.d(&quot;MainActivity&quot;, &quot;run: &quot;);
+                break;
+            default:
+                break;
+        }
+    }
+}; 
+</code></pre><p>###- 解决方案</p>
+<ul>
+<li>在外部新建一个类完全可以解决这个问题，但有时内部类确实比较方便</li>
+<li>这时我们可以使用静态内部类和弱引用</li>
+<li>未完</li>
+</ul>
 ]]></content>
       
         <categories>
