@@ -8,7 +8,8 @@
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <h2 id="ANR"><a href="#ANR" class="headerlink" title="ANR"></a>ANR</h2><ul>
-<li><p>application not responding，当线程阻塞超过5秒时会弹出无响应的Dialog</p>
+<li>application not responding，当线程阻塞超过5秒时会弹出无响应的Dialog</li>
+</ul>
 <pre><code>       button.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -21,15 +22,14 @@
         }
     }
 });
-</code></pre></li>
-</ul>
-<ul>
+</code></pre><ul>
 <li><img src="http://i2.kiimg.com/1949/7d8478d22d279b6a.png" alt=""></li>
 <li>所以我们需要在子线程中进行耗时操作，但是子线程是不可以更新UI的，这就意味着我们需要一种机制，使子线程中加载完数据可以马上切换到主线程</li>
 </ul>
 <h2 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h2><h3 id="post"><a href="#post" class="headerlink" title="post"></a>post</h3><p><strong>发送线程</strong></p>
 <ul>
-<li><p>post用于投递Runnable，被投递的Runnable的run方法会在UI线程中执行，可以更新UI，尝试运行下面这段代码</p>
+<li>post用于投递Runnable，被投递的Runnable的run方法会在UI线程中执行，可以更新UI，尝试运行下面这段代码</li>
+</ul>
 <pre><code>button.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -54,17 +54,18 @@
         }).start();
     }
 });
-</code></pre></li>
-<li><p>抛出了exception， Can’t create handler inside thread that has not called Looper.prepare()，那么这次尝试先执行Looper.prepare()，UI没有更新，原因和looper的机制有关暂时不去研究，只要把handler改为在主线程中创建即可</p>
+</code></pre><ul>
+<li>抛出了exception， Can’t create handler inside thread that has not called Looper.prepare()，那么这次尝试先执行Looper.prepare()，UI没有更新，原因和looper的机制有关暂时不去研究，只要把handler改为在主线程中创建即可</li>
+</ul>
 <pre><code>handler = new Handler();
     button.setOnClickListener(new View.OnClickListener() 
     ...
-</code></pre></li>
+</code></pre><h3 id="postDelay"><a href="#postDelay" class="headerlink" title="postDelay"></a>postDelay</h3><ul>
+<li>postDelay方法提供了一个参数，它用来设定run方法执行的时间，通常可以用来延迟执行UI更新</li>
 </ul>
-<h3 id="postDelay"><a href="#postDelay" class="headerlink" title="postDelay"></a>postDelay</h3><ul>
-<li><p>postDelay方法提供了一个参数，它用来设定run方法执行的时间，通常可以用来延迟执行UI更新</p>
-</li>
-<li><p>这一段代码可以用来实现应用的启动logo，延迟设定一个宽高属性为match_parent的view的Visibility属性，在它遮盖整个界面的情况下onCreate中界面的初始化还可以进行,一定程度上提高了用户体验</p>
+<ul>
+<li>这一段代码可以用来实现应用的启动logo，延迟设定一个宽高属性为match_parent的view的Visibility属性，在它遮盖整个界面的情况下onCreate中界面的初始化还可以进行,一定程度上提高了用户体验</li>
+</ul>
 <pre><code>new Handler().postDelayed(new Runnable() {
     @Override
     public void run() {
@@ -72,9 +73,7 @@
                 .setVisibility(View.GONE);
     }
 },3000);        
-</code></pre></li>
-</ul>
-<h3 id="sendMessage"><a href="#sendMessage" class="headerlink" title="sendMessage"></a>sendMessage</h3><ul>
+</code></pre><h3 id="sendMessage"><a href="#sendMessage" class="headerlink" title="sendMessage"></a>sendMessage</h3><ul>
 <li>查看源码发现它是一个空方法，接受message必须重写它才行</li>
 </ul>
 <pre><code>/**
@@ -140,11 +139,93 @@ new Thread(new Runnable() {
         }
     }
 }; 
-</code></pre><p>###- 解决方案</p>
-<ul>
+</code></pre><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="- 解决方案"></a>- 解决方案</h3><ul>
 <li>在外部新建一个类完全可以解决这个问题，但有时内部类确实比较方便</li>
-<li>这时我们可以使用静态内部类和弱引用</li>
-<li>未完</li>
+<li>这时我们可以使用静态内部类和弱引用，当一个对象只被弱引用依赖时它会被gc回收</li>
+<li><p>首先不使用弱引用，我们在onResume中延迟发送消息并马上finish()，handler是一个静态内部类，它显式引用Activity</p>
+<pre><code>    @Override
+protected void onResume() {
+super.onResume();
+Message message = Message.obtain();
+message.what =1;
+handler.sendMessageDelayed(message,5000);
+finish();
+}
+
+...
+
+    private static class MyHandler extends Handler {
+
+//private WeakReference&lt;Activity&gt; reference;
+private Activity reference;
+
+public MyHandler(Activity activity){
+    //reference = new WeakReference&lt;&gt;(activity);
+    reference = activity;
+}
+
+@Override
+public void handleMessage(Message msg) {
+    super.handleMessage(msg);
+    switch (msg.what){
+        case 1:
+            if(reference!= null){
+            Log.d(&quot;Main2Activity&quot;, &quot;Leak!! &quot;);
+            }else {
+                Log.d(&quot;Main2Activity&quot;, &quot;not leak: &quot;);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+}
+</code></pre></li>
+<li><p>启动这个Activity之后，马上手动gc，收到log，Activity没有被回收</p>
+<pre><code>07-14 10:38:43.958 24909-24909/com.linjiamin.handler D/Main2Activity: Leak!! 
+</code></pre></li>
+<li><p>这次使用弱引用，注意判空条件为 reference.get()!= null</p>
+<pre><code>private static class MyHandler extends Handler {
+
+private WeakReference&lt;Activity&gt; reference;
+//private Activity reference;
+
+public MyHandler(Activity activity){
+    reference = new WeakReference&lt;&gt;(activity);
+    //reference = activity;
+}
+
+@Override
+public void handleMessage(Message msg) {
+    super.handleMessage(msg);
+    switch (msg.what){
+        case 1:
+            if(reference.get()!= null){
+            Log.d(&quot;Main2Activity&quot;, &quot;Leak!! &quot;);
+            }else {
+                Log.d(&quot;Main2Activity&quot;, &quot;not leak: &quot;);
+            }
+            break;
+        default:
+            break;
+    }
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<ul>
+<li><p>手动gc，收到log，Activity已销毁，Activity内存泄漏的问题已经解决了</p>
+<pre><code>07-14 10:40:12.400 26112-26112/com.linjiamin.handler D/Main2Activity: not leak: 
+</code></pre></li>
+</ul>
+<ul>
+<li><p>那么如果不使用静态类，只使用弱引用</p>
+<pre><code>private class MyHandler extends Handler {
+</code></pre></li>
+<li><p>Activity没有被销毁，原因应该是非静态内部类隐式持有了外部类Activity的引用导致无法释放</p>
+<pre><code>07-14 10:43:41.252 29232-29232/com.linjiamin.handler D/Main2Activity: Leak!!     
+</code></pre></li>
+<li>因此我们需要同时使用static和弱引用避免内存泄漏        </li>
 </ul>
 ]]></content>
       
