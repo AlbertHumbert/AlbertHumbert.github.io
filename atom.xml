@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-07-14T06:28:39.000Z</updated>
+  <updated>2017-07-17T14:25:17.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,71 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Handler的基本用法</title>
+    <title>viewPager+TabLayout+Fragment 用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/17/viewPagerTabFragments/"/>
+    <id>https://alberthumbert.github.io/2017/07/17/viewPagerTabFragments/</id>
+    <published>2017-07-17T13:50:36.000Z</published>
+    <updated>2017-07-17T14:25:17.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>aboutLazyLoad</title>
+    <link href="https://alberthumbert.github.io/2017/07/17/aboutLazyLoad/"/>
+    <id>https://alberthumbert.github.io/2017/07/17/aboutLazyLoad/</id>
+    <published>2017-07-17T11:54:45.000Z</published>
+    <updated>2017-07-17T11:55:03.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Fragment基本用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/17/aboutFragment/"/>
+    <id>https://alberthumbert.github.io/2017/07/17/aboutFragment/</id>
+    <published>2017-07-17T01:25:16.000Z</published>
+    <updated>2017-07-17T12:27:39.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Handler基本用法</title>
     <link href="https://alberthumbert.github.io/2017/07/13/aboutHandler/"/>
     <id>https://alberthumbert.github.io/2017/07/13/aboutHandler/</id>
     <published>2017-07-13T12:14:43.000Z</published>
-    <updated>2017-07-14T06:28:39.000Z</updated>
+    <updated>2017-07-17T11:45:36.000Z</updated>
     
     <summary type="html">
     
@@ -350,66 +410,6 @@
     
     
       <category term="涂鸦" scheme="https://alberthumbert.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简单栈和树的简单操作</title>
-    <link href="https://alberthumbert.github.io/2017/01/23/linear-list2/"/>
-    <id>https://alberthumbert.github.io/2017/01/23/linear-list2/</id>
-    <published>2017-01-23T14:17:02.000Z</published>
-    <updated>2017-06-03T17:57:34.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-    
-    </summary>
-    
-      <category term="代码" scheme="https://alberthumbert.github.io/categories/%E4%BB%A3%E7%A0%81/"/>
-    
-    
-      <category term="数据结构" scheme="https://alberthumbert.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>各类简单线性表的简单操作</title>
-    <link href="https://alberthumbert.github.io/2017/01/11/linear-list/"/>
-    <id>https://alberthumbert.github.io/2017/01/11/linear-list/</id>
-    <published>2017-01-11T14:40:27.000Z</published>
-    <updated>2017-06-03T17:57:19.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-    
-    </summary>
-    
-      <category term="代码" scheme="https://alberthumbert.github.io/categories/%E4%BB%A3%E7%A0%81/"/>
-    
-    
-      <category term="数据结构" scheme="https://alberthumbert.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git学习笔记</title>
-    <link href="https://alberthumbert.github.io/2016/12/06/git/"/>
-    <id>https://alberthumbert.github.io/2016/12/06/git/</id>
-    <published>2016-12-06T10:47:42.000Z</published>
-    <updated>2017-06-03T17:55:37.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;onDestroy&lt;br&gt;&lt;img src=&quot;http://p1.bpimg.com/4851/923b28f3dcd37179.jpg&quot; class=&quot;img-topic&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="git" scheme="https://alberthumbert.github.io/tags/git/"/>
     
   </entry>
   

@@ -12,7 +12,7 @@
     
     <title>
         
-            hello world | 
+            Fragment基本用法 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,26 +65,26 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="hello world | Albert&#39;s Blog">
+    <meta property="og:title" content="Fragment基本用法 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="10月 14, 2016" />
-        <meta property="article:modified_time" content="6月 03, 2017" />
+        <meta property="article:published_time" content="7月 17, 2017" />
+        <meta property="article:modified_time" content="7月 17, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="hello world | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="Fragment基本用法 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2016/10/14/hello-world/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,11 +110,11 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "hello world",
-    "url": "https://alberthumbert.github.io/2016/10/14/hello-world/index.html",
-    "datePublished": "10月 14, 2016",
-    "dateModified": "6月 03, 2017",
-    "description": "developing",
+    "headline": "Fragment基本用法",
+    "url": "https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html",
+    "datePublished": "7月 17, 2017",
+    "dateModified": "7月 17, 2017",
+    "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Fragment-生命周期"><span class="post-toc-number">1.</span> <span class="post-toc-text">Fragment 生命周期</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#静态使用Fragment"><span class="post-toc-number">2.</span> <span class="post-toc-text">静态使用Fragment</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动态使用Fragment-及常见问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">动态使用Fragment 及常见问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Fragment-与-Activity-进行通信"><span class="post-toc-number">4.</span> <span class="post-toc-text">Fragment 与 Activity 进行通信</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DialogFragment"><span class="post-toc-number">5.</span> <span class="post-toc-text">DialogFragment</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#onCreatDialog"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">onCreatDialog</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#onCreateView"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">onCreateView</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                hello world
+                Fragment基本用法
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>10月 14, 2016</span>
+        <span>7月 17, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -416,7 +416,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
     </ul>
     
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=hello world&url=https://alberthumbert.github.io/2016/10/14/hello-world/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Fragment基本用法&url=https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=hello world&url=https://alberthumbert.github.io/2016/10/14/hello-world/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Fragment基本用法&url=https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2016/10/14/hello-world/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2016/10/14/hello-world/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2016/10/14/hello-world/index.html&title=hello world" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html&title=Fragment基本用法" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=hello world&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2016/10/14/hello-world/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Fragment基本用法&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2016/10/14/hello-world/index.html&text=hello world" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/17/aboutFragment/index.html&text=Fragment基本用法" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -501,9 +501,204 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>缘起</p>
-<p>欢迎来到我的小窝</p>
+        <p>-</p>
+<a id="more"></a>
+<h2 id="Fragment-生命周期"><a href="#Fragment-生命周期" class="headerlink" title="Fragment 生命周期"></a>Fragment 生命周期</h2><ul>
+<li>Fragment的生命周期简单来说是这样的</li>
+</ul>
+<ul>
+<li><img src="http://img.blog.csdn.net/20140719225005356?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG1qNjIzNTY1Nzkx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></li>
+</ul>
+<ul>
+<li>但实际上是这样的</li>
+</ul>
+<p><img src="http://www.jcodecraeer.com/uploads/20150605/1433435656859602.png" alt=""></p>
+<ul>
+<li>Fragment 依赖于Activity而存在，相对于Activity它还多了几个回调方法</li>
+<li>onAttach（Activity） 当Fragment和Activity发生关联的时候调用</li>
+<li>onCreateView（Bundle）创建Fragment视图时调用，需要返回Fragment的布局视图，注意查找控件时要先判断是否为null避免重复加载</li>
+<li>onActivityCreate（Bundle）当Activity的onCreate方法返回时调用，到了调用这个方法的时候才可以和Activity中的控件进行交互的UI操作，因为这个此时Activity的onCreate方法才调用完毕</li>
+<li>onDestroyView（）当Fragment的视图被移除时调用</li>
+<li>onDetach（）当Fragment与Activity关联被取消时调用</li>
+<li>如果Activity处于暂停状态时其中所有的Fragment都是暂停状态，如果Activity处于stopped状态，其中所有Fragment都不能启动，如果Activity被销毁，所有Fragment都会被销毁</li>
+<li>在onCreate中应该初始化除了view类之外的东西，在onCreateView中应该创建Fragment自己的视图并且返回</li>
+</ul>
+<h2 id="静态使用Fragment"><a href="#静态使用Fragment" class="headerlink" title="静态使用Fragment"></a>静态使用Fragment</h2><ul>
+<li>创建Fragment子类和它的布局文件，在onCreateView中初始化控件并返回Fragment的布局</li>
+</ul>
+<pre><code>@Nullable
+@Override
+public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
+View view = inflater.inflate(R.layout.fragment_content,container,false);
+
+Button button = (Button)view.findViewById(R.id.button);
+...
+
+return view;
+
+}
+</code></pre><ul>
+<li>在Activity的XML文件中使用Fragment的布局</li>
+</ul>
+<pre><code>&lt;fragment
+android:id=&quot;@+id/title&quot;
+android:name = &quot;com.linjiamin.aboutfragment.TitleFragment&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot;/&gt;
+
+&lt;fragment
+android:id=&quot;@+id/content&quot;
+android:name=&quot;com.linjiamin.aboutfragment.ContentFragment&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><h2 id="动态使用Fragment-及常见问题"><a href="#动态使用Fragment-及常见问题" class="headerlink" title="动态使用Fragment 及常见问题"></a>动态使用Fragment 及常见问题</h2><ul>
+<li>管理Fragment Transaction 需要获取FragmentManage，注意调用getSupportFragmentManager而不是getFragmentManager，我们需要获取support-v4包中的FragmentManager</li>
+</ul>
+<ul>
+<li>动态使用Fragment时，可以使用findFragmentByTag方法，Tag为使用add和replace方法时添加的第三个参数</li>
+</ul>
+<ul>
+<li>动态使用Fragment时调用FragmentManage的findFragmentById方法会返回null值，因为这个方法通过在Activity的布局文件中查找Fragment的id，因为通常只有静态使用Fragment时我们才会在Activity的布局中添加Fragment标签</li>
+</ul>
+<pre><code>FragmentManager fragmentManager = getSupportFragmentManager();
+FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+fragmentOne = new FragmentOne();
+fragmentTransaction.replace(R.id.content,fragmentOne);
+fragmentTransaction.commit(); 
+</code></pre><ul>
+<li>FragmentTransaction用于对Fragment进行添加，替换，移除等操作，一个完整的事务可以设定一系列的变化， 但只有提交之后这些变化才会执行</li>
+</ul>
+<ul>
+<li>add、hide、show方法避免了重复加载数据的问题，但是可能会导致视图的重叠，需要合理地配合replace</li>
+</ul>
+<ul>
+<li>当使用add方法在同一显示位置反复添加一个Fragment时会抛出异常，通常进行检查已避免这个问题：if(fragmentTwo.isAdded())</li>
+</ul>
+<pre><code>java.lang.IllegalStateException: Fragment already added: FragmentTwo
+</code></pre><ul>
+<li>若不调用 addToBackStack(String)方法，被移除的Fragment会被销毁，addToBackStack通过模拟返回栈可以实现回退的功能，该方法接受一个参数，它仅作为标记，可以为null</li>
+</ul>
+<pre><code>fragmentTransaction.addToBackStack(null);
+    fragmentTransaction.replace(R.id.content,fragmentTwo);
+</code></pre><ul>
+<li>使用addToBackStack和replace时，Fragment的实例虽然不会被销毁，但是视图层依然会被销毁，为了避免这种状况，可以使用hide()方法将Fragment隐藏</li>
+</ul>
+<ul>
+<li>Activity重启时可能会造成Fragment重叠的问题，解决方案可以参考<a href="http://www.jianshu.com/p/c12a98a36b2b" target="_blank" rel="external">这里</a></li>
+</ul>
+<h2 id="Fragment-与-Activity-进行通信"><a href="#Fragment-与-Activity-进行通信" class="headerlink" title="Fragment 与 Activity 进行通信"></a>Fragment 与 Activity 进行通信</h2><ul>
+<li>通过Fragment通过getActivity可以活动Activity的实例，Activity通过findFragment*方法可以获得Fragment的实例</li>
+<li>通常情况下Fragment不应该和具体的Activity耦合，这样会降低Fragment的重用性，通常使用接口回调的方法实现Activity和Fragment之间的通信</li>
+</ul>
+<pre><code>    private FragmentButtonListener mListener;
+
+public void setListener(FragmentButtonListener mListener) {
+this.mListener = mListener;
+}
+
+public interface FragmentButtonListener{
+void onFragmentButtonClick();
+}
+
+@Override
+public void onClick(View v) {
+
+if(mListener!= null){
+    mListener.onFragmentButtonClick();
+}
+}
+</code></pre><ul>
+<li>下面这种方法也是可行的</li>
+</ul>
+<pre><code>@Override
+public void onClick(View v) {
+
+    if(getActivity() instanceof FragmentButtonListener){
+       (FragmentButtonListener) getActivity()).onFragmentButtonClick();
+    }
+}
+</code></pre><ul>
+<li>注意通常不要让Fragment直接与其他Fragment进行消息传递，这样会使不同的Fragment耦合，应当让Activity充当总线去接受和发送消息给各个Fragment</li>
+</ul>
+<h2 id="DialogFragment"><a href="#DialogFragment" class="headerlink" title="DialogFragment"></a>DialogFragment</h2><p><strong> DialogFragment 首先是一种Fragment，Google官方不推荐直接使用Dialog，Dialog在屏幕旋转和按下后退键时有更好管理的生命周期，它与Fragment基本一致，并且可以在不同尺寸的屏幕上显示不同的效果</strong></p>
+<h3 id="onCreatDialog"><a href="#onCreatDialog" class="headerlink" title="onCreatDialog"></a>onCreatDialog</h3><p><strong>使用DialogFragment有两种途径，重写onCreateView和onCreateDialog，不能同时使用两者</strong></p>
+<ul>
+<li>重写该方法，返回一个AlertDialog对象，注意需要实现监听器，在需要的地方调用dismiss()方法即可</li>
+</ul>
+<pre><code>@Override
+public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+builder.setTitle(&quot;title&quot;)
+        .setPositiveButton(&quot;yes&quot;,this)
+        .setNegativeButton(&quot;no&quot;,this)
+        .setCancelable(true);
+
+return builder.create();
+}
+</code></pre><ul>
+<li>实例化DialogFragment传入FragmentManger和tag即可</li>
+</ul>
+<pre><code>new TestDialog().show(getFragmentManager(),null);
+</code></pre><h3 id="onCreateView"><a href="#onCreateView" class="headerlink" title="onCreateView"></a>onCreateView</h3><ul>
+<li>首先自定义布局</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout
+xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:orientation=&quot;horizontal&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;
+android:id=&quot;@+id/dialog&quot;&gt;
+
+&lt;Button
+android:id=&quot;@+id/positive&quot;
+android:text=&quot;yes&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot; /&gt;
+
+&lt;Button
+android:id=&quot;@+id/negative&quot;
+android:text=&quot;no&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot; /&gt;
+
+&lt;Button
+android:text=&quot;help&quot;
+android:id=&quot;@+id/help&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot; /&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre><ul>
+<li>继承DialogFragment，重写onCreateView，设定控件的监听器，返回自定义的view</li>
+</ul>
+<pre><code>    @Nullable
+    @Override
+public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
+View view = inflater.inflate(R.layout.test_dialog, container, false);
+Button posivitive = (Button)view.findViewById(R.id.positive);
+Button negative = (Button)view.findViewById(R.id.negative);
+Button help = (Button)view.findViewById(R.id.help);
+
+posivitive.setOnClickListener(this);
+help.setOnClickListener(this);
+negative.setOnClickListener(this);
+
+return view;
+}
+</code></pre><ul>
+<li>二次弹窗需要开启事务，操作和普通Fragment是相似的，之后开启新的弹窗即可</li>
+</ul>
+<pre><code>FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+fragmentTransaction.remove(this);
+fragmentTransaction.addToBackStack(null);
+fragmentTransaction.commit();
+new AnotherDialog().show(getFragmentManager(),null); 
+</code></pre>
     
 
     
@@ -522,7 +717,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2016/10/15/mypaintings/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/07/17/aboutLazyLoad/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -535,6 +730,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/07/13/aboutHandler/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 

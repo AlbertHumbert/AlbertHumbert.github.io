@@ -3,7 +3,326 @@
   
     
     <entry>
-      <title><![CDATA[Handler的基本用法]]></title>
+      <title><![CDATA[viewPager+TabLayout+Fragment 用法]]></title>
+      <url>/2017/07/17/viewPagerTabFragments/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="TabLayout"><a href="#TabLayout" class="headerlink" title="TabLayout"></a>TabLayout</h2><p><strong>水平展示标签的布局，在Google推出TabLayout之前，一般使用TabActivity或者ViewPageIndicator等第三方库实现这种功能</strong></p>
+<ul>
+<li>使用之前需要先添加支持库</li>
+</ul>
+<pre><code>compile &apos;com.android.support:design:24.2.1&apos;
+</code></pre><ul>
+<li>像普通控件一样，在需要的地方设置XML属性，注意app:tabMode属性一般设置为滚动，因为当标签数目较少时scrollable默认是静止的，而当标签数目较多时如果没有设置这个属性时，Tab不能滚动，文字会显示不全</li>
+</ul>
+<pre><code>&lt;android.support.design.widget.TabLayout
+android:id=&quot;@+id/tab&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;wrap_content&quot;
+app:tabMode=&quot;scrollable&quot;/&gt;
+</code></pre><ul>
+<li>动态添加Tab，使用addTag方法和newTab方法</li>
+</ul>
+<pre><code>for(int i = 0;i&lt;10;i++){
+    tabLayout.addTab(tabLayout.newTab().setText(&quot;NO: &quot;+i));
+}
+</code></pre><ul>
+<li>这时一个TabLayout已经可以正常显示了，但是它并没有什么作用，TabLayout一般与ViewPager相结合，实现翻页的功能</li>
+</ul>
+<h2 id="FragmentPagerAdapter"><a href="#FragmentPagerAdapter" class="headerlink" title="FragmentPagerAdapter"></a>FragmentPagerAdapter</h2><p><strong> 用于显示一组Fragment的ViewPager的Adapter</strong></p>
+<ul>
+<li>必须实现的方法有两个，和pagerAdapter的含义基本一致，在getItem中根据位置返回Fragment，getcount中返回item总数量</li>
+</ul>
+<pre><code>public FragmentAdapter(FragmentManager fm,List&lt;Fragment&gt; list) {
+super(fm);
+this.list = list;
+
+}
+
+@Override
+public Fragment getItem(int position) {
+return list.get(position);
+}
+
+@Override
+public int getCount() {
+return list.size();
+}
+</code></pre><ul>
+<li>为Fragment设定Adapter之后调用tabLayout的setupWithViewPager方法即可将TabLayout和ViewPager关联起来</li>
+</ul>
+<pre><code>FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragments);
+viewPager.setAdapter(fragmentAdapter);
+tabLayout.setupWithViewPager(viewPager); 
+</code></pre><ul>
+<li>注意如果在之前设置了文字，这些文字会被<a href="http://blog.csdn.net/u013233097/article/details/54708202" target="_blank" rel="external">清除</a>，将这个步骤放在这之后即可</li>
+</ul>
+<pre><code>for(int i = 0;i&lt;10;i++){
+    tabLayout.addTab(tabLayout.newTab().setText(&quot;NO: &quot;+i));
+}
+</code></pre><ul>
+<li>显示效果是这样的</li>
+</ul>
+<ul>
+<li><img src="http://i1.buimg.com/1949/0f03ad9d7606a251.png" alt=""></li>
+</ul>
+<h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[aboutLazyLoad]]></title>
+      <url>/2017/07/17/aboutLazyLoad/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Fragment基本用法]]></title>
+      <url>/2017/07/17/aboutFragment/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="Fragment-生命周期"><a href="#Fragment-生命周期" class="headerlink" title="Fragment 生命周期"></a>Fragment 生命周期</h2><ul>
+<li>Fragment的生命周期简单来说是这样的</li>
+</ul>
+<ul>
+<li><img src="http://img.blog.csdn.net/20140719225005356?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG1qNjIzNTY1Nzkx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></li>
+</ul>
+<ul>
+<li>但实际上是这样的</li>
+</ul>
+<p><img src="http://www.jcodecraeer.com/uploads/20150605/1433435656859602.png" alt=""></p>
+<ul>
+<li>Fragment 依赖于Activity而存在，相对于Activity它还多了几个回调方法</li>
+<li>onAttach（Activity） 当Fragment和Activity发生关联的时候调用</li>
+<li>onCreateView（Bundle）创建Fragment视图时调用，需要返回Fragment的布局视图，注意查找控件时要先判断是否为null避免重复加载</li>
+<li>onActivityCreate（Bundle）当Activity的onCreate方法返回时调用，到了调用这个方法的时候才可以和Activity中的控件进行交互的UI操作，因为这个此时Activity的onCreate方法才调用完毕</li>
+<li>onDestroyView（）当Fragment的视图被移除时调用</li>
+<li>onDetach（）当Fragment与Activity关联被取消时调用</li>
+<li>如果Activity处于暂停状态时其中所有的Fragment都是暂停状态，如果Activity处于stopped状态，其中所有Fragment都不能启动，如果Activity被销毁，所有Fragment都会被销毁</li>
+<li>在onCreate中应该初始化除了view类之外的东西，在onCreateView中应该创建Fragment自己的视图并且返回</li>
+</ul>
+<h2 id="静态使用Fragment"><a href="#静态使用Fragment" class="headerlink" title="静态使用Fragment"></a>静态使用Fragment</h2><ul>
+<li>创建Fragment子类和它的布局文件，在onCreateView中初始化控件并返回Fragment的布局</li>
+</ul>
+<pre><code>@Nullable
+@Override
+public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+View view = inflater.inflate(R.layout.fragment_content,container,false);
+
+Button button = (Button)view.findViewById(R.id.button);
+...
+
+return view;
+
+}
+</code></pre><ul>
+<li>在Activity的XML文件中使用Fragment的布局</li>
+</ul>
+<pre><code>&lt;fragment
+android:id=&quot;@+id/title&quot;
+android:name = &quot;com.linjiamin.aboutfragment.TitleFragment&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot;/&gt;
+
+&lt;fragment
+android:id=&quot;@+id/content&quot;
+android:name=&quot;com.linjiamin.aboutfragment.ContentFragment&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><h2 id="动态使用Fragment-及常见问题"><a href="#动态使用Fragment-及常见问题" class="headerlink" title="动态使用Fragment 及常见问题"></a>动态使用Fragment 及常见问题</h2><ul>
+<li>管理Fragment Transaction 需要获取FragmentManage，注意调用getSupportFragmentManager而不是getFragmentManager，我们需要获取support-v4包中的FragmentManager</li>
+</ul>
+<ul>
+<li>动态使用Fragment时，可以使用findFragmentByTag方法，Tag为使用add和replace方法时添加的第三个参数</li>
+</ul>
+<ul>
+<li>动态使用Fragment时调用FragmentManage的findFragmentById方法会返回null值，因为这个方法通过在Activity的布局文件中查找Fragment的id，因为通常只有静态使用Fragment时我们才会在Activity的布局中添加Fragment标签</li>
+</ul>
+<pre><code>FragmentManager fragmentManager = getSupportFragmentManager();
+FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+fragmentOne = new FragmentOne();
+fragmentTransaction.replace(R.id.content,fragmentOne);
+fragmentTransaction.commit(); 
+</code></pre><ul>
+<li>FragmentTransaction用于对Fragment进行添加，替换，移除等操作，一个完整的事务可以设定一系列的变化， 但只有提交之后这些变化才会执行</li>
+</ul>
+<ul>
+<li>add、hide、show方法避免了重复加载数据的问题，但是可能会导致视图的重叠，需要合理地配合replace</li>
+</ul>
+<ul>
+<li>当使用add方法在同一显示位置反复添加一个Fragment时会抛出异常，通常进行检查已避免这个问题：if(fragmentTwo.isAdded())</li>
+</ul>
+<pre><code>java.lang.IllegalStateException: Fragment already added: FragmentTwo
+</code></pre><ul>
+<li>若不调用 addToBackStack(String)方法，被移除的Fragment会被销毁，addToBackStack通过模拟返回栈可以实现回退的功能，该方法接受一个参数，它仅作为标记，可以为null</li>
+</ul>
+<pre><code>fragmentTransaction.addToBackStack(null);
+    fragmentTransaction.replace(R.id.content,fragmentTwo);
+</code></pre><ul>
+<li>使用addToBackStack和replace时，Fragment的实例虽然不会被销毁，但是视图层依然会被销毁，为了避免这种状况，可以使用hide()方法将Fragment隐藏</li>
+</ul>
+<ul>
+<li>Activity重启时可能会造成Fragment重叠的问题，解决方案可以参考<a href="http://www.jianshu.com/p/c12a98a36b2b" target="_blank" rel="external">这里</a></li>
+</ul>
+<h2 id="Fragment-与-Activity-进行通信"><a href="#Fragment-与-Activity-进行通信" class="headerlink" title="Fragment 与 Activity 进行通信"></a>Fragment 与 Activity 进行通信</h2><ul>
+<li>通过Fragment通过getActivity可以活动Activity的实例，Activity通过findFragment*方法可以获得Fragment的实例</li>
+<li>通常情况下Fragment不应该和具体的Activity耦合，这样会降低Fragment的重用性，通常使用接口回调的方法实现Activity和Fragment之间的通信</li>
+</ul>
+<pre><code>    private FragmentButtonListener mListener;
+
+public void setListener(FragmentButtonListener mListener) {
+this.mListener = mListener;
+}
+
+public interface FragmentButtonListener{
+void onFragmentButtonClick();
+}
+
+@Override
+public void onClick(View v) {
+
+if(mListener!= null){
+    mListener.onFragmentButtonClick();
+}
+}
+</code></pre><ul>
+<li>下面这种方法也是可行的</li>
+</ul>
+<pre><code>@Override
+public void onClick(View v) {
+
+    if(getActivity() instanceof FragmentButtonListener){
+       (FragmentButtonListener) getActivity()).onFragmentButtonClick();
+    }
+}
+</code></pre><ul>
+<li>注意通常不要让Fragment直接与其他Fragment进行消息传递，这样会使不同的Fragment耦合，应当让Activity充当总线去接受和发送消息给各个Fragment</li>
+</ul>
+<h2 id="DialogFragment"><a href="#DialogFragment" class="headerlink" title="DialogFragment"></a>DialogFragment</h2><p><strong> DialogFragment 首先是一种Fragment，Google官方不推荐直接使用Dialog，Dialog在屏幕旋转和按下后退键时有更好管理的生命周期，它与Fragment基本一致，并且可以在不同尺寸的屏幕上显示不同的效果</strong></p>
+<h3 id="onCreatDialog"><a href="#onCreatDialog" class="headerlink" title="onCreatDialog"></a>onCreatDialog</h3><p><strong>使用DialogFragment有两种途径，重写onCreateView和onCreateDialog，不能同时使用两者</strong></p>
+<ul>
+<li>重写该方法，返回一个AlertDialog对象，注意需要实现监听器，在需要的地方调用dismiss()方法即可</li>
+</ul>
+<pre><code>@Override
+public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+builder.setTitle(&quot;title&quot;)
+        .setPositiveButton(&quot;yes&quot;,this)
+        .setNegativeButton(&quot;no&quot;,this)
+        .setCancelable(true);
+
+return builder.create();
+}
+</code></pre><ul>
+<li>实例化DialogFragment传入FragmentManger和tag即可</li>
+</ul>
+<pre><code>new TestDialog().show(getFragmentManager(),null);
+</code></pre><h3 id="onCreateView"><a href="#onCreateView" class="headerlink" title="onCreateView"></a>onCreateView</h3><ul>
+<li>首先自定义布局</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout
+xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:orientation=&quot;horizontal&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;
+android:id=&quot;@+id/dialog&quot;&gt;
+
+&lt;Button
+android:id=&quot;@+id/positive&quot;
+android:text=&quot;yes&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot; /&gt;
+
+&lt;Button
+android:id=&quot;@+id/negative&quot;
+android:text=&quot;no&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot; /&gt;
+
+&lt;Button
+android:text=&quot;help&quot;
+android:id=&quot;@+id/help&quot;
+android:layout_width=&quot;wrap_content&quot;
+android:layout_height=&quot;wrap_content&quot; /&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre><ul>
+<li>继承DialogFragment，重写onCreateView，设定控件的监听器，返回自定义的view</li>
+</ul>
+<pre><code>    @Nullable
+    @Override
+public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
+View view = inflater.inflate(R.layout.test_dialog, container, false);
+Button posivitive = (Button)view.findViewById(R.id.positive);
+Button negative = (Button)view.findViewById(R.id.negative);
+Button help = (Button)view.findViewById(R.id.help);
+
+posivitive.setOnClickListener(this);
+help.setOnClickListener(this);
+negative.setOnClickListener(this);
+
+return view;
+}
+</code></pre><ul>
+<li>二次弹窗需要开启事务，操作和普通Fragment是相似的，之后开启新的弹窗即可</li>
+</ul>
+<pre><code>FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+fragmentTransaction.remove(this);
+fragmentTransaction.addToBackStack(null);
+fragmentTransaction.commit();
+new AnotherDialog().show(getFragmentManager(),null); 
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Handler基本用法]]></title>
       <url>/2017/07/13/aboutHandler/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
