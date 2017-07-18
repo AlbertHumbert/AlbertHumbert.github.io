@@ -3,6 +3,238 @@
   
     
     <entry>
+      <title><![CDATA[RecycleView基本用法]]></title>
+      <url>/2017/07/18/aboutRecycleView/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>RecycleView不但能提供比ListView更多的显示效果，还提供了较高的解耦性，可定制性，另外，它封装了我们常用的ViewHolder机制，使得代码更加清晰</strong></p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><ul>
+<li>recycleView 相比于ListView除了设置适配器以外还必须设置布局管理器，LayoutManager是一个抽象类，它有三个子类LinearLayoutManager、GridLayoutManager和StaggeredGridLayoutManager分别支持线性布局、表格布局和瀑布流布局的属性设置，线性布局通常用来实现与ListView相似的效果</li>
+<li>通过addItemDecoration方法和setItemAnimator方法我们可以设分割线和添加和删除的动画,但是分割线的参数类型ItemDecoration需要重写</li>
+</ul>
+<pre><code>List&lt;NewsBase&gt; commentDataList = new ArrayList&lt;&gt;();
+RecyclerView rvComment = (RecyclerView) findViewById(R.id.comment_lv_content);
+rvComment.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+UserAdapter commentAdapter = new UserAdapter(commentDataList,apiType);
+rvComment.setAdapter(commentAdapter);
+CommentHandler handler = new CommentHandler(commentAdapter);
+</code></pre><ul>
+<li>在XML中设置属性，和ListView大同小异，但注意设置divider属性是不起作用的</li>
+</ul>
+<pre><code>&lt;android.support.v7.widget.RecyclerView
+    android:id=&quot;@+id/home_lv_news&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:scrollbars=&quot;vertical&quot;
+    android:scrollbarStyle=&quot;insideOverlay&quot;/&gt;
+</code></pre><ul>
+<li>接着我们需要重写Adapter，注意要在其中实现ViewHolder的子类</li>
+</ul>
+<pre><code>static class ViewHolder extends RecyclerView.ViewHolder{
+
+ImageView itemIvAvatar;
+TextView itemTvAuthor;
+TextView itemTvContent;
+TextView itemTvLikes;
+TextView itemTvTime;
+
+public ViewHolder(View itemView) {
+
+    super(itemView);
+    itemIvAvatar = (ImageView)itemView.findViewById(R.id.item_iv_avatar);
+    itemTvAuthor =  (TextView)itemView.findViewById(R.id.item_tv_author);
+    itemTvContent = (TextView)itemView.findViewById(R.id.item_tv_content);
+    itemTvLikes = (TextView)itemView.findViewById(R.id.item_tv_likes);
+    itemTvTime = (TextView)itemView.findViewById(R.id.item_tv_time);
+    }
+
+}
+</code></pre><ul>
+<li>在onCreateViewHolder中返回我们的item布局</li>
+</ul>
+<pre><code>public UserAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rc_news,parent,false);
+ViewHolder viewHolder = new ViewHolder(v);
+return viewHolder;
+} 
+</code></pre><ul>
+<li>在onBindViewHolder中设置控件的相关信息，这个步骤和listView的getView是相似的只不过Recycle将ViewHolder机制包装起来了</li>
+</ul>
+<pre><code>@Override
+public void onBindViewHolder(ViewHolder viewHolder, int position) {
+
+NewsUser user = (NewsUser)mDataList.get(position);
+viewHolder.itemTvContent.setText(user.getContent());
+viewHolder.itemTvAuthor.setText(user.getAuthor());
+}
+</code></pre><ul>
+<li>在getItemCount中返回Item的数目</li>
+</ul>
+<pre><code>@Override
+public int getItemCount() {
+return mDataList.size();
+}
+</code></pre><ul>
+<li>对于Recycle我们需要自己创建和实现接口，已响应点击时间</li>
+</ul>
+<pre><code>public interface OnItemClickListener{
+void onClick(int positon);
+}
+</code></pre><ul>
+<li><p>对于表格布局和瀑布流布局，使用其他管理器</p>
+<pre><code>new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
+</code></pre></li>
+</ul>
+<h2 id="添加HeaderView"><a href="#添加HeaderView" class="headerlink" title="添加HeaderView"></a>添加HeaderView</h2><ul>
+<li>在ListView中有 getItemViewType方法，但并不怎么常用，而在扩展性较强的Recycle中就十分常用了</li>
+<li>ListView中可以通过调用addHeader方法添加一个顶部布局，但RecycleView中不提供这种方法，需要自己动手写的代码比较多</li>
+</ul>
+<ul>
+<li>首先我们需要让Adapter持有Header同时需要调用notifyItemInserted方法来告诉Adapter我们在顶部插入了一个子View</li>
+</ul>
+<pre><code>public void setHeaderView(View mHeaderView) {
+this.mHeaderView = mHeaderView;
+notifyItemInserted(0);
+}
+</code></pre><ul>
+<li>对于header与普通的子View应划分成两种类型，通过getItemViewType得到具体位置的类型，注意我们需要检查是否有加入header，以便进行不同的处理以提高复用性</li>
+</ul>
+<pre><code>@Override
+public int getItemViewType(int position) {
+
+if(mHeaderView == null)return TYPE_NORMAL;
+if(position == 0)return TYPE_HEADER;
+return TYPE_NORMAL;
+}
+</code></pre><ul>
+<li>在ListView中添加了header之后，通常要将在onClick方法中的position参数减一来使用，对于RecycleView，插入header同样使得显示列表的position和我们数据中的position不一致，需要处理这部分逻辑，创建一个方法返回一个ViewHolder的数据在集合中的正确位置</li>
+</ul>
+<pre><code>public int getItemPosition(NewsAdapter.ViewHolder viewHolder){
+   int position =  viewHolder.getLayoutPosition();
+    return mHeaderView == null ? position : position-1;
+}
+
+@Override
+public int getItemCount() {
+return mHeaderView == null ? mDataList.size() : mDataList.size()+1;
+}
+</code></pre><ul>
+<li>对于header和普通子View的ViewHolder需要分别处理</li>
+</ul>
+<pre><code>public NewsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+if(mHeaderView != null &amp;&amp; viewType == TYPE_HEADER) return  new ViewHolder(mHeaderView);
+View v = LayoutInflater.from(parent.getContext()).inflate(mResourceId,parent,false);
+return new ViewHolder(v);
+}
+
+@Override
+public void onBindViewHolder(NewsAdapter.ViewHolder viewHolder, int forePosition) {
+
+
+    if(getItemViewType(forePosition)==TYPE_HEADER)return;
+
+    final int position = getItemPosition(viewHolder);
+    ....
+</code></pre><ul>
+<li>这样一个支持Header的Recycle就完成了，理论上套用这个方式可以添加各种不同的布局到Recycle的各个位置</li>
+</ul>
+<h2 id="上拉加载"><a href="#上拉加载" class="headerlink" title="上拉加载"></a>上拉加载</h2><ul>
+<li><p>使用上面的方式添加footer功能，可以提供点击加载的效果，但现在的应用还是以上拉自动加载居多</p>
+</li>
+<li><p>Recycle提供了addOnScrollListener方法，但是它只能响应滚动状态，具体什么时候去加载需要我们自己去实现</p>
+</li>
+<li><p>对于一个滚动列表，当我们滑动到底部时，可见的item数量加上上方所有的item数量就是item的总数量，LayoutManager的ChildCount，FirstVisibleItemPosition，ItemCount，分别就当别这三个数量，还是比较好实现的</p>
+</li>
+</ul>
+<pre><code>rvNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+     int pastCount, visibleCount, totalCount;
+     @Override
+     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+         visibleCount = mLayoutManager.getChildCount();
+         totalCount = mLayoutManager.getItemCount();
+         pastCount = mLayoutManager.findFirstVisibleItemPosition();
+
+             if ( (visibleCount + pastCount) &gt;= totalCount) {
+                 String date = mNewsDataList.get(mNewsDataList.size() - 1).getDate();
+                 Log.d(TAG, &quot;onClick: &quot;+mNewsDataList.get(mNewsDataList.size() - 1).getDate()+mNewsDataList.get(mNewsDataList.size() - 1).getTitle());
+                 dataTask.execute(mNewsDataList,new Api(Api.BEFORE,date,0,0));
+
+             }
+         }
+ });
+</code></pre><h2 id="绘制分割线"><a href="#绘制分割线" class="headerlink" title="绘制分割线"></a>绘制分割线</h2><ul>
+<li><p>ItemDecoration主要有三个绘制方法可以重写，都可以实现绘制分割线的功能，选一种即可</p>
+</li>
+<li><p>首先创建布局文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:shape=&quot;rectangle&quot;&gt;
+    &lt;size
+    android:width=&quot;1dp&quot;
+    android:height=&quot;1dp&quot; /&gt;
+    &lt;solid android:color=&quot;@color/colorPrimary&quot; /&gt;
+
+&lt;/shape&gt;
+</code></pre></li>
+</ul>
+<ul>
+<li><p>在Style的AppTheme中添加属性</p>
+<pre><code>&lt;item name=&quot;android:listDivider&quot;&gt;@drawable/divider&lt;/item&gt;
+</code></pre></li>
+<li><p>使用 getResources().getDrawable即可获取到我们定义的divider，对于一个垂直的Recycle，我们可以通过父布局的padding属性得到，但上下的偏移量需要通过每个子View得到，这部分涉及较多View绘制的内容，暂时不去深究   </p>
+</li>
+</ul>
+<pre><code>public class Decoration extends RecyclerView.ItemDecoration {
+
+
+
+public Drawable mDivider;
+
+public Decoration(Context context){
+mDivider =context.getResources().getDrawable(R.drawable.divider,null);
+
+}
+
+@Override
+public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+int left = parent.getPaddingLeft();
+int right = parent.getWidth()-parent.getPaddingRight();
+
+int count = parent.getChildCount();
+for (int i=0;i&lt;count;i++){
+    View child = parent.getChildAt(i);
+
+    RecyclerView.LayoutParams params = (RecyclerView.LayoutParams)child.getLayoutParams();
+
+    int top = child.getBottom()+params.bottomMargin;
+    int bottom = top + mDivider.getIntrinsicWidth();
+
+    mDivider.setBounds(left,top,right,bottom);
+    mDivider.draw(c);
+
+}
+}
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[viewPager+TabLayout+Fragment 用法]]></title>
       <url>/2017/07/17/viewPagerTabFragments/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -71,7 +303,7 @@ tabLayout.setupWithViewPager(viewPager);
 <li>ViewPager默认会缓存三页数据，这个属性是由DEFAULT_OFFSCREEN_PAGES决定的，可以使用setOffscreenPageLimit方法设定预加载的页数，但是没有办法设定为0</li>
 <li>如果预加载的每个Fragment都去加载数据，Activity的创建时会造成卡顿，所以我们需要在页面切换到可见时再去加载数据</li>
 <li>为了解决这个问题，必须从Fragment中入手，Fragment中含有setUserVisibleHint方法，它会在onCreateView之前被调用一次出入false参数，表示Fragment不可见，之后在每次Fragment变为可见时传入true，不可见时传入false</li>
-<li>首先需要创建Fragment的子类最为我们使用Fragment的基类，设定三个标记，分别表示当前Fragment是否可见，布局是否已经加载，Fragment是否为第一次可见</li>
+<li>首先需要创建Fragment的子类作为我们使用Fragment的基类，设定三个标记，分别表示当前Fragment是否可见，布局是否已经加载，Fragment是否为第一次可见</li>
 </ul>
 <pre><code>    private boolean isVisible;
 private boolean isPrepared;
@@ -132,7 +364,7 @@ loadData();
 
 }
 </code></pre><ul>
-<li>下面滑动页面进行测试，可以看到当进入虽然各个Fragment都有回应ViewPager的缓存机制，但是只有到它们被显示时才会去加载数据，懒加载的目的达成了，当需要使用这个Fragment时重写loadData方法和initView方法即可     </li>
+<li>下面滑动页面进行测试，可以看到进入Activity和翻页时虽然各个Fragment都有回应ViewPager的缓存机制，但是只有到它们被显示时才会去加载数据，懒加载的目的达成了，当需要使用这个Fragment时重写loadData方法和initView方法即可     </li>
 </ul>
 <pre><code>onActivityCreated: 0
 loadData: --------------
