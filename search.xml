@@ -7,7 +7,7 @@
       <url>/2017/07/17/viewPagerTabFragments/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><strong>本篇未完</strong></p>
+<p><strong>本篇乙烷</strong></p>
 <h2 id="TabLayout"><a href="#TabLayout" class="headerlink" title="TabLayout"></a>TabLayout</h2><p><strong>水平展示标签的布局，在Google推出TabLayout之前，一般使用TabActivity或者ViewPageIndicator等第三方库实现这种功能</strong></p>
 <ul>
 <li>使用之前需要先添加支持库</li>
@@ -67,7 +67,94 @@ tabLayout.setupWithViewPager(viewPager);
 <ul>
 <li><img src="http://i1.buimg.com/1949/3df635474afa9281.png" alt=""></li>
 </ul>
-<h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2>]]></content>
+<h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2><ul>
+<li>ViewPager默认会缓存三页数据，这个属性是由DEFAULT_OFFSCREEN_PAGES决定的，可以使用setOffscreenPageLimit方法设定预加载的页数，但是没有办法设定为0</li>
+<li>如果预加载的每个Fragment都去加载数据，Activity的创建时会造成卡顿，所以我们需要在页面切换到可见时再去加载数据</li>
+<li>为了解决这个问题，必须从Fragment中入手，Fragment中含有setUserVisibleHint方法，它会在onCreateView之前被调用一次出入false参数，表示Fragment不可见，之后在每次Fragment变为可见时传入true，不可见时传入false</li>
+<li>首先需要创建Fragment的子类最为我们使用Fragment的基类，设定三个标记，分别表示当前Fragment是否可见，布局是否已经加载，Fragment是否为第一次可见</li>
+</ul>
+<pre><code>    private boolean isVisible;
+private boolean isPrepared;
+private boolean isFirst; 
+</code></pre><ul>
+<li>在setUserVisibleHint方法中设置isVisible标记，注意必须调用父类的方法，否则在需要使用getUserVisibleHint时可能得到错误的返回值</li>
+</ul>
+<pre><code>@Override
+public void setUserVisibleHint(boolean isVisibleToUser) {
+
+    if(isVisibleToUser){
+        isVisible = true;
+        Log.d(TAG, &quot;setUserVisibleHint: fragment NO: &quot;+getArguments().getInt(&quot;name&quot;,0)+&quot; true&quot;);
+        loadData();
+
+    }else {
+        isVisible = false;
+        Log.d(TAG, &quot;setUserVisibleHint: fragment NO: &quot;+getArguments().getInt(&quot;name&quot;,0)+&quot; false&quot;);
+
+    }
+    super.setUserVisibleHint(isVisibleToUser);
+}
+</code></pre><ul>
+<li>在onCreateView中返回RootView，注意判空，并设置isPrepared标记，当然，直接判断RootView是否为空也能起到isPrepared标记的作用</li>
+</ul>
+<pre><code>@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                     Bundle savedInstanceState) {
+
+if(mRoot ==null){
+    mRoot = initView(inflater,container);
+    Log.d(TAG, &quot;onCreateView: &quot;);
+}            
+    isPrepared = true;
+   return mRoot;
+}
+</code></pre><ul>
+<li>在setUserVisibleHint中调用了loadData方法，它大致上是这样的，在加载数据之前先检查一下三个标记</li>
+</ul>
+<pre><code>void loadData(){
+if(isFirst&amp;&amp;isPrepared&amp;&amp;isVisible) {
+    Log.d(TAG, &quot;loadData: --------------&quot;);
+    Log.d(TAG, &quot;loadData: &quot;+ getArguments().getInt(&quot;name&quot;,0));
+    isFirst = false;
+   return;
+}
+    ...
+}
+</code></pre><ul>
+<li>注意在onActivityCreated中也要调用一次loadData方法这是因为当ViewPager第一次加载两个Fragment时，setUserVisibleHint 在 onCreateView之前调用了，这时 isPrepared是false，当然无法加载数据。如果不在onActivityCreated中调用loadData方法，第一页的数据将无法在第一次显示时初始化</li>
+</ul>
+<pre><code>@Override
+public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+super.onActivityCreated(savedInstanceState);
+
+Log.d(TAG, &quot;onActivityCreated: &quot;+ getArguments().getInt(&quot;name&quot;,0));
+loadData();
+
+}
+</code></pre><ul>
+<li>下面滑动页面进行测试，可以看到当进入虽然各个Fragment都有回应ViewPager的缓存机制，但是只有到它们被显示时才会去加载数据，懒加载的目的达成了，当需要使用这个Fragment时重写loadData方法和initView方法即可     </li>
+</ul>
+<pre><code>onActivityCreated: 0
+loadData: --------------
+loadData: 0
+initView: 
+onCreateView: 
+onActivityCreated: 1
+
+setUserVisibleHint: fragment NO: 2 false
+setUserVisibleHint: fragment NO: 0 false
+setUserVisibleHint: fragment NO: 1 true
+
+loadData: 1
+initView: 
+onCreateView: 
+onActivityCreated: 2
+setUserVisibleHint: fragment NO: 3 false
+setUserVisibleHint: fragment NO: 1 false
+setUserVisibleHint: fragment NO: 2 true
+loadData: --------------
+loadData: 2
+</code></pre>]]></content>
       
         <categories>
             
