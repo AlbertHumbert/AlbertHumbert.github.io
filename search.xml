@@ -3,11 +3,323 @@
   
     
     <entry>
-      <title><![CDATA[aboutVolley]]></title>
+      <title><![CDATA[WebView基本用法]]></title>
+      <url>/2017/07/19/aboutWebView/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Volley 基本用法]]></title>
       <url>/2017/07/19/aboutVolley/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-]]></content>
+<p><strong>Volley是一套比较完善的网络框架，它可以自动调度网络请求，实现并发的网络连接，并且可以很方便的更新UI</strong></p>
+<ul>
+<li>添加依赖</li>
+</ul>
+<pre><code>compile &apos;com.mcxiaoke.volley:library:1.0.19&apos;
+</code></pre><h2 id="StringRequest，JsonRequest"><a href="#StringRequest，JsonRequest" class="headerlink" title="StringRequest，JsonRequest"></a>StringRequest，JsonRequest</h2><ul>
+<li>一般使用Volley会包括三个部分，创建requestQueue对象，创建request对象，将request对象添加到requestQueue对象当中</li>
+<li>requestQueue对象不需要每次都创建，它是一个请求队列</li>
+</ul>
+<pre><code>mQueue = Volley.newRequestQueue(NewsApplication.getNewsContext());
+</code></pre><ul>
+<li>创建request对象，我们需要服务器地址和两个监听器，然后将其添加到队列即可</li>
+</ul>
+<pre><code>    public static void  getString(String url,     Response.Listener&lt;String&gt; listener,Response.ErrorListener errorListener){
+
+    StringRequest stringRequest = new StringRequest(url,listener,errorListener);
+    mQueue.add(stringRequest);
+
+} 
+</code></pre><ul>
+<li>Response.Listener 和 Response.ErrorListener 中我们需要分别实现成功加载时和加载失败时的回调方法</li>
+</ul>
+<pre><code>    @Override
+public void onErrorResponse(VolleyError error) {
+Log.d(TAG, &quot;onErrorResponse: &quot;);
+
+}
+
+...
+public void onResponse(String response) {
+Log.d(TAG, &quot;onResponse:&quot;);
+
+}
+</code></pre><ul>
+<li>Volley 没有提供默认的post方法，但是我们可以重写getParams方法，将POST参数放入一个map容器中返回即可</li>
+</ul>
+<pre><code>        protected Map&lt;String, String&gt; getParams() throws AuthFailureError {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;params1&quot;, &quot;value1&quot;);
+    map.put(&quot;params2&quot;, &quot;value2&quot;);
+    return map;
+}
+</code></pre><h2 id="ImageRequest"><a href="#ImageRequest" class="headerlink" title="ImageRequest"></a>ImageRequest</h2><ul>
+<li><p>ImageRequest专门用于加载网络图片，使用方法和StringRequest和JsonRequest有小小的差别</p>
+</li>
+<li><p>ImageRequest的构造方法有七个参数，分别为链接，含有加载成功时的回调方法的监听器，最大的长和宽，缩放模式，颜色属性，加载失败的监听器，当不需要限制长宽时可以将参数设置为0，图片参数一般设置为 Config.RGB_565 即可</p>
+</li>
+</ul>
+<pre><code>public ImageRequest(String url, Response.Listener&lt;Bitmap&gt; listener, int maxWidth, int maxHeight,
+    ScaleType scaleType, Config decodeConfig, Response.ErrorListener errorListener)
+ ...
+
+ImageRequest imageRequest = new ImageRequest(url,
+
+        new Response.Listener&lt;Bitmap&gt;() {
+    @Override
+    public void onResponse(Bitmap response) {
+        imageView.setImageBitmap(response);
+    }
+
+}, 0,0, ImageView.ScaleType.CENTER_INSIDE, Bitmap.Config.RGB_565,
+
+        new Response.ErrorListener() {
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+});
+</code></pre><h2 id="ImageLoader"><a href="#ImageLoader" class="headerlink" title="ImageLoader"></a>ImageLoader</h2><ul>
+<li>ImageRequest 使用起来还是比较麻烦的，使用ImageLoader会比较简洁而且它支持了缓存功能</li>
+<li>创建ImageLoader对象需要请求队列和缓存对象，Imageloader为回调方法做了封装，我们只需要提供ImageView和成功及失败时使用的资源图片即可</li>
+</ul>
+<pre><code>public static void getImage(String url, ImageLoader.ImageCache cache, ImageView imageView){
+
+setQueue();
+ImageLoader imageLoad = new ImageLoader(mQueue,cache);
+ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.downing,R.drawable.failed);
+imageLoad.get(url,listener);
+
+}
+</code></pre><ul>
+<li>一般使用LruCache来实现缓存，让它实现ImageCache接口即可，这个接口只需实现将Bitmap加入缓存和取出缓存的方法</li>
+</ul>
+<pre><code>@Override
+public Bitmap getBitmap(String url) {
+return mCache.get(url);
+}
+
+@Override
+public void putBitmap(String url, Bitmap bitmap) {
+
+mCache.put(url,bitmap);
+}
+</code></pre><h2 id="NetworkImageView"><a href="#NetworkImageView" class="headerlink" title="NetworkImageView"></a>NetworkImageView</h2><ul>
+<li>NetworkImageView是一个封装了请求操作的图片控件，我们只需要提供一个imageLoad对象和url即可</li>
+</ul>
+<pre><code>&lt;com.android.volley.toolbox.NetworkImageView
+android:id=&quot;@+id/theme_iv_header&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;360dp&quot; /&gt;
+
+  ...  
+
+ivHeader.setImageUrl(imageUrl,new ImageLoader(DataFromVolley.getQueue(),new BitmapCache(BitmapCache.MAX_MEMORY /8)));
+</code></pre><h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><ul>
+<li>我们使用Volley的第一步，是调用newRequestQueue方法创建请求队列，那么先来查看这个方法，经过几次直接的return，我们来到这里</li>
+</ul>
+<pre><code>     public static RequestQueue newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes) {
+
+
+    ...    
+
+    if (stack == null) {
+        if (Build.VERSION.SDK_INT &gt;= 9) {
+            stack = new HurlStack();
+        } else {
+            // Prior to Gingerbread, HttpUrlConnection was unreliable.
+            // See: http://android-developers.blogspot.com/2011/09/androids-http-clients.html
+            stack = new HttpClientStack(AndroidHttpClient.newInstance(userAgent));
+        }
+    }
+
+    Network network = new BasicNetwork(stack);
+
+    RequestQueue queue;
+    if (maxDiskCacheBytes &lt;= -1)
+    {
+        // No maximum size specified
+        queue = new RequestQueue(new DiskBasedCache(cacheDir), network);
+    }
+    else
+    {
+        // Disk cache size specified
+        queue = new RequestQueue(new DiskBasedCache(cacheDir, maxDiskCacheBytes), network);
+    }
+
+    queue.start();
+
+    return queue;
+}    
+</code></pre><ul>
+<li>我们看到这里判断了 Build.VERSION.SDK_INT ，根据不同的安卓版本创建了*Stack对象，查看注释这两个对象分别是基于HttpURLConnection和HttpClient来实现的，在较新的版本上使用的是 HttpURLConnection。所以我们可以知道Volley真正的网络操作是交由这两者来实现的</li>
+</ul>
+<pre><code>/**
+ * An {@link HttpStack} based on {@link         HttpURLConnection}.
+ */ 
+
+ /**
+ * An HttpStack that performs request over an {@link         HttpClient}.
+ */
+</code></pre><ul>
+<li>创建完stack，network和请求队列queue之后，queue的start方法执行了</li>
+</ul>
+<pre><code>public void start() {
+stop();  // Make sure any currently running dispatchers are stopped.
+// Create the cache dispatcher and start it.
+mCacheDispatcher = new CacheDispatcher(mCacheQueue, mNetworkQueue, mCache, mDelivery);
+mCacheDispatcher.start();
+
+// Create network dispatchers (and corresponding threads) up to the pool size.
+for (int i = 0; i &lt; mDispatchers.length; i++) {
+    NetworkDispatcher networkDispatcher = new NetworkDispatcher(mNetworkQueue, mNetwork,
+            mCache, mDelivery);
+    mDispatchers[i] = networkDispatcher;
+    networkDispatcher.start();
+}
+}
+</code></pre><ul>
+<li>start 方法中主要有两个对象 mCacheDispatcher和networkDispatcher，查看继承关系，得知他们是 Thread 的子类，同一时刻会有一个CacheDispatcher线程和多个NetworkDispatcher线程在执行，从名字可以看出CacheDispatcher用来执行缓存操作而NetworkDispatcher用来执行网络操作，找到前者的run方法</li>
+</ul>
+<pre><code>public void run() {
+if (DEBUG) VolleyLog.v(&quot;start new dispatcher&quot;);
+Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+// Make a blocking call to initialize the cache.
+mCache.initialize();
+
+Request&lt;?&gt; request;
+while (true) {
+    // release previous request object to avoid leaking request object when mQueue is drained.
+    request = null;
+    try {
+        //这里从请求队列拿出了请求
+        // Take a request from the queue.
+        request = mCacheQueue.take();
+    }
+
+    ....
+
+        // Attempt to retrieve this item from cache.
+        Cache.Entry entry = mCache.get(request.getCacheKey());
+
+        //查看是否有缓存，没有则交给网络队列
+        if (entry == null) {
+            request.addMarker(&quot;cache-miss&quot;);
+            // Cache miss; send off to the network dispatcher.
+            mNetworkQueue.put(request);
+            continue;
+        }
+
+        // If it is completely expired, just send it to the network.
+        if (entry.isExpired()) {
+            request.addMarker(&quot;cache-hit-expired&quot;);
+            request.setCacheEntry(entry);
+            mNetworkQueue.put(request);
+            continue;
+        }
+
+        // We have a cache hit; parse its data for delivery back to the request.
+
+            // Post the intermediate response back to the user and have
+            // the delivery then forward the request along to the network.
+            final Request&lt;?&gt; finalRequest = request;
+            mDelivery.postResponse(request, response, new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mNetworkQueue.put(finalRequest);
+                    } catch (InterruptedException e) {
+                        // Not much we can do about this.
+                    }
+                }
+            });
+        }
+    }
+</code></pre><ul>
+<li><p>可以看到CacheDispatcher缓存线程会先检查它的请求队列mCacheQueue中各个请求的数据是否在缓存中，如果缓存中没有就加入到NetworkDispatcher网络线程处理的队列mNetworkQueue，让NetworkDispatcher去处理。注意这里的循环是while (true)，所以我们调用newRequestQueue最后就是为了开启了这几个无限循环处理请求的线程</p>
+</li>
+<li><p>线程现在已经打开了但是还没有请求，那么再来看看我们调用的add方法，终于看到比较短的代码了…</p>
+</li>
+</ul>
+<pre><code>public &lt;T&gt; Request&lt;T&gt; add(Request&lt;T&gt; request) {
+// Tag the request as belonging to this queue and add it to the set of current requests.
+request.setRequestQueue(this);
+synchronized (mCurrentRequests) {
+    mCurrentRequests.add(request);
+}
+
+// Process requests in the order they are added.
+request.setSequence(getSequenceNumber());
+request.addMarker(&quot;add-to-queue&quot;);
+
+// If the request is uncacheable, skip the cache queue and go straight to the network.
+if (!request.shouldCache()) {
+    mNetworkQueue.add(request);
+    return request;
+}
+
+// Insert request into stage if there&apos;s already a request with the same cache key in flight.
+synchronized (mWaitingRequests) {
+    String cacheKey = request.getCacheKey();
+    if (mWaitingRequests.containsKey(cacheKey)) {
+        // There is already a request in flight. Queue up.
+        Queue&lt;Request&lt;?&gt;&gt; stagedRequests = mWaitingRequests.get(cacheKey);
+        if (stagedRequests == null) {
+            stagedRequests = new LinkedList&lt;Request&lt;?&gt;&gt;();
+        }
+        stagedRequests.add(request);
+        mWaitingRequests.put(cacheKey, stagedRequests);
+        if (VolleyLog.DEBUG) {
+            VolleyLog.v(&quot;Request for cacheKey=%s is in flight, putting on hold.&quot;, cacheKey);
+        }
+    } else {
+        // Insert &apos;null&apos; queue for this cacheKey, indicating there is now a request in
+        // flight.
+        mWaitingRequests.put(cacheKey, null);
+        mCacheQueue.add(request);
+    }
+    return request;
+}
+} 
+</code></pre><ul>
+<li>add方法几乎每一步都加了注释，还是很好解读的，去掉一些判断逻辑，发现add方法其实是先检查我们传进来的请求是否需要缓存，如果不需要就直接加入上NetworkDispatcher处理的队列否则就加入CacheDispatcher的队列，一般请求都是默认可以缓存的，到这里队列里就有请求了</li>
+</ul>
+<ul>
+<li>现在再来看看请求得到的response是怎么回到主线程处理的，这些reponse是由之前提到的NetWork对象操作stack对象（HttpURLConnection或者HttpClient）得到的，置于怎么操作不是很重要，不去研究。我们看到NetworkDispatcher的run方法最后使用ResponseDelivery mDelivery的一个post方法，顾名思义，response被传递了，点进去发现ResponseDelivery是一个接口，所以还得去找找他是在哪创建的</li>
+</ul>
+<pre><code>mDelivery.postResponse(request, response);
+</code></pre><ul>
+<li>找了半天发现它是在RequestQueue被创建时调用的也就是在newRequestQueue方法的过程中，我们看到它持有了一个MainLooper</li>
+</ul>
+<pre><code>public RequestQueue(Cache cache, Network network, int threadPoolSize) {
+this(cache, network, threadPoolSize,
+        new ExecutorDelivery(new Handler(Looper.getMainLooper())));
+}
+</code></pre><ul>
+<li>找到 postResponse 方法， 调用了mResponsePoster 的 execute方法             </li>
+</ul>
+<pre><code>              @Override
+public void postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response, Runnable runnable) {
+request.markDelivered();
+request.addMarker(&quot;post-response&quot;);
+mResponsePoster.execute(new ResponseDeliveryRunnable(request, response, runnable));
+}
+</code></pre><ul>
+<li>mResponsePoster最终调用了handler的post方法，已经知道handler持有的是mainLooper，因此response可以在主线程处理了</li>
+</ul>
+<pre><code>mResponsePoster = new Executor() {
+    @Override
+    public void execute(Runnable command) {
+        handler.post(command);
+    }
+};
+</code></pre>]]></content>
       
         <categories>
             

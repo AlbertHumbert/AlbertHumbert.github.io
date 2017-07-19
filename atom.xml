@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-07-19T07:16:28.000Z</updated>
+  <updated>2017-07-19T13:34:35.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>aboutVolley</title>
+    <title>WebView基本用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/19/aboutWebView/"/>
+    <id>https://alberthumbert.github.io/2017/07/19/aboutWebView/</id>
+    <published>2017-07-19T13:32:52.000Z</published>
+    <updated>2017-07-19T13:34:35.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Volley 基本用法</title>
     <link href="https://alberthumbert.github.io/2017/07/19/aboutVolley/"/>
     <id>https://alberthumbert.github.io/2017/07/19/aboutVolley/</id>
     <published>2017-07-19T07:15:41.000Z</published>
-    <updated>2017-07-19T07:16:28.000Z</updated>
+    <updated>2017-07-19T13:37:50.000Z</updated>
     
     <summary type="html">
     
@@ -392,26 +406,6 @@
     
     
       <category term="Java" scheme="https://alberthumbert.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>unix网络编程 笔记</title>
-    <link href="https://alberthumbert.github.io/2017/02/21/unp/"/>
-    <id>https://alberthumbert.github.io/2017/02/21/unp/</id>
-    <published>2017-02-21T12:44:06.000Z</published>
-    <updated>2017-06-03T17:58:22.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;onDestroy&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="unix" scheme="https://alberthumbert.github.io/tags/unix/"/>
     
   </entry>
   
