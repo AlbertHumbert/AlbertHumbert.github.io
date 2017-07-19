@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-07-18T15:40:10.000Z</updated>
+  <updated>2017-07-19T07:16:28.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>aboutVolley</title>
+    <link href="https://alberthumbert.github.io/2017/07/19/aboutVolley/"/>
+    <id>https://alberthumbert.github.io/2017/07/19/aboutVolley/</id>
+    <published>2017-07-19T07:15:41.000Z</published>
+    <updated>2017-07-19T07:16:28.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>RecycleView基本用法</title>
@@ -389,24 +409,6 @@
     </summary>
     
       <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="unix" scheme="https://alberthumbert.github.io/tags/unix/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ubuntu 16.04 开启daytime服务（端口13）</title>
-    <link href="https://alberthumbert.github.io/2017/02/20/daytime/"/>
-    <id>https://alberthumbert.github.io/2017/02/20/daytime/</id>
-    <published>2017-02-20T15:00:56.000Z</published>
-    <updated>2017-06-03T17:56:13.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-    
-    </summary>
     
     
       <category term="unix" scheme="https://alberthumbert.github.io/tags/unix/"/>
