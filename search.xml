@@ -295,7 +295,7 @@ synchronized (mWaitingRequests) {
 </ul>
 <pre><code>mDelivery.postResponse(request, response);
 </code></pre><ul>
-<li>找了半天发现它是在RequestQueue被创建时调用的，也就是在newRequestQueue方法的过程中，这里我们看到它持有了一个MainLooper，已经大概可以猜到内部实现了</li>
+<li>找了半天发现它是在RequestQueue被创建时调用的，也就是在newRequestQueue方法的过程中，它的实现类是ExecutorDelivery，这里我们看到它持有了一个MainLooper，已经大概可以猜到内部实现了</li>
 </ul>
 <pre><code>public RequestQueue(Cache cache, Network network, int threadPoolSize) {
 this(cache, network, threadPoolSize,
@@ -320,7 +320,46 @@ mResponsePoster.execute(new ResponseDeliveryRunnable(request, response, runnable
     }
 };
 </code></pre><ul>
-<li>这样我们就把Volley的机制大致过了一遍，我们发现Volley实现了并发的异步请求，数据缓存，优先级，同时有一个RequestQueue来同一存放请求，相对于我们单独地使用HttpURLConnection，它减少了大量线程开启和销毁带来的消耗，还是有比较多的优点的，另外使用它的时候要特别注意不要多次创建RequestQueue队列，否则会开启很多长期运行的线程        </li>
+<li>那么这里post的Runnable又是什么呢，查看ExecutorDelivery，也就是之前接受了MainLooper的那个类，看来这个Runnable是它的内部类，当请求成功时调用deliverResponse，不成功时调用deliverError，在进去阅读文档得知这两个方法最终会调用Listener的回调方法，也就是我们熟悉的onResponse方法了，值得注意的是这个Runnable的run方法里面又执行了另一个Runnable的run方法，在NetworkDispatcher中这个传入的Runnable是null，这个Runnable是用于CacheDispatcher得到缓存后可以直接回到主线程而存在的</li>
+</ul>
+<pre><code>    @Override
+    public void postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response) {
+    postResponse(request, response, null);
+    }
+
+    @Override
+    public void postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response, Runnable runnable) {
+    request.markDelivered();
+    request.addMarker(&quot;post-response&quot;);
+    mResponsePoster.execute(new ResponseDeliveryRunnable(request, response, runnable));
+    }
+
+
+    /**
+     * A Runnable used for delivering network responses to a listener on the
+     * main thread.
+     */
+@SuppressWarnings(&quot;rawtypes&quot;)
+private class ResponseDeliveryRunnable implements Runnable {
+    private final Request mRequest;
+    private final Response mResponse;
+    private final Runnable mRunnable; 
+    ...
+            public void run() {
+                        if (mResponse.isSuccess()) {
+        mRequest.deliverResponse(mResponse.result);
+    } else {
+        mRequest.deliverError(mResponse.error);
+    }
+    ...
+                if (mRunnable != null) {
+        mRunnable.run();
+    }
+     ...
+</code></pre><ul>
+<li></li>
+<li><p>这样我们就把Volley的机制大致过了一遍，我们发现Volley实现了并发的异步请求，数据缓存，优先级，同时有一个RequestQueue来同一存放请求，相对于我们单独地使用HttpURLConnection，它减少了大量线程开启和销毁带来的消耗，还是有比较多的优点的，另外使用它的时候要特别注意不要多次创建RequestQueue队列，否则会开启很多长期运行的线程        </p>
+</li>
 </ul>
 ]]></content>
       
