@@ -11,7 +11,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Volley 基本用法]]></title>
+      <title><![CDATA[Volley 基本用法和源码分析]]></title>
       <url>/2017/07/19/aboutVolley/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -97,7 +97,7 @@ imageLoad.get(url,listener);
 
 }
 </code></pre><ul>
-<li>一般使用LruCache来实现缓存，让它实现ImageCache接口即可，这个接口只需实现将Bitmap加入缓存和取出缓存的方法</li>
+<li>一般使用LruCache来缓存，让它实现ImageCache接口即可，这个接口只需实现将Bitmap加入缓存和取出缓存的方法</li>
 </ul>
 <pre><code>@Override
 public Bitmap getBitmap(String url) {
@@ -121,7 +121,7 @@ android:layout_height=&quot;360dp&quot; /&gt;
 
 ivHeader.setImageUrl(imageUrl,new ImageLoader(DataFromVolley.getQueue(),new BitmapCache(BitmapCache.MAX_MEMORY /8)));
 </code></pre><h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><ul>
-<li>我们使用Volley的第一步，是调用newRequestQueue方法创建请求队列，那么先来查看这个方法，经过几次直接的return，我们来到这里</li>
+<li>我们使用Volley的第一步，是调用newRequestQueue方法创建请求队列，那么先来查看这个方法，它的内部经过了几次直接的return，之后我们来到这里</li>
 </ul>
 <pre><code>     public static RequestQueue newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes) {
 
@@ -157,7 +157,7 @@ ivHeader.setImageUrl(imageUrl,new ImageLoader(DataFromVolley.getQueue(),new Bitm
     return queue;
 }    
 </code></pre><ul>
-<li>我们看到这里判断了 Build.VERSION.SDK_INT ，根据不同的安卓版本创建了*Stack对象，查看注释这两个对象分别是基于HttpURLConnection和HttpClient来实现的，在较新的版本上使用的是 HttpURLConnection。所以我们可以知道Volley真正的网络操作是交由这两者来实现的</li>
+<li>我们看到这里判断了 Build.VERSION.SDK_INT ，以此根据不同的安卓版本创建了两个Stack类的实例，查看注释这两个类分别是基于HttpURLConnection和HttpClient来实现的，在较新的版本上使用的是 HttpURLConnection。所以我们可以知道Volley真正的网络操作实际交由这两者来执行的。</li>
 </ul>
 <pre><code>/**
  * An {@link HttpStack} based on {@link         HttpURLConnection}.
@@ -167,7 +167,7 @@ ivHeader.setImageUrl(imageUrl,new ImageLoader(DataFromVolley.getQueue(),new Bitm
  * An HttpStack that performs request over an {@link         HttpClient}.
  */
 </code></pre><ul>
-<li>创建完stack，network和请求队列queue之后，queue的start方法执行了</li>
+<li>创建完stack对象，networ对象和请求队列queue之后，queue的start方法执行了，查看这个方法的内部</li>
 </ul>
 <pre><code>public void start() {
 stop();  // Make sure any currently running dispatchers are stopped.
@@ -184,7 +184,7 @@ for (int i = 0; i &lt; mDispatchers.length; i++) {
 }
 }
 </code></pre><ul>
-<li>start 方法中主要有两个对象 mCacheDispatcher和networkDispatcher，查看继承关系，得知他们是 Thread 的子类，同一时刻会有一个CacheDispatcher线程和多个NetworkDispatcher线程在执行，从名字可以看出CacheDispatcher用来执行缓存操作而NetworkDispatcher用来执行网络操作，找到前者的run方法</li>
+<li>start 方法中主要有两个对象 mCacheDispatcher和networkDispatcher，查看继承关系，得知他们是 Thread 子类的实例，同一时刻会有一个CacheDispatcher线程和多个NetworkDispatcher线程在执行，从名字就可以看出CacheDispatcher用来执行缓存操作而NetworkDispatcher用来执行网络操作，找到前者的run方法</li>
 </ul>
 <pre><code>public void run() {
 if (DEBUG) VolleyLog.v(&quot;start new dispatcher&quot;);
@@ -242,9 +242,9 @@ while (true) {
         }
     }
 </code></pre><ul>
-<li><p>可以看到CacheDispatcher缓存线程会先检查它的请求队列mCacheQueue中各个请求的数据是否在缓存中，如果缓存中没有就加入到NetworkDispatcher网络线程处理的队列mNetworkQueue，让NetworkDispatcher去处理。注意这里的循环是while (true)，所以我们调用newRequestQueue最后就是为了开启了这几个无限循环处理请求的线程</p>
+<li><p>可以看到CacheDispatcher缓存线程会先检查它的请求队列mCacheQueue中各个请求的数据是否在缓存中，如果缓存中没有就加入到NetworkDispatcher网络线程处理的队列mNetworkQueue，让NetworkDispatcher去处理。注意这里的循环是while (true)，所以我们调用newRequestQueue最后就是为了开启了这几个无限循环处理请求的线程，注意这里的队列都是PriorityBlockingQueue，也就是优先级队列</p>
 </li>
-<li><p>线程现在已经打开了但是还没有请求，那么再来看看我们调用的add方法，终于看到比较短的代码了…</p>
+<li><p>线程已经打开了但是这时还没有请求，那么再来看看我们调用的add方法，终于看到比较短的代码了…</p>
 </li>
 </ul>
 <pre><code>public &lt;T&gt; Request&lt;T&gt; add(Request&lt;T&gt; request) {
@@ -288,21 +288,21 @@ synchronized (mWaitingRequests) {
 }
 } 
 </code></pre><ul>
-<li>add方法几乎每一步都加了注释，还是很好解读的，去掉一些判断逻辑，发现add方法其实是先检查我们传进来的请求是否需要缓存，如果不需要就直接加入上NetworkDispatcher处理的队列否则就加入CacheDispatcher的队列，一般请求都是默认可以缓存的，到这里队列里就有请求了</li>
+<li>add方法几乎每一步都加了注释，还是很好解读的，去掉一些判断逻辑，发现add方法其实是先检查我们传进来的请求是否需要缓存，如果不需要就直接加入上NetworkDispatcher处理的队列否则就加入CacheDispatcher的队列，一般请求都是默认可以缓存的，到了这里队列就有请求了</li>
 </ul>
 <ul>
-<li>现在再来看看请求得到的response是怎么回到主线程处理的，这些reponse是由之前提到的NetWork对象操作stack对象（HttpURLConnection或者HttpClient）得到的，置于怎么操作不是很重要，不去研究。我们看到NetworkDispatcher的run方法最后使用ResponseDelivery mDelivery的一个post方法，顾名思义，response被传递了，点进去发现ResponseDelivery是一个接口，所以还得去找找他是在哪创建的</li>
+<li>现在再来看看请求得到的response是怎么回到主线程处理的，reponse是由之前提到的NetWork对象操作stack对象（HttpURLConnection或者HttpClient）得到的，置于怎么操作不是很重要，不去研究。我们看到NetworkDispatcher的run方法最后使用ResponseDelivery mDelivery的一个post方法，顾名思义，response被传递了，点进去发现ResponseDelivery是一个接口，所以还得去找找他是在哪创建的</li>
 </ul>
 <pre><code>mDelivery.postResponse(request, response);
 </code></pre><ul>
-<li>找了半天发现它是在RequestQueue被创建时调用的也就是在newRequestQueue方法的过程中，我们看到它持有了一个MainLooper</li>
+<li>找了半天发现它是在RequestQueue被创建时调用的，也就是在newRequestQueue方法的过程中，这里我们看到它持有了一个MainLooper，已经大概可以猜到内部实现了</li>
 </ul>
 <pre><code>public RequestQueue(Cache cache, Network network, int threadPoolSize) {
 this(cache, network, threadPoolSize,
         new ExecutorDelivery(new Handler(Looper.getMainLooper())));
 }
 </code></pre><ul>
-<li>找到 postResponse 方法， 调用了mResponsePoster 的 execute方法             </li>
+<li>找到之前 postResponse 方法的具体实现， 它调用了mResponsePoster 的 execute方法             </li>
 </ul>
 <pre><code>              @Override
 public void postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response, Runnable runnable) {
@@ -311,7 +311,7 @@ request.addMarker(&quot;post-response&quot;);
 mResponsePoster.execute(new ResponseDeliveryRunnable(request, response, runnable));
 }
 </code></pre><ul>
-<li>mResponsePoster最终调用了handler的post方法，已经知道handler持有的是mainLooper，因此response可以在主线程处理了</li>
+<li>execute其实就是handler的post方法，由于已经知道handler持有的是mainLooper，因此response可以在主线程处理了</li>
 </ul>
 <pre><code>mResponsePoster = new Executor() {
     @Override
@@ -319,7 +319,10 @@ mResponsePoster.execute(new ResponseDeliveryRunnable(request, response, runnable
         handler.post(command);
     }
 };
-</code></pre>]]></content>
+</code></pre><ul>
+<li>这样我们就把Volley的机制大致过了一遍，我们发现Volley实现了并发的异步请求，数据缓存，优先级，同时有一个RequestQueue来同一存放请求，相对于我们单独地使用HttpURLConnection，它减少了大量线程开启和销毁带来的消耗，还是有比较多的优点的，另外使用它的时候要特别注意不要多次创建RequestQueue队列，否则会开启很多长期运行的线程        </li>
+</ul>
+]]></content>
       
         <categories>
             
