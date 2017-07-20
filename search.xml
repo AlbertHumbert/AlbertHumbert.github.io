@@ -3,7 +3,157 @@
   
     
     <entry>
-      <title><![CDATA[aboutAnnotation]]></title>
+      <title><![CDATA[工厂模式与单例模式]]></title>
+      <url>/2017/07/20/aboutPattern/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h2 id="静态工厂方法"><a href="#静态工厂方法" class="headerlink" title="静态工厂方法"></a>静态工厂方法</h2><p><br></p>
+<h3 id="使用静态工厂方法代替构造器"><a href="#使用静态工厂方法代替构造器" class="headerlink" title="使用静态工厂方法代替构造器"></a>使用静态工厂方法代替构造器</h3><p><strong>对于类而言，获取实例的手段无非两个，构造器和静态工厂方法</strong></p>
+<ul>
+<li>静态工厂方法的优点在于它是有名字的，一个签名只能对应一个构造器，对于相同参数的构造器我们只能通过修改参数列表的位置进行扩展，而且构造器较多时往往会造成混乱</li>
+<li>静态工厂方法不必每次都创造对象，可以使用预先构建好的实例</li>
+<li>静态工厂方法可以返回任何子类型的对象</li>
+</ul>
+<p><br></p>
+<h3 id="静态工厂模式"><a href="#静态工厂模式" class="headerlink" title="静态工厂模式"></a>静态工厂模式</h3><ul>
+<li>静态工厂模式包含一个具体的工厂类，一个抽象的产品类，不限数量的具体产品类</li>
+<li>当我们有较多的产品类时，通常的这些产品会是一个树形结构，但是这时相同的逻辑很难复用，所有静态工厂方法模式有时并不理想</li>
+</ul>
+<p><br></p>
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><ul>
+<li>工厂方法模式是对静态工厂模式的扩展，它包含一个抽象工厂类，一个抽象象产品类，不限数量的具体产品类和具体工厂类</li>
+<li>抽象的工厂类定义了规范，每一个具体的产品对应一个具体的工厂类，这样使得需求增加时只要再实现工厂类即可</li>
+<li>这种方法通常只针对的单一产品结构，当我们需要多种差别较大的实例时会导致具体工厂的数量非常多，这时回使用抽象工厂方法</li>
+</ul>
+<p><br></p>
+<h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><ul>
+<li>抽象工厂模式与工厂方法模式的不同在于它有多个抽象产品类而且每个具体的工厂类可以产生多个具体产品类的实例</li>
+<li>这种模式是高度解耦的，但是当抽象产品类的数量较少时它实际上回退化为工厂方法模式，所以实际上并不是越抽象就越好，而要看实际的情况来使用</li>
+</ul>
+<p><br></p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p><strong>单例模式指的时同一时刻一个类最多只存在一个实例，并且这个唯一实例由类自己创建并提供给其他对象</strong></p>
+<p><br></p>
+<h3 id="懒汉式单例"><a href="#懒汉式单例" class="headerlink" title="懒汉式单例"></a>懒汉式单例</h3><ul>
+<li>懒汉式单例指的是一个类只有到有需要时才去创建单例，在这之前让它一直为null，这里使用了私有的构造器，并让这个类持有自己的实例，只有这个引用为null且外界调用了静态工厂方法时才去创建实例</li>
+</ul>
+<pre><code>public class Singleton {  
+
+    private static Singleton singleton=null;
+
+    private Singleton() {
+        }  
+
+    public static Singleton getInstance() {  
+         if (singleton == null) {    
+         singleton = new Singleton();  
+         }    
+        return singleton;  
+    }  
+}  
+</code></pre><ul>
+<li>考虑到线程安全的问题，为这个方法加上锁，这样每次获取对象时都会受到同步锁的影响</li>
+</ul>
+<pre><code>public static synchronized Singleton getInstance() {  
+     if (singleton == null) {    
+     single = new Singleton();  
+     }    
+    return singleton;  
+}  
+</code></pre><ul>
+<li>synchronized(ClassName.class)这种写法可以时同一时刻只有一个线程可以访问这个类的实例，但是这样又产生了问题如果两个线程同时进行了判空，这时就会产生两个实例</li>
+</ul>
+<pre><code>Public static Singleton getInstance(){
+       If(singleton == null){
+          Synchronized(singleton.class){
+                    Singleton = new Singleton();
+              }
+          return singleton;  
+       }
+}    
+</code></pre><ul>
+<li>因此这里再检查一遍防止有多余的实例产生</li>
+</ul>
+<pre><code>public static Singleton getInstance() {  
+        if (singleton == null) {    
+            synchronized (Singleton.class) {    
+               if (singleton == null) {    
+                  singleton = new Singleton();   
+               }    
+            }    
+    }    
+    return singleton;   
+}  
+</code></pre><ul>
+<li>还有另一种懒汉式的单例，它使用了利用了类加载机制的特点，对应JVM来说外部类和内部类是同等的类，类加载时方法不会被调用，当我们调用getInstance时内部类才会加载进来，这时才会去初始化，而类加载只进行一次，所以它是懒汉式单例</li>
+</ul>
+<pre><code>public class Singleton {  
+    private static class SingletonHolder {  
+    private static final Singleton INSTANCE = new     Singleton();  
+    }  
+    private Singleton (){}  
+    public static final Singleton getInstance() {  
+    return SingletonHolder.INSTANCE;  
+    }  
+}  
+</code></pre><p><br></p>
+<h3 id="饿汉式单例"><a href="#饿汉式单例" class="headerlink" title="饿汉式单例"></a>饿汉式单例</h3><ul>
+<li>饿汉式单例指的是类的实例在获取之前就初始化，根据类加载的机制在类创建时创建实例，由于类只会加载一次，所以只会有一个实例</li>
+</ul>
+<pre><code>public class Singleton {  
+    private static Singleton singleton = new Singleton();  
+    private Singleton (){}  
+    public static Singleton getInstance() {  
+    return singleton;  
+    }  
+}  
+</code></pre><ul>
+<li>下面这种方式使用了静态域，本质上和上一种没有区别</li>
+</ul>
+<pre><code>public class Singleton {  
+    private Singleton instance = null;  
+    static {  
+    instance = new Singleton();  
+    }  
+    private Singleton (){}  
+    public static Singleton getInstance() {  
+    return this.instance;  
+    }  
+}      
+</code></pre><ul>
+<li>通过枚举来实现单例是最简洁的，枚举可以含有私有的构造器，同时枚举有保证了内部只会有一个实例</li>
+</ul>
+<pre><code>private static enum Singleton{
+    INSTANCE;
+
+    private EnumSingleton singleton;
+
+    private Singleton(){
+        singleton = new EnumSingleton();
+    }
+    public EnumSingleton getInstance(){
+    return singleton;
+    }
+}            
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[注解 基本用法]]></title>
       <url>/2017/07/20/aboutAnnotation/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
