@@ -303,31 +303,30 @@ getInfo: class java.lang.Void
 </ul>
 <pre><code>https://github.com/JakeWharton/butterknife
 </code></pre><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><ul>
-<li><p>ButterKnife最初和最常见的用途就是绑定View类，使我们不用去打findViewById</p>
-</li>
-<li><p>首先必须在setContentView之后调用ButterKnife.bind()方法，这样BindView方法才有效    </p>
-</li>
+<li>ButterKnife最初和最常见的用途就是绑定View类，使我们不用去打findViewById</li>
+</ul>
+<ul>
+<li>首先必须在setContentView之后调用ButterKnife.bind()方法，这样BindView方法才有效    </li>
 </ul>
 <pre><code>setContentView(R.layout.activity_home);
 ButterKnife.bind(this);    
 </code></pre><ul>
-<li><p>声明一个View引用时使用BindView方法，这样我们在使用这些变量的时候就不用去初始化了</p>
+<li>声明一个View引用时使用BindView方法，这样我们在使用这些变量的时候就不用去初始化了</li>
+</ul>
 <pre><code>   @BindView(R.id.home_srl_update)SwipeRefreshLayout mSrUpdate;
 @BindView(R.id.home_tb_title)Toolbar toolbar;
 @BindView(R.id.drawer_layout)DrawerLayout mHomeLayout;
 @BindView(R.id.home_rv_news)RecyclerView rvNews;
 @BindView(R.id.home_lv_types)ListView lvTypes;
 @BindView(R.id.download) Button download;
-</code></pre></li>
+</code></pre><ul>
+<li>ButterKnife生成的代码长这个样子</li>
 </ul>
-<ul>
-<li><p>ButterKnife生成的代码长这个样子</p>
 <pre><code>target.rvNews = finder.findRequiredViewAsType(source, R.id.home_rv_news, &quot;field &apos;rvNews&apos;&quot;, RecyclerView.class);
 target.lvTypes = finder.findRequiredViewAsType(source, R.id.home_lv_types, &quot;field &apos;lvTypes&apos;&quot;, ListView.class); 
-</code></pre></li>
+</code></pre><ul>
+<li>绑定Fragment的方式基本相同，但是要注意解绑   </li>
 </ul>
-<ul>
-<li><p>绑定Fragment的方式基本相同，但是要注意解绑   </p>
 <pre><code>ButterKnife.bind(this,mRootView)    
 
 ...
@@ -336,11 +335,12 @@ public void onDestroyView() {
 super.onDestroyView();  
 ButterKnife.unbind(this);//解绑  
 }          
-</code></pre></li>
-<li><p>ButterKnife还可以绑定其他资源</p>
+</code></pre><ul>
+<li>ButterKnife还可以绑定其他资源</li>
+</ul>
 <pre><code>@BindDrawable(R.drawable.ic_comment)Drawable drawable;
 @BindColor(R.color.dark)  
-</code></pre></li>
+</code></pre><ul>
 <li><p>还可以绑定监听事件</p>
 <pre><code>@OnClick(R.id.download)
 public void download() {
@@ -352,8 +352,9 @@ itemClick(){
 
 }
 </code></pre></li>
-<li><p>也可以在ViewHolder中使用</p>
-</li>
+</ul>
+<ul>
+<li>也可以在ViewHolder中使用</li>
 </ul>
 <pre><code>static class ViewHolder extends RecyclerView.ViewHolder {
 
