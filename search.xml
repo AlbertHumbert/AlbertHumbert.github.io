@@ -8,14 +8,53 @@
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <h2 id="关于线程池"><a href="#关于线程池" class="headerlink" title="关于线程池"></a>关于线程池</h2><ul>
-<li><p>当我们异步处理请求时，如果每一个请求都去创建一个线程，那么请求和销毁线程所消耗的时间和空间上的资源可能比时间处理请求的销毁的资源更多，为了解决线程开销的问题，需要使用线程池统一管理和复用线程</p>
+<li>当我们异步处理请求时，如果每一个请求都去创建一个线程，那么请求和销毁线程所消耗的时间和空间上的资源可能比时间处理请求的销毁的资源更多，为了解决线程开销的问题，需要使用线程池统一管理和复用线程</li>
+</ul>
+<ul>
+<li>任何的多线程操作都有死锁的风险。如果线程池太大，系统资源会被长期占用影响程序的性能。</li>
+</ul>
+<ul>
+<li>线程池最严重的风险是线程泄漏，当线程抛出运行时异常或Error时如果没有被捕捉，线程意外死亡，那么池的大小就永远减小一个，最终很有可能导致线程池为空的情况，另外如果某个线程被一个任务永久消耗，那么实际上它相当于被从线程池中移除了</li>
+</ul>
+<h2 id="Java自带线程池"><a href="#Java自带线程池" class="headerlink" title="Java自带线程池"></a>Java自带线程池</h2><h3 id="ExecutorService"><a href="#ExecutorService" class="headerlink" title="ExecutorService"></a>ExecutorService</h3><ul>
+<li>java.util.concurrent包中提供了进行后台操作的接口ExecutorService，这个接口继承了Executor接口，Executor中只有一个Execute方法，ExecutorService主要有两个实现ThreadPoolExecutor和ScheduledThreadPoolExecutor，这两个类为我们提供了各种各样的线程池</li>
+</ul>
+<pre><code>public interface Executor {
+
+/**
+ * Executes the given command at some time in the future.  The command
+ * may execute in a new thread, in a pooled thread, or in the calling
+ * thread, at the discretion of the {@code Executor} implementation.
+ *
+ * @param command the runnable task
+ * @throws RejectedExecutionException if this task can    not be
+ * accepted for execution
+ * @throws NullPointerException if command is null
+ */
+void execute(Runnable command);
+}
+</code></pre><ul>
+<li><p>ExecutorService有一个工厂类Executors，Executors可以创建下面四类线程池</p>
+<pre><code>newCachedThreadPool
+newFixedThreadPool
+newScheduledThreadPoo
+newSingleThreadExecutor
+</code></pre></li>
+</ul>
+<ul>
+<li><p>ExecutorService有五个执行方法</p>
+<pre><code>execute(Runnable)
+submit(Runnable)
+submit(Callable)
+invokeAny()
+invokeAll()
+</code></pre></li>
+<li><p>execute方法不能得到返回值而submit方法可以得到返回值的Future对象，使用submit(Runnable)得到的Future对象调用get()方法会阻塞当前线程，并最终得到一个null值，但是submit(Callable)得到Future对象的get()方法可以获取结果</p>
 </li>
-<li><p>任何的多线程操作都有死锁的风险。如果线程池太大，系统资源会被长期占用影响程序的性能。</p>
-</li>
-<li><p>线程池最严重的风险是线程泄漏，当线程抛出运行时异常或Error时如果没有被捕捉，线程意外死亡，那么池的大小就永远减小一个，最终很有可能导致线程池为空的情况，另外如果某个线程被一个任务永久消耗，那么实际上它相当于被从线程池中移除了</p>
+<li><p>invokeAny方法接受一个Callable，但是执行这个方法不会返回Future，而是可以得到其中一个Callable的结果，但无法保证是哪一个Callable的结果，使用invokeAll可以返回一个Future对象的list使用future.get()可以得到对应结果</p>
 </li>
 </ul>
-<h2 id="Java自带线程池"><a href="#Java自带线程池" class="headerlink" title="Java自带线程池"></a>Java自带线程池</h2><h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><ul>
+<h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><ul>
 <li><p>这种线程池对线程创建的数量几乎没有要求，查看内部的构造器发现它传递的是Integer.MAX_VALUE，它会根据需要回收线程，如果没有线程可回收就新开线程，当某线程空闲时间超过60秒时，该线程会被回收</p>
 <pre><code>    public static ExecutorService newCachedThreadPool() {
 return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
@@ -24,20 +63,18 @@ return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
     }
 </code></pre></li>
 <li><p>开启线程池使用Executors的静态方法</p>
-<pre><code>ExecutorService cachedThreadPool = Executors.newCachedThreadPool(); 
-</code></pre></li>
+</li>
 </ul>
-<ul>
-<li><p>发送请求，投递Runnable或Thread</p>
+<pre><code>ExecutorService cachedThreadPool = Executors.newCachedThreadPool(); 
+</code></pre><ul>
+<li>发送请求，投递Runnable或Thread</li>
+</ul>
 <pre><code>cachedThreadPool.execute(new Runnable() {
         @Override
         public void run() {
-
         //do something
-</code></pre></li>
-</ul>
-<pre><code>    }
-});    
+        }
+    });    
 </code></pre><ul>
 <li>使用shutdown和shutdownNow方法可以终止线程池，shutdown会等待队列中的任务执行完毕才去终止线程池，shutdownNow或尝试打断正在执行的任务    </li>
 </ul>
@@ -95,16 +132,19 @@ return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
                                long delay, TimeUnit unit);
 </code></pre><h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><ul>
 <li>上述的四种线程池都调用了ThreadPoolExecutor这个构造方法，ThreadPoolExecutor一般用来定义新的线程池</li>
-<li><p>ThreadPoolExecutor的构造器如下，corePoolSize表示核心池的大小，当线程池中的线程数目大于该值时会把任务放到缓存队列当中</p>
-</li>
-<li><p>maximumPoolSize，最大线程数，表示一个线程池最多能创建多少线程</p>
-</li>
-<li><p>keepAliveTime，当线程池的大小超过corePoolSize且线程的空闲时间超过该值，该线程就会终止</p>
-</li>
-<li><p>unit时间单位，包括DAYS，HOURS，MINUTES，SECONDS，MILLISECONDS，MICROSECONDS，NANOSECONDS</p>
-</li>
-<li><p>workQueue，阻塞队列，用来储存待执行的任务，一般有三个可能的类型，ArrayBlockingQueue，先进先出队列，必须指定大小，LinkedBlockingQueue，先进先出队列，可不指定大小，SynchronousQueue，直接新建一个线程来执行新来的任务，不缓存任务，ThreadFactory用于创建线程，RejectedExecutionHandler用于处理当线程池拒绝任务时的策略</p>
-</li>
+<li>ThreadPoolExecutor的构造器如下，corePoolSize表示核心池的大小，当线程池中的线程数目大于该值时会把任务放到缓存队列当中</li>
+</ul>
+<ul>
+<li>maximumPoolSize，最大线程数，表示一个线程池最多能创建多少线程</li>
+</ul>
+<ul>
+<li>keepAliveTime，当线程池的大小超过corePoolSize且线程的空闲时间超过该值，该线程就会终止</li>
+</ul>
+<ul>
+<li>unit时间单位，包括DAYS，HOURS，MINUTES，SECONDS，MILLISECONDS，MICROSECONDS，NANOSECONDS</li>
+</ul>
+<ul>
+<li>workQueue，阻塞队列，用来储存待执行的任务，一般有三个可能的类型，ArrayBlockingQueue，先进先出队列，必须指定大小，LinkedBlockingQueue，先进先出队列，可不指定大小，SynchronousQueue，直接新建一个线程来执行新来的任务，不缓存任务，ThreadFactory用于创建线程，RejectedExecutionHandler用于处理当线程池拒绝任务时的策略</li>
 </ul>
 <pre><code>public ThreadPoolExecutor(int corePoolSize,
                       int maximumPoolSize,
