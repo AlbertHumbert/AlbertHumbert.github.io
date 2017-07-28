@@ -3,6 +3,1196 @@
   
     
     <entry>
+      <title><![CDATA[线程池基本用法]]></title>
+      <url>/2017/07/28/aboutThreadPool/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="关于线程池"><a href="#关于线程池" class="headerlink" title="关于线程池"></a>关于线程池</h2><ul>
+<li><p>当我们异步处理请求时，如果每一个请求都去创建一个线程，那么请求和销毁线程所消耗的时间和空间上的资源可能比时间处理请求的销毁的资源更多，为了解决线程开销的问题，需要使用线程池统一管理和复用线程</p>
+</li>
+<li><p>任何的多线程操作都有死锁的风险。如果线程池太大，系统资源会被长期占用影响程序的性能。</p>
+</li>
+<li><p>线程池最严重的风险是线程泄漏，当线程抛出运行时异常或Error时如果没有被捕捉，线程意外死亡，那么池的大小就永远减小一个，最终很有可能导致线程池为空的情况，另外如果某个线程被一个任务永久消耗，那么实际上它相当于被从线程池中移除了</p>
+</li>
+</ul>
+<h2 id="Java自带线程池"><a href="#Java自带线程池" class="headerlink" title="Java自带线程池"></a>Java自带线程池</h2><h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><ul>
+<li><p>这种线程池对线程创建的数量几乎没有要求，查看内部的构造器发现它传递的是Integer.MAX_VALUE，它会根据需要回收线程，如果没有线程可回收就新开线程，当某线程空闲时间超过60秒时，该线程会被回收</p>
+<pre><code>    public static ExecutorService newCachedThreadPool() {
+return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                              60L, TimeUnit.SECONDS,
+                              new SynchronousQueue&lt;Runnable&gt;());
+    }
+</code></pre></li>
+<li><p>开启线程池使用Executors的静态方法</p>
+<pre><code>ExecutorService cachedThreadPool = Executors.newCachedThreadPool(); 
+</code></pre></li>
+</ul>
+<ul>
+<li><p>发送请求，投递Runnable或Thread</p>
+<pre><code>cachedThreadPool.execute(new Runnable() {
+        @Override
+        public void run() {
+
+        //do something
+</code></pre></li>
+</ul>
+<pre><code>    }
+});    
+</code></pre><ul>
+<li>使用shutdown和shutdownNow方法可以终止线程池，shutdown会等待队列中的任务执行完毕才去终止线程池，shutdownNow或尝试打断正在执行的任务    </li>
+</ul>
+<ul>
+<li>这种线程一般用在请求的速度小于处理请求的速度的情况下，也就是说任务的耗时比较短，注意一点要控制任务的数量不然相当于没有使用线程池管理线程，并清空任务队列</li>
+</ul>
+<h3 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h3><ul>
+<li>这种线程池可以规定池的大小，每提交一个任务就开启一个线程，直到线程数量达到最大值为止</li>
+</ul>
+<pre><code>ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+</code></pre><ul>
+<li>可以看到当任务数量超过池的大小，多出来的任务需要等待空闲的线程</li>
+</ul>
+<pre><code>fixedThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    Thread.sleep(3000);
+                    Log.d(TAG, &quot;run: &quot;+index+&quot; &quot;+ Thread.currentThread());
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
+    07-28 15:10:50.137 24819-24849/com.linjiamin.threadtest D/MainActivity: run: 1 Thread[pool-1-thread-2,5,main]
+    07-28 15:10:50.137 24819-24850/com.linjiamin.threadtest D/MainActivity: run: 2 Thread[pool-1-thread-3,5,main]
+    07-28 15:10:50.157 24819-24848/com.linjiamin.threadtest D/MainActivity: run: 0 Thread[pool-1-thread-1,5,main]
+    07-28 15:10:53.138 24819-24849/com.linjiamin.threadtest D/MainActivity: run: 3 Thread[pool-1-thread-2,5,main]
+    07-28 15:10:53.138 24819-24850/com.linjiamin.threadtest D/MainActivity: run: 4 Thread[pool-1-thread-3,5,main]
+    07-28 15:10:53.158 24819-24848/com.linjiamin.threadtest D/MainActivity: run: 5 Thread[pool-1-thread-1,5,main]
+</code></pre><ul>
+<li>FixedThreadPool一般用在耗时较长的任务上，对于一些需要马上执行的任务可能要考虑另外执行</li>
+</ul>
+<h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h3><ul>
+<li>创建一个单线程的Executor，所有任务都在一个线程中执行，并且保证了任务的优先级，当线程发生异常时，会有新的线程被创造，以保证任务的正常进行</li>
+</ul>
+<pre><code>ExecutorService fixedThreadPool = Executors.newSingleThreadExecutor();    
+</code></pre><ul>
+<li>适用于需要串行的任务，如数据库，文件的读写等</li>
+</ul>
+<h3 id="newScheduleThreadPool"><a href="#newScheduleThreadPool" class="headerlink" title="newScheduleThreadPool"></a>newScheduleThreadPool</h3><ul>
+<li>一种定长的线程池，支持定时和周期性的执行任务</li>
+</ul>
+<pre><code>ExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(3);
+</code></pre><ul>
+<li>使用schedule方法可以重复执行任务</li>
+</ul>
+<pre><code>public ScheduledFuture&lt;?&gt; schedule(Runnable command,
+                               long delay, TimeUnit unit);
+</code></pre><h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><ul>
+<li>上述的四种线程池都调用了ThreadPoolExecutor这个构造方法，ThreadPoolExecutor一般用来定义新的线程池</li>
+<li><p>ThreadPoolExecutor的构造器如下，corePoolSize表示核心池的大小，当线程池中的线程数目大于该值时会把任务放到缓存队列当中</p>
+</li>
+<li><p>maximumPoolSize，最大线程数，表示一个线程池最多能创建多少线程</p>
+</li>
+<li><p>keepAliveTime，当线程池的大小超过corePoolSize且线程的空闲时间超过该值，该线程就会终止</p>
+</li>
+<li><p>unit时间单位，包括DAYS，HOURS，MINUTES，SECONDS，MILLISECONDS，MICROSECONDS，NANOSECONDS</p>
+</li>
+<li><p>workQueue，阻塞队列，用来储存待执行的任务，一般有三个可能的类型，ArrayBlockingQueue，先进先出队列，必须指定大小，LinkedBlockingQueue，先进先出队列，可不指定大小，SynchronousQueue，直接新建一个线程来执行新来的任务，不缓存任务，ThreadFactory用于创建线程，RejectedExecutionHandler用于处理当线程池拒绝任务时的策略</p>
+</li>
+</ul>
+<pre><code>public ThreadPoolExecutor(int corePoolSize,
+                      int maximumPoolSize,
+                      long keepAliveTime,
+                      TimeUnit unit,
+                      BlockingQueue&lt;Runnable&gt; workQueue,
+                      ThreadFactory threadFactory,
+                      RejectedExecutionHandler handler) {    
+</code></pre><ul>
+<li>下面来实现一个后进先出的线程池，首先需要实现它的构造函数，一般外界只需要决定池的大小即可，这里创建了一个PriorityBlockingQueue并传入了自定义的comparator，PriorityBlockingQueue需要comparator来决定优先顺序，那么我们可以利用comparator来实现后进先出</li>
+</ul>
+<pre><code>    public static LIFOThreadExecutor newLIFOExecutor(int size){
+
+return new LIFOThreadExecutor(size,MAX_SIZE,ALIVE_TIME,TimeUnit.SECONDS,new PriorityBlockingQueue&lt;&gt;(MAX_SIZE,comparator));
+    }
+
+
+    private LIFOThreadExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue) {
+super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+    }
+</code></pre><ul>
+<li>这里我们获取execute方法传入的Runnable对象，并为其加上一个标记</li>
+</ul>
+<pre><code>class RunnabalbeWithTag implements Runnable{
+
+private final Runnable runnable;
+private final long tag;
+
+RunnabalbeWithTag(Runnable runnable) {
+    this.runnable = runnable;
+    this.tag = LIFOThreadExecutor.this.tag.getAndIncrement();
+}
+
+@Override
+public void run() {
+    runnable.run();
+    }
+}
+
+@Override
+public void execute(Runnable command) {
+
+super.execute(new RunnabalbeWithTag(command));
+
+}
+</code></pre><ul>
+<li>在compare方法中利用标记决定优先顺序</li>
+</ul>
+<pre><code>private static final Comparator&lt;Runnable&gt; comparator = new Comparator&lt;Runnable&gt;() {
+@Override
+public int compare(Runnable o1, Runnable o2) {
+
+    return ((RunnabalbeWithTag)o1).tag&lt;((RunnabalbeWithTag)o2).tag ?
+            1: ((RunnabalbeWithTag)o1).tag&gt;((RunnabalbeWithTag)o2).tag? -1:0;
+    }
+};    
+</code></pre><ul>
+<li>接着使用这个线程池，可以看到已经实现了后进先出的效果</li>
+</ul>
+<pre><code>LIFOThreadExecutor executor =  LIFOThreadExecutor.newLIFOExecutor(1);
+for(int i = 0 ;i&lt;10;i++){
+
+        final int index = i;
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, &quot;run: &quot;+ index +&quot; &quot;+Thread.currentThread());
+            }
+        });
+    }
+}    
+
+    ...
+MainActivity: run: 6 Thread[pool-1-thread-1,5,main]
+MainActivity: run: 5 Thread[pool-1-thread-1,5,main]
+MainActivity: run: 4 Thread[pool-1-thread-1,5,main]
+MainActivity: run: 3 Thread[pool-1-thread-1,5,main]
+MainActivity: run: 2 Thread[pool-1-thread-1,5,main]
+MainActivity: run: 1 Thread[pool-1-thread-1,5,main]
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Bitmap 基本用法]]></title>
+      <url>/2017/07/26/aboutBitmap/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="Bitmap属性"><a href="#Bitmap属性" class="headerlink" title="Bitmap属性"></a>Bitmap属性</h2><ul>
+<li>Bitmap主要的属性有三个，width，height，config，可以直接通过get方法获得</li>
+<li>config 是bitmap的像素类型，有四种可能的值，config后面的数字表明了每个像素占用的位数，如    ALPHA_8 为8位，RGB_565为16位，ARGB_8888为32位，ARGB_8888模式的Bitmap是最清晰的，这也是默认的模式</li>
+</ul>
+<pre><code>ALPHA_8 
+RGB_565 
+ARGB_4444 
+ARGB_8888 
+</code></pre><h2 id="获取Bitmap"><a href="#获取Bitmap" class="headerlink" title="获取Bitmap"></a>获取Bitmap</h2><h3 id="获取Bitmap对象"><a href="#获取Bitmap对象" class="headerlink" title="获取Bitmap对象"></a>获取Bitmap对象</h3><ul>
+<li>Drawable -&gt; Bitmap </li>
+</ul>
+<pre><code>//BitmapDrawable
+Bitmap bitmap = drawable.getBitmap();
+
+//Drawable
+int w = drawable.getIntrinsicWidth();
+int h = drawable.getIntrinsicHeight();
+Bitmap bitmap = Bitmap.createBitmap(w,h, drawable.getOpacity()!= PixelFormat.OPAQUE?Bitmap.Config.ARGB_8888:Bitmap.Config.RGB_565);
+Canvas canvas = new Canvas(bitmap);
+drawable.setBounds(0, 0, w, h);
+drawable.draw(canvas);
+</code></pre><ul>
+<li>BitmapFactory.decodeResource，从资源获取</li>
+</ul>
+<pre><code>Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+</code></pre><ul>
+<li>BitmapFactory.decodeFile ，从文件获取      </li>
+</ul>
+<pre><code>//需要加入权限
+//WRITE_EXTERNAL_STORAGE
+//MOUNT_UNMOUNT_FILESYSTEMS
+
+String path = Environment.getExternalStorageDirectory().getPath()+&quot;/bitmap/bitmaptest.jpg&quot;;
+Bitmap bitmap = BitmapFactory.decodeFile(path);
+imageView.setImageBitmap(bitmap);
+</code></pre><ul>
+<li><p>BitmapFactory.decodeByteArray</p>
+<pre><code>Bitmap bitmap = BitmapFactory.decodeByteArray(bitmap,0,bitmap);
+</code></pre></li>
+</ul>
+<ul>
+<li>BitmapFactory.decodeStream，从流获取, decodeFile和decodeResource内部都调用这个方法       </li>
+</ul>
+<pre><code>Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+</code></pre><h3 id="获取所有本地图片"><a href="#获取所有本地图片" class="headerlink" title="获取所有本地图片"></a>获取所有本地图片</h3><ul>
+<li><p>android的媒体文件数据信息主要存储在 /data/data/com.android.providers.media/databases目录中，其中有两个db文件，external.db和internal.db 前者是储存卡数据库，后者是内部存储的数据库，两者中包含的表和表结构是一致的</p>
+</li>
+<li><p>数据库中和图片相关的主要有两张表iamges 和 thumbnails，表结构如下，后者是缩略图的信息</p>
+</li>
+</ul>
+<pre><code>CREATE TABLE images (
+_id INTEGER PRIMARY KEY,
+_data TEXT,
+_size INTEGER,
+_display_name TEXT,
+mime_type TEXT,
+title TEXT,
+date_added INTEGER,
+date_modified INTEGER,
+description TEXT,
+picasa_id TEXT,
+isprivate INTEGER,
+latitude DOUBLE,
+longitude DOUBLE,
+datetaken INTEGER,
+orientation INTEGER,
+mini_thumb_magic INTEGER,
+bucket_id TEXT,
+bucket_display_name TEXT);            
+
+CREATE TABLE thumbnails (
+_id INTEGER PRIMARY KEY,
+_data TEXT,
+image_id INTEGER,
+kind INTEGER,
+width INTEGER,height INTEGER);
+</code></pre><ul>
+<li>获取所有包含图片的文件夹名称和文件夹id</li>
+</ul>
+<pre><code>select DISTINCT bucket_display_name from images;
+select DISTINCT bucket_id from images;
+</code></pre><ul>
+<li>获取所有缩略图bitmap</li>
+</ul>
+<pre><code>public List&lt;ImageInfo&gt; getImage(Context context){
+
+List&lt;ImageInfo&gt; list = new ArrayList&lt;&gt;();
+
+ContentResolver resolver = context.getContentResolver();
+Cursor cursor = null;
+try{
+    cursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,null,null,null,null);
+    int i = 0;
+    if(cursor!=null){
+        while (cursor.moveToFirst()) {
+            Log.d(TAG, &quot;getImage: got &quot;+i++);
+            final ImageInfo imageInfo = new ImageInfo();
+            imageInfo.id = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
+            imageInfo.path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            Log.d(TAG, &quot;getImage: &quot;+imageInfo.path);
+            imageInfo.name = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
+            imageInfo.bitmap = MediaStore.Images.Thumbnails.getThumbnail(resolver, imageInfo.id, MediaStore.Images.Thumbnails.MICRO_KIND, null);
+            list.add(imageInfo);
+
+        }
+    }
+
+}catch (Exception e){
+    e.printStackTrace();
+}
+
+return list;
+}
+
+class ImageInfo{
+
+int id ;
+String path;
+String name;
+Bitmap bitmap;
+}
+</code></pre><h2 id="处理Bitmap"><a href="#处理Bitmap" class="headerlink" title="处理Bitmap"></a>处理Bitmap</h2><h3 id="compress"><a href="#compress" class="headerlink" title="compress"></a>compress</h3><ul>
+<li>compress为质量压缩，不会丢失像素，只会降低图片的存储大小，而不会改变Bitmap的内存大小</li>
+</ul>
+<pre><code>OutputStream outputStream = new FileOutputStream(picFile);
+bitmap.compress(Bitmap.CompressFormat.JPEG,50,outputStream);
+outputStream.close();
+</code></pre><ul>
+<li>compress方法接受三个参数,图片类型，压缩比例，流对象，注意压缩比例是从最小质量到最大质量算起的，如果使用PNG格式，这个参数貌似是没有意义的</li>
+</ul>
+<pre><code> * @param format   The format of the compressed image
+ * @param quality  Hint to the compressor, 0-100. 0 meaning compress for
+ *                 small size, 100 meaning compress for max quality. Some
+ *                 formats, like PNG which is lossless, will ignore the
+ *                 quality setting
+ * @param stream   The outputstream to write the compressed data.
+ * @return true if successfully compressed to the specified stream.
+ */
+public boolean compress(CompressFormat format, int quality, OutputStream stream)
+</code></pre><h3 id="inSampleSize"><a href="#inSampleSize" class="headerlink" title="inSampleSize"></a>inSampleSize</h3><ul>
+<li><p>inSampleSize表示加载的图片的宽高相对于原始图片的比例，例如当这个值为2时，图片宽和高就为原始图片的1/2，因此内存占用降到里1/4，还是比较高效的一种方式</p>
+</li>
+<li><p>最简单的用法，创建一个option对象，设定它的inSampleSize值并传入BitmapFactory.decodeFile方法即可，inSampleSize最小值为1，且当其大于1时且不为偶数时会自动向下取偶然</p>
+</li>
+</ul>
+<pre><code>BitmapFactory.Options options = new BitmapFactory.Options();
+options.inSampleSize = 2;
+Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+</code></pre><ul>
+<li><p>但是我们在加载图片时常常不知道图片的尺寸大小，也就不知道是否需要压缩与压缩比例应该为多少，而将Bitmap加载进来再压缩又将毫无意义，好在Option提供了一个只加载宽和高的方法，获得宽高之后可以和我们需要的尺寸进行比较调整缩放比例</p>
+<pre><code>BitmapFactory.Options options = new BitmapFactory.Options();
+options.inSampleSize = 2;
+options.inJustDecodeBounds =true;
+Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+Log.d(TAG, &quot;onCreate: &quot;+options.outHeight+options.outWidth);
+</code></pre></li>
+<li><p>下面是一个Android提供的计算缩放比例的方法</p>
+</li>
+</ul>
+<pre><code>int calculateInSampleSize(BitmapFactory.Options options,  int reqWidth, int reqHeight){
+
+final int height = options.outHeight;
+
+final int width  = options.outWidth;
+
+int inSampleSize = 1 ;
+
+if(reqWidth &lt; width || reqHeight &lt;height){
+
+final int halfWidth = width / 2;
+
+final int halfHeight = height / 2;
+
+   // Calculate the largest inSampleSize value that is a power of 2 and keeps both        // height and width larger than the requested height and width.   
+
+while( (halfWidth / inSampleSize &gt; reqWidth &amp;&amp; halfHeight / inSampleSize &gt; reqHeight){
+
+    inSampleSize *= 2;
+
+    }
+
+    }
+
+}
+</code></pre><ul>
+<li>除了通过压缩Bitmap减少内存占用以外，bitmap使用完之后最好进行回收，注意不要频繁进行gc，这样可能造成卡顿</li>
+</ul>
+<pre><code>if(bitmap != null &amp;&amp; !bitmap.isRecycled()){   
+        bitmap.recycle();   
+        bitmap = null;   
+}   
+System.gc();  
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[HandlerThread 基本用法]]></title>
+      <url>/2017/07/25/aboutHandlerThread/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><ul>
+<li><p>子线程不能直接创建Handler，所以当我们需要使用handler时必须先创建Looper</p>
+<pre><code>Can&apos;t create handler inside thread that has not called Looper.prepare()
+</code></pre></li>
+</ul>
+<ul>
+<li>使用Looper.prepare之后创建Handler，这个handler可以处理其他线程中发送的消息，但是Looper.loop()之后的操作不会执行，因为looper开启了一个无限循环，它是一个阻塞操作</li>
+</ul>
+<pre><code>public void run(){
+    super.run();
+    Looper.prepare();
+    mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            Log.d(TAG, &quot;handleMessage: &quot;+Thread.currentThread().getName()+&quot; &quot;+msg.what);
+        }
+    };
+    Looper.loop();
+    Log.d(TAG, &quot;behind loop&quot;);
+}    
+</code></pre><ul>
+<li><p>要在子线程使用Handler，还有更方便的方法，使用HandlerThread，获取它的Looper</p>
+<pre><code> HandlerThread  handlerThread = new HandlerThread(&quot;test thread&quot;);
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper()){
+
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        Log.d(TAG, &quot;handleMessage: &quot;+Thread.currentThread());
+        Log.d(TAG, &quot;handleMessage: &quot;+msg.what);
+    }
+};
+
+handler.sendEmptyMessage(0);    
+
+...
+</code></pre></li>
+</ul>
+<pre><code>handlerThread.quit();
+...
+
+D/MainActivity: handleMessage: Thread[test thread,5,main]
+D/MainActivity: handleMessage: 0
+</code></pre><ul>
+<li>我们可以把耗时操作放在handleMessage方法中执行，以分担主线程的工作</li>
+</ul>
+<pre><code>handler.post(new Runnable() {
+    @Override
+    public void run() {
+        Log.d(TAG, &quot;run: -------------&quot;+Thread.currentThread());
+    }
+});
+</code></pre><ul>
+<li>在handlerMessage中发送延迟消息，可以实现定时操作的功能</li>
+</ul>
+<pre><code>public void handleMessage(Message msg)
+ {
+     doSomething();
+     if (!stop)
+     {
+         handler.sendEmptyMessageDelayed(DO_SOMETHING, 1000);
+     }
+</code></pre><h2 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h2><ul>
+<li>HandlerThread的源码比较简短，HandlerThread有两个 构造方法，在不传入优先级的情况下会使用默认的优先级5</li>
+</ul>
+<pre><code>public class HandlerThread extends Thread {
+    int mPriority;
+    int mTid = -1;
+    Looper mLooper;
+
+    public HandlerThread(String name) {
+        super(name);
+        mPriority = Process.THREAD_PRIORITY_DEFAULT;
+    }
+
+    /**
+     * Constructs a HandlerThread.
+     * @param name
+     * @param priority The priority to run the thread at. The value supplied must be from 
+     * {@link android.os.Process} and not from java.lang.Thread.
+     */
+    public HandlerThread(String name, int priority) {
+        super(name);
+        mPriority = priority;
+    }
+</code></pre><ul>
+<li>查看run方法，发现这里调用了Looper.prepare()和Looper.loop()方法创建了looper，这就是使用HandlerThread只需要调用start方法就可以获得Looper的原因</li>
+</ul>
+<pre><code>@Override
+public void run() {
+    mTid = Process.myTid();
+    Looper.prepare();
+    synchronized (this) {
+        mLooper = Looper.myLooper();
+        notifyAll();
+    }
+    Process.setThreadPriority(mPriority);
+    onLooperPrepared();
+    Looper.loop();
+    mTid = -1;
+}
+</code></pre><ul>
+<li>在创建Looper时会创建一个消息队列，Looper.loop则会开启循环处理消息，这部分之前了解过不再重复了</li>
+</ul>
+<pre><code>    private Looper(boolean quitAllowed) {
+mQueue = new MessageQueue(quitAllowed);
+mThread = Thread.currentThread();
+    }
+</code></pre><ul>
+<li>在我们用来获得looper的方法getLooper中，为了保证Looper已经创建完毕，会调用wait()进行等待</li>
+</ul>
+<pre><code>    public Looper getLooper() {
+        if (!isAlive()) {
+            return null;
+        }
+
+// If the thread has been started, wait until the looper has been created.
+synchronized (this) {
+    while (isAlive() &amp;&amp; mLooper == null) {
+        try {
+            wait();
+        } catch (InterruptedException e) {
+        }
+    }
+}
+return mLooper;
+}
+</code></pre><ul>
+<li><p>停止消息循环，有两个方法quit和quitSafely，它们分别调用了looper的同名方法，而这两个方法都调用到了MessageQueue中的quit方法，只是传入的参数不同而已</p>
+<pre><code>//in HandlerThread
+    public boolean quit() {
+        Looper looper = getLooper();
+        if (looper != null) {
+            looper.quit();
+            return true;
+        }
+        return false;
+    }
+</code></pre></li>
+</ul>
+<pre><code>        public boolean quitSafely() {
+            Looper looper = getLooper();
+            if (looper != null) {
+                looper.quitSafely();
+                return true;
+            }
+            return false;
+        } 
+
+        //in MessageQueue
+            void quit(boolean safe) {
+    if (!mQuitAllowed) {
+        throw new IllegalStateException(&quot;Main thread not allowed to quit.&quot;);
+    }
+
+    synchronized (this) {
+        if (mQuitting) {
+            return;
+        }
+        mQuitting = true;
+
+        if (safe) {
+            removeAllFutureMessagesLocked();
+        } else {
+            removeAllMessagesLocked();
+        }
+
+        // We can assume mPtr != 0 because mQuitting was previously false.
+        nativeWake(mPtr);
+    }
+}
+</code></pre><ul>
+<li>可以看到quit和quitSafely最终的区别在于MessageQueue调用removeAllFutureMessagesLocked方法还是removeAllMessagesLocked方法，在removeAllMessagesLocked中只是简单地遍历单链表并回收消息结点而已，而removeAllFutureMessagesLocked中使用判断条件n.when &gt; now 跳过了所有非延迟的消息，也就是说不管是使用quit还是quitSafely，队列中都不会再添加消息，但是quitSafely处理完队列中的非延迟消息，到这里就过完HandlerThread的源码了</li>
+</ul>
+<pre><code> private void removeAllMessagesLocked() {
+Message p = mMessages;
+while (p != null) {
+    Message n = p.next;
+    p.recycleUnchecked();
+    p = n;
+}
+mMessages = null;
+}
+
+    private void removeAllFutureMessagesLocked() {
+final long now = SystemClock.uptimeMillis();
+Message p = mMessages;
+if (p != null) {
+    if (p.when &gt; now) {
+        removeAllMessagesLocked();
+    } else {
+        Message n;
+        for (;;) {
+            n = p.next;
+            if (n == null) {
+                return;
+            }
+            if (n.when &gt; now) {
+                break;
+            }
+            p = n;
+        }
+        p.next = null;
+        do {
+            p = n;
+            n = p.next;
+            p.recycleUnchecked();
+        } while (n != null);
+    }
+}
+    }
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Animation基本用法]]></title>
+      <url>/2017/07/25/aboutAnimation/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="属性动画"><a href="#属性动画" class="headerlink" title="属性动画"></a>属性动画</h2><ul>
+<li>补间动画只能改变View的显示效果，并不会改变View的属性，View的形状位置发生改变，点击事件的响应区域并不会跟着变化</li>
+</ul>
+<ul>
+<li>ValueAnimator是属性动画中最核心的类，它提供了两个比较重要的监听器，其中AnimatorListener中的四个方法分别会在动画开始，结束，循环，取消时被调用，而AnimatorUpdateListener的onAnimationUpdate方法会在动画的每一帧被调用，想要实现动画效果，必须实现onAnimationUpdate方法</li>
+</ul>
+<pre><code>new Animator.AnimatorListener() {
+    @Override
+    public void onAnimationStart(Animator animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animator animation) {
+
+    }
+
+    @Override
+    public void onAnimationCancel(Animator animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {
+
+    }
+};
+
+new ValueAnimator.AnimatorUpdateListener() {
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation) {
+
+    }
+};
+</code></pre><ul>
+<li>ValueAnimator能够在一段时间中为我们提供渐变的值，这些值本身不会对控件造成任何影响，不过我们能够使用这些值和监听器去改变控件的属性从而实现动画效果，下面实现一个位移动画。要点在于使用ofInt方法获得animator对象，在onAnimationUpdate使用它的getAnimatedValue得到不断改变的值去设定layout属性。</li>
+</ul>
+<pre><code>final ValueAnimator animator = ValueAnimator.ofInt(0,200);
+animator.setDuration(3000);
+animator.setRepeatCount(3);
+animator.setRepeatMode(ValueAnimator.REVERSE);
+
+animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation) {
+        int value = (int)animator.getAnimatedValue();
+        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) imageView.getLayoutParams();
+        marginLayoutParams.leftMargin = value;
+        imageView.setLayoutParams(marginLayoutParams);
+    }
+});
+animator.setTarget(imageView);
+animator.start();
+</code></pre><ul>
+<li>接着实现一个响应按钮点击事件弹出或关闭ListView的方法</li>
+</ul>
+<pre><code>    button.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            hideOrShowListView();
+        }
+    });
+}
+</code></pre><ul>
+<li>逻辑和前者基本一致，不过在方法里进行了关于ListView高度状态的判断，注意如果使用LinearLayout，由于布局的特性，ListView弹出之后其他控件的位置会跟着改动，使用FrameLayout和RelativeLayout可以实现”覆盖”的效果，并且指定了layout_alignParentBottom属性的情况下可以让ListView从下往上弹出，另外ListView的背景最好不要透明</li>
+</ul>
+<pre><code>public static final int LIST_HEIGHT = 300;
+public void hideOrShowListView(){
+
+final ValueAnimator mAnimator;
+
+if(listView.getHeight()==LIST_HEIGHT) {
+    mAnimator = ValueAnimator.ofInt(LIST_HEIGHT, 0);
+}else {
+    mAnimator = ValueAnimator.ofInt(0, LIST_HEIGHT);
+}
+
+mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation) {
+
+        listView.getLayoutParams().height = (int)animation.getAnimatedValue();
+        listView.setLayoutParams(listView.getLayoutParams());
+        Log.d(TAG, &quot;onAnimationUpdate: &quot; +listView.getHeight());
+
+    }
+});
+mAnimator.start();
+}
+</code></pre><h2 id="ObjectAnimator"><a href="#ObjectAnimator" class="headerlink" title="ObjectAnimator"></a>ObjectAnimator</h2><ul>
+<li>ObjectAnimator对ValueAnimator进行了封装，使用更加方便</li>
+</ul>
+<ul>
+<li>这里使用到了PropertyName，它指定了控件需要改变的属性，包括alpha，scaleX等</li>
+</ul>
+<ul>
+<li>使用插值器Interpolator可以改变数值变化的效果，官方提供了多种插值器，实现插值器涉及较多数学方面的内容，需要时再<a href="http://blog.csdn.net/xiaochuanding/article/details/73200149" target="_blank" rel="external">查找</a>即可</li>
+</ul>
+<pre><code>ObjectAnimator animator = ObjectAnimator.ofInt(button,
+           &quot;backgroundColor&quot;, Color.RED, Color.GREEN, Color.BLUE,
+           Color.GREEN);
+   animator.setDuration(300);
+   animator.setRepeatCount(3);
+   animator.setInterpolator(new DecelerateInterpolator());
+   animator.setRepeatMode(ValueAnimator.REVERSE);
+   animator.start();
+</code></pre><h2 id="补间动画"><a href="#补间动画" class="headerlink" title="补间动画"></a>补间动画</h2><ul>
+<li>AlphaAnimation，渐变动画，四种补间动画的设置方法基本一致</li>
+</ul>
+<pre><code>Animation alphaAnimation = new AlphaAnimation(0, 1); //传入开始和结束时的透明度，0~1
+alphaAnimation.setDuration(3000);//持续时间
+alphaAnimation.setFillAfter(true);//是否停留在执行完的状态
+alphaAnimation.setRepeatCount(2);//重复次数
+alphaAnimation.setStartOffset(1000);//执行前的等待时间
+imageView.startAnimation(alphaAnimation);
+</code></pre><ul>
+<li>RotateAnimation，旋转动画</li>
+</ul>
+<pre><code>Animation rotateAnimation = new RotateAnimation(0,45);//传入开始和结束时的角度
+rotateAnimation.setDuration(3000);
+imageView.startAnimation(rotateAnimation);   
+</code></pre><ul>
+<li>ScaleAnimation，伸缩动画</li>
+</ul>
+<pre><code>ScaleAnimation scaleAnimation = new ScaleAnimation(0.5f,1.0f,1.0f,1.0f);//传入开始和结束时的伸缩比例
+ scaleAnimation.setDuration(3000);
+ imageView.startAnimation(scaleAnimation);
+</code></pre><ul>
+<li>TranslateAnimation，位移动画</li>
+</ul>
+<pre><code>TranslateAnimation translateAnimation = new TranslateAnimation(0,100,0,0);//传入开始和结束时的位置
+translateAnimation.setDuration(3000);
+imageView.startAnimation(translateAnimation);
+</code></pre><ul>
+<li>AnimationSet，混合动画，同时执行一系列的动画</li>
+</ul>
+<pre><code>AnimationSet animationSet = new AnimationSet(true);
+animationSet.addAnimation(scaleAnimation);
+  animationSet.addAnimation(rotateAnimation);
+  animationSet.addAnimation(scaleAnimation);
+  imageView.startAnimation(animationSet);
+</code></pre><ul>
+<li>也可以在XML中设置动画属性， 创建anim文件夹添加XML文件，使用AnimationUtils.loadAnimation获取实例即可</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;alpha xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:duration=&quot;500&quot;
+    android:fillAfter=&quot;false&quot;
+    android:fromAlpha=&quot;1.0&quot;
+    android:toAlpha=&quot;0.0&quot; /&gt;
+     Animation alphaAnimation = AnimationUtils.loadAnimation(this,R.anim.animation);
+</code></pre><h2 id="帧动画"><a href="#帧动画" class="headerlink" title="帧动画"></a>帧动画</h2><ul>
+<li>逐帧动画用于一张张地播放图片，一般用于实现较简单的动画效果，不建议设置帧数过多的逐帧动画</li>
+</ul>
+<ul>
+<li>在drawable文件夹中</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;animation-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:oneshot=&quot;false&quot;&gt;
+
+&lt;item
+android:drawable=&quot;@drawable/img_1&quot;
+android:duration=&quot;200&quot; /&gt;
+&lt;item
+android:drawable=&quot;@drawable/img_2&quot;
+android:duration=&quot;200&quot; /&gt;
+&lt;item
+android:drawable=&quot;@drawable/img_3&quot;
+android:duration=&quot;200&quot; /&gt;
+
+&lt;/animation-list&gt;
+</code></pre><ul>
+<li>在java代码中，注意不要直接在onCreate中开启动画，Window初始化完毕时动画才可能播放，因此可以在onWindowFocusChanged中开启</li>
+</ul>
+<pre><code>imageView.setImageResource(R.drawable.animation);
+AnimationDrawable animationDrawable = (AnimationDrawable) imageView.getDrawable();
+animationDrawable.start();
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[控件架构与自定义View]]></title>
+      <url>/2017/07/24/aboutView/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="android-控件架构"><a href="#android-控件架构" class="headerlink" title="android 控件架构"></a>android 控件架构</h2><ul>
+<li>每一个Activity包含一个PhoneWindow对象，它是Window抽象类的唯一实现，PhoneWindow将DectorView作为整个窗口的根View，DectoView只含有一个LinearLayout，其中包含了两个子View，分别是TitleView和ContentView，ContentView为一个FrameLayout，onCreate方法中的setContentView就是把我们的布局添加到ContentView上</li>
+</ul>
+<p><img src="http://img.mukewang.com/568b5f2d0001c42a11300576.png" alt=""></p>
+<h3 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h3><ul>
+<li>MeasureSpec是一个32位int值，高二位用来表示SpecMode，低30位用来表示SpecSize，SpecMode有三个可能的值UNSPECIFIED，EXACTLY，AT_MOST，view的大小由父布局的属性和MeasureSpec共同决定</li>
+</ul>
+<pre><code>/**
+ * Measure specification mode: The parent has not imposed any constraint
+ * on the child. It can be whatever size it wants.
+ */
+public static final int UNSPECIFIED = 0 &lt;&lt; MODE_SHIFT;
+
+/**
+ * Measure specification mode: The parent has determined an exact size
+ * for the child. The child is going to be given those bounds regardless
+ * of how big it wants to be.
+ */
+public static final int EXACTLY     = 1 &lt;&lt; MODE_SHIFT;
+
+/**
+ * Measure specification mode: The child can be as large as it wants up
+ * to the specified size.
+ */
+public static final int AT_MOST     = 2 &lt;&lt; MODE_SHIFT;
+</code></pre><ul>
+<li><p>UNSPECIFIED，view的大小不受父布局的限制，view想要多大就多大</p>
+</li>
+<li><p>EXACTLY，对应match_parent和精确数字的布局大小，是父布局测量出来的SpecSize值</p>
+</li>
+<li><p>AT_MOST，父布局指定SpecSize，view不能超过SpecSize规定的大小</p>
+</li>
+</ul>
+<h3 id="View的工作流程"><a href="#View的工作流程" class="headerlink" title="View的工作流程"></a>View的工作流程</h3><ul>
+<li>measure，测量View的尺寸,一个ViewGroup会遍历调用子View的测量方法，子View再递归地去执行测量，最终的到所有元素的大小</li>
+</ul>
+<pre><code>protected void measureChild(View child, int parentWidthMeasureSpec,
+
+   ...
+
+child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+}
+</code></pre><ul>
+<li>layout，确定子View的位置，layout()会确定View本身的位置而onLayout会确定所有子View的位置，和measure的逻辑类似。onLayout，方法由具体的布局去实现，所有ViewGroup的子类都必须去重写这个方法。在layout中可以发现view的位置由四种属性构成，它们分别表示view相对于父布局的位置，left是左上角的横坐标，top是左上角的纵坐标，right是右下角的横坐标，bottom是右下角的纵坐标，x和y轴的的正方向为右和下</li>
+</ul>
+<pre><code> * @param l Left position, relative to parent
+ * @param t Top position, relative to parent
+ * @param r Right position, relative to parent
+ * @param b Bottom position, relative to parent
+
+int oldL = mLeft;
+int oldT = mTop;
+int oldB = mBottom;
+int oldR = mRight;
+boolean changed = setFrame(l, t, r, b);  
+</code></pre><ul>
+<li>draw，view的绘制 ，主要包括绘制背景，View本身，子View，装饰四个步骤，其中dispatchDraw用于遍历所有子View并绘制</li>
+</ul>
+<pre><code>   /*
+     * Draw traversal performs several drawing steps which must be executed
+     * in the appropriate order:
+     *
+     *      1. Draw the background
+     *      2. If necessary, save the canvas&apos; layers to prepare for fading
+     *      3. Draw view&apos;s content
+     *      4. Draw children
+     *      5. If necessary, draw the fading edges and restore layers
+     *      6. Draw decorations (scrollbars for instance)
+     *    /
+
+// Step 1, draw the background, if needed
+int saveCount;
+if (!dirtyOpaque) {
+    drawBackground(canvas);
+}
+
+// skip step 2 &amp; 5 if possible (common case)
+final int viewFlags = mViewFlags;
+boolean horizontalEdges = (viewFlags &amp; FADING_EDGE_HORIZONTAL) != 0;
+boolean verticalEdges = (viewFlags &amp; FADING_EDGE_VERTICAL) != 0;
+if (!verticalEdges &amp;&amp; !horizontalEdges) {
+
+    // Step 3, draw the content
+    if (!dirtyOpaque) onDraw(canvas);
+
+    // Step 4, draw the children
+    dispatchDraw(canvas);
+
+    // Overlay is part of the content and draws beneath Foreground
+    if (mOverlay != null &amp;&amp; !mOverlay.isEmpty()) {
+        mOverlay.getOverlayView().dispatchDraw(canvas);
+    }
+
+    // Step 6, draw decorations (foreground, scrollbars)
+    onDrawForeground(canvas);
+</code></pre><ul>
+<li>自定义布局，需要实现onMeasure方法和onLayout方法，在onMeasure方法中需要测量出子View的大小，在onLayout中可以通过子View的getMeasuredWidth方法和getMeasuredHeighet方法得到在onMeasure中测量出来的大小。调用子View的layout方法我们可以设定它在这个父布局中的位置，注意如果四个点之间的相对位置和原来子View不同，它就会被拉伸</li>
+</ul>
+<pre><code>public class MyLayout extends ViewGroup {
+
+public MyLayout(Context context, AttributeSet attrs) {
+    super(context, attrs);
+}
+
+@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if(getChildCount()&gt;0){
+        View child = getChildAt(0);
+        measureChild(child,widthMeasureSpec,heightMeasureSpec);
+    }
+}
+
+@Override
+protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+    if(getChildCount()&gt;0){
+        View child = getChildAt(0);
+        child.layout(0,0,child.getMeasuredWidth(),child.getMeasuredHeight());
+    }
+}
+}
+</code></pre><ul>
+<li>重写onDraw，通过Paint和Canvas对象绘制图像，在onLayout方法执行之后可以通过getWidth方法和getHeigh方法得到View的实际显示的宽和高</li>
+</ul>
+<pre><code>@Override
+protected void onDraw(Canvas canvas){
+
+mPaint.setColor(Color.GREEN);
+canvas.drawRect(0,0,getWidth(),getHeight(),mPaint);
+
+mPaint.setColor(Color.YELLOW);
+canvas.drawOval(20,20,getWidth()/2,getHeight()/2,mPaint);
+
+}
+</code></pre><h2 id="自定义View"><a href="#自定义View" class="headerlink" title="自定义View"></a>自定义View</h2><h3 id="attrs-属性"><a href="#attrs-属性" class="headerlink" title="attrs 属性"></a>attrs 属性</h3><ul>
+<li>当使用控件时我们可以设定系统提供的layout_width等属性值，为了能够使用自定义的属性，需要在values文件中加入attrs.xml文件</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;declare-styleable name=&quot;test_attrs&quot;&gt;
+        &lt;attr name=&quot;myColor&quot; format=&quot;color&quot;/&gt;
+        &lt;attr name=&quot;mySize&quot; format=&quot;dimension&quot;/&gt;
+        &lt;attr name=&quot;myFlag&quot; format=&quot;boolean&quot;/&gt;
+    &lt;/declare-styleable&gt;
+&lt;/resources&gt;    
+</code></pre><ul>
+<li>在布局文件中声明名称空间</li>
+</ul>
+<pre><code>xmlns:test_view = &quot;http://schemas.android.com/apk/res-auto&quot;
+</code></pre><ul>
+<li>在控件属性中设置变量值，注意名称空间不需要与attrs中的name属性相同，但是变量的名称一定要能够与attrs中的匹配</li>
+</ul>
+<pre><code>&lt;com.linjiamin.viewtest.MyView
+    android:layout_width=&quot;200dp&quot;
+    android:layout_height=&quot;200dp&quot;
+    test_view:myColor=&quot;#000000&quot;&gt;
+</code></pre><ul>
+<li><p>在java文件中，使用context的obtainStyledAttributes方法获取TypedArray对象，再将属性值在typedArray当中取出，注意typedArray对象使用完之后必须回收</p>
+<pre><code>    public MyView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mContext = context;
+        TypedArray typedArray = mContext.obtainStyledAttributes(attrs,R.styleable.test_attrs2);
+    mColor = typedArray.getColor(R.styleable.test_attrs2_myColor2,Color.BLUE);
+    typedArray.recycle();
+}
+</code></pre></li>
+</ul>
+<h3 id="继承View"><a href="#继承View" class="headerlink" title="继承View"></a>继承View</h3><ul>
+<li>重写构造方法，获取XML中的属性值</li>
+</ul>
+<pre><code>public MyTextView(Context context, @Nullable AttributeSet attrs) {
+super(context, attrs);
+TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.my_text_view);
+mColor = typedArray.getColor(R.styleable.my_text_view_text_color, Color.BLUE);
+mbackColor = typedArray.getInteger(R.styleable.my_text_view_background_color,Color.BLUE);
+mSize = typedArray.getInteger(R.styleable.my_text_view_text_size,10);
+mContent = typedArray.getString(R.styleable.my_text_view_text_content);
+mPaint = new Paint();
+mPaint.setTextSize(mSize);
+typedArray.recycle();
+
+}
+</code></pre><ul>
+<li>重写onMeasure，当长宽属性为wrap_content及AT_MOST时，我们需要自己实现测量的逻辑</li>
+</ul>
+<pre><code>     @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+           int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+        int heigeht = MeasureSpec.getSize(heightMeasureSpec);
+
+    if(widthMode == MeasureSpec.AT_MOST){
+
+        mPaint.setTextSize(mSize);
+        mPaint.getTextBounds(mContent,0,mContent.length(),mBound);
+        width = getPaddingLeft()+ getPaddingEnd() +mBound.width();
+
+    }
+
+    if(heightMode == MeasureSpec.AT_MOST){
+
+        mPaint.setTextSize(mSize);
+        mPaint.getTextBounds(mContent,0,mContent.length(),mBound);
+        heigeht = getPaddingTop()+ getPaddingBottom() +mBound.height();
+    }
+
+    setMeasuredDimension(width,heigeht);
+}
+</code></pre><ul>
+<li><p>重写onDraw，使canvas和paint对象绘制</p>
+<p>  @Override<br>  protected void onDraw(Canvas canvas) {</p>
+<pre><code>mPaint.setColor(mbackColor);
+canvas.drawRect(0,0,getWidth(),getHeight(),mPaint);
+mPaint.setColor(mColor);
+canvas.drawText(mContent,getWidth()/2-mBound.width()/2,getHeight()/2,mPaint);
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<h2 id="继承特定的View"><a href="#继承特定的View" class="headerlink" title="继承特定的View"></a>继承特定的View</h2><ul>
+<li><p>我们想为已有的View类添加新特性的时候，可以继承这个view类，下面实现一个右上角带有选择框的ImageView</p>
+<pre><code>private boolean checked = false;
+private Bitmap mCheckedImage;
+private Bitmap mUncheckImage;
+private Paint mPaint;
+private Rect mRect;
+private static final String TAG = &quot;CheckableImageView&quot;;
+
+public CheckableImageView(Context context, AttributeSet attrs) {
+super(context, attrs);
+
+mCheckedImage = BitmapFactory.decodeResource(getResources(),R.drawable.checked);
+mUncheckImage = BitmapFactory.decodeResource(getResources(),R.drawable.uncheck);
+
+mPaint = new Paint();
+mRect = new Rect();
+}
+</code></pre></li>
+<li><p>在onDraw方法中添加需要绘制的内容，其余操作交回给父类去处理</p>
+<pre><code>public void onDraw(Canvas canvas){
+
+super.onDraw(canvas);
+mRect.left = getWidth()-mUncheckImage.getWidth();
+mRect.right = getWidth();
+mRect.top = 0;
+mRect.bottom = mUncheckImage.getHeight();
+
+if(checked)
+    canvas.drawBitmap(mCheckedImage,null, mRect, mPaint);
+
+else canvas.drawBitmap(mUncheckImage,null, mRect, mPaint);
+}
+</code></pre></li>
+<li><p>处理点击事件，注意最好不要直接使用setOnClickListener方法，而是在onTouchEvent中处理点击事件，需要调用父类的方法并返回true，返回false时onTouchEvent中的操作不会执行</p>
+<pre><code>@Override
+public boolean onTouchEvent(MotionEvent event) {
+
+int action = event.getAction();
+
+super.onTouchEvent(event);
+switch (action) {
+
+    case MotionEvent.ACTION_DOWN:
+        break;
+    case MotionEvent.ACTION_MOVE:
+        break;
+    case MotionEvent.ACTION_UP:
+
+        checked = !checked;
+        invalidate();
+        Log.d(TAG, &quot;onTouchEvent: &quot;);
+
+        break;
+    }
+return true;
+}
+</code></pre></li>
+<li><p>另外还可以创建一个listener,并提供一个set方法，在onTouchEvent中调用listener的方法</p>
+<pre><code>private OnCheckListener listener;
+
+    public CheckableImageView(Context context, AttributeSet attrs) {
+super(context, attrs);
+
+...
+
+setOnCheckedListener(new OnCheckListener() {
+    @Override
+    public void onCheck() {
+        Log.d(TAG, &quot;onCheck: &quot;);
+    }
+}); 
+}
+
+public interface OnCheckListener{
+void onCheck();
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>最后像原本的view一样去使用它即可</p>
+<pre><code>&lt;com.linjiamin.CheckableImageView
+ android:id=&quot;@+id/item_image&quot;
+ android:layout_alignParentEnd=&quot;true&quot;
+ android:layout_width=&quot;100dp&quot;
+ android:layout_height=&quot;100dp&quot;
+ android:padding=&quot;8dp&quot;
+ android:contentDescription=&quot;@string/desc&quot;/&gt;
+</code></pre></li>
+<li><p><img src="http://i2.kiimg.com/1949/599504b74c0fd397.png" alt=""></p>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[工厂模式与单例模式]]></title>
       <url>/2017/07/20/aboutPattern/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -1133,27 +2323,6 @@ setUserVisibleHint: fragment NO: 2 true
 loadData: --------------
 loadData: 2
 </code></pre>]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[aboutLazyLoad]]></title>
-      <url>/2017/07/17/aboutLazyLoad/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>]]></content>
       
         <categories>
             

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-07-20T14:32:49.000Z</updated>
+  <updated>2017-07-28T11:45:14.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,106 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>线程池基本用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/28/aboutThreadPool/"/>
+    <id>https://alberthumbert.github.io/2017/07/28/aboutThreadPool/</id>
+    <published>2017-07-28T06:34:42.000Z</published>
+    <updated>2017-07-28T11:45:14.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Bitmap 基本用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/26/aboutBitmap/"/>
+    <id>https://alberthumbert.github.io/2017/07/26/aboutBitmap/</id>
+    <published>2017-07-26T02:41:59.000Z</published>
+    <updated>2017-07-27T02:27:33.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HandlerThread 基本用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/25/aboutHandlerThread/"/>
+    <id>https://alberthumbert.github.io/2017/07/25/aboutHandlerThread/</id>
+    <published>2017-07-25T14:03:23.000Z</published>
+    <updated>2017-07-26T02:39:53.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Animation基本用法</title>
+    <link href="https://alberthumbert.github.io/2017/07/25/aboutAnimation/"/>
+    <id>https://alberthumbert.github.io/2017/07/25/aboutAnimation/</id>
+    <published>2017-07-25T07:10:19.000Z</published>
+    <updated>2017-07-25T12:52:24.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>控件架构与自定义View</title>
+    <link href="https://alberthumbert.github.io/2017/07/24/aboutView/"/>
+    <id>https://alberthumbert.github.io/2017/07/24/aboutView/</id>
+    <published>2017-07-24T05:34:39.000Z</published>
+    <updated>2017-07-25T13:41:40.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>工厂模式与单例模式</title>
@@ -121,26 +221,6 @@
     <id>https://alberthumbert.github.io/2017/07/17/viewPagerTabFragments/</id>
     <published>2017-07-17T13:50:36.000Z</published>
     <updated>2017-07-18T06:08:28.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>aboutLazyLoad</title>
-    <link href="https://alberthumbert.github.io/2017/07/17/aboutLazyLoad/"/>
-    <id>https://alberthumbert.github.io/2017/07/17/aboutLazyLoad/</id>
-    <published>2017-07-17T11:54:45.000Z</published>
-    <updated>2017-07-17T11:55:03.000Z</updated>
     
     <summary type="html">
     
@@ -332,86 +412,6 @@
     
     
       <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradle 从入门到......</title>
-    <link href="https://alberthumbert.github.io/2017/07/08/aboutGradle/"/>
-    <id>https://alberthumbert.github.io/2017/07/08/aboutGradle/</id>
-    <published>2017-07-08T15:17:41.000Z</published>
-    <updated>2017-07-09T10:13:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Studio 基本操作</title>
-    <link href="https://alberthumbert.github.io/2017/07/05/ASShortcut/"/>
-    <id>https://alberthumbert.github.io/2017/07/05/ASShortcut/</id>
-    <published>2017-07-05T13:54:18.000Z</published>
-    <updated>2017-07-09T10:15:01.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;还有这种操作？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pro git 1-6章 笔记</title>
-    <link href="https://alberthumbert.github.io/2017/05/22/proGit/"/>
-    <id>https://alberthumbert.github.io/2017/05/22/proGit/</id>
-    <published>2017-05-22T15:48:31.000Z</published>
-    <updated>2017-06-15T16:16:53.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;onCreate&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android 群英传 笔记</title>
-    <link href="https://alberthumbert.github.io/2017/05/20/AndroidHeros/"/>
-    <id>https://alberthumbert.github.io/2017/05/20/AndroidHeros/</id>
-    <published>2017-05-20T07:27:01.000Z</published>
-    <updated>2017-06-03T17:54:10.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;onStop&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="笔记" scheme="https://alberthumbert.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="安卓" scheme="https://alberthumbert.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
   </entry>
   
