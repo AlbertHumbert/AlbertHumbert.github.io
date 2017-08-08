@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2017 | 
+            Matisse 源码分析 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2017 | Albert&#39;s Blog">
+    <meta property="og:title" content="Matisse 源码分析 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="8月 07, 2017" />
+        <meta property="article:modified_time" content="8月 08, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2017 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="Matisse 源码分析 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/archives/2017/page/2/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "Matisse 源码分析",
+    "url": "https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html",
+    "datePublished": "8月 07, 2017",
+    "dateModified": "8月 08, 2017",
+    "description": "-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -275,632 +308,508 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
 
-    <!-- Normal Post -->
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
     
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
         
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/aboutRecycleView/">RecycleView基本用法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/aboutRecycleView/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/17/viewPagerTabFragments/">viewPager+TabLayout+Fragment 用法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/17/viewPagerTabFragments/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 17, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/17/aboutFragment/">Fragment基本用法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/17/aboutFragment/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 17, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/13/aboutHandler/">Handler基本用法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/13/aboutHandler/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 13, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/13/aboutNet/">OkHttp基本用法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/13/aboutNet/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 13, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/12/aboutListView/">ListView基本用法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/12/aboutListView/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 12, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/12/aboutContentProvider/">ContentProvider基本用法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/12/aboutContentProvider/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 12, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/11/aboutLayout/">常用布局的使用方法和场景</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/11/aboutLayout/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 11, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/11/aboutBroadcast/">BroadcastReceiver的使用</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/11/aboutBroadcast/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 11, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/10/aboutService/">实践使用服务</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            onCreate
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/10/aboutService/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>7月 10, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-    <!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <a class="extend prev" rel="prev" href="/archives/2017/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2017/page/3/">3</a><a class="page-number" href="/archives/2017/page/4/">4</a><a class="extend next" rel="next" href="/archives/2017/page/3/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_forward</i></button></a>
-        </nav>
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Matisse 源码分析
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>8月 07, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Matisse 源码分析&url=https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Matisse 源码分析&url=https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html&title=Matisse 源码分析" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Matisse 源码分析&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/08/07/aboutMatisse/index.html&text=Matisse 源码分析" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>-</p>
+<a id="more"></a>
+<ul>
+<li>首先还是从最初使用的地方开始一步步分析，很明显这里用到了builder模式，我们在启动Activity之前进行一些基本的配置，这里主要关心的方法有三个from，choose和forResult</li>
+</ul>
+<pre><code>Matisse.from(SampleActivity.this)
+        .choose(MimeType.ofAll(), false)
+        .countable(true)
+        // 是否在图片右上角显示选中的数目
+        .capture(true)
+        //是否开启照相功能
+        .captureStrategy(new CaptureStrategy(true, &quot;com.zhihu.matisse.sample.fileprovider&quot;)) 
+        .maxSelectable(9)
+        //设置最大可选数量
+        .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+        //添加过滤器,可自定义
+        .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+        //设置期待的尺寸
+        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        //设置布局的水平或垂直属性
+        .thumbnailScale(0.85f)
+        //缩略图的缩放尺寸，默认为0.5
+        .imageEngine(new GlideEngine())
+        //设置图片加载库，Matisse对Glide和Picasso做了一层封装，也可以自定义，后面会提到
+        .forResult(REQUEST_CODE_CHOOSE);
+        //启动选择图片的Activity
+</code></pre><ul>
+<li>查看from方法，这里利用重载一个静态构造方法，既可以利用Activity也可以通过Fragment来创建Matisse对象</li>
+</ul>
+<pre><code>public static Matisse from(Activity activity) {
+    return new Matisse(activity);
+}
+
+public static Matisse from(Fragment fragment) {
+    return new Matisse(fragment);
+}
+</code></pre><ul>
+<li>查看choose方法，这里我们定义了可以获取的媒体类型，构造并返回SelectionCreator对象，SelectionCreator类是Matisse中一个类似Builder的类型，从这里开始所有的配置方法都返回这个SelectionCreator</li>
+</ul>
+<pre><code>    public SelectionCreator choose(Set&lt;MimeType&gt; mimeTypes) {
+        return this.choose(mimeTypes, true);
+    }
+
+    public SelectionCreator choose(Set&lt;MimeType&gt; mimeTypes, boolean mediaTypeExclusive) {
+return new SelectionCreator(this, mimeTypes, mediaTypeExclusive);
+}
+</code></pre><ul>
+<li>查看SelectionCreator对象的构造器和类结构，它只持有刚刚创建的Matisse对象和SelectionSpec对象，SelectionSpec对象保存调用countable，capture等方法时传入的参数，也就是保存了我们对matisse的配置属性</li>
+</ul>
+<pre><code>SelectionCreator(Matisse matisse, @NonNull Set&lt;MimeType&gt; mimeTypes, boolean mediaTypeExclusive) {
+mMatisse = matisse;
+mSelectionSpec = SelectionSpec.getCleanInstance();
+mSelectionSpec.mimeTypeSet = mimeTypes;
+mSelectionSpec.mediaTypeExclusive = mediaTypeExclusive;
+mSelectionSpec.orientation = SCREEN_ORIENTATION_UNSPECIFIED;
+}
+</code></pre><ul>
+<li>mSelectionSpec是一个懒汉式单例，当被初次调用<br>时InstanceHolder才会被加载进来，同时完成INSTANCE的初始化</li>
+</ul>
+<pre><code>private static final class InstanceHolder {
+private static final SelectionSpec INSTANCE = new SelectionSpec();
+} 
+</code></pre><ul>
+<li>mSelectionSpec 持有了这些配置属性，作为一个第三方库，我们使用的时候只需要进行这些配置，而不需要关系Matisse的内部实现</li>
+</ul>
+<pre><code>public Set&lt;MimeType&gt; mimeTypeSet;
+    public boolean mediaTypeExclusive;
+    public boolean showSingleMediaType;
+    public int themeId;
+    public int orientation;
+    public boolean countable;
+    public int maxSelectable;
+    public List&lt;Filter&gt; filters;
+    public boolean capture;
+    public CaptureStrategy captureStrategy;
+    public int spanCount;
+    public int gridExpectedSize;
+    public float thumbnailScale;
+    public ImageEngine imageEngine; 
+</code></pre><ul>
+<li>再来看看forResult方法，如果我们之前传入的是activity就会调用activity的startActivityForResult，如果传入的是fragment那就调用fragment的startActivityForResult方法，所以重写onActivityResult方法获取返回的数据即可</li>
+</ul>
+<pre><code>    public void forResult(int requestCode) {
+Activity activity = mMatisse.getActivity();
+if (activity == null) {
+    return;
+}
+
+Intent intent = new Intent(activity, MatisseActivity.class);
+
+Fragment fragment = mMatisse.getFragment();
+if (fragment != null) {
+    fragment.startActivityForResult(intent, requestCode);
+} else {
+    activity.startActivityForResult(intent, requestCode);
+}
+} 
+
+...
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+super.onActivityResult(requestCode, resultCode, data);
+if (requestCode == REQUEST_CODE_CHOOSE &amp;&amp; resultCode == RESULT_OK) {
+    mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
+}
+}
+</code></pre><ul>
+<li>刚才使用startActivityForResult启动了MatisseActivity，那么首先查看MatisseActivity的onCreate方法，这里获取到了刚刚的SelectionSpec静态常量进行初始化</li>
+</ul>
+<pre><code>mSpec = SelectionSpec.getInstance();
+setTheme(mSpec.themeId);
+
+...
+
+mButtonPreview = (TextView) findViewById(R.id.button_preview);
+mButtonApply = (TextView) findViewById(R.id.button_apply);
+
+...
+
+mAlbumsSpinner = new AlbumsSpinner(this);
+mAlbumCollection.onCreate(this, this);
+</code></pre><ul>
+<li>比较值得学习的一点是这里的AlbumsSpinner类，它其实是将Activity左上角的一组控件进行了封装，主要包括显示文件夹名称的TextView，ListPopupWindow，Adapter等等，相当于把一个相对完整的功能抽取出来，把逻辑操作写在里面，在Activity中当做一种控件来使用，有点类似自定义View。观察整个MatisseActivity，发现内部基本只有回调方法，逻辑还是挺清晰的。</li>
+</ul>
+<pre><code>public class AlbumsSpinner {
+
+private static final int MAX_SHOWN_COUNT = 6;
+private CursorAdapter mAdapter;
+private TextView mSelected;
+private ListPopupWindow mListPopupWindow;
+private AdapterView.OnItemSelectedListener mOnItemSelectedListener;
+...
+</code></pre><ul>
+<li>Matisse的数据加载使用 <a href="http://www.jianshu.com/p/385327e35711" target="_blank" rel="external">Loader机制</a>，AlbumCollection是一个LoaderCallbacks的实现，同时提供一个接口给Activity在数据加载时更新UI</li>
+</ul>
+<pre><code>public interface AlbumCallbacks {
+void onAlbumLoad(Cursor cursor);
+
+void onAlbumReset();
+}
+</code></pre><ul>
+<li>当选中文件夹时，调用Activity中的回调方法，如果没有图片就加载一个简单的布局提示用户，有图片就加载一个Fragment，并传入一个Album文件夹对象</li>
+</ul>
+<pre><code>    @Override
+    public void onItemSelected(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+mAlbumCollection.setStateCurrentSelection(position);
+mAlbumsAdapter.getCursor().moveToPosition(position);
+Album album = Album.valueOf(mAlbumsAdapter.getCursor());
+if (album.isAll() &amp;&amp; SelectionSpec.getInstance().capture) {
+    album.addCaptureCount();
+}
+onAlbumSelected(album);
+    }
+
+    private void onAlbumSelected(Album album) {
+if (album.isAll() &amp;&amp; album.isEmpty()) {
+    mContainer.setVisibility(View.GONE);
+    mEmptyView.setVisibility(View.VISIBLE);
+} else {
+    mContainer.setVisibility(View.VISIBLE);
+    mEmptyView.setVisibility(View.GONE);
+    Fragment fragment = MediaSelectionFragment.newInstance(album);
+    getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.container, fragment, MediaSelectionFragment.class.getSimpleName())
+            .commitAllowingStateLoss();
+    }
+} 
+</code></pre><ul>
+<li>进入到MediaSelectionFragment，在onAttach方法中将Activity作为监听器传来进来</li>
+</ul>
+<pre><code>    @Override
+    public void onAttach(Context context) {
+super.onAttach(context);
+if (context instanceof SelectionProvider) {
+    mSelectionProvider = (SelectionProvider) context;
+} else {
+    throw new IllegalStateException(&quot;Context must implement SelectionProvider.&quot;);
+}
+if (context instanceof AlbumMediaAdapter.CheckStateListener) {
+    mCheckStateListener = (AlbumMediaAdapter.CheckStateListener) context;
+}
+if (context instanceof AlbumMediaAdapter.OnMediaClickListener) {
+    mOnMediaClickListener = (AlbumMediaAdapter.OnMediaClickListener) context;
+}
+    }
+</code></pre><ul>
+<li>各种初始化的操作主要在onActivityCreated当中，比较重要的步骤是通过在Activity中传入的Album对象初始化Loader</li>
+</ul>
+<pre><code>mAlbumMediaCollection.onCreate(getActivity(), this);
+mAlbumMediaCollection.load(album, selectionSpec.capture);
+
+    public void load(@Nullable Album target, boolean enableCapture) {
+Bundle args = new Bundle();
+args.putParcelable(ARGS_ALBUM, target);
+args.putBoolean(ARGS_ENABLE_CAPTURE, enableCapture);
+mLoaderManager.initLoader(LOADER_ID, args, this);
+}
+
+
+@Override
+    public void onMediaClick(Album album, Item item, int adapterPosition) {
+Intent intent = new Intent(this, AlbumPreviewActivity.class);
+intent.putExtra(AlbumPreviewActivity.EXTRA_ALBUM, album);
+intent.putExtra(AlbumPreviewActivity.EXTRA_ITEM, item);
+intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
+startActivityForResult(intent, REQUEST_CODE_PREVIEW);
+    }
+</code></pre><ul>
+<li>Fragment图片Item的监听器最终调用到，Activity中的方法，启动预览Activity，这后面就没什么好说的了</li>
+</ul>
+<pre><code>    @Override
+    public void onMediaClick(Album album, Item item, int adapterPosition) {
+Intent intent = new Intent(this, AlbumPreviewActivity.class);
+intent.putExtra(AlbumPreviewActivity.EXTRA_ALBUM, album);
+intent.putExtra(AlbumPreviewActivity.EXTRA_ITEM, item);
+intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
+startActivityForResult(intent, REQUEST_CODE_PREVIEW);
+    }
+</code></pre><ul>
+<li>另外在RecycleView的AlbumMediaAdapter的onBindViewHolder中，可以发现Matisse将ViewHolder抽取出来，通过preBindMedia和bindMedia来设定Item信息</li>
+</ul>
+<pre><code>mediaViewHolder.mMediaGrid.preBindMedia(new MediaGrid.PreBindInfo(
+        getImageResize(mediaViewHolder.mMediaGrid.getContext()),
+        mPlaceholder,
+        mSelectionSpec.countable,
+        holder
+));
+mediaViewHolder.mMediaGrid.bindMedia(item);
+</code></pre><ul>
+<li>ViewHolder中只有一个MediaGrid对象，它是一个正方形的FrameLayout</li>
+</ul>
+<pre><code>public class MediaGrid extends SquareFrameLayout implements View.OnClickListener {
+
+private ImageView mThumbnail;
+private CheckView mCheckView;
+private ImageView mGifTag;
+private TextView mVideoDuration;
+
+private Item mMedia;
+private PreBindInfo mPreBindInfo;
+private OnMediaGridClickListener mListener; 
+</code></pre><ul>
+<li>在MediaGrid中我们可以找到设定图片的方法，engine包下是真正的图片加载工具，包括了默认的GlideEngine和PicassoEngine</li>
+</ul>
+<pre><code>    private void setImage() {
+if (mMedia.isGif()) {
+    SelectionSpec.getInstance().imageEngine.loadGifThumbnail(getContext(), mPreBindInfo.mResize,
+            mPreBindInfo.mPlaceholder, mThumbnail, mMedia.getContentUri());
+} else {
+    SelectionSpec.getInstance().imageEngine.loadThumbnail(getContext(), mPreBindInfo.mResize,
+            mPreBindInfo.mPlaceholder, mThumbnail, mMedia.getContentUri());
+    }
+}
+</code></pre><ul>
+<li>GlideEngine，PicassoEngine是对两个第三方库的封装，实现了ImageEngine接口，ImageEngine中只有几个加载图片的方法，如果要使用自定义的图片加载工具，只需实现这个接口即可，可见使用接口大大地提高了可扩展性</li>
+</ul>
+<pre><code>    public interface ImageEngine {
+
+    void loadThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri);
+
+    void loadGifThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri);
+
+
+    void loadImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri);
+
+    void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri);
+
+    boolean supportAnimatedGif();
+} 
+</code></pre>
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/07/28/aboutThreadPool/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
