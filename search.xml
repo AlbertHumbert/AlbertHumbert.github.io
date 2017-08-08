@@ -179,7 +179,7 @@ public int compareTo(PicassoFutureTask other) {
   return new RequestCreator(this, null, resourceId);
 }
 </code></pre><ul>
-<li>通过RequestCreator，我们可以对加载的图片进行一些设定，传入的参数一般保留在RequestCreator的成员变量data.resize当中</li>
+<li>通过RequestCreator，我们可以对加载的图片进行一些设定，传入的参数一般保留在RequestCreator的成员变量data当中</li>
 </ul>
 <pre><code>public RequestCreator resize(int targetWidth, int targetHeight) {
   data.resize(targetWidth, targetHeight);
