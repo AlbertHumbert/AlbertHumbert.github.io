@@ -3,6 +3,462 @@
   
     
     <entry>
+      <title><![CDATA[Volley 事件派发机制]]></title>
+      <url>/2017/08/09/aboutVolleyDispatcher/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<ul>
+<li>之前大致浏览过一遍Volley的源码，对事件派发的部分有不少缺漏，下面进行补充</li>
+</ul>
+<h2 id="请求容器"><a href="#请求容器" class="headerlink" title="请求容器"></a>请求容器</h2><ul>
+<li>我们知道，Volley将所有请求都存放在RequestQueue当中，虽然叫做Queue但实际上RequestQueue并不是collection类，Volley暂存请求的容器有四个，mCacheQueue 用于存放可以访问缓存的请求，mNetworkQueue用于存放需要访问网络的请求，mWaitingRequests用于存放等待的处理的请求，mCurrentRequests用于存放正在处理的请求，之前对mWaitingRequests的存在意义不是很理解，后来发现它的设计还是很巧妙的，下面会进行详细的分析</li>
+</ul>
+<pre><code>private final Map&lt;String, Queue&lt;Request&lt;?&gt;&gt;&gt; mWaitingRequests =
+    new HashMap&lt;String, Queue&lt;Request&lt;?&gt;&gt;&gt;();
+
+    private final Set&lt;Request&lt;?&gt;&gt; mCurrentRequests = new HashSet&lt;Request&lt;?&gt;&gt;();            
+
+    private final PriorityBlockingQueue&lt;Request&lt;?&gt;&gt; mCacheQueue =
+new PriorityBlockingQueue&lt;Request&lt;?&gt;&gt;();
+
+    private final PriorityBlockingQueue&lt;Request&lt;?&gt;&gt; mNetworkQueue =
+new PriorityBlockingQueue&lt;Request&lt;?&gt;&gt;();
+</code></pre><ul>
+<li>来看RequestQueue的add方法，首先是调用request的setRequestQueue将请求与RequestQueue绑定。然后将请求放入mCurrentRequests，正在处理的请求的容器当中，mCurrentRequests是一个HashSet，线程不安全，所以使用了锁</li>
+</ul>
+<pre><code>public &lt;T&gt; Request&lt;T&gt; add(Request&lt;T&gt; request) {
+    // Tag the request as belonging to this queue and add it to the set of current requests.
+    request.setRequestQueue(this);
+    synchronized (mCurrentRequests) {
+        mCurrentRequests.add(request);
+    }
+
+    // Process requests in the order they are added.
+    request.setSequence(getSequenceNumber());
+    request.addMarker(&quot;add-to-queue&quot;);
+</code></pre><ul>
+<li>如果请求不能缓存，直接放入mNetworkQueue网络队列</li>
+</ul>
+<pre><code>// If the request is uncacheable, skip the cache queue and go straight to the network.
+if (!request.shouldCache()) {
+    mNetworkQueue.add(request);
+    return request;
+}
+</code></pre><ul>
+<li>接着对mWaitingRequests的操作是关键，我们先看看文档中对mWaitingRequests的描述。mWaitingRequests是一个HashMap，这个HashMap的每个value值都是一个队列，每个队列当中都是相同的请求，这是因为mWaitingRequests是专门用于存放重复的请求的</li>
+</ul>
+<pre><code>/**
+ * Staging area for requests that already have a duplicate request in flight.
+ *
+ * &lt;ul&gt;
+ *     &lt;li&gt;containsKey(cacheKey) indicates that there is a request in flight for the given cache
+ *          key.&lt;/li&gt;
+ *     &lt;li&gt;get(cacheKey) returns waiting requests for the given cache key. The in flight request
+ *          is &lt;em&gt;not&lt;/em&gt; contained in that list. Is null if no requests are staged.&lt;/li&gt;
+ * &lt;/ul&gt;
+ */
+    private final Map&lt;String, Queue&lt;Request&lt;?&gt;&gt;&gt; mWaitingRequests =
+    new HashMap&lt;String, Queue&lt;Request&lt;?&gt;&gt;&gt;();
+</code></pre><ul>
+<li>继续看add方法，HashMap线程不安全所以也开启了锁，我们发现这里检查mWaitingRequests中是否存在给定的key，如果存在则说明先前已有相同的请求被提交了，但是最初已被提交的请求并不会创建队列，而是放入一个null值，当下一个相同的请求到来，发现Map中有了这个Key值，才会创建队列并且将请求放进队列之后就暂时再不处理，Volley就是利用这种方法避免请求被重复执行的</li>
+</ul>
+<pre><code>    // Insert request into stage if there&apos;s already a request with the same cache key in flight.
+    synchronized (mWaitingRequests) {
+        String cacheKey = request.getCacheKey();
+        if (mWaitingRequests.containsKey(cacheKey)) {
+            // There is already a request in flight. Queue up.
+            Queue&lt;Request&lt;?&gt;&gt; stagedRequests = mWaitingRequests.get(cacheKey);
+            if (stagedRequests == null) {
+                stagedRequests = new LinkedList&lt;Request&lt;?&gt;&gt;();
+            }
+            stagedRequests.add(request);
+            mWaitingRequests.put(cacheKey, stagedRequests);
+            if (VolleyLog.DEBUG) {
+                VolleyLog.v(&quot;Request for cacheKey=%s is in flight, putting on hold.&quot;, cacheKey);
+            }
+        } else {
+            // Insert &apos;null&apos; queue for this cacheKey, indicating there is now a request in
+            // flight.
+            mWaitingRequests.put(cacheKey, null);
+            mCacheQueue.add(request);
+        }
+        return request;
+    }
+}
+</code></pre><ul>
+<li>进过一段时间，当一个Request被处理完毕时，它的finish方法会被执行，之前Volley将Request与RequestQueue进行了绑定，在这里回调RequestQueue的finish()方法并传入自身</li>
+</ul>
+<pre><code> void finish(final String tag) {
+if (mRequestQueue != null) {
+    mRequestQueue.finish(this);
+    onFinish();
+}
+if (MarkerLog.ENABLED) {
+    final long threadId = Thread.currentThread().getId();
+    if (Looper.myLooper() != Looper.getMainLooper()) {
+        // If we finish marking off of the main thread, we need to
+        // actually do it on the main thread to ensure correct ordering.
+        Handler mainThread = new Handler(Looper.getMainLooper());
+        mainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                mEventLog.add(tag, threadId);
+                mEventLog.finish(this.toString());
+            }
+        });
+        return;
+    }
+
+    mEventLog.add(tag, threadId);
+    mEventLog.finish(this.toString());
+    }
+}    
+</code></pre><ul>
+<li>下面来看RequestQueue的finish方法，一开始在mCurrentRequests移除了Request，这里比较好理解，接着在等待队列waitingRequests中取出了所有相同的请求，并把这些请求全部加入到mCacheQueue当中，这样做是因为刚刚只是把这些相同的Request放入waitingRequests而没有去处理，现在最初的Request对象被处理完毕了，所有与它相同的请求都可以保证能从缓存中拿到结果了，故将其加入到缓存队列当中。通过这个机制，相同的请求同时进入到RequestQueue中时，只会从网络获取一次（假设Response不需要更新），很好地节约了时间</li>
+</ul>
+<pre><code>    /**
+     * Called from {@link Request#finish(String)}, indicating that processing of the given request
+     * has finished.
+     *
+     * &lt;p&gt;Releases waiting requests for &lt;code&gt;request.getCacheKey()&lt;/code&gt; if
+     *      &lt;code&gt;request.shouldCache()&lt;/code&gt;.&lt;/p&gt;
+     */
+    &lt;T&gt; void finish(Request&lt;T&gt; request) {
+// Remove from the set of requests currently being processed.
+synchronized (mCurrentRequests) {
+    mCurrentRequests.remove(request);
+}
+synchronized (mFinishedListeners) {
+  for (RequestFinishedListener&lt;T&gt; listener : mFinishedListeners) {
+    listener.onRequestFinished(request);
+      }
+    }
+
+if (request.shouldCache()) {
+    synchronized (mWaitingRequests) {
+        String cacheKey = request.getCacheKey();
+        Queue&lt;Request&lt;?&gt;&gt; waitingRequests = mWaitingRequests.remove(cacheKey);
+        if (waitingRequests != null) {
+            if (VolleyLog.DEBUG) {
+                VolleyLog.v(&quot;Releasing %d waiting requests for cacheKey=%s.&quot;,
+                        waitingRequests.size(), cacheKey);
+            }
+            // Process all queued up requests. They won&apos;t be considered as in flight, but
+            // that&apos;s not a problem as the cache has been primed by &apos;request&apos;.
+            mCacheQueue.addAll(waitingRequests);
+        }
+    }
+}
+} 
+</code></pre><h2 id="Dispatcher"><a href="#Dispatcher" class="headerlink" title="Dispatcher"></a>Dispatcher</h2><ul>
+<li>再来看start方法，这里开启了处理和分发请求的线程，网上普遍说这里处理网络请求的线程<strong>默认</strong>是四个，但实际上由于外部调用RequestQueue的构造方法没有意义，所以定死了就是四个</li>
+</ul>
+<pre><code>    public void start() {
+    stop();  // Make sure any currently running dispatchers are stopped.
+    // Create the cache dispatcher and start it.
+    mCacheDispatcher = new CacheDispatcher(mCacheQueue, mNetworkQueue, mCache, mDelivery);
+    mCacheDispatcher.start();
+
+    // Create network dispatchers (and corresponding threads) up to the pool size.
+    for (int i = 0; i &lt; mDispatchers.length; i++) {
+        NetworkDispatcher networkDispatcher = new NetworkDispatcher(mNetworkQueue, mNetwork,
+                mCache, mDelivery);
+        mDispatchers[i] = networkDispatcher;
+        networkDispatcher.start();
+    }
+}
+
+
+    ...
+
+    RequestQueue queue;
+    if (maxDiskCacheBytes &lt;= -1)
+            {
+        // No maximum size specified
+        queue = new RequestQueue(new DiskBasedCache(cacheDir), network);
+    }
+    else
+          {
+              // Disk cache size specified
+              queue = new RequestQueue(new DiskBasedCache(cacheDir, maxDiskCacheBytes), network);
+          }
+
+    ...
+
+    public RequestQueue(Cache cache, Network network) {
+            this(cache, network, DEFAULT_NETWORK_THREAD_POOL_SIZE);
+        }
+
+    ...
+
+    public RequestQueue(Cache cache, Network network, int threadPoolSize,
+        ResponseDelivery delivery) {
+    mCache = cache;
+    mNetwork = network;
+    mDispatchers = new NetworkDispatcher[threadPoolSize];
+    mDelivery = delivery;
+    }
+
+    ...
+</code></pre><ul>
+<li>我们来看处理缓存请求的CacheDispatcher线程的run方法，具体的分析写在注释里</li>
+</ul>
+<pre><code>    @Override
+    public void run() {
+if (DEBUG) VolleyLog.v(&quot;start new dispatcher&quot;);
+Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+// Make a blocking call to initialize the cache.
+mCache.initialize();
+//初始化缓存
+
+Request&lt;?&gt; request;
+while (true) {
+//开启一个死循环处理请求
+    // release previous request object to avoid leaking request object when mQueue is drained.
+    request = null;
+    try {
+        // Take a request from the queue.
+        request = mCacheQueue.take();
+        //重置请求，BlockingQueue的take()方法会阻塞线程直到有一个元素被拿出为止
+
+    } catch (InterruptedException e) {
+        // We may have been interrupted because it was time to quit.
+        if (mQuit) {
+            return;
+            //当关闭线程时会在这里抛出异常，检查是否需要停止
+        }
+        continue;
+    }
+    try {
+        request.addMarker(&quot;cache-queue-take&quot;);
+
+        // If the request has been canceled, don&apos;t bother dispatching it.
+        if (request.isCanceled()) {
+            request.finish(&quot;cache-discard-canceled&quot;);
+            continue;
+            //如果请求被取消，直接放过
+        }
+
+        // Attempt to retrieve this item from cache.
+        Cache.Entry entry = mCache.get(request.getCacheKey());
+        if (entry == null) {
+            request.addMarker(&quot;cache-miss&quot;);
+            // Cache miss; send off to the network dispatcher.
+            mNetworkQueue.put(request);
+            //拿不到缓存，放入网络队列
+            continue;
+        }
+
+        // If it is completely expired, just send it to the network.
+        if (entry.isExpired()) {
+            request.addMarker(&quot;cache-hit-expired&quot;);
+            request.setCacheEntry(entry);
+            mNetworkQueue.put(request);
+            //请求过期，也放入网络队列
+            continue;
+        }
+
+        // We have a cache hit; parse its data for delivery back to the request.
+        request.addMarker(&quot;cache-hit&quot;);
+        Response&lt;?&gt; response = request.parseNetworkResponse(
+                new NetworkResponse(entry.data, entry.responseHeaders));
+        request.addMarker(&quot;cache-hit-parsed&quot;);
+
+        if (!entry.refreshNeeded()) {
+            // Completely unexpired cache hit. Just deliver the response.
+            mDelivery.postResponse(request, response);
+            //从缓存中拿到了结果，如果不需要更新内容，则直接投递结果
+        } else {
+            // Soft-expired cache hit. We can deliver the cached response,
+            // but we need to also send the request to the network for
+            // refreshing.
+            request.addMarker(&quot;cache-hit-refresh-needed&quot;);
+            request.setCacheEntry(entry);
+
+            // Mark the response as intermediate.
+            response.intermediate = true;
+
+            // Post the intermediate response back to the user and have
+            // the delivery then forward the request along to the network.
+            final Request&lt;?&gt; finalRequest = request;
+
+           //如果内容需要更新，也同样会投递结果，不同的是之后这里的run方法会执行，进行更新
+            mDelivery.postResponse(request, response, new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mNetworkQueue.put(finalRequest);
+                    } catch (InterruptedException e) {
+                        // Not much we can do about this.
+                    }
+                }
+            });
+        }
+    } catch (Exception e) {
+        VolleyLog.e(e, &quot;Unhandled exception %s&quot;, e.toString());
+            }
+        }
+    }
+}
+</code></pre><ul>
+<li>接着再看NetworkDispatcher的run方法，逻辑是差不多的</li>
+</ul>
+<pre><code>@Override
+    public void run() {
+Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+Request&lt;?&gt; request;
+while (true) {
+//开启死循环处理请求
+    long startTimeMs = SystemClock.elapsedRealtime();
+    // release previous request object to avoid leaking request object when mQueue is drained.
+    request = null;
+    try {
+        // Take a request from the queue.
+        request = mQueue.take();
+        //阻塞直到获得对象
+    } catch (InterruptedException e) {
+        // We may have been interrupted because it was time to quit.
+        if (mQuit) {
+            return;
+        }
+        continue;
+    }
+
+    try {
+        request.addMarker(&quot;network-queue-take&quot;);
+
+        // If the request was cancelled already, do not perform the
+        // network request.
+        if (request.isCanceled()) {
+            request.finish(&quot;network-discard-cancelled&quot;);
+            continue;
+        }
+
+        addTrafficStatsTag(request);
+
+        // Perform the network request.
+        NetworkResponse networkResponse = mNetwork.performRequest(request);
+        //从网络获取Response
+        request.addMarker(&quot;network-http-complete&quot;);
+
+        // If the server returned 304 AND we delivered a response already,
+        // we&apos;re done -- don&apos;t deliver a second identical response.
+        if (networkResponse.notModified &amp;&amp; request.hasHadResponseDelivered()) {
+            request.finish(&quot;not-modified&quot;);
+            continue;
+        }
+
+        // Parse the response here on the worker thread.
+        Response&lt;?&gt; response = request.parseNetworkResponse(networkResponse);
+        request.addMarker(&quot;network-parse-complete&quot;);
+
+        // Write to cache if applicable.
+        // TODO: Only update cache metadata instead of entire record for 304s.
+        if (request.shouldCache() &amp;&amp; response.cacheEntry != null) {
+            mCache.put(request.getCacheKey(), response.cacheEntry);
+            //将结果放入缓存
+            request.addMarker(&quot;network-cache-written&quot;);
+        }
+
+        // Post the response back.
+        request.markDelivered();
+        mDelivery.postResponse(request, response);
+        //投递结果
+    } catch (VolleyError volleyError) {
+        volleyError.setNetworkTimeMs(SystemClock.elapsedRealtime() - startTimeMs);
+        parseAndDeliverNetworkError(request, volleyError);
+    } catch (Exception e) {
+        VolleyLog.e(e, &quot;Unhandled exception %s&quot;, e.toString());
+        VolleyError volleyError = new VolleyError(e);
+        volleyError.setNetworkTimeMs(SystemClock.elapsedRealtime() - startTimeMs);
+        mDelivery.postError(request, volleyError);
+    }
+}
+} 
+</code></pre><h2 id="ExecutorDelivery"><a href="#ExecutorDelivery" class="headerlink" title="ExecutorDelivery"></a>ExecutorDelivery</h2><ul>
+<li>mDelivery是真正用于投递结果的对象，是ExecutorDelivery的实例，持有一个主线程的handler</li>
+</ul>
+<pre><code>    public RequestQueue(Cache cache, Network network, int threadPoolSize) {
+this(cache, network, threadPoolSize,
+        new ExecutorDelivery(new Handler(Looper.getMainLooper())));
+    }
+
+    public ExecutorDelivery(final Handler handler) {                // Make an Executor that just wraps the handler.
+       mResponsePoster = new Executor() {
+           @Override
+           public void execute(Runnable command) {
+               handler.post(command);
+           }
+       };
+}
+</code></pre><ul>
+<li>ExecutorDelivery内部有一个实现了Runnable接口的类，它用于将请求结构返回给我们实现的监听器，这样我们就能接收到数据了，注意这里还调用到了Request的finish方法，这之后就回到刚刚讲到的RequestQueue的finish方法了</li>
+</ul>
+<pre><code>        /**
+         * A Runnable used for delivering network responses to a listener on the
+         * main thread.
+         */
+        @SuppressWarnings(&quot;rawtypes&quot;)
+        private class ResponseDeliveryRunnable implements Runnable {
+            private final Request mRequest;
+            private final Response mResponse;
+            private final Runnable mRunnable;
+
+    public ResponseDeliveryRunnable(Request request, Response response, Runnable runnable) {
+        mRequest = request;
+        mResponse = response;
+        mRunnable = runnable;
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    @Override
+    public void run() {
+        // If this request has canceled, finish it and don&apos;t deliver.
+        if (mRequest.isCanceled()) {
+            mRequest.finish(&quot;canceled-at-delivery&quot;);
+            return;
+        }
+
+        // Deliver a normal response or error, depending.
+        if (mResponse.isSuccess()) {
+            mRequest.deliverResponse(mResponse.result);
+        } else {
+            mRequest.deliverError(mResponse.error);
+        }
+
+        // If this is an intermediate response, add a marker, otherwise we&apos;re done
+        // and the request can be finished.
+        if (mResponse.intermediate) {
+            mRequest.addMarker(&quot;intermediate-response&quot;);
+        } else {
+            mRequest.finish(&quot;done&quot;);
+        }
+
+        // If we have been provided a post-delivery runnable, run it.
+        if (mRunnable != null) {
+            mRunnable.run();
+        }
+   }
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Picasso 源码分析]]></title>
       <url>/2017/08/08/aboutPicasso/</url>
       <content type="html"><![CDATA[<p>-</p>
