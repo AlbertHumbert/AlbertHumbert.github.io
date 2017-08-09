@@ -8,7 +8,7 @@
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <ul>
-<li>之前大致浏览过一遍Volley的源码，对事件派发的部分有不少缺漏，下面进行补充</li>
+<li>之前大致浏<a href="https://alberthumbert.github.io/2017/07/19/aboutVolley/">览过</a>一遍Volley的源码，对事件派发的部分有不少缺漏，下面进行补充</li>
 </ul>
 <h2 id="请求容器"><a href="#请求容器" class="headerlink" title="请求容器"></a>请求容器</h2><ul>
 <li>我们知道，Volley将所有请求都存放在RequestQueue当中，虽然叫做Queue但实际上RequestQueue并不是collection类，Volley暂存请求的容器有四个，mCacheQueue 用于存放可以访问缓存的请求，mNetworkQueue用于存放需要访问网络的请求，mWaitingRequests用于存放等待的处理的请求，mCurrentRequests用于存放正在处理的请求，之前对mWaitingRequests的存在意义不是很理解，后来发现它的设计还是很巧妙的，下面会进行详细的分析</li>
