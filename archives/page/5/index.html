@@ -12,7 +12,7 @@
     
     <title>
         
-            Picasso 源码分析 | 
+            归档 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="-">
-    <meta name="keywords" content="null,notes">
+    <meta name="description" itemprop="description" content="developing">
+    <meta name="keywords" content="null">
 
     <!-- Site Verification -->
     
@@ -65,62 +65,29 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Picasso 源码分析 | Albert&#39;s Blog">
+    <meta property="og:title" content="归档 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="-">
-    <meta property="og:article:tag" content="notes"> 
-
+    <meta property="og:description" content="developing">
     
-        <meta property="article:published_time" content="8月 08, 2017" />
-        <meta property="article:modified_time" content="8月 08, 2017" />
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Picasso 源码分析 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="-">
+    <meta name="twitter:title" content="归档 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="developing">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/archives/page/5/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Albert&#39;s Blog",
-        "logo": "/img/favicon.png"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Albert Humbert",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/favicon.png"
-        },
-        "description": "Paranoid Android"
-    },
-    "headline": "Picasso 源码分析",
-    "url": "https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html",
-    "datePublished": "8月 08, 2017",
-    "dateModified": "8月 08, 2017",
-    "description": "-",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://alberthumbert.github.io"
-    }
-}
-</script>
 
 
     
@@ -308,641 +275,103 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-    <!-- Left aligned menu below button -->
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#with"><span class="post-toc-number">1.</span> <span class="post-toc-text">with</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#load"><span class="post-toc-number">2.</span> <span class="post-toc-text">load</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#into"><span class="post-toc-number">3.</span> <span class="post-toc-text">into</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#BitmapHunter"><span class="post-toc-number">4.</span> <span class="post-toc-text">BitmapHunter</span></a></li></ol>
-        <!--
-        <li class="mdl-menu__item">
-            Some Action
-        </li>
-        -->
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
         
     
-            <p class="article-headline-p">
-                Picasso 源码分析
-            </p>
-        </div>
 
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Albert Humbert</strong>
-        <span>8月 08, 2017</span>
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2016/10/14/hello-world/">hello world</a></p>
     </div>
 
-    <div class="section-spacer"></div>
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            缘起
+欢迎来到我的小窝
 
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/notes/">notes</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Picasso 源码分析&url=https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Picasso 源码分析&url=https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html&via=Albert Humbert" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html&title=Picasso 源码分析" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 LinkedIn
-            </li>
-        </a>
-    
-
-    <!-- Share QQ -->
-    
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Picasso 源码分析&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 QQ
-            </li>
-        </a>
-    
-
-    <!-- Share Telegram -->
-    
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/08/08/aboutPicasso/index.html&text=Picasso 源码分析" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Telegram
-            </li>
-        </a>
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <p>-</p>
-<a id="more"></a>
-<ul>
-<li>使用<a href="https://github.com/square/picasso" target="_blank" rel="external">Picasso</a>主要包括四步，创建单例（with / Builder），传入链接（load），配置属性（centerCrop，resize … ），加载图片（into），下面就大致按照这个顺序来解析Picasso的源码</li>
-</ul>
-<pre><code>Picasso.with(context)
-        .load(uri)
-        .centerCrop()
-        .into(imageView);
-</code></pre><h2 id="with"><a href="#with" class="headerlink" title="with"></a>with</h2><ul>
-<li>with方法是一种全部使用内部默认组件进行初始化的方法，所以并不会很复杂，这里主要用到了单例模式，通过Builder对象创建Picasso的单例，注意这里的Builder对象在创建出来之后直接调用了build()方法，其实相当于没有使用到建造者模式</li>
-</ul>
-<pre><code>public static Picasso with(Context context) {
-  if (singleton == null) {
-    synchronized (Picasso.class) {
-      if (singleton == null) {
-        singleton = new Builder(context).build();
-      }
-    }
-  }
-  return singleton;
-}
-</code></pre><ul>
-<li>再来看build()方法，这里包含了Picasso中几个至关重要的成员的初始化，Downloader、Cache、ExecutorService、RequestTransformer、Stats和Dispatcher</li>
-</ul>
-<pre><code>  public Picasso build() {
-    Context context = this.context;
-
-    if (downloader == null) {
-      downloader = Utils.createDefaultDownloader(context);
-    }
-    if (cache == null) {
-      cache = new LruCache(context);
-    }
-    if (service == null) {
-      service = new PicassoExecutorService();
-    }
-    if (transformer == null) {
-      transformer = RequestTransformer.IDENTITY;
-    }
-
-    Stats stats = new Stats(cache);
-
-    Dispatcher dispatcher = new Dispatcher(context, service, HANDLER, downloader, cache, stats);
-
-    return new Picasso(context, dispatcher, cache, listener, transformer, requestHandlers, stats,
-        defaultBitmapConfig, indicatorsEnabled, loggingEnabled);
-  }
-} 
-</code></pre><ul>
-<li>默认的downloader使用的是OkHttpClient或者UrlConnection，一般情况下会是OkHttpClient，它们是用于处理图片的网络请求工具类，如有需要我们可以进行自定义，只需实现Downloader接口即可，但一般没有这个必要</li>
-</ul>
-<pre><code>static Downloader createDefaultDownloader(Context context) {
-    try {
-      Class.forName(&quot;com.squareup.okhttp.OkHttpClient&quot;);
-      //如果加载类时抛出异常，将使用UrlConnectionDownloader
-      return OkHttpLoaderCreator.create(context);
-    } catch (ClassNotFoundException ignored) {
-    }
-    return new UrlConnectionDownloader(context);
-  }
-
-...
-public class OkHttpDownloader implements Downloader {
-  private static OkHttpClient defaultOkHttpClient() {
-    OkHttpClient client = new OkHttpClient();
-    client.setConnectTimeout(Utils.DEFAULT_CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-    client.setReadTimeout(Utils.DEFAULT_READ_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-    client.setWriteTimeout(Utils.DEFAULT_WRITE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-    return client;
-  } 
-
-...
-public class UrlConnectionDownloader implements Downloader {
-  static final String RESPONSE_SOURCE = &quot;X-Android-Response-Source&quot;;
-  static volatile Object cache;
-
-  private static final Object lock = new Object();
-  private static final String FORCE_CACHE = &quot;only-if-cached,max-age=2147483647&quot;;
-  private static final ThreadLocal&lt;StringBuilder&gt; CACHE_HEADER_BUILDER =
-  new ThreadLocal&lt;StringBuilder&gt;() {
-        @Override protected StringBuilder initialValue() {
-          return new StringBuilder();
-        }
-      };
-
-  private final Context context;
-
-  public UrlConnectionDownloader(Context context) {
-    this.context = context.getApplicationContext();
-  }          
-</code></pre><ul>
-<li>cache，默认LruCache，没什么好讲的，一般自定义也是封装LruCache</li>
-</ul>
-<ul>
-<li>service，Picasso使用ThreadPoolExecutor配置的线程池，内部根据手机使用的通信标准进行了优化，核心线程数与最大线程数一致，根据网络条件优劣(wifi,4g,3g,2g)进行配置</li>
-</ul>
-<pre><code>private void setThreadCount(int threadCount) {
-  setCorePoolSize(threadCount);
-  setMaximumPoolSize(threadCount);
-}
-</code></pre><ul>
-<li>PicassoExecutorService维护一个优先级队列，质量高的图片优先加载，质量相同的图片先进先出</li>
-</ul>
-<pre><code>public enum Priority {
-    LOW,
-    NORMAL,
-    HIGH
-  }
-
- @Override
-public int compareTo(PicassoFutureTask other) {
-  Picasso.Priority p1 = hunter.getPriority();
-  Picasso.Priority p2 = other.hunter.getPriority();
-
-  // High-priority requests are &quot;lesser&quot; so they are sorted to the front.
-  // Equal priorities are sorted by sequence number to provide FIFO ordering.
-  return (p1 == p2 ? hunter.sequence - other.hunter.sequence : p2.ordinal() - p1.ordinal());
-}
-</code></pre><ul>
-<li>RequestTransformer，对Request进行转换的接口，内部提供一个空实现，一般也不做处理</li>
-</ul>
-<pre><code>public interface RequestTransformer {
-
-  Request transformRequest(Request request);
-
-  RequestTransformer IDENTITY = new RequestTransformer() {
-    @Override public Request transformRequest(Request request) {
-      return request;
-    }
-  };
-}
-</code></pre><ul>
-<li>stats，记录图片状态，dispatcher，用于分发任务，之后会详细分析</li>
-</ul>
-<ul>
-<li>使用Builder可以进行一些自定义配置，注意不要漏了设置单例</li>
-</ul>
-<pre><code>Picasso picasso = new Picasso.Builder(this)  
-        .downloader(...) 
-        .addRequestHandler(...)
-        .build();  
-        Picasso.setSingletonInstance(picasso);  
-</code></pre><h2 id="load"><a href="#load" class="headerlink" title="load"></a>load</h2><ul>
-<li>load用于传入的链接并创建RequestCreator对象，提供四个重载，但最终都将参数转换为uri处理，RequestCreator实际上也是一个builder模式</li>
-</ul>
-<pre><code>public RequestCreator load(Uri uri) {
-  return new RequestCreator(this, uri, 0);
-}
-
-  public RequestCreator load(String path) {
-  if (path == null) {
-    return new RequestCreator(this, null, 0);
-  }
-  if (path.trim().length() == 0) {
-    throw new IllegalArgumentException(&quot;Path must not be empty.&quot;);
-  }
-  return load(Uri.parse(path));
-}
-
-  public RequestCreator load(File file) {
-  if (file == null) {
-    return new RequestCreator(this, null, 0);
-  }
-  return load(Uri.fromFile(file));
-}
-
-  public RequestCreator load(int resourceId) {
-  if (resourceId == 0) {
-    throw new IllegalArgumentException(&quot;Resource ID must not be zero.&quot;);
-  }
-  return new RequestCreator(this, null, resourceId);
-}
-</code></pre><ul>
-<li>通过RequestCreator，我们可以对加载的图片进行一些设定，传入的参数一般保留在RequestCreator的成员变量data当中</li>
-</ul>
-<pre><code>public RequestCreator resize(int targetWidth, int targetHeight) {
-  data.resize(targetWidth, targetHeight);
-  return this;
-}
-
-public RequestCreator centerCrop() {
-  data.centerCrop();
-  return this;
-}
-
-  public RequestCreator rotate(float degrees) {
-  data.rotate(degrees);
-  return this;
-}
-</code></pre><h2 id="into"><a href="#into" class="headerlink" title="into"></a>into</h2><ul>
-<li>into是真正加载图片的方法，这个方法中首先对刚刚传入的参数进行检查和应用，这部分不是重点</li>
-</ul>
-<pre><code>if (!data.hasImage()) { 
-...
-}
-
-if (data.hasSize()) {
-...
-}
-
-if (setPlaceholder) {
-...
-}
-</code></pre><ul>
-<li>在这之后会判断是否从内存缓存读取图片，拿到图片则关闭请求设置图片，拿不到再去加载图片</li>
-</ul>
-<pre><code>if (shouldReadFromMemoryCache(memoryPolicy)) {
-      Bitmap bitmap = picasso.quickMemoryCacheCheck(requestKey);
-      //从缓存中读取
-      if (bitmap != null) {
-        picasso.cancelRequest(target);
-        //关闭请求
-        setBitmap(target, picasso.context, bitmap, MEMORY, noFade, picasso.indicatorsEnabled);
-        //设置图片
-        if (picasso.loggingEnabled) {
-              log(OWNER_MAIN, VERB_COMPLETED, request.plainId(), &quot;from &quot; + MEMORY);
-          //如果需要，将图片信息用log打出    
-        }
-        if (callback != null) {
-          callback.onSuccess();
-          //加载图片的监听器
-        }
-        return;
-      }
-    }
-
-    //如果拿不到图片，则从本地或网络加载
-    if (setPlaceholder) {
-      setPlaceholder(target, getPlaceholderDrawable());
-      //如果需要，设置占位图
-    }
-
-    Action action =
-new ImageViewAction(picasso, target, request, memoryPolicy, networkPolicy, errorResId,
-    errorDrawable, requestKey, tag, callback, noFade);
-    //创建action对象
-    picasso.enqueueAndSubmit(action);
-    //投递action对象
-  }
-</code></pre><ul>
-<li>可以看到action对象几乎包含了图片的所有信息，这之后action会交由Dispatcher的dispatchSubmit方法处理，这个handler来自于HandlerThread</li>
-</ul>
-<pre><code>this.dispatcherThread = new DispatcherThread();  
-   this.handler = new DispatcherHandler(dispatcherThread.getLooper(), this);
-
-static class DispatcherThread extends HandlerThread {
-    DispatcherThread() {
-      super(Utils.THREAD_PREFIX + DISPATCHER_THREAD_NAME, THREAD_PRIORITY_BACKGROUND);
-    }
-  }
-
-  void dispatchSubmit(Action action) {
-            handler.sendMessage(handler.obtainMessage(REQUEST_S        UBMIT, action));
-          }
-</code></pre><ul>
-<li><p>如无意外现在action对象会在Dispatcher对象的performSubmit方法中被处理，</p>
-<pre><code>@Override public void handleMessage(final Message msg) {
-  switch (msg.what) {
-    case REQUEST_SUBMIT: {
-      Action action = (Action) msg.obj;
-      dispatcher.performSubmit(action);
-      break;
-    } 
-
-...    
-</code></pre></li>
-</ul>
-<h2 id="BitmapHunter"><a href="#BitmapHunter" class="headerlink" title="BitmapHunter"></a>BitmapHunter</h2><ul>
-<li>BitmaHunter是一个Runnable对象，内部最多可持有三个Action对象</li>
-</ul>
-<ul>
-<li>performSubmit的主要步骤是，判断请求是否被停止，判断Action是否已分配BitmapHunter，判断线程池是否被关闭，以上三个条件只要一个成立都会直接返回，如果都不成立则创建BitmapHunter，投递BimapHunter给线程池</li>
-</ul>
-<pre><code>    void performSubmit(Action action, boolean dismissFailed) {
-      if (pausedTags.contains(action.getTag())) {
-        pausedActions.put(action.getTarget(), action);
-        if (action.getPicasso().loggingEnabled) {
-          log(OWNER_DISPATCHER, VERB_PAUSED, action.request.logId(),
-      &quot;because tag &apos;&quot; + action.getTag() + &quot;&apos; is paused&quot;);
-        }
-        return;
-      }
-
-      BitmapHunter hunter = hunterMap.get(action.getKey());
-      if (hunter != null) {
-        hunter.attach(action);
-        return;
-      }
-
-      if (service.isShutdown()) {
-        if (action.getPicasso().loggingEnabled) {
-          log(OWNER_DISPATCHER, VERB_IGNORED, action.request.logId(), &quot;because shut down&quot;);
-        }
-        return;
-      }
-
-      hunter = forRequest(action.getPicasso(), this, cache, stats, action);
-      hunter.future = service.submit(hunter);
-      hunterMap.put(action.getKey(), hunter);
-      if (dismissFailed) {
-        failedActions.remove(action.getTarget());
-      }
-
-      if (action.getPicasso().loggingEnabled) {
-        log(OWNER_DISPATCHER, VERB_ENQUEUED, action.request.logId());
-      }
-}
-</code></pre><ul>
-<li>创建BitmapHunter中使用到了责任链模式，在Picasso的构造函数中，初始化了一条责任链，这是一条不可变的RequestHandler的ArrayList，RequestHandler对象在BitmapHunter中用于获取Bitmap对象，RequestHandler是一个抽象类其中包含判断是否可以处理某个请求的canHandleRequest方法，图片对象的构造器，压缩图片的calculateInSampleSize方法</li>
-</ul>
-<pre><code>allRequestHandlers.add(new ContactsPhotoRequestHandler(context));
-allRequestHandlers.add(new MediaStoreRequestHandler(context));
-allRequestHandlers.add(new ContentStreamRequestHandler(context));
-allRequestHandlers.add(new AssetRequestHandler(context));
-allRequestHandlers.add(new FileRequestHandler(context));
-allRequestHandlers.add(new NetworkRequestHandler(dispatcher.downloader, stats));
-requestHandlers = Collections.unmodifiableList(allRequestHandlers);
-</code></pre><ul>
-<li>创建BitmapHunter时，遍历RequestHandler链表，查找可以处理Request的对象</li>
-</ul>
-<pre><code>    static BitmapHunter forRequest(Picasso picasso, Dispatcher dispatcher, Cache cache, Stats stats,
-Action action) {
-      Request request = action.getRequest();
-      List&lt;RequestHandler&gt; requestHandlers = picasso.getRequestHandlers();
-
-      // Index-based loop to avoid allocating an iterator.
-      //noinspection ForLoopReplaceableByForEach
-      for (int i = 0, count = requestHandlers.size(); i &lt; count; i++) {
-        RequestHandler requestHandler = requestHandlers.get(i);
-        if (requestHandler.canHandleRequest(request)) {
-          return new BitmapHunter(picasso, dispatcher, cache, stats, action, requestHandler);
-        }
-      }
-
-      return new BitmapHunter(picasso, dispatcher, cache,         stats, action, ERRORING_HANDLER);
-    } 
-</code></pre><ul>
-<li>在BitmapHunter的run方法中执行了hunt方法，hunt方法使用requestHandler的load方法得到需要的bitmap，之后使用dispatcher来传递bitmap</li>
-</ul>
-<pre><code>Bitmap hunt() throws IOException {
-    ...
-    data.networkPolicy = retryCount == 0 ? NetworkPolicy.OFFLINE.index : networkPolicy;
-    RequestHandler.Result result = requestHandler.load(data, networkPolicy);
-    if (result != null) {
-      loadedFrom = result.getLoadedFrom();
-      exifRotation = result.getExifOrientation();
-
-      bitmap = result.getBitmap();
-     ...
-
-     }
-
-
-Run(){
-    ...
-      result = hunt();
-
-      if (result == null) {
-        dispatcher.dispatchFailed(this);
-      } else {
-        dispatcher.dispatchComplete(this);
-    ...
-      }
-}             
-</code></pre><ul>
-<li>最终bitmap被传递到performBatchComplete当中，使用主线程的handler来发送信息，在handlerMessage方法中调用到了picasso对象的complete方法，这个方法最终调用到了action的complete方法</li>
-</ul>
-<pre><code>void performBatchComplete() {
-  List&lt;BitmapHunter&gt; copy = new ArrayList&lt;BitmapHunter&gt;(batch);
-  batch.clear();
-  mainThreadHandler.sendMessage(mainThreadHandler.obtainMessage(HUNTER_BATCH_COMPLETE, copy));
-  logBatch(copy);
-} 
-</code></pre><ul>
-<li>在ImageViewAction的complete方法中我们可以看到bitmap已经被设置了，这样就完成了一个完整的图片加载过程</li>
-</ul>
-<pre><code>@Override public void complete(Bitmap result,         Picasso.LoadedFrom from) {
-  if (result == null) {
-    throw new AssertionError(
-        String.format(&quot;Attempted to complete action with no result!\n%s&quot;, this));
-  }
-
-  ImageView target = this.target.get();
-  if (target == null) {
-    return;
-  }
-
-  Context context = picasso.context;
-  boolean indicatorsEnabled = picasso.indicatorsEnabled;
-  PicassoDrawable.setBitmap(target, context, result, from, noFade, indicatorsEnabled);
-
-  if (callback != null) {
-    callback.onSuccess();
-  }
-} 
-</code></pre>
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2016/10/14/hello-world/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
             </div>
+            <div>
+                <strong>Albert Humbert</strong>
+                <span>10月 14, 2016</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-        <a href="/2017/08/09/aboutVolleyDispatcher/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
+            
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
+            
 
-    <!-- Next Nav -->
-    
-        <a href="/2017/08/07/aboutMatisse/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
         </div>
     </div>
+</div>
 
+            
+            
+        
+    
+
+    
+    <!-- Index nav -->
+        <nav class="material-nav mdl-cell mdl-cell--12-col">
+            <a class="extend prev" rel="prev" href="/archives/page/4/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span>
+        </nav>
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
+</script>
+
+    
+</div>
 
 
                     
