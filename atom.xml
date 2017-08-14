@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-08-13T17:44:43.000Z</updated>
+  <updated>2017-08-14T06:00:22.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="https://alberthumbert.github.io/2017/08/14/test/"/>
+    <id>https://alberthumbert.github.io/2017/08/14/test/</id>
+    <published>2017-08-14T05:59:00.000Z</published>
+    <updated>2017-08-14T06:00:22.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Java 泛型擦除</title>
+    <link href="https://alberthumbert.github.io/2017/08/14/aboutTypeErasue/"/>
+    <id>https://alberthumbert.github.io/2017/08/14/aboutTypeErasue/</id>
+    <published>2017-08-14T01:55:00.000Z</published>
+    <updated>2017-08-14T09:12:04.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Loader 机制详解</title>
@@ -361,46 +395,6 @@
     <id>https://alberthumbert.github.io/2017/07/13/aboutNet/</id>
     <published>2017-07-13T06:31:23.000Z</published>
     <updated>2017-07-13T12:15:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ListView基本用法</title>
-    <link href="https://alberthumbert.github.io/2017/07/12/aboutListView/"/>
-    <id>https://alberthumbert.github.io/2017/07/12/aboutListView/</id>
-    <published>2017-07-12T12:29:26.000Z</published>
-    <updated>2017-07-13T03:33:28.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ContentProvider基本用法</title>
-    <link href="https://alberthumbert.github.io/2017/07/12/aboutContentProvider/"/>
-    <id>https://alberthumbert.github.io/2017/07/12/aboutContentProvider/</id>
-    <published>2017-07-12T01:32:54.000Z</published>
-    <updated>2017-07-12T16:11:02.000Z</updated>
     
     <summary type="html">
     
