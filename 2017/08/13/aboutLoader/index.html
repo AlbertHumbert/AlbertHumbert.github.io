@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="8月 13, 2017" />
-        <meta property="article:modified_time" content="8月 14, 2017" />
+        <meta property="article:modified_time" content="9月 03, 2017" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Loader 机制详解",
     "url": "https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html",
     "datePublished": "8月 13, 2017",
-    "dateModified": "8月 14, 2017",
+    "dateModified": "9月 03, 2017",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是Loader"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是Loader</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简单使用Loader"><span class="post-toc-number">2.</span> <span class="post-toc-text">简单使用Loader</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AsyncTaskLoader"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">AsyncTaskLoader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LoaderCallbacks"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">LoaderCallbacks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用自定义Loader"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">使用自定义Loader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现-LoaderCallbacks"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">实现 LoaderCallbacks</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是Loader"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是Loader</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简单使用Loader"><span class="post-toc-number">2.</span> <span class="post-toc-text">简单使用Loader</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AsyncTaskLoader"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">AsyncTaskLoader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LoaderCallbacks"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">LoaderCallbacks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用自定义Loader"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">使用自定义Loader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现-LoaderCallbacks"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">实现 LoaderCallbacks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用CursorLoader"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">使用CursorLoader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#源码解析"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">源码解析</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -625,26 +625,33 @@ mData = null;
 </code></pre><h3 id="实现-LoaderCallbacks"><a href="#实现-LoaderCallbacks" class="headerlink" title="实现 LoaderCallbacks"></a>实现 LoaderCallbacks</h3><ul>
 <li>为了处理数据，需要实现LoaderCallbacks，下面在Activity中实现这个接口，</li>
 </ul>
+<ul>
+<li>onCreateLoader，该方法用于根据id返回我们的需要用到的Loader，args是在调用initLoader时我们传入的参数，可以用于存放一些必要的信息</li>
+</ul>
 <pre><code>@Override
 public Loader&lt;List&lt;DirInfo&gt;&gt; onCreateLoader(int id, Bundle args) {
 return new MyLoader(this);
 }
-
-@Override
+</code></pre><ul>
+<li>onLoadFinished，当数据加载完后会调用onLoadFinished方法，在这里可以更新UI</li>
+</ul>
+<pre><code>@Override
 public void onLoadFinished(Loader&lt;List&lt;DirInfo&gt;&gt; loader, List&lt;DirInfo&gt; dataList) {
 
 mPicAdapter.setDataList((dataList.get(0)).getImageList());
 Log.d(TAG, &quot;onLoadFinished: &quot;+dataList.size());
 
 }
-
-@Override
+</code></pre><ul>
+<li>onLoaderReset，之前提到Loader的onReset方法会初始化Loader，这时onLoaderReset就会被调用，通常可以在该方法中将Activity，Fragment或Adapter中的数据置为null，如果使用了CursorLoader，这一步非常重要，Cursor被close之后会调用该方法，所以要确保在这里将数据置空，避免出现异常</li>
+</ul>
+<pre><code>@Override
 public void onLoaderReset(Loader&lt;List&lt;DirInfo&gt;&gt; loader) {
 
 }    
-
-
-@Override
+</code></pre><ul>
+<li><p>在onCreate方法中调用initLoader开始获取数据            </p>
+<pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 setContentView(R.layout.activity_main);
@@ -664,7 +671,116 @@ mRvPic.setAdapter(mPicAdapter);
 mRvPic.setItemAnimator(new DefaultItemAnimator());
 
 }        
-</code></pre>
+</code></pre></li>
+</ul>
+<h3 id="使用CursorLoader"><a href="#使用CursorLoader" class="headerlink" title="使用CursorLoader"></a>使用CursorLoader</h3><ul>
+<li>Loader被用得最多的情况就是从ContentProvider中获取数据，如联系人列表，手机图片等等，Android提供了CursorLoader，顾名思义是对cursor和loader的封装，如果只需要得到手机中的数据，用CursorLoader来实现是非常方便的</li>
+</ul>
+<ul>
+<li>在onCreateLoader方法中，根据不同的id调用CursorLoader的构造器得到Loader</li>
+</ul>
+<pre><code>@Override
+public Loader&lt;Cursor&gt; onCreateLoader(int id, Bundle args) {
+
+Log.d(TAG, &quot;onCreateLoader: &quot;);
+
+switch (id){
+
+    case IMAGE:
+        return new CursorLoader(this, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,new String[]{&quot;_id&quot;,&quot;_data&quot;},null,null,&quot;_id desc&quot;);
+
+    case RESET_IMAGE:
+        return new CursorLoader(this, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,new String[]{&quot;_id&quot;,&quot;_data&quot;},null,null,&quot;_id asc&quot;);
+
+    default:
+        return null;
+    }
+} 
+</code></pre><ul>
+<li>每次数据源发生改变时就会重新获取cursor，在这个例子当中，我们在手机图库中删除一张图片然后回到这个应用时onLoadFinish就会被调用，说明我们自行处理数据源的变化</li>
+</ul>
+<pre><code>    @Override
+    public void onLoadFinished(Loader&lt;Cursor&gt; loader, Cursor cursor) {
+
+    switch (loader.getId()){
+
+        case IMAGE:
+        case RESET_IMAGE:
+
+            mPicAdapter.swapCursor(cursor);
+            break;
+
+        default:
+            Log.d(TAG, &quot;onLoadFinished: a Loader might be ignored&quot;);
+            break;
+    }
+}
+
+    @Override
+    public void onLoaderReset(Loader&lt;Cursor&gt; loader) {
+        mPicAdapter.swapCursor(null);
+    } 
+</code></pre><ul>
+<li>如果我们使用的是自定义的Loader，需要如下注册观察者。如果不使用cursor的话，Loader能够帮助我们的地方不多，需要利用广播监听数据源并使用Loader的onContentChanged()方法更新数据</li>
+</ul>
+<pre><code>private ForceLoadContentObserver mObserver = new ForceLoadContentObserver();
+...
+
+cursor.registerContentObserver(mObserver);
+cursor.setNotificationUri(resolver,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+</code></pre><h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><ul>
+<li>首先找到我们分析的入口，我们最初调用的getLoaderManager()方法，每一个Activity或Fragment都有一个LoaderManager，LoaderManager用于同一管理不同Loader的生命周期</li>
+</ul>
+<ul>
+<li>Activity和Fragment的getLoaderManager最终调用到Activity-&gt;FragmentController-&gt;FragmentHostCallback类的下面这个方法。所有的LoaderManager都保存在mAllLoaderManagers当中，它是一个ArrayMap，ArrayMap和SparseArray一样是官方推荐用于替代HashMap的数据结构，实际上在更早期的实现中mAllLoaderManagers用的就是HashMap。当没有获取到需要的LoaderManager时就会创建LoaderManagerImpl实例</li>
+</ul>
+<pre><code>LoaderManagerImpl getLoaderManager(String who, boolean started, boolean create) {
+if (mAllLoaderManagers == null) {
+    mAllLoaderManagers = new ArrayMap&lt;String, LoaderManager&gt;();
+}
+LoaderManagerImpl lm = (LoaderManagerImpl) mAllLoaderManagers.get(who);
+if (lm == null) {
+    if (create) {
+        lm = new LoaderManagerImpl(who, this, started);
+        mAllLoaderManagers.put(who, lm);
+    }
+} else {
+    lm.updateHostController(this);
+}
+return lm;
+}
+</code></pre><ul>
+<li><p>LoaderManagerImpl中我们可以看到initLoader方法的实现，同样是从集合中获取实例，mLoaders是一个LoaderInfo<br>类型的稀疏数组，LoaderInfo是对Loader的一层封装，它不仅包含单独的Loader和这个Loader相关的信息，还会调用Loader和LoaderCallbacks中onLoaderFinish等回调方法，这些会在后面提到</p>
+<pre><code>@Override
+@SuppressWarnings(&quot;unchecked&quot;)
+public &lt;D&gt; Loader&lt;D&gt; initLoader(int id, Bundle args, LoaderManager.LoaderCallbacks&lt;D&gt; callback) {
+    if (mCreatingLoader) {
+        throw new IllegalStateException(&quot;Called while creating a loader&quot;);
+    }
+
+LoaderInfo info = mLoaders.get(id);
+
+if (DEBUG) Log.v(TAG, &quot;initLoader in &quot; + this + &quot;: args=&quot; + args);
+
+if (info == null) {
+    // Loader doesn&apos;t already exist; create.
+    info = createAndInstallLoader(id, args,  (LoaderManager.LoaderCallbacks&lt;Object&gt;)callback);
+    if (DEBUG) Log.v(TAG, &quot;  Created new loader &quot; + info);
+} else {
+    if (DEBUG) Log.v(TAG, &quot;  Re-using existing loader &quot; + info);
+    info.mCallbacks = (LoaderManager.LoaderCallbacks&lt;Object&gt;)callback;
+}
+
+if (info.mHaveData &amp;&amp; mStarted) {
+    // If the loader has already generated its data, report it now.
+    info.callOnLoadFinished(info.mLoader, info.mData);
+}
+
+return (Loader&lt;D&gt;)info.mLoader;
+}
+</code></pre></li>
+</ul>
+
     
 
     
