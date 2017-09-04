@@ -660,7 +660,8 @@ public void onLoaderReset(Loader&lt;List&lt;DirInfo&gt;&gt; loader) {
 
 }    
 </code></pre><ul>
-<li><p>在onCreate方法中调用initLoader开始获取数据            </p>
+<li>在onCreate方法中调用initLoader开始获取数据            </li>
+</ul>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
@@ -681,9 +682,7 @@ mRvPic.setAdapter(mPicAdapter);
 mRvPic.setItemAnimator(new DefaultItemAnimator());
 
 }        
-</code></pre></li>
-</ul>
-<h3 id="使用CursorLoader"><a href="#使用CursorLoader" class="headerlink" title="使用CursorLoader"></a>使用CursorLoader</h3><ul>
+</code></pre><h3 id="使用CursorLoader"><a href="#使用CursorLoader" class="headerlink" title="使用CursorLoader"></a>使用CursorLoader</h3><ul>
 <li>Loader被用得最多的情况就是从ContentProvider中获取数据，如联系人列表，手机图片等等，Android提供了CursorLoader，顾名思义是对cursor和loader的封装，如果只需要得到手机中的数据，用CursorLoader来实现是非常方便的</li>
 </ul>
 <ul>
@@ -760,7 +759,8 @@ if (lm == null) {
 return lm;
 }
 </code></pre><ul>
-<li><p>LoaderManagerImpl中我们可以看到initLoader方法的实现，同样是从集合中获取实例，mLoaders是一个LoaderInfo<br>类型的稀疏数组，LoaderInfo是对Loader的一层封装，它不仅包含单独的Loader和这个Loader相关的信息，还会调用Loader和LoaderCallbacks中onLoaderFinish等回调方法，这些会在后面提到</p>
+<li>LoaderManagerImpl中我们可以看到initLoader方法的实现，同样是从集合中获取实例，mLoaders是一个LoaderInfo<br>类型的稀疏数组，LoaderInfo是对Loader的一层封装，它是一个非常重要的类，不仅仅包含了单独的Loader和这个Loader相关的信息，还会调用Loader和LoaderCallbacks中onLoaderFinish等回调方法，这些会在后面提到</li>
+</ul>
 <pre><code>@Override
 @SuppressWarnings(&quot;unchecked&quot;)
 public &lt;D&gt; Loader&lt;D&gt; initLoader(int id, Bundle args, LoaderManager.LoaderCallbacks&lt;D&gt; callback) {
@@ -788,9 +788,317 @@ if (info.mHaveData &amp;&amp; mStarted) {
 
 return (Loader&lt;D&gt;)info.mLoader;
 }
-</code></pre></li>
+</code></pre><ul>
+<li>从上面可以看出，当没有指定的LoaderInfo可以复用时就会调用createAndInstallLoader方法创建实例，再看下面，获取封装的Loader时最终会调用我们实现的onCreateLoader方法以及一个installLoader方法</li>
 </ul>
-]]></content>
+<pre><code>private LoaderInfo createAndInstallLoader(int id, Bundle args,
+    LoaderManager.LoaderCallbacks&lt;Object&gt; callback) {
+try {
+    mCreatingLoader = true;
+    LoaderInfo info = createLoader(id, args, callback);
+    installLoader(info);
+    return info;
+} finally {
+    mCreatingLoader = false;
+}
+}
+
+    private LoaderInfo createLoader(int id, Bundle args,
+    LoaderManager.LoaderCallbacks&lt;Object&gt; callback) {
+LoaderInfo info = new LoaderInfo(id, args,  callback);
+Loader&lt;Object&gt; loader = callback.onCreateLoader(id, args);
+info.mLoader = loader;
+return info;
+}
+</code></pre><ul>
+<li>在installLoader方法中调用了info.start方法，显然这里启动了Loader，但是根据注释我们知道，Activity的onStart方法会启动所有已存在的Loader，这里启动的只是后面创建的Loader，可能是数据源发生了变化，或者主动调用了restartLoader</li>
+</ul>
+<pre><code>void installLoader(LoaderInfo info) {
+mLoaders.put(info.mId, info);
+if (mStarted) {
+    // The activity will start all existing loaders in it&apos;s onStart(),
+    // so only start them here if we&apos;re past that point of the activity&apos;s
+    // life cycle
+    info.start();
+}
+}
+
+//Activity的onStart方法最终会调用这个doStart方法
+//与installLoader方法不同，doStart会启动所有未启动的Loader
+
+void doStart() {
+if (DEBUG) Log.v(TAG, &quot;Starting in &quot; + this);
+if (mStarted) {
+    RuntimeException e = new RuntimeException(&quot;here&quot;);
+    e.fillInStackTrace();
+    Log.w(TAG, &quot;Called doStart when already started: &quot; + this, e);
+    return;
+}
+
+mStarted = true;
+
+// Call out to sub classes so they can start their loaders
+// Let the existing loaders know that we want to be notified when a load is complete
+for (int i = mLoaders.size()-1; i &gt;= 0; i--) {
+    mLoaders.valueAt(i).start();
+}
+}
+</code></pre><ul>
+<li>接着来看LoaderInfo的start方法，下面省略了一些条件判断，可以看到这里注册了两个监听器，一个用于接受加载完的数据，另一个用于接受被取消加载的Loader，注册完监听器后调用了Loader的onStartLoading方法，onStartLoading是我们实现Loader时需要实现的方法，还记得刚刚说的在onStartLoading中需要使用forceLoad方法来开始加载吗，Loader基类中这个方法调用了onForceLoad方法，而onForceLoad是一个空实现，所以接下来就要到子类AsyncTaskLoader登场了</li>
+</ul>
+<pre><code>        void start() {
+
+...
+
+    mStarted = true;
+
+    if (DEBUG) Log.v(TAG, &quot;  Starting: &quot; + this);
+    if (mLoader == null &amp;&amp; mCallbacks != null) {
+       mLoader = mCallbacks.onCreateLoader(mId, mArgs);
+    }
+
+    if (mLoader != null) {
+
+...
+
+        if (!mListenerRegistered) {
+            mLoader.registerListener(mId, this);
+            mLoader.registerOnLoadCanceledListener(this);
+            mListenerRegistered = true;
+        }
+        mLoader.startLoading();
+    }
+}
+
+    public interface OnLoadCompleteListener&lt;D&gt; {
+/**
+ * Called on the thread that created the Loader when the load is complete.
+ *
+ * @param loader the loader that completed the load
+ * @param data the result of the load
+ */
+public void onLoadComplete(Loader&lt;D&gt; loader, D data);
+}
+
+    public interface OnLoadCanceledListener&lt;D&gt; {
+/**
+ * Called on the thread that created the Loader when the load is canceled.
+ *
+ * @param loader the loader that canceled the load
+ */
+public void onLoadCanceled(Loader&lt;D&gt; loader);
+}
+</code></pre><ul>
+<li>AsyncTaskLoader是对AsyncTask的抽象封装，包含一个AsyncTask内部类，这个AsyncTask同时也是一个Runnable，在onForceLoad方法中调用了executePendingTask方法，executePendingTask中需要关心的只有executeOnExecutor这个步骤，这是AsyncTask新增的接口，允许开发者提供线程池并行的处理Task，而我们用的比较多的Excute方法是串行的</li>
+</ul>
+<pre><code>@Override
+protected void onForceLoad() {
+    super.onForceLoad();
+    cancelLoad();
+    mTask = new LoadTask();
+    if (DEBUG) Log.v(TAG, &quot;Preparing load: mTask=&quot; + mTask);
+    executePendingTask();
+}
+
+void executePendingTask() {
+    ...
+    mTask.executeOnExecutor(mExecutor, (Void[]) null);
+    }
+}
+</code></pre><ul>
+<li>既然是AsyncTask，那么就先来看doInBackground，这里一大串注释想表达的是任务被LoaderManger以外的对象取消时需要抛出异常，毕竟所有Task应该由LoaderManager来管理，故手动调用AsyncTask的cancel方法是不应该的，正常情况下这里会调用我们实现的onLoadInBackground方法来获取数据</li>
+</ul>
+<pre><code>final class LoadTask extends AsyncTask&lt;Void, Void, D&gt; implements Runnable {
+private final CountDownLatch mDone = new CountDownLatch(1);
+
+// Set to true to indicate that the task has been posted to a handler for
+// execution at a later time.  Used to throttle updates.
+boolean waiting;
+
+/* Runs on a worker thread */
+@Override
+protected D doInBackground(Void... params) {
+    if (DEBUG) Log.v(TAG, this + &quot; &gt;&gt;&gt; doInBackground&quot;);
+    try {
+        D data = AsyncTaskLoader.this.onLoadInBackground();
+        if (DEBUG) Log.v(TAG, this + &quot;  &lt;&lt;&lt; doInBackground&quot;);
+        return data;
+    } catch (OperationCanceledException ex) {
+        if (!isCancelled()) {
+            // onLoadInBackground threw a canceled exception spuriously.
+            // This is problematic because it means that the LoaderManager did not
+            // cancel the Loader itself and still expects to receive a result.
+            // Additionally, the Loader&apos;s own state will not have been updated to
+            // reflect the fact that the task was being canceled.
+            // So we treat this case as an unhandled exception.
+            throw ex;
+        }
+        if (DEBUG) Log.v(TAG, this + &quot;  &lt;&lt;&lt; doInBackground (was canceled)&quot;, ex);
+        return null;
+    }
+}
+
+    protected D onLoadInBackground() {
+return loadInBackground();
+}
+</code></pre><ul>
+<li>在onPostExecute我们进入到了数据的分发阶段，如果任务没有被取消，那么调用deliverResult方法获取数据，通常我们可以重写这个方法来实现数据缓存，而deliverResult调用了OnLoadCompleteListener.onLoadComplete方法，这个监听器就是我们先前提到的LoaderInfo实现的接口</li>
+</ul>
+<pre><code>    /* Runs on the UI thread */
+    @Override
+    protected void onPostExecute(D data) {
+        if (DEBUG) Log.v(TAG, this + &quot; onPostExecute&quot;);
+        try {
+            AsyncTaskLoader.this.dispatchOnLoadComplete(this, data);
+        } finally {
+            mDone.countDown();
+        }
+    }
+
+        void dispatchOnLoadComplete(LoadTask task, D data) {
+    if (mTask != task) {
+        if (DEBUG) Log.v(TAG, &quot;Load complete of old task, trying to cancel&quot;);
+        dispatchOnCancelled(task, data);
+    } else {
+        if (isAbandoned()) {
+            // This cursor has been abandoned; just cancel the new data.
+            onCanceled(data);
+        } else {
+            commitContentChanged();
+            mLastLoadCompleteTime = SystemClock.uptimeMillis();
+            mTask = null;
+            if (DEBUG) Log.v(TAG, &quot;Delivering result&quot;);
+            deliverResult(data);
+        }
+    }
+}
+
+    public void deliverResult(D data) {
+    if (mListener != null) {
+        mListener.onLoadComplete(this, data);
+    }
+}
+</code></pre><ul>
+<li>onLoadComplete主要有三个步骤</li>
+</ul>
+<ul>
+<li>一，处理新请求：当我们调用restartLoader方法时，为了避免启动过多的Task或是新Task的数据被旧的Task返回的数据覆盖，这里采用的做法是让LoaderInfo持有一个mPendingLoader，在旧的Loader执行完后让这个mPendingLoader启动</li>
+</ul>
+<pre><code>...
+    LoaderInfo pending = mPendingLoader;
+    if (pending != null) {
+        // There is a new request pending and we were just
+        // waiting for the old one to complete before starting
+        // it.  So now it is time, switch over to the new loader.
+        if (DEBUG) Log.v(TAG, &quot;  Switching to pending loader: &quot; + pending);
+        mPendingLoader = null;
+        mLoaders.put(mId, null);
+        destroy();
+        installLoader(pending);
+        return;
+    }
+</code></pre><ul>
+<li>二，当没有等待的请求，调用callOnLoadFinished，这个方法会调用到我们实现的onLoadFinished，这样就可以更新UI了</li>
+</ul>
+<pre><code>// Notify of the new data so the app can switch out the old data before
+// we try to destroy it.
+if (mData != data || !mHaveData) {
+    mData = data;
+    mHaveData = true;
+    if (mStarted) {
+        callOnLoadFinished(loader, data);
+    }
+}
+</code></pre><ul>
+<li>三，restartLoader时会把旧Loader放入mInactiveLoaders当中，现在可以清除旧的Loader了</li>
+</ul>
+<pre><code>    //if (DEBUG) Log.v(TAG, &quot;  onLoadFinished returned: &quot; + this);
+
+    // We have now given the application the new loader with its
+    // loaded data, so it should have stopped using the previous
+    // loader.  If there is a previous loader on the inactive list,
+    // clean it up.
+    LoaderInfo info = mInactiveLoaders.get(mId);
+    if (info != null &amp;&amp; info != this) {
+        info.mDeliveredData = false;
+        info.destroy();
+        mInactiveLoaders.remove(mId);
+    }
+
+    if (mHost != null &amp;&amp; !hasRunningLoaders()) {
+        mHost.mFragmentManager.startPendingDeferredFragments();
+    }
+}
+</code></pre><ul>
+<li>到目前为止我们从获取LoaderManager，启动Loader，数据传递都已经分析完了，但是还有很关键的一点，就是监听数据源，自动启动任务。在Loader基类中我们可以找到这个内部类</li>
+</ul>
+<pre><code>/**
+ * An implementation of a ContentObserver that takes care of connecting
+ * it to the Loader to have the loader re-load its data when the observer
+ * is told it has changed.  You do not normally need to use this yourself;
+ * it is used for you by {@link CursorLoader} to take care of executing
+ * an update when the cursor&apos;s backing data changes.
+ */
+    public final class ForceLoadContentObserver extends ContentObserver {
+
+    public ForceLoadContentObserver() {
+    super(new Handler());
+    }
+
+    @Override
+    public boolean deliverSelfNotifications() {
+    return true;
+    }
+
+    @Override
+    public void onChange(boolean selfChange) {
+    onContentChanged();
+    }
+}
+
+public void onContentChanged() {
+if (mStarted) {
+    forceLoad();
+} else {
+    // This loader has been stopped, so we don&apos;t want to load
+    // new data right now...  but keep track of it changing to
+    // refresh later if we start again.
+    mContentChanged = true;
+}
+}
+</code></pre><ul>
+<li>在CursorLoader的实现中loadInBackground方法为cursor注册了观察者当数据发送变化时ContentResolver会调用观察者的onChange方法，而onChange会onContentChanged方法最终重新加载数据，至于ContentResolver如何实现监听则涉及较多系统层的问题，有兴趣可以看<a href="http://www.cnblogs.com/bastard/archive/2012/06/02/2531663.html" target="_blank" rel="external">这篇文章</a>，这里就不再深入地谈四大组件方面的内容了</li>
+</ul>
+<pre><code>    @Override
+public Cursor loadInBackground() {
+synchronized (this) {
+    if (isLoadInBackgroundCanceled()) {
+        throw new OperationCanceledException();
+    }
+    mCancellationSignal = new CancellationSignal();
+}
+try {
+    Cursor cursor = ContentResolverCompat.query(getContext().getContentResolver(),
+            mUri, mProjection, mSelection, mSelectionArgs, mSortOrder,
+            mCancellationSignal);
+    if (cursor != null) {
+        try {
+            // Ensure the cursor window is filled.
+            cursor.getCount();
+            cursor.registerContentObserver(mObserver);
+        } catch (RuntimeException ex) {
+            cursor.close();
+            throw ex;
+        }
+    }
+    return cursor;
+} finally {
+    synchronized (this) {
+        mCancellationSignal = null;
+    }
+}
+}
+</code></pre>]]></content>
       
         <categories>
             
