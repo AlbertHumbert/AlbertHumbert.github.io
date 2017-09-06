@@ -3,6 +3,45 @@
   
     
     <entry>
+      <title><![CDATA[Bug 合集]]></title>
+      <url>/2017/09/06/aboutBUG/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>不定期收录自己遇到的一些问题和解决方案</strong></p>
+<h2 id="2017-09-07-Android-Studio-无法添加远程依赖"><a href="#2017-09-07-Android-Studio-无法添加远程依赖" class="headerlink" title="2017.09.07 - Android Studio 无法添加远程依赖"></a>2017.09.07 - Android Studio 无法添加远程依赖</h2><ul>
+<li>不知道从什么时候开始无法添加远程依赖，因为之前没有用的新的库所以一直没有察觉，添加远程依赖时会出现如下错误，似乎是下载时出错了，用了梯子也没有解决，并且在Chrome中打开Gradle Console里面的链接发现可以下载到pom文件</li>
+</ul>
+<pre><code>Error:(50, 17) Failed to resolve: ...
+</code></pre><ul>
+<li>根据网上的文章在 Android Studio 的HTTP Proxy 中勾选 No Proxy，在Builder Tools -&gt; Gradle 中取消Offline work …然并卵，本来就是这么配置的        </li>
+</ul>
+<ul>
+<li>试了很多解决方案后，发现只需要在project的build.gradle 中添加阿里云的maven仓库即可</li>
+</ul>
+<pre><code>allprojects {
+    repositories {
+        jcenter()
+        maven{ url &apos;http://maven.aliyun.com/nexus/content/groups/public/&apos;}
+    }
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> error </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Volatile 相关知识]]></title>
       <url>/2017/08/16/aboutVolatile/</url>
       <content type="html"><![CDATA[<p>-</p>
