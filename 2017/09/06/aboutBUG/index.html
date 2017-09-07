@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-07-Android-Studio-无法添加远程依赖"><span class="post-toc-number">1.</span> <span class="post-toc-text">2017.09.07 - Android Studio 无法添加远程依赖</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-07-Android-Studio-无法添加远程依赖"><span class="post-toc-number">1.</span> <span class="post-toc-text">2017.09.07 - Android Studio 无法添加远程依赖</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-07-RemoteViewsService-无法启动-amp-amp-RemoteViews-无法定时更新"><span class="post-toc-number">2.</span> <span class="post-toc-text">2017.09.07 - RemoteViewsService 无法启动 && RemoteViews 无法定时更新</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -519,6 +519,65 @@
         jcenter()
         maven{ url &apos;http://maven.aliyun.com/nexus/content/groups/public/&apos;}
     }
+}
+</code></pre><h2 id="2017-09-07-RemoteViewsService-无法启动-amp-amp-RemoteViews-无法定时更新"><a href="#2017-09-07-RemoteViewsService-无法启动-amp-amp-RemoteViews-无法定时更新" class="headerlink" title="2017.09.07 - RemoteViewsService 无法启动 &amp;&amp; RemoteViews 无法定时更新"></a>2017.09.07 - RemoteViewsService 无法启动 &amp;&amp; RemoteViews 无法定时更新</h2><ul>
+<li>在manifest文件中需要注明 RemoteViewsService 的权限，缺少 android:permission 属性 该类service将无法启动</li>
+</ul>
+<pre><code>&lt;service
+    android:name=&quot;.widget.RemoteService&quot;
+    android:permission=&quot;android.permission.BIND_REMOTEVIEWS&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot; &gt;
+&lt;/service&gt;
+</code></pre><ul>
+<li>1.6以后 updatePeriodMillis 属性少于30分钟时，会被系统直接设定为30分钟，为实现定时效果可以使用计时器</li>
+</ul>
+<pre><code>public class UpdateService extends Service{
+
+private Timer mTimer;
+private TimerTask mTimerTask;
+public static final int UPDATE_TIME = 1000;
+public static final String ACTION_UPDATE = &quot;com.linjiamin.UPDATE&quot;;
+
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+return super.onStartCommand(intent, flags, startId);
+}
+
+@Nullable
+@Override
+public IBinder onBind(Intent intent) {
+return null;
+}
+
+private static final String TAG = &quot;UpdateService&quot;;
+
+@Override
+public void onCreate() {
+super.onCreate();
+
+Log.d(TAG, &quot;onCreate: &quot;);
+mTimer = new Timer();
+mTimerTask = new TimerTask() {
+    @Override
+    public void run() {
+        Intent updateIntent = new Intent(ACTION_UPDATE);
+        sendBroadcast(updateIntent);
+    }
+};
+//mTimer.schedule(mTimerTask, 1000, UPDATE_TIME);
+}
+}
+</code></pre><ul>
+<li>重写 AppWidgetProvider 的 onReceive方法，接受由定时器发来的广播</li>
+</ul>
+<pre><code>@Override
+public void onReceive(Context context, Intent intent) {
+super.onReceive(context, intent);
+if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
+    Update(context);
+    Log.d(TAG, &quot;onReceive: &quot;);
+}
 }
 </code></pre>
     
