@@ -7,7 +7,7 @@
       <url>/2017/09/06/aboutBUG/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><strong>不定期收录自己遇到的一些问题和解决方案</strong></p>
+<p><strong>不定期收录自己遇到的一些问题和解决方案，希望不要日更</strong></p>
 <h2 id="2017-09-07-Android-Studio-无法添加远程依赖"><a href="#2017-09-07-Android-Studio-无法添加远程依赖" class="headerlink" title="2017.09.07 - Android Studio 无法添加远程依赖"></a>2017.09.07 - Android Studio 无法添加远程依赖</h2><ul>
 <li>不知道从什么时候开始无法添加远程依赖，因为之前没有用的新的库所以一直没有察觉，添加远程依赖时会出现如下错误，似乎是下载时出错了，用了梯子也没有解决，并且在Chrome中打开Gradle Console里面的链接发现可以下载到pom文件</li>
 </ul>
@@ -83,7 +83,14 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
     Log.d(TAG, &quot;onReceive: &quot;);
 }
 }
-</code></pre>]]></content>
+</code></pre><h2 id="2017-09-08-AIDL-报错-Error-错误-程序包-不存在"><a href="#2017-09-08-AIDL-报错-Error-错误-程序包-不存在" class="headerlink" title="2017.09.08 - AIDL 报错 : Error:(    * , * ) 错误: 程序包 ** 不存在"></a>2017.09.08 - AIDL 报错 : Error:(    * , * ) 错误: 程序包 ** 不存在</h2><ul>
+<li>使用自定义类型时，该类型的文件在aidl和java包中的路径必须一致，如果包结构不同，请创建相应的包以补全路径</li>
+</ul>
+<ul>
+<li>注意java文件不能放在aidl包下</li>
+</ul>
+<p> <img src="http://i2.bvimg.com/586954/6e8be1f163db3de6.png" alt=""></p>
+]]></content>
       
         <categories>
             
