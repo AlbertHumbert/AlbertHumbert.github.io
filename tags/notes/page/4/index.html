@@ -12,7 +12,7 @@
     
     <title>
         
-            ListView基本用法 | 
+            标签: notes | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="-">
-    <meta name="keywords" content="null,notes">
+    <meta name="description" itemprop="description" content="developing">
+    <meta name="keywords" content="null">
 
     <!-- Site Verification -->
     
@@ -65,62 +65,29 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="ListView基本用法 | Albert&#39;s Blog">
+    <meta property="og:title" content="标签: notes | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="-">
-    <meta property="og:article:tag" content="notes"> 
-
+    <meta property="og:description" content="developing">
     
-        <meta property="article:published_time" content="7月 12, 2017" />
-        <meta property="article:modified_time" content="7月 13, 2017" />
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="ListView基本用法 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="-">
+    <meta name="twitter:title" content="标签: notes | Albert&#39;s Blog">
+    <meta name="twitter:description" content="developing">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/tags/notes/page/4/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Albert&#39;s Blog",
-        "logo": "/img/favicon.png"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Albert Humbert",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/favicon.png"
-        },
-        "description": "Paranoid Android"
-    },
-    "headline": "ListView基本用法",
-    "url": "https://alberthumbert.github.io/2017/07/12/aboutListView/index.html",
-    "datePublished": "7月 12, 2017",
-    "dateModified": "7月 13, 2017",
-    "description": "-",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://alberthumbert.github.io"
-    }
-}
-</script>
 
 
     
@@ -308,451 +275,101 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-    <!-- Left aligned menu below button -->
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#BaseAdapter"><span class="post-toc-number">1.</span> <span class="post-toc-text">BaseAdapter</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重写方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">重写方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进一步优化"><span class="post-toc-number">2.</span> <span class="post-toc-text">进一步优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LruCache"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">- LruCache</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隐藏滚动条"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">- 隐藏滚动条</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无数据提示"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">- 无数据提示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#滑动监听"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">- 滑动监听</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OnScrollListener"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">OnScrollListener</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OnTouchListener"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">OnTouchListener</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决乱序"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">- 解决乱序</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#适配器模式与ListView"><span class="post-toc-number">3.</span> <span class="post-toc-text">适配器模式与ListView</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#适配器模式"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">- 适配器模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RecycleBin机制"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">RecycleBin机制</span></a></li></ol></li></ol>
-        <!--
-        <li class="mdl-menu__item">
-            Some Action
-        </li>
-        -->
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
         
     
-            <p class="article-headline-p">
-                ListView基本用法
-            </p>
-        </div>
 
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Albert Humbert</strong>
-        <span>7月 12, 2017</span>
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2017/05/22/proGit/">pro git 1-6章 笔记</a></p>
     </div>
 
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/notes/">notes</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ListView基本用法&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=ListView基本用法&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&via=Albert Humbert" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&title=ListView基本用法" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 LinkedIn
-            </li>
-        </a>
-    
-
-    <!-- Share QQ -->
-    
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=ListView基本用法&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 QQ
-            </li>
-        </a>
-    
-
-    <!-- Share Telegram -->
-    
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/12/aboutListView/index.html&text=ListView基本用法" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Telegram
-            </li>
-        </a>
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <p>-</p>
-<a id="more"></a>
-<p><strong>本篇未完</strong></p>
-<h2 id="BaseAdapter"><a href="#BaseAdapter" class="headerlink" title="BaseAdapter"></a>BaseAdapter</h2><p><strong>主要学习BaseAdapter的几个方法，ArrayAdapter是BaseAdapter的子类，用法相似</strong></p>
-<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><ul>
-<li>BaseAdapter实现了ListAdapter接口，ListAdapter接口继承自Adapter接口，在Adapter中找到getView方法，它需要三个参数，position，view是需要的数据在数据集合中的位置，convertView是旧的View，Adapter会缓存一个刚离开屏幕的View，使用它可以避免反复的查找子View，parent就是使用Adapter的ListView，当然也可能不是ListView，这要看哪个控件使用这个Adapter</li>
-</ul>
-<pre><code>int position, View convertView, ViewGroup parent
-</code></pre><ul>
-<li>getItemId，getItem，item指的是数据集合中的每一个元素，ItemId是Item的标记，前者返回position指定的item的id，后者返回position指定Item</li>
-</ul>
-<ul>
-<li>getCount，返回Item的数量，通常为容器的大小</li>
-<li>总的来说实现一个adapter的步骤为</li>
-</ul>
-<pre><code>public class NewsListAdapter extends BaseAdapter {
-
-private int mResourceId;
-private BitmapCache mCache;
-private Context mContext;
-private List mDataList;
-
-public NewsListAdapter(Context context, int resourceId, List&lt;NewsBase&gt; dataList){
-mResourceId = resourceId;
-mContext = context;
-mDataList = dataList;
-mCache = new 
-    }
-
-@Override
-public int getCount() {
-return mDataList.size();
-}
-
-@Override
-public Object getItem(int position) {
-return mDataList.get(position);
-}
-
-@Override
-public long getItemId(int position) {
-return position;
-}
-
-@Override
-public @NonNull View getView(int position,View convertView,@NonNull ViewGroup parent){
-
-View view = null;
-ViewHolder viewHolder;
-if(convertView == null) {
-    view = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
-    viewHolder = new ViewHolder();
-    viewHolder.***View = (***View)view.findViewById(R.id.item_***);
-    //通过view.findViewById查找view
-    ...         
-    view.setTag(viewHolder);
-
-}else {
-    view = convertView;
-    viewHolder = (ViewHolder)view.getTag();
-}
-
-Item item = (Item) getItem(position);
-if(item == null)
-    return view;
-
-viewHolder.***View.set(item.get***());
-//设置界面信息
-...
-
-
-return view;
-}
-
-public Context getContext() {
-return mContext;
-}
-
-private class ViewHolder{
-
-***View  ***View;
-//需要缓存的子view引用
-...
-
-      }
-}
-</code></pre><ul>
-<li>一般情况下position和itemId可以共用，getItemId返回position即可，getItem返回data.get(position)即可</li>
-<li>使用ViewHolder，这样虽然不能保证convertView每次都缓存成功，但能够保证convertView缓存成功时，我们不用通过convertView的findViewById去查找它的子View</li>
-</ul>
-<h2 id="进一步优化"><a href="#进一步优化" class="headerlink" title="进一步优化"></a>进一步优化</h2><h3 id="LruCache"><a href="#LruCache" class="headerlink" title="- LruCache"></a>- LruCache</h3><ul>
-<li>当convertView被用来修改成新view时，旧的数据也就没有了，这时如果用户往回拖动ListView，又得重新加载，可以使用LruCache保留这些数据</li>
-<li>LruCache使用泛型，但对于ListView来说通常需要缓存的是Bitmap，下面实现一个LruCache的工具类</li>
-</ul>
-<pre><code>public class BitmapCache {
-
-public static int MAX_MEMORY = (int)(Runtime.getRuntime().maxMemory()/1024);
-private LruCache&lt;String,Bitmap&gt; mCache;
-
-public BitmapCache(int cacheSize){
-mCache = new LruCache&lt;String,Bitmap&gt;(cacheSize){
-    @Override
-    protected int sizeOf(String url,Bitmap bitmap) {
-        return bitmap.getByteCount() / 1024;
-    }
-};
-}
-
-/**
- *
- * 该方法用于将图片放入缓存
- * @param url 链接，或其他标识
- * @param bitmap 图片
- *
- */
-public void put(String url,Bitmap bitmap){
-    mCache.put(url,bitmap);
-}
-
-/**
- *
- * 该方法用于将图片从缓存中取出
- * @param url 链接，或其他标识
- * @return 图片，当缓存中没有指定图片时返回null
- *
- */
-public Bitmap get(String url){
-    return mCache.get(url);
-    }
-}
-</code></pre><ul>
-<li>LrCache通常只需要设定类型和缓存大小，这个大小最好不要写入一个常值，而是根据运行时的内存大小来设定</li>
-</ul>
-<pre><code>public static int MAX_MEMORY = (int)(Runtime.getRuntime().maxMemory()/1024);
-</code></pre><h3 id="隐藏滚动条"><a href="#隐藏滚动条" class="headerlink" title="- 隐藏滚动条"></a>- 隐藏滚动条</h3><ul>
-<li>ListView默认会有一个比较鸡肋的滚动条，可以在XML中隐藏</li>
-</ul>
-<pre><code>android:scrollbars=&quot;none&quot;    
-</code></pre><h3 id="无数据提示"><a href="#无数据提示" class="headerlink" title="- 无数据提示"></a>- 无数据提示</h3><ul>
-<li>ListView提供了一个方法用来在没有数据时提示用户</li>
-</ul>
-<pre><code>lv.setEmptyView(R.id.empty);
-</code></pre><h3 id="滑动监听"><a href="#滑动监听" class="headerlink" title="- 滑动监听"></a>- 滑动监听</h3><h4 id="OnScrollListener"><a href="#OnScrollListener" class="headerlink" title="OnScrollListener"></a>OnScrollListener</h4><ul>
-<li>实现 OnScrollListener，在不同的状态下自定义ListView        </li>
-</ul>
-<pre><code>lv.setOnScrollListener(new AbsListView.OnScrollListener() {
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-        switch (scrollState){
-            case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                break;
-            case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-                break;
-            case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
-                break;
-
-        }
-    }
-
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-    }
-});
-</code></pre><h4 id="OnTouchListener"><a href="#OnTouchListener" class="headerlink" title="OnTouchListener"></a>OnTouchListener</h4><ul>
-<li>实现 OnTouchListener，在不同的状态下自定义ListView</li>
-</ul>
-<pre><code>lv.setOnTouchListener(new View.OnTouchListener() {
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-        }
-        return false;
-    }
-});
-</code></pre><h3 id="解决乱序"><a href="#解决乱序" class="headerlink" title="- 解决乱序"></a>- 解决乱序</h3><ul>
-<li>由于网络请求加载的速度远小于 <a href="#RecycleBin">RecycleBin</a> 返回view的速度，当一个图片没有加载完成就被划出屏幕，这时又开启了新的网络请求，也就是说会有两张图片需要被加载到同一个ImageView中</li>
-<li>通常前一个请求会先完成，接着后一个请求得到的bitmap会进行覆盖，加载效果会变得很混乱</li>
-<li>如果前一个请求没有及时完成可能导致图片乱序的问题</li>
-<li><p>解决方案是在开启网络请求时使用ImageView的setTag方法</p>
-<pre><code>image.setTag(url)
-</code></pre></li>
-<li><p>当我们下载完图片时，先使用url去查找ImageVIew而不是直接将bitmap设置到ImageView上</p>
-<pre><code>ImageView imageView = (ImageView) listView.findViewWithTag(imageUrl); 
-if(imageView!=null){
-    ...
-}    
-</code></pre></li>
-<li><p>当开启第二次请求前原先的url会被覆盖，第一次请求就会得到空值，这样就不会造成混乱了</p>
-</li>
-</ul>
-<h2 id="适配器模式与ListView"><a href="#适配器模式与ListView" class="headerlink" title="适配器模式与ListView"></a>适配器模式与ListView</h2><h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="- 适配器模式"></a>- 适配器模式</h3><ul>
-<li>适配器模式是指将一个类的接口转换为用户类需要的接口，使得不同结构的对象可以通过适配器为用户提供服务</li>
-<li>ListView是一个用户，它调用adapter的目标接口（Target），而这些接口本身是抽象的，实现这些统一的接口使得数据集合与ListView可以通过adapter这个桥梁连接起来，这时我们的数据可以是数组，集合，还可以是游标等，具体是什么数据结构ListView是不会去关心的，因为它获取的是Adapter提供的View</li>
-</ul>
-<h3 id="RecycleBin机制"><a href="#RecycleBin机制" class="headerlink" title="RecycleBin机制"></a><span id="RecycleBin">RecycleBin机制</span></h3><ul>
-<li>ListView还有一个比较特殊的机制，它为Adapter在获取数据的同时还为adapter返回一个数据，convertView</li>
-<li>AbsListView中有一个内部类RecycleBin，它使用数组来保存当前使用的所有View，当一个View被滑出屏幕时，它调用addScrapView将这个view从数组中移除并且缓存起来，ListView在调用我们实现的getView方法之前会调用RecycleBin的getScrapView，将获取到的对象（可能为null，可能是重用的View）提供给adapter作为convertView参数</li>
-<li>RecycleBin这种循环复用的机制一定程度上避免了OOM</li>
-</ul>
-
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            onCreate
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2017/05/22/proGit/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
             </div>
+            <div>
+                <strong>Albert Humbert</strong>
+                <span>5月 22, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                <a class="post_category-link" href="/categories/dairy/">dairy</a>
+            </span>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-        <a href="/2017/07/13/aboutNet/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
+            
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
+            
 
-    <!-- Next Nav -->
-    
-        <a href="/2017/07/12/aboutContentProvider/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
         </div>
     </div>
+</div>
 
+            
+            
+        
+    
+
+    
+    <!-- Index nav -->
+        <nav class="material-nav mdl-cell mdl-cell--12-col">
+            <a class="extend prev" rel="prev" href="/tags/notes/page/3/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/tags/notes/">1</a><a class="page-number" href="/tags/notes/page/2/">2</a><a class="page-number" href="/tags/notes/page/3/">3</a><span class="page-number current">4</span>
+        </nav>
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
+</script>
+
+    
+</div>
 
 
                     
@@ -938,14 +555,6 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
-
-                    
-                        <!-- Footer Top Button -->
-                        <div id="back-to-top" class="toTop-wrap">
-    <a href="#top" class="toTop">
-        <i class="material-icons footer_top-i">expand_less</i>
-    </a>
-</div>
 
                     
 
