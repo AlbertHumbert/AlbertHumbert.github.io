@@ -3216,6 +3216,347 @@ MainActivity: run: 1 Thread[pool-1-thread-1,5,main]
     </entry>
     
     <entry>
+      <title><![CDATA[GestureDetector 使用详解]]></title>
+      <url>/2017/07/27/aboutGesture/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="GestureDetector"><a href="#GestureDetector" class="headerlink" title="GestureDetector"></a>GestureDetector</h2><ul>
+<li>GestureDetector用于识别不同的手势，Down，ShowPress，SingleTapUp，Scroll，LongPress，Fling<pre><code>Down，点击屏幕
+ShowPress，短时间内点击屏幕且不抬起或拖动
+SingleTapUp，轻击屏幕立即抬起
+Scroll，拖动
+LongPress，长按屏幕
+Fling，滑屏，屏幕上的每次拖动手势最终都会触发Fling，期间Scroll可能会被调用多次，但Fling只被调用一次
+</code></pre></li>
+</ul>
+<ul>
+<li>GestureDetector只负责识别手势，创建GestureDetector需要传入监听器以实现手势的反馈</li>
+</ul>
+<h2 id="OnGestureListener"><a href="#OnGestureListener" class="headerlink" title="OnGestureListener"></a>OnGestureListener</h2><ul>
+<li>GestureDetector包含两个接口和一个内部类，OnGestureListener是其中一个接口，有六个回调方法需要实现</li>
+</ul>
+<pre><code>private class GestureListener implements GestureDetector.OnGestureListener{
+
+
+@Override
+public boolean onDown(MotionEvent e) {
+
+    Log.d(TAG, &quot;onDown: &quot;);
+    return false;
+}
+
+@Override
+public void onShowPress(MotionEvent e) {
+    Log.d(TAG, &quot;onShowPress: &quot;);
+
+}
+
+@Override
+public boolean onSingleTapUp(MotionEvent e) {
+    Log.d(TAG, &quot;onSingleTapUp: &quot;);
+    return false;
+}
+
+@Override
+public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+    Log.d(TAG, &quot;onScroll: &quot;);
+    return false;
+}
+
+@Override
+public void onLongPress(MotionEvent e) {
+    Log.d(TAG, &quot;onLongPress: &quot;);
+
+}
+
+@Override
+public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+    Log.d(TAG, &quot;onFling: &quot;);
+
+    return false;
+}
+
+}
+</code></pre><ul>
+<li>构造GestureDetector，传入listener实例</li>
+</ul>
+<pre><code>GestureDetector detector = new GestureDetector(getContext(),new GestureListener());
+</code></pre><ul>
+<li>重写onTouchEvent，将事件传递给GestureDetector</li>
+</ul>
+<pre><code>@Override
+public boolean onTouchEvent(MotionEvent event) {
+
+detector.onTouchEvent(event);
+return true;
+}
+</code></pre><ul>
+<li>也可以使用setOnTouchListener方法传递Event</li>
+</ul>
+<pre><code>setOnTouchListener(new OnTouchListener() {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return detector.onTouchEvent(event);
+    }
+});
+</code></pre><ul>
+<li>在onFling中，我们可以进行一些条件判断</li>
+</ul>
+<pre><code>@Override
+public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+    Log.d(TAG, &quot;onFling: &quot;);
+    if(e2.getX()-e1.getX()&gt;0) Log.d(TAG, &quot;onFling: right&quot;);
+    if(e2.getX()-e1.getX()&lt;0) Log.d(TAG, &quot;onFling: lift&quot;);
+    return false;
+}
+</code></pre><h2 id="OnDoubleTapListener"><a href="#OnDoubleTapListener" class="headerlink" title="OnDoubleTapListener"></a>OnDoubleTapListener</h2><ul>
+<li>OnGestureListener 只能监听单次的点击事件，为了能够监听双击事件还需要OnDoubleTapListener，用法与前者类似</li>
+</ul>
+<pre><code>    class DoubleListener implements GestureDetector.OnDoubleTapListener{
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        Log.d(TAG, &quot;onSingleTapConfirmed: &quot;);
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        Log.d(TAG, &quot;onDoubleTap: &quot;);
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        Log.d(TAG, &quot;onDoubleTapEvent: &quot;);
+        return false;
+    }
+}
+</code></pre><ul>
+<li>onSingleTapConfirmed只会在单击时被调用</li>
+</ul>
+<pre><code>onDown -&gt;
+onSingleTapUp -&gt;
+onSingleTapConfirmed
+</code></pre><ul>
+<li>onDoubleTap和onDoubleTapEvent会在双击的时候被调用，这里onDoubleTapEvent被调用了两次，第一次event的ACTION为ACTION_DOWN，第二次为ACTION_UP</li>
+</ul>
+<pre><code>onDown: 
+onSingleTapUp: 
+onDoubleTap: 
+onDoubleTapEvent: 0
+onDown: 
+onDoubleTapEvent: 1
+</code></pre><h2 id="SimpleOnGestureListener"><a href="#SimpleOnGestureListener" class="headerlink" title="SimpleOnGestureListener"></a>SimpleOnGestureListener</h2><ul>
+<li>SimpleOnGestureListener是GestureDetector的一个内部类，它实现了前两个接口的所有方法，只不过里面都是空白，通常我们只需要使用到一两个回调方法，这时候使用SimpleOnGestureListener即可</li>
+</ul>
+<pre><code>    class GestureListener extends GestureDetector.SimpleOnGestureListener{
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        Log.d(TAG, &quot;onFling: &quot;);
+        return super.onFling(e1, e2, velocityX, velocityY);
+    }
+
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        Log.d(TAG, &quot;onDoubleTap: &quot;);
+        return super.onDoubleTap(e);
+    }
+}
+</code></pre><h2 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h2><ul>
+<li><p>matrix用于修改图片的各种属性，使用matrix可以对图片进行伸缩，旋转，倾斜，平移等操作</p>
+<pre><code>Matrix matrix = new Matrix();
+setScaleType(ScaleType.MATRIX);
+matrix.setScale(10,10);//伸缩变换
+matrix.postTranslate(0,100);//平移变换
+matrix.postRotate(10);//旋转变换
+matrix.postSkew(2,2);//扭曲变换
+this.setImageMatrix(matrix);
+</code></pre></li>
+</ul>
+<ul>
+<li>Matrix对矩阵的处理分为pre和post两种，前者是矩阵前乘后者是矩阵后乘，但实际使用来说只需要将所有操作过程理解为一组队列，pre先执行post后执行，另外使用set方法会清空之前添加的所有操作</li>
+</ul>
+<h2 id="ScaleGestureDetector"><a href="#ScaleGestureDetector" class="headerlink" title="ScaleGestureDetector"></a>ScaleGestureDetector</h2><ul>
+<li>ScaleGestureDetector专门用于实现放大和缩小的手势操作 </li>
+</ul>
+<pre><code>ScaleGestureDetector scaleGestureDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
+</code></pre><ul>
+<li>使用ScaleGestureDetector，需要传入OnScaleGestureListener的实现类，其中有三个方法需要实现，onScaleBegin在开始缩放时调用，也就是使用了两个触控点的时候，onScaleEnd在结束缩放的时候调用，一般可以在两个方法里设置标记。onScale在期间会不断地被调用，可以在其中实现缩放的逻辑</li>
+</ul>
+<pre><code>@Override
+    public boolean onScale(ScaleGestureDetector detector) {
+        return true;
+    }
+
+
+@Override
+public boolean onScaleBegin(ScaleGestureDetector detector) {
+
+    return true;
+}
+
+@Override
+public void onScaleEnd(ScaleGestureDetector detector) {
+
+
+}
+</code></pre><ul>
+<li>下面来简单实现手势缩放的效果，在onScale中通过ScaleGestureDetector得到ScaleFactor缩放因子，它是ScaleGestureDetector通过当前的手势得到的Scale值，getFocusX和getFocusY是两触点之间的焦点，将这几个参数传入即可，另外可以在这之前获取当前的Scale值进行检查</li>
+</ul>
+<pre><code>@Override
+    public boolean onScale(ScaleGestureDetector detector) {
+
+    if(getScaleSize()&gt;2&amp;&amp;detector.getScaleFactor()&gt;1
+            ||getScaleSize()&lt;0.5&amp;&amp;detector.getScaleFactor()&lt;1){
+        return true;
+    }
+
+    mCurrentMatrix.postScale(detector.getScaleFactor(),detector.getScaleFactor(),detector.getFocusX(),detector.getFocusY());
+    setImageMatrix(mCurrentMatrix);
+
+
+    return true;
+}
+
+public float getScaleSize(){
+
+    float[] value = new float[9];
+    mCurrentMatrix.getValues(value);
+
+    return value[Matrix.MSCALE_X];
+}
+</code></pre><ul>
+<li>在onScaleBegin和onScaleEnd方法中简单地设置标记，提供给外界判断当前状态</li>
+</ul>
+<pre><code>@Override
+public boolean onScaleBegin(ScaleGestureDetector detector) {
+
+    isScaling = true;
+    return true;
+}
+
+@Override
+public void onScaleEnd(ScaleGestureDetector detector) {
+    isScaling = false;
+
+}    
+</code></pre><h2 id="ActionEvent"><a href="#ActionEvent" class="headerlink" title="ActionEvent"></a>ActionEvent</h2><ul>
+<li>在onTouch方法中我们可以通过获取Event的getAction方法得到触摸的事件类型， 事件类型代表了一系列的动作，系统不断地传进Event对象为我们动态地响应操作提供了可能，下面是主要的动作类型</li>
+</ul>
+<pre><code>/**
+ * A pressed gesture has started
+ * 表示用户开始触碰
+ */
+public static final int ACTION_DOWN             = 0;
+
+/**
+ * A pressed gesture has finished
+ *表示用户抬起了手指
+*/
+public static final int ACTION_UP               = 1;
+
+/**
+ * A change has happened during a
+ * press gesture (between {@link #ACTION_DOWN} and {@link #ACTION_UP}).
+ * 表示手指在移动
+ */
+
+public static final int ACTION_MOVE             = 2;
+
+/**
+ * The current gesture has been aborted.
+ * You will not receive any more points in it.  You should treat this as
+ * an up event, but not perform any action that you normally would.
+ * 手势被取消，类似ACTION_UP但是后续的操作并不会被执行
+ */
+
+public static final int ACTION_CANCEL           = 3;
+
+/**
+ * A movement has happened outside of the
+ * normal bounds of the UI element.
+ * 用户的手指超过了UI边界
+ */
+public static final int ACTION_OUTSIDE          = 4;
+
+/**
+ * A non-primary pointer has gone down.
+ * 用户按下了另一只手指
+ */
+public static final int ACTION_POINTER_DOWN     = 5;
+
+/**
+ * A non-primary pointer has gone up.
+ * 用户抬起了一只手指
+ * 
+ */
+public static final int ACTION_POINTER_UP       = 6; 
+</code></pre><h2 id="TouchListener"><a href="#TouchListener" class="headerlink" title="TouchListener"></a>TouchListener</h2><ul>
+<li>使用TouchListener，我们可以利用 ActionEvent的ACTION类型进行一些其他的操作，只有一个onTouch方法需要重写</li>
+</ul>
+<ul>
+<li>下面实现一个拖拽图片的手势效果，首先需要将Event传递给其他监听器，接着获取ACTION类型当用户点击时记录下点击的坐标然后在移动时不断更新坐标并根据位移移动我们的图片，注意此时会和刚刚实现的缩放操作产生冲突，使用标记为进行判断，另外还可以使用控件的宽和高进行边界的设定</li>
+</ul>
+<pre><code>private class TouchListener implements OnTouchListener {
+
+@Override
+public boolean onTouch(View v, MotionEvent event) {
+
+    scaleGestureDetector.onTouchEvent(event);
+    gestureDetector.onTouchEvent(event);
+
+    switch (event.getAction()){
+        case MotionEvent.ACTION_DOWN:
+
+            mCurrentMatrix.set(getImageMatrix());
+            moveY = event.getY();
+            moveX = event.getX();
+
+            break;
+        case MotionEvent.ACTION_MOVE:
+
+            float x = event.getX();
+            float y = event.getY();
+
+            if(!isScaling&amp;&amp;(getWidth()/5&lt;x&amp;&amp;x&lt;getWidth()*4/5
+                    ||getHeight()/5&lt;y&amp;&amp;y&lt;getHeight()*4/5)) {
+
+                mCurrentMatrix.postTranslate(x - moveX, y - moveY);
+                setImageMatrix(mCurrentMatrix);
+
+            }
+            moveX = x;
+            moveY = y;
+
+            break;
+
+        default:
+            break;
+    }
+    return true;
+}
+} 
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android Bitmap 获取与处理]]></title>
       <url>/2017/07/26/aboutBitmap/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -4580,6 +4921,114 @@ public ViewHolder(View itemView) {
     </entry>
     
     <entry>
+      <title><![CDATA[WebView 基础知识]]></title>
+      <url>/2017/07/19/aboutWebView/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><ul>
+<li>第一步当然是添加权限和在xml中写入我们的控件了</li>
+</ul>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;  
+...
+
+&lt;WebView
+android:id=&quot;@+id/wv_article&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;wrap_content&quot;&gt;
+&lt;/WebView&gt;
+</code></pre><ul>
+<li>使用loadUrl方法可以打开网页，注意WebView没有自动补全协议的功能，另外我们会发现现在网页实际上是由浏览器browser打开的，为了真正使用到我们WebView，需要设置WebViewClient</li>
+</ul>
+<pre><code>webView.loadUrl(&quot;http://www.baidu.com&quot;); 
+</code></pre><ul>
+<li><p>还可以使用本地Url显示页面，这些链接通常放置在assets文件夹中，assets文件夹可以在AS中通过选项直接创建，我们可以使用Context.getAssets().open() 方法获取到这个文件夹里的输入流，不过使用WebView可以直接访问，这时候并不会开启browser</p>
+<pre><code>webView.loadUrl(“file:///android_asset/ahtml.html);
+</code></pre></li>
+<li><p>对于获取到的html字符串，我们有两种方法来显示，loadDataWithBaseURL和loadData，一般使用前者，它的第一个参数可以用来指定相对路径的起点，有时html中的元素会使用相对路径的超链接，不设定这个参数可以造成图片无法显示页面无法跳转的问题，注意loadData的html字符串中不能出现 ‘#’, ‘%’, ‘\’, ‘?’四种字符，以及当使用loadDataWithBaseURL时最后一个参数history url一定要设置，否则可能导致回退到空白页面的问题        </p>
+</li>
+<li><p>WebView还提供了很多可自由设定的<a href="http://www.cnblogs.com/yume2015/archive/2013/05/27/3101947.html" target="_blank" rel="external">属性</a>，获取WebSettings后调用相关方法即可,比较常用的有setJavaScriptEnabled，setUseWideViewPort，requestFocusFromTouch等</p>
+</li>
+</ul>
+<pre><code>WebSettings webSettings = webView.getSettings(); webSettings.setLayoutAlgorithm((WebSettings.LayoutAlgorithm.SINGLE_COLUMN));
+ webSettings.setUseWideViewPort(true);
+ webSettings.setLoadWithOverviewMode(true);
+ webSettings.setDomStorageEnabled(true);
+</code></pre><ul>
+<li>当点击back键时，会直接退出Activity，为了实现页面的回退功能，需要重写onKeyDown回调方法</li>
+</ul>
+<pre><code>@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+if (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; mWebView.canGoBack()) {
+    mWebView.goBack();
+    return true;
+}
+return super.onKeyDown(keyCode, event);
+} 
+</code></pre><h1 id="WebViewClient"><a href="#WebViewClient" class="headerlink" title="WebViewClient"></a>WebViewClient</h1><ul>
+<li><p>和普通控件一样，我们可以设定各种事件的回调方法，这时需要 WebViewClient</p>
+</li>
+<li><p>onPageStarted和onPageFinished    分别在加载开始和完毕的时候调用，可以在这两个方法中设定和关闭正在加载的提示</p>
+</li>
+</ul>
+<pre><code>webView.setWebViewClient(new WebViewClient(){
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        super.onPageStarted(view, url, favicon);
+        Log.d(TAG,&quot;onPageStarted&quot;);
+    }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        Log.d(TAG,&quot;onPageFinished&quot;);
+    }
+</code></pre><ul>
+<li>shouldOverrideUrlLoading方法可以用于进行页面的跳转，它在超链接被加载之前被调用，所有我们还可以在这个方法中实现链接的拦截，这个方法一般返回false</li>
+</ul>
+<pre><code>@Override
+public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+    return false;
+}
+</code></pre><ul>
+<li>在onReceivedError，onReceivedSslError可以处理访问错误的情况</li>
+</ul>
+<h2 id="WebView内存泄漏"><a href="#WebView内存泄漏" class="headerlink" title="WebView内存泄漏"></a>WebView内存泄漏</h2><ul>
+<li><p>避免内存泄漏 WebView要动态创建而不是直接写在XML里面，注意要使用ApplicationContext</p>
+<pre><code>mWebView = new WebView(getApplicationContext());
+LinearLayout linearLayout = (LinearLayout) findViewById(R.id.wv_article);
+linearLayout.addView(mWebView);    
+</code></pre></li>
+<li><p>在ondestroy中销毁WebView</p>
+<pre><code>@Override
+protected void onDestroy() {
+super.onDestroy();
+mWebView.removeAllViews();
+mWebView.destroy();
+mWebView = null;
+}
+</code></pre></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Volley 基本用法和源码分析]]></title>
       <url>/2017/07/19/aboutVolley/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -4948,7 +5397,7 @@ private class ResponseDeliveryRunnable implements Runnable {
     </entry>
     
     <entry>
-      <title><![CDATA[RecycleView基本用法]]></title>
+      <title><![CDATA[RecycleView 基本用法]]></title>
       <url>/2017/07/18/aboutRecycleView/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>

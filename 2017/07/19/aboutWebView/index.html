@@ -12,7 +12,7 @@
     
     <title>
         
-            WebView基本用法 | 
+            WebView 基础知识 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,19 +65,19 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="WebView基本用法 | Albert&#39;s Blog">
+    <meta property="og:title" content="WebView 基础知识 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="7月 19, 2017" />
-        <meta property="article:modified_time" content="7月 19, 2017" />
+        <meta property="article:modified_time" content="9月 18, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="WebView基本用法 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="WebView 基础知识 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
@@ -110,11 +110,11 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "WebView基本用法",
+    "headline": "WebView 基础知识",
     "url": "https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html",
     "datePublished": "7月 19, 2017",
-    "dateModified": "7月 19, 2017",
-    "description": "developing",
+    "dateModified": "9月 18, 2017",
+    "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本用法"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本用法</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#WebViewClient"><span class="post-toc-number"></span> <span class="post-toc-text">WebViewClient</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WebView内存泄漏"><span class="post-toc-number">1.</span> <span class="post-toc-text">WebView内存泄漏</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                WebView基本用法
+                WebView 基础知识
             </p>
         </div>
 
@@ -416,7 +416,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
     </ul>
     
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=WebView基本用法&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=WebView 基础知识&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=WebView基本用法&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=WebView 基础知识&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&title=WebView基本用法" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&title=WebView 基础知识" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=WebView基本用法&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=WebView 基础知识&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&text=WebView基本用法" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/19/aboutWebView/index.html&text=WebView 基础知识" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -501,7 +501,95 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        
+        <p>-</p>
+<a id="more"></a>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><ul>
+<li>第一步当然是添加权限和在xml中写入我们的控件了</li>
+</ul>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;  
+...
+
+&lt;WebView
+android:id=&quot;@+id/wv_article&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;wrap_content&quot;&gt;
+&lt;/WebView&gt;
+</code></pre><ul>
+<li>使用loadUrl方法可以打开网页，注意WebView没有自动补全协议的功能，另外我们会发现现在网页实际上是由浏览器browser打开的，为了真正使用到我们WebView，需要设置WebViewClient</li>
+</ul>
+<pre><code>webView.loadUrl(&quot;http://www.baidu.com&quot;); 
+</code></pre><ul>
+<li><p>还可以使用本地Url显示页面，这些链接通常放置在assets文件夹中，assets文件夹可以在AS中通过选项直接创建，我们可以使用Context.getAssets().open() 方法获取到这个文件夹里的输入流，不过使用WebView可以直接访问，这时候并不会开启browser</p>
+<pre><code>webView.loadUrl(“file:///android_asset/ahtml.html);
+</code></pre></li>
+<li><p>对于获取到的html字符串，我们有两种方法来显示，loadDataWithBaseURL和loadData，一般使用前者，它的第一个参数可以用来指定相对路径的起点，有时html中的元素会使用相对路径的超链接，不设定这个参数可以造成图片无法显示页面无法跳转的问题，注意loadData的html字符串中不能出现 ‘#’, ‘%’, ‘\’, ‘?’四种字符，以及当使用loadDataWithBaseURL时最后一个参数history url一定要设置，否则可能导致回退到空白页面的问题        </p>
+</li>
+<li><p>WebView还提供了很多可自由设定的<a href="http://www.cnblogs.com/yume2015/archive/2013/05/27/3101947.html" target="_blank" rel="external">属性</a>，获取WebSettings后调用相关方法即可,比较常用的有setJavaScriptEnabled，setUseWideViewPort，requestFocusFromTouch等</p>
+</li>
+</ul>
+<pre><code>WebSettings webSettings = webView.getSettings(); webSettings.setLayoutAlgorithm((WebSettings.LayoutAlgorithm.SINGLE_COLUMN));
+ webSettings.setUseWideViewPort(true);
+ webSettings.setLoadWithOverviewMode(true);
+ webSettings.setDomStorageEnabled(true);
+</code></pre><ul>
+<li>当点击back键时，会直接退出Activity，为了实现页面的回退功能，需要重写onKeyDown回调方法</li>
+</ul>
+<pre><code>@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+if (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; mWebView.canGoBack()) {
+    mWebView.goBack();
+    return true;
+}
+return super.onKeyDown(keyCode, event);
+} 
+</code></pre><h1 id="WebViewClient"><a href="#WebViewClient" class="headerlink" title="WebViewClient"></a>WebViewClient</h1><ul>
+<li><p>和普通控件一样，我们可以设定各种事件的回调方法，这时需要 WebViewClient</p>
+</li>
+<li><p>onPageStarted和onPageFinished    分别在加载开始和完毕的时候调用，可以在这两个方法中设定和关闭正在加载的提示</p>
+</li>
+</ul>
+<pre><code>webView.setWebViewClient(new WebViewClient(){
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        super.onPageStarted(view, url, favicon);
+        Log.d(TAG,&quot;onPageStarted&quot;);
+    }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        Log.d(TAG,&quot;onPageFinished&quot;);
+    }
+</code></pre><ul>
+<li>shouldOverrideUrlLoading方法可以用于进行页面的跳转，它在超链接被加载之前被调用，所有我们还可以在这个方法中实现链接的拦截，这个方法一般返回false</li>
+</ul>
+<pre><code>@Override
+public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+    return false;
+}
+</code></pre><ul>
+<li>在onReceivedError，onReceivedSslError可以处理访问错误的情况</li>
+</ul>
+<h2 id="WebView内存泄漏"><a href="#WebView内存泄漏" class="headerlink" title="WebView内存泄漏"></a>WebView内存泄漏</h2><ul>
+<li><p>避免内存泄漏 WebView要动态创建而不是直接写在XML里面，注意要使用ApplicationContext</p>
+<pre><code>mWebView = new WebView(getApplicationContext());
+LinearLayout linearLayout = (LinearLayout) findViewById(R.id.wv_article);
+linearLayout.addView(mWebView);    
+</code></pre></li>
+<li><p>在ondestroy中销毁WebView</p>
+<pre><code>@Override
+protected void onDestroy() {
+super.onDestroy();
+mWebView.removeAllViews();
+mWebView.destroy();
+mWebView = null;
+}
+</code></pre></li>
+</ul>
+
     
 
     
@@ -519,6 +607,14 @@
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2017/07/20/aboutButterKnife/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -618,7 +714,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
@@ -630,9 +726,19 @@
     <!-- Pages  -->
     
         <li>
-            <a href="/tags" title="标签索引">
+            <a href="/about" title="关于我">
                 
                     <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签索引">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
                 
                 标签索引
             </a>
@@ -642,7 +748,7 @@
         <li>
             <a href="/links" title="友情链接">
                 
-                    <i class="material-icons sidebar-material-icons">person</i>
+                    <i class="material-icons sidebar-material-icons">inbox</i>
                 
                 友情链接
             </a>
@@ -650,11 +756,11 @@
         
     
         <li>
-            <a href="/about" title="关于我">
+            <a href="/whatever" title="Writers &amp; Weirdos">
                 
-                    <i class="material-icons sidebar-material-icons">person</i>
+                    <i class="material-icons sidebar-material-icons">inbox</i>
                 
-                关于我
+                Writers &amp; Weirdos
             </a>
         </li>
         

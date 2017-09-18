@@ -216,6 +216,26 @@
   </entry>
   
   <entry>
+    <title>GestureDetector 使用详解</title>
+    <link href="https://alberthumbert.github.io/2017/07/27/aboutGesture/"/>
+    <id>https://alberthumbert.github.io/2017/07/27/aboutGesture/</id>
+    <published>2017-07-27T02:28:04.000Z</published>
+    <updated>2017-09-18T05:31:54.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Bitmap 获取与处理</title>
     <link href="https://alberthumbert.github.io/2017/07/26/aboutBitmap/"/>
     <id>https://alberthumbert.github.io/2017/07/26/aboutBitmap/</id>
@@ -356,51 +376,31 @@
   </entry>
   
   <entry>
+    <title>WebView 基础知识</title>
+    <link href="https://alberthumbert.github.io/2017/07/19/aboutWebView/"/>
+    <id>https://alberthumbert.github.io/2017/07/19/aboutWebView/</id>
+    <published>2017-07-19T13:32:52.000Z</published>
+    <updated>2017-09-18T05:34:09.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Volley 基本用法和源码分析</title>
     <link href="https://alberthumbert.github.io/2017/07/19/aboutVolley/"/>
     <id>https://alberthumbert.github.io/2017/07/19/aboutVolley/</id>
     <published>2017-07-19T07:15:41.000Z</published>
     <updated>2017-07-19T17:08:27.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RecycleView基本用法</title>
-    <link href="https://alberthumbert.github.io/2017/07/18/aboutRecycleView/"/>
-    <id>https://alberthumbert.github.io/2017/07/18/aboutRecycleView/</id>
-    <published>2017-07-18T06:09:31.000Z</published>
-    <updated>2017-07-18T15:40:10.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ViewPager+TabLayout+Fragment 实现懒加载</title>
-    <link href="https://alberthumbert.github.io/2017/07/17/viewPagerTabFragments/"/>
-    <id>https://alberthumbert.github.io/2017/07/17/viewPagerTabFragments/</id>
-    <published>2017-07-17T13:50:36.000Z</published>
-    <updated>2017-09-18T05:22:07.000Z</updated>
     
     <summary type="html">
     
