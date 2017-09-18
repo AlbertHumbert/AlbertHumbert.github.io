@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-09-11T11:33:47.000Z</updated>
+  <updated>2017-09-18T05:17:19.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>RemoteView 详解</title>
+    <title>RemoteView 使用详解与实现原理</title>
     <link href="https://alberthumbert.github.io/2017/09/11/aboutRemoteView/"/>
     <id>https://alberthumbert.github.io/2017/09/11/aboutRemoteView/</id>
     <published>2017-09-11T11:30:35.000Z</published>
-    <updated>2017-09-11T11:33:47.000Z</updated>
+    <updated>2017-09-18T05:17:19.000Z</updated>
     
     <summary type="html">
     
@@ -56,11 +56,11 @@
   </entry>
   
   <entry>
-    <title>Volatile 相关知识</title>
+    <title>Volley 事件派发机制解析</title>
     <link href="https://alberthumbert.github.io/2017/08/16/aboutVolatile/"/>
     <id>https://alberthumbert.github.io/2017/08/16/aboutVolatile/</id>
     <published>2017-08-16T03:14:39.000Z</published>
-    <updated>2017-08-16T09:19:45.000Z</updated>
+    <updated>2017-09-18T05:19:53.000Z</updated>
     
     <summary type="html">
     
@@ -96,11 +96,11 @@
   </entry>
   
   <entry>
-    <title>Java 泛型擦除</title>
+    <title>Java泛型 注意事项</title>
     <link href="https://alberthumbert.github.io/2017/08/14/aboutTypeErasue/"/>
     <id>https://alberthumbert.github.io/2017/08/14/aboutTypeErasue/</id>
     <published>2017-08-14T01:55:00.000Z</published>
-    <updated>2017-08-16T02:49:43.000Z</updated>
+    <updated>2017-09-18T05:18:51.000Z</updated>
     
     <summary type="html">
     
@@ -196,11 +196,11 @@
   </entry>
   
   <entry>
-    <title>线程池基本用法</title>
+    <title>Java 四类线程池与自定义线程池</title>
     <link href="https://alberthumbert.github.io/2017/07/28/aboutThreadPool/"/>
     <id>https://alberthumbert.github.io/2017/07/28/aboutThreadPool/</id>
     <published>2017-07-28T06:34:42.000Z</published>
-    <updated>2017-07-28T15:07:02.000Z</updated>
+    <updated>2017-09-18T05:20:17.000Z</updated>
     
     <summary type="html">
     
@@ -216,11 +216,11 @@
   </entry>
   
   <entry>
-    <title>Bitmap 基本用法</title>
+    <title>Android Bitmap 获取与处理</title>
     <link href="https://alberthumbert.github.io/2017/07/26/aboutBitmap/"/>
     <id>https://alberthumbert.github.io/2017/07/26/aboutBitmap/</id>
     <published>2017-07-26T02:41:59.000Z</published>
-    <updated>2017-07-27T02:27:33.000Z</updated>
+    <updated>2017-09-18T05:20:31.000Z</updated>
     
     <summary type="html">
     
@@ -256,11 +256,11 @@
   </entry>
   
   <entry>
-    <title>Animation基本用法</title>
+    <title>Animation 的三种实现方法</title>
     <link href="https://alberthumbert.github.io/2017/07/25/aboutAnimation/"/>
     <id>https://alberthumbert.github.io/2017/07/25/aboutAnimation/</id>
     <published>2017-07-25T07:10:19.000Z</published>
-    <updated>2017-07-25T12:52:24.000Z</updated>
+    <updated>2017-09-18T05:20:44.000Z</updated>
     
     <summary type="html">
     
@@ -276,11 +276,11 @@
   </entry>
   
   <entry>
-    <title>控件架构与自定义View</title>
+    <title>Android 控件架构与自定义View</title>
     <link href="https://alberthumbert.github.io/2017/07/24/aboutView/"/>
     <id>https://alberthumbert.github.io/2017/07/24/aboutView/</id>
     <published>2017-07-24T05:34:39.000Z</published>
-    <updated>2017-07-25T13:41:40.000Z</updated>
+    <updated>2017-09-18T05:21:07.000Z</updated>
     
     <summary type="html">
     
@@ -316,11 +316,11 @@
   </entry>
   
   <entry>
-    <title>注解 基本用法</title>
+    <title>Java 注解入门</title>
     <link href="https://alberthumbert.github.io/2017/07/20/aboutAnnotation/"/>
     <id>https://alberthumbert.github.io/2017/07/20/aboutAnnotation/</id>
     <published>2017-07-20T08:03:02.000Z</published>
-    <updated>2017-07-20T09:54:25.000Z</updated>
+    <updated>2017-09-18T05:21:36.000Z</updated>
     
     <summary type="html">
     
@@ -336,11 +336,11 @@
   </entry>
   
   <entry>
-    <title>ButterKnife 基本用法</title>
+    <title>ButterKnife 快速绑定控件</title>
     <link href="https://alberthumbert.github.io/2017/07/20/aboutButterKnife/"/>
     <id>https://alberthumbert.github.io/2017/07/20/aboutButterKnife/</id>
     <published>2017-07-20T05:40:56.000Z</published>
-    <updated>2017-07-20T17:11:00.000Z</updated>
+    <updated>2017-09-18T05:21:50.000Z</updated>
     
     <summary type="html">
     
@@ -396,11 +396,11 @@
   </entry>
   
   <entry>
-    <title>viewPager+TabLayout+Fragment 用法</title>
+    <title>ViewPager+TabLayout+Fragment 实现懒加载</title>
     <link href="https://alberthumbert.github.io/2017/07/17/viewPagerTabFragments/"/>
     <id>https://alberthumbert.github.io/2017/07/17/viewPagerTabFragments/</id>
     <published>2017-07-17T13:50:36.000Z</published>
-    <updated>2017-07-18T06:08:28.000Z</updated>
+    <updated>2017-09-18T05:22:07.000Z</updated>
     
     <summary type="html">
     

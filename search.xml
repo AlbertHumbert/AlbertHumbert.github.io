@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[RemoteView 详解]]></title>
+      <title><![CDATA[RemoteView 使用详解与实现原理]]></title>
       <url>/2017/09/11/aboutRemoteView/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -696,7 +696,7 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
     </entry>
     
     <entry>
-      <title><![CDATA[Volatile 相关知识]]></title>
+      <title><![CDATA[Volley 事件派发机制解析]]></title>
       <url>/2017/08/16/aboutVolatile/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -1067,7 +1067,7 @@ Held by JVM 用于JVM特殊目的由GC保留的对象
     </entry>
     
     <entry>
-      <title><![CDATA[Java 泛型擦除]]></title>
+      <title><![CDATA[Java泛型 注意事项]]></title>
       <url>/2017/08/14/aboutTypeErasue/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -2972,7 +2972,7 @@ if (mMedia.isGif()) {
     </entry>
     
     <entry>
-      <title><![CDATA[线程池基本用法]]></title>
+      <title><![CDATA[Java 四类线程池与自定义线程池]]></title>
       <url>/2017/07/28/aboutThreadPool/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -3216,7 +3216,7 @@ MainActivity: run: 1 Thread[pool-1-thread-1,5,main]
     </entry>
     
     <entry>
-      <title><![CDATA[Bitmap 基本用法]]></title>
+      <title><![CDATA[Android Bitmap 获取与处理]]></title>
       <url>/2017/07/26/aboutBitmap/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -3666,7 +3666,7 @@ if (p != null) {
     </entry>
     
     <entry>
-      <title><![CDATA[Animation基本用法]]></title>
+      <title><![CDATA[Animation 的三种实现方法]]></title>
       <url>/2017/07/25/aboutAnimation/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -3866,7 +3866,7 @@ animationDrawable.start();
     </entry>
     
     <entry>
-      <title><![CDATA[控件架构与自定义View]]></title>
+      <title><![CDATA[Android 控件架构与自定义View]]></title>
       <url>/2017/07/24/aboutView/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -4352,7 +4352,7 @@ void onCheck();
     </entry>
     
     <entry>
-      <title><![CDATA[注解 基本用法]]></title>
+      <title><![CDATA[Java 注解入门]]></title>
       <url>/2017/07/20/aboutAnnotation/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -4493,7 +4493,7 @@ getInfo: class java.lang.Void
     </entry>
     
     <entry>
-      <title><![CDATA[ButterKnife 基本用法]]></title>
+      <title><![CDATA[ButterKnife 快速绑定控件]]></title>
       <url>/2017/07/20/aboutButterKnife/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -5180,7 +5180,7 @@ for (int i=0;i&lt;count;i++){
     </entry>
     
     <entry>
-      <title><![CDATA[viewPager+TabLayout+Fragment 用法]]></title>
+      <title><![CDATA[ViewPager+TabLayout+Fragment 实现懒加载]]></title>
       <url>/2017/07/17/viewPagerTabFragments/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -5349,7 +5349,7 @@ loadData: 2
     </entry>
     
     <entry>
-      <title><![CDATA[Fragment基本用法]]></title>
+      <title><![CDATA[Fragment 基础知识]]></title>
       <url>/2017/07/17/aboutFragment/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -5566,7 +5566,7 @@ new AnotherDialog().show(getFragmentManager(),null);
     </entry>
     
     <entry>
-      <title><![CDATA[Handler基本用法]]></title>
+      <title><![CDATA[Handler 详解]]></title>
       <url>/2017/07/13/aboutHandler/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -5871,7 +5871,7 @@ if (msg.callback != null) {
     </entry>
     
     <entry>
-      <title><![CDATA[OkHttp基本用法]]></title>
+      <title><![CDATA[Okhttp 基本用法]]></title>
       <url>/2017/07/13/aboutNet/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -5969,7 +5969,7 @@ new OkHttpClient.Builder()
     </entry>
     
     <entry>
-      <title><![CDATA[ListView基本用法]]></title>
+      <title><![CDATA[ListView 使用与优化]]></title>
       <url>/2017/07/12/aboutListView/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -6195,7 +6195,7 @@ if(imageView!=null){
     </entry>
     
     <entry>
-      <title><![CDATA[ContentProvider基本用法]]></title>
+      <title><![CDATA[ContentProvider 常见操作]]></title>
       <url>/2017/07/12/aboutContentProvider/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -6369,7 +6369,7 @@ public Cursor query(Uri uri, String[] projection, String selection,
     </entry>
     
     <entry>
-      <title><![CDATA[常用布局的使用方法和场景]]></title>
+      <title><![CDATA[Android 常用布局的使用方法和场景]]></title>
       <url>/2017/07/11/aboutLayout/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -6720,7 +6720,7 @@ android:layout_height=&quot;match_parent&quot;&gt;
     </entry>
     
     <entry>
-      <title><![CDATA[BroadcastReceiver的使用]]></title>
+      <title><![CDATA[BroadcastReceiver 使用入门]]></title>
       <url>/2017/07/11/aboutBroadcast/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
