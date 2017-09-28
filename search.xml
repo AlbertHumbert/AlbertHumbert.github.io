@@ -677,7 +677,14 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
 <ul>
 <li>注意java文件不能放在aidl包下</li>
 </ul>
-<p> <img src="http://i2.bvimg.com/586954/6e8be1f163db3de6.png" alt=""></p>
+<h2 id="2017-09-22-ViewPager加载图片缓慢"><a href="#2017-09-22-ViewPager加载图片缓慢" class="headerlink" title="2017.09.22 - ViewPager加载图片缓慢"></a>2017.09.22 - ViewPager加载图片缓慢</h2><ul>
+<li><p>使用ViewPager时加载图片速度很慢，原本以为是图片太大，后来发现是解析耗时太多</p>
+</li>
+<li><p>如果Item是动态创建的，建议设定通过LayoutParams设定的宽度或高度，如果使用布局文件应尽量减少布局层次，可以的情况下请尽量使用 Exactly模式</p>
+</li>
+<li><p>使用Picasso时发现 ImageView 的 scaleType 属性使用FitXY 时解析耗时远大于 CenterCrop</p>
+</li>
+</ul>
 ]]></content>
       
         <categories>
