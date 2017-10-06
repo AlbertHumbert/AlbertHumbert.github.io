@@ -685,6 +685,12 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
 <li><p>使用Picasso时发现 ImageView 的 scaleType 属性使用FitXY 时解析耗时远大于 CenterCrop</p>
 </li>
 </ul>
+<h2 id="2017-10-06-Parcelable-包装类-NullPointerException"><a href="#2017-10-06-Parcelable-包装类-NullPointerException" class="headerlink" title="2017.10.06 - Parcelable 包装类 NullPointerException"></a>2017.10.06 - Parcelable 包装类 NullPointerException</h2><ul>
+<li>使用快捷键实现Parcelable接口可能会遇上这个坑</li>
+<li>自动生成代码可能不会（至少本人使用的AS版本不会，算是个Bug）为包装类生成调用Parcel的read和writer代码，请注意检查</li>
+<li>我们知道包装类没有默认的初始值（准确地说，初始值为null），因此writeToParcel可能抛出NullPointerException，一般情况下使用 Long long = 0L 这种形式为类属性赋初值即可</li>
+<li>特殊情况下，例如使用Gson这种会修改类属性的工具需要特别注意，在Gson的情况下，没有解析到的类属性为null，请考虑在writeToParcel，构造器或使用Gson的地方进行检查</li>
+</ul>
 ]]></content>
       
         <categories>
