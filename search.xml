@@ -709,7 +709,7 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
     </entry>
     
     <entry>
-      <title><![CDATA[Volley 事件派发机制解析]]></title>
+      <title><![CDATA[volatile 相关概念]]></title>
       <url>/2017/08/16/aboutVolatile/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
