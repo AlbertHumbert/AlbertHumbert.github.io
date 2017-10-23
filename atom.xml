@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-09-18T05:17:19.000Z</updated>
+  <updated>2017-10-23T13:22:31.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RxJava 与 Retrofit</title>
+    <link href="https://alberthumbert.github.io/2017/10/23/aboutRxJava/"/>
+    <id>https://alberthumbert.github.io/2017/10/23/aboutRxJava/</id>
+    <published>2017-10-23T13:13:02.000Z</published>
+    <updated>2017-10-23T13:22:31.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>RemoteView 使用详解与实现原理</title>
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2017/07/19/aboutWebView/</id>
     <published>2017-07-19T13:32:52.000Z</published>
     <updated>2017-09-18T05:34:09.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Volley 基本用法和源码分析</title>
-    <link href="https://alberthumbert.github.io/2017/07/19/aboutVolley/"/>
-    <id>https://alberthumbert.github.io/2017/07/19/aboutVolley/</id>
-    <published>2017-07-19T07:15:41.000Z</published>
-    <updated>2017-07-19T17:08:27.000Z</updated>
     
     <summary type="html">
     
