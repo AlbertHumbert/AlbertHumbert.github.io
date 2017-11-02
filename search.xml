@@ -289,7 +289,10 @@ observable.filter(new Predicate&lt;Integer&gt;() {
 <li>在继续讲解Flowable之前，我们再来折腾一下这段代码，去掉线程调度的两行（subscribeOn，observeOn。只去掉subscribeOn依然会OOM，原因很简单，请自行思考），一切又正常了，显然完全地同步是不会造成OOM的</li>
 </ul>
 <ul>
-<li>关于造成OOM的原因，很多文章都没有比较清晰的说明，这里结合源码来进行分析，方便之后讲解背压中的request，在ObservableObserveOn类中可以找到下面这个两个方法，ObservableObserveOn是执行ObserveOn操作时创建的一个新的被观察者，它用来进线程的调度，onNext是事件传递的方法，schedule方法会执行drainNormal方法</li>
+<li>关于造成OOM的原因，很多文章都没有比较清晰的说明，这里结合源码来进行分析，方便之后讲解背压中的request，在ObserveOnObserver类中可以找到下面几个方法，ObserveOnObserver是执行ObserveOn操作时创建的一个新的被观察者ObservableObserveOn的观察者，它用来进线程的调度，onNext就不用说了，schedule方法将会把ObserveOnObserver自己作为Runnable投递给工作线程池，ObserveOnObserver的run方法会执行drainNormal方法</li>
+</ul>
+<ul>
+<li>drainNormal方法主要的工作是开启循环，将队列中的事件取出给下层观察者处理，如果下游处理速度赶不上上游发送事件的速度，事件就会一直堆积在队列当中</li>
 </ul>
 <pre><code>@Override
 public void onNext(T t) {
@@ -303,6 +306,20 @@ public void onNext(T t) {
     schedule();
 }
 
+        void schedule() {
+    if (getAndIncrement() == 0) {
+        worker.schedule(this);
+    }
+}
+
+@Override
+public void run() {
+    if (outputFused) {
+        drainFused();
+    } else {
+        drainNormal();
+    }
+}
 
 void drainNormal() {
     int missed = 1;
@@ -349,28 +366,157 @@ void drainNormal() {
     }
 }
 </code></pre><ul>
-<li>从上面我们可以知道，RxJava将事件，或者说发射器的onNext方法接受的参数放入队列当中，链式操作是同步时，下游将上游的事件消耗掉之后，上游才能发送下一个事件，而当操作是异步时，发射器可以一直发送事件，如果下游来不及处理，这个队列就会无限增长，最终导致OOM</li>
+<li>从上面我们可以知道，RxJava将事件，或者说发射器的onNext方法接受的参数放入队列当中，链式操作是同步时，下游将上游的事件消耗掉之后，上游才能发送下一个事件，而当操作是异步时，发射器可以不受限制地一直发送事件，最严重的结果就是OOM</li>
 </ul>
 <p><br></p>
 <h5 id="使用Flowable"><a href="#使用Flowable" class="headerlink" title="- 使用Flowable"></a>- 使用Flowable</h5><ul>
-<li>下面简单使用Flowable</li>
+<li>下面简单使用Flowable，形式和Observable基本相同，不过这次内存的占用情况很正常，在Flowable.create方法中可以传入 BackpressureStrategy ，这个参数指明了使用何种背压策略，这里使用的是Drop，当缓存不足时会抛弃最近发生的事件，在onSubscribe方法中可以获取到Subscription对象，和Dispose对象基本一致，不过Subscription可以调用request方法向上游反馈下游当前还可处理事件的数量</li>
+<li>注意，如果不调用request方法下游将无法接受事件并导致OOM</li>
 </ul>
 <pre><code>Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+
+    int i;
+
     @Override
     public void subscribe(@NonNull FlowableEmitter&lt;Integer&gt; emitter) throws Exception {
-        for (; ; ) emitter.onNext(1);
+        for (; ; ) emitter.onNext(++i);
     }
 }, BackpressureStrategy.DROP).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer&lt;Integer&gt;() {
+        .subscribe(new Subscriber&lt;Integer&gt;() {
             @Override
-            public void accept(@NonNull Integer integer) throws Exception {
-                Log.d(TAG, &quot;accept: &quot; + integer);
+            public void onSubscribe(Subscription s) {
+                      s.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(Integer integer) {
                 Thread.sleep(20000);
+                Log.d(TAG, &quot;onNext: &quot; + integer);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.d(TAG, &quot;onError: &quot;);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, &quot;onComplete: &quot;);
             }
         });
 }
-</code></pre><p><strong>未完待续</strong></p>
+</code></pre><ul>
+<li>RxJava提供了5种背压策略，比较常用的是drop和buffer</li>
+</ul>
+<pre><code>/**
+ * Represents the options for applying backpressure to a source sequence.
+ * （下面的枚举常量）代表着对来源序列采取的背压策略选项
+ */
+public enum BackpressureStrategy {
+    /**
+     * OnNext events are written without any buffering or dropping.
+     * OnNext事件以无缓冲无弃用的方式编写
+     * Downstream has to deal with any overflow.
+     * 下游必须自行处理溢出
+     * &lt;p&gt;Useful when one applies one of the custom-parameter onBackpressureXXX operators.
+     * 在调用了自定义参数的onBackpressureXXX操作符时使用
+     */
+    MISSING,
+    /**
+     * Signals a MissingBackpressureException in case the downstream can&apos;t keep up.
+     * 如果下游无力处理事件，将抛出MissingBackpressureException异常
+     */
+    ERROR,
+    /**
+     * Buffers &lt;em&gt;all&lt;/em&gt; onNext values until the downstream consumes it.
+     * 缓存onNext的参数直到下游处理
+     */
+    BUFFER,
+    /**
+     * Drops the most recent onNext value if the downstream can&apos;t keep up.
+     * 如果下游无力处理事件，将弃用最近的onNext参数
+     */
+    DROP,
+    /**
+     * Keeps only the latest onNext value, overwriting any previous value if the
+     * downstream can&apos;t keep up
+     * 如果下游无力处理事件，将保留最近的onNext参数 ，覆盖任意原来的参数
+     */
+    LATEST
+} 
+</code></pre><ul>
+<li>前面说过request可以向上游反馈能够处理的事件数量，上游调用FlowableEmitter.requested方法可以得到具体的数值，那么不妨在下游能够处理的情况下才发送事件，并在处理完成后调用requested(1)，让可处理的事件加1</li>
+</ul>
+<pre><code>Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+
+    int i;
+
+    @Override
+    public void subscribe(@NonNull FlowableEmitter&lt;Integer&gt; emitter) throws Exception {
+        for (; ; ) {
+            if (emitter.requested() != 0) {
+                emitter.onNext(++i);
+                Log.d(TAG, &quot;subscribe: &quot; + emitter.requested());
+            }
+        }
+    }
+}, BackpressureStrategy.DROP).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .onBackpressureBuffer().subscribe(new Subscriber&lt;Integer&gt;() {
+    @Override
+    public void onSubscribe(Subscription s) {
+        mSubscription = s;
+        s.request(10);
+    }
+
+    @Override
+    public void onNext(Integer integer) {
+
+        Log.d(TAG, &quot;onNext: &quot; + integer);
+        try {
+            Thread.sleep(1000);
+             mSubscription.request(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onError(Throwable t) {
+        Log.d(TAG, &quot;onError: &quot;);
+    }
+
+    @Override
+    public void onComplete() {
+        Log.d(TAG, &quot;onComplete: &quot;);
+    }
+});
+}
+</code></pre><ul>
+<li>上面的写法似乎很合理，但实际运行之后会发现，requested从128归0之后每次归0都会返回96，这是由于FlowableObserveOn内部设置了缓存大小，固定为128，Request归零之后重新设定的不是我们定义的值而是强制为96（128的四分之三），换句话说不使用observeOn（也就是让上下游同步）的情况下request方法才会想我们想象的一样发挥作用</li>
+</ul>
+<pre><code>static final int BUFFER_SIZE;
+static {
+BUFFER_SIZE = Math.max(16, Integer.getInteger(&quot;rx2.buffer-size&quot;, 128));
+}
+
+...
+//prefetch大小为BUFFER_SIZE，简单来说相当于 128 - 128/4
+      this.limit = prefetch - (prefetch &gt;&gt; 2);
+ ...
+
+//FlowableObserveOn中重设大小
+          long p = produced + 1;
+        if (p == limit) {
+            produced = 0;
+            s.request(p);
+        } else {
+            produced = p;
+        }
+</code></pre><ul>
+<li>同时仔细观察log你会发现在异步的情况下并不是下游调用了request上游的获取到的数值就会马上增加，但下游处理事件的总数量永远不会超过它调用request方法请求的总数，所以如果你需要上游不断发送和处理事件，只需要在onNext方法中提交请求并在上游对requested进行判断即可，当下游的请求处理完毕，上游就不会用发送事件了，总的来说RxJava在Flowable的设计上还是很巧妙的</li>
+</ul>
 <p><br></p>
 <h4 id="LifeCycle"><a href="#LifeCycle" class="headerlink" title="LifeCycle"></a>LifeCycle</h4><p><br></p>
 <h3 id="Retrofit-上手"><a href="#Retrofit-上手" class="headerlink" title="Retrofit 上手"></a>Retrofit 上手</h3><p><br></p>
