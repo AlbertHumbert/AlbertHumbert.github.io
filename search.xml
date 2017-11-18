@@ -5,7 +5,9 @@
     <entry>
       <title><![CDATA[Jni ，从入门到入坟]]></title>
       <url>/2017/11/17/aboutJni/</url>
-      <content type="html"><![CDATA[<p>-</p>
+      <content type="html"><![CDATA[<ul>
+<li>本篇未完</li>
+</ul>
 <a id="more"></a>
 <p><br></p>
 <h2 id="如何使用jni进行开发"><a href="#如何使用jni进行开发" class="headerlink" title="如何使用jni进行开发"></a>如何使用jni进行开发</h2><p><strong>本文主要针对Android环境进行NDK\Native\Jni开发进行介绍</strong></p>
