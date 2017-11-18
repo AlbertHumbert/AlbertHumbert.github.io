@@ -12,7 +12,7 @@
     
     <title>
         
-            Loader 机制详解 | 
+            Jni ，从入门到入坟 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Loader 机制详解 | Albert&#39;s Blog">
+    <meta property="og:title" content="Jni ，从入门到入坟 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="8月 13, 2017" />
-        <meta property="article:modified_time" content="9月 10, 2017" />
+        <meta property="article:published_time" content="11月 17, 2017" />
+        <meta property="article:modified_time" content="11月 18, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Loader 机制详解 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Jni ，从入门到入坟 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/11/17/aboutJni/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "Loader 机制详解",
-    "url": "https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html",
-    "datePublished": "8月 13, 2017",
-    "dateModified": "9月 10, 2017",
+    "headline": "Jni ，从入门到入坟",
+    "url": "https://alberthumbert.github.io/2017/11/17/aboutJni/index.html",
+    "datePublished": "11月 17, 2017",
+    "dateModified": "11月 18, 2017",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是Loader"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是Loader</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简单使用Loader"><span class="post-toc-number">2.</span> <span class="post-toc-text">简单使用Loader</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AsyncTaskLoader"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">AsyncTaskLoader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LoaderCallbacks"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">LoaderCallbacks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用自定义Loader"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">使用自定义Loader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现-LoaderCallbacks"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">实现 LoaderCallbacks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用CursorLoader"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">使用CursorLoader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#源码解析"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">源码解析</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何使用jni进行开发"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何使用jni进行开发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AS-2-2之前的做法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">AS 2.2之前的做法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-编写C-C"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">1.编写C/C++</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-使用ndk编译so包"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">2.使用ndk编译so包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#包结构"><span class="post-toc-number">1.1.2.1.</span> <span class="post-toc-text">包结构</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#编写Android-mk"><span class="post-toc-number">1.1.2.2.</span> <span class="post-toc-text">编写Android.mk</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#编写Application-mk"><span class="post-toc-number">1.1.2.3.</span> <span class="post-toc-text">编写Application.mk</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#人生苦短，我用AS-3-0"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">人生苦短，我用AS 3.0</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自动生成函数"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">自动生成函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编写CMakeList"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">编写CMakeList</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用g-编译so包"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">使用g++编译so包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ABI与so"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">ABI与so</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是jni"><span class="post-toc-number">2.</span> <span class="post-toc-text">什么是jni</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jni-h"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">jni.h</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jni数据类型"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">jni数据类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常用的接口"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">常用的接口</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#jni的优缺点"><span class="post-toc-number">3.</span> <span class="post-toc-text">jni的优缺点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行速率"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">运行速率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#反编译（汇编）"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">反编译（汇编）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内存泄漏，怎么解决"><span class="post-toc-number">4.</span> <span class="post-toc-text">内存泄漏，怎么解决</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#native内存模型"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">native内存模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用局部变量的注意点"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">使用局部变量的注意点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多线程，怎么使用"><span class="post-toc-number">5.</span> <span class="post-toc-text">多线程，怎么使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文章推荐"><span class="post-toc-number">6.</span> <span class="post-toc-text">文章推荐</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                Loader 机制详解
+                Jni ，从入门到入坟
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>8月 13, 2017</span>
+        <span>11月 17, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Loader 机制详解&url=https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Jni ，从入门到入坟&url=https://alberthumbert.github.io/2017/11/17/aboutJni/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Loader 机制详解&url=https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Jni ，从入门到入坟&url=https://alberthumbert.github.io/2017/11/17/aboutJni/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/11/17/aboutJni/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/11/17/aboutJni/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html&title=Loader 机制详解" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/11/17/aboutJni/index.html&title=Jni ，从入门到入坟" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Loader 机制详解&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Jni ，从入门到入坟&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/11/17/aboutJni/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/08/13/aboutLoader/index.html&text=Loader 机制详解" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/11/17/aboutJni/index.html&text=Jni ，从入门到入坟" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,592 +503,325 @@
     
         <p>-</p>
 <a id="more"></a>
-<h2 id="什么是Loader"><a href="#什么是Loader" class="headerlink" title="什么是Loader"></a>什么是Loader</h2><p><img src="https://ws1.sinaimg.cn/large/987832a0gy1fiiicfa8ehj21fe0mstgh.jpg" alt=""></p>
-<ul>
-<li>写app最重要的一个部分就是与数据打交道，回顾我们平时处理数据的套路，通常我们在Activity启动或响应用户触摸事件时开启线程获取数据，然后通过Handler切换到主线程中更新UI，在这过程中还需要通过onSaveInstanceState保留数据，有时甚至还需要实时监控数据源更新数据</li>
-<li>使用AsyncTask或者Thread + Handler 完全可以实现我们的需求，但是随着Task的增多，我们可能发现自己管理线程，UI，回调接口比较繁琐，而且不同的Task当中又有很多相似的操作</li>
-<li>为了满足和解决以上的需求和问题，在Android 3.0中加入了LoaderManager，统一管理异步任务</li>
-<li>学习如何使用Loader其实不是很重要的，一般我们只会在使用ContentProvider时用到Loader，最重要的是学习官方如何根据Activity和Fragment的生命周期管理数据，以及使用统一的接口传递数据</li>
+<p><br></p>
+<h2 id="如何使用jni进行开发"><a href="#如何使用jni进行开发" class="headerlink" title="如何使用jni进行开发"></a>如何使用jni进行开发</h2><p><strong>本文主要针对Android环境进行NDK\Native\Jni开发进行介绍</strong></p>
+<p><strong>使用2.2版本之前的Android Studio进行ndk开发是比较繁琐的，如果你还在使用旧版本的Android Studio，那么建议更新到3.0，现阶段3.0已经比较稳定了(虽然旧项目的gradle升级可能需要折腾一下)。下面介绍旧版本的开发流程只是为了能够更加详细地介绍jni。</strong></p>
+<p><strong>jni并不是android框架内的概念，所以也会提及其他环境使用jni开发的方法，基本上大同小异，不过你可能还需要查阅其他文章来处理一些细节问题（如Windows下生成dll文件）</strong></p>
+<p><br></p>
+<h3 id="AS-2-2之前的做法"><a href="#AS-2-2之前的做法" class="headerlink" title="AS 2.2之前的做法"></a>AS 2.2之前的做法</h3><p><br></p>
+<h4 id="1-编写C-C"><a href="#1-编写C-C" class="headerlink" title="1.编写C/C++"></a>1.编写C/C++</h4><ul>
+<li>首先创建一个java文件，声明一个自定义的native方法，对我们来说，这个方法就是java层到native层的入口，另外，还需要使用静态域将so包加载进来</li>
 </ul>
-<h2 id="简单使用Loader"><a href="#简单使用Loader" class="headerlink" title="简单使用Loader"></a>简单使用Loader</h2><h3 id="AsyncTaskLoader"><a href="#AsyncTaskLoader" class="headerlink" title="AsyncTaskLoader"></a>AsyncTaskLoader</h3><ul>
-<li>AsyncTaskLoader是一个对AsyncTask的封装，我们可以实现这个抽象类自定义Loader，它需要实现下面五个方法</li>
-<li>public void deliverResult(D data)</li>
-<li>protected D doInBackground(Void… params)    </li>
-<li>protected void onStartLoading()</li>
-<li>protected void onStopLoading()</li>
-<li>protected void onReset()</li>
-<li>通常我们不应该主动调用这几个方法以免扰乱Loader的生命周期</li>
-</ul>
-<h3 id="LoaderCallbacks"><a href="#LoaderCallbacks" class="headerlink" title="LoaderCallbacks"></a>LoaderCallbacks</h3><ul>
-<li>LoaderCallbacks，这是与LoaderManager进行交互的接口，需要实现以下三个方法</li>
-<li>public Loader<d> onCreateLoader(int id, Bundle args)</d></li>
-<li>public void onLoadFinished(Loader<d> loader, D data)</d></li>
-<li>public void onLoaderReset(Loader<d> loader)</d></li>
-</ul>
-<h3 id="使用自定义Loader"><a href="#使用自定义Loader" class="headerlink" title="使用自定义Loader"></a>使用自定义Loader</h3><ul>
-<li>下面通过 AsyncTaskLoader 简单过一遍使用Loader的流程，将我们的数据类型定义为 List<dirinfo>，它是一个手机中所有含有图片的文件夹的信息的列表</dirinfo></li>
-</ul>
-<pre><code>public class MyLoader extends AsyncTaskLoader&lt;List&lt;DirInfo&gt;&gt; 
-</code></pre><ul>
-<li>onStartLoading，这个方法在主线程被调用，在这里开始获取我们的数据，通常来说有两种情况，如果我们的数据可缓存并且已经缓存，使用deliverResult()方法直接投递数据即可，如果需要开启线程异步加载数据则调用forceLoad()方法</li>
-</ul>
-<pre><code>protected void onStartLoading() {
-if(mData != null)
-    deliverResult(mData);
-else 
-    forceLoad();
-}
-</code></pre><ul>
-<li>loadInBackground，相当于AsyncTask中的doInBackground，在这里进行耗时操作并返回所需的数据，具体的过程和主题无关就不讲解了</li>
-</ul>
-<pre><code>@Override
-public List&lt;DirInfo&gt; loadInBackground() {
+<pre><code>package com.linjiamin.jnishare;
 
-SparseArray&lt;DirInfo&gt; array = new SparseArray&lt;&gt;();
-
-ContentResolver resolver = mContext.getContentResolver();
-Cursor cursor;
-try{
-
-    cursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,new String[]{&quot;_id&quot;,&quot;_data&quot;,&quot;_display_name&quot;,&quot;bucket_id&quot;,&quot;bucket_display_name&quot;},null,null,&quot;_id desc&quot;);
-    if(cursor!=null){
-
-        DirInfo allPic = new DirInfo(ALL_PIC_ID,&quot;全部图片&quot;);
-        array.put(ALL_PIC_ID,allPic);
-
-        while (cursor.moveToNext()) {
-
-            //图片对象
-            int imageId = cursor.getInt(cursor.getColumnIndex(&quot;_id&quot;));
-            String imageUrl = cursor.getString(cursor.getColumnIndex(&quot;_data&quot;));
-            String imageName = cursor.getString(cursor.getColumnIndex(&quot;_display_name&quot;));
-            ImageInfo imageInfo = new ImageInfo(imageId,imageName,imageUrl);
-            allPic.addImageInfo(imageInfo);
-
-            //文件夹对象
-            DirInfo dirInfo;
-            int dirId = cursor.getInt(cursor.getColumnIndex(&quot;bucket_id&quot;));
-            String dirName = cursor.getString(cursor.getColumnIndex(&quot;bucket_display_name&quot;));
-
-            if((dirInfo = array.get(dirId))==null) {
-
-                dirInfo = new DirInfo(dirId,dirName);
-                dirInfo.addImageInfo(imageInfo);
-                array.put(dirId,dirInfo);
-
-            }else dirInfo.addImageInfo(imageInfo); //如果文件夹对象已创建，直接加入图片对象
-        }
-    }
-
-    if(cursor!=null) cursor.close();
-
-}catch (Exception e){
-    e.printStackTrace();
-}
-
-ArrayList&lt;DirInfo&gt; list = new ArrayList&lt;&gt;();
-list.add(array.get(ALL_PIC_ID));
-Log.d(TAG, &quot;loadInBackground: &quot;+array.get(ALL_PIC_ID).getImageList().size());
-array.remove(ALL_PIC_ID);
-
-//转换容器类型
-for(int i = 0;i&lt;array.size();i++){
-    DirInfo dirInfo = array.get(array.keyAt(i));
-    list.add(dirInfo);
-}
-
-return list;
-}
-</code></pre><ul>
-<li>deliverResult，通过这个方法可以得到我们刚刚返回给LoaderManager的数据，根据实际需求在这里缓存我们的数据，之后如果没有必要，就无需重复加载了，可以参考一下<a href="https://stackoverflow.com/questions/25234581/what-does-asynctaskloader-deliverresult-actually-do" target="_blank" rel="external">StackOverflow</a>上面的建议</li>
-</ul>
-<pre><code>@Override
-public void deliverResult(List&lt;DirInfo&gt; data) {
-super.deliverResult(data);
-mData = data;
-}
-</code></pre><ul>
-<li>onStopLoading，当Activity或Fragment处于stop状态时会调用这个方法，通常在这个方法中使用 cancelLoad 终止正在执行的任务，注意这里只关乎当前的任务，当数据源变化时还是会再次加载数据的</li>
-</ul>
-<pre><code>@Override
-protected void onStopLoading() {
-  cancelLoad();
-} 
-</code></pre><ul>
-<li>onReset，执行这个方法之后LoaderManager会重新初始化Loader的所有标志位，通常在这里进行资源的释放</li>
-</ul>
-<pre><code>@Override
-protected void onReset() {
-super.onReset();
-mData = null;
-}
-</code></pre><h3 id="实现-LoaderCallbacks"><a href="#实现-LoaderCallbacks" class="headerlink" title="实现 LoaderCallbacks"></a>实现 LoaderCallbacks</h3><ul>
-<li>为了处理数据，需要实现LoaderCallbacks，下面在Activity中实现这个接口</li>
-</ul>
-<ul>
-<li>onCreateLoader，该方法用于根据id返回我们的需要用到的Loader，args是在调用initLoader时我们传入的参数，可以用于存放一些必要的信息</li>
-</ul>
-<pre><code>@Override
-public Loader&lt;List&lt;DirInfo&gt;&gt; onCreateLoader(int id, Bundle args) {
-return new MyLoader(this);
-}
-</code></pre><ul>
-<li>onLoadFinished，当数据加载完后会调用onLoadFinished方法，在这里可以更新UI</li>
-</ul>
-<pre><code>@Override
-public void onLoadFinished(Loader&lt;List&lt;DirInfo&gt;&gt; loader, List&lt;DirInfo&gt; dataList) {
-
-mPicAdapter.setDataList((dataList.get(0)).getImageList());
-Log.d(TAG, &quot;onLoadFinished: &quot;+dataList.size());
-
-}
-</code></pre><ul>
-<li>onLoaderReset，之前提到Loader的onReset方法会初始化Loader，这时onLoaderReset就会被调用，通常可以在该方法中将Activity，Fragment或Adapter中的数据置为null，如果使用了CursorLoader，这一步非常重要，Cursor被close之后会调用该方法，所以要确保在这里将数据置空，避免出现异常</li>
-</ul>
-<pre><code>@Override
-public void onLoaderReset(Loader&lt;List&lt;DirInfo&gt;&gt; loader) {
-
-}    
-</code></pre><ul>
-<li>在onCreate方法中调用initLoader开始获取数据            </li>
-</ul>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-super.onCreate(savedInstanceState);
-setContentView(R.layout.activity_main);
-
-initView();
-getLoaderManager().initLoader(111,null,this);
-
-}
-
-public void initView() {
-
-mRvPic = (RecyclerView)findViewById(R.id.rv_image);
-mPicAdapter = new PicAdapter(mImageInfoList, this);
-mRvPic.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-mRvPic.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-mRvPic.setAdapter(mPicAdapter);
-mRvPic.setItemAnimator(new DefaultItemAnimator());
-
-}        
-</code></pre><h3 id="使用CursorLoader"><a href="#使用CursorLoader" class="headerlink" title="使用CursorLoader"></a>使用CursorLoader</h3><ul>
-<li>Loader被用得最多的情况就是从ContentProvider中获取数据，如联系人列表，手机图片等等，Android提供了CursorLoader，顾名思义是对cursor和loader的封装，如果只需要得到手机中的数据，用CursorLoader来实现是非常方便的</li>
-</ul>
-<ul>
-<li>在onCreateLoader方法中，根据不同的id调用CursorLoader的构造器得到Loader</li>
-</ul>
-<pre><code>@Override
-public Loader&lt;Cursor&gt; onCreateLoader(int id, Bundle args) {
-
-Log.d(TAG, &quot;onCreateLoader: &quot;);
-
-switch (id){
-
-    case IMAGE:
-        return new CursorLoader(this, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,new String[]{&quot;_id&quot;,&quot;_data&quot;},null,null,&quot;_id desc&quot;);
-
-    case RESET_IMAGE:
-        return new CursorLoader(this, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,new String[]{&quot;_id&quot;,&quot;_data&quot;},null,null,&quot;_id asc&quot;);
-
-    default:
-        return null;
-    }
-} 
-</code></pre><ul>
-<li>每次数据源发生改变时就会重新获取cursor，在这个例子当中，我们在手机图库中删除一张图片然后回到这个应用时onLoadFinish就会被调用，说明我们自行处理数据源的变化</li>
-</ul>
-<pre><code>    @Override
-    public void onLoadFinished(Loader&lt;Cursor&gt; loader, Cursor cursor) {
-
-    switch (loader.getId()){
-
-        case IMAGE:
-        case RESET_IMAGE:
-
-            mPicAdapter.swapCursor(cursor);
-            break;
-
-        default:
-            Log.d(TAG, &quot;onLoadFinished: a Loader might be ignored&quot;);
-            break;
-    }
-}
-
-    @Override
-    public void onLoaderReset(Loader&lt;Cursor&gt; loader) {
-        mPicAdapter.swapCursor(null);
-    } 
-</code></pre><ul>
-<li>如果我们使用的是自定义的Loader，需要如下注册观察者。如果不使用cursor的话，Loader能够帮助我们的地方不多，需要利用广播监听数据源并使用Loader的onContentChanged()方法更新数据</li>
-</ul>
-<pre><code>private ForceLoadContentObserver mObserver = new ForceLoadContentObserver();
-...
-
-cursor.registerContentObserver(mObserver);
-cursor.setNotificationUri(resolver,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-</code></pre><h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><ul>
-<li>首先找到我们分析的入口，我们最初调用的getLoaderManager()方法，每一个Activity或Fragment都有一个LoaderManager，LoaderManager用于同一管理不同Loader的生命周期</li>
-</ul>
-<ul>
-<li>Activity和Fragment的getLoaderManager最终调用到Activity-&gt;FragmentController-&gt;FragmentHostCallback类的下面这个方法。所有的LoaderManager都保存在mAllLoaderManagers当中，它是一个ArrayMap，ArrayMap和SparseArray一样是官方推荐用于替代HashMap的数据结构，实际上在更早期的实现中mAllLoaderManagers用的就是HashMap。当没有获取到需要的LoaderManager时就会创建LoaderManagerImpl实例</li>
-</ul>
-<pre><code>LoaderManagerImpl getLoaderManager(String who, boolean started, boolean create) {
-if (mAllLoaderManagers == null) {
-    mAllLoaderManagers = new ArrayMap&lt;String, LoaderManager&gt;();
-}
-LoaderManagerImpl lm = (LoaderManagerImpl) mAllLoaderManagers.get(who);
-if (lm == null) {
-    if (create) {
-        lm = new LoaderManagerImpl(who, this, started);
-        mAllLoaderManagers.put(who, lm);
-    }
-} else {
-    lm.updateHostController(this);
-}
-return lm;
-}
-</code></pre><ul>
-<li>LoaderManagerImpl中我们可以看到initLoader方法的实现，同样是从集合中获取实例，mLoaders是一个LoaderInfo<br>类型的稀疏数组，LoaderInfo是对Loader的一层封装，它是一个非常重要的类，不仅仅包含了单独的Loader和这个Loader相关的信息，还会调用Loader和LoaderCallbacks中onLoaderFinish等回调方法，这些会在后面提到</li>
-</ul>
-<pre><code>@Override
-@SuppressWarnings(&quot;unchecked&quot;)
-public &lt;D&gt; Loader&lt;D&gt; initLoader(int id, Bundle args, LoaderManager.LoaderCallbacks&lt;D&gt; callback) {
-    if (mCreatingLoader) {
-        throw new IllegalStateException(&quot;Called while creating a loader&quot;);
-    }
-
-LoaderInfo info = mLoaders.get(id);
-
-if (DEBUG) Log.v(TAG, &quot;initLoader in &quot; + this + &quot;: args=&quot; + args);
-
-if (info == null) {
-    // Loader doesn&apos;t already exist; create.
-    info = createAndInstallLoader(id, args,  (LoaderManager.LoaderCallbacks&lt;Object&gt;)callback);
-    if (DEBUG) Log.v(TAG, &quot;  Created new loader &quot; + info);
-} else {
-    if (DEBUG) Log.v(TAG, &quot;  Re-using existing loader &quot; + info);
-    info.mCallbacks = (LoaderManager.LoaderCallbacks&lt;Object&gt;)callback;
-}
-
-if (info.mHaveData &amp;&amp; mStarted) {
-    // If the loader has already generated its data, report it now.
-    info.callOnLoadFinished(info.mLoader, info.mData);
-}
-
-return (Loader&lt;D&gt;)info.mLoader;
-}
-</code></pre><ul>
-<li>从上面可以看出，当没有指定的LoaderInfo可以复用时就会调用createAndInstallLoader方法创建实例，再看下面，获取封装的Loader时最终会调用我们实现的onCreateLoader方法以及一个installLoader方法</li>
-</ul>
-<pre><code>private LoaderInfo createAndInstallLoader(int id, Bundle args,
-    LoaderManager.LoaderCallbacks&lt;Object&gt; callback) {
-try {
-    mCreatingLoader = true;
-    LoaderInfo info = createLoader(id, args, callback);
-    installLoader(info);
-    return info;
-} finally {
-    mCreatingLoader = false;
-}
-}
-
-    private LoaderInfo createLoader(int id, Bundle args,
-    LoaderManager.LoaderCallbacks&lt;Object&gt; callback) {
-LoaderInfo info = new LoaderInfo(id, args,  callback);
-Loader&lt;Object&gt; loader = callback.onCreateLoader(id, args);
-info.mLoader = loader;
-return info;
-}
-</code></pre><ul>
-<li>在installLoader方法中调用了info.start方法，显然这里启动了Loader，但是根据注释我们知道，Activity的onStart方法会启动所有已存在的Loader，这里启动的只是后面创建的Loader，可能是数据源发生了变化，或者主动调用了restartLoader</li>
-</ul>
-<pre><code>void installLoader(LoaderInfo info) {
-mLoaders.put(info.mId, info);
-if (mStarted) {
-    // The activity will start all existing loaders in it&apos;s onStart(),
-    // so only start them here if we&apos;re past that point of the activity&apos;s
-    // life cycle
-    info.start();
-}
-}
-
-//Activity的onStart方法最终会调用这个doStart方法
-//与installLoader方法不同，doStart会启动所有未启动的Loader
-
-void doStart() {
-if (DEBUG) Log.v(TAG, &quot;Starting in &quot; + this);
-if (mStarted) {
-    RuntimeException e = new RuntimeException(&quot;here&quot;);
-    e.fillInStackTrace();
-    Log.w(TAG, &quot;Called doStart when already started: &quot; + this, e);
-    return;
-}
-
-mStarted = true;
-
-// Call out to sub classes so they can start their loaders
-// Let the existing loaders know that we want to be notified when a load is complete
-for (int i = mLoaders.size()-1; i &gt;= 0; i--) {
-    mLoaders.valueAt(i).start();
-}
-}
-</code></pre><ul>
-<li>接着来看LoaderInfo的start方法，下面省略了一些条件判断，可以看到这里注册了两个监听器，一个用于接受加载完的数据，另一个用于接受被取消加载的Loader，注册完监听器后调用了Loader的onStartLoading方法，onStartLoading是我们实现Loader时需要实现的方法，还记得刚刚说的在onStartLoading中需要使用forceLoad方法来开始加载吗，Loader基类中这个方法调用了onForceLoad方法，而onForceLoad是一个空实现，所以接下来就要到子类AsyncTaskLoader登场了</li>
-</ul>
-<pre><code>        void start() {
-
-...
-
-    mStarted = true;
-
-    if (DEBUG) Log.v(TAG, &quot;  Starting: &quot; + this);
-    if (mLoader == null &amp;&amp; mCallbacks != null) {
-       mLoader = mCallbacks.onCreateLoader(mId, mArgs);
-    }
-
-    if (mLoader != null) {
-
-...
-
-        if (!mListenerRegistered) {
-            mLoader.registerListener(mId, this);
-            mLoader.registerOnLoadCanceledListener(this);
-            mListenerRegistered = true;
-        }
-        mLoader.startLoading();
-    }
-}
-
-    public interface OnLoadCompleteListener&lt;D&gt; {
 /**
- * Called on the thread that created the Loader when the load is complete.
- *
- * @param loader the loader that completed the load
- * @param data the result of the load
+ * Created by Albert on 17/11/16.
  */
-public void onLoadComplete(Loader&lt;D&gt; loader, D data);
-}
 
-    public interface OnLoadCanceledListener&lt;D&gt; {
-/**
- * Called on the thread that created the Loader when the load is canceled.
- *
- * @param loader the loader that canceled the load
+public class JniUtil {
+
+    static {
+        System.loadLibrary(&quot;sotest&quot;);
+    }
+
+    public static native int sum(int num1,int num2);
+}
+</code></pre><ul>
+<li>开始编写 C/C++代码之前我们需要两个头文件。其中一个是 jni.h，该头文件包含了对jni数据类型和接口的定义（之后还会介绍），现在开始你所编写的所有C/C++代码都需要引入这个头文件。另外你还需要一个根据刚刚编写的native方法签名及类信息生成的头文件。对前者，简单地include进来即可，而对于后者，可以使用javah命令生成，当然你也可以选择亲自编写，使用命令生成的方法如下</li>
+</ul>
+<pre><code>//在终端中
+   cd app/src/main/java
+   javac com/linjiamin/jnishare/JniUtil.java
+   javah com.linjiamin.jnishare.JniUtil
+
+//生成的头文件如下
+
+/* DO NOT EDIT THIS FILE - it is machine generated */
+#include &lt;jni.h&gt;
+/* Header for class com_linjiamin_jnishare_JniUtil */
+
+#ifndef _Included_com_linjiamin_jnishare_JniUtil
+#define _Included_com_linjiamin_jnishare_JniUtil
+#ifdef __cplusplus
+extern &quot;C&quot; {
+#endif
+/*
+ * Class:     com_linjiamin_jnishare_JniUtil
+ * Method:    sum
+ * Signature: (II)I
  */
-public void onLoadCanceled(Loader&lt;D&gt; loader);
+JNIEXPORT jint JNICALL Java_com_linjiamin_jnishare_JniUtil_sum 
+(JNIEnv *, jclass, jint, jint);
+
+#ifdef __cplusplus
 }
+#endif
+#endif
 </code></pre><ul>
-<li>AsyncTaskLoader是对AsyncTask的抽象封装，包含一个AsyncTask内部类，这个AsyncTask同时也是一个Runnable，在onForceLoad方法中调用了executePendingTask方法，executePendingTask中需要关心的只有executeOnExecutor这个步骤，这是AsyncTask新增的接口，允许开发者提供线程池并行的处理Task，而我们用的比较多的Excute方法是串行的</li>
+<li>简单说一下如何手写这个头文件，预处理指令的写法都是相同的，将完整类名替换进去即可，对于函数签名，从左到右按以下顺序编写，当然还是使用javah方法生成更好</li>
 </ul>
-<pre><code>@Override
-protected void onForceLoad() {
-    super.onForceLoad();
-    cancelLoad();
-    mTask = new LoadTask();
-    if (DEBUG) Log.v(TAG, &quot;Preparing load: mTask=&quot; + mTask);
-    executePendingTask();
-}
+<pre><code>JNIEXPORT： 在android和linux中是空定义的宏，而在windows下被定义为__declspec(dllexport)，具体的作用我们不需要关心
 
-void executePendingTask() {
-    ...
-    mTask.executeOnExecutor(mExecutor, (Void[]) null);
-    }
-}
+jni数据类型：如jint，jboolean，jstring，它们对应于本地方法的返回类型（int，boolean，String）之后会进一步介绍、
+
+JNICALL ： 这是__stdcall等函数调用约定（calling conventions）的宏，这些宏用于提示编译器该函数的参数如何入栈（从左到右，从右到左），以及清理堆栈的方式等
+
+方法名： Java + 完整类名 + 方法名
+
+参数列表：JNIEnv * + jclass\jobject + 所有你定义的参数所对应的jni数据类型 ，JNIEnv*是指向jvm函数表的指针，如果该方法为静态方法则第二个参数为class否则为jobject，它是含有该方法的class对象或实例
+
+注意JNIEXPORT和JNICALL是固定的
 </code></pre><ul>
-<li>既然是AsyncTask，那么就先来看doInBackground，这里一大串注释想表达的是任务被LoaderManger以外的对象取消时需要抛出异常，毕竟所有Task应该由LoaderManager来管理，故手动调用AsyncTask的cancel方法是不应该的，正常情况下这里会调用我们实现的onLoadInBackground方法来获取数据</li>
+<li>函数具体实现如下，相信大家都能看懂</li>
 </ul>
-<pre><code>final class LoadTask extends AsyncTask&lt;Void, Void, D&gt; implements Runnable {
-private final CountDownLatch mDone = new CountDownLatch(1);
+<pre><code>#include &quot;jni.h&quot;
+#include &quot;com_linjiamin_jnishare_JniUtil.h&quot;
+//
+// Created by Albert Humbert on 17/11/17.
+//
 
-// Set to true to indicate that the task has been posted to a handler for
-// execution at a later time.  Used to throttle updates.
-boolean waiting;
-
-/* Runs on a worker thread */
-@Override
-protected D doInBackground(Void... params) {
-    if (DEBUG) Log.v(TAG, this + &quot; &gt;&gt;&gt; doInBackground&quot;);
-    try {
-        D data = AsyncTaskLoader.this.onLoadInBackground();
-        if (DEBUG) Log.v(TAG, this + &quot;  &lt;&lt;&lt; doInBackground&quot;);
-        return data;
-    } catch (OperationCanceledException ex) {
-        if (!isCancelled()) {
-            // onLoadInBackground threw a canceled exception spuriously.
-            // This is problematic because it means that the LoaderManager did not
-            // cancel the Loader itself and still expects to receive a result.
-            // Additionally, the Loader&apos;s own state will not have been updated to
-            // reflect the fact that the task was being canceled.
-            // So we treat this case as an unhandled exception.
-            throw ex;
-        }
-        if (DEBUG) Log.v(TAG, this + &quot;  &lt;&lt;&lt; doInBackground (was canceled)&quot;, ex);
-        return null;
-    }
+JNIEXPORT jint JNICALL Java_com_linjiamin_jnishare_JniUtil_sum
+(JNIEnv * env, jclass obj, jint num1, jint num2){
+  return num1 + num2;
 }
-
-    protected D onLoadInBackground() {
-return loadInBackground();
-}
-</code></pre><ul>
-<li>在onPostExecute我们进入到了数据的分发阶段，如果任务没有被取消，那么调用deliverResult方法获取数据，通常我们可以重写这个方法来实现数据缓存，而deliverResult调用了OnLoadCompleteListener.onLoadComplete方法，这个监听器就是我们先前提到的LoaderInfo实现的接口</li>
-</ul>
-<pre><code>    /* Runs on the UI thread */
-    @Override
-    protected void onPostExecute(D data) {
-        if (DEBUG) Log.v(TAG, this + &quot; onPostExecute&quot;);
-        try {
-            AsyncTaskLoader.this.dispatchOnLoadComplete(this, data);
-        } finally {
-            mDone.countDown();
-        }
-    }
-
-        void dispatchOnLoadComplete(LoadTask task, D data) {
-    if (mTask != task) {
-        if (DEBUG) Log.v(TAG, &quot;Load complete of old task, trying to cancel&quot;);
-        dispatchOnCancelled(task, data);
-    } else {
-        if (isAbandoned()) {
-            // This cursor has been abandoned; just cancel the new data.
-            onCanceled(data);
-        } else {
-            commitContentChanged();
-            mLastLoadCompleteTime = SystemClock.uptimeMillis();
-            mTask = null;
-            if (DEBUG) Log.v(TAG, &quot;Delivering result&quot;);
-            deliverResult(data);
-        }
-    }
-}
-
-    public void deliverResult(D data) {
-    if (mListener != null) {
-        mListener.onLoadComplete(this, data);
-    }
-}
-</code></pre><ul>
-<li>onLoadComplete主要有三个步骤</li>
+</code></pre><p><br>        </p>
+<h4 id="2-使用ndk编译so包"><a href="#2-使用ndk编译so包" class="headerlink" title="2.使用ndk编译so包"></a>2.使用ndk编译so包</h4><p><br>    </p>
+<h5 id="包结构"><a href="#包结构" class="headerlink" title="包结构"></a>包结构</h5><ul>
+<li>现在在main包下创建一个jni包，将你的头文件和c/c++文件放进去，然后，你还需要两份mk文件，mk文件是makefile文件的一部分，makefile包含c/c++编译器的编译命令、顺序和规则，如果你不了解makefile是什么，那也没什么关系，后面会讲解Android.mk和Application.mk文件的书写规范</li>
 </ul>
 <ul>
-<li>一，处理新请求：当我们调用restartLoader方法时，为了避免启动过多的Task或是新Task的数据被旧的Task返回的数据覆盖，这里采用的做法是让LoaderInfo持有一个mPendingLoader，在旧的Loader执行完后让这个mPendingLoader启动</li>
+<li>注意请在Android Library中进行ndk开发，不要使用Java Library，前者会生成aar包，可以包含so以及其他资源文件，后者会生成jar，jar通常只能调用外部so包，网上也有文章将jar当中的so包用文件流写到本地调用的，建议不要尝试这种骚操作</li>
 </ul>
-<pre><code>...
-    LoaderInfo pending = mPendingLoader;
-    if (pending != null) {
-        // There is a new request pending and we were just
-        // waiting for the old one to complete before starting
-        // it.  So now it is time, switch over to the new loader.
-        if (DEBUG) Log.v(TAG, &quot;  Switching to pending loader: &quot; + pending);
-        mPendingLoader = null;
-        mLoaders.put(mId, null);
-        destroy();
-        installLoader(pending);
-        return;
-    }
+<p><br>        </p>
+<h5 id="编写Android-mk"><a href="#编写Android-mk" class="headerlink" title="编写Android.mk"></a>编写Android.mk</h5><ul>
+<li>你可以直接登录 <a href="http://android.mk" target="_blank" rel="external">http://android.mk</a> ，查看相关文档</li>
+</ul>
+<ul>
+<li>一个最基本的Android.mk如下</li>
+</ul>
+<pre><code>LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE := libsotest
+LOCAL_SRC_FILES := com_linjiamin_jnishare_JniUtil.cpp
+include $(BUILD_SHARED_LIBRARY)
 </code></pre><ul>
-<li>二，当没有等待的请求，调用callOnLoadFinished，这个方法会调用到我们实现的onLoadFinished，这样就可以更新UI了</li>
+<li>LOCAL_PATH := $(call my-dir)，Android.mk必须以该属性开头，它用于指定源文件的路径，my-dir是一个返回Android.mk文件所在目录的宏</li>
 </ul>
-<pre><code>// Notify of the new data so the app can switch out the old data before
-// we try to destroy it.
-if (mData != data || !mHaveData) {
-    mData = data;
-    mHaveData = true;
-    if (mStarted) {
-        callOnLoadFinished(loader, data);
-    }
-}
+<ul>
+<li>include $(CLEAR_VARS) ，指定负责文件的清理的makefile文件，一般固定这么写就好</li>
+</ul>
+<ul>
+<li>LOCAL_SRC_FILES，需要编译的c/c++文件，如无后缀则默认为cpp文件</li>
+</ul>
+<ul>
+<li>include $(BUILD_SHARED_LIBRARY) ，收集上次清理后的源文件信息，并决定如何编译</li>
+</ul>
+<ul>
+<li>LOCAL_C_INCLUDES，头文件的搜索路径</li>
+</ul>
+<ul>
+<li>TARGET_ARCH，指定CPU，如armeabi，armeabi-v7a</li>
+</ul>
+<p><br>        </p>
+<h5 id="编写Application-mk"><a href="#编写Application-mk" class="headerlink" title="编写Application.mk"></a>编写Application.mk</h5><ul>
+<li>一个典型的Application.mk文件如下</li>
+</ul>
+<pre><code>APP_PLATFORM = android-24
+APP_ABI := armeabi,armeabi-v7a,x86_64,arm64-v8a
+APP_STL := stlport_static
+APP_OPTIM := debug
 </code></pre><ul>
-<li>三，restartLoader时会把旧Loader放入mInactiveLoaders当中，现在可以清除旧的Loader了</li>
+<li>APP_PLATFORM，ndk版本号，你可以在ndk-bundle文件夹中查看所本地ndk版本</li>
 </ul>
-<pre><code>    //if (DEBUG) Log.v(TAG, &quot;  onLoadFinished returned: &quot; + this);
-
-    // We have now given the application the new loader with its
-    // loaded data, so it should have stopped using the previous
-    // loader.  If there is a previous loader on the inactive list,
-    // clean it up.
-    LoaderInfo info = mInactiveLoaders.get(mId);
-    if (info != null &amp;&amp; info != this) {
-        info.mDeliveredData = false;
-        info.destroy();
-        mInactiveLoaders.remove(mId);
-    }
-
-    if (mHost != null &amp;&amp; !hasRunningLoaders()) {
-        mHost.mFragmentManager.startPendingDeferredFragments();
-    }
-}
+<pre><code># for mac
+/Users/alberthumbert/Library/Android/sdk/ndk-bundle/platforms
 </code></pre><ul>
-<li>到目前为止我们从获取LoaderManager，启动Loader，数据传递都已经分析完了，但是还有很关键的一点，就是监听数据源，自动启动任务。在Loader基类中我们可以找到这个内部类</li>
+<li>APP_ABI，指定APP_ABI版本，这会决定ndk编译出的so包数量，关于ABI的介绍见下文，推荐至少包含armeabi或armeabi-v7a</li>
 </ul>
-<pre><code>/**
- * An implementation of a ContentObserver that takes care of connecting
- * it to the Loader to have the loader re-load its data when the observer
- * is told it has changed.  You do not normally need to use this yourself;
- * it is used for you by {@link CursorLoader} to take care of executing
- * an update when the cursor&apos;s backing data changes.
- */
-    public final class ForceLoadContentObserver extends ContentObserver {
-
-    public ForceLoadContentObserver() {
-    super(new Handler());
-    }
-
-    @Override
-    public boolean deliverSelfNotifications() {
-    return true;
-    }
-
-    @Override
-    public void onChange(boolean selfChange) {
-    onContentChanged();
-    }
-}
-
-public void onContentChanged() {
-if (mStarted) {
-    forceLoad();
-} else {
-    // This loader has been stopped, so we don&apos;t want to load
-    // new data right now...  but keep track of it changing to
-    // refresh later if we start again.
-    mContentChanged = true;
-}
+<ul>
+<li>APP_STL 如何连接c++标准库 ，包括 stlport_static ，stlport_shared ，system，分别表示静态，动态，系统默认</li>
+</ul>
+<ul>
+<li>APP_OPTIM，包括debug，和release，这会决定so中是否包含调试信息</li>
+</ul>
+<ul>
+<li>APP_MODULES，填写so包的名字，如果没有这个属性，则按照Android.mk中的进行命名，注意如果文件中含有多个该属性，则会按照先后顺序为你编译出来的so文件命名</li>
+</ul>
+<ul>
+<li>填写完这两个mk文件之后，需要在gradle中指定so库的路径，gradle会自动将so文件打包进来，在andorid闭包中添加</li>
+</ul>
+<pre><code>sourceSets.main {
+jniLibs.srcDir &apos;src/main/libs&apos;
+jni.srcDirs = []
 }
 </code></pre><ul>
-<li>在CursorLoader的实现中loadInBackground方法为cursor注册了观察者当数据发送变化时ContentResolver会调用观察者的onChange方法，而onChange会onContentChanged方法最终重新加载数据，至于ContentResolver如何实现监听则涉及较多系统层的问题，有兴趣可以看<a href="http://www.cnblogs.com/bastard/archive/2012/06/02/2531663.html" target="_blank" rel="external">这篇文章</a>，这里就不再深入地谈四大组件方面的内容了</li>
+<li>如无意外这个时候我们的项目就可以运行起来了，打印log如下</li>
 </ul>
-<pre><code>    @Override
-public Cursor loadInBackground() {
-synchronized (this) {
-    if (isLoadInBackgroundCanceled()) {
-        throw new OperationCanceledException();
-    }
-    mCancellationSignal = new CancellationSignal();
+<pre><code>11-17 16:33:37.563 3824-3824/? D/JniUtil: test: 2
+</code></pre><p><br></p>
+<h3 id="人生苦短，我用AS-3-0"><a href="#人生苦短，我用AS-3-0" class="headerlink" title="人生苦短，我用AS 3.0"></a>人生苦短，我用AS 3.0</h3><p><br></p>
+<h4 id="自动生成函数"><a href="#自动生成函数" class="headerlink" title="自动生成函数"></a>自动生成函数</h4><ul>
+<li>如果出于不幸、粗心、经验不足等原因，你的项目无法运行，请不要怀疑你的智商，下面为你带来傻瓜式的ndk开发流程</li>
+</ul>
+<ul>
+<li>最新版的AS，可以为你使用ndk开发提供很大的方便，请确保你在SDK Tools中下载了CMake、LLDB、NDK</li>
+</ul>
+<ul>
+<li>首先创建一个新项目，并勾选Include C++ support</li>
+</ul>
+<ul>
+<li>C++ Standard中可以选择使用的C++标准，默认是CMake所使用的标准，Exceptions Support可以启用C++异常处理，一般这些选项使用默认的就可以了</li>
+</ul>
+<ul>
+<li>项目创建完毕之后你可以看见官方已经为你做好了很多工作，并且带了一个c++的hello world示例，你需要关注的主要有cpp和External Build Files 两个目录，前者用于放置你的C++源文件，后者根据不同的ABI版本放置了CMake脚本</li>
+</ul>
+<ul>
+<li>接着我们直接在MainActivity中添加一个native方法，然后选中该方法，按下alt+enter，让IDE为我们自动生成C++函数</li>
+</ul>
+<pre><code>public native boolean booleanFromJNI();
+</code></pre><ul>
+<li>在native-lib.cpp中可以看见自动生成的函数，我们只需要实现该函数即可</li>
+</ul>
+<pre><code>JNIEXPORT jboolean JNICALL
+Java_com_linjiamin_myapplication_MainActivity_booleanFromJNI(JNIEnv *env, jobject instance) {
+
+    // TODO
+
 }
-try {
-    Cursor cursor = ContentResolverCompat.query(getContext().getContentResolver(),
-            mUri, mProjection, mSelection, mSelectionArgs, mSortOrder,
-            mCancellationSignal);
-    if (cursor != null) {
-        try {
-            // Ensure the cursor window is filled.
-            cursor.getCount();
-            cursor.registerContentObserver(mObserver);
-        } catch (RuntimeException ex) {
-            cursor.close();
-            throw ex;
-        }
-    }
-    return cursor;
-} finally {
-    synchronized (this) {
-        mCancellationSignal = null;
-    }
+</code></pre><ul>
+<li>注意使用上面的方法你可以在任意一个java文件中声明native方法，IDE会自动在native-lib.cpp中为你生成对应的函数签名，当然，你也不是非要把所有的C/C++代码都写在一个文件里，下面来讲解一下CMakeList的基本写法</li>
+</ul>
+<p><br></p>
+<h4 id="编写CMakeList"><a href="#编写CMakeList" class="headerlink" title="编写CMakeList"></a>编写CMakeList</h4><ul>
+<li>下面是一份官方写好的CMakeList.txt，这个文件可以在你当前项目的app目录下看到</li>
+</ul>
+<pre><code>add_library( # 设置编译出来的so包的名字. 不需要添加lib前缀
+             native-lib
+
+             # 设置为共享链接库. 有SHARED，STATIC两种可选
+             SHARED
+
+             # 设置源文件的相对路径，可将多个源文件进行编译
+             src/main/cpp/native-lib.cpp )
+
+# Searches for a specified prebuilt library and stores the path as a
+# variable. Because CMake includes system libraries in the search path by
+# default, you only need to specify the name of the public NDK library
+# you want to add. CMake verifies that the library exists before
+# completing its build.
+
+find_library( # 设置外部引用库.这个库支持你在c/c++中打印log，具体请见  android/log.h
+              log-lib
+              # 外部引用库的名称
+              log )
+
+# Specifies libraries CMake should link to your target library. You
+# can link multiple libraries, such as libraries you define in this
+# build script, prebuilt third-party libraries, or system libraries.
+
+target_link_libraries( # 指定被链接的库.
+                       native-lib
+
+                       # 链接log-lib到native-lib
+                       ${log-lib} )
+</code></pre><ul>
+<li>现在我们想要将不同的源文件编译成多份so包，例如我在cpp目录下添加一份test-lib.cpp文件，代码如下</li>
+</ul>
+<pre><code>extern &quot;C&quot;
+JNIEXPORT jboolean JNICALL
+Java_com_linjiamin_myapplication_JniUtil_booleanFromJNI(JNIEnv *env, jobject instance) {
+
+//上面提到的log库可以这么使用，而且你应该使用宏让它好看些
+__android_log_print(ANDROID_LOG_DEBUG,&quot;stringFromJNI&quot;,&quot;%d&quot;,0);
+return (jboolean) true;
+
 }
+</code></pre><ul>
+<li>那么可以在刚刚的CMakeList中设定我们的so包，在最后加上</li>
+</ul>
+<pre><code>add_library( test-lib SHARED src/main/cpp/test-lib.cpp )
+</code></pre><ul>
+<li>编译之后 可以看到 build/intermediates/cmake/debug/obj/ 路径下不同的ABI目录中都有了两份so文件，分别是libnative-lib.so，libtest-lib.so</li>
+</ul>
+<ul>
+<li>如果你在不同的路径下放置了源文件，并且希望对于每一个特定的路径都有一份自己特定的CMakeList文件来描述这些源文件的打包规则（这看起来是个好习惯），可以使用add_subdirectory(“目录名”)方法指定子路径，子路径当中的放置CMakeList会被执行</li>
+</ul>
+<p><br></p>
+<h3 id="使用g-编译so包"><a href="#使用g-编译so包" class="headerlink" title="使用g++编译so包"></a>使用g++编译so包</h3><ul>
+<li>对于非安卓开发者，这里再简单介绍一个使用g++编译so包的方法，使用这种方法你无需ndk环境，也不用编写mk、CMakeList文件，完全使用命令行进行编译，当然我更推荐你去学习cmake</li>
+</ul>
+<ul>
+<li>编写java文件并用javah指令生成头文件，再编写cpp文件，这个流程对于不同平台的jni开发都是相同的（虽然Intelligent Idea这种IDE可以为你自动生成头文件），那么现在需要一份对应平台下的jni.h文件，可以在你的jdk当中查找，编译器可能还会提示你需要一份jni_md.h文件，它也在jdk当中</li>
+</ul>
+<pre><code>$ cd /Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk
+$ find . -iname jni.h
+./Contents/Home/include/jni.h
+</code></pre><ul>
+<li>我这里用的是ndk当中的jni.h文件，下载ndk之后在sdk当中可以找到</li>
+</ul>
+<pre><code>$ cd /Users/alberthumbert/Library/Android/sdk/ndk-bundle
+$ find . -iname jni.h
+./sysroot/usr/include/jni.h
+</code></pre><ul>
+<li>现在假定你以及有了一份java文件，两份头文件，一份cpp或c文件，那么可以使用如下命令将他们编译成so文件，注意最后的参数不一定是必要的，如果你想编译安卓平台可用的so包那么建议加上</li>
+</ul>
+<pre><code>g++ com_linjiamin_jnishare_JniUtil.cpp -fPIC -shared -o libsotest.so -Wl,--hash-style=sysv
+</code></pre><p><strong>注意，*nix平台使用lib表示一个so库，所以so文件必须以lib开头，但加载时请将lib前缀去掉</strong></p>
+<ul>
+<li>你可以用绝对路径加载一个so文件</li>
+</ul>
+<pre><code>System.load(&quot;\***\***\***.so&quot;)
+</code></pre><ul>
+<li>你也可以将so文件放入系统加载路径当中，调用  System.getProperty(“java.library.path”)方法得到系统加载路径，想要修改这个路径，可以在修改.bashrc（或者当前使用的其他shell）中添加</li>
+</ul>
+<pre><code>export PATH=PATH:/XXX
+</code></pre><ul>
+<li>运行jar时动态指定路径也是可以的，这样会暂时覆盖上面写入的属性</li>
+</ul>
+<pre><code>java -jar -Djava.library.path=/**/**   **.jar
+</code></pre><ul>
+<li>重新在java代码中加载so文件，*nix平台注意去掉lib前缀</li>
+</ul>
+<pre><code>System.loadLibrary (&quot;***&quot;);
+</code></pre><p><br></p>
+<h3 id="ABI与so"><a href="#ABI与so" class="headerlink" title="ABI与so"></a>ABI与so</h3><ul>
+<li>这里再啰嗦一下别的东西，可以先跳过，之后再倒回来看</li>
+</ul>
+<ul>
+<li>由于目前我们的项目很简单，没有用到第三方so库和也没有去除多余so库为apk瘦身，因此不用考虑兼容问题，但实际开发项目时通常没这么简单。我们知道，编译出来的so是二进制文件，由于不同的CPU支持不同的指令集，所以我们需要考虑兼容性的问题。一个包含多种指令集及其相关约定的实现被称之为ABI，一个CPU架构支持一种到多种ABI。安卓平台就是针对ABI进行编译和打包的。</li>
+</ul>
+<ul>
+<li>可能看了上面这一段会比较晕，那么我就举一个例子来说明，比如ARMv7架构的CUP，支持 armeabi和armeabi-v7a两种ABI，而armeabi这种ABI支持Thumb-1，ARMV5TE等指令集，armeabi-v7a这种ABI又支持Thumb-2和VFPv3-D16等指令集，也就是说，一种CPU架构对应多种ABI类型，一种ABI类型对于多种指令集</li>
+</ul>
+<ul>
+<li>一个so文件只支持一种ABI，因此你会发现在lib下每一个包都是以ABI来命名的，同名的so文件被按照其支持的ABI进行分类</li>
+</ul>
+<ul>
+<li>目前ABI一共有七种，那么是不是意味者我们的每一个so都需要编译成七种，然后全都打包进apk当中呢，答案是否定的。目前CUP流行的架构主要有ARM系列，x86，x86_64，而这些架构全部都支持armeabi这种ABI，因此类似淘宝、微信、饿了么的国内大厂通常只使用armeabi一种ABI，Facebook，Twitter等外国大厂则是只保留了armeabi-v7a，这是十分合理的，apk只保留一种通用的ABI，而最适应的so可以在外部去下载</li>
+</ul>
+<ul>
+<li>那么是不是只要编译一种so文件就可以了呢？不完全正确，如果你引用了第三方的ndk，而第三方在兼容性做得比较好的情况下适配了多种ABI，又或者目前你的lib下so包的数量参差不齐。当一个apk安装时就有可能查找到了最适用的ABI的路径存在，但里面又没有想要的so，这时它不会自动去查找其他ABI版本的so，而是会crash，为了解决这个问题，请在lib包下只保留一个包（通常是armeabi或者armeabi-v7a），或者每个名字的so在不同包下都存在对应版本，并且在app的gradle的defaultConfig闭包中添加你所适配好的ABI，这样安装时只会从你所指定的ABI中查找so包</li>
+</ul>
+<pre><code>ndk{
+    abiFilters  &quot;armeabi-v7a&quot;, &quot;x86&quot;, &quot;armeabi&quot;
 }
-</code></pre>
+</code></pre><p><br></p>
+<h2 id="什么是jni"><a href="#什么是jni" class="headerlink" title="什么是jni"></a>什么是jni</h2><p><strong>现在我们已经可以进行简单的ndk开发了，但为了加深理解认识，让我在来啰嗦一下jni</strong></p>
+<p><strong> 未完待续。。。</strong><br><br></p>
+<h3 id="jni-h"><a href="#jni-h" class="headerlink" title="jni.h"></a>jni.h</h3><p><br></p>
+<h3 id="jni数据类型"><a href="#jni数据类型" class="headerlink" title="jni数据类型"></a>jni数据类型</h3><p><br></p>
+<h3 id="常用的接口"><a href="#常用的接口" class="headerlink" title="常用的接口"></a>常用的接口</h3><p><br></p>
+<h2 id="jni的优缺点"><a href="#jni的优缺点" class="headerlink" title="jni的优缺点"></a>jni的优缺点</h2><p><br></p>
+<h3 id="运行速率"><a href="#运行速率" class="headerlink" title="运行速率"></a>运行速率</h3><p><br></p>
+<h3 id="反编译（汇编）"><a href="#反编译（汇编）" class="headerlink" title="反编译（汇编）"></a>反编译（汇编）</h3><p><br></p>
+<h2 id="内存泄漏，怎么解决"><a href="#内存泄漏，怎么解决" class="headerlink" title="内存泄漏，怎么解决"></a>内存泄漏，怎么解决</h2><p><br></p>
+<h3 id="native内存模型"><a href="#native内存模型" class="headerlink" title="native内存模型"></a>native内存模型</h3><p><br></p>
+<h3 id="使用局部变量的注意点"><a href="#使用局部变量的注意点" class="headerlink" title="使用局部变量的注意点"></a>使用局部变量的注意点</h3><p><br></p>
+<h2 id="多线程，怎么使用"><a href="#多线程，怎么使用" class="headerlink" title="多线程，怎么使用"></a>多线程，怎么使用</h2><p><br></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><ul>
+<li><a href="https://www.ibm.com/Search/?q=jni&amp;v=18&amp;en=utf&amp;lang=zh&amp;cc=cn&amp;sn=dw&amp;dws=cndw&amp;hpp=20" target="_blank" rel="external">IBM</a></li>
+</ul>
+
     
 
     
@@ -1107,21 +840,13 @@ try {
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/08/14/aboutTypeErasue/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/08/09/aboutVolleyDispatcher/" id="post_nav-older" class="next-content">
+        <a href="/2017/10/23/aboutRxJava/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
