@@ -530,7 +530,7 @@ if (!gInstance || !env-&gt;NewWeakGlobalRef(gInstance)) {
     __android_log_print(ANDROID_LOG_DEBUG,&quot;fun&quot;,&quot;%s&quot;,&quot;instance is NULL&quot;);
 }
 </code></pre><p><br></p>
-<h3 id="JNIEnv，JavaVM-以及多线程"><a href="#JNIEnv，JavaVM-以及多线程" class="headerlink" title="JNIEnv，JavaVM 以及多线程"></a>JNIEnv，JavaVM 以及多线程</h3><ul>
+<h4 id="JNIEnv，JavaVM-以及多线程"><a href="#JNIEnv，JavaVM-以及多线程" class="headerlink" title="JNIEnv，JavaVM 以及多线程"></a>JNIEnv，JavaVM 以及多线程</h4><ul>
 <li>你可能已经意识到，目前为止我们都是通过JNIEnv来使用jni的，实际上JNIEnv提供了Native函数的基础环境，具体来说，它包含了一个指向函数表的指针，这也就是为什么我们需要通过JNIEnv才能调用native方法，JNIEnv也代表了具体的进程环境，因此不允许跨进程调用，最好的做法是永远不要缓存JNIEnv，你可以通过JavaVM来创造它的实例</li>
 </ul>
 <p><img src="https://s1.ax1x.com/2017/11/22/2xj2T.png" alt="" title="JNIEnv"></p>

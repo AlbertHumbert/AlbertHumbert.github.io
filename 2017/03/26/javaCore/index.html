@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            Core Java 笔记 | 
+        
+        Albert&#39;s Blog
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Albert Humbert">
+    <meta name="description" itemprop="description" content="onRestart">
+    <meta name="keywords" content="null,Java">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Albert&#39;s Blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://alberthumbert.github.io">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Core Java 笔记 | Albert&#39;s Blog">
+    <meta property="og:image" content="/img/favicon.png" />
+    <meta property="og:description" content="onRestart">
+    <meta property="og:article:tag" content="Java"> 
+
+    
+        <meta property="article:published_time" content="3月 26, 2017" />
+        <meta property="article:modified_time" content="11月 21, 2017" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="Core Java 笔记 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="onRestart">
+    <meta name="twitter:image" content="/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://alberthumbert.github.io" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://alberthumbert.github.io/2017/03/26/JavaCore/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "Core Java 笔记",
+    "url": "https://alberthumbert.github.io/2017/03/26/JavaCore/index.html",
+    "datePublished": "3月 26, 2017",
+    "dateModified": "11月 21, 2017",
+    "description": "onRestart",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    .footer-sns-facebook {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNiA3OGMtMjIuNCA1LjItNTUuOCA0MC4yLTYwLjYgNjMuNC0xLjQgNi40LTIgMTI5LjgtMS42IDM2Ny42LjYgMjk4LjYgMSAzNTguOCAzLjQgMzYzIDExIDIwLjIgMjEuNiAzMi40IDM3LjIgNDMgMTUgMTAuMiAxNy40IDExLjIgMzMgMTMgMTEuMiAxLjQgMTM2IDIgMzY1IDEuNiAzMTQtLjYgMzQ4LjYtMSAzNTUtMy44IDE1LjgtNy4yIDMzLjgtMjIgNDMuMi0zNS40IDUuMi03LjQgMTAuOC0xNi42IDEyLjYtMjAuNCAyLjgtNi40IDMuMi00MC44IDMuOC0zNTQgLjQtMjIzLS4yLTM1My40LTEuNC0zNjUtMi0xNy0yLjYtMTguNi0xMy0zNC04LjYtMTIuNi0xNC4yLTE4LjQtMjUuMi0yNS44LTcuOC01LjQtMTcuNC0xMS0yMS42LTEyLjQtNi0yLjItNzIuOC0yLjYtMzY1LjQtMi42LTE5Ni44LjItMzYxIC44LTM2NC40IDEuOHptNjU3LjYgODcuOGw0LjggMy44djU1LjJjMCA1NC42IDAgNTUuMi00LjYgNTkuNi00LjQgNC40LTYgNC42LTUwLjIgNS42bC00NS42IDEtNy4yIDUuNmMtMTAuNCA4LTE2LjggMTcuMi0xOS4yIDI3LjQtMSA1LTEuOCAyNC44LTEuOCA0NCAuMiAzOCAxLjYgNDQuNiAxMC44IDQ4IDIuOCAxLjIgMjguNCAyIDU2LjggMiA0Ny44IDAgNTIgLjIgNTYuMiAzLjhsNC44IDMuOHY1NS4yYzAgNTQuNiAwIDU1LjItNC42IDU5LjYtNC40IDQuNi01LjQgNC42LTU3IDUuMi0yOC44LjItNTQuNC44LTU2LjggMS40LTIuNC42LTUuNiAzLTYuOCA1LjQtMS44IDMuMi0yLjQgNDEuNC0yLjYgMTQzLjJsLS4yIDEzOC44LTUuNiA0LjgtNS42IDQuOEg2MDljLTUyLjQgMC01Mi44IDAtNTguMi00LjZsLTUuNC00LjYtLjItMTQwLjYtLjItMTQwLjYtNC44LTMuOGMtNC4yLTMuNC04LTMuOC0zNS42LTMuOC0zMi44IDAtNDEtMS44LTQzLjYtMTAtLjYtMi4yLTEuMi0yNS40LTEuMi01MS40IDAtNjAuOC0uMi01NyAzLjQtNjEuNiAyLjgtMy42IDYtNCAzNy44LTUgMzMtMSAzNS4yLTEuMiAzOS40LTUuNiA0LjYtNC40IDQuNi01LjIgNS44LTcxIDEuMi03My40LjItNjcuMiAxNi42LTk5LjQgOC0xNS44IDEyLjgtMjIgMjgtMzcgMTUuMi0xNS4yIDIxLjQtMTkuNiAzOC4yLTI4IDExLTUuNCAyNC0xMSAyOS0xMi4yIDYuMi0xLjggMjguNi0yLjYgNzEuMi0yLjYgNTguNi0uMiA2Mi42IDAgNjcgMy42eiIvPjwvc3ZnPg==);
+    }
+    
+    
+    .footer-sns-twitter {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNiA3OGMtMjIuNCA1LjItNTUuOCA0MC4yLTYwLjYgNjMuNC0xLjQgNi40LTIgMTI5LjgtMS42IDM2Ny42LjYgMjk4LjYgMSAzNTguOCAzLjQgMzYzIDExIDIwLjIgMjEuNiAzMi40IDM3LjIgNDMgMTUgMTAuMiAxNy40IDExLjIgMzMgMTMgMTEuMiAxLjQgMTM2IDIgMzY1IDEuNiAzMTQtLjYgMzQ4LjYtMSAzNTUtMy44IDE1LjgtNy4yIDMzLjgtMjIgNDMuMi0zNS40IDUuMi03LjQgMTAuOC0xNi42IDEyLjYtMjAuNCAyLjgtNi40IDMuMi00MC44IDMuOC0zNTQgLjQtMjIzLS4yLTM1My40LTEuNC0zNjUtMi0xNy0yLjYtMTguNi0xMy0zNC04LjYtMTIuNi0xNC4yLTE4LjQtMjUuMi0yNS44LTcuOC01LjQtMTcuNC0xMS0yMS42LTEyLjQtNi0yLjItNzIuOC0yLjYtMzY1LjQtMi42LTE5Ni44LjItMzYxIC44LTM2NC40IDEuOHptNTMyLjggMjA1YzEwIDQgMjMgMTAuOCAyOC44IDE1LjIgMTIuNiA5LjIgMTYuNiAxMC42IDI5LjQgOS40IDYuNi0uNiAxMy0zLjIgMjAuNC04LjIgMTEuMi03LjYgMTkuNC05LjIgMjMuNi01IDMuNiAzLjYgMi44IDktMi44IDE4LjYtNy4yIDEyLjQtNiAxOC44IDQuMiAyNC4yIDQuNCAyLjIgOC4yIDUuNiA4LjYgNy40IDEgNC44LTEyLjYgMjQuMi0yMiAzMS44LTExLjggOS4yLTE3LjIgMjIuNi0xOS42IDQ3LjgtNC44IDUwLjQtNy44IDY2LjYtMTYuNCA4NS40LTMgNy03IDE3LjgtOC44IDI0LTEuOCA2LjQtNSAxNC42LTcuNCAxOC40LTIuMiAzLjgtNy40IDEzLTExLjQgMjAuNC0xNy4yIDMwLjgtNDMuNCA2MS40LTcxLjQgODMuOC0yNS42IDIwLjQtNDYgMzMuMi02NC4yIDQwLjItOC40IDMuMi0xOCA3LjYtMjEuNCA5LjYtNy40IDQuNi0yMi40IDguNi01Ny4yIDE1LTYyLjIgMTEuNi03OS4yIDExLjQtMTM1LjYtMS0zMi40LTctMzguNi05LTUyLTE2LjgtMjEuNC0xMi42LTI0LjItMTQuOC0yNC4yLTE5LjQgMC02LjIgMTAuMi05LjIgMzUtMTAuNCAyMi40LTEgMjguNi0yLjYgNTctMTQuMiAyMy44LTkuOCAyOS40LTEyLjggMzAuNC0xNi44IDIuMi04LjItMy0xMy4yLTI2LjgtMjUuNC0yNS44LTEzLjItMzIuMi0xOC40LTQzLjgtMzUuOC05LTEzLjYtMTAtMjEuMi0zLjYtMzMuNiA1LjQtMTAuOCAzLjYtMTUtMTEuOC0yNS40LTktNi0xNC0xMS42LTIwLjgtMjIuNi0yMy40LTM3LjgtMjUtNTAuOC03LjItNTkuOCA0LjgtMi40IDkuNC01LjQgMTAuMi02LjYgMi44LTQuMi0uNC0xNS42LTguNC0yOS0xMS42LTE5LjYtMTMuMi0yNS44LTEzLjItNTUuMiAwLTI4LjggMi42LTM3LjggMTItNDAuMiA5LTIuMiAxNC44IDEgMzUuNiAyMC4yIDI0LjggMjIuOCA0My42IDM2LjYgNjIuOCA0NS44IDggMy44IDE3LjggOS4yIDIyIDEyIDQuMiAyLjggMTQuOCA3IDIzLjQgOS4yIDguNiAyLjIgMjQuMiA2LjggMzQuOCAxMC4yIDEzLjQgNC40IDIzLjYgNi40IDMzIDYuNiAxMi44LjIgMTQuMi0uMiAxOC42LTUuNCA0LTQuOCA0LjgtNy44IDQuOC0xOS4yIDAtMTQuNCA1LjYtMzkuNiAxMS4yLTUwLjYgNC4yLTguNCAyOS4yLTM0LjIgMzkuOC00MS40IDcuOC01LjQgMzUuNi0xNiA1Mi0yMCAxNC4yLTMuNiAzMi42LTEuMiA1Mi40IDYuOHoiLz48L3N2Zz4=);
+    }
+    
+    
+    .footer-sns-gplus {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNiA3OGMtMjIuNCA1LjItNTUuOCA0MC4yLTYwLjYgNjMuNC0xLjQgNi40LTIgMTI5LjgtMS42IDM2Ny42LjYgMjk4LjYgMSAzNTguOCAzLjQgMzYzIDExIDIwLjIgMjEuNiAzMi40IDM3LjIgNDMgMTUgMTAuMiAxNy40IDExLjIgMzMgMTMgMTEuMiAxLjQgMTM2IDIgMzY1IDEuNiAzMTQtLjYgMzQ4LjYtMSAzNTUtMy44IDE1LjgtNy4yIDMzLjgtMjIgNDMuMi0zNS40IDUuMi03LjQgMTAuOC0xNi42IDEyLjYtMjAuNCAyLjgtNi40IDMuMi00MC44IDMuOC0zNTQgLjQtMjIzLS4yLTM1My40LTEuNC0zNjUtMi0xNy0yLjYtMTguNi0xMy0zNC04LjYtMTIuNi0xNC4yLTE4LjQtMjUuMi0yNS44LTcuOC01LjQtMTcuNC0xMS0yMS42LTEyLjQtNi0yLjItNzIuOC0yLjYtMzY1LjQtMi42LTE5Ni44LjItMzYxIC44LTM2NC40IDEuOHpNNDMwIDI5NS40YzQwLjYgMTUuNCA1Ni42IDIzLjggNzIuNiAzOC40IDYuOCA2LjIgNy4yIDE1LjIgMSAyMy40LTYuMiA4LTMzLjYgMzMuOC0zOSAzNi42LTUuNiAyLjgtMTcuNiAyLjgtMjMuMi0uMi0yLjQtMS4yLTguMi01LjItMTMtOC44LTExLjItOC42LTI0LjYtMTEuMi01NS4yLTExLjItMjcuNCAwLTQwLjYgMi42LTUyLjIgMTAuNC00LjQgMi44LTEyLjIgNy42LTE3LjIgMTAuNi0yMyAxMy4yLTUxLjQgNTUtNTUuOCA4Mi40LTIuNiAxNS42LTIuNCAzNC44LjIgNTEgMi44IDE3LjQgMTkuOCA0OC44IDM1LjIgNjUuMiAxNiAxNi42IDQ1IDMzLjYgNjIuOCAzNi42IDI2LjggNC40IDY1LjggMS42IDc5LjQtNS44IDIwLjYtMTEuNCAzMS0xOSA0MS0zMC40IDE4LjgtMjEuNiAyMy40LTM0LjIgMTUuNi00My44LTMuOC00LjgtNC40LTQuOC01MS01LjgtNjAuOC0xLjItNTYuMiAyLjItNTYuMi00My4yIDAtMzIuNC4yLTMzLjIgNC44LTM3IDQuNC0zLjYgOS0zLjggOTItMy44IDc5IDAgODcuOC40IDk0LjIgMy42IDExLjIgNS42IDEzIDExLjQgMTIuOCA0My40IDAgMjUuNC0uOCAzMC44LTcuNiA1OC00IDE2LjYtOS44IDM0LTEyLjYgMzktMi44IDUtOC4yIDE0LjItMTEuNiAyMC42LTguNCAxNS40LTI3LjIgMzYuOC00MC44IDQ2LjYtNS44IDQuNC0xMy44IDEwLjItMTcuNiAxMy4yLTMuOCAzLTExIDctMTYuMiA4LjgtNS4yIDEuOC0xNi4yIDYuNC0yNC40IDEwLTIyLjQgOS42LTM0LjggMTEuNi03MyAxMS42LTM3LjYuMi00Ny0xLjQtNzEtMTItOC4yLTMuNi0xNy42LTcuMi0yMC44LTgtMTUuOC0zLjgtNjctNDUuMi03Ny44LTYyLjgtMi4yLTMuOC03LjYtMTEuNi0xMS44LTE3LjItNC4yLTUuNC05LTE0LTEwLjYtMTktMS44LTQuOC02LjItMTYtMTAtMjQuOC0zLjYtOC44LTcuOC0yMi4yLTkuMi0yOS42LTMuMi0xOC44LTEuNC03OS40IDIuOC05MS40IDEzLjgtNDAuNiAzNS42LTc4IDU4LjgtMTAwLjIgMTQtMTMuNiA0Ny4yLTM2LjQgNTgtMzkuOCA0LjItMS40IDEzLjQtNS4yIDIwLjYtOC40IDIyLTEwIDMyLjgtMTEuNiA3Ni0xMSAzMy44LjYgNDAuNCAxLjIgNTAgNC44em0zNDAuOCA4MC44YzggMy42IDkuNiAxMS4yIDkuMiAzOS4yLS42IDM0LjQtLjYgMzQgNSAzOS42IDQuOCA1IDUuNCA1IDM3LjYgNSA0My40IDAgNDQuNC44IDQzLjIgMzYuMi0uOCAxNy0xLjIgMTguNC02LjQgMjMtNS40IDQuNi02LjYgNC44LTM3LjYgNC44LTMxLjIgMC0zMiAuMi0zNi44IDUtNS42IDUuNC01LjYgNC40LTUgNDEuMi40IDI2LjQuMiAyNy40LTQuNiAzMy00LjggNS42LTYgNS44LTI0LjQgNi40LTIwLjguOC0yOS42LTEuNC0zMy40LTguNC0xLjQtMi42LTItMTUuNi0xLjgtMzUuNi40LTMxLjIuNC0zMS42LTQuNi0zNi42cy01LjYtNS0zNi01Yy0xOC44IDAtMzMtLjgtMzYtMi4yLTcuNi0zLjYtOS42LTExLjItOC44LTMzLjguOC0yOC4yLjQtMjggNDEtMjggNDUuNCAwIDQ1LjQgMCA0NC42LTQyLjYtLjYtMzMtLjYtMzMgNS0zOC40IDQuNC00LjYgNi4yLTUgMjQuOC01IDExIDAgMjIuMiAxIDI1IDIuMnoiLz48L3N2Zz4=);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Core-Java-卷-1"><span class="post-toc-number">1.</span> <span class="post-toc-text">Core Java 卷 1</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第四章：类与对象"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">第四章：类与对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构造器"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">构造器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#访问器"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">访问器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#域"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">域</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#包"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类设计技巧"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">类设计技巧</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第五章：继承"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">第五章：继承</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#is-a-关系"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">is-a 关系</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#子类"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">子类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#强制类型转换"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">强制类型转换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#抽象类"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">抽象类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#受保护访问"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">受保护访问</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Object"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">Object</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第六章-接口与内部类"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">第六章 接口与内部类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#接口-interface"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">接口 interface</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内部类-inner-class"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">内部类 inner class</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第七章-异常、断言和日志"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">第七章 异常、断言和日志</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#异常"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">异常</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#异常语块"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">异常语块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用异常机制的技巧"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">使用异常机制的技巧</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用断言-assert"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">使用断言 assert</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#记录日志"><span class="post-toc-number">1.4.5.</span> <span class="post-toc-text">记录日志</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第八章-泛型程序设计"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">第八章 泛型程序设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义简单泛型类"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">定义简单泛型类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#泛型方法"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">泛型方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类型变量的限定"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">类型变量的限定</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#集合"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java集合框架"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">Java集合框架</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#链表-LinkedList"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">链表 LinkedList</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数组列表-ArrayList"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">数组列表 ArrayList</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#散列集-hash-table"><span class="post-toc-number">1.6.4.</span> <span class="post-toc-text">散列集 hash table</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#树集-TreeSet"><span class="post-toc-number">1.6.5.</span> <span class="post-toc-text">树集 TreeSet</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#队列-Quque"><span class="post-toc-number">1.6.6.</span> <span class="post-toc-text">队列 Quque</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#映射-map"><span class="post-toc-number">1.6.7.</span> <span class="post-toc-text">映射 map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#算法"><span class="post-toc-number">1.6.8.</span> <span class="post-toc-text">算法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第十-十二章-图形程序设计"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">第十 ~ 十二章 图形程序设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#框架-JFrame"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text">框架 JFrame</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#绘制组件"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text">绘制组件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件处理"><span class="post-toc-number">1.7.3.</span> <span class="post-toc-text">事件处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#适配器"><span class="post-toc-number">1.7.4.</span> <span class="post-toc-text">适配器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#动作和鼠标事件"><span class="post-toc-number">1.7.5.</span> <span class="post-toc-text">动作和鼠标事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#容器"><span class="post-toc-number">1.7.6.</span> <span class="post-toc-text">容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文本域-JTextField"><span class="post-toc-number">1.7.7.</span> <span class="post-toc-text">文本域 JTextField</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#标签-JLabel"><span class="post-toc-number">1.7.8.</span> <span class="post-toc-text">标签 JLabel</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文本区-JTextArea"><span class="post-toc-number">1.7.9.</span> <span class="post-toc-text">文本区 JTextArea</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#滚动窗格-JScrollPane"><span class="post-toc-number">1.7.10.</span> <span class="post-toc-text">滚动窗格 JScrollPane</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#复选框-JCheckBox"><span class="post-toc-number">1.7.11.</span> <span class="post-toc-text">复选框 JCheckBox</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单选钮-JRadioButton"><span class="post-toc-number">1.7.12.</span> <span class="post-toc-text">单选钮 JRadioButton</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#边框-Border"><span class="post-toc-number">1.7.13.</span> <span class="post-toc-text">边框 Border</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表格-JTable"><span class="post-toc-number">1.7.14.</span> <span class="post-toc-text">表格 JTable</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#十三章-部署Java应用程序"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">十三章 部署Java应用程序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#十四章-并发"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">十四章 并发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程"><span class="post-toc-number">1.9.1.</span> <span class="post-toc-text">线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程状态"><span class="post-toc-number">1.9.2.</span> <span class="post-toc-text">线程状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程属性"><span class="post-toc-number">1.9.3.</span> <span class="post-toc-text">线程属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#未捕获异常处理器"><span class="post-toc-number">1.9.4.</span> <span class="post-toc-text">未捕获异常处理器</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Core-Java-卷-2"><span class="post-toc-number">2.</span> <span class="post-toc-text">Core Java 卷 2</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第一章-流与文件"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">第一章 流与文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#流-Stream"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">流 Stream</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#读写二进制数据"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">读写二进制数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文本输入与输出"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">文本输入与输出</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文本格式存储对象"><span class="post-toc-number">2.1.4.</span> <span class="post-toc-text">文本格式存储对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象流与序列化"><span class="post-toc-number">2.1.5.</span> <span class="post-toc-text">对象流与序列化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#序列化存储对象"><span class="post-toc-number">2.1.6.</span> <span class="post-toc-text">序列化存储对象</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可扩展标记语言-XML"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">可扩展标记语言 XML</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XML文档简介"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">XML文档简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解析XML文档"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">解析XML文档</span></a></li></ol></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Core Java 笔记
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>3月 26, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Java/">Java</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Core Java 笔记&url=https://alberthumbert.github.io/2017/03/26/JavaCore/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Core Java 笔记&url=https://alberthumbert.github.io/2017/03/26/JavaCore/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/03/26/JavaCore/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/03/26/JavaCore/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/03/26/JavaCore/index.html&title=Core Java 笔记" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Core Java 笔记&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/03/26/JavaCore/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/03/26/JavaCore/index.html&text=Core Java 笔记" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>onRestart</p>
+<a id="more"></a>
+<h1 id="Core-Java-卷-1"><a href="#Core-Java-卷-1" class="headerlink" title="Core Java 卷 1"></a>Core Java 卷 1</h1><p><strong>（待续…）</strong></p>
+<h2 id="第四章：类与对象"><a href="#第四章：类与对象" class="headerlink" title="第四章：类与对象"></a>第四章：类与对象</h2><h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><ul>
+<li>构造器与类同名</li>
+<li>每个类可能有一个以上的构造器</li>
+<li>构造器可以有0或多个参数</li>
+<li><p>构造器没有返回值</p>
+</li>
+<li><p>构造器总是伴随着new操作一起调用</p>
+</li>
+<li>不要在构造器中定义与实例域重名的局部变量</li>
+<li>仅当没有编写构造器时，系统才会提供一个无参构造器将实例域设置为默认</li>
+<li>构造器的第一个语句若形如this（…），将调用同一个类的另一个构造器，可以重用代码</li>
+</ul>
+<h3 id="访问器"><a href="#访问器" class="headerlink" title="访问器"></a>访问器</h3><pre><code>public String getName()
+{
+    return name;
+}
+</code></pre><ul>
+<li>访问器只返回实例域值</li>
+<li>一个方法可以访问所属类的所有对象的私有数据</li>
+<li>注意不要编写返回引用可变对象的访问器方法</li>
+</ul>
+<h3 id="域"><a href="#域" class="headerlink" title="域"></a>域</h3><ul>
+<li>在实现一个类时，应该将所有的数据域都设为私有</li>
+<li>获得和设置实例域的值，应提供私有的数据域，公有的访问器，公有的域更改器</li>
+<li>每个对象的实例域都有一份自己的拷贝，每个类只有一个static静态域，静态域属于类而非对象</li>
+<li>public static final double PI ， 用这种方法定义一个常量</li>
+<li>初始化块</li>
+</ul>
+<pre><code>class Employee
+{
+private static int nextId；
+private int id；
+private String name；
+{
+id = nextId;
+nextId++;
+}
+}
+</code></pre><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li>java总是按值传递，方法得到的是参数的拷贝</li>
+<li>方法不能修改一个基本数据类型的参数，但可以修改对象参数的状态</li>
+<li>方法不能让对象参数引用一个新的对象</li>
+<li>java允许重载任何方法，但返回类型不是方法签名的一部分，不能单独修改</li>
+<li>参数变量会把同名的实例域屏蔽，用this.* 可以解除屏蔽<br>this.name=name</li>
+<li>某个资源需要在使用完后立刻被关闭，应该使用close完成清理操作</li>
+</ul>
+<h3 id="包"><a href="#包" class="headerlink" title="包"></a>包</h3><ul>
+<li>使用包的目的：组织自己的代码，方便与别人的代码库分开管理；确保类名唯一性</li>
+<li>使用import或者类全名来引用各个包中的类 ,使用package将一个类放入包中</li>
+<li>为实现类名的唯一性，通常将因特网域名以逆序的形式作为包名，如com.abc.efg</li>
+<li>从编译器的角度来看，嵌套的包之间没有任何关系，例如java.util和java.util.jar</li>
+<li><p>如果类名冲突</p>
+<pre><code>import java.util.*;
+import java.sql.*;
+import java.util.Date;//指明选定的类
+</code></pre></li>
+<li><p>引入静态方法和静态域<br>import static java.lang,System.*;</p>
+</li>
+</ul>
+<h3 id="类设计技巧"><a href="#类设计技巧" class="headerlink" title="类设计技巧"></a>类设计技巧</h3><ul>
+<li>一定要保证数据私有</li>
+<li>一定要对数据初始化</li>
+<li>不要在类中使用过多的基本类型，用其他类去代替他们</li>
+<li>将指责过多的类分解</li>
+<li>类名和方法名要能够体现它们的职责</li>
+<li>优先使用不可变的类</li>
+</ul>
+<h2 id="第五章：继承"><a href="#第五章：继承" class="headerlink" title="第五章：继承"></a>第五章：继承</h2><h3 id="is-a-关系"><a href="#is-a-关系" class="headerlink" title="is-a 关系"></a>is-a 关系</h3><ul>
+<li>is-a 关系是继承的一个明显特征：它表明子类的每一个对象也是超类</li>
+<li>is-a 规则的另一种表述法是置换法则：它表明程序中出现超类对象的任何地方都可以用子类对象置换</li>
+</ul>
+<h3 id="子类"><a href="#子类" class="headerlink" title="子类"></a>子类</h3><pre><code>public class Manager extends Employee
+{
+    添加方法和域
+}
+</code></pre><ul>
+<li><p>子类的方法必须通过公有的接口（访问器）才能访问父类定义的私有域</p>
+<pre><code>super.getSalary()
+</code></pre></li>
+<li><p>子类构造器：子类必须利用父类的构造器对父类的私有域进行初始化，如果没有显式的调用超类的构造器，则自动调用超类的默认无参构造器，若该构造器不存在则报错</p>
+<pre><code>public Manager(String name,double salary,int  year,int mouth,int day)
+{ 
+  super(name l,salary,year,month,day);
+ bonus=0;
+ }
+</code></pre></li>
+<li>子类引用类型不能指向父类，  超类数组引用可以被赋予子类数组</li>
+<li>用final阻止某类被继承，或某方法被覆盖</li>
+</ul>
+<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><ul>
+<li>使用类型转换的唯一原因：使用对象的全部功能</li>
+<li>在进行类型转换时先查看是否能成功地转换，否则可能产生编译错误<pre><code>  if(staff[1] instanceof Manager)
+{
+    boss = (Manager)staff[1];
+}
+</code></pre></li>
+<li>只能在继承层次内进行类型转换</li>
+<li>一般情况下应少用类型转换</li>
+</ul>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><ul>
+<li>为了提高程序的清晰度，包含一个或多个抽象方法的类本身必须被声明为抽象</li>
+<li>抽象类可以有具体的域和方法</li>
+<li><p>抽象类不能被实例化，但可以有构造器给子类调用</p>
+<pre><code>public abstract class Person
+{
+        private String name;
+        public Person(String name)
+        {
+        this.name =name;
+        }
+
+        public abstract String getDescription();
+
+        public String getName()
+        {
+            return name;
+        }
+}
+</code></pre></li>
+<li><p>扩展抽象类时定义部分或者不定义抽象方法，就必须把子类标记为抽象;定义全部抽象方法，则子类不再抽象</p>
+</li>
+<li>抽象类的非抽象方法可用不重写</li>
+<li>可以定义一个抽象类的引用对象，但它只能引用非抽象子类的对象（多态）</li>
+</ul>
+<h3 id="受保护访问"><a href="#受保护访问" class="headerlink" title="受保护访问"></a>受保护访问</h3><ul>
+<li>protected让类对本包和所有子类可见</li>
+<li>prtected允许方法或域被子类访问</li>
+</ul>
+<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><ul>
+<li>Object类是所有类的超类，可以利用Object类的引用对象引用任何类的实例</li>
+<li>java中只有基本类型不是对象</li>
+<li>Oject类中，equals方法用于检测引用的相等性，然而许多类重写了equals方法，使其用来检测状态的相等性</li>
+<li>如果在子类中重新定义equals，一般要包含调用super.equals（other）</li>
+<li>hashCode方法，是由对象导出的一个整形值，Objec类的hashCode方法导出对象的存储地址，可以调用hash方法重写hashCode使根据内容导出</li>
+<li>重写equals方法就要重写hashCod方法</li>
+<li>toString方法，用于返回对象值的字符串</li>
+</ul>
+<h2 id="第六章-接口与内部类"><a href="#第六章-接口与内部类" class="headerlink" title="第六章 接口与内部类"></a>第六章 接口与内部类</h2><h3 id="接口-interface"><a href="#接口-interface" class="headerlink" title="接口 interface"></a>接口 interface</h3><ul>
+<li>接口不是类，而是对类的一组需求描述，不能使用new来实例化</li>
+<li>接口中的所有方法自动地属于public，所有域自动属于public static final，因此接口中的方法不必特地声明这些关键字</li>
+<li>提供实例域和方法实现的任务应该由实现接口的那个类来完成</li>
+<li><p>实现一个接口要在声明时使用关键字implement以及定义接口中的所有方法，一个类可以声明多个接口</p>
+<pre><code>class Employe implements Cloneable,Comparable
+</code></pre></li>
+<li><p>可以用instanceof检查对象是否实现了某个特定的接口</p>
+<pre><code>if(anObject instanceof Comparable)
+//使用sort方法的对象必须实现这个接口，实现这个接口必须实现compareTo方法
+</code></pre></li>
+<li><p>与建立类的继承关系一样，接口也可以被扩展</p>
+<pre><code>public interface Power extends Moveable
+{
+    double milesPerGallon;
+    double SPEED_LIMIT=95;
+}
+</code></pre></li>
+<li>有些接口只定义了常量，实现它们的类自动继承这些常量，但这种用法似乎偏离了接口设计的初衷，最好不要使用</li>
+</ul>
+<p><strong>第十版中新增的lambda表达式、静态方法、默认方法和对象克隆暂时略过</strong></p>
+<h3 id="内部类-inner-class"><a href="#内部类-inner-class" class="headerlink" title="内部类 inner class"></a>内部类 inner class</h3><ul>
+<li>内部类是一个定义在另一个类中的类</li>
+<li>内部类，可以访问外部类的所有数据；可以对同一个包的其他类隐藏；可以用匿名内部类减小代码量</li>
+<li>内部类中所有的静态域都必须是final</li>
+<li>局部内部类，声明在方法中，可以访问外部类的域和局部变量，但局部变量必须是final</li>
+<li><p>匿名内部类，在创造实例的时候定义，可以临时实现一个接口，也可以扩展一个类，这样的新类自然没有类名，也就没有构造器，但参数会传给父类的构造器</p>
+<pre><code>new SuperType(construction parameter)
+{
+    inner class methods and data
+    // SuperType可以是接口，也可以是类
+
+}
+</code></pre></li>
+<li>静态内部类，内部类不需要引用外部对象时将其声明为static，静态内部类可以有静态域和方法</li>
+<li>声明在接口中的内部类自动称为static和public</li>
+</ul>
+<h2 id="第七章-异常、断言和日志"><a href="#第七章-异常、断言和日志" class="headerlink" title="第七章 异常、断言和日志"></a>第七章 异常、断言和日志</h2><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><ul>
+<li>某个方法不能够采取正常的途径完成任务，就可以通过抛出一个封装了错误信息的对象退出方法，此时方法不会返回任何值</li>
+<li>异常对象都是派生于throwable类的一个实例</li>
+<li>运行时异常，RumtimeException，包括：错误的类型转换，数组访问越界，访问null指针<blockquote>
+<p>“如果出现RumtimeException，那么就一定是你的问题。”</p>
+</blockquote>
+</li>
+<li>输入输出异常，IOException，包括：试图在文件尾部后面读取数据，试图打开一个不存在的文件，试图根据给定的字符串查找不存在的class对象等等</li>
+<li>自己编写方法时不必声明所有抛出的异常，但必须声明所有可能抛出的受查异常，如果没有声明所有的受查异常，编译器将报错</li>
+<li>如果一个方法声明将会抛出一个特定类型的异常，那么结果它可能抛出这个类型或其子类的异常</li>
+<li><p>抛出已存在异常类的步骤：找到一个合适的异常类，创造这个类的一个对象，将对象抛出         </p>
+<pre><code>String readData(Scanner in)throws EOFException
+{
+...
+while(...)
+{
+    if(!in.hasNext())
+    {
+    if(n&lt;len)
+    throw new EOFException();
+    }
+}
+}
+</code></pre></li>
+<li><p>创建异常类：定义一个派生于Exception或其子类的类，该类应该包含两个构造器：一个为默认构造器，另一个为带有详细信息的构造器，超类Throwable的toString方法会打印出这些详细信息，e.getMessage可以得到错误信息</p>
+<pre><code>Class FileFormatException extends IOException
+{
+    public FileFormatException(){}
+    public FileFormatException(String gripe)
+    {
+        super(gripe);
+    }
+}
+</code></pre></li>
+</ul>
+<h3 id="异常语块"><a href="#异常语块" class="headerlink" title="异常语块"></a>异常语块</h3><ul>
+<li><p>使用try/catch语块，如果try中的任何代码抛出了catch说明的异常类，那么try中剩余的语句将被跳过，执行catch中的处理器代码</p>
+<pre><code>try
+{
+    code
+    more code
+    more code
+}
+catch(ExceptionType e)
+{
+    handler for this type
+}
+catch(ExceptionType2 e)
+{
+    handler for this type
+}
+catch(ExceptionType3 e)
+{
+    handler for this type
+}
+</code></pre></li>
+</ul>
+<ul>
+<li>最好的办法是方法只抛出异常，然后什么也不做，由调用者去处理，而不是尝试在方法中解决问题，唯一的例外是如果覆盖了超类的一个没有异常的方法，就必须捕获每一个异常</li>
+<li><p>解决过程相同时可以捕获多个异常，但这些异常不能存在子类关系</p>
+<pre><code>catch(FileNotFoundException|EOFException e)
+</code></pre></li>
+<li><p>包装异常，catch字句可以再次抛出一个异常，当要抛出更高级的异常时建议使用包装的技巧</p>
+<pre><code>try
+{
+    access the database
+}
+catch(SQLException)
+{
+    Throwable se = new ServletException(&quot;database error&quot;);
+    se.initCause(e);
+    throw se; 
+}
+
+...
+Throwable e=se.getCause();
+...
+</code></pre></li>
+<li><p>finally 字句，不管是否有异常被捕获，finally字句中的代码都会被执行，try语句可以只有finally字句而没有catch字句</p>
+<pre><code>InputStream in = new FileInputStream(...);
+try
+{
+    code that might throw exception
+}
+catch(IOException)
+{
+    show error message
+}
+finally
+{
+    in.close
+}
+</code></pre></li>
+<li><p>当利用return语句在try中退出时，finally字句中的内容将被执行，如果finally语句中含有return，返回值将被后者覆盖</p>
+</li>
+<li><p>带资源的try语句，假设资源属于一个实现了AutoCloseable接口的类，try块退出时会自动调用声明了异常的close方法，因此用于关闭资源的finally语句可以省略，另外可以指定多个资源</p>
+<pre><code>try(Resoure res = ...)
+{
+        work with res
+}
+</code></pre></li>
+</ul>
+<hr>
+<pre><code>try(Scanner in = new Scanner(new FileInputStream(&quot;/usr/share/dict/words&quot;),&quot;UTF-8&quot;);
+PrintWriter out = new PrintWriter(&quot;out.txt&quot;))
+{
+    while(in.hasNext())
+        out.println(in.next().toUpperCase());
+}
+</code></pre><ul>
+<li>堆栈轨迹 <strong>(待续…)</strong></li>
+</ul>
+<h3 id="使用异常机制的技巧"><a href="#使用异常机制的技巧" class="headerlink" title="使用异常机制的技巧"></a>使用异常机制的技巧</h3><ul>
+<li>异常处理不能代替简单的if测试，这样会会花费更多运行时间</li>
+<li>不要过分细化异常，与其反复使用try-catch，不如让一个try语块捕获多个异常</li>
+<li>利用异常的结构层次：不要只抛出RuntimeException异常，应该寻找更加适当的子类或者创建自己的异常类；不要只捕获Thowable异常，否则代码会更难读、更难维护</li>
+<li>不要压制异常</li>
+<li>有时传递异常比捕获异常更有必要</li>
+</ul>
+<h3 id="使用断言-assert"><a href="#使用断言-assert" class="headerlink" title="使用断言 assert"></a>使用断言 assert</h3><ul>
+<li>开启与禁用断言，默认关闭，在运行程序时使用-ea选项启用</li>
+<li>断言机制允许在测试期间向代码插入一段检查语句，当代码发布时，这些插入的检查语句会被自动移走</li>
+<li>断言失败是致命的，不可恢复的错误；断言只用于开发和检查阶段<blockquote>
+<p>“在靠近海岸时穿上救生衣，但在海中央时就把救生衣抛掉吧”</p>
+</blockquote>
+</li>
+<li>断言的两种形式：assert 条件；  assert 条件：表达式；</li>
+<li>表达式的值可以传入AssertionError的构造器转换成消息字符串显示出来</li>
+</ul>
+<h3 id="记录日志"><a href="#记录日志" class="headerlink" title="记录日志"></a>记录日志</h3><p><strong>Java自带的log工具已不再流行，取而代之的应该是用log4j，暂时先只学习自带log的用法</strong><br>*</p>
+<pre><code>...     
+log = Logger.getLogger(&quot;aLog&quot;);
+//新建日志对象
+log.setLevel(Level.INFO);
+try{
+    ConsoleHandler consoleHandler = new ConsoleHandler();
+    consoleHandler.setLevel(Level.ALL);
+    log.addHandler(consoleHandler);
+    //ConsoleHandler 向控制台发送日志消息
+    FileHandler fileHandler = new FileHandler(&quot;/Users/alberthumbert/Desktop/log.text&quot;);
+    log.addHandler(fileHandler);
+    //FileHandler 将日志消息发送到指定文件中
+    }catch(IOException e){}
+
+log.info(&quot;test&quot;);
+//发送消息
+</code></pre><h2 id="第八章-泛型程序设计"><a href="#第八章-泛型程序设计" class="headerlink" title="第八章 泛型程序设计"></a>第八章 泛型程序设计</h2><p><small><br>在泛型之前，如ArrayList的类只维护一个object类的数组，当获取一个值时必须进行强制类型转换，加入对象时也没有错误检查，而后泛型提供了很好的解决方案：参数化类型<br></small></p>
+<blockquote>
+<p>“泛型的魅力在于，使程序具有更好的可读性和安全性”</p>
+</blockquote>
+<h3 id="定义简单泛型类"><a href="#定义简单泛型类" class="headerlink" title="定义简单泛型类"></a>定义简单泛型类</h3><ul>
+<li><p>一个泛型类就是具有一个或多个类型变量的类</p>
+<pre><code>public class Pair&lt;T&gt;
+{   //或者public class Pair&lt;T,U&gt;
+
+    private T first;
+    private T second;
+
+    public Pair()
+    { first = null ; second = nulll;    }
+    public Pair( T first , T second )
+    {   this.first = first; this.second =second; }
+
+    public T getFirst(){ return first; }
+    public T getSecond(){ return second; }
+
+    public void setFirst( T newValue){ first = newValue ; }
+    public void setSecond( T newValue){ Second = newValue ; }
+</code></pre></li>
+</ul>
+<pre><code>}
+</code></pre><ul>
+<li>类型变量使用大写形式，且比较短，java库中变量E表示集合的元素类型，K和V分别表示表的关键字与值的类型。T、U、S等表示“任意类型”，用具体的类型替换类型变量就可以实例化泛型类型，如Pair<string></string></li>
+</ul>
+<h3 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h3><ul>
+<li><p>泛型方法可以定义在普通类中也可以定义在泛型类中，类型变量放在修饰符的后面，返回类型的前面</p>
+<pre><code>class ArrayAlg
+{
+    public static &lt;T&gt; T getMiddle(T ... a)
+    //省略号表示可变参数，用数组包裹
+    {
+        return a[a.length/2];
+    }
+}
+
+...
+String middle = ArrayAlg.&lt;String&gt;getMiddle(&quot;John&quot;,&quot;Q&quot;,&quot;Public&quot;);
+...
+</code></pre></li>
+<li><p>在大多数情况下泛型方法可以省去泛型变量，参数给了编译器足够的信息进行判断</p>
+</li>
+</ul>
+<h3 id="类型变量的限定"><a href="#类型变量的限定" class="headerlink" title="类型变量的限定"></a>类型变量的限定</h3><ul>
+<li><p>有时要确信所属的类具有特定的IS-A关系，可以使用限定变量类型</p>
+<pre><code>public static &lt; T extends Comparable &gt; T min( T[] a)
+{
+    code for someting...
+}
+</code></pre></li>
+<li>类型变量和绑定类型可以是类也可以是接口，都使用extends关键字</li>
+<li><p>一个类型变量或通配符可以有多个限定，如果用作为限定，它一定是列表中的第一个</p>
+<pre><code>T extends Comparable &amp; Serializable
+</code></pre><p>* </p>
+</li>
+</ul>
+<p><strong>(待续…)</strong></p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h3><ul>
+<li>以队列为例，每一个队列的实现都可以通过一个实现了Queue接口的类来表示</li>
+<li>可以直接调用实现了集合接口的类，如ArrayDeque、LinkedList等</li>
+<li><p>集合的基本接口是Collection和Map，Collection接口有两个基本方法，add方法用于添加元素，Iterator(迭代器)方法用于返回一个实现了Iterator接口的对象</p>
+<pre><code>public interface Collection&lt;E&gt;
+{   
+        boolean add(E element);                                                                     Iterator&lt;E&gt; iterator();
+
+}
+</code></pre></li>
+<li><p>迭代器，Iterator接口含有next方法和hasNext方法。想要查看集合中的每一个元素，就请求一个迭代器，在hasNext返回true时反复调用next方法，编译器将for each循环翻译为带有迭代器的循环，它可以与任何实现了Iterable接口的对象一起工作。Collection接口就扩展了Iterable接口</p>
+</li>
+</ul>
+<h3 id="链表-LinkedList"><a href="#链表-LinkedList" class="headerlink" title="链表 LinkedList"></a>链表 LinkedList</h3><ul>
+<li><p>在Java中所有链表其实都是双向链表，基本操作：          </p>
+<pre><code>LinkedList&lt;String&gt; staff = new LinkedList&lt;String&gt;();
+staff.add(&quot;amy&quot;);
+staff.add(&quot;amy&quot;);
+staff.add(&quot;amy&quot;);
+staff.add(&quot;bob&quot;);
+staff.add(&quot;carl&quot;);
+//add方法把对象添加到尾部
+
+Iterator&lt;String&gt; iter = staff.iterator();
+//使用泛型避免强制转换
+String first =  iter.next();
+iter.remove();
+//迭代器通常用于遍历容器
+staff.remove(0);
+
+String second = staff.get(1);
+System.out.println(second);
+
+for(String e:staff)
+{
+    System.out.println(e);
+
+}
+</code></pre></li>
+<li>只有对自然有序的集合使用迭代器添加元素才有实际意义</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>ListIterator的迭代器的add和set都是在迭代器所在位置的前一个位置进行操作（实际上迭代器的位置应该理解为在两个元素之间），并且set会取代链表元素</li>
+<li>不要用复数的迭代器同时遍历和结构性修改链表，那样会抛出异常，注意set不被视为结构性修改</li>
+<li><p>链表不支持快速随机访问，它必定会从头开始查找，如果要用整数索引访问元素，通常不用链表，更不要写出下面这种效率极低的代码，请使用迭代器</p>
+<pre><code>for（int i=0;i&lt;list.size;i++）
+do something with list.get(i);
+</code></pre></li>
+<li>建议避免使用整数索引表示链表中位置的所有方法。如果需要对集合进行随机访问，请使用ArrayList</li>
+<li>使用链表的唯一理由就是尽可能的减少在链表中间插入或删除元素所付出的代价，如果链表只有少数几个元素，完全可以使用ArrayList</li>
+</ul>
+<h3 id="数组列表-ArrayList"><a href="#数组列表-ArrayList" class="headerlink" title="数组列表 ArrayList"></a>数组列表 ArrayList</h3><ul>
+<li>ArrayList封装了一个动态再分配的对象数组</li>
+<li>在只使用一个线程， 或者不需要同步时使用ArrayList而非Vector，Vector的同步操作会耗费大量时间</li>
+<li>使用索引的get和set方法对ArrayList类非常适用</li>
+</ul>
+<h3 id="散列集-hash-table"><a href="#散列集-hash-table" class="headerlink" title="散列集 hash table"></a>散列集 hash table</h3><ul>
+<li>散列表可以快速地查找所需要的对象，它为每个对象准备一个散列码（整数），散列码是由对象实例域产生的一个整数，不同的数据域会有不同的散列码</li>
+<li>在Java中，散列表用链表数组实现，每个链表被称为桶，对象的散列码与桶的总数取余所得到的就是对象的索引</li>
+<li><p>散列表用语实现几种重要的数据结构，如HashSet类</p>
+<pre><code>    public class SetText {
+public static void main(String[] args)
+{
+Set&lt;String&gt; words =new HashSet&lt;String&gt;();
+long totalTime = 0;
+try(Scanner in = new Scanner(System.in))
+{
+    while(in.hasNext()){
+    String word = in.next();
+    if(word.equals(&quot;Q&quot;))break;
+    long callTime = System.currentTimeMillis();
+    words.add(word);
+    callTime = System.currentTimeMillis()-callTime;
+    totalTime += callTime;
+
+    }
+}
+
+Iterator&lt;String&gt; iter = words.iterator();
+for(int i=1;i&lt;=20&amp;&amp;iter.hasNext();i++)
+System.out.println(iter.next());
+System.out.println(&quot;...&quot;);
+System.out.println(words.size()+&quot; words &quot;+totalTime+&quot; miliseconds.&quot;);
+
+    }
+
+}
+</code></pre></li>
+<li>散列集的迭代器只是依次访问所有桶，而元素的位置是随机的，所以只有不关心元素的顺序时才适用HashSet</li>
+<li>contains方法用于快速查找某元素是否在集合中，它只在某个桶中查找元素，而不需要遍历整个集合</li>
+<li>如果要自定义类就要负责实现这个类的散列码方法，并且让散列码方法与equals方法兼容</li>
+</ul>
+<h3 id="树集-TreeSet"><a href="#树集-TreeSet" class="headerlink" title="树集 TreeSet"></a>树集 TreeSet</h3><ul>
+<li>树集是个有序集合，可以任意插入元素，每个元素将自动排序</li>
+<li>树集添加元素比散列集要慢，但比算上检查重复的时间还是要比数组和链表快的</li>
+<li>树集的任意两个元素必须可比，并且只有相等时才为0</li>
+<li>通过使用一个定制的比较器来按照描述信息排序</li>
+</ul>
+<p><strong>(待续…)</strong></p>
+<h3 id="队列-Quque"><a href="#队列-Quque" class="headerlink" title="队列 Quque"></a>队列 Quque</h3><ul>
+<li>队列，可以在尾部添加元素，头部删除元素</li>
+<li>双端队列，可以在头部和尾部同时添加或删除元素</li>
+<li>优先级队列，可以按任意的顺序插入，却总是按排序检索，用自我调整的二叉树实现，添加和删除的元素会移动到根</li>
+</ul>
+<h3 id="映射-map"><a href="#映射-map" class="headerlink" title="映射 map"></a>映射 map</h3><ul>
+<li><p>Java为映射提供了两个通用实现，HashMap和TreeMap，如果需要排序就使用TreeMap</p>
+</li>
+<li><p>每当往映射中添加对象时必须提供一个键，要检索对象时必须提供一个键, 如果在映射中没有给定键的对应信息，get返回null，也可以用getOrDefault (java 8) 方法将null修改为返回自定义的值</p>
+</li>
+</ul>
+<pre><code>    Map&lt;String, Employee&gt; staff = new HashMap();
+    // 这里的键是一个字符串
+    Employee harry = new Employee(&quot;Harry Hacker&quot;);
+    staff.put(&quot;987-98-9996&quot;,harry);
+
+String id = &quot;987-98-9996&quot;;
+e = staff.get(id);  
+
+Map&lt;String, Integer&gt; scores=...;
+int score = score.get(id , 0);
+//若id不存在就返回0      
+</code></pre><ul>
+<li>对同一个键使用两次put方法，第二个值会代替第一个值，可以使用putIfAbsent (java 8) 方法，它只在原先键存在时才会放入一个值</li>
+</ul>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p><strong>(待续…)</strong></p>
+<h2 id="第十-十二章-图形程序设计"><a href="#第十-十二章-图形程序设计" class="headerlink" title="第十 ~ 十二章 图形程序设计"></a>第十 ~ 十二章 图形程序设计</h2><h3 id="框架-JFrame"><a href="#框架-JFrame" class="headerlink" title="框架 JFrame"></a>框架 JFrame</h3><ul>
+<li>顶层窗口（没有包含在其他窗口中的窗口）被称为框架</li>
+<li>如果没有明确地指定框架的大小，所有的框架的默认值为0*0像素</li>
+<li>JFrame有四层面板，程序员只用关心内容隔窗（content pane）</li>
+<li>在1.4以后的版本中可以直接使用frame.add添加组件</li>
+<li>使用ToolKit类得到本地窗口系统信息</li>
+</ul>
+<pre><code>class SizedFrame extends JFrame
+{
+
+public SizedFrame(){
+Toolkit kit =Toolkit.getDefaultToolkit();
+//Toolkit对象中有许多关于本地系统窗口的方法
+//使用Toolkit有利于尺寸的兼容性
+Dimension screenSize =kit.getScreenSize();
+//这个方法会返回一个Dimension对象
+//Dimension对象持有屏幕的尺寸
+int screenHeight=screenSize.height;
+int screenWidth=screenSize.width;
+
+setSize(screenWidth/2,screenHeight/2);
+//JFrame的setSize方法设置框架大小
+setLocationByPlatform(true);
+//该方法让窗口系统控制窗口位置
+//通常会是距离最后一个窗口很少偏移量的位置
+
+Image img =new ImageIcon(&quot;icon.gif&quot;).getImage();
+//加载图标
+setIconImage(img);
+//设置标题栏图标
+
+}
+</code></pre><ul>
+<li><p>新建一个框架，需要注意以下步骤</p>
+<pre><code>JFrame frame = new SizedFrame();
+frame.setTitle(&quot;SizedFrame&quot;);
+//设置标题栏的文字frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //定义关闭的响应动作
+    frame.setVisible(true);
+    //框架默认不可见，为了显示框架需要调用该方法
+</code></pre></li>
+</ul>
+<h3 id="绘制组件"><a href="#绘制组件" class="headerlink" title="绘制组件"></a>绘制组件</h3><ul>
+<li>绘制一个组件，需要定义一个扩展JComponent的类，并覆盖其中的paintComponent方法</li>
+<li><p>paintComponent有一个Graphics类型的参数，它保存着用于绘制图形和文本的设置</p>
+<pre><code>Class MyComponent extends JComponent
+{
+    public void paintComponent(Graphics g)
+    {
+        绘制的代码
+    ｝
+    ｝
+</code></pre></li>
+<li><p>一定不要自己调用paintComponent方法，这个方法将被系统在有需要的时候自动调用，程序员可以使用repaint方法刷新屏幕<br><strong>（待续…）</strong></p>
+</li>
+</ul>
+<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><ul>
+<li>事件源是一个能够注册监听器对象并发出事件对象的对象</li>
+<li>监听器对象是一个实现了特定监听器接口的类的实例</li>
+<li>当事件发生时，事件源将事件对象传递给所有注册的监听器</li>
+<li>监听器对象将利用事件对象中的信息决定如何对事件作出响应</li>
+<li>事件相关的信息封装在一个事件对象中，所有的事件对象最终都派生于EventObject类</li>
+<li><p>actionPerformed方法是ActionListener中唯一的方法，事件监听器对象通常需要执行一些对其他对象可能产生影响的操作，可以策略性地将监听器类放置在需要修改状态的那个类中</p>
+<pre><code>class MyListener implements ActionListener
+｛
+...
+public void actionPerformed（ActionEvent event）
+{ 
+//实现ActionListener接口，监听类必须有一个actionPerformed方法
+
+            响应方法
+}
+}
+</code></pre></li>
+<li><p>使用匿名类可以相对简洁地定义监听类</p>
+</li>
+</ul>
+<h3 id="适配器"><a href="#适配器" class="headerlink" title="适配器"></a>适配器</h3><ul>
+<li>窗口监听类可以捕获窗口事件，但必须实现七个方法，为此，有一个窗口适配器实现了所有方法，但没有做任何事情</li>
+<li><p>通过覆盖某一个方法扩展适配器的功能</p>
+<pre><code>frame.addWindowListener(new WindowAdapter(){
+//这便是一个匿名类
+public void windowClosing(WindowEvent e)
+{
+if()....
+}
+
+})
+</code></pre></li>
+</ul>
+<h3 id="动作和鼠标事件"><a href="#动作和鼠标事件" class="headerlink" title="动作和鼠标事件"></a>动作和鼠标事件</h3><p><strong>（待续…）</strong></p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+<li>通常组件放在容器中，布局管理器决定容器中组件具体放置的位置和大小</li>
+<li>按钮、文本域和其他用户界面元素都继承于Component类，组件可以放置在面板JPanel这样的容器中</li>
+<li>JPanel默认使用流布局管理器，它完全控制每个组件的放置位置</li>
+<li>JFrame默认使用边框布局管理器，它允许为每个组件选择一个位置（CENTER, NORTH,SOUTH,EAST,WEST），但可能会进行覆盖</li>
+<li>使用panel.revalidate方法会重新计算所有组件的大小，然后立即重新布局</li>
+</ul>
+<h3 id="文本域-JTextField"><a href="#文本域-JTextField" class="headerlink" title="文本域 JTextField"></a>文本域 JTextField</h3><ul>
+<li><p>文本域只能接受单行输入</p>
+<pre><code>JPanel textPanel=new JPanel();
+JTextField textField = new JTextField(&quot;default input&quot;,20);
+//设置初始输入和显示长度
+textPanel.add(textField);
+frame.add(textPanel,BorderLayout.SOUTH);
+textField.setClumns(10);
+//设置长度
+textPanel.revalidate;
+String text = textField.getText.trim();
+//trim方法取出前后多余的空格
+</code></pre></li>
+<li>在监听器中使用getText方法可以获取输入的文本</li>
+</ul>
+<h3 id="标签-JLabel"><a href="#标签-JLabel" class="headerlink" title="标签 JLabel"></a>标签 JLabel</h3><ul>
+<li><p>标签是容纳文本的组件，它没有任何装饰，也不响应用户输入，但可以用来标示各种组件</p>
+<pre><code>JLabel label = new JLabel(&quot;user name :&quot;,SwingContants.Right);
+</code></pre></li>
+<li><p>标签实现了SwingContants接口，接口中定义了几个指定排列方式的常量，因此可以制定标签的对齐方式</p>
+</li>
+<li>标签支持HTML语法</li>
+</ul>
+<h3 id="文本区-JTextArea"><a href="#文本区-JTextArea" class="headerlink" title="文本区 JTextArea"></a>文本区 JTextArea</h3><ul>
+<li>文本区支持多行输入</li>
+<li>文本区不限制输入的行数列数，设置参数只会影响显示的状态</li>
+<li><p>如果文本超出显示范围，剩下的文本会被裁掉，通过开启换行可以避免这种状况</p>
+<pre><code>JTextArea textArea = new JTextArea(8,40);
+//设置显示大小
+textArea.setLineWrap(true);
+//开启自动换行
+//建议将所有文本域放入滚动窗格之中
+</code></pre></li>
+</ul>
+<h3 id="滚动窗格-JScrollPane"><a href="#滚动窗格-JScrollPane" class="headerlink" title="滚动窗格 JScrollPane"></a>滚动窗格 JScrollPane</h3><ul>
+<li>这是一种为任意组件添加滚动功能的机制，不是文本区特有</li>
+<li>滚动条会自动出现自动消失，无需另外编写程序</li>
+</ul>
+<pre><code>JScrollPane scrollPane = new JScrollPane(textArea);
+frame.add(scrollPane,BorderLayout.CENTER);
+</code></pre><h3 id="复选框-JCheckBox"><a href="#复选框-JCheckBox" class="headerlink" title="复选框 JCheckBox"></a>复选框 JCheckBox</h3><ul>
+<li>用户点击复选框会激发一个事件</li>
+<li>通常为多个复选框选定共同的监听器</li>
+<li><p>用isSelected方法获取复选框状态</p>
+<pre><code>final JCheckBox checkBox1 = new  JCheckBox(&quot;1&quot;);
+final JCheckBox checkBox2 = new  JCheckBox(&quot;2&quot;);
+ActionListener boxListener = new ActionListener(){
+    public void actionPerformed(ActionEvent event){
+        if(checkBox1.isSelected())
+            System.out.println(&quot;1&quot;);
+        if(checkBox2.isSelected())
+            System.out.println(&quot;2&quot;);
+    }
+};
+</code></pre></li>
+</ul>
+<h3 id="单选钮-JRadioButton"><a href="#单选钮-JRadioButton" class="headerlink" title="单选钮 JRadioButton"></a>单选钮 JRadioButton</h3><ul>
+<li>多个关联的单选框中只能有一个被选择</li>
+<li>通常为同一组中的每个单选钮设置独立的监听器</li>
+</ul>
+<pre><code>JPanel radioBoxPanel = new JPanel();
+ButtonGroup group = new ButtonGroup();
+
+JRadioButton radioButton1 = new JRadioButton(&quot;1&quot;,false);
+JRadioButton radioButton2 = new JRadioButton(&quot;2&quot;,true);
+//设置单循钮名字和初始状态
+
+group.add(radioButton1);
+group.add(radioButton2);
+//将关联的单选钮加入到同一个组中
+
+radioBoxPanel.add(radioButton1);
+radioBoxPanel.add(radioButton2);
+//ButtonGroup不是一个组件不能直接放入容器
+//应该将每个按钮分别放入
+
+frame.add(radioBoxPanel, BorderLayout.WEST);
+</code></pre><h3 id="边框-Border"><a href="#边框-Border" class="headerlink" title="边框 Border"></a>边框 Border</h3><ul>
+<li>表框在视觉上划分区域范围，面板默认不提供这样的元素</li>
+<li>可以在任何继承了JCompoent的组件上应用边框</li>
+<li>调用BorderFactory的静态方法创建边框对象</li>
+<li><p>某些边框只能通过个别构造器创造，具体情况查看文档</p>
+<pre><code>Border etched = BorderFactory.createEtchedBorder();
+Border titled = BorderFactory.createTitledBorder(etched,&quot;A Title&quot;);
+scrollPane.setBorder(titled);
+</code></pre></li>
+</ul>
+<h3 id="表格-JTable"><a href="#表格-JTable" class="headerlink" title="表格 JTable"></a>表格 JTable</h3><ul>
+<li>建议使用容器读取表格</li>
+<li>需要以表头和表数据共同创建表格</li>
+<li><p>使用DefaultTableModel 可以更改表格状态，系统会自动刷新表格</p>
+<pre><code>String[] columnNames = {&quot;letter&quot;,&quot;Dec&quot;,&quot;Hex&quot;};
+Object[][] data =
+{
+{&quot;a&quot;, new Integer(97),&quot;0x61&quot;},
+         {&quot;b&quot;, new Integer(98),&quot;0x62&quot;},
+         {&quot;c&quot;, new Integer(99),&quot;0x63&quot;},
+         {&quot;d&quot;, new Integer(100),&quot;0x64&quot;},
+};
+
+JTable table = new JTable(data, columnNames);
+frame.add(table, BorderLayout.WEST);
+</code></pre></li>
+</ul>
+<h2 id="十三章-部署Java应用程序"><a href="#十三章-部署Java应用程序" class="headerlink" title="十三章 部署Java应用程序"></a>十三章 部署Java应用程序</h2><p><strong>（待续…）</strong></p>
+<h2 id="十四章-并发"><a href="#十四章-并发" class="headerlink" title="十四章 并发"></a>十四章 并发</h2><h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p><strong>多线程程序在较低的层次上扩展类多任务的概念：一个程序同时执行多个任务，通常每一个任务称为一个线程</strong></p>
+<ul>
+<li><p>在一个单独的线程中执行一个简单的任务，需要将任务代码放到一个实现了Runnable接口的类的run方法中，然后用它的实例创建一个Thread对象并调用Thread的start方法启动线程</p>
+<pre><code>class MyRunable implements Runable
+{
+    public void run()
+    {
+        task code
+    }
+}
+...
+Runnable r = new MyRunnable();
+Thread t = new Thread(r);
+t.start();
+</code></pre></li>
+<li><p>不要直接调用Thread类或Runnable对象的run方法，直接调用run方法只会执行同一个线程的中任务，而不会启动新线程，应该调用Thread.start</p>
+</li>
+</ul>
+<h3 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h3><ul>
+<li>新创建 new，用new创建一个新线程时，该线程还没有开始运行，它的状态是new</li>
+<li>可运行 Runable，用start启动一个线程后，线程处于runnable状态，一个可运行的线程可能在运行也可能没有运行，这取决于操作系统给线程提供的运行时间</li>
+<li>被阻塞 Blocked，一个线程获取一个内部的对象锁时，如果锁被其他线程持有，则进入阻塞状态，当所有其他线程释放该锁且调度器允许时，线程变成非阻塞状态</li>
+<li>等待 Waiting，当线程等待另一个线程通知调度器一个条件时，它自己进入等待状态</li>
+<li>计时等待 Timed Waiting，有几个方法有一个超时参数时，调用它们导致线程进入计时等待</li>
+<li>被终止，Terminated，run方法正常退出自然死亡，一个没有捕获的异常终止了run方法而意外死亡</li>
+</ul>
+<h3 id="线程属性"><a href="#线程属性" class="headerlink" title="线程属性"></a>线程属性</h3><ul>
+<li>线程优先级，每一个线程有一个优先级，默认情况一个线程继承它父类的优先级</li>
+<li>用serPriority方法提高或降低任何一个线程的优先级</li>
+<li>线程调度器首先选择优先级高的线程，但是线程的优先级最终依赖于系统，windows有七个优先级，Oracle为linux提供的虚拟机只有一个优先级</li>
+<li>几个高优先级线程没有进入非活动状态时，低优先级线程可能永远都不执行</li>
+</ul>
+<h3 id="未捕获异常处理器"><a href="#未捕获异常处理器" class="headerlink" title="未捕获异常处理器"></a>未捕获异常处理器</h3><p><strong>（待续…）</strong></p>
+<h1 id="Core-Java-卷-2"><a href="#Core-Java-卷-2" class="headerlink" title="Core Java 卷 2"></a>Core Java 卷 2</h1><h2 id="第一章-流与文件"><a href="#第一章-流与文件" class="headerlink" title="第一章 流与文件"></a>第一章 流与文件</h2><h3 id="流-Stream"><a href="#流-Stream" class="headerlink" title="流 Stream"></a>流 Stream</h3><ul>
+<li>输入流，可以从中读入一个字节序列的对象；输出流，可以向其中写入一个字节序列的对象。这些字节序列的来源地和目的地可以是文件，而且通常是文件，也可以是网络链接，甚至是内存块</li>
+<li>操作文件内容的主要有两大类：字节流、字符流，两类都分为输入和输出操作。在字节流中输出数据主要是使用OutputStream完成，输入使的是InputStream，在字符流中输出主要是使用Writer类完成，输入流主要使用Reader类完成</li>
+<li>字节流在操作的时候本身是不会用到缓冲区（内存）的，是与文件本身直接操作的，而字符流在操作的时候是使用到缓冲区的</li>
+<li>字节流在操作文件时，即使不关闭资源（close方法），文件也能输出，但是如果字符流不使用close方法的话，则不会输出任何内容，说明字符流用的是缓冲区，并且可以使用flush方法强制进行刷新缓冲区，这时才能在不close的情况下输出内容</li>
+<li>完成流读写时应该通过调用close方法来关闭它，这个调用会释放掉十分有限的操作系统资源</li>
+<li>完整的流家族，与c单一的FILE * 类型不同，java的流家族包含各种流类型，数量超过60个</li>
+<li>FileInputStream和FileOutStream可以提供一个附在磁盘上的输入流和输出流，所有提供的相对路径名解释以用户工作目录开始</li>
+<li><p>组合流过滤器，流可自由组合，将希望得到的流置于最外层，中间的流只是提供所需要的功能</p>
+<pre><code>FileOutputStream fin = new FileOutputStream(&quot;javaFile.txt&quot;);
+</code></pre></li>
+</ul>
+<h3 id="读写二进制数据"><a href="#读写二进制数据" class="headerlink" title="读写二进制数据"></a>读写二进制数据</h3><ul>
+<li>以二进制格式写出数据,需要使用 DataOutputStream</li>
+</ul>
+<p><strong>（待续…）</strong></p>
+<h3 id="文本输入与输出"><a href="#文本输入与输出" class="headerlink" title="文本输入与输出"></a>文本输入与输出</h3><ul>
+<li><p>创建文件</p>
+<pre><code>File file = new File(&quot;./obj.dat&quot;);
+try {
+    if(!file.exists())
+    file.createNewFile();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+</code></pre></li>
+<li><p>文本输出，可以使用PrintWriter，它可以链接到FileWriter，使用Print，println，printf方法可以打印数字、字符、布尔、字符串和对象</p>
+<pre><code>PrintWriter out = new PrintWriter(new FileWriter(&quot;javaFlie3&quot;));
+out.println(&quot;测试&quot;);
+out.close();
+//不要漏了close方法
+</code></pre></li>
+<li><p>文本读入</p>
+<pre><code>try(Scanner file = new Scanner(new FlieReader(&quot;javaFlie3&quot;)))
+{
+    System.out.println(file.next());
+    file.close();
+</code></pre></li>
+</ul>
+<h3 id="文本格式存储对象"><a href="#文本格式存储对象" class="headerlink" title="文本格式存储对象"></a>文本格式存储对象</h3><ul>
+<li>接写出所有的字断,每个字 后面跟着一个自定义的分隔符 ,而最后一个字端的后面跟着一个 ‘\n’</li>
+<li>每次读入一行,然后分离所有的字 。我们使用一个扫描器来读入每一行,然后用 String.split 方法将这一行断开成一组标记</li>
+</ul>
+<pre><code>public class Employee {
+
+    String name;
+    int salary;
+    Date hireDate;
+
+public Employee(String name,int salary){
+
+    this.name = name;
+    this.salary = salary;
+    this.hireDate = new Date();
+    }
+
+    public void writeData(PrintWriter out){
+
+    GregorianCalendar calendar = new GregorianCalendar();
+    calendar.setTime(hireDate);
+
+    out.println(name + &quot;|&quot; + salary + &quot;|&quot; 
+    + calendar.get(Calendar.YEAR)+&quot;|&quot;
+    + calendar.get(Calendar.MONTH)+&quot;|&quot;
+    + calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public String toString(){
+
+    GregorianCalendar calendar = new GregorianCalendar();
+    calendar.setTime(hireDate);
+
+    return name + &quot;|&quot; + salary + &quot;|&quot; 
+    + calendar.get(Calendar.YEAR)+&quot;|&quot;
+    + calendar.get(Calendar.MONTH)+&quot;|&quot;
+    + calendar.get(Calendar.DAY_OF_MONTH);
+    }
+}
+</code></pre><h3 id="对象流与序列化"><a href="#对象流与序列化" class="headerlink" title="对象流与序列化"></a>对象流与序列化</h3><ul>
+<li>对象流输出中包含所有对象的类型和数据域</li>
+<li>每个对象都被赋予一个序列号</li>
+<li>相同对象的重复出现将被存储为对这个对象的序列号的引用</li>
+<li>静态域不能被序列化</li>
+</ul>
+<h3 id="序列化存储对象"><a href="#序列化存储对象" class="headerlink" title="序列化存储对象"></a>序列化存储对象</h3><ul>
+<li>保存对象数据需要打开一个 ObjectOutputStream 对象，然后使用writeObject 方法</li>
+<li>读回对象数据需要获得一个 ObjectInputStream 对象，然后,用readObject 方法以这些对象被写出时的顺序获得</li>
+<li>希望在对象流中存储或恢复的所有类都应进行一下修改,这些类必须实现 Serializable 接口: 该接口没有任何方法,因此不需要对这些类进行任何改动</li>
+<li>如果某些数据域是不可以序列化的，将它们标记成transient，如果这些域属于不可序列化的类, 也需要将它们标记成 transient ，瞬时的域在对象被序列化时总是被跳过</li>
+</ul>
+<pre><code>package objectStreamTest;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import testWrite.Employee;
+
+public class test {
+public static void main(String[] args)
+{
+Employee jack = new Employee(&quot;jack&quot;,7000);
+Employee carls = new Employee(&quot;carls&quot;,8000);
+Employee tony = new Employee(&quot;tony&quot;,9000);
+Employee[] staff = new Employee[3];
+staff[0]=jack;
+staff[1]=carls;
+staff[2]=tony;
+
+    try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(&quot;/Users/alberthumbert/Desktop/obj.dat&quot;)))
+{
+    out.writeObject(staff);
+
+}catch(Exception e){}
+
+    try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;/Users/alberthumbert/Desktop/obj.dat&quot;)))
+{
+    Employee[] newStaff = (Employee[])in.readObject();
+    System.out.println(newStaff[2]);
+}catch(Exception e){}
+
+
+    }
+}
+</code></pre><p><strong>（待续…）</strong></p>
+<h2 id="可扩展标记语言-XML"><a href="#可扩展标记语言-XML" class="headerlink" title="可扩展标记语言 XML"></a>可扩展标记语言 XML</h2><p>** 大概不会经常用到，只做简要了解**</p>
+<h3 id="XML文档简介"><a href="#XML文档简介" class="headerlink" title="XML文档简介"></a>XML文档简介</h3><ul>
+<li>XML 被设计为传输和存储数据，其焦点是数据的内容，XML 格式能够表达层次结构,并且重复的元素不会被曲解</li>
+<li><p>XML 文档应当以一个文档开始，虽然它是可选的</p>
+<pre><code>&lt;? xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</code></pre></li>
+<li><p>文档头之后通常是文档类型的定义</p>
+<pre><code>&lt;!DOCTYPE web-app PUBLIC
+&quot;-//Sun Microsystem, Ins. //DTD Web Application 2.2//EN&quot;
+&quot;http://java.sun.com/j2ee/dtds/web-app_2_2.dtd&quot;&gt;
+</code></pre></li>
+<li><p>最后，XML文档的正文包含根元素，根元素包含其他元素</p>
+<pre><code>&lt;font&gt;
+    &lt;name&gt;Helvetica&lt;/name&gt;
+    &lt;size&gt;36&lt;/size&gt;
+&lt;/font&gt;
+</code></pre></li>
+<li>元素和文本是 XML 文档“主要的支撑要素”,可能还会遇到的其他一些标记：字符引用  &amp;#233 &amp;#xE9 ；实体引用   &amp;name  ；注释  \&lt; !– –></li>
+</ul>
+<h3 id="解析XML文档"><a href="#解析XML文档" class="headerlink" title="解析XML文档"></a>解析XML文档</h3><ul>
+<li>要处理 XML 文档,就要先解 (parse)它，解析器是这样一个程序:它读入一个文件, 确认这个文件具有正确的格式,然后将其分解成各种元素,使得程序员能够访问这些元素</li>
+<li><p>要读入一个 XML 文档,首先需要一个 DocumentBuilder 对象,可以从 DocumentBuilder Factory 中得到这个对象，然后从文件中读入某个文档，或者可以用一个 URL，甚至可以指定一个任意的输入流</p>
+<pre><code>DocumentBuilderFactory factory=DocumentBuliderFactory.newInstance();
+DocumentBuilder builder = factory.newDocumentBulider();
+
+读入文档
+File f= ...
+Document doc = builder.parse(f);
+
+或使用URL
+URL u = ... 
+Document doc = bulider.parse(u);
+
+指定输入流
+InputStream in = ...
+Document doc = parse(in);
+</code></pre></li>
+<li><p>可以通过调用 getDocumentElement 方法来启动对文档内容的分析,它将返回根元素</p>
+<pre><code>例如
+&lt;? xml version = &quot;1.0&quot;?&gt;
+&lt;font&gt;
+    ...
+&lt;/font&gt;
+
+Element root = doc.getDocumentElement();        //返回font元素
+String name = root.getTagName();
+//返回标签名，此处为font
+</code></pre></li>
+</ul>
+<ul>
+<li>如果要得到该元素的子元素(可能是子元素、文本、注 或其他节点),请使用 getChild Nodes方法,这个方法返回一个类型为NodeList的集合<br>  <strong>(待续)</strong></li>
+</ul>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/04/30/FirstCodeLine/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/02/21/Unp/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.jpg);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="Albert Humbert's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        709913148@qq.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签索引">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                标签索引
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/whatever" title="Writers &amp; Weirdos">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                Writers &amp; Weirdos
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2016&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Albert's Blog
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
