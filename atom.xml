@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-11-20T14:18:38.000Z</updated>
+  <updated>2017-11-22T12:48:09.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -17,16 +17,16 @@
   
   <entry>
     <title>Jni ，从入门到入坟</title>
-    <link href="https://alberthumbert.github.io/2017/11/17/aboutJni/"/>
-    <id>https://alberthumbert.github.io/2017/11/17/aboutJni/</id>
+    <link href="https://alberthumbert.github.io/2017/11/17/Jni/"/>
+    <id>https://alberthumbert.github.io/2017/11/17/Jni/</id>
     <published>2017-11-17T09:59:39.000Z</published>
-    <updated>2017-11-20T14:18:38.000Z</updated>
+    <updated>2017-11-22T12:48:09.000Z</updated>
     
     <summary type="html">
     
-      &lt;ul&gt;
-&lt;li&gt;本篇未完&lt;/li&gt;
-&lt;/ul&gt;
+      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;如何使用jni进行开发&quot;&gt;&lt;a href=&quot;#如何使用jni进行开发&quot; class=&quot;headerlink&quot; title=&quot;如何使用jni进行开发&quot;&gt;&lt;/a&gt;如何使用jni进行开发&lt;/h2&gt;&lt;p&gt;&lt;str
     
     </summary>
     
@@ -39,10 +39,10 @@
   
   <entry>
     <title>RxJava 与 Retrofit</title>
-    <link href="https://alberthumbert.github.io/2017/10/23/aboutRxJava/"/>
-    <id>https://alberthumbert.github.io/2017/10/23/aboutRxJava/</id>
+    <link href="https://alberthumbert.github.io/2017/10/23/RxJava/"/>
+    <id>https://alberthumbert.github.io/2017/10/23/RxJava/</id>
     <published>2017-10-23T13:13:02.000Z</published>
-    <updated>2017-10-29T10:22:25.000Z</updated>
+    <updated>2017-11-21T07:35:53.000Z</updated>
     
     <summary type="html">
     
@@ -59,10 +59,10 @@
   
   <entry>
     <title>RemoteView 使用详解与实现原理</title>
-    <link href="https://alberthumbert.github.io/2017/09/11/aboutRemoteView/"/>
-    <id>https://alberthumbert.github.io/2017/09/11/aboutRemoteView/</id>
+    <link href="https://alberthumbert.github.io/2017/09/11/RemoteView/"/>
+    <id>https://alberthumbert.github.io/2017/09/11/RemoteView/</id>
     <published>2017-09-11T11:30:35.000Z</published>
-    <updated>2017-09-18T05:17:19.000Z</updated>
+    <updated>2017-11-21T07:21:17.000Z</updated>
     
     <summary type="html">
     
@@ -79,10 +79,10 @@
   
   <entry>
     <title>Bug 合集</title>
-    <link href="https://alberthumbert.github.io/2017/09/06/aboutBUG/"/>
-    <id>https://alberthumbert.github.io/2017/09/06/aboutBUG/</id>
+    <link href="https://alberthumbert.github.io/2017/09/06/BUG/"/>
+    <id>https://alberthumbert.github.io/2017/09/06/BUG/</id>
     <published>2017-09-06T15:53:24.000Z</published>
-    <updated>2017-10-06T13:06:19.000Z</updated>
+    <updated>2017-11-21T07:21:21.000Z</updated>
     
     <summary type="html">
     
@@ -99,10 +99,10 @@
   
   <entry>
     <title>volatile 相关概念</title>
-    <link href="https://alberthumbert.github.io/2017/08/16/aboutVolatile/"/>
-    <id>https://alberthumbert.github.io/2017/08/16/aboutVolatile/</id>
+    <link href="https://alberthumbert.github.io/2017/08/16/Volatile/"/>
+    <id>https://alberthumbert.github.io/2017/08/16/Volatile/</id>
     <published>2017-08-16T03:14:39.000Z</published>
-    <updated>2017-10-08T16:31:58.000Z</updated>
+    <updated>2017-11-21T07:21:25.000Z</updated>
     
     <summary type="html">
     
@@ -119,10 +119,10 @@
   
   <entry>
     <title>GC 基础知识</title>
-    <link href="https://alberthumbert.github.io/2017/08/14/aboutGC/"/>
-    <id>https://alberthumbert.github.io/2017/08/14/aboutGC/</id>
+    <link href="https://alberthumbert.github.io/2017/08/14/GC/"/>
+    <id>https://alberthumbert.github.io/2017/08/14/GC/</id>
     <published>2017-08-14T13:07:14.000Z</published>
-    <updated>2017-08-15T08:03:20.000Z</updated>
+    <updated>2017-11-21T07:21:28.000Z</updated>
     
     <summary type="html">
     
@@ -139,10 +139,10 @@
   
   <entry>
     <title>Java泛型 注意事项</title>
-    <link href="https://alberthumbert.github.io/2017/08/14/aboutTypeErasue/"/>
-    <id>https://alberthumbert.github.io/2017/08/14/aboutTypeErasue/</id>
+    <link href="https://alberthumbert.github.io/2017/08/14/TypeErasue/"/>
+    <id>https://alberthumbert.github.io/2017/08/14/TypeErasue/</id>
     <published>2017-08-14T01:55:00.000Z</published>
-    <updated>2017-09-18T05:18:51.000Z</updated>
+    <updated>2017-11-21T07:21:32.000Z</updated>
     
     <summary type="html">
     
@@ -159,10 +159,10 @@
   
   <entry>
     <title>Loader 机制详解</title>
-    <link href="https://alberthumbert.github.io/2017/08/13/aboutLoader/"/>
-    <id>https://alberthumbert.github.io/2017/08/13/aboutLoader/</id>
+    <link href="https://alberthumbert.github.io/2017/08/13/Loader/"/>
+    <id>https://alberthumbert.github.io/2017/08/13/Loader/</id>
     <published>2017-08-13T15:11:57.000Z</published>
-    <updated>2017-09-10T10:54:36.000Z</updated>
+    <updated>2017-11-21T07:21:36.000Z</updated>
     
     <summary type="html">
     
@@ -179,10 +179,10 @@
   
   <entry>
     <title>Volley 事件派发机制</title>
-    <link href="https://alberthumbert.github.io/2017/08/09/aboutVolleyDispatcher/"/>
-    <id>https://alberthumbert.github.io/2017/08/09/aboutVolleyDispatcher/</id>
+    <link href="https://alberthumbert.github.io/2017/08/09/VolleyDispatcher/"/>
+    <id>https://alberthumbert.github.io/2017/08/09/VolleyDispatcher/</id>
     <published>2017-08-09T01:52:24.000Z</published>
-    <updated>2017-08-09T06:31:14.000Z</updated>
+    <updated>2017-11-21T07:21:41.000Z</updated>
     
     <summary type="html">
     
@@ -199,10 +199,10 @@
   
   <entry>
     <title>Picasso 源码分析</title>
-    <link href="https://alberthumbert.github.io/2017/08/08/aboutPicasso/"/>
-    <id>https://alberthumbert.github.io/2017/08/08/aboutPicasso/</id>
+    <link href="https://alberthumbert.github.io/2017/08/08/Picasso/"/>
+    <id>https://alberthumbert.github.io/2017/08/08/Picasso/</id>
     <published>2017-08-08T05:28:20.000Z</published>
-    <updated>2017-08-08T15:14:57.000Z</updated>
+    <updated>2017-11-21T07:21:48.000Z</updated>
     
     <summary type="html">
     
@@ -219,10 +219,10 @@
   
   <entry>
     <title>Matisse 源码分析</title>
-    <link href="https://alberthumbert.github.io/2017/08/07/aboutMatisse/"/>
-    <id>https://alberthumbert.github.io/2017/08/07/aboutMatisse/</id>
+    <link href="https://alberthumbert.github.io/2017/08/07/Matisse/"/>
+    <id>https://alberthumbert.github.io/2017/08/07/Matisse/</id>
     <published>2017-08-07T11:22:53.000Z</published>
-    <updated>2017-08-08T05:27:33.000Z</updated>
+    <updated>2017-11-21T07:21:52.000Z</updated>
     
     <summary type="html">
     
@@ -239,10 +239,10 @@
   
   <entry>
     <title>Java 四类线程池与自定义线程池</title>
-    <link href="https://alberthumbert.github.io/2017/07/28/aboutThreadPool/"/>
-    <id>https://alberthumbert.github.io/2017/07/28/aboutThreadPool/</id>
+    <link href="https://alberthumbert.github.io/2017/07/28/ThreadPool/"/>
+    <id>https://alberthumbert.github.io/2017/07/28/ThreadPool/</id>
     <published>2017-07-28T06:34:42.000Z</published>
-    <updated>2017-09-18T05:20:17.000Z</updated>
+    <updated>2017-11-21T07:21:57.000Z</updated>
     
     <summary type="html">
     
@@ -259,10 +259,10 @@
   
   <entry>
     <title>GestureDetector 使用详解</title>
-    <link href="https://alberthumbert.github.io/2017/07/27/aboutGesture/"/>
-    <id>https://alberthumbert.github.io/2017/07/27/aboutGesture/</id>
+    <link href="https://alberthumbert.github.io/2017/07/27/Gesture/"/>
+    <id>https://alberthumbert.github.io/2017/07/27/Gesture/</id>
     <published>2017-07-27T02:28:04.000Z</published>
-    <updated>2017-09-18T05:31:54.000Z</updated>
+    <updated>2017-11-21T07:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -279,10 +279,10 @@
   
   <entry>
     <title>Android Bitmap 获取与处理</title>
-    <link href="https://alberthumbert.github.io/2017/07/26/aboutBitmap/"/>
-    <id>https://alberthumbert.github.io/2017/07/26/aboutBitmap/</id>
+    <link href="https://alberthumbert.github.io/2017/07/26/Bitmap/"/>
+    <id>https://alberthumbert.github.io/2017/07/26/Bitmap/</id>
     <published>2017-07-26T02:41:59.000Z</published>
-    <updated>2017-09-18T05:20:31.000Z</updated>
+    <updated>2017-11-21T07:22:07.000Z</updated>
     
     <summary type="html">
     
@@ -299,10 +299,10 @@
   
   <entry>
     <title>HandlerThread 基本用法</title>
-    <link href="https://alberthumbert.github.io/2017/07/25/aboutHandlerThread/"/>
-    <id>https://alberthumbert.github.io/2017/07/25/aboutHandlerThread/</id>
+    <link href="https://alberthumbert.github.io/2017/07/25/HandlerThread/"/>
+    <id>https://alberthumbert.github.io/2017/07/25/HandlerThread/</id>
     <published>2017-07-25T14:03:23.000Z</published>
-    <updated>2017-07-26T02:39:53.000Z</updated>
+    <updated>2017-11-21T07:22:11.000Z</updated>
     
     <summary type="html">
     
@@ -319,10 +319,10 @@
   
   <entry>
     <title>Animation 的三种实现方法</title>
-    <link href="https://alberthumbert.github.io/2017/07/25/aboutAnimation/"/>
-    <id>https://alberthumbert.github.io/2017/07/25/aboutAnimation/</id>
+    <link href="https://alberthumbert.github.io/2017/07/25/Animation/"/>
+    <id>https://alberthumbert.github.io/2017/07/25/Animation/</id>
     <published>2017-07-25T07:10:19.000Z</published>
-    <updated>2017-09-18T05:20:44.000Z</updated>
+    <updated>2017-11-21T07:22:15.000Z</updated>
     
     <summary type="html">
     
@@ -339,10 +339,10 @@
   
   <entry>
     <title>Android 控件架构与自定义View</title>
-    <link href="https://alberthumbert.github.io/2017/07/24/aboutView/"/>
-    <id>https://alberthumbert.github.io/2017/07/24/aboutView/</id>
+    <link href="https://alberthumbert.github.io/2017/07/24/View/"/>
+    <id>https://alberthumbert.github.io/2017/07/24/View/</id>
     <published>2017-07-24T05:34:39.000Z</published>
-    <updated>2017-09-18T05:21:07.000Z</updated>
+    <updated>2017-11-21T07:22:19.000Z</updated>
     
     <summary type="html">
     
@@ -359,10 +359,10 @@
   
   <entry>
     <title>工厂模式与单例模式</title>
-    <link href="https://alberthumbert.github.io/2017/07/20/aboutPattern/"/>
-    <id>https://alberthumbert.github.io/2017/07/20/aboutPattern/</id>
+    <link href="https://alberthumbert.github.io/2017/07/20/Pattern/"/>
+    <id>https://alberthumbert.github.io/2017/07/20/Pattern/</id>
     <published>2017-07-20T10:09:39.000Z</published>
-    <updated>2017-07-20T14:32:49.000Z</updated>
+    <updated>2017-11-21T07:22:23.000Z</updated>
     
     <summary type="html">
     
@@ -379,10 +379,10 @@
   
   <entry>
     <title>Java 注解入门</title>
-    <link href="https://alberthumbert.github.io/2017/07/20/aboutAnnotation/"/>
-    <id>https://alberthumbert.github.io/2017/07/20/aboutAnnotation/</id>
+    <link href="https://alberthumbert.github.io/2017/07/20/Annotation/"/>
+    <id>https://alberthumbert.github.io/2017/07/20/Annotation/</id>
     <published>2017-07-20T08:03:02.000Z</published>
-    <updated>2017-09-18T05:21:36.000Z</updated>
+    <updated>2017-11-21T07:22:28.000Z</updated>
     
     <summary type="html">
     
@@ -399,10 +399,10 @@
   
   <entry>
     <title>ButterKnife 快速绑定控件</title>
-    <link href="https://alberthumbert.github.io/2017/07/20/aboutButterKnife/"/>
-    <id>https://alberthumbert.github.io/2017/07/20/aboutButterKnife/</id>
+    <link href="https://alberthumbert.github.io/2017/07/20/ButterKnife/"/>
+    <id>https://alberthumbert.github.io/2017/07/20/ButterKnife/</id>
     <published>2017-07-20T05:40:56.000Z</published>
-    <updated>2017-09-18T05:21:50.000Z</updated>
+    <updated>2017-11-21T07:22:31.000Z</updated>
     
     <summary type="html">
     
