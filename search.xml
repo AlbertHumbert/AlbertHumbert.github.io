@@ -3,6 +3,113 @@
   
     
     <entry>
+      <title><![CDATA[Android Shape/KML/GML/GeoJSON 文件读写库 Gdal 编译注意事项]]></title>
+      <url>/2017/12/09/makeFuckingGdalSo/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><ul>
+<li>目前编译出来的so包只能兼容 Android 5.0 及以上的系统</li>
+</ul>
+<ul>
+<li>网络上有编译好并且兼容Android 4.4的so包可以直接拿来用，这些so包都是armeabi-v7a的，目前绝大部分手机都是ARMv7架构，当前项目使用的设备也是ARMv7的，因此暂时没有问题</li>
+</ul>
+<ul>
+<li>由于pc端一般是x86或x86_64架构的处理器，因此虚拟机也是x86或x86_64架构，因此调试阶段先加入x86的so，正式版本中会移除</li>
+</ul>
+<p><br></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><br></p>
+<h3 id="为什么使用Gdal"><a href="#为什么使用Gdal" class="headerlink" title="为什么使用Gdal"></a>为什么使用Gdal</h3><ul>
+<li>就目前所知Java平台的地理数据文件的处理工具主要有GeoTools，ArcGIS Runtime SDK 以及 Gdal</li>
+</ul>
+<ul>
+<li>GeoTools的jar文件至少有70mb，虽然可以精简，但核心部分依赖了Java的awt库，awt库无法再Android上使用直接导致crash</li>
+</ul>
+<ul>
+<li>ArcGIS Runtime SDK 的大小没有了解过，估计也小不到哪里去，ArcGIS 可以读取shp文件，但是不能直接修改和创建shp，而且ArcGIS 读取shp也是通过Gdal实现的</li>
+</ul>
+<ul>
+<li>Gdal 精简并且支持多种地理数据文件的操作，社区活跃度也很高，就在写这篇文章的上个月还发布了新的稳定版，但是和其他工具一样，Gdal并不针对 Android开发，因此为了能够在Android平台上使用，编译过程比较复杂</li>
+</ul>
+<p><br></p>
+<h3 id="关于Shape"><a href="#关于Shape" class="headerlink" title="关于Shape"></a>关于Shape</h3><ul>
+<li>Shape文件至少包含三个后缀不同的文件，.shp .dbf .shx</li>
+</ul>
+<ul>
+<li>类似 Gdal和GeoTools等工具可以只读取其中一个文件，如shp和dbf，但是导入文件的时候注意全部导入，否则某些数据将会缺失</li>
+</ul>
+<ul>
+<li>Gdal 支持 shp 和 KML，GeoJson 直接互换，KML实际上是一种专门的XML规范，GeoJson则是Json的规范，如果自行解析，可以直接将其视为XML和Json</li>
+</ul>
+<p><br></p>
+<h3 id="关于编译"><a href="#关于编译" class="headerlink" title="关于编译"></a>关于编译</h3><ul>
+<li>请在Linux上按照<a href="http://www.jianshu.com/p/b6899345d18e" title="这篇文章" target="_blank" rel="external">这篇文章</a>的流程进行编译，作者写得十分详细</li>
+</ul>
+<ul>
+<li>x86 交叉编译的配置参考如下,其他abi请自行推断CC 和CXX参数</li>
+</ul>
+<pre><code>export NDK_HOME=/home/parallels/albert/Android/android-ndk-r14b
+ export PATH=$NDK_HOME:$PATH
+
+ export TOOLCHAIN_HOME=/home/parallels/Android/android-toolchain/x86
+ export PATH=$TOOLCHAIN_HOME/bin:$PATH
+ export LIBS=&quot;-lstdc++ -lgnustl_shared&quot;
+ export CC=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-gcc-4.9
+ export CXX=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-g++
+ export CXXFLAGS=&quot;-march=i686&quot;
+ export CFLAGS=&quot;-march=i686&quot;
+ export LDFLAGS=&quot;-march=i686&quot;
+</code></pre><ul>
+<li>./configure 阶段如果报错，务必在configure.log中查看详细的错误信息</li>
+</ul>
+<ul>
+<li>在 gdal 2.0.3版本以下会出现  x86_64-unknown-linux-gnu 错误，无法检测到编译平台，这里需要更新 gdal源文件的config.guess和config.sub文件，可以在<a href="http://git.savannah.gnu.org/gitweb/?p=config.git;a=tree" title="这里" target="_blank" rel="external">这里</a>获取</li>
+</ul>
+<ul>
+<li>使用APP_PLATFORM = 19 编译无法通过，这是由于signal和atof等库或函数在21以下不存在，将APP_PLATFORM下调至8可以通过，但是运行时可能出现链接错误，暂时没有找到解决办法</li>
+</ul>
+<ul>
+<li>其中由于库或函数不存在而出错的源文件如下,可以考虑直接修改源文件，如atof可以修改strtod(nptr, NULL)</li>
+</ul>
+<pre><code>gxf_ogcwkt.c
+
+hf2dataset.cpp
+
+tif_luv.c
+
+cpl_strtod.cpp
+
+gdalwarper.cpp
+
+gdalnodatamaskband.cpp
+
+ilwisdataset.cpp
+
+cpl_spawn.cpp
+</code></pre><ul>
+<li>使用低版本源码有时在swig目录中make出错，本人是直接忽略的，gdal社区中有人给出的建议是调低swig版本，实际使用发现一般swig正常生成jar包可以通用，可能是由于绝大部分接口的定义都是一致的</li>
+</ul>
+<ul>
+<li>正式发版时记得将x86的so文件移除</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Jni ，从入门到入坟]]></title>
       <url>/2017/11/17/Jni/</url>
       <content type="html"><![CDATA[<a id="more"></a>

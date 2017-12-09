@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2017-11-22T13:02:25.000Z</updated>
+  <updated>2017-12-09T15:13:26.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android Shape/KML/GML/GeoJSON 文件读写库 Gdal 编译注意事项</title>
+    <link href="https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/"/>
+    <id>https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/</id>
+    <published>2017-12-09T13:44:23.000Z</published>
+    <updated>2017-12-09T15:13:26.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Jni ，从入门到入坟</title>
@@ -383,26 +403,6 @@
     <id>https://alberthumbert.github.io/2017/07/20/Annotation/</id>
     <published>2017-07-20T08:03:02.000Z</published>
     <updated>2017-11-21T07:22:28.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ButterKnife 快速绑定控件</title>
-    <link href="https://alberthumbert.github.io/2017/07/20/ButterKnife/"/>
-    <id>https://alberthumbert.github.io/2017/07/20/ButterKnife/</id>
-    <published>2017-07-20T05:40:56.000Z</published>
-    <updated>2017-11-21T07:22:31.000Z</updated>
     
     <summary type="html">
     
