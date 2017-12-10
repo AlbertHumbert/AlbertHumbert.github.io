@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[Android Shape/KML/GML/GeoJSON 文件读写库 Gdal 编译注意事项]]></title>
+      <title><![CDATA[Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项]]></title>
       <url>/2017/12/09/makeFuckingGdalSo/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -48,12 +48,11 @@
 <ul>
 <li>x86 交叉编译的配置参考如下,其他abi请自行推断CC 和CXX参数</li>
 </ul>
-<pre><code>export NDK_HOME=/home/parallels/albert/Android/android-ndk-r14b
- export PATH=$NDK_HOME:$PATH
-
- export TOOLCHAIN_HOME=/home/parallels/Android/android-toolchain/x86
- export PATH=$TOOLCHAIN_HOME/bin:$PATH
- export LIBS=&quot;-lstdc++ -lgnustl_shared&quot;
+<pre><code>export NDK\_HOME=/home/parallels/albert/Android/android-ndk-r14b
+ export PATH=$NDK\_HOME:$PATH
+ export TOOLCHAIN\_HOME=/home/parallels/Android/android-toolchain/x86
+ export PATH=$TOOLCHAIN\_HOME/bin:$PATH
+ export LIBS=&quot;-lstdc++ -lgnustl\_shared&quot;
  export CC=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-gcc-4.9
  export CXX=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-g++
  export CXXFLAGS=&quot;-march=i686&quot;
@@ -71,13 +70,13 @@
 <ul>
 <li>其中由于库或函数不存在而出错的源文件如下,可以考虑直接修改源文件，如atof可以修改strtod(nptr, NULL)</li>
 </ul>
-<pre><code>gxf_ogcwkt.c
+<pre><code>gxf\_ogcwkt.c
 
 hf2dataset.cpp
 
-tif_luv.c
+tif\_luv.c
 
-cpl_strtod.cpp
+cpl\_strtod.cpp
 
 gdalwarper.cpp
 
@@ -85,7 +84,7 @@ gdalnodatamaskband.cpp
 
 ilwisdataset.cpp
 
-cpl_spawn.cpp
+cpl\_spawn.cpp
 </code></pre><ul>
 <li>使用低版本源码有时在swig目录中make出错，本人是直接忽略的，gdal社区中有人给出的建议是调低swig版本，实际使用发现一般swig正常生成jar包可以通用，可能是由于绝大部分接口的定义都是一致的</li>
 </ul>
