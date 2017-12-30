@@ -3,6 +3,98 @@
   
     
     <entry>
+      <title><![CDATA[译文：对匈牙利命名法说不]]></title>
+      <url>/2017/12/30/Hungarian-translate/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<pre><code>译者：
+
+本文来自 Android 大神 Jake Wharton,他是 ButerKnife 和 RxBinding 的开发者,
+OkHttp，RxJava，Retrofit 等流行的 Android 开发库的重要贡献者，对安卓编程风格的演进具有不可磨灭的影响
+</code></pre><p><br></p>
+<p><strong>每一天都会有为安卓应用和库编写的java代码携带着一种传染病诞生，这种传染病的名字就叫做匈牙利命名法。</strong><br><strong>匈牙利命名法在安卓领域的推广纯粹是个意外，然而它依然受到错误的辩护。让我们先来推垮几个常见的主张：</strong></p>
+<p><br></p>
+<ul>
+<li><strong>“《安卓 java 代码风格指南》推荐使用匈牙利命名法”</strong></li>
+</ul>
+<p>根本就不存在所谓指导程序员如何编写java代码的《安卓java代码风格指南》，绝大部分人口中子虚乌有的编码风格指南来自于 <a href="https://source.android.com/source/code-style#follow-field-naming-conventions" title="面向贡献者的 AOSP 代码样式指南&gt;" target="_blank" rel="external"> 《面向贡献者的 AOSP 代码样式指南》 </a></p>
+<p>你可不是在为AOSP项目编写代码，因此你并不需要遵循他们的指南。</p>
+<p>即便你正在编写未来可能纳入AOSP的代码，你也不需要遵循这份指南,<br>几乎所有AOSP所导入的java库都没有遵循它，甚至AOSP项目中的一部分开发人员都没有这么做</p>
+<p><br></p>
+<ul>
+<li><strong>“Android 样例使用匈牙利命名法”</strong></li>
+</ul>
+<p>一些样例诞生于AOSP项目的开发平台所以它们奉行AOSP的风格。而那些不来自AOSP的样例，它们的作者要么错误地相信了别的主张，要么只是单纯地忘了纠正编写这些样例时所使用的风格</p>
+<p><br></p>
+<ul>
+<li><strong>“那些额外的信息为 code review 提供了帮助”</strong></li>
+</ul>
+<p>使用变量名前缀m和s分别可以声明变量是private/package的非静态成员或静态成员①，不然进行code review时将无法得知这些信息。这种方式能够推断那些代码改动②中不可见的变量。从而，不管怎样，一个变量的可见性都可以被显而易见地得知。</p>
+<p>在我反驳这种观点之前，我们先来定义一下匈牙利命名法。根据维基百科，匈牙利命名法有两种：</p>
+<ul>
+<li><p>1.</p>
+<pre><code>系统命名法将变量的数据类型加入到变量名当中。
+一个long类型的用户id在java中将被一个名为lUser的变量代表，以此来表示它的用途和数据类型
+</code></pre></li>
+<li><p>2.</p>
+<pre><code>应用命名法将变量在语义上的用途而不是逻辑上的用途或目的加入到变量名中。
+保存私有信息的变量带有某种前缀（如mUserId）而保存公有信息的变量则有另一种前缀，或者压根没有前缀
+</code></pre></li>
+</ul>
+<p>那么当你看见一个成员变量被使用时，究竟哪一种信息对code review来说更重要，是它的可见性还是数据类型？</p>
+<p>可见性在code review当中是一种无需关注的属性。成员变量已经出现并且能够被使用，而且它的可见性大概也已经在上一个改动中被审阅过了<br>然而，成员变量的类型对于其在代码改动中如何被使用有更加直接的影响。被正确调用的方法名，参数的位置，可以被调用的方法，这些全都与变量的类型直接相关。</p>
+<p>因此提出应用匈牙利命名法是错误的不单只是因为它没有用处，还因为系统匈牙利命名法能提供更多有关的信息。这可不是在说你应该使用系统匈牙利命名法，数据类型和可见性时常改动，而你将会忘记修改它们的名字。毕竟并不难发现静态的mContext成员变量</p>
+<p><br></p>
+<ul>
+<li><strong>“额外的信息有助于开发”</strong></li>
+</ul>
+<p>Android Studio和IntelliJ IDEA会根据成员身份（静态或非静态）在视觉上区分非成员变量</p>
+<p>IDE默认强制使用正确的可见性和数据类型，所以一个命名规定不会带来任何东西。简单敲击键盘，就会有弹窗显示变量的那三种（以及更多）属性。</p>
+<p><img src="http://jakewharton.com/static/post-image/hungarian-idea.png" alt=""></p>
+<p><br></p>
+<ul>
+<li><strong>“我想像谷歌官方一样编写java代码”</strong></li>
+</ul>
+<p>尽管安卓和AOSP都是该公司的一部分，谷歌在他们的<a href="https://google.github.io/styleguide/javaguide.html#s5.1-identifier-names" target="_blank" rel="external">编码风格指南</a>中积极明确地禁止了匈牙利命名法的使用。公开的java风格指南是其经年累月的内部习惯的固化</p>
+<p>安卓起源于谷歌之外，AOSP团队早已染上了匈牙利命名病。现在对其进行修改将是一种无用的扰乱并且会给分支和第三方合作者带来冲突。</p>
+<p>但你对下面这个观点的持续支持与实践能够让我们在人生中根除这种疾病</p>
+<p><strong>朋友就不该再让朋友使用匈牙利命名法③</strong></p>
+<p><br></p>
+<p><strong>— Jake Wharton</strong></p>
+<p><br><br><br></p>
+<pre><code>译者注：
+
+① field(成员): 根据oracle提供的文档，field这个词在未特指的情况下指的是非静态的成员变量，
+    而在本文单纯指成员变量，没有额外的限定
+
+② change(代码改动)：在该文中应指git等svn中的提交差异
+
+③ 该文中标题中的不以及结尾处的两个朋友原文中分别使用的是 mNo,mFriends,sFriends,
+    这里直接舍弃了匈牙利命名法的前缀来翻译，至于作者使用这些前缀的意图，感兴趣的读者可以自行借助原文进行思考
+</code></pre><ul>
+<li><a href="http://jakewharton.com/just-say-no-to-hungarian-notation/" target="_blank" rel="external">原文博客地址</a></li>
+<li><a href="https://github.com/JakeWharton/" target="_blank" rel="external">作者GitHub地址</a></li>
+<li><a href="https://docs.oracle.com/javase/tutorial/information/glossary.html" target="_blank" rel="external">翻译参考资料</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项]]></title>
       <url>/2017/12/09/makeFuckingGdalSo/</url>
       <content type="html"><![CDATA[<p>-</p>
