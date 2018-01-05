@@ -10203,7 +10203,7 @@ android:layout_width=&quot;match_parent&quot;
       
         <categories>
             
-            <category> 笔记 </category>
+            <category> dairy </category>
             
         </categories>
         
@@ -10688,7 +10688,7 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
 
     }
 });
-</code></pre><p><br>   </p>
+</code></pre><p><br>  </p>
 <h2 id="第三章-UI开发"><a href="#第三章-UI开发" class="headerlink" title="第三章 UI开发"></a>第三章 UI开发</h2><hr>
 <p><br>  </p>
 <h3 id="常用控件的使用方法"><a href="#常用控件的使用方法" class="headerlink" title="常用控件的使用方法"></a>常用控件的使用方法</h3><hr>
@@ -11523,8 +11523,7 @@ private void showResponse(final String response){
 { &quot;firstName&quot;: &quot;Elliotte&quot;, &quot;lastName&quot;:&quot;Harold&quot;, &quot;email&quot;: &quot;cccc&quot; }
 }   
 </code></pre><ul>
-<li>用例</li>
-</ul>
+<li><p>用例</p>
 <pre><code>protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -11587,7 +11586,9 @@ private void getJsonWithHttpURLConnection() {
         }
     }).start();
 }
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>回调机制，请求服务器时应该定义一个接口，在其中的onFinish方法中执行逻辑处理，而在onError方法中对异常状况进行处理</li>
 <li>关于java、android的回调机制，参考<br><a href="http://blog.csdn.net/xiaanming/article/details/8703708/" target="_blank" rel="external">http://blog.csdn.net/xiaanming/article/details/8703708/</a><br><br></li>
 </ul>
@@ -11952,7 +11953,7 @@ public void onStartCommand(Intent intent, int flags,int startId){
       
         <categories>
             
-            <category> 笔记 </category>
+            <category> dairy </category>
             
         </categories>
         
@@ -12155,7 +12156,7 @@ import java.util.Date;//指明选定的类
 <li>输入输出异常，IOException，包括：试图在文件尾部后面读取数据，试图打开一个不存在的文件，试图根据给定的字符串查找不存在的class对象等等</li>
 <li>自己编写方法时不必声明所有抛出的异常，但必须声明所有可能抛出的受查异常，如果没有声明所有的受查异常，编译器将报错</li>
 <li>如果一个方法声明将会抛出一个特定类型的异常，那么结果它可能抛出这个类型或其子类的异常</li>
-<li><p>抛出已存在异常类的步骤：找到一个合适的异常类，创造这个类的一个对象，将对象抛出         </p>
+<li><p>抛出已存在异常类的步骤：找到一个合适的异常类，创造这个类的一个对象，将对象抛出  </p>
 <pre><code>String readData(Scanner in)throws EOFException
 {
 ...
@@ -12365,7 +12366,7 @@ String middle = ArrayAlg.&lt;String&gt;getMiddle(&quot;John&quot;,&quot;Q&quot;,
 </li>
 </ul>
 <h3 id="链表-LinkedList"><a href="#链表-LinkedList" class="headerlink" title="链表 LinkedList"></a>链表 LinkedList</h3><ul>
-<li><p>在Java中所有链表其实都是双向链表，基本操作：          </p>
+<li><p>在Java中所有链表其实都是双向链表，基本操作：  </p>
 <pre><code>LinkedList&lt;String&gt; staff = new LinkedList&lt;String&gt;();
 staff.add(&quot;amy&quot;);
 staff.add(&quot;amy&quot;);
@@ -12894,7 +12895,7 @@ String name = root.getTagName();
       
         <categories>
             
-            <category> 笔记 </category>
+            <category> dairy </category>
             
         </categories>
         
@@ -13065,7 +13066,7 @@ printf(&quot;connection from %s,port %d\n&quot;,inet_ntop(AF_INET,
       
         <categories>
             
-            <category> 笔记 </category>
+            <category> dairy </category>
             
         </categories>
         
@@ -13103,6 +13104,12 @@ E: Unable to locate package xinetd
 counter = 1
 </code></pre>]]></content>
       
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
         
         <tags>
             
@@ -13448,6 +13455,12 @@ nnoremap &lt;leader&gt;tl : Tlist&lt;CR&gt;
 </code></pre><p>注：taglist需要使用ctags生成的tags    </p>
 ]]></content>
       
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
         
         <tags>
             
@@ -13476,6 +13489,12 @@ nnoremap &lt;leader&gt;tl : Tlist&lt;CR&gt;
 <p>关于如何将域名关联到Github：<br>返回参考第一个链接 </p>
 ]]></content>
       
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
         
         <tags>
             
@@ -13520,6 +13539,12 @@ nnoremap &lt;leader&gt;tl : Tlist&lt;CR&gt;
 <p>欢迎来到我的小窝</p>
 ]]></content>
       
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
         
     </entry>
     
