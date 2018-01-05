@@ -12,7 +12,12 @@
 
 本文来自 Android 大神 Jake Wharton,他是 ButerKnife 和 RxBinding 的开发者,
 OkHttp，RxJava，Retrofit 等流行的 Android 开发库的重要贡献者，对安卓编程风格的演进具有不可磨灭的影响
-</code></pre><p><br></p>
+</code></pre><ul>
+<li><a href="http://jakewharton.com/just-say-no-to-hungarian-notation/" target="_blank" rel="external">原文博客地址</a></li>
+<li><a href="https://alberthumbert.github.io/2017/12/30/Hungarian-translate/">译文地址</a></li>
+<li><a href="https://www.jianshu.com/p/3dcc81d3e937" target="_blank" rel="external">简书地址</a></li>
+</ul>
+<p><br></p>
 <p><strong>每一天都会有为安卓应用和库编写的java代码携带着一种传染病诞生，这种传染病的名字就叫做匈牙利命名法。</strong><br><strong>匈牙利命名法在安卓领域的推广纯粹是个意外，然而它依然受到错误的辩护。让我们先来推垮几个常见的主张：</strong></p>
 <p><br></p>
 <ul>
@@ -56,8 +61,8 @@ OkHttp，RxJava，Retrofit 等流行的 Android 开发库的重要贡献者，�
 <ul>
 <li><strong>“我想像谷歌官方一样编写java代码”</strong></li>
 </ul>
-<p>尽管安卓和AOSP都是该公司的一部分，谷歌在他们的<a href="https://google.github.io/styleguide/javaguide.html#s5.1-identifier-names" target="_blank" rel="external">编码风格指南</a>中积极明确地禁止了匈牙利命名法的使用。公开的java风格指南是其经年累月的内部习惯的固化</p>
-<p>安卓起源于谷歌之外，AOSP团队早已染上了匈牙利命名病。现在对其进行修改将是一种无用的扰乱并且会给分支和第三方合作者带来冲突。</p>
+<p>尽管安卓和AOSP都是该公司的一部分，谷歌在他们的<a href="https://google.github.io/styleguide/javaguide.html#s5.1-identifier-names" target="_blank" rel="external">编码风格指南</a>中积极明确地禁止了匈牙利命名法的使用。公开的java风格指南是AOSP经年累月的内部习惯固化的产物。</p>
+<p>安卓起源于谷歌之外，AOSP团队早已染上了匈牙利命名的顽疾。现在对其进行修改将是一种无用的扰乱并且会给分支和第三方合作者带来冲突。</p>
 <p>但你对下面这个观点的持续支持与实践能够让我们在人生中根除这种疾病</p>
 <p><strong>朋友就不该再让朋友使用匈牙利命名法③</strong></p>
 <p><br></p>
@@ -70,7 +75,7 @@ OkHttp，RxJava，Retrofit 等流行的 Android 开发库的重要贡献者，�
 
 ② change(代码改动)：在该文中应指git等svn中的提交差异
 
-③ 该文中标题中的不以及结尾处的两个朋友原文中分别使用的是 mNo,mFriends,sFriends,
+③ 该文中标题中的“不”以及结尾处的两个“朋友”在原文中使用的分别是 mNo,mFriends,sFriends,
     这里直接舍弃了匈牙利命名法的前缀来翻译，至于作者使用这些前缀的意图，感兴趣的读者可以自行借助原文进行思考
 </code></pre><ul>
 <li><a href="http://jakewharton.com/just-say-no-to-hungarian-notation/" target="_blank" rel="external">原文博客地址</a></li>
