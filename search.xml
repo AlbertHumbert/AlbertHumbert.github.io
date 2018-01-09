@@ -13507,7 +13507,8 @@ nnoremap &lt;leader&gt;tl : Tlist&lt;CR&gt;
     <entry>
       <title><![CDATA[我的涂鸦]]></title>
       <url>/2016/10/15/MyPaintings/</url>
-      <content type="html"><![CDATA[<p>这是一个存放半成品的地方，线稿居多</p>
+      <content type="html"><![CDATA[<p>-<br>图已挂，待修复</p>
+<p>这是一个存放半成品的地方，线稿居多</p>
 <p>也许哪天会想要继续画的东西，大概吧<br><a id="more"></a><br><img src="http://p1.bqimg.com/567571/2b22b63555a8a112.jpg" alt="光影部分没有完成，不肝了:("></p>
 <p><img src="http://p1.bpimg.com/567571/49b24aac8aef4874.jpg" alt="自用的logo（并没有用 "></p>
 <p><img src="http://p1.bqimg.com/567571/9c34ec604599fff3.jpg" alt="久违的同人"></p>
@@ -13519,14 +13520,14 @@ nnoremap &lt;leader&gt;tl : Tlist&lt;CR&gt;
       
         <categories>
             
-            <category> 创作 </category>
+            <category> paintings </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> 涂鸦 </tag>
+            <tag> paintings </tag>
             
         </tags>
         
