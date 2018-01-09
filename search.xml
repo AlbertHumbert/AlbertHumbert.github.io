@@ -13535,7 +13535,9 @@ nnoremap &lt;leader&gt;tl : Tlist&lt;CR&gt;
     <entry>
       <title><![CDATA[hello world]]></title>
       <url>/2016/10/14/HowLowWorld/</url>
-      <content type="html"><![CDATA[<p>缘起</p>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p>缘起</p>
 <p>欢迎来到我的小窝</p>
 ]]></content>
       
@@ -13545,6 +13547,12 @@ nnoremap &lt;leader&gt;tl : Tlist&lt;CR&gt;
             
         </categories>
         
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
         
     </entry>
     
