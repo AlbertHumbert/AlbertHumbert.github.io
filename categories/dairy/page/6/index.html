@@ -12,7 +12,7 @@
     
     <title>
         
-            Handler 详解 | 
+            分类: dairy | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="-">
-    <meta name="keywords" content="null,notes">
+    <meta name="description" itemprop="description" content="developing">
+    <meta name="keywords" content="null">
 
     <!-- Site Verification -->
     
@@ -65,62 +65,29 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Handler 详解 | Albert&#39;s Blog">
+    <meta property="og:title" content="分类: dairy | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="-">
-    <meta property="og:article:tag" content="notes"> 
-
+    <meta property="og:description" content="developing">
     
-        <meta property="article:published_time" content="7月 13, 2017" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Handler 详解 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="-">
+    <meta name="twitter:title" content="分类: dairy | Albert&#39;s Blog">
+    <meta name="twitter:description" content="developing">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/13/Handler/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/categories/dairy/page/6/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Albert&#39;s Blog",
-        "logo": "/img/favicon.png"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Albert Humbert",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/favicon.png"
-        },
-        "description": "Paranoid Android"
-    },
-    "headline": "Handler 详解",
-    "url": "https://alberthumbert.github.io/2017/07/13/Handler/index.html",
-    "datePublished": "7月 13, 2017",
-    "dateModified": "11月 21, 2017",
-    "description": "-",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://alberthumbert.github.io"
-    }
-}
-</script>
 
 
     
@@ -308,530 +275,161 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-    <!-- Left aligned menu below button -->
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ANR"><span class="post-toc-number">1.</span> <span class="post-toc-text">ANR</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Handler"><span class="post-toc-number">2.</span> <span class="post-toc-text">Handler</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#post"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">post</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#postDelay"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">postDelay</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sendMessage"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">sendMessage</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内存泄漏"><span class="post-toc-number">3.</span> <span class="post-toc-text">内存泄漏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原因"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">- 原因</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决方案"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">- 解决方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Handler机制"><span class="post-toc-number">4.</span> <span class="post-toc-text">Handler机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MessageQueue"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">MessageQueue</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Looper"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Looper</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Handler-1"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">Handler</span></a></li></ol></li></ol>
-        <!--
-        <li class="mdl-menu__item">
-            Some Action
-        </li>
-        -->
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
         
     
-            <p class="article-headline-p">
-                Handler 详解
-            </p>
-        </div>
 
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Albert Humbert</strong>
-        <span>7月 13, 2017</span>
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2016/10/15/Hexo/">搭建hexo＋github博客</a></p>
     </div>
 
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/notes/">notes</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Handler 详解&url=https://alberthumbert.github.io/2017/07/13/Handler/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Handler 详解&url=https://alberthumbert.github.io/2017/07/13/Handler/index.html&via=Albert Humbert" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/13/Handler/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/13/Handler/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/13/Handler/index.html&title=Handler 详解" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 LinkedIn
-            </li>
-        </a>
-    
-
-    <!-- Share QQ -->
-    
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Handler 详解&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/13/Handler/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 QQ
-            </li>
-        </a>
-    
-
-    <!-- Share Telegram -->
-    
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/13/Handler/index.html&text=Handler 详解" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Telegram
-            </li>
-        </a>
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <p>-</p>
-<a id="more"></a>
-<h2 id="ANR"><a href="#ANR" class="headerlink" title="ANR"></a>ANR</h2><ul>
-<li>application not responding，当线程阻塞超过5秒时会弹出无响应的Dialog</li>
-</ul>
-<pre><code>       button.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-        Thread thread = Thread.currentThread();
-        try {
-            thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-});
-</code></pre><ul>
-<li><img src="http://i2.kiimg.com/1949/7d8478d22d279b6a.png" alt=""></li>
-<li>所以我们需要在子线程中进行耗时操作，但是子线程是不可以更新UI的，这就意味着我们需要一种机制，使子线程中加载完数据可以马上切换到主线程</li>
-</ul>
-<h2 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h2><h3 id="post"><a href="#post" class="headerlink" title="post"></a>post</h3><p><strong>发送线程</strong></p>
-<ul>
-<li>post用于投递Runnable，通常被投递的Runnable的run方法会在UI线程中执行，可以更新UI，尝试运行下面这段代码</li>
-</ul>
-<pre><code>button.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-
-                    new Handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            textView.setText(&quot;clicked&quot;);
-                            Log.d(&quot;MainActivity&quot;, &quot;run: &quot;);
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-});
-</code></pre><ul>
-<li>抛出了exception， Can’t create handler inside thread that has not called Looper.prepare()，那么这次尝试先执行Looper.prepare()，UI没有更新，原因和looper的机制有关暂时不去研究，只要把handler改为在主线程中创建即可</li>
-</ul>
-<pre><code>handler = new Handler();
-    button.setOnClickListener(new View.OnClickListener() 
-    ...
-</code></pre><h3 id="postDelay"><a href="#postDelay" class="headerlink" title="postDelay"></a>postDelay</h3><ul>
-<li>postDelay方法提供了一个参数，它用来设定run方法执行的时间，通常可以用来延迟执行UI更新</li>
-</ul>
-<ul>
-<li>这一段代码可以用来实现应用的启动logo，延迟设定一个宽高属性为match_parent的view的Visibility属性，在它遮盖整个界面的情况下onCreate中界面的初始化还可以进行,一定程度上提高了用户体验</li>
-</ul>
-<pre><code>new Handler().postDelayed(new Runnable() {
-    @Override
-    public void run() {
-        HomeActivity.this.findViewById(R.id.home_fl_logo)
-                .setVisibility(View.GONE);
-    }
-},3000);        
-</code></pre><h3 id="sendMessage"><a href="#sendMessage" class="headerlink" title="sendMessage"></a>sendMessage</h3><ul>
-<li>查看源码发现它是一个空方法，接受message必须重写它才行</li>
-</ul>
-<pre><code>/**
-* Subclasses must implement this to receive messages.
-*/
-public void handleMessage(Message msg) {
-} 
-</code></pre><ul>
-<li>这次使用sendMessage更新UI</li>
-</ul>
-<pre><code>handler = new Handler(){
-
-    @Override
-    public void handleMessage(Message msg) {
-        super.handleMessage(msg);
-        switch (msg.what){
-            case 1:
-                textView.setText(&quot;clicked&quot;);
-                Log.d(&quot;MainActivity&quot;, &quot;run: &quot;);
-                break;
-            default:
-                break;
-        }
-    }
-}; 
-
-...
-
-new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                    Message msg = new Message();
-                    msg.what = 1;
-                    handler.sendMessage(msg);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-</code></pre><ul>
-<li>这种方式分为两个步骤，重写 handleMessage 在switch语句中以Message.what为标识更新UI，调用sendMessage传入message对象</li>
-<li>注意，msg.setData()方法可以接受一个Bundle对象为参数，利用Bundle的putParcelable()就可以传递自定义的数据了</li>
-<li>使用Message.obtain()方法获取Message对象，避免反复创建实例        </li>
-</ul>
-<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><h3 id="原因"><a href="#原因" class="headerlink" title="- 原因"></a>- 原因</h3><ul>
-<li>handler的生命周期与activity不一致，handler关联了looper管理message队列，这个队列在整个Application的生命周期中存在，handler不会因为Activity的finish()被销毁</li>
-<li>非静态（匿名）内部类会持有外部对象，当我们这样重写handler时它就成了一个匿名内部类，这样结合前面如果finish时handler有message未处理，Activity就不能被销毁</li>
-</ul>
-<pre><code> handler = new Handler(){
-
-    @Override
-    public void handleMessage(Message msg) {
-        super.handleMessage(msg);
-        switch (msg.what){
-            case 1:
-                textView.setText(&quot;clicked&quot;);
-                Log.d(&quot;MainActivity&quot;, &quot;run: &quot;);
-                break;
-            default:
-                break;
-        }
-    }
-}; 
-</code></pre><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="- 解决方案"></a>- 解决方案</h3><ul>
-<li>在外部新建一个类完全可以解决这个问题，但有时内部类确实比较方便</li>
-<li>这时我们可以使用静态内部类和弱引用，当一个对象只被弱引用依赖时它会被gc回收</li>
-<li>首先不使用弱引用，我们在onResume中延迟发送消息并马上finish()，handler是一个静态内部类，它显式引用Activity</li>
-</ul>
-<pre><code>    @Override
-protected void onResume() {
-super.onResume();
-Message message = Message.obtain();
-message.what =1;
-handler.sendMessageDelayed(message,5000);
-finish();
-}
-
-...
-
-    private static class MyHandler extends Handler {
-
-//private WeakReference&lt;Activity&gt; reference;
-private Activity reference;
-
-public MyHandler(Activity activity){
-    //reference = new WeakReference&lt;&gt;(activity);
-    reference = activity;
-}
-
-@Override
-public void handleMessage(Message msg) {
-    super.handleMessage(msg);
-    switch (msg.what){
-        case 1:
-            if(reference!= null){
-            Log.d(&quot;Main2Activity&quot;, &quot;Leak!! &quot;);
-            }else {
-                Log.d(&quot;Main2Activity&quot;, &quot;not leak: &quot;);
-            }
-            break;
-        default:
-            break;
-        }
-    }
-}
-</code></pre><ul>
-<li>启动这个Activity之后，马上手动gc，收到log，Activity没有被回收</li>
-</ul>
-<pre><code>07-14 10:38:43.958 24909-24909/com.linjiamin.handler D/Main2Activity: Leak!! 
-</code></pre><ul>
-<li><p>这次使用弱引用，注意判空条件为 reference.get()!= null</p>
-<pre><code>private static class MyHandler extends Handler {
-
-private WeakReference&lt;Activity&gt; reference;
-//private Activity reference;
-
-public MyHandler(Activity activity){
-    reference = new WeakReference&lt;&gt;(activity);
-    //reference = activity;
-}
-
-@Override
-public void handleMessage(Message msg) {
-    super.handleMessage(msg);
-    switch (msg.what){
-        case 1:
-            if(reference.get()!= null){
-            Log.d(&quot;Main2Activity&quot;, &quot;Leak!! &quot;);
-            }else {
-                Log.d(&quot;Main2Activity&quot;, &quot;not leak: &quot;);
-            }
-            break;
-        default:
-            break;
-    }
-}
-</code></pre><p>  }</p>
-</li>
-</ul>
-<ul>
-<li>手动gc，收到log，Activity已销毁，Activity内存泄漏的问题已经解决了</li>
-</ul>
-<pre><code>07-14 10:40:12.400 26112-26112/com.linjiamin.handler D/Main2Activity: not leak: 
-</code></pre><ul>
-<li>那么如果不使用静态类，只使用弱引用</li>
-</ul>
-<pre><code>private class MyHandler extends Handler {
-</code></pre><ul>
-<li>Activity没有被销毁，原因应该是非静态内部类隐式持有了外部类Activity的引用导致无法释放</li>
-</ul>
-<pre><code>07-14 10:43:41.252 29232-29232/com.linjiamin.handler D/Main2Activity: Leak!!    
-</code></pre><ul>
-<li>因此我们需要同时使用static和弱引用避免内存泄漏</li>
-</ul>
-<h2 id="Handler机制"><a href="#Handler机制" class="headerlink" title="Handler机制"></a>Handler机制</h2><ul>
-<li>多线程访问UI会导致控件处于不可预期状态，使用线程锁会导致UI访问效率降低，线程阻塞等问题，所以Android使用了单线程来管理UI控件</li>
-<li>Handler机制由MessageQueue，Looper和Handler本身组成</li>
-<li>Looper用于循环查找MessageQueue中的消息，最终消息会交由Runnable或handler的handlerMessage()处理</li>
-</ul>
-<h3 id="MessageQueue"><a href="#MessageQueue" class="headerlink" title="MessageQueue"></a>MessageQueue</h3><ul>
-<li>MessageQueue的中的enqueueMessage可以将消息插入管理消息的单链表，接受参数Message message和Long when就是需要被插入的消息，when是一个位置标记，写过单链表的增删查改的话，下面的操作应该很眼熟了，知道有这回事就够了  </li>
-</ul>
-<pre><code>Message prev;
-        for (;;) {
-            prev = p;
-            p = p.next;
-            if (p == null || when &lt; p.when) {
-                break;
-            }
-        ...
-        }
-        msg.next = p; // invariant: p == prev.next
-        prev.next = msg;
-    }
-</code></pre><ul>
-<li>MessageQueue还有一个next()方法，返回一个Message，并将其从链表中删除</li>
-</ul>
-<h3 id="Looper"><a href="#Looper" class="headerlink" title="Looper"></a>Looper</h3><ul>
-<li>有了MessageQueue保存和管理Message的方法，那么当然还需要有这些方法的使用者，它就是looper</li>
-<li>looper会不停地查看 MessageQueue中是否有新的Message</li>
-<li>只有在主线程中才可以认为有默认的looper在工作，在其他线程中直接创建Handler就会报错</li>
-</ul>
-<pre><code>Can’t create handler inside thread that has not called Looper.prepare()
-</code></pre><ul>
-<li>因此在一个子线程中要使用 looper，需要调用Looper的两个静态方法，Looper.prepare可以为当前线程创建一个Looper，Looper.loop会开启Looper的无限循坏，这样就有一个正在工作的Looper了</li>
-</ul>
-<pre><code>Looper.prepare();
-Looper.loop(); 
-</code></pre><h3 id="Handler-1"><a href="#Handler-1" class="headerlink" title="Handler"></a>Handler</h3><ul>
-<li>从上面了解到Looper只是在不停的查看MessageQueue，那么还需要有 Message的发送者和处理者，它就是Handler</li>
-<li>Handler有sendMessage方法和post方法，后者就是基于前者来实现的，最终只是向MessageQueue添加一个Message而已</li>
-</ul>
-<pre><code>queue.enqueueMessage(msg, uptimeMillis);
-</code></pre><ul>
-<li>Looper会将Message交由handler处理，而handler会执行dispatchMessage方法查看有没有 callback，这个callback就是我们post的Runnable对象了，如果没有就会调用我们重写的handleMessage方法</li>
-</ul>
-<pre><code>public void dispatchMessage(Message msg) {
-if (msg.callback != null) {
-    handleCallback(msg);
-} else {
-    if (mCallback != null) {
-        if (mCallback.handleMessage(msg)) {
-            return;
-        }
-    }
-    handleMessage(msg);
-        }
-    }   
-</code></pre><ul>
-<li><p>从整体上看，Looper在一个线程中创建，它的操作都在这个线程中，我们在其他线程使用Handler其实最终都是给Looper发送Message，然后Looper再调用handler的方法，所以我们的操作能够在Looper的线程中执行</p>
-</li>
-<li><p>另外之所以子线程中不能修改UI，其实是由于ViewRoot的实现类有一个检查当前线程是否是主线程的方法，子线程修改UI时的Exception就是它抛出的</p>
-</li>
-</ul>
-
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            
+花一天半的时间搭了hexo博客，整理一下参考链接
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2016/10/15/Hexo/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
             </div>
+            <div>
+                <strong>Albert Humbert</strong>
+                <span>10月 15, 2016</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                <a class="post_category-link" href="/categories/dairy/">dairy</a>
+            </span>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-        <a href="/2017/07/17/Fragment/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
+            
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
+            
 
-    <!-- Next Nav -->
-    
-        <a href="/2017/07/13/Net/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
         </div>
     </div>
+</div>
 
+            
+            
+        
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+        
+    
+
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2016/10/14/HowLowWorld/">hello world</a></p>
+    </div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            -
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2016/10/14/HowLowWorld/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
+            </div>
+            <div>
+                <strong>Albert Humbert</strong>
+                <span>10月 14, 2016</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                <a class="post_category-link" href="/categories/dairy/">dairy</a>
+            </span>
+
+            
+
+            
+
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
+        </div>
+    </div>
+</div>
+
+            
+            
+        
+    
+
+    
+    <!-- Index nav -->
+        <nav class="material-nav mdl-cell mdl-cell--12-col">
+            <a class="extend prev" rel="prev" href="/categories/dairy/page/5/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/categories/dairy/">1</a><a class="page-number" href="/categories/dairy/page/4/">4</a><a class="page-number" href="/categories/dairy/page/5/">5</a><span class="page-number current">6</span>
+        </nav>
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
+</script>
+
+    
+</div>
 
 
                     
