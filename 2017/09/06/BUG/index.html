@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="9月 06, 2017" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+        <meta property="article:modified_time" content="1月 27, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Bug 合集",
     "url": "https://alberthumbert.github.io/2017/09/06/BUG/index.html",
     "datePublished": "9月 06, 2017",
-    "dateModified": "11月 21, 2017",
+    "dateModified": "1月 27, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-07-Android-Studio-无法添加远程依赖"><span class="post-toc-number">1.</span> <span class="post-toc-text">2017.09.07 - Android Studio 无法添加远程依赖</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-07-RemoteViewsService-无法启动-amp-amp-RemoteViews-无法定时更新"><span class="post-toc-number">2.</span> <span class="post-toc-text">2017.09.07 - RemoteViewsService 无法启动 && RemoteViews 无法定时更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-08-AIDL-报错-Error-错误-程序包-不存在"><span class="post-toc-number">3.</span> <span class="post-toc-text">2017.09.08 - AIDL 报错 : Error:(   * , * ) 错误: 程序包 ** 不存在</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-22-ViewPager加载图片缓慢"><span class="post-toc-number">4.</span> <span class="post-toc-text">2017.09.22 - ViewPager加载图片缓慢</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-10-06-Parcelable-包装类-NullPointerException"><span class="post-toc-number">5.</span> <span class="post-toc-text">2017.10.06 - Parcelable 包装类 NullPointerException</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-07-Android-Studio-无法添加远程依赖"><span class="post-toc-number">1.</span> <span class="post-toc-text">2017.09.07 - Android Studio 无法添加远程依赖</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-07-RemoteViewsService-无法启动-amp-amp-RemoteViews-无法定时更新"><span class="post-toc-number">2.</span> <span class="post-toc-text">2017.09.07 - RemoteViewsService 无法启动 && RemoteViews 无法定时更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-08-AIDL-报错-Error-错误-程序包-不存在"><span class="post-toc-number">3.</span> <span class="post-toc-text">2017.09.08 - AIDL 报错 : Error:(   * , * ) 错误: 程序包 ** 不存在</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-09-22-ViewPager加载图片缓慢"><span class="post-toc-number">4.</span> <span class="post-toc-text">2017.09.22 - ViewPager加载图片缓慢</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2017-10-06-Parcelable-包装类-NullPointerException"><span class="post-toc-number">5.</span> <span class="post-toc-text">2017.10.06 - Parcelable 包装类 NullPointerException</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2018-02-XX-横向-RecycleView-高度-wrap-content-时显示空白"><span class="post-toc-number">6.</span> <span class="post-toc-text">2018.02.XX - 横向 RecycleView 高度 wrap_content 时显示空白</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2018-02-XX-GreenDao-获取数据不正常"><span class="post-toc-number">7.</span> <span class="post-toc-text">2018.02.XX - GreenDao 获取数据不正常</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2018-02-XX-Intent-隐式跳转系统应用无法识别-mimeType"><span class="post-toc-number">8.</span> <span class="post-toc-text">2018.02.XX - Intent 隐式跳转系统应用无法识别 mimeType</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -599,6 +599,21 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
 <li>我们知道包装类没有默认的初始值（准确地说，初始值为null），因此writeToParcel可能抛出NullPointerException，一般情况下使用 Long long = 0L 这种形式为类属性赋初值即可</li>
 <li>特殊情况下，例如使用Gson这种会修改类属性的工具需要特别注意，在Gson的情况下，没有解析到的类属性为null，请考虑在writeToParcel，构造器或使用Gson的地方进行检查</li>
 </ul>
+<h2 id="2018-02-XX-横向-RecycleView-高度-wrap-content-时显示空白"><a href="#2018-02-XX-横向-RecycleView-高度-wrap-content-时显示空白" class="headerlink" title="2018.02.XX - 横向 RecycleView 高度 wrap_content 时显示空白"></a>2018.02.XX - 横向 RecycleView 高度 wrap_content 时显示空白</h2><ul>
+<li>onBindViewHolder执行但是视图空白</li>
+<li>网上出现这种情况一般是RecycleView外套了一层ScrollView，改用NestedScrollView可以解决问题</li>
+<li>在其他复杂布局中也可能出现这种情况，具体原因不清楚，但是在RecycleView外再套一层LinearLayout，并将这个LinearLayout的宽高指定得跟RecycleView完全一致，可以解决问题</li>
+</ul>
+<h2 id="2018-02-XX-GreenDao-获取数据不正常"><a href="#2018-02-XX-GreenDao-获取数据不正常" class="headerlink" title="2018.02.XX - GreenDao 获取数据不正常"></a>2018.02.XX - GreenDao 获取数据不正常</h2><ul>
+<li>GreenDao中，对同一个dao进行删除和查询操作，得出结果可能与数据库中的不同，可能是内部缓存的问题，调用XXXdao.detachAll可以清楚缓存</li>
+<li>在某种情况下，也可能出现清理缓存后仍然获取不到正确数据的情况，具体原因不清楚</li>
+</ul>
+<h2 id="2018-02-XX-Intent-隐式跳转系统应用无法识别-mimeType"><a href="#2018-02-XX-Intent-隐式跳转系统应用无法识别-mimeType" class="headerlink" title="2018.02.XX - Intent 隐式跳转系统应用无法识别 mimeType"></a>2018.02.XX - Intent 隐式跳转系统应用无法识别 mimeType</h2><ul>
+<li><p>在小米和某些系统的手机下直接使用文件路径作为跳转的data会出现无法弹出匹配的应用供选择的情况，应该是国内厂商改系统造成的</p>
+</li>
+<li><p>uri类型一般可以正常使用，即content://开头的类型</p>
+</li>
+</ul>
 
     
 
@@ -724,7 +739,7 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

@@ -3,6 +3,120 @@
   
     
     <entry>
+      <title><![CDATA[Android Camera API 使用指南]]></title>
+      <url>/2018/03/29/camera/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>本文主要是对项目中基于camera 1开发的模块中遇到的坑点的记录，不使用camera 2是因为项目目前要求适配到 api 16，有多蛋疼，自己感受一下</strong></p>
+<p><br></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>最近需要抄一个微信的拍摄界面，主要功能就是拍照和录制小视频</li>
+<li>这个界面说简单不简单，说复杂也不复杂，主要可以分为三个部分来写，动画（包括自定义view），拍照以及录像。Android开发中我最头疼的就是如多媒体播放器、相机等和硬件相关的内容了，官方文档总是简洁明了，但实际上手才发现事情往往没有那么简单</li>
+<li>由于该模块还在开发中，所以目前的使用效果并不太好，现在主要是记录一下踩坑的地方，后续优化的过程中会逐步修改本文</li>
+</ul>
+<p><br></p>
+<h2 id="Camera-创建"><a href="#Camera-创建" class="headerlink" title="Camera 创建"></a>Camera 创建</h2><p><br></p>
+<h3 id="后置与前置摄像头"><a href="#后置与前置摄像头" class="headerlink" title="后置与前置摄像头"></a>后置与前置摄像头</h3><p><br></p>
+<h2 id="对焦功能"><a href="#对焦功能" class="headerlink" title="对焦功能"></a>对焦功能</h2><p><br></p>
+<h3 id="自动对焦"><a href="#自动对焦" class="headerlink" title="自动对焦"></a>自动对焦</h3><p><br></p>
+<h3 id="手动对焦"><a href="#手动对焦" class="headerlink" title="手动对焦"></a>手动对焦</h3><p><br></p>
+<h2 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h2><p><br></p>
+<h3 id="配置顺序"><a href="#配置顺序" class="headerlink" title="配置顺序"></a>配置顺序</h3><p><br></p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p><br></p>
+<h2 id="尺寸设定"><a href="#尺寸设定" class="headerlink" title="尺寸设定"></a>尺寸设定</h2><p><br></p>
+<h3 id="预览尺寸"><a href="#预览尺寸" class="headerlink" title="预览尺寸"></a>预览尺寸</h3><p><br></p>
+<h3 id="视频尺寸"><a href="#视频尺寸" class="headerlink" title="视频尺寸"></a>视频尺寸</h3><p><br></p>
+<h2 id="处理文件"><a href="#处理文件" class="headerlink" title="处理文件"></a>处理文件</h2><p><br></p>
+<h3 id="旋转图片与视频"><a href="#旋转图片与视频" class="headerlink" title="旋转图片与视频"></a>旋转图片与视频</h3><p><br></p>
+<h3 id="更新与清理"><a href="#更新与清理" class="headerlink" title="更新与清理"></a>更新与清理</h3><p><br></p>
+<h2 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h2>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[计算机网络 学习笔记]]></title>
+      <url>/2018/03/29/ComputerNetwork/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>这学期的专业课，作为网络工程专业的学生，个人认为计网还是要学深一点的</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 官方语言 kotlin 系列 - 序]]></title>
+      <url>/2018/03/29/kotlin/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>该系列主要是《Kotlin实战》（Kotlin in Action）的笔记以及个人的理解，对于移动端开发者有没有必要现在就去学kotlin之类的问题请读者自行考虑，开这个系列主要是由于个人兴趣</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 官方架构组件 Architecture Components 系列 - 序]]></title>
+      <url>/2018/03/29/ArchitectureComponents/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong> 这几个月总被项目耽搁，很久没学过什么东西了，文章也没怎么写，翻翻博客，前面的几篇文章都太监了，再早一点的连链接都挂了。感觉很羞愧，赶紧开几个系列文章压压惊。</strong></p>
+<p><strong> Architecture Components 是安卓官方推出的数据驱动组件全家桶，包括 Lifecycle，LiveData，ViewModel，Room，Paging等，使用该全家桶最直观的效果就是，你更新数据库的时候，UI可以自动更新并且再也不用担心复杂的生命周期对app产生的负面影响。另外 LiveData是目前MVVM架构的核心依赖库，如果你想学习MVVM架构，也应该将Architecture Components作为入门基础</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[译文：对匈牙利命名法说不]]></title>
       <url>/2017/12/30/Hungarian-translate/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -2127,6 +2241,21 @@ if(intent.getAction().equals(UpdateService.ACTION_UPDATE)){
 <li>自动生成代码可能不会（至少本人使用的AS版本不会，算是个Bug）为包装类生成调用Parcel的read和writer代码，请注意检查</li>
 <li>我们知道包装类没有默认的初始值（准确地说，初始值为null），因此writeToParcel可能抛出NullPointerException，一般情况下使用 Long long = 0L 这种形式为类属性赋初值即可</li>
 <li>特殊情况下，例如使用Gson这种会修改类属性的工具需要特别注意，在Gson的情况下，没有解析到的类属性为null，请考虑在writeToParcel，构造器或使用Gson的地方进行检查</li>
+</ul>
+<h2 id="2018-02-XX-横向-RecycleView-高度-wrap-content-时显示空白"><a href="#2018-02-XX-横向-RecycleView-高度-wrap-content-时显示空白" class="headerlink" title="2018.02.XX - 横向 RecycleView 高度 wrap_content 时显示空白"></a>2018.02.XX - 横向 RecycleView 高度 wrap_content 时显示空白</h2><ul>
+<li>onBindViewHolder执行但是视图空白</li>
+<li>网上出现这种情况一般是RecycleView外套了一层ScrollView，改用NestedScrollView可以解决问题</li>
+<li>在其他复杂布局中也可能出现这种情况，具体原因不清楚，但是在RecycleView外再套一层LinearLayout，并将这个LinearLayout的宽高指定得跟RecycleView完全一致，可以解决问题</li>
+</ul>
+<h2 id="2018-02-XX-GreenDao-获取数据不正常"><a href="#2018-02-XX-GreenDao-获取数据不正常" class="headerlink" title="2018.02.XX - GreenDao 获取数据不正常"></a>2018.02.XX - GreenDao 获取数据不正常</h2><ul>
+<li>GreenDao中，对同一个dao进行删除和查询操作，得出结果可能与数据库中的不同，可能是内部缓存的问题，调用XXXdao.detachAll可以清楚缓存</li>
+<li>在某种情况下，也可能出现清理缓存后仍然获取不到正确数据的情况，具体原因不清楚</li>
+</ul>
+<h2 id="2018-02-XX-Intent-隐式跳转系统应用无法识别-mimeType"><a href="#2018-02-XX-Intent-隐式跳转系统应用无法识别-mimeType" class="headerlink" title="2018.02.XX - Intent 隐式跳转系统应用无法识别 mimeType"></a>2018.02.XX - Intent 隐式跳转系统应用无法识别 mimeType</h2><ul>
+<li><p>在小米和某些系统的手机下直接使用文件路径作为跳转的data会出现无法弹出匹配的应用供选择的情况，应该是国内厂商改系统造成的</p>
+</li>
+<li><p>uri类型一般可以正常使用，即content://开头的类型</p>
+</li>
 </ul>
 ]]></content>
       
