@@ -347,211 +347,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[译文：对匈牙利命名法说不]]></title>
-      <url>/2017/12/30/Hungarian-translate/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<pre><code>译者：
-
-本文来自 Android 大神 Jake Wharton,他是 ButerKnife 和 RxBinding 的开发者,
-OkHttp，RxJava，Retrofit 等流行的 Android 开发库的重要贡献者，对安卓编程风格的演进具有不可磨灭的影响
-</code></pre><ul>
-<li><a href="http://jakewharton.com/just-say-no-to-hungarian-notation/" target="_blank" rel="external">原文博客地址</a></li>
-<li><a href="https://alberthumbert.github.io/2017/12/30/Hungarian-translate/">译文地址</a></li>
-<li><a href="https://www.jianshu.com/p/3dcc81d3e937" target="_blank" rel="external">简书地址</a></li>
-</ul>
-<p><br></p>
-<p><strong>每一天都会有为安卓应用和库编写的java代码携带着一种传染病诞生，这种传染病的名字就叫做匈牙利命名法。</strong><br><strong>匈牙利命名法在安卓领域的推广纯粹是个意外，然而它依然受到错误的辩护。让我们先来推垮几个常见的主张：</strong></p>
-<p><br></p>
-<ul>
-<li><strong>“《安卓 java 代码风格指南》推荐使用匈牙利命名法”</strong></li>
-</ul>
-<p>根本就不存在所谓指导程序员如何编写java代码的《安卓java代码风格指南》，绝大部分人口中子虚乌有的编码风格指南来自于 <a href="https://source.android.com/source/code-style#follow-field-naming-conventions" title="面向贡献者的 AOSP 代码样式指南&gt;" target="_blank" rel="external"> 《面向贡献者的 AOSP 代码样式指南》 </a></p>
-<p>你可不是在为AOSP项目编写代码，因此你并不需要遵循他们的指南。</p>
-<p>即便你正在编写未来可能纳入AOSP的代码，你也不需要遵循这份指南,<br>几乎所有AOSP所导入的java库都没有遵循它，甚至AOSP项目中的一部分开发人员都没有这么做</p>
-<p><br></p>
-<ul>
-<li><strong>“Android 样例使用匈牙利命名法”</strong></li>
-</ul>
-<p>一些样例诞生于AOSP项目的开发平台所以它们奉行AOSP的风格。而那些不来自AOSP的样例，它们的作者要么错误地相信了别的主张，要么只是单纯地忘了纠正编写这些样例时所使用的风格</p>
-<p><br></p>
-<ul>
-<li><strong>“那些额外的信息为 code review 提供了帮助”</strong></li>
-</ul>
-<p>使用变量名前缀m和s分别可以声明变量是private/package的非静态成员或静态成员①，不然进行code review时将无法得知这些信息。这种方式能够推断那些代码改动②中不可见的变量。从而，不管怎样，一个变量的可见性都可以被显而易见地得知。</p>
-<p>在我反驳这种观点之前，我们先来定义一下匈牙利命名法。根据维基百科，匈牙利命名法有两种：</p>
-<ul>
-<li><p>1.</p>
-<pre><code>系统命名法将变量的数据类型加入到变量名当中。
-一个long类型的用户id在java中将被一个名为lUser的变量代表，以此来表示它的用途和数据类型
-</code></pre></li>
-<li><p>2.</p>
-<pre><code>应用命名法将变量在语义上的用途而不是逻辑上的用途或目的加入到变量名中。
-保存私有信息的变量带有某种前缀（如mUserId）而保存公有信息的变量则有另一种前缀，或者压根没有前缀
-</code></pre></li>
-</ul>
-<p>那么当你看见一个成员变量被使用时，究竟哪一种信息对code review来说更重要，是它的可见性还是数据类型？</p>
-<p>可见性在code review当中是一种无需关注的属性。成员变量已经出现并且能够被使用，而且它的可见性大概也已经在上一个改动中被审阅过了<br>然而，成员变量的类型对于其在代码改动中如何被使用有更加直接的影响。被正确调用的方法名，参数的位置，可以被调用的方法，这些全都与变量的类型直接相关。</p>
-<p>因此提出应用匈牙利命名法是错误的不单只是因为它没有用处，还因为系统匈牙利命名法能提供更多有关的信息。这可不是在说你应该使用系统匈牙利命名法，数据类型和可见性时常改动，而你将会忘记修改它们的名字。毕竟并不难发现静态的mContext成员变量</p>
-<p><br></p>
-<ul>
-<li><strong>“额外的信息有助于开发”</strong></li>
-</ul>
-<p>Android Studio和IntelliJ IDEA会根据成员身份（静态或非静态）在视觉上区分非成员变量</p>
-<p>IDE默认强制使用正确的可见性和数据类型，所以一个命名规定不会带来任何东西。简单敲击键盘，就会有弹窗显示变量的那三种（以及更多）属性。</p>
-<p><img src="http://jakewharton.com/static/post-image/hungarian-idea.png" alt=""></p>
-<p><br></p>
-<ul>
-<li><strong>“我想像谷歌官方一样编写java代码”</strong></li>
-</ul>
-<p>尽管安卓和AOSP都是该公司的一部分，谷歌在他们的<a href="https://google.github.io/styleguide/javaguide.html#s5.1-identifier-names" target="_blank" rel="external">编码风格指南</a>中积极明确地禁止了匈牙利命名法的使用。公开的java风格指南是AOSP经年累月的内部习惯固化的产物。</p>
-<p>安卓起源于谷歌之外，AOSP团队早已染上了匈牙利命名的顽疾。现在对其进行修改将是一种无用的扰乱并且会给分支和第三方合作者带来冲突。</p>
-<p>但你对下面这个观点的持续支持与实践能够让我们在人生中根除这种疾病</p>
-<p><strong>朋友就不该再让朋友使用匈牙利命名法③</strong></p>
-<p><br></p>
-<p><strong>— Jake Wharton</strong></p>
-<p><br><br><br></p>
-<pre><code>译者注：
-
-① field(成员): 根据oracle提供的文档，field这个词在未特指的情况下指的是非静态的成员变量，
-    而在本文单纯指成员变量，没有额外的限定
-
-② change(代码改动)：在该文中应指git等svn中的提交差异
-
-③ 该文中标题中的“不”以及结尾处的两个“朋友”在原文中使用的分别是 mNo,mFriends,sFriends,
-    这里直接舍弃了匈牙利命名法的前缀来翻译，至于作者使用这些前缀的意图，感兴趣的读者可以自行借助原文进行思考
-</code></pre><ul>
-<li><a href="http://jakewharton.com/just-say-no-to-hungarian-notation/" target="_blank" rel="external">原文博客地址</a></li>
-<li><a href="https://github.com/JakeWharton/" target="_blank" rel="external">作者GitHub地址</a></li>
-<li><a href="https://docs.oracle.com/javase/tutorial/information/glossary.html" target="_blank" rel="external">翻译参考资料</a></li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项]]></title>
-      <url>/2017/12/09/makeFuckingGdalSo/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><ul>
-<li>目前编译出来的so包只能兼容 Android 5.0 及以上的系统</li>
-</ul>
-<ul>
-<li>网络上有编译好并且兼容Android 4.4的so包可以直接拿来用，这些so包都是armeabi-v7a的，目前绝大部分手机都是ARMv7架构，当前项目使用的设备也是ARMv7的，因此暂时没有问题</li>
-</ul>
-<ul>
-<li>由于pc端一般是x86或x86_64架构的处理器，因此虚拟机也是x86或x86_64架构，因此调试阶段先加入x86的so，正式版本中会移除</li>
-</ul>
-<p><br></p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><br></p>
-<h3 id="为什么使用Gdal"><a href="#为什么使用Gdal" class="headerlink" title="为什么使用Gdal"></a>为什么使用Gdal</h3><ul>
-<li>就目前所知Java平台的地理数据文件的处理工具主要有GeoTools，ArcGIS Runtime SDK 以及 Gdal</li>
-</ul>
-<ul>
-<li>GeoTools的jar文件至少有70mb，虽然可以精简，但核心部分依赖了Java的awt库，awt库无法再Android上使用直接导致crash</li>
-</ul>
-<ul>
-<li>ArcGIS Runtime SDK 的大小没有了解过，估计也小不到哪里去，ArcGIS 可以读取shp文件，但是不能直接修改和创建shp，而且ArcGIS 读取shp也是通过Gdal实现的</li>
-</ul>
-<ul>
-<li>Gdal 精简并且支持多种地理数据文件的操作，社区活跃度也很高，就在写这篇文章的上个月还发布了新的稳定版，但是和其他工具一样，Gdal并不针对 Android开发，因此为了能够在Android平台上使用，编译过程比较复杂</li>
-</ul>
-<p><br></p>
-<h3 id="关于Shape"><a href="#关于Shape" class="headerlink" title="关于Shape"></a>关于Shape</h3><ul>
-<li>Shape文件至少包含三个后缀不同的文件，.shp .dbf .shx</li>
-</ul>
-<ul>
-<li>类似 Gdal和GeoTools等工具可以只读取其中一个文件，如shp和dbf，但是导入文件的时候注意全部导入，否则某些数据将会缺失</li>
-</ul>
-<ul>
-<li>Gdal 支持 shp 和 KML，GeoJson 直接互换，KML实际上是一种专门的XML规范，GeoJson则是Json的规范，如果自行解析，可以直接将其视为XML和Json</li>
-</ul>
-<p><br></p>
-<h3 id="关于编译"><a href="#关于编译" class="headerlink" title="关于编译"></a>关于编译</h3><ul>
-<li>请在Linux上按照<a href="http://www.jianshu.com/p/b6899345d18e" title="这篇文章" target="_blank" rel="external">这篇文章</a>的流程进行编译，作者写得十分详细</li>
-</ul>
-<ul>
-<li>x86 交叉编译的配置参考如下,其他abi请自行推断CC 和CXX参数</li>
-</ul>
-<pre><code>export NDK\_HOME=/home/parallels/albert/Android/android-ndk-r14b
- export PATH=$NDK\_HOME:$PATH
- export TOOLCHAIN\_HOME=/home/parallels/Android/android-toolchain/x86
- export PATH=$TOOLCHAIN\_HOME/bin:$PATH
- export LIBS=&quot;-lstdc++ -lgnustl\_shared&quot;
- export CC=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-gcc-4.9
- export CXX=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-g++
- export CXXFLAGS=&quot;-march=i686&quot;
- export CFLAGS=&quot;-march=i686&quot;
- export LDFLAGS=&quot;-march=i686&quot;
-</code></pre><ul>
-<li>./configure 阶段如果报错，务必在configure.log中查看详细的错误信息</li>
-</ul>
-<ul>
-<li>在 gdal 2.0.3版本以下会出现  x86_64-unknown-linux-gnu 错误，无法检测到编译平台，这里需要更新 gdal源文件的config.guess和config.sub文件，可以在<a href="http://git.savannah.gnu.org/gitweb/?p=config.git;a=tree" title="这里" target="_blank" rel="external">这里</a>获取</li>
-</ul>
-<ul>
-<li>使用APP_PLATFORM = 19 编译无法通过，这是由于signal和atof等库或函数在21以下不存在，将APP_PLATFORM下调至8可以通过，但是运行时可能出现链接错误，暂时没有找到解决办法</li>
-</ul>
-<ul>
-<li>其中由于库或函数不存在而出错的源文件如下,可以考虑直接修改源文件，如atof可以修改strtod(nptr, NULL)</li>
-</ul>
-<pre><code>gxf\_ogcwkt.c
-
-hf2dataset.cpp
-
-tif\_luv.c
-
-cpl\_strtod.cpp
-
-gdalwarper.cpp
-
-gdalnodatamaskband.cpp
-
-ilwisdataset.cpp
-
-cpl\_spawn.cpp
-</code></pre><ul>
-<li>使用低版本源码有时在swig目录中make出错，本人是直接忽略的，gdal社区中有人给出的建议是调低swig版本，实际使用发现一般swig正常生成jar包可以通用，可能是由于绝大部分接口的定义都是一致的</li>
-</ul>
-<ul>
-<li>正式发版时记得将x86的so文件移除</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Linux命令行与shell脚本编程大全 笔记]]></title>
-      <url>/2017/11/25/CommandLineAndShellScriptNote/</url>
+      <url>/2018/03/04/CommandLineAndShellScriptNote/</url>
       <content type="html"><![CDATA[<ul>
 <li>英文书名 Linux Command Line and Shell Scripting Bible</li>
 </ul>
@@ -877,7 +674,6 @@ dir1/dir2/dir3/dir4:
 </ul>
 <pre><code>➜  file libatomic.a 
 libatomic.a: current ar archive
-
 ➜  file scan-view 
 scan-view: Python script, ASCII text executable
 </code></pre><h4 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h4><ul>
@@ -885,6 +681,209 @@ scan-view: Python script, ASCII text executable
 </ul>
 <h2 id="更多的-bash-shell-命令"><a href="#更多的-bash-shell-命令" class="headerlink" title="更多的 bash shell 命令"></a>更多的 bash shell 命令</h2><p><br></p>
 <h1 id="理解-shell"><a href="#理解-shell" class="headerlink" title="理解 shell"></a>理解 shell</h1>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[译文：对匈牙利命名法说不]]></title>
+      <url>/2017/12/30/Hungarian-translate/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<pre><code>译者：
+
+本文来自 Android 大神 Jake Wharton,他是 ButerKnife 和 RxBinding 的开发者,
+OkHttp，RxJava，Retrofit 等流行的 Android 开发库的重要贡献者，对安卓编程风格的演进具有不可磨灭的影响
+</code></pre><ul>
+<li><a href="http://jakewharton.com/just-say-no-to-hungarian-notation/" target="_blank" rel="external">原文博客地址</a></li>
+<li><a href="https://alberthumbert.github.io/2017/12/30/Hungarian-translate/">译文地址</a></li>
+<li><a href="https://www.jianshu.com/p/3dcc81d3e937" target="_blank" rel="external">简书地址</a></li>
+</ul>
+<p><br></p>
+<p><strong>每一天都会有为安卓应用和库编写的java代码携带着一种传染病诞生，这种传染病的名字就叫做匈牙利命名法。</strong><br><strong>匈牙利命名法在安卓领域的推广纯粹是个意外，然而它依然受到错误的辩护。让我们先来推垮几个常见的主张：</strong></p>
+<p><br></p>
+<ul>
+<li><strong>“《安卓 java 代码风格指南》推荐使用匈牙利命名法”</strong></li>
+</ul>
+<p>根本就不存在所谓指导程序员如何编写java代码的《安卓java代码风格指南》，绝大部分人口中子虚乌有的编码风格指南来自于 <a href="https://source.android.com/source/code-style#follow-field-naming-conventions" title="面向贡献者的 AOSP 代码样式指南&gt;" target="_blank" rel="external"> 《面向贡献者的 AOSP 代码样式指南》 </a></p>
+<p>你可不是在为AOSP项目编写代码，因此你并不需要遵循他们的指南。</p>
+<p>即便你正在编写未来可能纳入AOSP的代码，你也不需要遵循这份指南,<br>几乎所有AOSP所导入的java库都没有遵循它，甚至AOSP项目中的一部分开发人员都没有这么做</p>
+<p><br></p>
+<ul>
+<li><strong>“Android 样例使用匈牙利命名法”</strong></li>
+</ul>
+<p>一些样例诞生于AOSP项目的开发平台所以它们奉行AOSP的风格。而那些不来自AOSP的样例，它们的作者要么错误地相信了别的主张，要么只是单纯地忘了纠正编写这些样例时所使用的风格</p>
+<p><br></p>
+<ul>
+<li><strong>“那些额外的信息为 code review 提供了帮助”</strong></li>
+</ul>
+<p>使用变量名前缀m和s分别可以声明变量是private/package的非静态成员或静态成员①，不然进行code review时将无法得知这些信息。这种方式能够推断那些代码改动②中不可见的变量。从而，不管怎样，一个变量的可见性都可以被显而易见地得知。</p>
+<p>在我反驳这种观点之前，我们先来定义一下匈牙利命名法。根据维基百科，匈牙利命名法有两种：</p>
+<ul>
+<li><p>1.</p>
+<pre><code>系统命名法将变量的数据类型加入到变量名当中。
+一个long类型的用户id在java中将被一个名为lUser的变量代表，以此来表示它的用途和数据类型
+</code></pre></li>
+<li><p>2.</p>
+<pre><code>应用命名法将变量在语义上的用途而不是逻辑上的用途或目的加入到变量名中。
+保存私有信息的变量带有某种前缀（如mUserId）而保存公有信息的变量则有另一种前缀，或者压根没有前缀
+</code></pre></li>
+</ul>
+<p>那么当你看见一个成员变量被使用时，究竟哪一种信息对code review来说更重要，是它的可见性还是数据类型？</p>
+<p>可见性在code review当中是一种无需关注的属性。成员变量已经出现并且能够被使用，而且它的可见性大概也已经在上一个改动中被审阅过了<br>然而，成员变量的类型对于其在代码改动中如何被使用有更加直接的影响。被正确调用的方法名，参数的位置，可以被调用的方法，这些全都与变量的类型直接相关。</p>
+<p>因此提出应用匈牙利命名法是错误的不单只是因为它没有用处，还因为系统匈牙利命名法能提供更多有关的信息。这可不是在说你应该使用系统匈牙利命名法，数据类型和可见性时常改动，而你将会忘记修改它们的名字。毕竟并不难发现静态的mContext成员变量</p>
+<p><br></p>
+<ul>
+<li><strong>“额外的信息有助于开发”</strong></li>
+</ul>
+<p>Android Studio和IntelliJ IDEA会根据成员身份（静态或非静态）在视觉上区分非成员变量</p>
+<p>IDE默认强制使用正确的可见性和数据类型，所以一个命名规定不会带来任何东西。简单敲击键盘，就会有弹窗显示变量的那三种（以及更多）属性。</p>
+<p><img src="http://jakewharton.com/static/post-image/hungarian-idea.png" alt=""></p>
+<p><br></p>
+<ul>
+<li><strong>“我想像谷歌官方一样编写java代码”</strong></li>
+</ul>
+<p>尽管安卓和AOSP都是该公司的一部分，谷歌在他们的<a href="https://google.github.io/styleguide/javaguide.html#s5.1-identifier-names" target="_blank" rel="external">编码风格指南</a>中积极明确地禁止了匈牙利命名法的使用。公开的java风格指南是AOSP经年累月的内部习惯固化的产物。</p>
+<p>安卓起源于谷歌之外，AOSP团队早已染上了匈牙利命名的顽疾。现在对其进行修改将是一种无用的扰乱并且会给分支和第三方合作者带来冲突。</p>
+<p>但你对下面这个观点的持续支持与实践能够让我们在人生中根除这种疾病</p>
+<p><strong>朋友就不该再让朋友使用匈牙利命名法③</strong></p>
+<p><br></p>
+<p><strong>— Jake Wharton</strong></p>
+<p><br><br><br></p>
+<pre><code>译者注：
+
+① field(成员): 根据oracle提供的文档，field这个词在未特指的情况下指的是非静态的成员变量，
+    而在本文单纯指成员变量，没有额外的限定
+
+② change(代码改动)：在该文中应指git等svn中的提交差异
+
+③ 该文中标题中的“不”以及结尾处的两个“朋友”在原文中使用的分别是 mNo,mFriends,sFriends,
+    这里直接舍弃了匈牙利命名法的前缀来翻译，至于作者使用这些前缀的意图，感兴趣的读者可以自行借助原文进行思考
+</code></pre><ul>
+<li><a href="http://jakewharton.com/just-say-no-to-hungarian-notation/" target="_blank" rel="external">原文博客地址</a></li>
+<li><a href="https://github.com/JakeWharton/" target="_blank" rel="external">作者GitHub地址</a></li>
+<li><a href="https://docs.oracle.com/javase/tutorial/information/glossary.html" target="_blank" rel="external">翻译参考资料</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项]]></title>
+      <url>/2017/12/09/makeFuckingGdalSo/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><ul>
+<li>目前编译出来的so包只能兼容 Android 5.0 及以上的系统</li>
+</ul>
+<ul>
+<li>网络上有编译好并且兼容Android 4.4的so包可以直接拿来用，这些so包都是armeabi-v7a的，目前绝大部分手机都是ARMv7架构，当前项目使用的设备也是ARMv7的，因此暂时没有问题</li>
+</ul>
+<ul>
+<li>由于pc端一般是x86或x86_64架构的处理器，因此虚拟机也是x86或x86_64架构，因此调试阶段先加入x86的so，正式版本中会移除</li>
+</ul>
+<p><br></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><br></p>
+<h3 id="为什么使用Gdal"><a href="#为什么使用Gdal" class="headerlink" title="为什么使用Gdal"></a>为什么使用Gdal</h3><ul>
+<li>就目前所知Java平台的地理数据文件的处理工具主要有GeoTools，ArcGIS Runtime SDK 以及 Gdal</li>
+</ul>
+<ul>
+<li>GeoTools的jar文件至少有70mb，虽然可以精简，但核心部分依赖了Java的awt库，awt库无法再Android上使用直接导致crash</li>
+</ul>
+<ul>
+<li>ArcGIS Runtime SDK 的大小没有了解过，估计也小不到哪里去，ArcGIS 可以读取shp文件，但是不能直接修改和创建shp，而且ArcGIS 读取shp也是通过Gdal实现的</li>
+</ul>
+<ul>
+<li>Gdal 精简并且支持多种地理数据文件的操作，社区活跃度也很高，就在写这篇文章的上个月还发布了新的稳定版，但是和其他工具一样，Gdal并不针对 Android开发，因此为了能够在Android平台上使用，编译过程比较复杂</li>
+</ul>
+<p><br></p>
+<h3 id="关于Shape"><a href="#关于Shape" class="headerlink" title="关于Shape"></a>关于Shape</h3><ul>
+<li>Shape文件至少包含三个后缀不同的文件，.shp .dbf .shx</li>
+</ul>
+<ul>
+<li>类似 Gdal和GeoTools等工具可以只读取其中一个文件，如shp和dbf，但是导入文件的时候注意全部导入，否则某些数据将会缺失</li>
+</ul>
+<ul>
+<li>Gdal 支持 shp 和 KML，GeoJson 直接互换，KML实际上是一种专门的XML规范，GeoJson则是Json的规范，如果自行解析，可以直接将其视为XML和Json</li>
+</ul>
+<p><br></p>
+<h3 id="关于编译"><a href="#关于编译" class="headerlink" title="关于编译"></a>关于编译</h3><ul>
+<li>请在Linux上按照<a href="http://www.jianshu.com/p/b6899345d18e" title="这篇文章" target="_blank" rel="external">这篇文章</a>的流程进行编译，作者写得十分详细</li>
+</ul>
+<ul>
+<li>x86 交叉编译的配置参考如下,其他abi请自行推断CC 和CXX参数</li>
+</ul>
+<pre><code>export NDK\_HOME=/home/parallels/albert/Android/android-ndk-r14b
+ export PATH=$NDK\_HOME:$PATH
+ export TOOLCHAIN\_HOME=/home/parallels/Android/android-toolchain/x86
+ export PATH=$TOOLCHAIN\_HOME/bin:$PATH
+ export LIBS=&quot;-lstdc++ -lgnustl\_shared&quot;
+ export CC=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-gcc-4.9
+ export CXX=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-g++
+ export CXXFLAGS=&quot;-march=i686&quot;
+ export CFLAGS=&quot;-march=i686&quot;
+ export LDFLAGS=&quot;-march=i686&quot;
+</code></pre><ul>
+<li>./configure 阶段如果报错，务必在configure.log中查看详细的错误信息</li>
+</ul>
+<ul>
+<li>在 gdal 2.0.3版本以下会出现  x86_64-unknown-linux-gnu 错误，无法检测到编译平台，这里需要更新 gdal源文件的config.guess和config.sub文件，可以在<a href="http://git.savannah.gnu.org/gitweb/?p=config.git;a=tree" title="这里" target="_blank" rel="external">这里</a>获取</li>
+</ul>
+<ul>
+<li>使用APP_PLATFORM = 19 编译无法通过，这是由于signal和atof等库或函数在21以下不存在，将APP_PLATFORM下调至8可以通过，但是运行时可能出现链接错误，暂时没有找到解决办法</li>
+</ul>
+<ul>
+<li>其中由于库或函数不存在而出错的源文件如下,可以考虑直接修改源文件，如atof可以修改strtod(nptr, NULL)</li>
+</ul>
+<pre><code>gxf\_ogcwkt.c
+
+hf2dataset.cpp
+
+tif\_luv.c
+
+cpl\_strtod.cpp
+
+gdalwarper.cpp
+
+gdalnodatamaskband.cpp
+
+ilwisdataset.cpp
+
+cpl\_spawn.cpp
+</code></pre><ul>
+<li>使用低版本源码有时在swig目录中make出错，本人是直接忽略的，gdal社区中有人给出的建议是调低swig版本，实际使用发现一般swig正常生成jar包可以通用，可能是由于绝大部分接口的定义都是一致的</li>
+</ul>
+<ul>
+<li>正式发版时记得将x86的so文件移除</li>
+</ul>
+]]></content>
       
         <categories>
             

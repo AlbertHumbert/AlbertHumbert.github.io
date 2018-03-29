@@ -116,6 +116,28 @@
   </entry>
   
   <entry>
+    <title>Linux命令行与shell脚本编程大全 笔记</title>
+    <link href="https://alberthumbert.github.io/2018/03/04/CommandLineAndShellScriptNote/"/>
+    <id>https://alberthumbert.github.io/2018/03/04/CommandLineAndShellScriptNote/</id>
+    <published>2018-03-04T12:40:09.000Z</published>
+    <updated>2018-03-29T15:12:15.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;英文书名 Linux Command Line and Shell Scripting Bible&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>译文：对匈牙利命名法说不</title>
     <link href="https://alberthumbert.github.io/2017/12/30/Hungarian-translate/"/>
     <id>https://alberthumbert.github.io/2017/12/30/Hungarian-translate/</id>
@@ -145,28 +167,6 @@
     <summary type="html">
     
       &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux命令行与shell脚本编程大全 笔记</title>
-    <link href="https://alberthumbert.github.io/2017/11/25/CommandLineAndShellScriptNote/"/>
-    <id>https://alberthumbert.github.io/2017/11/25/CommandLineAndShellScriptNote/</id>
-    <published>2017-11-25T09:56:58.000Z</published>
-    <updated>2018-03-04T15:18:50.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;英文书名 Linux Command Line and Shell Scripting Bible&lt;/li&gt;
-&lt;/ul&gt;
     
     </summary>
     
