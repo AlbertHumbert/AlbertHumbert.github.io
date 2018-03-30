@@ -3,50 +3,6 @@
   
     
     <entry>
-      <title><![CDATA[Android Camera API 使用指南]]></title>
-      <url>/2018/03/29/camera/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><strong>本文主要是对项目中基于camera 1开发的模块中遇到的坑点的记录，不使用camera 2是因为项目目前要求适配到 api 16，有多蛋疼，自己感受一下</strong></p>
-<p><br></p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
-<li>最近需要抄一个微信的拍摄界面，主要功能就是拍照和录制小视频</li>
-<li>这个界面说简单不简单，说复杂也不复杂，主要可以分为三个部分来写，动画（包括自定义view），拍照以及录像。Android开发中我最头疼的就是如多媒体播放器、相机等和硬件相关的内容了，官方文档总是简洁明了，但实际上手才发现事情往往没有那么简单</li>
-<li>由于该模块还在开发中，所以目前的使用效果并不太好，现在主要是记录一下踩坑的地方，后续优化的过程中会逐步修改本文</li>
-</ul>
-<p><br></p>
-<h2 id="Camera-创建"><a href="#Camera-创建" class="headerlink" title="Camera 创建"></a>Camera 创建</h2><p><br></p>
-<h3 id="后置与前置摄像头"><a href="#后置与前置摄像头" class="headerlink" title="后置与前置摄像头"></a>后置与前置摄像头</h3><p><br></p>
-<h2 id="对焦功能"><a href="#对焦功能" class="headerlink" title="对焦功能"></a>对焦功能</h2><p><br></p>
-<h3 id="自动对焦"><a href="#自动对焦" class="headerlink" title="自动对焦"></a>自动对焦</h3><p><br></p>
-<h3 id="手动对焦"><a href="#手动对焦" class="headerlink" title="手动对焦"></a>手动对焦</h3><p><br></p>
-<h2 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h2><p><br></p>
-<h3 id="配置顺序"><a href="#配置顺序" class="headerlink" title="配置顺序"></a>配置顺序</h3><p><br></p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p><br></p>
-<h2 id="尺寸设定"><a href="#尺寸设定" class="headerlink" title="尺寸设定"></a>尺寸设定</h2><p><br></p>
-<h3 id="预览尺寸"><a href="#预览尺寸" class="headerlink" title="预览尺寸"></a>预览尺寸</h3><p><br></p>
-<h3 id="视频尺寸"><a href="#视频尺寸" class="headerlink" title="视频尺寸"></a>视频尺寸</h3><p><br></p>
-<h2 id="处理文件"><a href="#处理文件" class="headerlink" title="处理文件"></a>处理文件</h2><p><br></p>
-<h3 id="旋转图片与视频"><a href="#旋转图片与视频" class="headerlink" title="旋转图片与视频"></a>旋转图片与视频</h3><p><br></p>
-<h3 id="更新与清理"><a href="#更新与清理" class="headerlink" title="更新与清理"></a>更新与清理</h3><p><br></p>
-<h2 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h2>]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[计算机网络 学习笔记]]></title>
       <url>/2018/03/29/ComputerNetwork/</url>
       <content type="html"><![CDATA[<p>-</p>
