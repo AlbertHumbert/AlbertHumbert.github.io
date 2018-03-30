@@ -31,6 +31,10 @@
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong>该系列主要是《Kotlin实战》（Kotlin in Action）的笔记以及个人的理解，对于移动端开发者有没有必要现在就去学kotlin之类的问题请读者自行考虑，开这个系列主要是由于个人兴趣</strong></p>
+<p><a href="https://try.kotlinlang.org/" target="_blank" rel="external">你可以在这个网站中在线编译并运行kotlin代码</a></p>
+<h2 id="啥是Kotlin啊"><a href="#啥是Kotlin啊" class="headerlink" title="啥是Kotlin啊"></a>啥是Kotlin啊</h2><ul>
+<li>kotlin是一门野心非常大的语言，它不但能与能与现有的java框架并存，向人证明它可以以更加简洁的方式代替java，还不断向着更多的领域发展。android开发者可以结合anko编写应用，永久告别xml，前端开发者可以编写kotlin代码然后编译成JavaScript，Kotlin_Native更是支持直接编译机器码在linux，ios，mac os上运行</li>
+</ul>
 ]]></content>
       
         <categories>
