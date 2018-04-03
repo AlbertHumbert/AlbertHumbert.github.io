@@ -12,7 +12,7 @@
     
     <title>
         
-            Android 官方架构组件 Architecture Components 系列 - 序 | 
+            Android 官方架构组件 Architecture Components 系列 - Lifecycle | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Android 官方架构组件 Architecture Components 系列 - 序 | Albert&#39;s Blog">
+    <meta property="og:title" content="Android 官方架构组件 Architecture Components 系列 - Lifecycle | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="3月 29, 2018" />
-        <meta property="article:modified_time" content="3月 29, 2018" />
+        <meta property="article:modified_time" content="4月 03, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Android 官方架构组件 Architecture Components 系列 - 序 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Android 官方架构组件 Architecture Components 系列 - Lifecycle | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "Android 官方架构组件 Architecture Components 系列 - 序",
+    "headline": "Android 官方架构组件 Architecture Components 系列 - Lifecycle",
     "url": "https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html",
     "datePublished": "3月 29, 2018",
-    "dateModified": "3月 29, 2018",
+    "dateModified": "4月 03, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#啥是Lifecycle啊"><span class="post-toc-number">1.</span> <span class="post-toc-text">啥是Lifecycle啊</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为啥要Lifecycle啊"><span class="post-toc-number">2.</span> <span class="post-toc-text">为啥要Lifecycle啊</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在support-26以下使用Lifecycle"><span class="post-toc-number">3.</span> <span class="post-toc-text">在support 26以下使用Lifecycle</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lifecycle-实现细节"><span class="post-toc-number">4.</span> <span class="post-toc-text">Lifecycle 实现细节</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                Android 官方架构组件 Architecture Components 系列 - 序
+                Android 官方架构组件 Architecture Components 系列 - Lifecycle
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 官方架构组件 Architecture Components 系列 - 序&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 官方架构组件 Architecture Components 系列 - Lifecycle&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 官方架构组件 Architecture Components 系列 - 序&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 官方架构组件 Architecture Components 系列 - Lifecycle&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&title=Android 官方架构组件 Architecture Components 系列 - 序" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&title=Android 官方架构组件 Architecture Components 系列 - Lifecycle" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 官方架构组件 Architecture Components 系列 - 序&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 官方架构组件 Architecture Components 系列 - Lifecycle&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&text=Android 官方架构组件 Architecture Components 系列 - 序" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html&text=Android 官方架构组件 Architecture Components 系列 - Lifecycle" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -505,7 +505,107 @@
 <a id="more"></a>
 <p><strong> 这几个月总被项目耽搁，很久没学过什么东西了，文章也没怎么写，翻翻博客，前面的几篇文章都太监了，再早一点的连链接都挂了。感觉很羞愧，赶紧开几个系列文章压压惊。</strong></p>
 <p><strong> Architecture Components 是安卓官方推出的数据驱动组件全家桶，包括 Lifecycle，LiveData，ViewModel，Room，Paging等，使用该全家桶最直观的效果就是，你更新数据库的时候，UI可以自动更新并且再也不用担心复杂的生命周期对app产生的负面影响。另外 LiveData是目前MVVM架构的核心依赖库，如果你想学习MVVM架构，也应该将Architecture Components作为入门基础</strong></p>
+<p><strong>在入门之前，推荐先观看官方的<a href="https://www.youtube.com/watch?v=vOJCrbr144o" target="_blank" rel="external">介绍视频</a></strong></p>
+<h2 id="啥是Lifecycle啊"><a href="#啥是Lifecycle啊" class="headerlink" title="啥是Lifecycle啊"></a>啥是Lifecycle啊</h2><ul>
+<li>Lifecycle是 Architecture Components 组件的基础，它允许我们使用观察者模式监听Activity和Fragment的生命周期，LiveData的生命周期感知能力实际上就来自Lifecycle</li>
+</ul>
+<ul>
+<li>熟悉MVP模式的开发者肯定都有一套MVP基类的封装，其中的Activity和Fragment完成了与presenter的生命周期绑定，这是跟自然的</li>
+</ul>
+<pre><code>@Override
+@CallSuper
+protected void onResume() {
+    super.onResume();
+    if (mPresenter != null)
+        mPresenter.onResume();
+}
 
+@Override
+@CallSuper
+protected void onStop() {
+    super.onStop();
+    if (mPresenter != null)
+        mPresenter.onStop();
+}
+</code></pre><ul>
+<li>而Lifecycle为我们提供了继承以外的切入点，我们先来看看怎么使用它们</li>
+</ul>
+<pre><code>//实现一个LifecycleObserver
+//使用注解监听生命周期时间，这有点像eventbus
+public class MyObserver implements LifecycleObserver {
+
+    private static final String TAG = &quot;MyObserver&quot;;
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    public void onCreate() {
+        Log.d(TAG, &quot;onCreate: &quot;);
+    }
+
+    … 
+
+    //在Activity或Fragmet中
+    getLifecycle().addObserver(new MyObserver())；
+
+    //启动Activity，LifecycleObserver被注解的方法被执行了
+    //logcat中
+    D/MyObserver: onCreate: 
+</code></pre><h2 id="为啥要Lifecycle啊"><a href="#为啥要Lifecycle啊" class="headerlink" title="为啥要Lifecycle啊"></a>为啥要Lifecycle啊</h2><ul>
+<li>确实可以感觉到Lifecycle的用法非常简洁，但是既然我们都已经封装好了自己的库，还有必要使用LifeCycle吗。实际上是有的，我们这样实现的生命周期感知实际上是被动的，试问你怎么知道当前的view处于什么周期呢，写在onCreate中的代码一定在onCreate中执行吗，如果我开启了一个耗时任务呢？为了这个解决这个问题，你可以添加一个标记，然后在不同的回调方法中维护它，但是Lifecycle提供了更好的解决方案，让我们主动查询生命周期</li>
+</ul>
+<pre><code>if(getLifecycle().getCurrentState() == Lifecycle.State.STARTED){
+        //do something
+    }
+
+    if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
+        //do something
+    }
+</code></pre><ul>
+<li>使用Lifecycle也可以使得代码更加解耦，比如说我们的项目中有一个监听遥感的模块，那么我们可以在onResume和onDestroy中开始和解除监听，假如我们现在又要加入一个监听地理位置的功能呢，这些模块都是独立的但是目前它们的生命周期都落在负责这个界面的人的手上，由那个人去调用，而使用Lifecycle之后，你只需要像下面这样就可以分离职责，一个LifeCycle可以有多个Observer</li>
+</ul>
+<pre><code>    getLifecycle().addObserver(new MyObserver());
+getLifecycle().addObserver(new YourObserver());
+getLifecycle().addObserver(new HisObserver());
+getLifecycle().addObserver(new HerObserver());
+</code></pre><ul>
+<li>其实我觉得最重要的理由其实是官方已经把LifeCycle植入到SupportActivity等组件当中了，只要你的support库在26以上，那么你就已经依赖了Lifecycle，不管你如何强调不要重复造轮子，既然官方强制导入了Lifecycle，那么现在重复的就是你的轮子</li>
+</ul>
+<pre><code>public class SupportActivity extends Activity implements LifecycleOwner
+</code></pre><h2 id="在support-26以下使用Lifecycle"><a href="#在support-26以下使用Lifecycle" class="headerlink" title="在support 26以下使用Lifecycle"></a>在support 26以下使用Lifecycle</h2><ul>
+<li>之前提到，对于活动而言 Lifecycle是在SupportActivity当中实现的，那么看一下我们怎么让Activity也支持Lifecycle，我们只需要让其实现LifecycleOwner接口，这个接口只有一个getLifecycle方法，返回一个生命周期的提供者</li>
+</ul>
+<pre><code>public interface LifecycleOwner {
+    /**
+     * Returns the Lifecycle of the provider.
+     *
+     * @return The lifecycle of the provider.
+     */
+    Lifecycle getLifecycle();
+}
+</code></pre><ul>
+<li>这个get方法实现起来也很简单，只要返回LifecycleRegistry即可</li>
+</ul>
+<pre><code>@NonNull
+@Override
+public Lifecycle getLifecycle() {
+    if(lifecycle == null)lifecycle = new LifecycleRegistry(this);
+    return new LifecycleRegistry(this);
+}
+</code></pre><ul>
+<li>在support 26以下，情况则有小小的不同，首先你需要依赖Lifecycle，注意Lifecycle版本不能太高，否则会与support库冲突</li>
+</ul>
+<pre><code>    compile &quot;android.arch.lifecycle:runtime:1.0.0-alpha1&quot;
+compile &quot;android.arch.lifecycle:extensions:1.0.0-alpha1&quot;
+    annotationProcessor &quot;android.arch.lifecycle:compiler:1.0.0-alpha1&quot;
+</code></pre><ul>
+<li>然后让Activity或Fragment实现 LifecycleRegistryOwner 接口，该接口同样只有一个getLifecycle方法,但返回的是LifecycleRegistry</li>
+</ul>
+<pre><code>@NonNull
+@Override
+public LifecycleRegistry getLifecycle() {
+    if(lifecycle == null)lifecycle = new LifecycleRegistry(this);
+    return new LifecycleRegistry(this);
+}
+</code></pre><h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2>
     
 
     

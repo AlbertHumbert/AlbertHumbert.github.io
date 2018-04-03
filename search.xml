@@ -32,6 +32,7 @@
 <a id="more"></a>
 <p><strong>该系列主要是《Kotlin实战》（Kotlin in Action）的笔记以及个人的理解，对于移动端开发者有没有必要现在就去学kotlin之类的问题请读者自行考虑，开这个系列主要是由于个人兴趣</strong></p>
 <p><a href="https://try.kotlinlang.org/" target="_blank" rel="external">你可以在这个网站中在线编译并运行kotlin代码</a></p>
+<p><br></p>
 <h2 id="啥是Kotlin啊"><a href="#啥是Kotlin啊" class="headerlink" title="啥是Kotlin啊"></a>啥是Kotlin啊</h2><ul>
 <li>kotlin是一门野心非常大的语言，它不但能与能与现有的java框架并存，向人证明它可以以更加简洁的方式代替java，还不断向着更多的领域发展。android开发者可以结合anko编写应用，永久告别xml，前端开发者可以编写kotlin代码然后编译成JavaScript，Kotlin_Native更是支持直接编译机器码在linux，ios，mac os上运行</li>
 </ul>
@@ -41,6 +42,7 @@
 <ul>
 <li>再学习完kotlin的语法（糖）之后，再回来补充这章</li>
 </ul>
+<p><br></p>
 <h2 id="基本要素：函数和变量"><a href="#基本要素：函数和变量" class="headerlink" title="基本要素：函数和变量"></a>基本要素：函数和变量</h2><p><strong>构成kotlin程序的基本要素是函数和变量，这即是某些语言以及函数式编程中强调的“函数是第一等公民”的概念的体现</strong></p>
 <pre><code>fun main(args:Array&lt;String&gt;){
     println(&quot;hello world&quot;)
@@ -53,7 +55,9 @@
 3.函数可以定义在文件的最外层，而不是类里面，你可以直接把这个函数放到任何一个kt文件中运行，不需要找到一个合适的花括号然后把它塞进去
 4.println代替了system.out.println，kotlin简化了很多这样啰嗦的代码
 5.可以省略代码结尾的分号，这点和python很像，你不用担心你的代码会被go编译器那样胡乱的添加上分号
-</code></pre><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="代码块体"><a href="#代码块体" class="headerlink" title="代码块体"></a>代码块体</h4><pre><code>fun max(a: Int, b: Int): Int {
+</code></pre><p><br></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><br></p>
+<h4 id="代码块体"><a href="#代码块体" class="headerlink" title="代码块体"></a>代码块体</h4><pre><code>fun max(a: Int, b: Int): Int {
     return if (a &gt; b) a else b
 }
 </code></pre><ul>
@@ -62,13 +66,21 @@
 <ul>
 <li>注意在kotlin中大多数控制结果都是表达式，而不是语句，语句与表达式的最大区别在于表达式有值，允许直接嵌套使用</li>
 </ul>
+<p><br></p>
 <h4 id="表达式体"><a href="#表达式体" class="headerlink" title="表达式体"></a>表达式体</h4><pre><code>fun max(a: Int, b: Int): Int = if (a &gt; b) a else b
 </code></pre><ul>
-<li>表达式也可以作为一个完整的函数体，现在你知道为什么kotlin要把返回类型放在函数头的最后面了 </li>
-<li>我们说过kotlin支持自动类型推断，因此上面的代码还可以简洁一下</li>
+<li><p>表达式也可以作为一个完整的函数体，现在你知道为什么kotlin要把返回类型放在函数头的最后面了 </p>
+</li>
+<li><p>我们说过kotlin支持自动类型推断，因此上面的代码还可以简洁一下</p>
+</li>
+</ul>
+<pre><code>fun max(a: Int, b: Int) = if (a &gt; b) a else b
+</code></pre><ul>
 <li>在函数中支持表达式体的意义在于，向kotlin这种支持闭包的语言可以在任何地方将代码重用的粒度降到最细</li>
 </ul>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="省略类型"><a href="#省略类型" class="headerlink" title="省略类型"></a>省略类型</h4><pre><code>val aString = &quot;I am String&quot;
+<p><br></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><br></p>
+<h4 id="省略类型"><a href="#省略类型" class="headerlink" title="省略类型"></a>省略类型</h4><pre><code>val aString = &quot;I am String&quot;
 val aInt = 1;
 var aDouble = 2e6
 var aFloat:Float
@@ -83,6 +95,7 @@ aList.add(&quot;kotlin&quot;)
 </code></pre><ul>
 <li>val仅仅保证引用的不可变性，它指向的对象仍然是可变的</li>
 </ul>
+<p><br></p>
 <h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h4><pre><code>val he = &quot;Albert&quot;
 val languages = arrayListOf(&quot;java&quot;)
 languages.add(&quot;kotlin&quot;)
@@ -93,7 +106,68 @@ println(&quot;$he said, ${languages[1]} is the best language in the world &quot;
 <li>字符串模板的作用是允许字符串字面量中存在变量和表达式，这显然让字符串拼接显得更加简洁紧凑，易于理解</li>
 <li>在你的字符串中可以使用$中支持变量，使用${}支持表达式！</li>
 </ul>
-]]></content>
+<p><br></p>
+<h2 id="类和属性"><a href="#类和属性" class="headerlink" title="类和属性"></a>类和属性</h2><p>**Java常为人诟病的一点就是创建一个类需要非常多的样板代码（特别是对于bean类而言），为此不少ide或插件都提供了自动生成getter，setter，构造器，代码模板，万能tab的功能</p>
+<p><strong>但就像很多人认为的那样，某种程度上Java逐渐变成了一门“依赖ide”的语言</strong></p>
+<p><strong>kotlin的开发者们为了解决这些问题可谓下足了功夫</strong></p>
+<p><br></p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><pre><code>class Person(var name:String)
+</code></pre><ul>
+<li>上面这行kotlin代码展开成Java代码之后如下，你一定见过很多这样的Java代码，尽管从语法的角度来讲它们处处都有意义，但实际上你需要的关键词真的只有 class，Person，var，name ，String，这就是kotlin所谓的简洁，在kotlin当中，类通常很小</li>
+</ul>
+<pre><code>public class Person{
+
+    private String name;
+
+    public Person(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+}
+</code></pre><ul>
+<li>对于使用var修饰的属性，kotlin编译器会自动为其生成getter，setter，对于使用val修饰的属性，编译器则只生成getter，同时在访问和修改任何属性时，你不需要显式地调用它们的访问方法，对于构造方法而言，你也不用再写关键字new了</li>
+</ul>
+<pre><code>val albert = Person(&quot;Albert&quot;)
+albert.name = &quot;Albert Lin&quot;
+println(albert.name)
+</code></pre><ul>
+<li>所有属性都像Java中访问公有属性那样访问，但实际上走的是内部的getter和setter方法,当然这也包括了你所编写的getter和setter方法</li>
+</ul>
+<pre><code>class Rectangle(val height: Int, val width: Int) {
+
+    val isSquare: Boolean
+        get() {
+            return height == width
+        }
+
+    //也可以简化为val isSquare: Boolean get() = height == width
+
+}
+</code></pre><p><br></p>
+<h3 id="目录和包"><a href="#目录和包" class="headerlink" title="目录和包"></a>目录和包</h3><ul>
+<li>kotlin当中依然使用import和package关键字来组织代码结构，不同的是，在Java中，包结构需要与实际上的文件目录结构一致，kotlin则不做这种要求，你可以把所有文件都放到一个目录，只在package关键字后面声明它们所在的包</li>
+</ul>
+<ul>
+<li>在通常情况下，程序员依然应该使用Java那样去管理文件，但是对于那些短小的类而言,你应该按照具体职责将它们放到同一个文件中</li>
+</ul>
+<pre><code>package  com.linjiamin.kt.play
+
+class Rectangle(val height: Int, val width: Int) {
+
+    val isSquare: Boolean get() = height == width
+
+}
+
+class Person(var name:String)
+</code></pre>]]></content>
       
         <categories>
             
@@ -111,13 +185,113 @@ println(&quot;$he said, ${languages[1]} is the best language in the world &quot;
     </entry>
     
     <entry>
-      <title><![CDATA[Android 官方架构组件 Architecture Components 系列 - 序]]></title>
+      <title><![CDATA[Android 官方架构组件 Architecture Components 系列 - Lifecycle]]></title>
       <url>/2018/03/29/ArchitectureComponents/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong> 这几个月总被项目耽搁，很久没学过什么东西了，文章也没怎么写，翻翻博客，前面的几篇文章都太监了，再早一点的连链接都挂了。感觉很羞愧，赶紧开几个系列文章压压惊。</strong></p>
 <p><strong> Architecture Components 是安卓官方推出的数据驱动组件全家桶，包括 Lifecycle，LiveData，ViewModel，Room，Paging等，使用该全家桶最直观的效果就是，你更新数据库的时候，UI可以自动更新并且再也不用担心复杂的生命周期对app产生的负面影响。另外 LiveData是目前MVVM架构的核心依赖库，如果你想学习MVVM架构，也应该将Architecture Components作为入门基础</strong></p>
-]]></content>
+<p><strong>在入门之前，推荐先观看官方的<a href="https://www.youtube.com/watch?v=vOJCrbr144o" target="_blank" rel="external">介绍视频</a></strong></p>
+<h2 id="啥是Lifecycle啊"><a href="#啥是Lifecycle啊" class="headerlink" title="啥是Lifecycle啊"></a>啥是Lifecycle啊</h2><ul>
+<li>Lifecycle是 Architecture Components 组件的基础，它允许我们使用观察者模式监听Activity和Fragment的生命周期，LiveData的生命周期感知能力实际上就来自Lifecycle</li>
+</ul>
+<ul>
+<li>熟悉MVP模式的开发者肯定都有一套MVP基类的封装，其中的Activity和Fragment完成了与presenter的生命周期绑定，这是跟自然的</li>
+</ul>
+<pre><code>@Override
+@CallSuper
+protected void onResume() {
+    super.onResume();
+    if (mPresenter != null)
+        mPresenter.onResume();
+}
+
+@Override
+@CallSuper
+protected void onStop() {
+    super.onStop();
+    if (mPresenter != null)
+        mPresenter.onStop();
+}
+</code></pre><ul>
+<li>而Lifecycle为我们提供了继承以外的切入点，我们先来看看怎么使用它们</li>
+</ul>
+<pre><code>//实现一个LifecycleObserver
+//使用注解监听生命周期时间，这有点像eventbus
+public class MyObserver implements LifecycleObserver {
+
+    private static final String TAG = &quot;MyObserver&quot;;
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    public void onCreate() {
+        Log.d(TAG, &quot;onCreate: &quot;);
+    }
+
+    … 
+
+    //在Activity或Fragmet中
+    getLifecycle().addObserver(new MyObserver())；
+
+    //启动Activity，LifecycleObserver被注解的方法被执行了
+    //logcat中
+    D/MyObserver: onCreate: 
+</code></pre><h2 id="为啥要Lifecycle啊"><a href="#为啥要Lifecycle啊" class="headerlink" title="为啥要Lifecycle啊"></a>为啥要Lifecycle啊</h2><ul>
+<li>确实可以感觉到Lifecycle的用法非常简洁，但是既然我们都已经封装好了自己的库，还有必要使用LifeCycle吗。实际上是有的，我们这样实现的生命周期感知实际上是被动的，试问你怎么知道当前的view处于什么周期呢，写在onCreate中的代码一定在onCreate中执行吗，如果我开启了一个耗时任务呢？为了这个解决这个问题，你可以添加一个标记，然后在不同的回调方法中维护它，但是Lifecycle提供了更好的解决方案，让我们主动查询生命周期</li>
+</ul>
+<pre><code>if(getLifecycle().getCurrentState() == Lifecycle.State.STARTED){
+        //do something
+    }
+
+    if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
+        //do something
+    }
+</code></pre><ul>
+<li>使用Lifecycle也可以使得代码更加解耦，比如说我们的项目中有一个监听遥感的模块，那么我们可以在onResume和onDestroy中开始和解除监听，假如我们现在又要加入一个监听地理位置的功能呢，这些模块都是独立的但是目前它们的生命周期都落在负责这个界面的人的手上，由那个人去调用，而使用Lifecycle之后，你只需要像下面这样就可以分离职责，一个LifeCycle可以有多个Observer</li>
+</ul>
+<pre><code>    getLifecycle().addObserver(new MyObserver());
+getLifecycle().addObserver(new YourObserver());
+getLifecycle().addObserver(new HisObserver());
+getLifecycle().addObserver(new HerObserver());
+</code></pre><ul>
+<li>其实我觉得最重要的理由其实是官方已经把LifeCycle植入到SupportActivity等组件当中了，只要你的support库在26以上，那么你就已经依赖了Lifecycle，不管你如何强调不要重复造轮子，既然官方强制导入了Lifecycle，那么现在重复的就是你的轮子</li>
+</ul>
+<pre><code>public class SupportActivity extends Activity implements LifecycleOwner
+</code></pre><h2 id="在support-26以下使用Lifecycle"><a href="#在support-26以下使用Lifecycle" class="headerlink" title="在support 26以下使用Lifecycle"></a>在support 26以下使用Lifecycle</h2><ul>
+<li>之前提到，对于活动而言 Lifecycle是在SupportActivity当中实现的，那么看一下我们怎么让Activity也支持Lifecycle，我们只需要让其实现LifecycleOwner接口，这个接口只有一个getLifecycle方法，返回一个生命周期的提供者</li>
+</ul>
+<pre><code>public interface LifecycleOwner {
+    /**
+     * Returns the Lifecycle of the provider.
+     *
+     * @return The lifecycle of the provider.
+     */
+    Lifecycle getLifecycle();
+}
+</code></pre><ul>
+<li>这个get方法实现起来也很简单，只要返回LifecycleRegistry即可</li>
+</ul>
+<pre><code>@NonNull
+@Override
+public Lifecycle getLifecycle() {
+    if(lifecycle == null)lifecycle = new LifecycleRegistry(this);
+    return new LifecycleRegistry(this);
+}
+</code></pre><ul>
+<li>在support 26以下，情况则有小小的不同，首先你需要依赖Lifecycle，注意Lifecycle版本不能太高，否则会与support库冲突</li>
+</ul>
+<pre><code>    compile &quot;android.arch.lifecycle:runtime:1.0.0-alpha1&quot;
+compile &quot;android.arch.lifecycle:extensions:1.0.0-alpha1&quot;
+    annotationProcessor &quot;android.arch.lifecycle:compiler:1.0.0-alpha1&quot;
+</code></pre><ul>
+<li>然后让Activity或Fragment实现 LifecycleRegistryOwner 接口，该接口同样只有一个getLifecycle方法,但返回的是LifecycleRegistry</li>
+</ul>
+<pre><code>@NonNull
+@Override
+public LifecycleRegistry getLifecycle() {
+    if(lifecycle == null)lifecycle = new LifecycleRegistry(this);
+    return new LifecycleRegistry(this);
+}
+</code></pre><h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2>]]></content>
       
         <categories>
             
