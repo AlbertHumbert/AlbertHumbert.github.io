@@ -3,6 +3,143 @@
   
     
     <entry>
+      <title><![CDATA[mac osx 10.11.6 编译 OpenJdk7]]></title>
+      <url>/2018/04/04/compileOpenJdk7/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<h3 id="获取源码"><a href="#获取源码" class="headerlink" title="获取源码"></a>获取源码</h3><ul>
+<li>本文不会有安装和配置 brew , xcode 和 boostrap jdk（oracle jdk） 的内容，对于打算动手编译jdk的人，这部分内容应该是不需要的吧</li>
+</ul>
+<ul>
+<li>首先确保 mercurial 已经安装，mercurial 和 git 的作用差不多</li>
+</ul>
+<pre><code>sudo easy\_install mercurial
+</code></pre><ul>
+<li>使用 mercurial 提供的 hg 工具拉取远程仓库, 这里我拉的是 jdk 7</li>
+</ul>
+<pre><code>hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev
+</code></pre><ul>
+<li>现在还未真正获取到所有源码，在进行下一步之前，建议先确保你有足够的权限，在trust.rc中添加当前的用户名</li>
+</ul>
+<pre><code>sudo vim /etc/mercurial/hgrc.d/trust.rc
+</code></pre><ul>
+<li>一个可供参考的版本如下</li>
+</ul>
+<pre><code>[trusted]
+users = alberthumbert 
+groups = root
+</code></pre><ul>
+<li>接着正式获取源码,使用任何shell都可以, 如果执行后出现 xxx not trusted，说明上一步没有设置好 </li>
+</ul>
+<pre><code>sudo zsh ./get\_source.sh
+</code></pre><ul>
+<li>如果出现 abort: stream ended unexpectedly ，可能是网络的问题，我这里试了很多次都没有拉取成功，没办法只好走代理，在当前终端中设置代理，只需执行如下命令，只在当前终端生效</li>
+</ul>
+<pre><code>export all\_proxy=socks5://[host]:[port] # 同时配置 http 和 https代理
+</code></pre><ul>
+<li>如无意外，corba，jaxp，jaxws，langtools，jdk，hotspot 这些过程都将以 exit code 0结束，不行就再试几次</li>
+</ul>
+<h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><ul>
+<li>安装llvm</li>
+</ul>
+<pre><code>brew install llvm
+</code></pre><ul>
+<li>安装 freetype</li>
+</ul>
+<pre><code>brew install freetype
+</code></pre><ul>
+<li>安装完freetype和llvm后需要设置链接</li>
+</ul>
+<pre><code>sudo ln -s /usr/bin/llvm-g++ /Applications/Xcode.app/Contents/Developer/usr/bin/llvm-g++
+
+
+sudo ln -s /usr/bin/llvm-gcc /Applications/Xcode.app/Contents/Developer/usr/bin/llvm-gcc
+</code></pre><ul>
+<li>安装 ant , 编译过程中提示ant版本太旧，在apache官网上下载新版本，然后设置链接</li>
+</ul>
+<pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.10.3/bin/ant /usr/bin/ant
+</code></pre><ul>
+<li>安装 XQuartz，在<a href="https://www.xquartz.org/%20%20" target="_blank" rel="external">官网</a>下载dmg并手动安装 ，然后添加链接</li>
+</ul>
+<pre><code>sudo ln -s /opt/X11/include/X11 /usr/local/include/X11
+</code></pre><ul>
+<li>注意如果上一步出现 operation not permitted ，说明你的os版本比较高，有些操作被系统保护，需要重启 Command + R 进入 recover模式，在终端中关闭保护, 输入如下命令然后重启即可</li>
+</ul>
+<pre><code>csrutil disable
+</code></pre><h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><ul>
+<li>下面是一份可供参考的参数配置，可以写在目录的build.sh当中然后执行，注意jdk路径和ant路径需要根据实际情况自行设置</li>
+</ul>
+<pre><code># 语言选项，必须设置，否则编译好后会出现一个 HashTable 的 NPE错
+export LANG=C
+
+# Bootstrap JDK 解压路径，必须设置
+export ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_71/Contents/Home
+export ANT_HOME=/Users/alberthumbert/Desktop/apache-ant-1.10.3
+# 允许自动下载
+export ALLOW_DOWNLOADS=true
+
+# 并行编译线程数
+export HOTSPOT_BUILD_JOBS=4
+export ALT_PARALLEL_COMPILE_JOBS=4
+
+# 比较本次 build 出来的映像与先前版本的差异，对我们没有意义
+# 必须设置为 false，否则 sanity 检查为报缺少先前版本 JDK 的映像的错误提示
+export SKIP_COMPARE_IMAGE=false
+
+# 使用预编译头文件，不加这个编译会变慢
+export USE_PRECOMPILED_HEADER=true
+
+# 要编译的内容
+export BUILD_LANGTOOLS=true
+export BUILD_HOTSPOT=true
+export BUILD_JDK=true
+# export BUILD_JAXWS=false
+# export BUILD_JAXP=false
+# export BUILD_CORBA=false
+
+# 要编译的版本
+# export SKIP_DEBUG_BUILD=false
+# export SKIP_FASTDEBUG_BUILD=true
+# export DEBUG_NAME=debug
+
+# 把它设置为 false 可以避开 javaws 和浏览器 Java 插件之类的部分的 build
+BUILD_DEPLOY=false
+
+# 把它设置为 false 就不会 build 出安装包，因为安装包里有奇怪的依赖
+# 但即使不 build 出它也能得到完整的 JDK 映像，所以还是别 build
+BUILD_INSTALL=false
+
+# 编译结果所存放的路径
+export ALT_OUTPUTDIR=/Users/alberthumbert/jdk7u-dev/build_result
+
+# 这两个环境变量必须去掉，不然会发生奇怪的事情
+# Makefile 检查到这两个变量就会提示警告
+unset JAVA_HOME
+unset CLASSPATH
+
+make sanity
+</code></pre><h3 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h3><ul>
+<li>执行 make debug-build 进行编译，编译过程中可能提示找不到可用的 boostrap jdk ，虽然在上面已经配置过了，不太清楚为什么，只能再手动加上参数，注意这里也需要权限</li>
+</ul>
+<pre><code>sudo make debug-build ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/content/home
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[计算机网络 学习笔记]]></title>
       <url>/2018/03/29/ComputerNetwork/</url>
       <content type="html"><![CDATA[<p>-</p>

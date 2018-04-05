@@ -12,7 +12,7 @@
     
     <title>
         
-            Volley 基本用法和源码分析 | 
+            归档: 2018/4 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="-">
-    <meta name="keywords" content="null,notes">
+    <meta name="description" itemprop="description" content="developing">
+    <meta name="keywords" content="null">
 
     <!-- Site Verification -->
     
@@ -65,62 +65,29 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Volley 基本用法和源码分析 | Albert&#39;s Blog">
+    <meta property="og:title" content="归档: 2018/4 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="-">
-    <meta property="og:article:tag" content="notes"> 
-
+    <meta property="og:description" content="developing">
     
-        <meta property="article:published_time" content="7月 19, 2017" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Volley 基本用法和源码分析 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="-">
+    <meta name="twitter:title" content="归档: 2018/4 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="developing">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/19/Volley/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/archives/2018/04/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Albert&#39;s Blog",
-        "logo": "/img/favicon.png"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Albert Humbert",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/favicon.png"
-        },
-        "description": "Paranoid Android"
-    },
-    "headline": "Volley 基本用法和源码分析",
-    "url": "https://alberthumbert.github.io/2017/07/19/Volley/index.html",
-    "datePublished": "7月 19, 2017",
-    "dateModified": "11月 21, 2017",
-    "description": "-",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://alberthumbert.github.io"
-    }
-}
-</script>
 
 
     
@@ -308,591 +275,96 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-    <!-- Left aligned menu below button -->
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#StringRequest，JsonRequest"><span class="post-toc-number">1.</span> <span class="post-toc-text">StringRequest，JsonRequest</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ImageRequest"><span class="post-toc-number">2.</span> <span class="post-toc-text">ImageRequest</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ImageLoader"><span class="post-toc-number">3.</span> <span class="post-toc-text">ImageLoader</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NetworkImageView"><span class="post-toc-number">4.</span> <span class="post-toc-text">NetworkImageView</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码分析"><span class="post-toc-number">5.</span> <span class="post-toc-text">源码分析</span></a></li></ol>
-        <!--
-        <li class="mdl-menu__item">
-            Some Action
-        </li>
-        -->
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
         
     
-            <p class="article-headline-p">
-                Volley 基本用法和源码分析
-            </p>
-        </div>
 
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Albert Humbert</strong>
-        <span>7月 19, 2017</span>
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2018/04/04/compileOpenJdk7/">mac osx 10.11.6 编译 OpenJdk7</a></p>
     </div>
 
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/notes/">notes</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Volley 基本用法和源码分析&url=https://alberthumbert.github.io/2017/07/19/Volley/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Volley 基本用法和源码分析&url=https://alberthumbert.github.io/2017/07/19/Volley/index.html&via=Albert Humbert" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/19/Volley/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/19/Volley/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/19/Volley/index.html&title=Volley 基本用法和源码分析" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 LinkedIn
-            </li>
-        </a>
-    
-
-    <!-- Share QQ -->
-    
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Volley 基本用法和源码分析&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/19/Volley/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 QQ
-            </li>
-        </a>
-    
-
-    <!-- Share Telegram -->
-    
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/19/Volley/index.html&text=Volley 基本用法和源码分析" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Telegram
-            </li>
-        </a>
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <p>-</p>
-<a id="more"></a>
-<p><strong>Volley是一套比较完善的网络框架，它可以自动调度网络请求，实现并发的网络连接，并且可以很方便的更新UI</strong></p>
-<ul>
-<li>添加依赖</li>
-</ul>
-<pre><code>compile &apos;com.mcxiaoke.volley:library:1.0.19&apos;
-</code></pre><h2 id="StringRequest，JsonRequest"><a href="#StringRequest，JsonRequest" class="headerlink" title="StringRequest，JsonRequest"></a>StringRequest，JsonRequest</h2><ul>
-<li>一般使用Volley会包括三个部分，创建requestQueue对象，创建request对象，将request对象添加到requestQueue对象当中</li>
-<li>requestQueue对象不需要每次都创建，它是一个请求队列</li>
-</ul>
-<pre><code>mQueue = Volley.newRequestQueue(NewsApplication.getNewsContext());
-</code></pre><ul>
-<li>创建request对象，我们需要服务器地址和两个监听器，然后将其添加到队列即可</li>
-</ul>
-<pre><code>public static void  getString(String url,   Response.Listener&lt;String&gt; listener,Response.ErrorListener errorListener){
-
-    StringRequest stringRequest = new StringRequest(url,listener,errorListener);
-    mQueue.add(stringRequest);
-
-} 
-</code></pre><ul>
-<li>Response.Listener 和 Response.ErrorListener 中我们需要分别实现成功加载时和加载失败时的回调方法</li>
-</ul>
-<pre><code>    @Override
-public void onErrorResponse(VolleyError error) {
-Log.d(TAG, &quot;onErrorResponse: &quot;);
-
-}
-
-...
-public void onResponse(String response) {
-Log.d(TAG, &quot;onResponse:&quot;);
-
-}
-</code></pre><ul>
-<li>Volley 没有提供默认的post方法，但是我们可以重写getParams方法，将POST参数放入一个map容器中返回即可</li>
-</ul>
-<pre><code>        protected Map&lt;String, String&gt; getParams() throws AuthFailureError {
-    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
-    map.put(&quot;params1&quot;, &quot;value1&quot;);
-    map.put(&quot;params2&quot;, &quot;value2&quot;);
-    return map;
-}
-</code></pre><h2 id="ImageRequest"><a href="#ImageRequest" class="headerlink" title="ImageRequest"></a>ImageRequest</h2><ul>
-<li><p>ImageRequest专门用于加载网络图片，使用方法和StringRequest和JsonRequest有小小的差别</p>
-</li>
-<li><p>ImageRequest的构造方法有七个参数，分别为链接，含有加载成功时的回调方法的监听器，最大的长和宽，缩放模式，颜色属性，加载失败的监听器，当不需要限制长宽时可以将参数设置为0，图片参数一般设置为 Config.RGB_565 即可</p>
-</li>
-</ul>
-<pre><code>public ImageRequest(String url, Response.Listener&lt;Bitmap&gt; listener, int maxWidth, int maxHeight,
-    ScaleType scaleType, Config decodeConfig, Response.ErrorListener errorListener)
-...
-
-ImageRequest imageRequest = new ImageRequest(url,
-
-        new Response.Listener&lt;Bitmap&gt;() {
-    @Override
-    public void onResponse(Bitmap response) {
-        imageView.setImageBitmap(response);
-    }
-
-}, 0,0, ImageView.ScaleType.CENTER_INSIDE, Bitmap.Config.RGB_565,
-
-        new Response.ErrorListener() {
-    @Override
-    public void onErrorResponse(VolleyError error) {
-
-    }
-
-});
-</code></pre><h2 id="ImageLoader"><a href="#ImageLoader" class="headerlink" title="ImageLoader"></a>ImageLoader</h2><ul>
-<li>ImageRequest 使用起来还是比较麻烦的，使用ImageLoader会比较简洁而且它支持了缓存功能</li>
-<li>创建ImageLoader对象需要请求队列和缓存对象，Imageloader为回调方法做了封装，我们只需要提供ImageView和成功及失败时使用的资源图片即可</li>
-</ul>
-<pre><code>public static void getImage(String url, ImageLoader.ImageCache cache, ImageView imageView){
-
-setQueue();
-ImageLoader imageLoad = new ImageLoader(mQueue,cache);
-ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.downing,R.drawable.failed);
-imageLoad.get(url,listener);
-
-}
-</code></pre><ul>
-<li>一般使用LruCache来缓存，让它实现ImageCache接口即可，这个接口只需实现将Bitmap加入缓存和取出缓存的方法</li>
-</ul>
-<pre><code>@Override
-public Bitmap getBitmap(String url) {
-return mCache.get(url);
-}
-
-@Override
-public void putBitmap(String url, Bitmap bitmap) {
-
-mCache.put(url,bitmap);
-}
-</code></pre><h2 id="NetworkImageView"><a href="#NetworkImageView" class="headerlink" title="NetworkImageView"></a>NetworkImageView</h2><ul>
-<li>NetworkImageView是一个封装了请求操作的图片控件，我们只需要提供一个imageLoad对象和url即可</li>
-</ul>
-<pre><code>&lt;com.android.volley.toolbox.NetworkImageView
-android:id=&quot;@+id/theme_iv_header&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;360dp&quot; /&gt;
-
-...  
-ivHeader.setImageUrl(imageUrl,new ImageLoader(DataFromVolley.getQueue(),new BitmapCache(BitmapCache.MAX_MEMORY /8)));
-</code></pre><h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><ul>
-<li>我们使用Volley的第一步，是调用newRequestQueue方法创建请求队列，那么先来查看这个方法，它的内部经过了几次直接的return，之后我们来到这里</li>
-</ul>
-<pre><code>    public static RequestQueue newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes) {
-
-
-    ... 
-
-    if (stack == null) {
-        if (Build.VERSION.SDK_INT &gt;= 9) {
-            stack = new HurlStack();
-        } else {
-            // Prior to Gingerbread, HttpUrlConnection was unreliable.
-            // See: http://android-developers.blogspot.com/2011/09/androids-http-clients.html
-            stack = new HttpClientStack(AndroidHttpClient.newInstance(userAgent));
-        }
-    }
-
-    Network network = new BasicNetwork(stack);
-
-    RequestQueue queue;
-    if (maxDiskCacheBytes &lt;= -1)
-    {
-        // No maximum size specified
-        queue = new RequestQueue(new DiskBasedCache(cacheDir), network);
-    }
-    else
-    {
-        // Disk cache size specified
-        queue = new RequestQueue(new DiskBasedCache(cacheDir, maxDiskCacheBytes), network);
-    }
-
-    queue.start();
-
-    return queue;
-}   
-</code></pre><ul>
-<li>我们看到这里判断了 Build.VERSION.SDK_INT ，以此根据不同的安卓版本创建了两个Stack类的实例，查看注释这两个类分别是基于HttpURLConnection和HttpClient来实现的，在较新的版本上使用的是 HttpURLConnection。所以我们可以知道Volley真正的网络操作实际交由这两者来执行的。</li>
-</ul>
-<pre><code>/**
-* An {@link HttpStack} based on {@link      HttpURLConnection}.
-*/ 
-
-/**
-* An HttpStack that performs request over an {@link         HttpClient}.
-*/
-</code></pre><ul>
-<li>创建完stack对象，networ对象和请求队列queue之后，queue的start方法执行了，查看这个方法的内部</li>
-</ul>
-<pre><code>public void start() {
-stop();  // Make sure any currently running dispatchers are stopped.
-// Create the cache dispatcher and start it.
-mCacheDispatcher = new CacheDispatcher(mCacheQueue, mNetworkQueue, mCache, mDelivery);
-mCacheDispatcher.start();
-
-// Create network dispatchers (and corresponding threads) up to the pool size.
-for (int i = 0; i &lt; mDispatchers.length; i++) {
-    NetworkDispatcher networkDispatcher = new NetworkDispatcher(mNetworkQueue, mNetwork,
-            mCache, mDelivery);
-    mDispatchers[i] = networkDispatcher;
-    networkDispatcher.start();
-}
-}
-</code></pre><ul>
-<li>start 方法中主要有两个对象 mCacheDispatcher和networkDispatcher，查看继承关系，得知他们是 Thread 子类的实例，同一时刻会有一个CacheDispatcher线程和多个NetworkDispatcher线程在执行，从名字就可以看出CacheDispatcher用来执行缓存操作而NetworkDispatcher用来执行网络操作，找到前者的run方法</li>
-</ul>
-<pre><code>public void run() {
-if (DEBUG) VolleyLog.v(&quot;start new dispatcher&quot;);
-Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
-// Make a blocking call to initialize the cache.
-mCache.initialize();
-
-Request&lt;?&gt; request;
-while (true) {
-    // release previous request object to avoid leaking request object when mQueue is drained.
-    request = null;
-    try {
-        //这里从请求队列拿出了请求
-        // Take a request from the queue.
-        request = mCacheQueue.take();
-    }
-
-    ....
-
-        // Attempt to retrieve this item from cache.
-        Cache.Entry entry = mCache.get(request.getCacheKey());
-
-        //查看是否有缓存，没有则交给网络队列
-        if (entry == null) {
-            request.addMarker(&quot;cache-miss&quot;);
-            // Cache miss; send off to the network dispatcher.
-            mNetworkQueue.put(request);
-            continue;
-        }
-
-        // If it is completely expired, just send it to the network.
-        if (entry.isExpired()) {
-            request.addMarker(&quot;cache-hit-expired&quot;);
-            request.setCacheEntry(entry);
-            mNetworkQueue.put(request);
-            continue;
-        }
-
-        // We have a cache hit; parse its data for delivery back to the request.
-
-            // Post the intermediate response back to the user and have
-            // the delivery then forward the request along to the network.
-            final Request&lt;?&gt; finalRequest = request;
-            mDelivery.postResponse(request, response, new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        mNetworkQueue.put(finalRequest);
-                    } catch (InterruptedException e) {
-                        // Not much we can do about this.
-                    }
-                }
-            });
-        }
-    }
-</code></pre><ul>
-<li><p>可以看到CacheDispatcher缓存线程会先检查它的请求队列mCacheQueue中各个请求的数据是否在缓存中，如果缓存中没有就加入到NetworkDispatcher网络线程处理的队列mNetworkQueue，让NetworkDispatcher去处理。注意这里的循环是while (true)，所以我们调用newRequestQueue最后就是为了开启了这几个无限循环处理请求的线程，注意这里的队列都是PriorityBlockingQueue，也就是优先级队列</p>
-</li>
-<li><p>线程已经打开了但是这时还没有请求，那么再来看看我们调用的add方法，终于看到比较短的代码了…</p>
-</li>
-</ul>
-<pre><code>public &lt;T&gt; Request&lt;T&gt; add(Request&lt;T&gt; request) {
-// Tag the request as belonging to this queue and add it to the set of current requests.
-request.setRequestQueue(this);
-synchronized (mCurrentRequests) {
-    mCurrentRequests.add(request);
-}
-
-// Process requests in the order they are added.
-request.setSequence(getSequenceNumber());
-request.addMarker(&quot;add-to-queue&quot;);
-
-// If the request is uncacheable, skip the cache queue and go straight to the network.
-if (!request.shouldCache()) {
-    mNetworkQueue.add(request);
-    return request;
-}
-
-// Insert request into stage if there&apos;s already a request with the same cache key in flight.
-synchronized (mWaitingRequests) {
-    String cacheKey = request.getCacheKey();
-    if (mWaitingRequests.containsKey(cacheKey)) {
-        // There is already a request in flight. Queue up.
-        Queue&lt;Request&lt;?&gt;&gt; stagedRequests = mWaitingRequests.get(cacheKey);
-        if (stagedRequests == null) {
-            stagedRequests = new LinkedList&lt;Request&lt;?&gt;&gt;();
-        }
-        stagedRequests.add(request);
-        mWaitingRequests.put(cacheKey, stagedRequests);
-        if (VolleyLog.DEBUG) {
-            VolleyLog.v(&quot;Request for cacheKey=%s is in flight, putting on hold.&quot;, cacheKey);
-        }
-    } else {
-        // Insert &apos;null&apos; queue for this cacheKey, indicating there is now a request in
-        // flight.
-        mWaitingRequests.put(cacheKey, null);
-        mCacheQueue.add(request);
-    }
-    return request;
-}
-} 
-</code></pre><ul>
-<li>add方法几乎每一步都加了注释，还是很好解读的，去掉一些判断逻辑，发现add方法其实是先检查我们传进来的请求是否需要缓存，如果不需要就直接加入上NetworkDispatcher处理的队列否则就加入CacheDispatcher的队列，一般请求都是默认可以缓存的，到了这里队列就有请求了</li>
-</ul>
-<ul>
-<li>现在再来看看请求得到的response是怎么回到主线程处理的，reponse是由之前提到的NetWork对象操作stack对象（HttpURLConnection或者HttpClient）得到的，置于怎么操作不是很重要，不去研究。我们看到NetworkDispatcher的run方法最后使用ResponseDelivery mDelivery的一个post方法，顾名思义，response被传递了，点进去发现ResponseDelivery是一个接口，所以还得去找找他是在哪创建的</li>
-</ul>
-<pre><code>mDelivery.postResponse(request, response);
-</code></pre><ul>
-<li>找了半天发现它是在RequestQueue被创建时调用的，也就是在newRequestQueue方法的过程中，它的实现类是ExecutorDelivery，这里我们看到它持有了一个MainLooper，已经大概可以猜到内部实现了</li>
-</ul>
-<pre><code>public RequestQueue(Cache cache, Network network, int threadPoolSize) {
-this(cache, network, threadPoolSize,
-        new ExecutorDelivery(new Handler(Looper.getMainLooper())));
-}
-</code></pre><ul>
-<li>找到之前 postResponse 方法的具体实现， 它调用了mResponsePoster 的 execute方法             <pre><code>              @Override
-public void postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response, Runnable runnable) {
-request.markDelivered();
-request.addMarker(&quot;post-response&quot;);
-mResponsePoster.execute(new ResponseDeliveryRunnable(request, response, runnable));
-}
-</code></pre></li>
-</ul>
-<ul>
-<li>execute其实就是handler的post方法，由于已经知道handler持有的是mainLooper，因此response可以在主线程处理了</li>
-</ul>
-<pre><code>mResponsePoster = new Executor() {
-    @Override
-    public void execute(Runnable command) {
-        handler.post(command);
-    }
-};
-</code></pre><ul>
-<li>那么这里post的Runnable又是什么呢，查看ExecutorDelivery，也就是之前接受了MainLooper的那个类，看来这个Runnable是它的内部类，当请求成功时调用deliverResponse，不成功时调用deliverError，在进去阅读文档得知这两个方法最终会调用Listener的回调方法，也就是我们熟悉的onResponse方法了，值得注意的是这个Runnable的run方法里面又执行了另一个Runnable的run方法，在NetworkDispatcher中这个传入的Runnable是null，这个Runnable是用于CacheDispatcher得到缓存后可以直接回到主线程而存在的</li>
-</ul>
-<pre><code>    @Override
-    public void postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response) {
-    postResponse(request, response, null);
-    }
-
-    @Override
-    public void postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response, Runnable runnable) {
-    request.markDelivered();
-    request.addMarker(&quot;post-response&quot;);
-    mResponsePoster.execute(new ResponseDeliveryRunnable(request, response, runnable));
-    }
-
-
-    /**
-    * A Runnable used for delivering network responses to a listener on the
-    * main thread.
-    */
-@SuppressWarnings(&quot;rawtypes&quot;)
-private class ResponseDeliveryRunnable implements Runnable {
-    private final Request mRequest;
-    private final Response mResponse;
-    private final Runnable mRunnable; 
-    ...
-            public void run() {
-                        if (mResponse.isSuccess()) {
-        mRequest.deliverResponse(mResponse.result);
-    } else {
-        mRequest.deliverError(mResponse.error);
-    }
-    ...
-                if (mRunnable != null) {
-        mRunnable.run();
-    }
-    ...
-</code></pre><p>*  </p>
-<ul>
-<li>这样我们就把Volley的机制大致过了一遍，我们发现Volley实现了并发的异步请求，数据缓存，优先级，同时有一个RequestQueue来同一存放请求，相对于我们单独地使用HttpURLConnection，它减少了大量线程开启和销毁带来的消耗，还是有比较多的优点的，另外使用它的时候要特别注意不要多次创建RequestQueue队列，否则会开启很多长期运行的线程</li>
-</ul>
-
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            -
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2018/04/04/compileOpenJdk7/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
             </div>
+            <div>
+                <strong>Albert Humbert</strong>
+                <span>4月 04, 2018</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                <a class="post_category-link" href="/categories/dairy/">dairy</a>
+            </span>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-        <a href="/2017/07/19/WebView/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
+            
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
+            
 
-    <!-- Next Nav -->
-    
-        <a href="/2017/07/18/RecycleView/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
         </div>
     </div>
+</div>
 
+            
+            
+        
+    
+
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
+</script>
+
+    
+</div>
 
 
                     
