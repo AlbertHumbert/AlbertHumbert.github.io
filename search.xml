@@ -37,7 +37,7 @@ groups = root
 </ul>
 <pre><code>export all\_proxy=socks5://[host]:[port] # 同时配置 http 和 https代理
 </code></pre><ul>
-<li>如无意外，corba，jaxp，jaxws，langtools，jdk，hotspot 这些过程都将以 exit code 0结束，不行就再试几次</li>
+<li>如无意外，corba，jaxp，jaxws，langtools，jdk，hotspot 这些过程都将以 xxx files updated, 0 files merged, 0 files removed, 0 files unresolved 结束，不行就再试几次</li>
 </ul>
 <h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><ul>
 <li>安装llvm</li>
@@ -59,7 +59,7 @@ sudo ln -s /usr/bin/llvm-gcc /Applications/Xcode.app/Contents/Developer/usr/bin/
 </ul>
 <pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.10.3/bin/ant /usr/bin/ant
 </code></pre><ul>
-<li>安装 XQuartz，在<a href="https://www.xquartz.org/%20%20" target="_blank" rel="external">官网</a>下载dmg并手动安装 ，然后添加链接</li>
+<li>安装 XQuartz，在￼官网￼下载dmg并手动安装 ，然后添加链接</li>
 </ul>
 <pre><code>sudo ln -s /opt/X11/include/X11 /usr/local/include/X11
 </code></pre><ul>
@@ -122,7 +122,84 @@ make sanity
 <li>执行 make debug-build 进行编译，编译过程中可能提示找不到可用的 boostrap jdk ，虽然在上面已经配置过了，不太清楚为什么，只能再手动加上参数，注意这里也需要权限</li>
 </ul>
 <pre><code>sudo make debug-build ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/content/home
-</code></pre>]]></content>
+</code></pre><ul>
+<li><p>如果提示 ant 版本过低，但实际上你的ant又高于提示中的ant版本，有可能实际上是你的 boostrap jdk版本太低</p>
+<p>  ERROR: The version of ant being used is older than</p>
+<pre><code>the required version of &apos;1.7.1&apos;.
+The version of ant found was &apos;1.7.0&apos;.
+</code></pre></li>
+</ul>
+<h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h3><p><strong> 废话很多，如果运气好，上面的流程都通过了，下面就不用看了</strong></p>
+<h4 id="ant-版本过低"><a href="#ant-版本过低" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><ul>
+<li>使用 ant -version ，如果发现版本确实过低，那么下载新版 ant 即可</li>
+</ul>
+<pre><code>ERROR: The version of ant being used is older than
+       the required version of &apos;1.7.1&apos;.
+       The version of ant found was &apos;1.7.0&apos;.
+</code></pre><ul>
+<li>然而反复使用 homebrew 安装了ant，可以确定运行的 ant 版本是最新的，并且我的机器上原先就没有 1.7.0 版本的 ant，网上的说法是使用软连接将ant链接过去，看了一下源码，确实openjdk里面讲ant目录写死在了/usr/bin/ant，问题是这个 ‘1.7.0’ 的ant到底是哪来的，为什么能找到这个版本的ant</li>
+</ul>
+<pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.10.3/bin/ant /usr/bin/ant
+</code></pre><ul>
+<li>再看一下make sanity的输出, 上面是我下载的ant，1.10.3 ,但下面的 ANT_VER 却是 1.7.0，这么说来这个ant的版本可能跟我指定的ant没有关系_ </li>
+</ul>
+<pre><code>     ANT_HOME = /Users/alberthumbert/Desktop/apache-ant-1.10.3
+...
+ ANT_VER = 1.7.0 [requires at least 1.7.1]
+</code></pre><ul>
+<li>使用 mdfind 查找 这个ant version 是怎么来的，直接 mdfind “ANT_VER”</li>
+</ul>
+<pre><code>/Users/alberthumbert/jdk7u-dev/build.sh
+/Users/alberthumbert/jdk7u-dev/jaxp/src/com/sun/org/apache/xalan/internal/xslt/EnvironmentCheck.java
+/Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/org/apache/tools/ant/MagicNames.html
+/Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/index-all.html
+/Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/constant-values.html
+</code></pre><ul>
+<li>上面这个 EnvironmentCheck.java 很可疑，打开看下，有个检查 ant版本的方法，这里用到反射，理论上查找的就是 ANT_HOME 当中 ant.jar 里的类。还是不明所以</li>
+</ul>
+<pre><code>/**
+  * Report product version information from Ant.
+  *
+  * @param h Hashtable to put information in
+  */
+ protected void checkAntVersion(Hashtable h)
+ {
+
+   if (null == h)
+     h = new Hashtable();
+
+   try
+   {
+     final String ANT_VERSION_CLASS = &quot;org.apache.tools.ant.Main&quot;;
+     final String ANT_VERSION_METHOD = &quot;getAntVersion&quot;; // noArgs
+     final Class noArgs[] = new Class[0];
+
+     Class clazz = ObjectFactory.findProviderClass(ANT_VERSION_CLASS, true);
+
+     Method method = clazz.getMethod(ANT_VERSION_METHOD, noArgs);
+     Object returnValue = method.invoke(null, new Object[0]);
+
+     h.put(VERSION + &quot;ant&quot;, (String)returnValue);
+   }
+   catch (Exception e)
+   {
+     h.put(VERSION + &quot;ant&quot;, CLASS_NOTPRESENT);
+   }
+ }
+</code></pre><ul>
+<li>尝试更换 boostrap jdk 版本，这次使用 1.8.0 然后发现 make sanity 通过了 ANT_VER 就等于 1.8.0 , 下意识的想起之前使用的boostrap jdk 就是1.7.0 ，看了下我的机子里还有 1.6.0 的jdk ，那么用它来编译一下</li>
+</ul>
+<pre><code>ERROR: The version of ant being used is older than
+       the required version of &apos;1.7.1&apos;.
+       The version of ant found was &apos;1.6.0.&apos;.
+</code></pre><ul>
+<li>黑人问号.jpg，所以这个ant版本就等于jdk版本 ？？？WTF ？？？</li>
+</ul>
+<pre><code>ANT_VER = 1.8.0 [requires at least 1.7.1]
+</code></pre><ul>
+<li>总结一下，boostrap jdk 版本必须大于指定的ant版本，设定 ANT_HOME 没有作用，但是网上很多解决办法都是使用后者，可能是平台差异，具体原因不明</li>
+</ul>
+]]></content>
       
         <categories>
             
@@ -1008,7 +1085,7 @@ scan-view: Python script, ASCII text executable
 </code></pre><h4 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h4><ul>
 <li>cat file_name , 显示文本文件内容</li>
 </ul>
-<h2 id="更多的-bash-shell-命令"><a href="#更多的-bash-shell-命令" class="headerlink" title="更多的 bash shell 命令"></a>更多的 bash shell 命令</h2><p><br></p>
+<h2 id="更多的-bash-shell-命令"><a href="#更多的-bash-shell-命令" class="headerlink" title="更多的 bash shell 命令"></a>更多的 bash shell 命令</h2><h3 id="检测程序"><a href="#检测程序" class="headerlink" title="检测程序"></a>检测程序</h3><h4 id="探查进程"><a href="#探查进程" class="headerlink" title="探查进程"></a>探查进程</h4><p><br></p>
 <h1 id="理解-shell"><a href="#理解-shell" class="headerlink" title="理解 shell"></a>理解 shell</h1>]]></content>
       
         <categories>
