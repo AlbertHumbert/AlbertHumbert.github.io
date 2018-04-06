@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="4月 04, 2018" />
-        <meta property="article:modified_time" content="4月 06, 2018" />
+        <meta property="article:modified_time" content="4月 07, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "mac osx 10.11.6 编译 OpenJdk7",
     "url": "https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html",
     "datePublished": "4月 04, 2018",
-    "dateModified": "4月 06, 2018",
+    "dateModified": "4月 07, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取源码"><span class="post-toc-number">1.</span> <span class="post-toc-text">获取源码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译环境"><span class="post-toc-number">2.</span> <span class="post-toc-text">编译环境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置参数"><span class="post-toc-number">3.</span> <span class="post-toc-text">配置参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开始编译"><span class="post-toc-number">4.</span> <span class="post-toc-text">开始编译</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#踩坑记录"><span class="post-toc-number">5.</span> <span class="post-toc-text">踩坑记录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ant-版本过低"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">ant 版本过低</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取源码"><span class="post-toc-number">1.</span> <span class="post-toc-text">获取源码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译环境"><span class="post-toc-number">2.</span> <span class="post-toc-text">编译环境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置参数"><span class="post-toc-number">3.</span> <span class="post-toc-text">配置参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开始编译"><span class="post-toc-number">4.</span> <span class="post-toc-text">开始编译</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#no-boostrap-dir"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">no boostrap dir</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ant-版本过低"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">ant 版本过低</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#中文-与-ascii-乱码"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">中文 与 ascii 乱码</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#踩坑记录"><span class="post-toc-number">5.</span> <span class="post-toc-text">踩坑记录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ant-版本过低-1"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">ant 版本过低</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Bootstrap-JDK-版本过高"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Bootstrap JDK 版本过高</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OS-X-10-10-以上无法安装-Oracle-JDK"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">OS X 10.10 以上无法安装 Oracle JDK</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -551,9 +551,9 @@ groups = root
 
 sudo ln -s /usr/bin/llvm-gcc /Applications/Xcode.app/Contents/Developer/usr/bin/llvm-gcc
 </code></pre><ul>
-<li>安装 ant , 编译过程中提示ant版本太旧，在apache官网上下载新版本，然后设置链接</li>
+<li>安装 ant , 编译过程中提示ant版本太旧，在apache官网上下载新版本，然后设置链接，建议不要使用版本太高的ant，最好不要跟你的 OpenJdk 版本有太大差距</li>
 </ul>
-<pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.10.3/bin/ant /usr/bin/ant
+<pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.8.0/bin/ant /usr/bin/ant
 </code></pre><ul>
 <li>安装 XQuartz，在￼官网￼下载dmg并手动安装 ，然后添加链接</li>
 </ul>
@@ -569,69 +569,79 @@ sudo ln -s /usr/bin/llvm-gcc /Applications/Xcode.app/Contents/Developer/usr/bin/
 export LANG=C
 
 # Bootstrap JDK 解压路径，必须设置
-export ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_71/Contents/Home
-export ANT_HOME=/Users/alberthumbert/Desktop/apache-ant-1.10.3
+export ALT\_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0\_71/Contents/Home
+export ANT\_HOME=/Users/alberthumbert/Desktop/apache-ant-1.10.3
 # 允许自动下载
-export ALLOW_DOWNLOADS=true
+export ALLOW\_DOWNLOADS=true
 
 # 并行编译线程数
-export HOTSPOT_BUILD_JOBS=4
-export ALT_PARALLEL_COMPILE_JOBS=4
+export HOTSPOT\_BUILD\_JOBS=4
+export ALT\_PARALLEL\_COMPILE\_JOBS=4
 
 # 比较本次 build 出来的映像与先前版本的差异，对我们没有意义
 # 必须设置为 false，否则 sanity 检查为报缺少先前版本 JDK 的映像的错误提示
-export SKIP_COMPARE_IMAGE=false
+export SKIP\_COMPARE\_IMAGE=false
 
 # 使用预编译头文件，不加这个编译会变慢
-export USE_PRECOMPILED_HEADER=true
+export USE\_PRECOMPILED\_HEADER=true
 
 # 要编译的内容
-export BUILD_LANGTOOLS=true
-export BUILD_HOTSPOT=true
-export BUILD_JDK=true
-# export BUILD_JAXWS=false
-# export BUILD_JAXP=false
-# export BUILD_CORBA=false
+export BUILD\_LANGTOOLS=true
+export BUILD\_HOTSPOT=true
+export BUILD\_JDK=true
+# export BUILD\_JAXWS=false
+# export BUILD\_JAXP=false
+# export BUILD\_CORBA=false
 
 # 要编译的版本
-# export SKIP_DEBUG_BUILD=false
-# export SKIP_FASTDEBUG_BUILD=true
-# export DEBUG_NAME=debug
+# export SKIP\_DEBUG\_BUILD=false
+# export SKIP\_FASTDEBUG\_BUILD=true
+# export DEBUG\_NAME=debug
 
 # 把它设置为 false 可以避开 javaws 和浏览器 Java 插件之类的部分的 build
-BUILD_DEPLOY=false
+BUILD\_DEPLOY=false
 
 # 把它设置为 false 就不会 build 出安装包，因为安装包里有奇怪的依赖
 # 但即使不 build 出它也能得到完整的 JDK 映像，所以还是别 build
-BUILD_INSTALL=false
+BUILD\_INSTALL=false
 
 # 编译结果所存放的路径
-export ALT_OUTPUTDIR=/Users/alberthumbert/jdk7u-dev/build_result
+export ALT\_OUTPUTDIR=/Users/alberthumbert/jdk7u-dev/build\_result
 
 # 这两个环境变量必须去掉，不然会发生奇怪的事情
 # Makefile 检查到这两个变量就会提示警告
-unset JAVA_HOME
+unset JAVA\_HOME
 unset CLASSPATH
 
 make sanity
-</code></pre><h3 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h3><ul>
+</code></pre><h3 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h3><h4 id="no-boostrap-dir"><a href="#no-boostrap-dir" class="headerlink" title="no boostrap dir"></a>no boostrap dir</h4><ul>
 <li>执行 make debug-build 进行编译，编译过程中可能提示找不到可用的 boostrap jdk ，虽然在上面已经配置过了，不太清楚为什么，只能再手动加上参数，注意这里也需要权限</li>
 </ul>
-<pre><code>sudo make debug-build ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/content/home
-</code></pre><ul>
-<li><p>如果提示 ant 版本过低，但实际上你的ant又高于提示中的ant版本，有可能实际上是你的 boostrap jdk版本太低</p>
-<p>  ERROR: The version of ant being used is older than</p>
-<pre><code>the required version of &apos;1.7.1&apos;.
-The version of ant found was &apos;1.7.0&apos;.
+<pre><code>sudo make debug-build ALT\_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0\_71.jdk/content/home
+</code></pre><h4 id="ant-版本过低"><a href="#ant-版本过低" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><ul>
+<li><p>如果提示 ant 版本过低，但实际上你的ant又高于提示中的ant版本，有可能实际上是你的 boostrap jdk版本太低，建议使用 oracle jdk 7u40 ，详见后面踩坑记录</p>
+<pre><code>ERROR: The version of ant being used is older than
+   the required version of &apos;1.7.1&apos;.
+   The version of ant found was &apos;1.7.0&apos;.
 </code></pre></li>
 </ul>
+<h4 id="中文-与-ascii-乱码"><a href="#中文-与-ascii-乱码" class="headerlink" title="中文 与 ascii 乱码"></a>中文 与 ascii 乱码</h4><ul>
+<li>自动生成的代码（主要是AIDL文件）中注释会带有中文，这个时候由于配置了使用 ascii ，无法识别，会导致编译不通过，解决办法主要有两种，一种使用shell命令或脚本，一种直接修改文件</li>
+</ul>
+<ul>
+<li>使用shell命令替换可以参考下面,有可能不成功</li>
+</ul>
+<pre><code>sudo find /Users/alberthumbert/jdk7u-dev/build/macosx-x86_64/corba/gensrc/com/sun/ -name &apos;*.java&apos; | while read p; do native2ascii -encoding UTF-8 $p &gt; tmpj; mv tmpj $p ; done
+</code></pre><ul>
+<li>比较稳的做法是像这位<a href="http://0x9e370001.iteye.com/blog/1729802" target="_blank" rel="external">老哥</a>一样修改文件，看上去很多其实也没几个文件，善用字符搜索很快就能搞定</li>
+</ul>
 <h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h3><p><strong> 废话很多，如果运气好，上面的流程都通过了，下面就不用看了</strong></p>
-<h4 id="ant-版本过低"><a href="#ant-版本过低" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><ul>
+<h4 id="ant-版本过低-1"><a href="#ant-版本过低-1" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><ul>
 <li>使用 ant -version ，如果发现版本确实过低，那么下载新版 ant 即可</li>
 </ul>
 <pre><code>ERROR: The version of ant being used is older than
-       the required version of &apos;1.7.1&apos;.
-       The version of ant found was &apos;1.7.0&apos;.
+   the required version of &apos;1.7.1&apos;.
+   The version of ant found was &apos;1.7.0&apos;.
 </code></pre><ul>
 <li>然而反复使用 homebrew 安装了ant，可以确定运行的 ant 版本是最新的，并且我的机器上原先就没有 1.7.0 版本的 ant，网上的说法是使用软连接将ant链接过去，看了一下源码，确实openjdk里面讲ant目录写死在了/usr/bin/ant，问题是这个 ‘1.7.0’ 的ant到底是哪来的，为什么能找到这个版本的ant</li>
 </ul>
@@ -641,7 +651,7 @@ The version of ant found was &apos;1.7.0&apos;.
 </ul>
 <pre><code>     ANT_HOME = /Users/alberthumbert/Desktop/apache-ant-1.10.3
 ...
- ANT_VER = 1.7.0 [requires at least 1.7.1]
+ ANT\_VER = 1.7.0 [requires at least 1.7.1]
 </code></pre><ul>
 <li>使用 mdfind 查找 这个ant version 是怎么来的，直接 mdfind “ANT_VER”</li>
 </ul>
@@ -653,11 +663,11 @@ The version of ant found was &apos;1.7.0&apos;.
 </code></pre><ul>
 <li>上面这个 EnvironmentCheck.java 很可疑，打开看下，有个检查 ant版本的方法，这里用到反射，理论上查找的就是 ANT_HOME 当中 ant.jar 里的类。还是不明所以</li>
 </ul>
-<pre><code>/**
+<pre><code>/\*\*
   * Report product version information from Ant.
-  *
+  \*
   * @param h Hashtable to put information in
-  */
+  \*/
  protected void checkAntVersion(Hashtable h)
  {
 
@@ -681,21 +691,52 @@ The version of ant found was &apos;1.7.0&apos;.
    {
      h.put(VERSION + &quot;ant&quot;, CLASS_NOTPRESENT);
    }
- }
+   }
 </code></pre><ul>
 <li>尝试更换 boostrap jdk 版本，这次使用 1.8.0 然后发现 make sanity 通过了 ANT_VER 就等于 1.8.0 , 下意识的想起之前使用的boostrap jdk 就是1.7.0 ，看了下我的机子里还有 1.6.0 的jdk ，那么用它来编译一下</li>
 </ul>
 <pre><code>ERROR: The version of ant being used is older than
-       the required version of &apos;1.7.1&apos;.
-       The version of ant found was &apos;1.6.0.&apos;.
+   the required version of &apos;1.7.1&apos;.
+   The version of ant found was &apos;1.6.0.&apos;.
 </code></pre><ul>
 <li>黑人问号.jpg，所以这个ant版本就等于jdk版本 ？？？WTF ？？？</li>
 </ul>
-<pre><code>ANT_VER = 1.8.0 [requires at least 1.7.1]
+<pre><code>ANT\_VER = 1.8.0 [requires at least 1.7.1]
 </code></pre><ul>
-<li>总结一下，boostrap jdk 版本必须大于指定的ant版本，设定 ANT_HOME 没有作用，但是网上很多解决办法都是使用后者，可能是平台差异，具体原因不明</li>
+<li>总结一下，boostrap jdk 版本接近或者大于指定的ant版本，否则设定 ANT_HOME 没有作用，但是网上很多解决办法都是使用后者，可能是平台差异，具体原因不明,推荐使用Oracle JDK 7u40</li>
 </ul>
-
+<h4 id="Bootstrap-JDK-版本过高"><a href="#Bootstrap-JDK-版本过高" class="headerlink" title="Bootstrap JDK 版本过高"></a>Bootstrap JDK 版本过高</h4><ul>
+<li>如果你尝试使用 JDK 8 去编译 OpenJDK 7 ，那么肯定是行不通的，在OpenJDK 7 当中，许多 ant 的配置中都指定了 -werror参数，这个参数意味着指定的所有参与编译的文件在编译过程中出现的warnning都会被视为 error ，而在编译时用 javac 编译 java 文件时有由于 Bootstrap JDK过高而出现大量的warnning，最典型的比如下面这个</li>
+</ul>
+<pre><code>主版本 52 比 51 新, 此编译器支持最新的主版本。建议升级此编译器
+</code></pre><ul>
+<li>个人推荐 Oracle JDK 7u40 ，使用这个版本搭配 1.7.1 以上并接近这个版本的 ant</li>
+</ul>
+<h4 id="OS-X-10-10-以上无法安装-Oracle-JDK"><a href="#OS-X-10-10-以上无法安装-Oracle-JDK" class="headerlink" title="OS X 10.10 以上无法安装 Oracle JDK"></a>OS X 10.10 以上无法安装 Oracle JDK</h4><ul>
+<li>本来觉得是不需要写这部分内容的，Oracle JDK 有个智障bug，在安装旧版本的jdk时你可能会受到这样一条提示</li>
+</ul>
+<pre><code>Java from Oracle requires Mac OS X 10.7.3 or later.
+Your system has Mac OS X Version 10.11.6. This product can be installed on Version 10.7.3 or later.
+Visit java.com/help for more information.
+</code></pre><ul>
+<li><p>MDZZ，多么清奇的脑回路，而且这个问题直到 JDK 8 的一些版本都存在，但是我们说过 Bootstrap JDK 版本不能过高，那么怎么安装这个JDK呢，无奈只好帮Oracle 修一波 bug</p>
+</li>
+<li><p>在dmg加载上来之后，用下面命令解压安装包, 第一个路径是你的dmg文件，第二个路径是解压目录的目标地址，命名随意</p>
+</li>
+</ul>
+<pre><code>pkgutil --expand /Volumes/JDK\ 7\ Update\ 40/JDK\ 7\ Update\ 40.pkg
+</code></pre><ul>
+<li>进入解压目录在Distribution文件中找到 pm_instal_check()函数，用什么方法都好，总之让它返回true</li>
+</ul>
+<pre><code>function pm_install_check() {
+//就是这么粗暴
+  return true;
+}
+</code></pre><ul>
+<li>重新打包, 然后用这个新的dmg进行安装即可</li>
+</ul>
+<pre><code>pkgutil --flatten /Users/alberthumbert/Desktop/740.unpkg /Users/alberthumbert/Desktop/jdk740.pkg
+</code></pre>
     
 
     
@@ -812,7 +853,7 @@ The version of ant found was &apos;1.7.0&apos;.
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
