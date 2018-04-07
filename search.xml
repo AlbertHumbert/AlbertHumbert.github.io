@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[mac osx 编译并调试 OpenJdk7]]></title>
+      <title><![CDATA[mac平台编译并调试 OpenJdk7]]></title>
       <url>/2018/04/04/compileOpenJdk7/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -201,7 +201,8 @@ inline relocInfo prefix_relocInfo(int datalen = 0) {
    assert(relocInfo::fits_into_immediate(datalen), &quot;datalen in limits&quot;);
    return relocInfo(relocInfo::data_prefix_tag, relocInfo::RAW_BITS, relocInfo::datalen_tag | datalen);
 }
-</code></pre><h4 id="Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”"><a href="#Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”" class="headerlink" title="Undefined symbols for architecture x86_64: “_attachCurrentThread”"></a>Undefined symbols for architecture x86_64: “_attachCurrentThread”</h4><ul>
+</code></pre><p><br></p>
+<h4 id="Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”"><a href="#Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”" class="headerlink" title="Undefined symbols for architecture x86_64: “_attachCurrentThread”"></a>Undefined symbols for architecture x86_64: “_attachCurrentThread”</h4><ul>
 <li><p>这个错误是在 debug_build 时才出现的，没有保存出错信息，简单说一下情况，提示说 ThreadUtilities中的 getJNIEnv 和 getJNIEnvUncached 函数引用了一个不存在的函数 attachCurrentThread，之前写过一点jni，感觉大概是一个封装了jni线程调度函数的工具类出了问题</p>
 </li>
 <li><p>在osxapp目录找到这个文件</p>
@@ -357,6 +358,7 @@ Program ended with exit code: 0
 <ul>
 <li><strong> 现在，开始你的深入理解 java 虚拟机之旅吧 ！</strong></li>
 </ul>
+<p><img src="https://ws1.sinaimg.cn/large/987832a0gy1fq4aw6xhmdj21kk17m1bi.jpg" alt=""></p>
 <p><br><br><br><br><br></p>
 <h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h3><p><strong> 废话很多，如果运气好，上面的流程都通过了，下面就不用看了</strong></p>
 <p><br></p>
