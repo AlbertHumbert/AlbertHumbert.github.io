@@ -3,20 +3,31 @@
   
     
     <entry>
-      <title><![CDATA[mac osx 10.11.6 编译 OpenJdk7]]></title>
+      <title><![CDATA[mac osx 编译 OpenJdk7]]></title>
       <url>/2018/04/04/compileOpenJdk7/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><br></p>
+<h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><p><strong>下面是最终编译通过时的环境配置，中间踩了很多坑，光 boostrap JDK 就换过 1.6.0，1.7.0_71，1.7.0_80，1.8.0_131，1.7.0_40 等多个版本，主要是卡在 ant 和 JDK 版本不兼容，以及 openJdk和 boostrap JDK 不兼容等问题上</strong></p>
+<ul>
+<li>系统环境 ：osx 10.11.6</li>
+<li>c 编译器 ：clang</li>
+<li>openJdk ：jdk7u-dev</li>
+<li>boostrap JDK ：oracle JDK 7u40</li>
+<li>xcode version ：8.0 (8A218a)</li>
+<li>ant version ：1.8.0</li>
+<li>make 命令，请根据编译环境自行调整</li>
+</ul>
+<pre><code>sudo make ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/contents/home SPOT_OS_VERSION_CHECK=OK LANG=C ANT_HOME=/Users/alberthumbert/Downloads/apache-ant-1.8.0 WARNINGS_ARE_ERRORS=false ALLOW_DOWNLOADS=true CC=clang COMPILER_WARNINGS_FATAL=false LFLAGS=&apos;-Xlinker -lstdc++&apos; USE_CLANG=true LP64=1 LANG=C  ARCH_DATA_MODEL=64 HOTSPOT_BUILD_JOBS=8
+</code></pre><p><br></p>
 <h3 id="获取源码"><a href="#获取源码" class="headerlink" title="获取源码"></a>获取源码</h3><ul>
-<li>本文不会有安装和配置 brew , xcode 和 boostrap jdk（oracle jdk） 的内容，对于打算动手编译jdk的人，这部分内容应该是不需要的吧</li>
+<li>本文不会有安装和配置 brew , xcode 和 boostrap jdk（oracle jdk） 的内容，对于打算动手编译jdk的人，这部分内容太基础了，就不废话了</li>
 </ul>
 <ul>
 <li>首先确保 mercurial 已经安装，mercurial 和 git 的作用差不多</li>
 </ul>
-<pre><code>sudo easy\_install mercurial
+<pre><code>sudo easy_install mercurial
 </code></pre><ul>
-<li>使用 mercurial 提供的 hg 工具拉取远程仓库, 这里我拉的是 jdk 7</li>
+<li>使用 mercurial 提供的 hg 工具拉取远程仓库, 这里我拉取的是 jdk 7</li>
 </ul>
 <pre><code>hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev
 </code></pre><ul>
@@ -32,16 +43,16 @@ groups = root
 </code></pre><ul>
 <li>接着正式获取源码,使用任何shell都可以, 如果执行后出现 xxx not trusted，说明上一步没有设置好 </li>
 </ul>
-<pre><code>sudo zsh ./get\_source.sh
+<pre><code>sudo zsh ./get_source.sh
 </code></pre><ul>
 <li>如果出现 abort: stream ended unexpectedly ，可能是网络的问题，我这里试了很多次都没有拉取成功，没办法只好走代理，在当前终端中设置代理，只需执行如下命令，只在当前终端生效</li>
 </ul>
-<pre><code>export all\_proxy=socks5://[host]:[port] # 同时配置 http 和 https代理
+<pre><code>export all_proxy=socks5://[host]:[port] # 同时配置 http 和 https代理
 </code></pre><ul>
 <li>如无意外，corba，jaxp，jaxws，langtools，jdk，hotspot 这些过程都将以 xxx files updated, 0 files merged, 0 files removed, 0 files unresolved 结束，不行就再试几次</li>
 </ul>
 <p><br></p>
-<h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><ul>
+<h3 id="编译环境-1"><a href="#编译环境-1" class="headerlink" title="编译环境"></a>编译环境</h3><ul>
 <li>安装llvm</li>
 </ul>
 <pre><code>brew install llvm
@@ -65,7 +76,7 @@ sudo ln -s /usr/bin/llvm-gcc /Applications/Xcode.app/Contents/Developer/usr/bin/
 </ul>
 <pre><code>sudo ln -s /opt/X11/include/X11 /usr/local/include/X11
 </code></pre><ul>
-<li>注意如果上一步出现 operation not permitted ，说明你的os版本比较高，有些操作被系统保护，需要重启 Command + R 进入 recover模式，在终端中关闭保护, 输入如下命令然后重启即可</li>
+<li>注意如果上一步出现 operation not permitted ，说明你的os版本比较高，有些操作被系统保护，需要重启 Command + R 进入 recover 模式，在终端中关闭保护, 输入如下命令然后重启即可</li>
 </ul>
 <pre><code>csrutil disable
 </code></pre><p><br></p>
@@ -76,60 +87,63 @@ sudo ln -s /usr/bin/llvm-gcc /Applications/Xcode.app/Contents/Developer/usr/bin/
 export LANG=C
 
 # Bootstrap JDK 解压路径，必须设置
-export ALT\_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0\_71/Contents/Home
-export ANT\_HOME=/Users/alberthumbert/Desktop/apache-ant-1.10.3
+export ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home
+export ANT_HOME=/Users/alberthumbert/Desktop/apache-ant-1.8.0
+export ANT_VERSION=1.7.1
 # 允许自动下载
-export ALLOW\_DOWNLOADS=true
+export ALLOW_DOWNLOADS=true
 
 # 并行编译线程数
-export HOTSPOT\_BUILD\_JOBS=4
-export ALT\_PARALLEL\_COMPILE\_JOBS=4
+export HOTSPOT_BUILD_JOBS=4
+export ALT_PARALLEL_COMPILE_JOBS=4
 
 # 比较本次 build 出来的映像与先前版本的差异，对我们没有意义
 # 必须设置为 false，否则 sanity 检查为报缺少先前版本 JDK 的映像的错误提示
-export SKIP\_COMPARE\_IMAGE=false
+export SKIP_COMPARE_IMAGE=false
 
 # 使用预编译头文件，不加这个编译会变慢
-export USE\_PRECOMPILED\_HEADER=true
+export USE_PRECOMPILED_HEADER=true
 
 # 要编译的内容
-export BUILD\_LANGTOOLS=true
-export BUILD\_HOTSPOT=true
-export BUILD\_JDK=true
-# export BUILD\_JAXWS=false
-# export BUILD\_JAXP=false
-# export BUILD\_CORBA=false
+export BUILD_LANGTOOLS=true
+export BUILD_HOTSPOT=true
+export BUILD_JDK=true
+# export BUILD_JAXWS=false
+# export BUILD_JAXP=false
+# export BUILD_CORBA=false
 
 # 要编译的版本
-# export SKIP\_DEBUG\_BUILD=false
-# export SKIP\_FASTDEBUG\_BUILD=true
-# export DEBUG\_NAME=debug
+# export SKIP_DEBUG_BUILD=false
+# export SKIP_FASTDEBUG_BUILD=true
+# export DEBUG_NAME=debug
 
 # 把它设置为 false 可以避开 javaws 和浏览器 Java 插件之类的部分的 build
-BUILD\_DEPLOY=false
+BUILD_DEPLOY=false
 
 # 把它设置为 false 就不会 build 出安装包，因为安装包里有奇怪的依赖
 # 但即使不 build 出它也能得到完整的 JDK 映像，所以还是别 build
-BUILD\_INSTALL=false
+BUILD_INSTALL=false
+export WARNINGS_ARE_ERRORS=false
+export COMPILER_WARNINGS_FATAL=false
 
 # 编译结果所存放的路径
-export ALT\_OUTPUTDIR=/Users/alberthumbert/jdk7u-dev/build\_result
+export ALT_OUTPUTDIR=/Users/alberthumbert/jdk7u-dev/build_result
 
 # 这两个环境变量必须去掉，不然会发生奇怪的事情
 # Makefile 检查到这两个变量就会提示警告
-unset JAVA\_HOME
+unset JAVA_HOME
 unset CLASSPATH
 
 make sanity
 </code></pre><p><br></p>
 <h3 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h3><p><br></p>
 <h4 id="no-boostrap-dir"><a href="#no-boostrap-dir" class="headerlink" title="no boostrap dir"></a>no boostrap dir</h4><ul>
-<li>执行 make debug-build 进行编译，编译过程中可能提示找不到可用的 boostrap jdk ，虽然在上面已经配置过了，不太清楚为什么，只能再手动加上参数，注意这里也需要权限</li>
+<li>执行 make 进行编译，编译过程中可能提示找不到可用的 boostrap jdk ，虽然在上面已经配置过了，不太清楚为什么，只能再手动加上参数，注意这里也需要权限</li>
 </ul>
-<pre><code>sudo make debug-build ALT\_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0\_71.jdk/content/home
+<pre><code>sudo make ALT_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/content/home
 </code></pre><p><br></p>
 <h4 id="ant-版本过低"><a href="#ant-版本过低" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><ul>
-<li>如果提示 ant 版本过低，但实际上你的ant又高于提示中的ant版本，有可能实际上是你的 boostrap jdk版本太低，建议使用 oracle jdk 7u40 ，详见后面踩坑记录</li>
+<li>如果提示 ant 版本过低，但实际上你的 ant 又高于提示中的 ant 版本，有可能实际上是 boostrap jdk 版本太低，建议使用 oracle jdk 7u40 ，详见后面踩坑记录</li>
 </ul>
 <pre><code>ERROR: 
 The version of ant being used is older than
@@ -137,10 +151,10 @@ the required version of &apos;1.7.1&apos;.
 The version of ant found was &apos;1.7.0&apos;.
 </code></pre><p><br></p>
 <h4 id="中文-与-ascii-乱码"><a href="#中文-与-ascii-乱码" class="headerlink" title="中文 与 ascii 乱码"></a>中文 与 ascii 乱码</h4><ul>
-<li>自动生成的代码（主要是AIDL文件）中注释会带有中文，这个时候由于配置了使用 ascii ，无法识别，会导致编译不通过，解决办法主要有两种，一种使用shell命令或脚本，一种直接修改文件</li>
+<li>自动生成的代码（主要是AIDL文件）中注释会带有中文，这个时候由于配置中规定了使用 ascii ，这会导致编译器无法识别而编译不通过，解决办法主要有两种，一种使用shell命令或脚本，另一种直接修改文件</li>
 </ul>
 <ul>
-<li>使用shell命令替换可以参考下面,有可能不成功</li>
+<li>使用shell命令替换可以参考下面, 有可能不成功</li>
 </ul>
 <pre><code>sudo find /Users/alberthumbert/jdk7u-dev/build/macosx-x86_64/corba/gensrc/com/sun/ -name &apos;*.java&apos; | while read p; do native2ascii -encoding UTF-8 $p &gt; tmpj; mv tmpj $p ; done
 </code></pre><ul>
@@ -148,7 +162,7 @@ The version of ant found was &apos;1.7.0&apos;.
 </ul>
 <p><br></p>
 <h4 id="clang-不支持-fpch-deps"><a href="#clang-不支持-fpch-deps" class="headerlink" title="clang 不支持 -fpch-deps"></a>clang 不支持 -fpch-deps</h4><ul>
-<li>参考这一位<a href="https://blog.csdn.net/j754379117/article/details/53695426" target="_blank" rel="external">老哥</a>的做法，修改hotspot/make/bsd/makefiles/gcc.make</li>
+<li>参考这一位<a href="https://blog.csdn.net/j754379117/article/details/53695426" target="_blank" rel="external">老哥</a>的做法，修改 hotspot/make/bsd/makefiles/gcc.make</li>
 </ul>
 <pre><code># 注释216-218行
 # Flags for generating make dependency flags.
@@ -164,7 +178,7 @@ ifeq ($(USE_CLANG),)
 endif
 </code></pre><p><br></p>
 <h4 id="clang-error-no-such-file-or-directory-‘false’"><a href="#clang-error-no-such-file-or-directory-‘false’" class="headerlink" title="clang: error: no such file or directory: ‘false’"></a>clang: error: no such file or directory: ‘false’</h4><ul>
-<li>仔细看发现是makefile生成的编译命令中某个参数只剩了一个false，不知倒是哪个参数，很蛋疼，顺藤摸瓜遭到生成参数的makefile</li>
+<li>仔细看发现是makefile生成的编译命令中某个参数只剩了一个false，不知道是哪个参数，很蛋疼，顺藤摸瓜找到生成参数的makefile</li>
 </ul>
 <pre><code>sudo vim /Users/alberthumbert/jdk7u-dev/hotspot/make/bsd/makefiles/vm.make
 </code></pre><ul>
@@ -187,7 +201,163 @@ inline relocInfo prefix_relocInfo(int datalen = 0) {
    assert(relocInfo::fits_into_immediate(datalen), &quot;datalen in limits&quot;);
    return relocInfo(relocInfo::data_prefix_tag, relocInfo::RAW_BITS, relocInfo::datalen_tag | datalen);
 }
+</code></pre><h4 id="Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”"><a href="#Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”" class="headerlink" title="Undefined symbols for architecture x86_64: “_attachCurrentThread”"></a>Undefined symbols for architecture x86_64: “_attachCurrentThread”</h4><ul>
+<li><p>这个错误是在 debug_build 时才出现的，没有保存出错信息，简单说一下情况，提示说 ThreadUtilities中的 getJNIEnv 和 getJNIEnvUncached 函数引用了一个不存在的函数 attachCurrentThread，之前写过一点jni，感觉大概是一个封装了jni线程调度函数的工具类出了问题</p>
+</li>
+<li><p>在osxapp目录找到这个文件</p>
+</li>
+</ul>
+<pre><code>cd /Users/alberthumbert/jdk7u-dev/jdk/src/macosx//native/sun/osxapp
+</code></pre><ul>
+<li>实际上 ThreadUtilities.m 文件中可以找到这个函数,感觉是内联出了问题，把 inline 关键字去掉即可通过编译</li>
+</ul>
+<pre><code>inline void attachCurrentThread(void** env) {
+    if ([NSThread isMainThread]) {
+        JavaVMAttachArgs args;
+        args.version = JNI_VERSION_1_4;
+        args.name = &quot;AppKit Thread&quot;;
+        args.group = appkitThreadGroup;
+        (*jvm)-&gt;AttachCurrentThreadAsDaemon(jvm, env, &amp;args);
+    } else {
+        (*jvm)-&gt;AttachCurrentThreadAsDaemon(jvm, env, NULL);
+    }
+}
 </code></pre><p><br></p>
+<h3 id="编译通过"><a href="#编译通过" class="headerlink" title="编译通过"></a>编译通过</h3><p><br></p>
+<ul>
+<li>任务完成，耗时将近20分钟，纪念一下</li>
+</ul>
+<p><br></p>
+<pre><code>&gt;&gt;&gt;Finished making images @ Sat Apr  7 14:22:59 CST 2018 ...
+########################################################################
+##### Leaving jdk for target(s) sanity all docs images             #####
+########################################################################
+##### Build time 00:12:41 jdk for target(s) sanity all docs images #####
+########################################################################
+
+#-- Build times ----------
+Target all_product_build
+Start 2018-04-07 14:03:57
+End   2018-04-07 14:22:59
+00:00:16 corba
+00:05:57 hotspot
+00:00:02 jaxp
+00:00:03 jaxws
+00:12:41 jdk
+00:00:03 langtools
+00:19:02 TOTAL
+-------------------------
+</code></pre><p><br><br><br></p>
+<ul>
+<li>下面让我们来验证一下编译是否真的成功了</li>
+</ul>
+<pre><code>cd /Users/alberthumbert/jdk7u-dev/build/macosx-x86_64/j2sdk-image/bin
+</code></pre><ul>
+<li>验证一下版本</li>
+</ul>
+<pre><code>./java -version
+
+#输出
+openjdk version &quot;1.7.0-internal&quot;
+OpenJDK Runtime Environment (build 1.7.0-internal-root_2018_04_07_14_03-b00)
+OpenJDK 64-Bit Server VM (build 24.80-b07, mixed mode)
+</code></pre><ul>
+<li>写个 hello world, 用 ./javac Hello.java 编译</li>
+</ul>
+<pre><code> public class Hello{
+    public static void main(String[] args){
+       System.out.println(&quot;Hello World !&quot;);
+    }
+}
+</code></pre><ul>
+<li>用 ./java Hello 运行</li>
+</ul>
+<pre><code>Hello World !
+</code></pre><p><br><br><br></p>
+<h3 id="调试源码"><a href="#调试源码" class="headerlink" title="调试源码"></a>调试源码</h3><p><strong>不单纯为了编译而去编译，在学习jvm的同时能跟着代码走才是最终目的</strong></p>
+<p><br></p>
+<h4 id="build-debug-build-fastdebug-build"><a href="#build-debug-build-fastdebug-build" class="headerlink" title="build debug_build fastdebug_build"></a>build debug_build fastdebug_build</h4><ul>
+<li>注意 在普通的编译模式下编译出来的jdk是不能调试的，它跟你平时使用的普通jdk是一个东西，为了能够支持调试 在make 命令后面需要加上 build_debug 参数，这时在 build/macosx-x86_64-debug/ 目录可以找到另一个编译版本，这里面的 jdk 和 hotspot是可调试的</li>
+</ul>
+<ul>
+<li>细心的玩家可能还会发现一个 macosx-x86_64-fastdebug 目录，如果你在配置文件中设置了 fastdebug 参数，那么就会有这个版本 jdk，简单说一下 fastdebug 是什么，它是由于 jdk 的开发人员无法忍受编译器极度缓慢的调试速度而打造的新调试版本，它的调试速度会比普通的 debug 快，不过替换掉了一些命令，所以它的表现和普通的 jdk 不太一样_ </li>
+</ul>
+<p><br></p>
+<h4 id="使用-Xcode-调试运行"><a href="#使用-Xcode-调试运行" class="headerlink" title="使用 Xcode 调试运行"></a>使用 Xcode 调试运行</h4><p><strong>本来是打算使用 Clion 调试的，无奈 cmake 太难配，看了别人使用 xcode 很顺畅，于是打开了万年不用的 xcode</strong></p>
+<ul>
+<li>新建项目，名称随意，右键工作目录，点击 add files to (projectname)，导入整个 jdk7u-dev，注意就是你用 hg 命令拉下来的整个仓库，不是 macosx-x86_64-debug 目录</li>
+</ul>
+<ul>
+<li>点击 product->scheme->edit scheme ，在 run -> info 中配置 executable 如下</li>
+</ul>
+<pre><code>/Users/alberthumbert/jdk7u-dev/build/macosx-x86_64-debug/bin/java
+</code></pre><ul>
+<li>同时在这个 executable 的目录下新建一个测试用的java文件，这里用回之前的 hello world</li>
+</ul>
+<pre><code> public class Hello{
+    public static void main(String[] args){
+       System.out.println(&quot;Hello World !&quot;);
+    }
+}
+</code></pre><ul>
+<li>在 run-> arguements 中配置参数为 hello，那么效果就是 ./java hello，所以你需要先 javac 一下</li>
+</ul>
+<ul>
+<li>在运行之前找到 main.c ，没错，这个就是你所以 java 程序的入口,路径在 /jdk/src/share/bin/main.c 找不到就 find . -iname main.c 一下</li>
+</ul>
+<pre><code>int
+main(int argc, char **argv)
+{
+    int margc;
+    char** margv;
+    const jboolean const_javaw = JNI_FALSE;
+#endif /* JAVAW */
+#ifdef _WIN32
+    {
+        int i = 0;
+        if (getenv(JLDEBUG_ENV_ENTRY) != NULL) {
+            printf(&quot;Windows original main args:\n&quot;);
+            for (i = 0 ; i &lt; __argc ; i++) {
+                printf(&quot;wwwd_args[%d] = %s\n&quot;, i, __argv[i]);
+            }
+        }
+    }
+    JLI_CmdToArgs(GetCommandLine());
+    margc = JLI_GetStdArgc();
+    // add one more to mark the end
+    margv = (char **)JLI_MemAlloc((margc + 1) * (sizeof(char *)));
+    {
+        int i = 0;
+        StdArg *stdargs = JLI_GetStdArgs();
+        for (i = 0 ; i &lt; margc ; i++) {
+            margv[i] = stdargs[i].arg;
+        }
+        margv[i] = NULL;
+    }
+#else /* *NIXES */
+    margc = argc;
+    margv = argv;
+#endif /* WIN32 */
+    return JLI_Launch(margc, margv,
+                   sizeof(const_jargs) / sizeof(char *), const_jargs,
+                   sizeof(const_appclasspath) / sizeof(char *), const_appclasspath,
+                   FULL_VERSION,
+                   DOT_VERSION,
+                   (const_progname != NULL) ? const_progname : *margv,
+                   (const_launcher != NULL) ? const_launcher : *margv,
+                   (const_jargs != NULL) ? JNI_TRUE : JNI_FALSE,
+                   const_cpwildcard, const_javaw, const_ergo_class);
+}
+</code></pre><ul>
+<li>随便打几个断点，点击运行,先不要急着一头扎进源码，快速让调试结束，如果终端输出如下，恭喜你已经完成了所有任务</li>
+</ul>
+<pre><code>Hello World !
+Program ended with exit code: 0
+</code></pre><p><br></p>
+<ul>
+<li><strong> 现在，开始你的深入理解 java 虚拟机之旅吧 ！</strong></li>
+</ul>
+<p><br><br><br><br><br></p>
 <h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h3><p><strong> 废话很多，如果运气好，上面的流程都通过了，下面就不用看了</strong></p>
 <p><br></p>
 <h4 id="ant-版本过低-1"><a href="#ant-版本过低-1" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><pre><code>ERROR: The version of ant being used is older than
@@ -197,15 +367,15 @@ inline relocInfo prefix_relocInfo(int datalen = 0) {
 <li>使用 ant -version ，如果发现版本确实过低，那么下载新版 ant 即可</li>
 </ul>
 <ul>
-<li>然而我的机器上原先就没有 1.7.0 版本的 ant，反复使用 homebrew 安装了 ant，可以确定运行的 ant 版本是最新的，网上的说法是使用软连接将ant链接过去，看了一下源码，确实openjdk里面讲ant目录写死在了/usr/bin/ant，问题是这个 ‘1.7.0’ 的ant到底是哪来的，为什么能找到这个版本的ant</li>
+<li>然而我的机器上原先就没有 1.7.0 版本的 ant，反复使用 homebrew 安装了 ant，可以确定运行的 ant 版本是最新的，网上的说法是使用软连接将ant链接过去，看了一下源码，确实 openjdk 里面将 ant 目录写死在了/usr/bin/ant，问题是这个 ‘1.7.0’ 的ant到底是哪来的，为什么能找到这个版本的ant</li>
 </ul>
 <pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.10.3/bin/ant /usr/bin/ant
 </code></pre><ul>
-<li>再看一下make sanity的输出, 上面是我下载的ant，1.10.3 ,但下面的 ANT_VER 却是 1.7.0，这么说来这个ant的版本可能跟我指定的ant没有关系</li>
+<li>再看一下make sanity的输出, 上面是我下载的ant，1.10.3 ,但下面的 ANT_VER 却是 1.7.0，这么说来这个 ant 的版本可能跟我指定的 ant 没有关系</li>
 </ul>
 <pre><code>ANT_HOME = /Users/alberthumbert/Desktop/apache-ant-1.10.3
 …
-ANT\_VER = 1.7.0 \[requires at least 1.7.1]
+ANT_VER = 1.7.0 [requires at least 1.7.1]
 </code></pre><ul>
 <li>使用 mdfind 查找 这个ant version 是怎么来的，直接 mdfind “ANT_VER”</li>
 </ul>
@@ -215,13 +385,11 @@ ANT\_VER = 1.7.0 \[requires at least 1.7.1]
 /Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/index-all.html
 /Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/constant-values.html
 </code></pre><ul>
-<li>上面这个 EnvironmentCheck.java 很可疑，打开看下，有个检查 ant版本的方法，这里用到反射，理论上查找的就是 ANT_HOME 当中 ant.jar 里的类。还是不明所以</li>
+<li>上面这个 EnvironmentCheck.java 很可疑，打开看下，有个检查 ant 版本的方法，这里用到反射，理论上查找的就是 ANT_HOME 当中 ant.jar 里的类，还是不明所以</li>
 </ul>
-<pre><code>/\*\*
-  * Report product version information from Ant.
-  \*
-  * @param h Hashtable to put information in
-  \*/
+<pre><code>/**    * Report product version information from Ant.
+  *    * @param h Hashtable to put information in
+  */
  protected void checkAntVersion(Hashtable h)
  {
 
@@ -247,22 +415,21 @@ ANT\_VER = 1.7.0 \[requires at least 1.7.1]
    }
    }
 </code></pre><ul>
-<li><p>尝试更换 boostrap jdk 版本，这次使用 1.8.0 然后发现 make sanity 通过了 ANT_VER 就等于 1.8.0     </p>
-<pre><code>ANT\_VER = 1.8.0 \[requires at least 1.7.1]
-</code></pre></li>
+<li>尝试更换 boostrap jdk 版本，这次使用 1.8.0 然后发现 make sanity 通过了，而输出的配置列表中 ANT_VER 就等于 1.8.0     </li>
 </ul>
-<ul>
-<li>下意识的想起之前使用的boostrap jdk 是1.7.0 而提示的ANT_VER就是1.7.0，看了下我的机子里还有 1.6.0 的jdk ，那么用它来编译一下…黑人问号.jpg，所以这个ant版本就等于jdk版本 ？？？WTF ？？？</li>
+<pre><code>ANT_VER = 1.8.0 [requires at least 1.7.1]
+</code></pre><ul>
+<li>下意识的想起之前使用的boostrap jdk 是1.7.0 而提示的 ANT_VER 就是1.7.0，看了下我的机子里还有 1.6.0 的 jdk ，那么用它来编译一下… 黑人问号.jpg ，所以这个 ant 版本就等于 jdk 版本 ？？？WTF ？？？</li>
 </ul>
 <pre><code>ERROR: The version of ant being used is older than
    the required version of &apos;1.7.1&apos;.
    The version of ant found was &apos;1.6.0.&apos;.
 </code></pre><ul>
-<li>总结一下，boostrap jdk 版本接近或者大于指定的ant版本，否则设定 ANT_HOME 没有作用，但是网上很多解决办法都是使用后者，可能是平台差异，具体原因不明,推荐使用Oracle JDK 7u40</li>
+<li>总结一下，boostrap jdk 版本接近或者大于指定的ant版本，否则设定 ANT_HOME 没有作用，但是网上很多解决办法都是使用后者，可能是平台差异，具体原因不明, 推荐使用Oracle JDK 7u40</li>
 </ul>
 <p><br></p>
 <h4 id="Bootstrap-JDK-版本过高"><a href="#Bootstrap-JDK-版本过高" class="headerlink" title="Bootstrap JDK 版本过高"></a>Bootstrap JDK 版本过高</h4><ul>
-<li>如果你尝试使用 JDK 8 去编译 OpenJDK 7 ，那么肯定是行不通的，在OpenJDK 7 当中，许多 ant 的配置中都指定了 -werror参数，这个参数意味着指定的所有参与编译的文件在编译过程中出现的warnning都会被视为 error ，而在编译时用 javac 编译 java 文件时有由于 Bootstrap JDK过高而出现大量的warnning，最典型的比如下面这个</li>
+<li>如果你尝试使用 JDK 8 去编译 OpenJDK 7 ，那么肯定是行不通的，在 OpenJDK 7 当中，许多 ant 的配置中都指定了 -werror 参数，这个参数意味着参与编译的文件在编译过程中导致的 warnning 都会被视为 error ，而在用 javac 编译 java 文件时又由于 Bootstrap JDK 过高而出现大量的 warnning ，最典型的比如下面这个</li>
 </ul>
 <pre><code>主版本 52 比 51 新, 此编译器支持最新的主版本。建议升级此编译器
 </code></pre><ul>
@@ -270,7 +437,7 @@ ANT\_VER = 1.7.0 \[requires at least 1.7.1]
 </ul>
 <p><br></p>
 <h4 id="OS-X-10-10-以上无法安装-Oracle-JDK"><a href="#OS-X-10-10-以上无法安装-Oracle-JDK" class="headerlink" title="OS X 10.10 以上无法安装 Oracle JDK"></a>OS X 10.10 以上无法安装 Oracle JDK</h4><ul>
-<li>本来觉得是不需要写这部分内容的，Oracle JDK 有个bug，在安装旧版本的jdk时你可能会受到这样一条提示</li>
+<li>本来是觉得不需要写这部分内容的，但mac上的 Oracle JDK 有个bug ，在安装旧版本的 jdk 时你可能会收到这样一条提示</li>
 </ul>
 <pre><code>Java from Oracle requires Mac OS X 10.7.3 or later.
 Your system has Mac OS X Version 10.11.6. This product can be installed on Version 10.7.3 or later.
@@ -278,12 +445,12 @@ Visit java.com/help for more information.
 </code></pre><ul>
 <li><p>MDZZ，多么清奇的脑回路，而且这个问题直到 JDK 8 的一些版本都存在，但是我们说过 Bootstrap JDK 版本不能过高，那么怎么安装这个JDK呢，无奈只好帮Oracle 修一波 bug</p>
 </li>
-<li><p>在dmg加载上来之后，用下面命令解压安装包, 第一个路径是你的dmg文件，第二个路径是解压目录的目标地址，命名随意</p>
+<li><p>在 dmg 加载上来之后，用下面命令解压安装包, 第一个路径是你的 dmg 文件，第二个路径是解压目录的目标地址，命名随意</p>
 </li>
 </ul>
 <pre><code>pkgutil --expand /Volumes/JDK\ 7\ Update\ 40/JDK\ 7\ Update\ 40.pkg
 </code></pre><ul>
-<li>进入解压目录在Distribution文件中找到 pm_instal_check()函数，用什么方法都好，总之让它返回true</li>
+<li>进入解压目录在 Distribution 文件中找到 pm_instal_check() 函数，用什么方法都好，总之让它返回 true</li>
 </ul>
 <pre><code>function pm_install_check() {
 //就是这么粗暴
