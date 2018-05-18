@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-05-17T16:27:37.000Z</updated>
+  <updated>2018-05-18T15:20:16.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git-flow 工作流 上手指南</title>
+    <link href="https://alberthumbert.github.io/2018/05/18/git-flow/"/>
+    <id>https://alberthumbert.github.io/2018/05/18/git-flow/</id>
+    <published>2018-05-18T14:27:03.000Z</published>
+    <updated>2018-05-18T15:20:16.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>操作系统 学习笔记</title>
@@ -100,7 +120,7 @@
     <link href="https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/"/>
     <id>https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/</id>
     <published>2018-03-29T14:16:36.000Z</published>
-    <updated>2018-04-03T09:01:19.000Z</updated>
+    <updated>2018-05-18T15:19:37.000Z</updated>
     
     <summary type="html">
     
@@ -385,26 +405,6 @@
     <id>https://alberthumbert.github.io/2017/08/08/Picasso/</id>
     <published>2017-08-08T05:28:20.000Z</published>
     <updated>2017-11-21T07:21:48.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Matisse 源码分析</title>
-    <link href="https://alberthumbert.github.io/2017/08/07/Matisse/"/>
-    <id>https://alberthumbert.github.io/2017/08/07/Matisse/</id>
-    <published>2017-08-07T11:22:53.000Z</published>
-    <updated>2017-11-21T07:21:52.000Z</updated>
     
     <summary type="html">
     

@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="3月 29, 2018" />
-        <meta property="article:modified_time" content="4月 03, 2018" />
+        <meta property="article:modified_time" content="5月 18, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 官方架构组件 Architecture Components 系列 - Lifecycle",
     "url": "https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/index.html",
     "datePublished": "3月 29, 2018",
-    "dateModified": "4月 03, 2018",
+    "dateModified": "5月 18, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#啥是Lifecycle啊"><span class="post-toc-number">1.</span> <span class="post-toc-text">啥是Lifecycle啊</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为啥要Lifecycle啊"><span class="post-toc-number">2.</span> <span class="post-toc-text">为啥要Lifecycle啊</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在support-26以下使用Lifecycle"><span class="post-toc-number">3.</span> <span class="post-toc-text">在support 26以下使用Lifecycle</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lifecycle-实现细节"><span class="post-toc-number">4.</span> <span class="post-toc-text">Lifecycle 实现细节</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#啥是Lifecycle啊"><span class="post-toc-number">1.</span> <span class="post-toc-text">啥是Lifecycle啊</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为啥要Lifecycle啊"><span class="post-toc-number">2.</span> <span class="post-toc-text">为啥要Lifecycle啊</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在support-26以下使用Lifecycle"><span class="post-toc-number">3.</span> <span class="post-toc-text">在support 26以下使用Lifecycle</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lifecycle-实现细节"><span class="post-toc-number">4.</span> <span class="post-toc-text">Lifecycle 实现细节</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#透明初始化"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">透明初始化</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -510,7 +510,7 @@
 <li>Lifecycle是 Architecture Components 组件的基础，它允许我们使用观察者模式监听Activity和Fragment的生命周期，LiveData的生命周期感知能力实际上就来自Lifecycle</li>
 </ul>
 <ul>
-<li>熟悉MVP模式的开发者肯定都有一套MVP基类的封装，其中的Activity和Fragment完成了与presenter的生命周期绑定，这是跟自然的</li>
+<li>熟悉MVP模式的开发者肯定都有一套MVP基类的封装，其中的Activity和Fragment完成了与presenter的生命周期绑定，这是很自然的</li>
 </ul>
 <pre><code>@Override
 @CallSuper
@@ -550,22 +550,36 @@ public class MyObserver implements LifecycleObserver {
     //logcat中
     D/MyObserver: onCreate: 
 </code></pre><h2 id="为啥要Lifecycle啊"><a href="#为啥要Lifecycle啊" class="headerlink" title="为啥要Lifecycle啊"></a>为啥要Lifecycle啊</h2><ul>
-<li>确实可以感觉到Lifecycle的用法非常简洁，但是既然我们都已经封装好了自己的库，还有必要使用LifeCycle吗。实际上是有的，我们这样实现的生命周期感知实际上是被动的，试问你怎么知道当前的view处于什么周期呢，写在onCreate中的代码一定在onCreate中执行吗，如果我开启了一个耗时任务呢？为了这个解决这个问题，你可以添加一个标记，然后在不同的回调方法中维护它，但是Lifecycle提供了更好的解决方案，让我们主动查询生命周期</li>
+<li>确实可以感觉到Lifecycle的用法非常简洁，但是既然我们都已经封装好了自己的库，还有必要使用LifeCycle吗。实际上是有的，我们这样实现的生命周期感知实际上是被动的，试问你怎么知道当前的view处于什么周期呢，写在onCreate中的代码一定在onCreate中执行吗，如果我在其中执行异步操作呢？为了这个解决这个问题，你可以添加一个标记，然后在不同的回调方法中维护它，但是Lifecycle提供了更好的解决方案，让我们主动查询生命周期</li>
 </ul>
 <pre><code>if(getLifecycle().getCurrentState() == Lifecycle.State.STARTED){
         //do something
     }
 
-    if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
+if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
         //do something
     }
 </code></pre><ul>
 <li>使用Lifecycle也可以使得代码更加解耦，比如说我们的项目中有一个监听遥感的模块，那么我们可以在onResume和onDestroy中开始和解除监听，假如我们现在又要加入一个监听地理位置的功能呢，这些模块都是独立的但是目前它们的生命周期都落在负责这个界面的人的手上，由那个人去调用，而使用Lifecycle之后，你只需要像下面这样就可以分离职责，一个LifeCycle可以有多个Observer</li>
 </ul>
-<pre><code>    getLifecycle().addObserver(new MyObserver());
+<pre><code>getLifecycle().addObserver(new MyObserver());
 getLifecycle().addObserver(new YourObserver());
 getLifecycle().addObserver(new HisObserver());
 getLifecycle().addObserver(new HerObserver());
+</code></pre><ul>
+<li>学过一点设计模式应该都清楚，组合优先于继承，下面是一个我参与的项目中十分常见的Fragment的继承关系,每当添加一个新特性都有可能需要加一层继承关系，而java又不支持多继承，引入Lifecycle之后功能特性可以写到Observer当中，如果某个组件需要这个特性只需要调用addObserver即可完成绑定工作，逻辑也就更加清晰了</li>
+</ul>
+<pre><code>public class DeviceDetailFragment extends BaseMvpFragment&lt;DeviceDetailContract.Presenter&gt; implements DeviceDetailContract.View
+
+public abstract class BaseMvpFragment&lt;P extends MSBaseContract.BasePresenter&gt; extends MSBaseMvpFragment&lt;P&gt;
+
+public abstract class MSBaseMvpFragment&lt;P extends MSBaseContract.BasePresenter&gt; extends MSBaseFragment
+
+public abstract class MSBaseFragment extends MSLazyFragment
+
+public class MSLazyFragment extends MSBaseLazyFragment 
+
+public class MSBaseLazyFragment extends Fragment
 </code></pre><ul>
 <li>其实我觉得最重要的理由其实是官方已经把LifeCycle植入到SupportActivity等组件当中了，只要你的support库在26以上，那么你就已经依赖了Lifecycle，不管你如何强调不要重复造轮子，既然官方强制导入了Lifecycle，那么现在重复的就是你的轮子</li>
 </ul>
@@ -605,7 +619,10 @@ public LifecycleRegistry getLifecycle() {
     if(lifecycle == null)lifecycle = new LifecycleRegistry(this);
     return new LifecycleRegistry(this);
 }
-</code></pre><h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2>
+</code></pre><h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2><h3 id="透明初始化"><a href="#透明初始化" class="headerlink" title="透明初始化"></a>透明初始化</h3><ul>
+<li>Lifecycle中非常值得学习的一点就是它的透明初始化，什么是透明呢，不妨从反面说起，我们在使用第三方库时常常要手动调用初始化操作，最常见的做法是在Application的onCreate中调用各种init，而Lifecycle巧用provider，将初始化操作交给了android框架和库本身</li>
+</ul>
+
     
 
     
@@ -730,7 +747,7 @@ public LifecycleRegistry getLifecycle() {
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

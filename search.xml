@@ -3,6 +3,116 @@
   
     
     <entry>
+      <title><![CDATA[git-flow 工作流 上手指南]]></title>
+      <url>/2018/05/18/git-flow/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>本文中指的git-flow是一个基于git flow工作流模型的git工具，它可以使开发者更加规范地进行版本控制，使你的仓库更加clean</strong></p>
+<p><strong>选择git-flow的原因是，使用git-flow来在实际项目中掌握flow模型的学习成本几乎为0</strong></p>
+<p><strong>主要参考</strong></p>
+<p><strong><a href="http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html" title="备忘清单  " target="_blank" rel="external"> 备忘清单 </a></strong></p>
+<p><strong><a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow" title="Learn Version Control with Git" target="_blank" rel="external"> Learn Version Control with Git </a></strong></p>
+<p><br></p>
+<h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><p><br></p>
+<h3 id="在mac上配置git-flow"><a href="#在mac上配置git-flow" class="headerlink" title="在mac上配置git-flow"></a>在mac上配置git-flow</h3><blockquote>
+<p>brew install git-flow</p>
+</blockquote>
+<p><br></p>
+<h3 id="在linux上配置git-flow"><a href="#在linux上配置git-flow" class="headerlink" title="在linux上配置git-flow"></a>在linux上配置git-flow</h3><blockquote>
+<p>sudo apt-get install git-flow</p>
+</blockquote>
+<p><br></p>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><p><br></p>
+<h3 id="git-flow-init"><a href="#git-flow-init" class="headerlink" title="git flow init"></a>git flow init</h3><ul>
+<li>使用 git flow init 取代 git init 进行初始化操作，flow（下文中的git-flow全部简称为flow）初始化时会询问分支类别的命名规范，建议使用默认的master，develop，feature/, release/, hotfix/, support/，master和develop是默认的长期分支</li>
+</ul>
+<pre><code>Initialized empty Git repository in /Users/alberthumbert/Desktop/AircraftDemo/aircraft/.git/
+No branches exist yet. Base branches must be created now.
+Branch name for production releases: [master] 
+Branch name for &quot;next release&quot; development: [develop] 
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/] 
+Release branches? [release/] 
+Hotfix branches? [hotfix/] 
+Support branches? [support/] 
+Version tag prefix? [] 
+</code></pre><ul>
+<li><p>初始化之后，flow会为你自动创建master和develop分支，并且切换到develop分支</p>
+</li>
+<li><p>注意这个init操作可以在已有的git仓库上使用</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="git-flow-feature-start-特性名"><a href="#git-flow-feature-start-特性名" class="headerlink" title="git flow feature start (特性名)"></a>git flow feature start (特性名)</h3><ul>
+<li>开发新特性（功能，接口…）请在develope分支上创建新分支，git flow feature start 特性名，特性名应该能够概括整个新特性</li>
+</ul>
+<pre><code>$ git flow feature start transparent-init     
+
+Switched to a new branch &apos;feature/transparent-init&apos;
+
+Summary of actions:
+- A new branch &apos;feature/transparent-init&apos; was created, based on &apos;develop&apos;
+- You are now on branch &apos;feature/transparent-init&apos;
+
+Now, start committing on your feature. When done, use:
+
+     git flow feature finish transparent-init
+</code></pre><ul>
+<li>git flow 的输出比git本身更加好懂</li>
+</ul>
+<p><br></p>
+<h3 id="git-flow-feature-finish-特性名"><a href="#git-flow-feature-finish-特性名" class="headerlink" title="git flow feature finish (特性名)"></a>git flow feature finish (特性名)</h3><pre><code>commit 08e027ba6be8bc04e1615307c4d2f1c6ce41baac
+Author: AlbertHumbert &lt;709913148@qq.com&gt;
+Date:   Fri May 18 23:05:22 2018 +0800
+
+    chore(.gitignore):添加忽略文件
+
+commit b39a7e7894844b4d593d3ae7dd522e097cd1c96a
+Author: AlbertHumbert &lt;709913148@qq.com&gt;
+Date:   Fri May 18 23:02:44 2018 +0800
+</code></pre><ul>
+<li>经过一段时间的初始化，我们有了最终成果,使用git flow feature finish 特性名</li>
+</ul>
+<pre><code>$ git flow feature finish transparent-init
+...
+Summary of actions:
+- The feature branch &apos;feature/transparent-init&apos; was merged into &apos;develop&apos;
+- Feature branch &apos;feature/transparent-init&apos; has been removed
+- You are now on branch &apos;develop&apos;
+</code></pre><ul>
+<li>我们现在被自动切回了feature分支，并且临时的feature/transparent-init分支已被删除</li>
+</ul>
+<p><br></p>
+<h3 id="git-flow-feature-publish-特性名"><a href="#git-flow-feature-publish-特性名" class="headerlink" title="git flow feature publish (特性名)"></a>git flow feature publish (特性名)</h3><ul>
+<li>使用 git flow feature publish 特性名，可以将特性分支推送到远程</li>
+</ul>
+<p><br></p>
+<h3 id="git-flow-feature-pull-origin-特性名"><a href="#git-flow-feature-pull-origin-特性名" class="headerlink" title="git flow feature pull origin (特性名)"></a>git flow feature pull origin (特性名)</h3><ul>
+<li>使用 git flow feature pull origin 特性名，可以获取远程的提交</li>
+</ul>
+<p><br></p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><ul>
+<li></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[操作系统 学习笔记]]></title>
       <url>/2018/05/17/OperatingSystem/</url>
       <content type="html"><![CDATA[<p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
@@ -942,7 +1052,7 @@ else throw IllegalArgumentException(&quot;a percentage value must be between 0 a
 <li>Lifecycle是 Architecture Components 组件的基础，它允许我们使用观察者模式监听Activity和Fragment的生命周期，LiveData的生命周期感知能力实际上就来自Lifecycle</li>
 </ul>
 <ul>
-<li>熟悉MVP模式的开发者肯定都有一套MVP基类的封装，其中的Activity和Fragment完成了与presenter的生命周期绑定，这是跟自然的</li>
+<li>熟悉MVP模式的开发者肯定都有一套MVP基类的封装，其中的Activity和Fragment完成了与presenter的生命周期绑定，这是很自然的</li>
 </ul>
 <pre><code>@Override
 @CallSuper
@@ -982,22 +1092,36 @@ public class MyObserver implements LifecycleObserver {
     //logcat中
     D/MyObserver: onCreate: 
 </code></pre><h2 id="为啥要Lifecycle啊"><a href="#为啥要Lifecycle啊" class="headerlink" title="为啥要Lifecycle啊"></a>为啥要Lifecycle啊</h2><ul>
-<li>确实可以感觉到Lifecycle的用法非常简洁，但是既然我们都已经封装好了自己的库，还有必要使用LifeCycle吗。实际上是有的，我们这样实现的生命周期感知实际上是被动的，试问你怎么知道当前的view处于什么周期呢，写在onCreate中的代码一定在onCreate中执行吗，如果我开启了一个耗时任务呢？为了这个解决这个问题，你可以添加一个标记，然后在不同的回调方法中维护它，但是Lifecycle提供了更好的解决方案，让我们主动查询生命周期</li>
+<li>确实可以感觉到Lifecycle的用法非常简洁，但是既然我们都已经封装好了自己的库，还有必要使用LifeCycle吗。实际上是有的，我们这样实现的生命周期感知实际上是被动的，试问你怎么知道当前的view处于什么周期呢，写在onCreate中的代码一定在onCreate中执行吗，如果我在其中执行异步操作呢？为了这个解决这个问题，你可以添加一个标记，然后在不同的回调方法中维护它，但是Lifecycle提供了更好的解决方案，让我们主动查询生命周期</li>
 </ul>
 <pre><code>if(getLifecycle().getCurrentState() == Lifecycle.State.STARTED){
         //do something
     }
 
-    if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
+if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
         //do something
     }
 </code></pre><ul>
 <li>使用Lifecycle也可以使得代码更加解耦，比如说我们的项目中有一个监听遥感的模块，那么我们可以在onResume和onDestroy中开始和解除监听，假如我们现在又要加入一个监听地理位置的功能呢，这些模块都是独立的但是目前它们的生命周期都落在负责这个界面的人的手上，由那个人去调用，而使用Lifecycle之后，你只需要像下面这样就可以分离职责，一个LifeCycle可以有多个Observer</li>
 </ul>
-<pre><code>    getLifecycle().addObserver(new MyObserver());
+<pre><code>getLifecycle().addObserver(new MyObserver());
 getLifecycle().addObserver(new YourObserver());
 getLifecycle().addObserver(new HisObserver());
 getLifecycle().addObserver(new HerObserver());
+</code></pre><ul>
+<li>学过一点设计模式应该都清楚，组合优先于继承，下面是一个我参与的项目中十分常见的Fragment的继承关系,每当添加一个新特性都有可能需要加一层继承关系，而java又不支持多继承，引入Lifecycle之后功能特性可以写到Observer当中，如果某个组件需要这个特性只需要调用addObserver即可完成绑定工作，逻辑也就更加清晰了</li>
+</ul>
+<pre><code>public class DeviceDetailFragment extends BaseMvpFragment&lt;DeviceDetailContract.Presenter&gt; implements DeviceDetailContract.View
+
+public abstract class BaseMvpFragment&lt;P extends MSBaseContract.BasePresenter&gt; extends MSBaseMvpFragment&lt;P&gt;
+
+public abstract class MSBaseMvpFragment&lt;P extends MSBaseContract.BasePresenter&gt; extends MSBaseFragment
+
+public abstract class MSBaseFragment extends MSLazyFragment
+
+public class MSLazyFragment extends MSBaseLazyFragment 
+
+public class MSBaseLazyFragment extends Fragment
 </code></pre><ul>
 <li>其实我觉得最重要的理由其实是官方已经把LifeCycle植入到SupportActivity等组件当中了，只要你的support库在26以上，那么你就已经依赖了Lifecycle，不管你如何强调不要重复造轮子，既然官方强制导入了Lifecycle，那么现在重复的就是你的轮子</li>
 </ul>
@@ -1037,7 +1161,10 @@ public LifecycleRegistry getLifecycle() {
     if(lifecycle == null)lifecycle = new LifecycleRegistry(this);
     return new LifecycleRegistry(this);
 }
-</code></pre><h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2>]]></content>
+</code></pre><h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2><h3 id="透明初始化"><a href="#透明初始化" class="headerlink" title="透明初始化"></a>透明初始化</h3><ul>
+<li>Lifecycle中非常值得学习的一点就是它的透明初始化，什么是透明呢，不妨从反面说起，我们在使用第三方库时常常要手动调用初始化操作，最常见的做法是在Application的onCreate中调用各种init，而Lifecycle巧用provider，将初始化操作交给了android框架和库本身</li>
+</ul>
+]]></content>
       
         <categories>
             
