@@ -3,6 +3,126 @@
   
     
     <entry>
+      <title><![CDATA[gradle 3.x 依赖方式]]></title>
+      <url>/2018/05/20/implementationAndApi/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<p><strong>简单记录一下 gradle 3.x 中的依赖模式</strong></p>
+<h3 id="新旧对比"><a href="#新旧对比" class="headerlink" title="新旧对比"></a>新旧对比</h3><ul>
+<li>gradle 3.x 与 2.x 的依赖方式有了很大区别，具体来说，有了下面这样的改动</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>2.x</th>
+<th>3.x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>implementation </td>
+</tr>
+<tr>
+<td>compile</td>
+<td>api </td>
+</tr>
+<tr>
+<td>provided</td>
+<td>compileOnly </td>
+</tr>
+<tr>
+<td>apk</td>
+<td>runtimeOnly</td>
+</tr>
+<tr>
+<td>debugCompile</td>
+<td>debugImplementation </td>
+</tr>
+<tr>
+<td>releaseCompile</td>
+<td>releaseImplementation</td>
+</tr>
+<tr>
+<td>androidTestCompile</td>
+<td>androidTestImplementation</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul>
+<li><p>在详述3.x依赖方法之前，我们先创建一个场景，在我们的测试项目 组件app依赖了a库和c库，另一个aar组件叫test，它依赖了b库和c库，其中 app依赖的c库为1.0版本，test库依赖的c库则为1.1版本</p>
+</li>
+<li><p>在 app 中我们依赖了test</p>
+</li>
+</ul>
+<pre><code>compile project(path: &apos;:test&apos;)
+</code></pre><p><br></p>
+<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><ul>
+<li><p>api 和 compile 没有区别，也就是说 api会向外暴露它的依赖</p>
+</li>
+<li><p>如果 app 和 test 都是使用 api 来依赖各自的库，在 app 中可以调用到b库,但在 test 中无法调用 a 库，同时由于c库版本不同又重复依赖，所以会报错</p>
+</li>
+</ul>
+<ul>
+<li>被编译组件依赖的组件如果又含有api依赖，那么所有这些 依赖都要被gradle检查，这会增加编译时间，同时使用api时需要注意重复的库版本必须一致</li>
+</ul>
+<p><br></p>
+<h3 id="implementation"><a href="#implementation" class="headerlink" title="implementation"></a>implementation</h3><ul>
+<li>implementation，和 compile 相反，它会对外屏蔽依赖</li>
+</ul>
+<ul>
+<li>如果场景中全部使用 implementation ，则 app 可以使用 a 库，但不能使用b库，app 和 test 都能使用各自的c库而不报错</li>
+</ul>
+<ul>
+<li>被编译组件依赖的组件如果又含有implementation依赖，这些依赖会被忽略，因为它们对外是不可见的，准确的说编译时不可见，运行时可见</li>
+</ul>
+<p><br></p>
+<h3 id="compileOnly"><a href="#compileOnly" class="headerlink" title="compileOnly"></a>compileOnly</h3><ul>
+<li>compileOnly 和 provided 一致，编译时可见，运行时不可见</li>
+</ul>
+<ul>
+<li>test使用compileOnly依赖b库时，app不可以调用b库，同时如果test运行时调用了b库会崩溃，compileOnly主要用于只在编译期使用的库，如注解解释器</li>
+</ul>
+<ul>
+<li><p>compileOnly也可用于一些可配置的组件，需要某些功能时将compileOnly改为api对外开放，不需要时则使用compileOnly，不影响该组件的开发</p>
+</li>
+<li><p>compileOnly只在编译期存在不会将整个库打包到apk，合理使用compileOnly可以减小apk体积</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="runtimeOnly"><a href="#runtimeOnly" class="headerlink" title="runtimeOnly"></a>runtimeOnly</h3><ul>
+<li>这个就厉害了，运行时可见，编译时不可见，在开发时，使用runtimeOnly依赖的库和调用者是完全解耦的</li>
+</ul>
+<ul>
+<li>runtimeOnly主要用于组件化开发，本文不涉及这部分内容，所以略过</li>
+</ul>
+<p><br></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>debugImplementation，releaseImplementation，testImplementation，这三个就好懂了，使用这三者进行依赖，被依赖的库只会在debug包，release包，和单元测试时有效</li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><strong>全文完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[git-flow 工作流 上手指南]]></title>
       <url>/2018/05/18/git-flow/</url>
       <content type="html"><![CDATA[<p>-</p>
