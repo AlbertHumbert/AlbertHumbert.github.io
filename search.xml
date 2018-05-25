@@ -3,109 +3,12 @@
   
     
     <entry>
-      <title><![CDATA[gradle 3.x 依赖方式]]></title>
-      <url>/2018/05/20/implementationAndApi/</url>
+      <title><![CDATA[Git Flow 模型]]></title>
+      <url>/2018/05/25/GitFlowModel/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><br></p>
-<p><strong>简单记录一下 gradle 3.x 中的依赖模式</strong></p>
-<h3 id="新旧对比"><a href="#新旧对比" class="headerlink" title="新旧对比"></a>新旧对比</h3><ul>
-<li>gradle 3.x 与 2.x 的依赖方式有了很大区别，具体来说，有了下面这样的改动</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>2.x</th>
-<th>3.x</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>无</td>
-<td>implementation </td>
-</tr>
-<tr>
-<td>compile</td>
-<td>api </td>
-</tr>
-<tr>
-<td>provided</td>
-<td>compileOnly </td>
-</tr>
-<tr>
-<td>apk</td>
-<td>runtimeOnly</td>
-</tr>
-<tr>
-<td>debugCompile</td>
-<td>debugImplementation </td>
-</tr>
-<tr>
-<td>releaseCompile</td>
-<td>releaseImplementation</td>
-</tr>
-<tr>
-<td>androidTestCompile</td>
-<td>androidTestImplementation</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul>
-<li><p>在详述3.x依赖方法之前，我们先创建一个场景，在我们的测试项目 组件app依赖了a库和c库，另一个aar组件叫test，它依赖了b库和c库，其中 app依赖的c库为1.0版本，test库依赖的c库则为1.1版本</p>
-</li>
-<li><p>在 app 中我们依赖了test</p>
-</li>
-</ul>
-<pre><code>compile project(path: &apos;:test&apos;)
-</code></pre><p><br></p>
-<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><ul>
-<li><p>api 和 compile 没有区别，也就是说 api会向外暴露它的依赖</p>
-</li>
-<li><p>如果 app 和 test 都是使用 api 来依赖各自的库，在 app 中可以调用到b库,但在 test 中无法调用 a 库，同时由于c库版本不同又重复依赖，所以会报错</p>
-</li>
-</ul>
-<ul>
-<li>被编译组件依赖的组件如果又含有api依赖，那么所有这些 依赖都要被gradle检查，这会增加编译时间，同时使用api时需要注意重复的库版本必须一致</li>
-</ul>
-<p><br></p>
-<h3 id="implementation"><a href="#implementation" class="headerlink" title="implementation"></a>implementation</h3><ul>
-<li>implementation，和 compile 相反，它会对外屏蔽依赖</li>
-</ul>
-<ul>
-<li>如果场景中全部使用 implementation ，则 app 可以使用 a 库，但不能使用b库，app 和 test 都能使用各自的c库而不报错</li>
-</ul>
-<ul>
-<li>被编译组件依赖的组件如果又含有implementation依赖，这些依赖会被忽略，因为它们对外是不可见的，准确的说编译时不可见，运行时可见</li>
-</ul>
-<p><br></p>
-<h3 id="compileOnly"><a href="#compileOnly" class="headerlink" title="compileOnly"></a>compileOnly</h3><ul>
-<li>compileOnly 和 provided 一致，编译时可见，运行时不可见</li>
-</ul>
-<ul>
-<li>test使用compileOnly依赖b库时，app不可以调用b库，同时如果test运行时调用了b库会崩溃，compileOnly主要用于只在编译期使用的库，如注解解释器</li>
-</ul>
-<ul>
-<li><p>compileOnly也可用于一些可配置的组件，需要某些功能时将compileOnly改为api对外开放，不需要时则使用compileOnly，不影响该组件的开发</p>
-</li>
-<li><p>compileOnly只在编译期存在不会将整个库打包到apk，合理使用compileOnly可以减小apk体积</p>
-</li>
-</ul>
-<p><br></p>
-<h3 id="runtimeOnly"><a href="#runtimeOnly" class="headerlink" title="runtimeOnly"></a>runtimeOnly</h3><ul>
-<li>这个就厉害了，运行时可见，编译时不可见，在开发时，使用runtimeOnly依赖的库和调用者是完全解耦的</li>
-</ul>
-<ul>
-<li>runtimeOnly主要用于组件化开发，本文不涉及这部分内容，所以略过</li>
-</ul>
-<p><br></p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
-<li>debugImplementation，releaseImplementation，testImplementation，这三个就好懂了，使用这三者进行依赖，被依赖的库只会在debug包，release包，和单元测试时有效</li>
-</ul>
-<p><br></p>
-<p><br></p>
-<p><strong>全文完</strong></p>
-]]></content>
+<p><strong>之前学习使用git-flow工具，本来觉得这个工具已经将git flow模型简化得很好了而且以前也或多或少了解过git flow，以为使用git-flow来掌握这个模型的学习成本几乎为0，但在学习的过程中确实发觉对很多细节了解不透，于是打算从头开始</strong></p>
+<h2 id="长期分支-master-amp-develop"><a href="#长期分支-master-amp-develop" class="headerlink" title="长期分支 master &amp; develop"></a>长期分支 master &amp; develop</h2>]]></content>
       
         <categories>
             
@@ -124,7 +27,7 @@
     
     <entry>
       <title><![CDATA[git-flow 工作流 上手指南]]></title>
-      <url>/2018/05/18/git-flow/</url>
+      <url>/2018/05/25/git-flow/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong>本文中指的git-flow是一个基于git flow工作流模型的git工具，它可以使开发者更加规范地进行版本控制，使你的仓库更加clean</strong></p>
@@ -133,16 +36,16 @@
 <p><strong><a href="http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html" title="备忘清单  " target="_blank" rel="external"> 备忘清单 </a></strong></p>
 <p><strong><a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow" title="Learn Version Control with Git" target="_blank" rel="external"> Learn Version Control with Git </a></strong></p>
 <p><br></p>
-<h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><p><br></p>
-<h3 id="在mac上配置git-flow"><a href="#在mac上配置git-flow" class="headerlink" title="在mac上配置git-flow"></a>在mac上配置git-flow</h3><blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><br></p>
+<h3 id="在-mac-上安装-git-flow"><a href="#在-mac-上安装-git-flow" class="headerlink" title="在 mac 上安装 git-flow"></a>在 mac 上安装 git-flow</h3><blockquote>
 <p>brew install git-flow</p>
 </blockquote>
 <p><br></p>
-<h3 id="在linux上配置git-flow"><a href="#在linux上配置git-flow" class="headerlink" title="在linux上配置git-flow"></a>在linux上配置git-flow</h3><blockquote>
+<h3 id="在-linux-上安装-git-flow"><a href="#在-linux-上安装-git-flow" class="headerlink" title="在 linux 上安装 git-flow"></a>在 linux 上安装 git-flow</h3><blockquote>
 <p>sudo apt-get install git-flow</p>
 </blockquote>
 <p><br></p>
-<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><p><br></p>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p><br></p>
 <h3 id="git-flow-init"><a href="#git-flow-init" class="headerlink" title="git flow init"></a>git flow init</h3><ul>
 <li>使用 git flow init 取代 git init 进行初始化操作，flow（下文中的git-flow全部简称为flow）初始化时会询问分支类别的命名规范，建议使用默认的master，develop，feature/, release/, hotfix/, support/，master和develop是默认的长期分支</li>
 </ul>
@@ -164,10 +67,11 @@ Version tag prefix? []
 </li>
 </ul>
 <p><br></p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p><br></p>
 <h3 id="git-flow-feature-start-特性名"><a href="#git-flow-feature-start-特性名" class="headerlink" title="git flow feature start (特性名)"></a>git flow feature start (特性名)</h3><ul>
 <li>开发新特性（功能，接口…）请在develope分支上创建新分支，git flow feature start 特性名，特性名应该能够概括整个新特性</li>
 </ul>
-<pre><code>$ git flow feature start transparent-init     
+<pre><code>$ git flow feature start transparent-init  
 
 Switched to a new branch &apos;feature/transparent-init&apos;
 
@@ -207,15 +111,151 @@ Summary of actions:
 <h3 id="git-flow-feature-publish-特性名"><a href="#git-flow-feature-publish-特性名" class="headerlink" title="git flow feature publish (特性名)"></a>git flow feature publish (特性名)</h3><ul>
 <li>使用 git flow feature publish 特性名，可以将特性分支推送到远程</li>
 </ul>
-<p><br></p>
+<pre><code>$ git flow feature publish a
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 244 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/AlbertHumbert/git-flow-test.git
+ * [new branch]      feature/a -&gt; feature/a
+Already on &apos;feature/a&apos;
+Your branch is up-to-date with &apos;origin/feature/a&apos;.
+
+Summary of actions:
+- A new remote branch &apos;feature/a&apos; was created
+- The local branch &apos;feature/a&apos; was configured to track the remote branch
+- You are now on branch &apos;feature/a&apos;
+</code></pre><p><br></p>
 <h3 id="git-flow-feature-pull-origin-特性名"><a href="#git-flow-feature-pull-origin-特性名" class="headerlink" title="git flow feature pull origin (特性名)"></a>git flow feature pull origin (特性名)</h3><ul>
-<li>使用 git flow feature pull origin 特性名，可以获取远程的提交</li>
+<li>使用 git flow feature pull origin 特性名，可以获取远程的提交，并自动切换到特性分支</li>
+</ul>
+<pre><code> $ git flow feature pull origin a
+Created local branch feature/a based on origin&apos;s feature/a.
+</code></pre><ul>
+<li><p>注意git flow 对于远程仓库是透明的，在本地调用git flow init并进行了推送，在其他目录clone仓库之后也需要再次执行git flow init</p>
+</li>
+<li><p>但是这个时候init时设定的命名必须统一，一般来说一个小组也应该使用约定好的命名，基本上使用默认的就行了</p>
+</li>
+<li><p>在分支已经拉取之后，使用git原本的 push pull fetch 即可</p>
+</li>
 </ul>
 <p><br></p>
-<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><ul>
-<li></li>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p><br></p>
+<h3 id="git-flow-release-start-版本号"><a href="#git-flow-release-start-版本号" class="headerlink" title="git flow release start (版本号)"></a>git flow release start (版本号)</h3><ul>
+<li>使用 git flow release start 版本号创建一个发布版本，注意请规范地使用版本号</li>
 </ul>
-]]></content>
+<pre><code>git flow release start 1.0.0
+Switched to a new branch &apos;release/1.0.0&apos;
+
+Summary of actions:
+- A new branch &apos;release/1.0.0&apos; was created, based on &apos;develop&apos;
+- You are now on branch &apos;release/1.0.0&apos; 
+</code></pre><ul>
+<li>注意在一条 release 分支已经创建了且未发布的情况下是不能使用flow再创建release分支的,这也很合理</li>
+</ul>
+<pre><code>git flow release start 1.1.0
+There is an existing release branch (1.0.0). Finish that one first.
+</code></pre><p><br></p>
+<h3 id="git-flow-release-publish-版本号"><a href="#git-flow-release-publish-版本号" class="headerlink" title="git flow release publish (版本号)"></a>git flow release publish (版本号)</h3><ul>
+<li>和其他分支一样创建分支时，flow不会自动将分支推送到远程，这里使用 git flow release publish 版本号 进行推送</li>
+</ul>
+<pre><code>git push origin release/1.0.0:release/1.0.0
+</code></pre><p><br></p>
+<h3 id="git-flow-release-track-版本号"><a href="#git-flow-release-track-版本号" class="headerlink" title="git flow release track (版本号)"></a>git flow release track (版本号)</h3><ul>
+<li>从远程仓库拉取一个release分支，使用 git flow release track 版本号</li>
+</ul>
+<p><br></p>
+<h3 id="git-flow-release-finish-版本号"><a href="#git-flow-release-finish-版本号" class="headerlink" title="git flow release finish (版本号)"></a>git flow release finish (版本号)</h3><ul>
+<li>确定一个可发布的版本已近完成之后，我们使用 git flow release finish 版本号 来将成果合并到 master 分支</li>
+</ul>
+<pre><code>$ git flow release finish 1.0.0
+Switched to branch &apos;master&apos;
+Your branch is up-to-date with &apos;origin/master&apos;.
+Merge made by the &apos;recursive&apos; strategy.
+ test | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 test
+Switched to branch &apos;develop&apos;
+Merge made by the &apos;recursive&apos; strategy.
+ test | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 test
+Deleted branch release/1.0.0 (was 5054d9b).
+
+Summary of actions:
+- Latest objects have been fetched from &apos;origin&apos;
+- Release branch has been merged into &apos;master&apos;
+- The release was tagged &apos;1.0.0&apos;
+- Release branch has been back-merged into &apos;develop&apos;
+- Release branch &apos;release/1.0.0&apos; has been deleted
+</code></pre><p><br></p>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><br></p>
+<h3 id="git-flow-hotfix-start-错误名"><a href="#git-flow-hotfix-start-错误名" class="headerlink" title="git flow hotfix start (错误名)"></a>git flow hotfix start (错误名)</h3><ul>
+<li>有些潜在的问题会在新版本正式发布之后才显现出来，这个时候我们需要使用hotfix分支进行紧急修复工作，使用git flow hotfix start 错误名 开启一个新分支</li>
+</ul>
+<pre><code>$ git flow hotfix start some-bug
+Switched to a new branch &apos;hotfix/some-bug&apos;
+
+Summary of actions:
+- A new branch &apos;hotfix/some-bug&apos; was created, based on &apos;master&apos;
+- You are now on branch &apos;hotfix/some-bug&apos;
+
+Follow-up actions:
+- Bump the version number now!
+- Start committing your hot fixes
+- When done, run:
+
+     git flow hotfix finish &apos;some-bug&apos;
+</code></pre><p><br></p>
+<h3 id="git-flow-hotfix-finish-错误名"><a href="#git-flow-hotfix-finish-错误名" class="headerlink" title="git flow hotfix finish (错误名)"></a>git flow hotfix finish (错误名)</h3><ul>
+<li>在不懈的努力下，这个顽固的bug终于被排除了，这个使用使用git flow hotfix finish 错误名 进行提交，将错误合并到master和develop分支</li>
+</ul>
+<pre><code>$ git flow hotfix finish some-bug
+^[[ASwitched to branch &apos;master&apos;
+Your branch is ahead of &apos;origin/master&apos; by 4 commits.
+  (use &quot;git push&quot; to publish your local commits)
+Merge made by the &apos;recursive&apos; strategy.
+ test | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Switched to branch &apos;develop&apos;
+Merge made by the &apos;recursive&apos; strategy.
+ test | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Deleted branch hotfix/some-bug (was 77b7eec).
+
+Summary of actions:
+- Latest objects have been fetched from &apos;origin&apos;
+- Hotfix branch has been merged into &apos;master&apos;
+- The hotfix was tagged &apos;some-bug&apos;
+- Hotfix branch has been back-merged into &apos;develop&apos;
+- Hotfix branch &apos;hotfix/some-bug&apos; has been deleted
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 官方架构组件 Architecture Components 系列 - LiveData & ViewModel]]></title>
+      <url>/2018/05/24/LiveData/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="LiveData"><a href="#LiveData" class="headerlink" title="LiveData"></a>LiveData</h3><ul>
+<li>I</li>
+</ul>
+<p><br></p>
+<h3 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h3>]]></content>
       
         <categories>
             
@@ -1162,12 +1202,13 @@ else throw IllegalArgumentException(&quot;a percentage value must be between 0 a
     
     <entry>
       <title><![CDATA[Android 官方架构组件 Architecture Components 系列 - Lifecycle]]></title>
-      <url>/2018/03/29/ArchitectureComponents/</url>
+      <url>/2018/03/29/Lifecycle/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong> 这几个月总被项目耽搁，很久没学过什么东西了，文章也没怎么写，翻翻博客，前面的几篇文章都太监了，再早一点的连链接都挂了。感觉很羞愧，赶紧开几个系列文章压压惊。</strong></p>
 <p><strong> Architecture Components 是安卓官方推出的数据驱动组件全家桶，包括 Lifecycle，LiveData，ViewModel，Room，Paging等，使用该全家桶最直观的效果就是，你更新数据库的时候，UI可以自动更新并且再也不用担心复杂的生命周期对app产生的负面影响。另外 LiveData是目前MVVM架构的核心依赖库，如果你想学习MVVM架构，也应该将Architecture Components作为入门基础</strong></p>
 <p><strong>在入门之前，推荐先观看官方的<a href="https://www.youtube.com/watch?v=vOJCrbr144o" target="_blank" rel="external">介绍视频</a></strong></p>
+<p><br></p>
 <h2 id="啥是Lifecycle啊"><a href="#啥是Lifecycle啊" class="headerlink" title="啥是Lifecycle啊"></a>啥是Lifecycle啊</h2><ul>
 <li>Lifecycle是 Architecture Components 组件的基础，它允许我们使用观察者模式监听Activity和Fragment的生命周期，LiveData的生命周期感知能力实际上就来自Lifecycle</li>
 </ul>
@@ -1195,7 +1236,6 @@ protected void onStop() {
 <pre><code>//实现一个LifecycleObserver
 //使用注解监听生命周期时间，这有点像eventbus
 public class MyObserver implements LifecycleObserver {
-
     private static final String TAG = &quot;MyObserver&quot;;
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -1211,7 +1251,8 @@ public class MyObserver implements LifecycleObserver {
     //启动Activity，LifecycleObserver被注解的方法被执行了
     //logcat中
     D/MyObserver: onCreate: 
-</code></pre><h2 id="为啥要Lifecycle啊"><a href="#为啥要Lifecycle啊" class="headerlink" title="为啥要Lifecycle啊"></a>为啥要Lifecycle啊</h2><ul>
+</code></pre><p><br></p>
+<h2 id="为啥要Lifecycle啊"><a href="#为啥要Lifecycle啊" class="headerlink" title="为啥要Lifecycle啊"></a>为啥要Lifecycle啊</h2><ul>
 <li>确实可以感觉到Lifecycle的用法非常简洁，但是既然我们都已经封装好了自己的库，还有必要使用LifeCycle吗。实际上是有的，我们这样实现的生命周期感知实际上是被动的，试问你怎么知道当前的view处于什么周期呢，写在onCreate中的代码一定在onCreate中执行吗，如果我在其中执行异步操作呢？为了这个解决这个问题，你可以添加一个标记，然后在不同的回调方法中维护它，但是Lifecycle提供了更好的解决方案，让我们主动查询生命周期</li>
 </ul>
 <pre><code>if(getLifecycle().getCurrentState() == Lifecycle.State.STARTED){
@@ -1231,11 +1272,11 @@ getLifecycle().addObserver(new HerObserver());
 </code></pre><ul>
 <li>学过一点设计模式应该都清楚，组合优先于继承，下面是一个我参与的项目中十分常见的Fragment的继承关系,每当添加一个新特性都有可能需要加一层继承关系，而java又不支持多继承，引入Lifecycle之后功能特性可以写到Observer当中，如果某个组件需要这个特性只需要调用addObserver即可完成绑定工作，逻辑也就更加清晰了</li>
 </ul>
-<pre><code>public class DeviceDetailFragment extends BaseMvpFragment&lt;DeviceDetailContract.Presenter&gt; implements DeviceDetailContract.View
+<pre><code>public class DeviceDetailFragment extends BaseMvpFragment\&lt;DeviceDetailContract.Presenter\&gt; implements DeviceDetailContract.View
 
-public abstract class BaseMvpFragment&lt;P extends MSBaseContract.BasePresenter&gt; extends MSBaseMvpFragment&lt;P&gt;
+public abstract class BaseMvpFragment\&lt;P extends MSBaseContract.BasePresenter\&gt; extends MSBaseMvpFragment&lt;P&gt;
 
-public abstract class MSBaseMvpFragment&lt;P extends MSBaseContract.BasePresenter&gt; extends MSBaseFragment
+public abstract class MSBaseMvpFragment\&lt;P extends MSBaseContract.BasePresenter\&gt; extends MSBaseFragment
 
 public abstract class MSBaseFragment extends MSLazyFragment
 
@@ -1246,7 +1287,8 @@ public class MSBaseLazyFragment extends Fragment
 <li>其实我觉得最重要的理由其实是官方已经把LifeCycle植入到SupportActivity等组件当中了，只要你的support库在26以上，那么你就已经依赖了Lifecycle，不管你如何强调不要重复造轮子，既然官方强制导入了Lifecycle，那么现在重复的就是你的轮子</li>
 </ul>
 <pre><code>public class SupportActivity extends Activity implements LifecycleOwner
-</code></pre><h2 id="在support-26以下使用Lifecycle"><a href="#在support-26以下使用Lifecycle" class="headerlink" title="在support 26以下使用Lifecycle"></a>在support 26以下使用Lifecycle</h2><ul>
+</code></pre><p><br></p>
+<h2 id="在support-26以下使用Lifecycle"><a href="#在support-26以下使用Lifecycle" class="headerlink" title="在support 26以下使用Lifecycle"></a>在support 26以下使用Lifecycle</h2><ul>
 <li>之前提到，对于活动而言 Lifecycle是在SupportActivity当中实现的，那么看一下我们怎么让Activity也支持Lifecycle，我们只需要让其实现LifecycleOwner接口，这个接口只有一个getLifecycle方法，返回一个生命周期的提供者</li>
 </ul>
 <pre><code>public interface LifecycleOwner {
@@ -1281,9 +1323,60 @@ public LifecycleRegistry getLifecycle() {
     if(lifecycle == null)lifecycle = new LifecycleRegistry(this);
     return new LifecycleRegistry(this);
 }
-</code></pre><h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2><h3 id="透明初始化"><a href="#透明初始化" class="headerlink" title="透明初始化"></a>透明初始化</h3><ul>
+</code></pre><p><br></p>
+<h2 id="Lifecycle-实现细节"><a href="#Lifecycle-实现细节" class="headerlink" title="Lifecycle 实现细节"></a>Lifecycle 实现细节</h2><p><br></p>
+<h3 id="透明初始化"><a href="#透明初始化" class="headerlink" title="透明初始化"></a>透明初始化</h3><ul>
 <li>Lifecycle中非常值得学习的一点就是它的透明初始化，什么是透明呢，不妨从反面说起，我们在使用第三方库时常常要手动调用初始化操作，最常见的做法是在Application的onCreate中调用各种init，而Lifecycle巧用provider，将初始化操作交给了android框架和库本身</li>
 </ul>
+<ul>
+<li>Lifecycle注册了一个专门用于初始化的provider，称其为木马</li>
+</ul>
+<pre><code>&lt;provider
+        android:name=&quot;android.arch.lifecycle.LifecycleRuntimeTrojanProvider&quot;
+        android:authorities=&quot;${applicationId}.lifecycle-trojan&quot;
+        android:exported=&quot;false&quot;
+        android:multiprocess=&quot;true&quot; /&gt;
+</code></pre><ul>
+<li>这个provider中只有onCreate是有实际意义的，它从getContext中获得了Application的Context并调用需要context的初始化方法，由于provider的onCreate总是早于Activity的onCreate执行，所以这个方法是可行的</li>
+</ul>
+<pre><code>public class LifecycleRuntimeTrojanProvider extends ContentProvider {
+    @Override
+    public boolean onCreate() {
+        LifecycleDispatcher.init(getContext());
+        ProcessLifecycleOwner.init(getContext());
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public Cursor query(@NonNull Uri uri, String[] strings, String s, String[] strings1,
+            String s1) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public String getType(@NonNull Uri uri) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
+        return null;
+    }
+
+    @Override
+    public int delete(@NonNull Uri uri, String s, String[] strings) {
+        return 0;
+    }
+
+    @Override
+    public int update(@NonNull Uri uri, ContentValues contentValues, String s, String[] strings) {
+        return 0;
+    }
+}
+</code></pre><p><br><br><br><br><strong>全文完</strong></p>
 ]]></content>
       
         <categories>

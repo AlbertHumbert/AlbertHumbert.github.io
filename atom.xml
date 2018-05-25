@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-05-20T15:26:55.000Z</updated>
+  <updated>2018-05-25T11:22:43.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>gradle 3.x 依赖方式</title>
-    <link href="https://alberthumbert.github.io/2018/05/20/implementationAndApi/"/>
-    <id>https://alberthumbert.github.io/2018/05/20/implementationAndApi/</id>
-    <published>2018-05-20T14:20:54.000Z</published>
-    <updated>2018-05-20T15:26:55.000Z</updated>
+    <title>Git Flow 模型</title>
+    <link href="https://alberthumbert.github.io/2018/05/25/GitFlowModel/"/>
+    <id>https://alberthumbert.github.io/2018/05/25/GitFlowModel/</id>
+    <published>2018-05-25T11:14:42.000Z</published>
+    <updated>2018-05-25T11:22:43.000Z</updated>
     
     <summary type="html">
     
@@ -37,10 +37,30 @@
   
   <entry>
     <title>git-flow 工作流 上手指南</title>
-    <link href="https://alberthumbert.github.io/2018/05/18/git-flow/"/>
-    <id>https://alberthumbert.github.io/2018/05/18/git-flow/</id>
-    <published>2018-05-18T14:27:03.000Z</published>
-    <updated>2018-05-18T15:20:16.000Z</updated>
+    <link href="https://alberthumbert.github.io/2018/05/25/git-flow/"/>
+    <id>https://alberthumbert.github.io/2018/05/25/git-flow/</id>
+    <published>2018-05-25T10:14:42.000Z</published>
+    <updated>2018-05-25T11:39:48.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android 官方架构组件 Architecture Components 系列 - LiveData &amp; ViewModel</title>
+    <link href="https://alberthumbert.github.io/2018/05/24/LiveData/"/>
+    <id>https://alberthumbert.github.io/2018/05/24/LiveData/</id>
+    <published>2018-05-24T13:54:39.000Z</published>
+    <updated>2018-05-24T14:21:16.000Z</updated>
     
     <summary type="html">
     
@@ -137,10 +157,10 @@
   
   <entry>
     <title>Android 官方架构组件 Architecture Components 系列 - Lifecycle</title>
-    <link href="https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/"/>
-    <id>https://alberthumbert.github.io/2018/03/29/ArchitectureComponents/</id>
+    <link href="https://alberthumbert.github.io/2018/03/29/Lifecycle/"/>
+    <id>https://alberthumbert.github.io/2018/03/29/Lifecycle/</id>
     <published>2018-03-29T14:16:36.000Z</published>
-    <updated>2018-05-18T15:19:37.000Z</updated>
+    <updated>2018-05-24T13:55:40.000Z</updated>
     
     <summary type="html">
     
@@ -385,26 +405,6 @@
     <id>https://alberthumbert.github.io/2017/08/13/Loader/</id>
     <published>2017-08-13T15:11:57.000Z</published>
     <updated>2017-11-21T07:21:36.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Volley 事件派发机制</title>
-    <link href="https://alberthumbert.github.io/2017/08/09/VolleyDispatcher/"/>
-    <id>https://alberthumbert.github.io/2017/08/09/VolleyDispatcher/</id>
-    <published>2017-08-09T01:52:24.000Z</published>
-    <updated>2017-11-21T07:21:41.000Z</updated>
     
     <summary type="html">
     
