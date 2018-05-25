@@ -228,7 +228,8 @@ Summary of actions:
 - The hotfix was tagged &apos;some-bug&apos;
 - Hotfix branch has been back-merged into &apos;develop&apos;
 - Hotfix branch &apos;hotfix/some-bug&apos; has been deleted
-</code></pre>]]></content>
+</code></pre><p><br><br><br><br><br><br><strong>全文完</strong></p>
+]]></content>
       
         <categories>
             
@@ -250,11 +251,9 @@ Summary of actions:
       <url>/2018/05/24/LiveData/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
+<p><strong> LiveData 可以说是Architecture Components的核心，而从ViewModel开始可以说步入到 mvvm 的内容了，这一部分将是未来安卓开发的重中之重</strong></p>
 <p><br></p>
-<h3 id="LiveData"><a href="#LiveData" class="headerlink" title="LiveData"></a>LiveData</h3><ul>
-<li>I</li>
-</ul>
-<p><br></p>
+<h3 id="LiveData"><a href="#LiveData" class="headerlink" title="LiveData"></a>LiveData</h3><p><br></p>
 <h3 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h3>]]></content>
       
         <categories>
@@ -805,7 +804,7 @@ Visit java.com/help for more information.
     </entry>
     
     <entry>
-      <title><![CDATA[Android 官方语言 kotlin 系列]]></title>
+      <title><![CDATA[kotlin 系列 - 语法与特性]]></title>
       <url>/2018/03/29/kotlin/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -1116,7 +1115,7 @@ fun main(args: Array&lt;String&gt;) {
 <h3 id="迭代map"><a href="#迭代map" class="headerlink" title="迭代map"></a>迭代map</h3><ul>
 <li>for 循环允许展开迭代中的集合的元素，例如下面这个例子中将map的键值对存储到两个独立的变量当中，在这个例子中集合看起来更像数组，是的，kotlin中可以使用中括号来代替get和put方法</li>
 </ul>
-<pre><code>val binReps = TreeMap&lt;Char,String&gt;()
+<pre><code>val binReps = TreeMap\&lt;Char,String\&gt;()
 fun test() {
   for(c in &apos;a&apos; .. &apos;f&apos;){
       val bin = Integer.toBinaryString(c.toInt())

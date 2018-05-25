@@ -12,7 +12,7 @@
     
     <title>
         
-            Android 官方语言 kotlin 系列 | 
+            kotlin 系列 - 语法与特性 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Android 官方语言 kotlin 系列 | Albert&#39;s Blog">
+    <meta property="og:title" content="kotlin 系列 - 语法与特性 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="3月 29, 2018" />
-        <meta property="article:modified_time" content="5月 17, 2018" />
+        <meta property="article:modified_time" content="5月 25, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Android 官方语言 kotlin 系列 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="kotlin 系列 - 语法与特性 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "Android 官方语言 kotlin 系列",
+    "headline": "kotlin 系列 - 语法与特性",
     "url": "https://alberthumbert.github.io/2018/03/29/kotlin/index.html",
     "datePublished": "3月 29, 2018",
-    "dateModified": "5月 17, 2018",
+    "dateModified": "5月 25, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                Android 官方语言 kotlin 系列
+                kotlin 系列 - 语法与特性
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 官方语言 kotlin 系列&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=kotlin 系列 - 语法与特性&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 官方语言 kotlin 系列&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=kotlin 系列 - 语法与特性&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&title=Android 官方语言 kotlin 系列" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&title=kotlin 系列 - 语法与特性" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 官方语言 kotlin 系列&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=kotlin 系列 - 语法与特性&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&text=Android 官方语言 kotlin 系列" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/03/29/kotlin/index.html&text=kotlin 系列 - 语法与特性" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -810,7 +810,7 @@ fun main(args: Array&lt;String&gt;) {
 <h3 id="迭代map"><a href="#迭代map" class="headerlink" title="迭代map"></a>迭代map</h3><ul>
 <li>for 循环允许展开迭代中的集合的元素，例如下面这个例子中将map的键值对存储到两个独立的变量当中，在这个例子中集合看起来更像数组，是的，kotlin中可以使用中括号来代替get和put方法</li>
 </ul>
-<pre><code>val binReps = TreeMap&lt;Char,String&gt;()
+<pre><code>val binReps = TreeMap\&lt;Char,String\&gt;()
 fun test() {
   for(c in &apos;a&apos; .. &apos;f&apos;){
       val bin = Integer.toBinaryString(c.toInt())
