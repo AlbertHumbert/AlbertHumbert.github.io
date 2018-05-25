@@ -246,7 +246,7 @@ Summary of actions:
     </entry>
     
     <entry>
-      <title><![CDATA[Android 官方架构组件 Architecture Components 系列 - LiveData & ViewModel]]></title>
+      <title><![CDATA[Architecture Components 系列 - LiveData & ViewModel]]></title>
       <url>/2018/05/24/LiveData/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -1201,7 +1201,7 @@ else throw IllegalArgumentException(&quot;a percentage value must be between 0 a
     </entry>
     
     <entry>
-      <title><![CDATA[Android 官方架构组件 Architecture Components 系列 - Lifecycle]]></title>
+      <title><![CDATA[Architecture Components 系列 - Lifecycle]]></title>
       <url>/2018/03/29/Lifecycle/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -1331,7 +1331,7 @@ public LifecycleRegistry getLifecycle() {
 <ul>
 <li>Lifecycle注册了一个专门用于初始化的provider，称其为木马</li>
 </ul>
-<pre><code>&lt;provider
+<pre><code>\&lt;provider
         android:name=&quot;android.arch.lifecycle.LifecycleRuntimeTrojanProvider&quot;
         android:authorities=&quot;${applicationId}.lifecycle-trojan&quot;
         android:exported=&quot;false&quot;
