@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="5月 25, 2018" />
-        <meta property="article:modified_time" content="5月 25, 2018" />
+        <meta property="article:modified_time" content="5月 27, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "git-flow 工作流 上手指南",
     "url": "https://alberthumbert.github.io/2018/05/25/git-flow/index.html",
     "datePublished": "5月 25, 2018",
-    "dateModified": "5月 25, 2018",
+    "dateModified": "5月 27, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -504,7 +504,7 @@
         <p>-</p>
 <a id="more"></a>
 <p><strong>本文中指的git-flow是一个基于git flow工作流模型的git工具，它可以使开发者更加规范地进行版本控制，使你的仓库更加clean</strong></p>
-<p><strong>选择git-flow的原因是，使用git-flow来在实际项目中掌握flow模型的学习成本几乎为0</strong></p>
+<p><strong>本来觉得这个工具已经将git flow模型简化得很好了，而且以前也或多或少了解过git flow 模型，以为使用git-flow来掌握这个模型的学习成本几乎为0，但后来确实发觉自己对很多细节了解不透，于是又从头开始学习了git flow 模型，如果需要了解这部分前期知识，请看<a href="https://tocreate.app/2018/05/25/GitFlowModel/" title="这里" target="_blank" rel="external">这里</a></strong></p>
 <p><strong>主要参考</strong></p>
 <p><strong><a href="http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html" title="备忘清单  " target="_blank" rel="external"> 备忘清单 </a></strong></p>
 <p><strong><a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow" title="Learn Version Control with Git" target="_blank" rel="external"> Learn Version Control with Git </a></strong></p>
@@ -557,6 +557,7 @@ Now, start committing on your feature. When done, use:
      git flow feature finish transparent-init
 </code></pre><ul>
 <li>git flow 的输出比git本身更加好懂</li>
+<li>这个操作创建了一个新的 feature/transparent-init 分支，然后切换的该分支</li>
 </ul>
 <p><br></p>
 <h3 id="git-flow-feature-finish-特性名"><a href="#git-flow-feature-finish-特性名" class="headerlink" title="git flow feature finish (特性名)"></a>git flow feature finish (特性名)</h3><pre><code>commit 08e027ba6be8bc04e1615307c4d2f1c6ce41baac
@@ -578,7 +579,7 @@ Summary of actions:
 - Feature branch &apos;feature/transparent-init&apos; has been removed
 - You are now on branch &apos;develop&apos;
 </code></pre><ul>
-<li>我们现在被自动切回了feature分支，并且临时的feature/transparent-init分支已被删除</li>
+<li>现在特性分支被合并到了 develop 分支，并且自动切回了develop 分支，临时的 feature/transparent-init 分支已被删除</li>
 </ul>
 <p><br></p>
 <h3 id="git-flow-feature-publish-特性名"><a href="#git-flow-feature-publish-特性名" class="headerlink" title="git flow feature publish (特性名)"></a>git flow feature publish (特性名)</h3><ul>
@@ -589,7 +590,7 @@ Counting objects: 3, done.
 Writing objects: 100% (3/3), 244 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/AlbertHumbert/git-flow-test.git
- * [new branch]      feature/a -&gt; feature/a
+ * [new branch]      feature/a -\&gt; feature/a
 Already on &apos;feature/a&apos;
 Your branch is up-to-date with &apos;origin/feature/a&apos;.
 
@@ -597,7 +598,10 @@ Summary of actions:
 - A new remote branch &apos;feature/a&apos; was created
 - The local branch &apos;feature/a&apos; was configured to track the remote branch
 - You are now on branch &apos;feature/a&apos;
-</code></pre><p><br></p>
+</code></pre><ul>
+<li>这个操作根据本地分支名创建并跟踪了远程分支，并切换到了本地分支</li>
+</ul>
+<p><br></p>
 <h3 id="git-flow-feature-pull-origin-特性名"><a href="#git-flow-feature-pull-origin-特性名" class="headerlink" title="git flow feature pull origin (特性名)"></a>git flow feature pull origin (特性名)</h3><ul>
 <li>使用 git flow feature pull origin 特性名，可以获取远程的提交，并自动切换到特性分支</li>
 </ul>
@@ -623,6 +627,9 @@ Summary of actions:
 - A new branch &apos;release/1.0.0&apos; was created, based on &apos;develop&apos;
 - You are now on branch &apos;release/1.0.0&apos; 
 </code></pre><ul>
+<li>该操作创建并切换到了新的 release 分支</li>
+</ul>
+<ul>
 <li>注意在一条 release 分支已经创建了且未发布的情况下是不能使用flow再创建release分支的,这也很合理</li>
 </ul>
 <pre><code>git flow release start 1.1.0
@@ -660,7 +667,10 @@ Summary of actions:
 - The release was tagged &apos;1.0.0&apos;
 - Release branch has been back-merged into &apos;develop&apos;
 - Release branch &apos;release/1.0.0&apos; has been deleted
-</code></pre><p><br></p>
+</code></pre><ul>
+<li>该操作拉取了最新的release分支，并且将 release 合并到 develop 和 master 分支，打上了标签后删除了release分支</li>
+</ul>
+<p><br></p>
 <h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><br></p>
 <h3 id="git-flow-hotfix-start-错误名"><a href="#git-flow-hotfix-start-错误名" class="headerlink" title="git flow hotfix start (错误名)"></a>git flow hotfix start (错误名)</h3><ul>
 <li>有些潜在的问题会在新版本正式发布之后才显现出来，这个时候我们需要使用hotfix分支进行紧急修复工作，使用git flow hotfix start 错误名 开启一个新分支</li>
@@ -677,8 +687,11 @@ Follow-up actions:
 - Start committing your hot fixes
 - When done, run:
 
-     git flow hotfix finish &apos;some-bug&apos;
-</code></pre><p><br></p>
+     git flow hotfix finish ‘some-bug’
+</code></pre><ul>
+<li>该操作创建并切换到了 hotfix 分支</li>
+</ul>
+<p><br></p>
 <h3 id="git-flow-hotfix-finish-错误名"><a href="#git-flow-hotfix-finish-错误名" class="headerlink" title="git flow hotfix finish (错误名)"></a>git flow hotfix finish (错误名)</h3><ul>
 <li>在不懈的努力下，这个顽固的bug终于被排除了，这个使用使用git flow hotfix finish 错误名 进行提交，将错误合并到master和develop分支</li>
 </ul>
@@ -700,8 +713,11 @@ Summary of actions:
 - Hotfix branch has been merged into &apos;master&apos;
 - The hotfix was tagged &apos;some-bug&apos;
 - Hotfix branch has been back-merged into &apos;develop&apos;
-- Hotfix branch &apos;hotfix/some-bug&apos; has been deleted
-</code></pre><p><br><br><br><br><br><br><strong>全文完</strong></p>
+- Hotfix branch &apos;hotfix/1.0.1’ has been deleted
+</code></pre><ul>
+<li>该操作拉取了最新的远程分支，将hotfix分支合并到 master 和 develop 然后打上标签再将 hotfix 分支删除</li>
+</ul>
+<p><br><br><br><br><br><br><strong>全文完</strong></p>
 
     
 

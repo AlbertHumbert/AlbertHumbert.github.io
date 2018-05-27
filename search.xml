@@ -3,12 +3,136 @@
   
     
     <entry>
-      <title><![CDATA[Git Flow 模型]]></title>
+      <title><![CDATA[基于 Git Flow 模型的工作流程]]></title>
       <url>/2018/05/25/GitFlowModel/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><strong>之前学习使用git-flow工具，本来觉得这个工具已经将git flow模型简化得很好了而且以前也或多或少了解过git flow，以为使用git-flow来掌握这个模型的学习成本几乎为0，但在学习的过程中确实发觉对很多细节了解不透，于是打算从头开始</strong></p>
-<h2 id="长期分支-master-amp-develop"><a href="#长期分支-master-amp-develop" class="headerlink" title="长期分支 master &amp; develop"></a>长期分支 master &amp; develop</h2>]]></content>
+<p><br></p>
+<h2 id="长期分支-amp-辅助分支"><a href="#长期分支-amp-辅助分支" class="headerlink" title="长期分支 &amp; 辅助分支"></a>长期分支 &amp; 辅助分支</h2><ul>
+<li><p>在 git-flow 中最主要的五个分支是 master，release，develop，feature，hotfix</p>
+</li>
+<li><p>长期分支包括 master，develop</p>
+</li>
+<li><p>辅助分支包括 feature，release，hotfix</p>
+</li>
+<li><p>长期分支是相对稳定的分支，所有被认可的提交最终都会被合并到它们当中</p>
+</li>
+<li><p>辅助分支是临时开辟的短期分支，在完成它们的工作之后通常可以删除</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="分支概述"><a href="#分支概述" class="headerlink" title="分支概述"></a>分支概述</h2><ul>
+<li><p>master，对外发布产品使用的分支，该分支的最新提交必须是一个已近对外提供的版本，不允许直接在该分支上开发，因为它必须永远保持最稳定的状态</p>
+</li>
+<li><p>develop，内部开发产品使用的分支，该分支的最新提交必须是一个相对稳定的测试版本，同样不允许直接在该分支上开发</p>
+</li>
+<li><p>feature，功能特性分支，直接在 develop 上创建的分支，feature 是不确定数量的分支的统称（如feature/a, feature/b），可以在这些分支上直接开发新特性，如果需要多人协作，则将分支推送到远程仓库，不允许在一个功能未完成之前将其合并到 develop 分支</p>
+</li>
+<li><p>release，测试分支，develop 分支上创建的分支，用于产品对外发布之前（即更新 master 分支）的测试工作，在创建完该分支之后最好立即推送到远程仓库</p>
+</li>
+<li><p>hotfix，修复分支，在 master 上创建的分支，用于对线上版本的bug的修复，每一个特定的问题创建一个分支</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><p><br></p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li><p>创建本地仓库，并推送到远程，这部分太基础所有略过</p>
+</li>
+<li><p>由于 master 分支是默认创建的，所以只需创建另一个长期分支 ——develop 并推送到远程</p>
+</li>
+</ul>
+<pre><code>git checkout -b develop
+git push origin develop:develop
+</code></pre><ul>
+<li>其他成员克隆后需要拉取 develop 分支,并指定好跟踪的远程分支，注意最好远程分支和本地分支使用相同的命名</li>
+</ul>
+<pre><code>git fetch origin develop:develop
+git branch --set-upstream-to=origin/develop develop
+</code></pre><p><br></p>
+<h2 id="开发新特性"><a href="#开发新特性" class="headerlink" title="开发新特性"></a>开发新特性</h2><ul>
+<li>开发特性a，在 develop 分支上创建新特性分支 feature/a ，注意不要在 develop 分支上直接开发</li>
+</ul>
+<pre><code>git checkout develop
+git checkout -b feature/a
+</code></pre><ul>
+<li>如果有必要，将该特性分支推送到远程</li>
+</ul>
+<pre><code>git push origin feature/a:feature/a
+</code></pre><ul>
+<li>如果有必要，其他成员拉取特性分支</li>
+</ul>
+<pre><code>git fetch origin feature/a:feature/a
+</code></pre><p><br></p>
+<h2 id="完成新特性"><a href="#完成新特性" class="headerlink" title="完成新特性"></a>完成新特性</h2><ul>
+<li>新特性完成之后需要将 feature 分支合并到 develop 分支</li>
+</ul>
+<pre><code>git checkout develop
+git merge feature/a
+git push origin develop
+</code></pre><ul>
+<li>合并完成并确定无人使用该 feature 分支之后，将其删除</li>
+</ul>
+<pre><code>git branch -d feature/a  #删除本地分支
+git push origin --delete feature/a #删除远程分支
+</code></pre><p><br></p>
+<h2 id="测试新版本"><a href="#测试新版本" class="headerlink" title="测试新版本"></a>测试新版本</h2><ul>
+<li>重复上面的流程完成多个新特性之后，我们开始在 release 分支上测试,用版本号创建 release 分支，版本号根据 master 分支当前最新的 tag 来确定即可，根据改动的情况选择要增加的位</li>
+</ul>
+<pre><code>git checkout -b release/1.0.0
+git push origin release/1.0.0:release/1.0.0
+</code></pre><p><br></p>
+<h2 id="发布新版本"><a href="#发布新版本" class="headerlink" title="发布新版本"></a>发布新版本</h2><ul>
+<li>在确定当前版本足够完善时，就可以进行发布了,注意发布前确定本地的release分支处于最新的状态</li>
+</ul>
+<pre><code>git pull origin release/1.0.0
+</code></pre><ul>
+<li>将 release 分支合并到 develop 分支</li>
+</ul>
+<pre><code>git checkout develop
+git merge release/1.0.0
+</code></pre><ul>
+<li>将 release 分支合并到 maseter 分支</li>
+</ul>
+<pre><code>git checkout master
+git merge release/1.0.0
+</code></pre><ul>
+<li>根据命名的tag进行真正的标签记录</li>
+</ul>
+<pre><code>git checkout master
+git tag -a &quot;1.0.0&quot; HEAD -m &quot;新版本改动描述&quot;
+</code></pre><ul>
+<li>删除 release 分支</li>
+</ul>
+<pre><code>git branch -d release/1.0.0
+git push origin --delete release/1.0.0
+</code></pre><p><br></p>
+<h2 id="修复线上-bug"><a href="#修复线上-bug" class="headerlink" title="修复线上 bug"></a>修复线上 bug</h2><ul>
+<li><p>注意如果不是线上的版本而是开发过程中的 develop 的 bug 则在 develop 中创建分支进行修复，如果是在 release 分支上的 bug 则直接在 release 分支上修改即可</p>
+</li>
+<li><p>有些问题在上线之后才会被发现，那么我们需要创建 hotfix 分支进行处理,注意不要直接在 feature 上进行修复，而是在 master 分支上根据具体的问题创建分支并推到远程</p>
+</li>
+</ul>
+<pre><code>git checkout master
+git checkout -b hotfix/typo
+git push origin hotfix/typo:hotfix/typo
+</code></pre><ul>
+<li>修改完成后重新发版,确定当前 hotfix 分支版本是最新的，再将hotfix 分支合并到 develope 分支</li>
+</ul>
+<pre><code>git pull origin hotfix/typo
+git checkout develop
+git merge hotfix/typo
+</code></pre><ul>
+<li>然后将 hotfix 分支合并到 master 分支,注意改动了 master 分支之后 tag 也要更新，因为是修复 bug，一般最后一位加一即可</li>
+</ul>
+<pre><code>git checkout master
+git merge hotfix/typo
+git tag -a &quot;1.0.1&quot; HEAD -m &quot;fix typo&quot;
+</code></pre><ul>
+<li>到这里我们从创建项目，添加特性，测试发布，修改bug的流程就走完一遍了</li>
+</ul>
+<p><br><br><br><br><br> </p>
+<p><strong>全文完</strong></p>
+]]></content>
       
         <categories>
             
@@ -31,7 +155,7 @@
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong>本文中指的git-flow是一个基于git flow工作流模型的git工具，它可以使开发者更加规范地进行版本控制，使你的仓库更加clean</strong></p>
-<p><strong>选择git-flow的原因是，使用git-flow来在实际项目中掌握flow模型的学习成本几乎为0</strong></p>
+<p><strong>本来觉得这个工具已经将git flow模型简化得很好了，而且以前也或多或少了解过git flow 模型，以为使用git-flow来掌握这个模型的学习成本几乎为0，但后来确实发觉自己对很多细节了解不透，于是又从头开始学习了git flow 模型，如果需要了解这部分前期知识，请看<a href="https://tocreate.app/2018/05/25/GitFlowModel/" title="这里" target="_blank" rel="external">这里</a></strong></p>
 <p><strong>主要参考</strong></p>
 <p><strong><a href="http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html" title="备忘清单  " target="_blank" rel="external"> 备忘清单 </a></strong></p>
 <p><strong><a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow" title="Learn Version Control with Git" target="_blank" rel="external"> Learn Version Control with Git </a></strong></p>
@@ -84,6 +208,7 @@ Now, start committing on your feature. When done, use:
      git flow feature finish transparent-init
 </code></pre><ul>
 <li>git flow 的输出比git本身更加好懂</li>
+<li>这个操作创建了一个新的 feature/transparent-init 分支，然后切换的该分支</li>
 </ul>
 <p><br></p>
 <h3 id="git-flow-feature-finish-特性名"><a href="#git-flow-feature-finish-特性名" class="headerlink" title="git flow feature finish (特性名)"></a>git flow feature finish (特性名)</h3><pre><code>commit 08e027ba6be8bc04e1615307c4d2f1c6ce41baac
@@ -105,7 +230,7 @@ Summary of actions:
 - Feature branch &apos;feature/transparent-init&apos; has been removed
 - You are now on branch &apos;develop&apos;
 </code></pre><ul>
-<li>我们现在被自动切回了feature分支，并且临时的feature/transparent-init分支已被删除</li>
+<li>现在特性分支被合并到了 develop 分支，并且自动切回了develop 分支，临时的 feature/transparent-init 分支已被删除</li>
 </ul>
 <p><br></p>
 <h3 id="git-flow-feature-publish-特性名"><a href="#git-flow-feature-publish-特性名" class="headerlink" title="git flow feature publish (特性名)"></a>git flow feature publish (特性名)</h3><ul>
@@ -116,7 +241,7 @@ Counting objects: 3, done.
 Writing objects: 100% (3/3), 244 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/AlbertHumbert/git-flow-test.git
- * [new branch]      feature/a -&gt; feature/a
+ * [new branch]      feature/a -\&gt; feature/a
 Already on &apos;feature/a&apos;
 Your branch is up-to-date with &apos;origin/feature/a&apos;.
 
@@ -124,7 +249,10 @@ Summary of actions:
 - A new remote branch &apos;feature/a&apos; was created
 - The local branch &apos;feature/a&apos; was configured to track the remote branch
 - You are now on branch &apos;feature/a&apos;
-</code></pre><p><br></p>
+</code></pre><ul>
+<li>这个操作根据本地分支名创建并跟踪了远程分支，并切换到了本地分支</li>
+</ul>
+<p><br></p>
 <h3 id="git-flow-feature-pull-origin-特性名"><a href="#git-flow-feature-pull-origin-特性名" class="headerlink" title="git flow feature pull origin (特性名)"></a>git flow feature pull origin (特性名)</h3><ul>
 <li>使用 git flow feature pull origin 特性名，可以获取远程的提交，并自动切换到特性分支</li>
 </ul>
@@ -150,6 +278,9 @@ Summary of actions:
 - A new branch &apos;release/1.0.0&apos; was created, based on &apos;develop&apos;
 - You are now on branch &apos;release/1.0.0&apos; 
 </code></pre><ul>
+<li>该操作创建并切换到了新的 release 分支</li>
+</ul>
+<ul>
 <li>注意在一条 release 分支已经创建了且未发布的情况下是不能使用flow再创建release分支的,这也很合理</li>
 </ul>
 <pre><code>git flow release start 1.1.0
@@ -187,7 +318,10 @@ Summary of actions:
 - The release was tagged &apos;1.0.0&apos;
 - Release branch has been back-merged into &apos;develop&apos;
 - Release branch &apos;release/1.0.0&apos; has been deleted
-</code></pre><p><br></p>
+</code></pre><ul>
+<li>该操作拉取了最新的release分支，并且将 release 合并到 develop 和 master 分支，打上了标签后删除了release分支</li>
+</ul>
+<p><br></p>
 <h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><br></p>
 <h3 id="git-flow-hotfix-start-错误名"><a href="#git-flow-hotfix-start-错误名" class="headerlink" title="git flow hotfix start (错误名)"></a>git flow hotfix start (错误名)</h3><ul>
 <li>有些潜在的问题会在新版本正式发布之后才显现出来，这个时候我们需要使用hotfix分支进行紧急修复工作，使用git flow hotfix start 错误名 开启一个新分支</li>
@@ -204,8 +338,11 @@ Follow-up actions:
 - Start committing your hot fixes
 - When done, run:
 
-     git flow hotfix finish &apos;some-bug&apos;
-</code></pre><p><br></p>
+     git flow hotfix finish ‘some-bug’
+</code></pre><ul>
+<li>该操作创建并切换到了 hotfix 分支</li>
+</ul>
+<p><br></p>
 <h3 id="git-flow-hotfix-finish-错误名"><a href="#git-flow-hotfix-finish-错误名" class="headerlink" title="git flow hotfix finish (错误名)"></a>git flow hotfix finish (错误名)</h3><ul>
 <li>在不懈的努力下，这个顽固的bug终于被排除了，这个使用使用git flow hotfix finish 错误名 进行提交，将错误合并到master和develop分支</li>
 </ul>
@@ -227,8 +364,11 @@ Summary of actions:
 - Hotfix branch has been merged into &apos;master&apos;
 - The hotfix was tagged &apos;some-bug&apos;
 - Hotfix branch has been back-merged into &apos;develop&apos;
-- Hotfix branch &apos;hotfix/some-bug&apos; has been deleted
-</code></pre><p><br><br><br><br><br><br><strong>全文完</strong></p>
+- Hotfix branch &apos;hotfix/1.0.1’ has been deleted
+</code></pre><ul>
+<li>该操作拉取了最新的远程分支，将hotfix分支合并到 master 和 develop 然后打上标签再将 hotfix 分支删除</li>
+</ul>
+<p><br><br><br><br><br><br><strong>全文完</strong></p>
 ]]></content>
       
         <categories>
@@ -12132,9 +12272,7 @@ $ git log --left-right master...experiment
 &lt;E
 &gt;D
 &gt;C
-</code></pre><h3 id="交互式暂存"><a href="#交互式暂存" class="headerlink" title="交互式暂存"></a>交互式暂存</h3><p><strong>略</strong></p>
-<h3 id="git-stash-储藏与清理"><a href="#git-stash-储藏与清理" class="headerlink" title="git stash 储藏与清理"></a>git stash 储藏与清理</h3><h4 id="储藏工作"><a href="#储藏工作" class="headerlink" title="- 储藏工作"></a>- 储藏工作</h4><p>* </p>
-]]></content>
+</code></pre>]]></content>
       
         <categories>
             
