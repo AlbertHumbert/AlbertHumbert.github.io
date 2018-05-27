@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#长期分支-amp-辅助分支"><span class="post-toc-number">1.</span> <span class="post-toc-text">长期分支 & 辅助分支</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支概述"><span class="post-toc-number">2.</span> <span class="post-toc-text">分支概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">开发流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">准备</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发新特性"><span class="post-toc-number">4.</span> <span class="post-toc-text">开发新特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完成新特性"><span class="post-toc-number">5.</span> <span class="post-toc-text">完成新特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试新版本"><span class="post-toc-number">6.</span> <span class="post-toc-text">测试新版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#发布新版本"><span class="post-toc-number">7.</span> <span class="post-toc-text">发布新版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修复线上-bug"><span class="post-toc-number">8.</span> <span class="post-toc-text">修复线上 bug</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#长期分支-amp-辅助分支"><span class="post-toc-number">1.</span> <span class="post-toc-text">长期分支 & 辅助分支</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支概述"><span class="post-toc-number">2.</span> <span class="post-toc-text">分支概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">开发流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开发新特性"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">开发新特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#完成新特性"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">完成新特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试新版本"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">测试新版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#发布新版本"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">发布新版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修复线上-bug"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">修复线上 bug</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -545,7 +545,7 @@ git push origin develop:develop
 <pre><code>git fetch origin develop:develop
 git branch --set-upstream-to=origin/develop develop
 </code></pre><p><br></p>
-<h2 id="开发新特性"><a href="#开发新特性" class="headerlink" title="开发新特性"></a>开发新特性</h2><ul>
+<h3 id="开发新特性"><a href="#开发新特性" class="headerlink" title="开发新特性"></a>开发新特性</h3><ul>
 <li>开发特性a，在 develop 分支上创建新特性分支 feature/a ，注意不要在 develop 分支上直接开发</li>
 </ul>
 <pre><code>git checkout develop
@@ -559,7 +559,7 @@ git checkout -b feature/a
 </ul>
 <pre><code>git fetch origin feature/a:feature/a
 </code></pre><p><br></p>
-<h2 id="完成新特性"><a href="#完成新特性" class="headerlink" title="完成新特性"></a>完成新特性</h2><ul>
+<h3 id="完成新特性"><a href="#完成新特性" class="headerlink" title="完成新特性"></a>完成新特性</h3><ul>
 <li>新特性完成之后需要将 feature 分支合并到 develop 分支</li>
 </ul>
 <pre><code>git checkout develop
@@ -571,13 +571,13 @@ git push origin develop
 <pre><code>git branch -d feature/a  #删除本地分支
 git push origin --delete feature/a #删除远程分支
 </code></pre><p><br></p>
-<h2 id="测试新版本"><a href="#测试新版本" class="headerlink" title="测试新版本"></a>测试新版本</h2><ul>
+<h3 id="测试新版本"><a href="#测试新版本" class="headerlink" title="测试新版本"></a>测试新版本</h3><ul>
 <li>重复上面的流程完成多个新特性之后，我们开始在 release 分支上测试,用版本号创建 release 分支，版本号根据 master 分支当前最新的 tag 来确定即可，根据改动的情况选择要增加的位</li>
 </ul>
 <pre><code>git checkout -b release/1.0.0
 git push origin release/1.0.0:release/1.0.0
 </code></pre><p><br></p>
-<h2 id="发布新版本"><a href="#发布新版本" class="headerlink" title="发布新版本"></a>发布新版本</h2><ul>
+<h3 id="发布新版本"><a href="#发布新版本" class="headerlink" title="发布新版本"></a>发布新版本</h3><ul>
 <li>在确定当前版本足够完善时，就可以进行发布了,注意发布前确定本地的release分支处于最新的状态</li>
 </ul>
 <pre><code>git pull origin release/1.0.0
@@ -602,7 +602,7 @@ git tag -a &quot;1.0.0&quot; HEAD -m &quot;新版本改动描述&quot;
 <pre><code>git branch -d release/1.0.0
 git push origin --delete release/1.0.0
 </code></pre><p><br></p>
-<h2 id="修复线上-bug"><a href="#修复线上-bug" class="headerlink" title="修复线上 bug"></a>修复线上 bug</h2><ul>
+<h3 id="修复线上-bug"><a href="#修复线上-bug" class="headerlink" title="修复线上 bug"></a>修复线上 bug</h3><ul>
 <li><p>注意如果不是线上的版本而是开发过程中的 develop 的 bug 则在 develop 中创建分支进行修复，如果是在 release 分支上的 bug 则直接在 release 分支上修改即可</p>
 </li>
 <li><p>有些问题在上线之后才会被发现，那么我们需要创建 hotfix 分支进行处理,注意不要直接在 feature 上进行修复，而是在 master 分支上根据具体的问题创建分支并推到远程</p>
