@@ -47,8 +47,7 @@
 <li>克隆之后直属于该项目的文件会被直接拉取，但子模块只是一个空目录，需要手动拉取，首先初始化子模块仓库</li>
 </ul>
 <pre><code>git submodule init
-</code></pre><p>‘</p>
-<ul>
+</code></pre><ul>
 <li>然后拉取子仓库的提交记录,现在子模块就不为空了</li>
 </ul>
 <pre><code>git submodule update
