@@ -12,7 +12,7 @@
     
     <title>
         
-            mac平台编译并调试 OpenJdk7 和 HotSpot | 
+            gradle 3.x 依赖方式 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="mac平台编译并调试 OpenJdk7 和 HotSpot | Albert&#39;s Blog">
+    <meta property="og:title" content="gradle 3.x 依赖方式 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="4月 04, 2018" />
-        <meta property="article:modified_time" content="4月 13, 2018" />
+        <meta property="article:published_time" content="5月 20, 2018" />
+        <meta property="article:modified_time" content="5月 31, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="mac平台编译并调试 OpenJdk7 和 HotSpot | Albert&#39;s Blog">
+    <meta name="twitter:title" content="gradle 3.x 依赖方式 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/05/20/gradle3/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "mac平台编译并调试 OpenJdk7 和 HotSpot",
-    "url": "https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html",
-    "datePublished": "4月 04, 2018",
-    "dateModified": "4月 13, 2018",
+    "headline": "gradle 3.x 依赖方式",
+    "url": "https://alberthumbert.github.io/2018/05/20/gradle3/index.html",
+    "datePublished": "5月 20, 2018",
+    "dateModified": "5月 31, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">编译环境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取源码"><span class="post-toc-number">2.</span> <span class="post-toc-text">获取源码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译环境-1"><span class="post-toc-number">3.</span> <span class="post-toc-text">编译环境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置参数"><span class="post-toc-number">4.</span> <span class="post-toc-text">配置参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开始编译"><span class="post-toc-number">5.</span> <span class="post-toc-text">开始编译</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#no-boostrap-dir"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">no boostrap dir</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ant-版本过低"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">ant 版本过低</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#中文-与-ascii-乱码"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">中文 与 ascii 乱码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#clang-不支持-fpch-deps"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">clang 不支持 -fpch-deps</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#clang-error-no-such-file-or-directory-‘false’"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">clang: error: no such file or directory: ‘false’</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#形参默认值问题"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">形参默认值问题</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">Undefined symbols for architecture x86_64: “_attachCurrentThread”</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译通过"><span class="post-toc-number">6.</span> <span class="post-toc-text">编译通过</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调试源码"><span class="post-toc-number">7.</span> <span class="post-toc-text">调试源码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#build-debug-build-fastdebug-build"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">build debug_build fastdebug_build</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用-Xcode-调试运行"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">使用 Xcode 调试运行</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#start-the-world"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">start the world</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#踩坑记录"><span class="post-toc-number">8.</span> <span class="post-toc-text">踩坑记录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ant-版本过低-1"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">ant 版本过低</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Bootstrap-JDK-版本过高"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">Bootstrap JDK 版本过高</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OS-X-10-10-以上无法安装-Oracle-JDK"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">OS X 10.10 以上无法安装 Oracle JDK</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#新旧对比"><span class="post-toc-number">1.</span> <span class="post-toc-text">新旧对比</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#场景"><span class="post-toc-number">2.</span> <span class="post-toc-text">场景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#api"><span class="post-toc-number">3.</span> <span class="post-toc-text">api</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#implementation"><span class="post-toc-number">4.</span> <span class="post-toc-text">implementation</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#compileOnly"><span class="post-toc-number">5.</span> <span class="post-toc-text">compileOnly</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#runtimeOnly"><span class="post-toc-number">6.</span> <span class="post-toc-text">runtimeOnly</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他"><span class="post-toc-number">7.</span> <span class="post-toc-text">其他</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                mac平台编译并调试 OpenJdk7 和 HotSpot
+                gradle 3.x 依赖方式
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>4月 04, 2018</span>
+        <span>5月 20, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=mac平台编译并调试 OpenJdk7 和 HotSpot&url=https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=gradle 3.x 依赖方式&url=https://alberthumbert.github.io/2018/05/20/gradle3/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=mac平台编译并调试 OpenJdk7 和 HotSpot&url=https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=gradle 3.x 依赖方式&url=https://alberthumbert.github.io/2018/05/20/gradle3/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/05/20/gradle3/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/05/20/gradle3/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html&title=mac平台编译并调试 OpenJdk7 和 HotSpot" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/05/20/gradle3/index.html&title=gradle 3.x 依赖方式" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=mac平台编译并调试 OpenJdk7 和 HotSpot&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=gradle 3.x 依赖方式&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/05/20/gradle3/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/04/04/compileOpenJdk7/index.html&text=mac平台编译并调试 OpenJdk7 和 HotSpot" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/05/20/gradle3/index.html&text=gradle 3.x 依赖方式" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,470 +503,105 @@
     
         <p>-</p>
 <a id="more"></a>
-<h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><p><strong>下面是最终编译通过时的环境配置，中间踩了很多坑，光 boostrap JDK 就换过 1.6.0，1.7.0_71，1.7.0_80，1.8.0_131，1.7.0_40 等多个版本，主要是卡在 ant 和 JDK 版本不兼容，以及 openJdk和 boostrap JDK 不兼容等问题上</strong></p>
-<ul>
-<li>系统环境 ：osx 10.11.6</li>
-<li>c 编译器 ：clang</li>
-<li>openJdk ：jdk7u-dev</li>
-<li>boostrap JDK ：oracle JDK 7u40</li>
-<li>xcode version ：8.0 (8A218a)</li>
-<li>ant version ：1.8.0</li>
-<li>make 命令，请根据编译环境自行调整</li>
-</ul>
-<pre><code>sudo make ALT\_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0\_40.jdk/contents/home SPOT\_OS\_VERSION\_CHECK=OK LANG=C ANT\_HOME=/Users/alberthumbert/Downloads/apache-ant-1.8.0 WARNINGS\_ARE\_ERRORS=false ALLOW\_DOWNLOADS=true CC=clang COMPILER\_WARNINGS\_FATAL=false LFLAGS=&apos;-Xlinker -lstdc++&apos; USE\_CLANG=true LP64=1 LANG=C  ARCH\_DATA\_MODEL=64 HOTSPOT\_BUILD\_JOBS=8
-</code></pre><p><br></p>
-<h3 id="获取源码"><a href="#获取源码" class="headerlink" title="获取源码"></a>获取源码</h3><ul>
-<li>本文不会有安装和配置 brew , xcode 和 boostrap jdk（oracle jdk） 的内容，对于打算动手编译jdk的人，这部分内容太基础了，就不废话了</li>
-</ul>
-<ul>
-<li>首先确保 mercurial 已经安装，mercurial 和 git 的作用差不多</li>
-</ul>
-<pre><code>sudo easy\_install mercurial
-</code></pre><ul>
-<li>使用 mercurial 提供的 hg 工具拉取远程仓库, 这里我拉取的是 jdk 7</li>
-</ul>
-<pre><code>hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev
-</code></pre><ul>
-<li>现在还未真正获取到所有源码，在进行下一步之前，建议先确保你有足够的权限，在trust.rc中添加当前的用户名</li>
-</ul>
-<pre><code>sudo vim /etc/mercurial/hgrc.d/trust.rc
-</code></pre><ul>
-<li>一个可供参考的版本如下</li>
-</ul>
-<pre><code>[trusted]
-users = alberthumbert 
-groups = root
-</code></pre><ul>
-<li>接着正式获取源码,使用任何shell都可以, 如果执行后出现 xxx not trusted，说明上一步没有设置好 </li>
-</ul>
-<pre><code>sudo zsh ./get\_source.sh
-</code></pre><ul>
-<li>如果出现 abort: stream ended unexpectedly ，可能是网络的问题，我这里试了很多次都没有拉取成功，没办法只好走代理，在当前终端中设置代理，只需执行如下命令，只在当前终端生效</li>
-</ul>
-<pre><code>export all_proxy=socks5://[host]:[port] # 同时配置 http 和 https代理
-</code></pre><ul>
-<li>如无意外，corba，jaxp，jaxws，langtools，jdk，hotspot 这些过程都将以 xxx files updated, 0 files merged, 0 files removed, 0 files unresolved 结束，不行就再试几次</li>
-</ul>
 <p><br></p>
-<h3 id="编译环境-1"><a href="#编译环境-1" class="headerlink" title="编译环境"></a>编译环境</h3><ul>
-<li>安装llvm</li>
+<p><strong>简单记录一下 gradle 3.x 中的依赖模式</strong></p>
+<h3 id="新旧对比"><a href="#新旧对比" class="headerlink" title="新旧对比"></a>新旧对比</h3><ul>
+<li>gradle 3.x 与 2.x 的依赖方式有了很大区别，具体来说，有了下面这样的改动</li>
 </ul>
-<pre><code>brew install llvm
-</code></pre><ul>
-<li>安装 freetype</li>
-</ul>
-<pre><code>brew install freetype
-</code></pre><ul>
-<li>安装完freetype和llvm后需要设置链接</li>
-</ul>
-<pre><code>sudo ln -s /usr/bin/llvm-g++ /Applications/Xcode.app/Contents/Developer/usr/bin/llvm-g++
-
-
-sudo ln -s /usr/bin/llvm-gcc /Applications/Xcode.app/Contents/Developer/usr/bin/llvm-gcc
-</code></pre><ul>
-<li>安装 ant , 编译过程中提示ant版本太旧，在apache官网上下载新版本，然后设置链接，建议不要使用版本太高的ant，最好不要跟你的 OpenJdk 版本有太大差距</li>
-</ul>
-<pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.8.0/bin/ant /usr/bin/ant
-</code></pre><ul>
-<li>安装 XQuartz，在￼官网￼下载dmg并手动安装 ，然后添加链接</li>
-</ul>
-<pre><code>sudo ln -s /opt/X11/include/X11 /usr/local/include/X11
-</code></pre><ul>
-<li>注意如果上一步出现 operation not permitted ，说明你的os版本比较高，有些操作被系统保护，需要重启 Command + R 进入 recover 模式，在终端中关闭保护, 输入如下命令然后重启即可</li>
-</ul>
-<pre><code>csrutil disable
-</code></pre><p><br></p>
-<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><ul>
-<li>下面是一份可供参考的参数配置，可以写在目录的build.sh当中然后执行，注意jdk路径和ant路径需要根据实际情况自行设置</li>
-</ul>
-<pre><code># 语言选项，必须设置，否则编译好后会出现一个 HashTable 的 NPE错
-export LANG=C
-
-# Bootstrap JDK 解压路径，必须设置
-export ALT\_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0\_40.jdk/Contents/Home
-export ANT\_HOME=/Users/alberthumbert/Desktop/apache-ant-1.8.0
-export ANT\_VERSION=1.7.1
-# 允许自动下载
-export ALLOW\_DOWNLOADS=true
-
-# 并行编译线程数
-export HOTSPOT\_BUILD\_JOBS=4
-export ALT\_PARALLEL\_COMPILE\_JOBS=4
-
-# 比较本次 build 出来的映像与先前版本的差异，对我们没有意义
-# 必须设置为 false，否则 sanity 检查为报缺少先前版本 JDK 的映像的错误提示
-export SKIP\_COMPARE\_IMAGE=false
-
-# 使用预编译头文件，不加这个编译会变慢
-export USE\_PRECOMPILED\_HEADER=true
-
-# 要编译的内容
-export BUILD\_LANGTOOLS=true
-export BUILD\_HOTSPOT=true
-export BUILD\_JDK=true
-# export BUILD\_JAXWS=false
-# export BUILD\_JAXP=false
-# export BUILD\_CORBA=false
-
-# 要编译的版本
-# export SKIP\_DEBUG\_BUILD=false
-# export SKIP\_FASTDEBUG\_BUILD=true
-# export DEBUG\_NAME=debug
-
-# 把它设置为 false 可以避开 javaws 和浏览器 Java 插件之类的部分的 build
-BUILD\_DEPLOY=false
-
-# 把它设置为 false 就不会 build 出安装包，因为安装包里有奇怪的依赖
-# 但即使不 build 出它也能得到完整的 JDK 映像，所以还是别 build
-BUILD\_INSTALL=false
-export WARNINGS\_ARE\_ERRORS=false
-export COMPILER\_WARNINGS\_FATAL=false
-
-# 编译结果所存放的路径
-export ALT\_OUTPUTDIR=/Users/alberthumbert/jdk7u-dev/build\_result
-
-# 这两个环境变量必须去掉，不然会发生奇怪的事情
-# Makefile 检查到这两个变量就会提示警告
-unset JAVA\_HOME
-unset CLASSPATH
-
-make sanity
-</code></pre><p><br></p>
-<h3 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h3><p><br></p>
-<h4 id="no-boostrap-dir"><a href="#no-boostrap-dir" class="headerlink" title="no boostrap dir"></a>no boostrap dir</h4><ul>
-<li>执行 make 进行编译，编译过程中可能提示找不到可用的 boostrap jdk ，虽然在上面已经配置过了，不太清楚为什么，只能再手动加上参数，注意这里也需要权限</li>
-</ul>
-<pre><code>sudo make ALT\_BOOTDIR=/Library/Java/JavaVirtualMachines/jdk1.7.0\_71.jdk/content/home
-</code></pre><p><br></p>
-<h4 id="ant-版本过低"><a href="#ant-版本过低" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><ul>
-<li>如果提示 ant 版本过低，但实际上你的 ant 又高于提示中的 ant 版本，有可能实际上是 boostrap jdk 版本太低，建议使用 oracle jdk 7u40 ，详见后面踩坑记录</li>
-</ul>
-<pre><code>ERROR: 
-The version of ant being used is older than
-the required version of &apos;1.7.1&apos;.
-The version of ant found was &apos;1.7.0&apos;.
-</code></pre><p><br></p>
-<h4 id="中文-与-ascii-乱码"><a href="#中文-与-ascii-乱码" class="headerlink" title="中文 与 ascii 乱码"></a>中文 与 ascii 乱码</h4><ul>
-<li>自动生成的代码（主要是AIDL文件）中注释会带有中文，这个时候由于配置中规定了使用 ascii ，这会导致编译器无法识别而编译不通过，解决办法主要有两种，一种使用shell命令或脚本，另一种直接修改文件</li>
-</ul>
-<ul>
-<li>使用shell命令替换可以参考下面, 有可能不成功</li>
-</ul>
-<pre><code>sudo find /Users/alberthumbert/jdk7u-dev/build/macosx-x86\_64/corba/gensrc/com/sun/ -name &apos;\*.java&apos; | while read p; do native2ascii -encoding UTF-8 $p \&gt; tmpj; mv tmpj $p ; done
-</code></pre><ul>
-<li>比较稳的做法是像这位<a href="http://0x9e370001.iteye.com/blog/1729802" target="_blank" rel="external">老哥</a>一样修改文件，看上去很多其实也没几个文件，善用字符搜索很快就能搞定</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>2.x</th>
+<th>3.x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>implementation </td>
+</tr>
+<tr>
+<td>compile</td>
+<td>api </td>
+</tr>
+<tr>
+<td>provided</td>
+<td>compileOnly </td>
+</tr>
+<tr>
+<td>apk</td>
+<td>runtimeOnly</td>
+</tr>
+<tr>
+<td>debugCompile</td>
+<td>debugImplementation </td>
+</tr>
+<tr>
+<td>releaseCompile</td>
+<td>releaseImplementation</td>
+</tr>
+<tr>
+<td>androidTestCompile</td>
+<td>androidTestImplementation</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
-<h4 id="clang-不支持-fpch-deps"><a href="#clang-不支持-fpch-deps" class="headerlink" title="clang 不支持 -fpch-deps"></a>clang 不支持 -fpch-deps</h4><ul>
-<li>参考这一位<a href="https://blog.csdn.net/j754379117/article/details/53695426" target="_blank" rel="external">老哥</a>的做法，修改 hotspot/make/bsd/makefiles/gcc.make</li>
-</ul>
-<pre><code># 注释216-218行
-# Flags for generating make dependency flags.
-# ifneq (&quot;${CC\_VER\_MAJOR}&quot;, &quot;2&quot;)
-# DEPFLAGS = -fpch-deps -MMD -MP -MF $(DEP\_DIR)/$(@:%=%.d)
-# endif
-# 在218行下添加下面代码
-DEPFLAGS = -MMD -MP -MF $(DEP\_DIR)/$(@:%=%.d)
-ifeq ($(USE\_CLANG),)
-  ifneq ($(CC\_VER\_MAJOR), 2)
-    DEPFLAGS += -fpch-deps
-  endif
-endif
-</code></pre><p><br></p>
-<h4 id="clang-error-no-such-file-or-directory-‘false’"><a href="#clang-error-no-such-file-or-directory-‘false’" class="headerlink" title="clang: error: no such file or directory: ‘false’"></a>clang: error: no such file or directory: ‘false’</h4><ul>
-<li>仔细看发现是makefile生成的编译命令中某个参数只剩了一个false，不知道是哪个参数，很蛋疼，顺藤摸瓜找到生成参数的makefile</li>
-</ul>
-<pre><code>sudo vim /Users/alberthumbert/jdk7u-dev/hotspot/make/bsd/makefiles/vm.make
-</code></pre><ul>
-<li>注释掉下面个参数配置</li>
-</ul>
-<pre><code># CFLAGS\_WARN holds compiler options to suppress/enable warnings.
-CFLAGS += $(CFLAGS\_WARN/BYFILE)
-
-# Do not use C++ exception handling
-CFLAGS += $(CFLAGS/NOEX)
-</code></pre><p><br></p>
-<h4 id="形参默认值问题"><a href="#形参默认值问题" class="headerlink" title="形参默认值问题"></a>形参默认值问题</h4><ul>
-<li>还是参考这位<a href="https://blog.csdn.net/j754379117/article/details/53695426" target="_blank" rel="external">老哥</a>，修改 hotspot/src/share/vm/code/relocInfo.hpp</li>
-</ul>
-<pre><code>//修改374行
-inline friend relocInfo prefix\_relocInfo(int datalen);
-
-//修改469行
-inline relocInfo prefix\_relocInfo(int datalen = 0) {
-   assert(relocInfo::fits\_into\_immediate(datalen), &quot;datalen in limits&quot;);
-   return relocInfo(relocInfo::data\_prefix\_tag, relocInfo::RAW\_BITS, relocInfo::datalen\_tag | datalen);
-}
-</code></pre><p><br></p>
-<h4 id="Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”"><a href="#Undefined-symbols-for-architecture-x86-64-“-attachCurrentThread”" class="headerlink" title="Undefined symbols for architecture x86_64: “_attachCurrentThread”"></a>Undefined symbols for architecture x86_64: “_attachCurrentThread”</h4><ul>
-<li><p>这个错误是在 debug_build 时才出现的，没有保存出错信息，简单说一下情况，提示说 ThreadUtilities中的 getJNIEnv 和 getJNIEnvUncached 函数引用了一个不存在的函数 attachCurrentThread，之前写过一点jni，感觉大概是一个封装了jni线程调度函数的工具类出了问题</p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul>
+<li><p>在详述3.x依赖方法之前，我们先创建一个场景，在我们的测试项目 组件app依赖了a库和c库，另一个aar组件叫test，它依赖了b库和c库，其中 app依赖的c库为1.0版本，test库依赖的c库则为1.1版本</p>
 </li>
-<li><p>在osxapp目录找到这个文件</p>
+<li><p>在 app 中我们依赖了test</p>
 </li>
 </ul>
-<pre><code>cd /Users/alberthumbert/jdk7u-dev/jdk/src/macosx//native/sun/osxapp
-</code></pre><ul>
-<li>实际上 ThreadUtilities.m 文件中可以找到这个函数,感觉是内联出了问题，把 inline 关键字去掉即可通过编译</li>
-</ul>
-<pre><code>inline void attachCurrentThread(void\*\* env) {
-    if ([NSThread isMainThread]) {
-        JavaVMAttachArgs args;
-        args.version = JNI_VERSION_1_4;
-        args.name = &quot;AppKit Thread&quot;;
-        args.group = appkitThreadGroup;
-        (*jvm)-&gt;AttachCurrentThreadAsDaemon(jvm, env, &amp;args);
-    } else {
-        (*jvm)-&gt;AttachCurrentThreadAsDaemon(jvm, env, NULL);
-    }
-}
+<pre><code>compile project(path: &apos;:test&apos;)
 </code></pre><p><br></p>
-<h3 id="编译通过"><a href="#编译通过" class="headerlink" title="编译通过"></a>编译通过</h3><p><br></p>
-<ul>
-<li>任务完成，耗时将近20分钟，纪念一下</li>
-</ul>
-<p><br></p>
-<pre><code>&gt;&gt;&gt;Finished making images @ Sat Apr  7 14:22:59 CST 2018 ...
-########################################################################
-##### Leaving jdk for target(s) sanity all docs images             #####
-########################################################################
-##### Build time 00:12:41 jdk for target(s) sanity all docs images #####
-########################################################################
-
-#-- Build times ----------
-Target all_product_build
-Start 2018-04-07 14:03:57
-End   2018-04-07 14:22:59
-00:00:16 corba
-00:05:57 hotspot
-00:00:02 jaxp
-00:00:03 jaxws
-00:12:41 jdk
-00:00:03 langtools
-00:19:02 TOTAL
--------------------------
-</code></pre><p><br><br><br></p>
-<ul>
-<li>下面让我们来验证一下编译是否真的成功了</li>
-</ul>
-<pre><code>cd /Users/alberthumbert/jdk7u-dev/build/macosx-x86\_64/j2sdk-image/bin
-</code></pre><ul>
-<li>验证一下版本</li>
-</ul>
-<pre><code>./java -version
-
-# 输出
-openjdk version &quot;1.7.0-internal&quot;
-OpenJDK Runtime Environment (build 1.7.0-internal-root\_2018\_04\_07\_14\_03-b00)
-OpenJDK 64-Bit Server VM (build 24.80-b07, mixed mode)
-</code></pre><ul>
-<li>写个 hello world, 用 ./javac Hello.java 编译</li>
-</ul>
-<pre><code> public class Hello{
-    public static void main(String[] args){
-       System.out.println(&quot;Hello World !&quot;);
-    }
-}
-</code></pre><ul>
-<li>用 ./java Hello 运行</li>
-</ul>
-<pre><code>Hello World !
-</code></pre><p><br><br><br></p>
-<h3 id="调试源码"><a href="#调试源码" class="headerlink" title="调试源码"></a>调试源码</h3><p><strong>不单纯为了编译而去编译，在学习jvm的同时能跟着代码走才是最终目的</strong></p>
-<p><br></p>
-<h4 id="build-debug-build-fastdebug-build"><a href="#build-debug-build-fastdebug-build" class="headerlink" title="build debug_build fastdebug_build"></a>build debug_build fastdebug_build</h4><ul>
-<li>注意 在普通的编译模式下编译出来的jdk是不能调试的，它跟你平时使用的普通jdk是一个东西，为了能够支持调试 在make 命令后面需要加上 build_debug 参数，这时在 build/macosx-x86_64-debug/ 目录可以找到另一个编译版本，这里面的 jdk 和 hotspot是可调试的</li>
-</ul>
-<ul>
-<li>细心的玩家可能还会发现一个 macosx-x86_64-fastdebug 目录，如果你在配置文件中设置了 fastdebug 参数，那么就会有这个版本 jdk，简单说一下 fastdebug 是什么，它是由于 jdk 的开发人员无法忍受编译器极度缓慢的调试速度而打造的新调试版本，它的调试速度会比普通的 debug 快，不过替换掉了一些命令，所以它的表现和普通的 jdk 不太一样_ </li>
-</ul>
-<p><br></p>
-<h4 id="使用-Xcode-调试运行"><a href="#使用-Xcode-调试运行" class="headerlink" title="使用 Xcode 调试运行"></a>使用 Xcode 调试运行</h4><p><strong>本来是打算使用 Clion 调试的，无奈 cmake 太难配，看了别人使用 xcode 很顺畅，于是打开了万年不用的 xcode</strong></p>
-<ul>
-<li>新建项目，名称随意，右键工作目录，点击 add files to (projectname)，导入整个 jdk7u-dev，注意就是你用 hg 命令拉下来的整个仓库，不是 macosx-x86_64-debug 目录</li>
-</ul>
-<ul>
-<li>点击 product->scheme->edit scheme ，在 run -> info 中配置 executable 如下</li>
-</ul>
-<pre><code>/Users/alberthumbert/jdk7u-dev/build/macosx-x86\_64-debug/bin/java
-</code></pre><ul>
-<li>同时在这个 executable 的目录下新建一个测试用的java文件，这里用回之前的 hello world</li>
-</ul>
-<pre><code> public class Hello{
-    public static void main(String[] args){
-       System.out.println(&quot;Hello World !&quot;);
-    }
-}
-</code></pre><ul>
-<li>在 run-> arguements 中配置参数为 hello，那么效果就是 ./java hello，所以你需要先 javac 一下</li>
-</ul>
-<ul>
-<li>在运行之前找到 main.c ，没错，这个就是你所以 java 程序的入口,路径在 /jdk/src/share/bin/main.c 找不到就 find . -iname main.c 一下</li>
-</ul>
-<pre><code>int
-main(int argc, char \*\*argv)
-{
-    int margc;
-    char** margv;
-    const jboolean const_javaw = JNI_FALSE;
-# endif /\* JAVAW \*/
-# ifdef \_WIN32
-    {
-        int i = 0;
-        if (getenv(JLDEBUG_ENV_ENTRY) != NULL) {
-            printf(&quot;Windows original main args:\n&quot;);
-            for (i = 0 ; i &lt; __argc ; i++) {
-                printf(&quot;wwwd_args[%d] = %s\n&quot;, i, __argv[i]);
-            }
-        }
-    }
-    JLI_CmdToArgs(GetCommandLine());
-    margc = JLI_GetStdArgc();
-    // add one more to mark the end
-    margv = (char **)JLI_MemAlloc((margc + 1) * (sizeof(char *)));
-    {
-        int i = 0;
-        StdArg *stdargs = JLI_GetStdArgs();
-        for (i = 0 ; i &lt; margc ; i++) {
-            margv[i] = stdargs[i].arg;
-        }
-        margv[i] = NULL;
-    }
-# else /\* *NIXES */
-    margc = argc;
-    margv = argv;
-# endif /\* WIN32 \*/
-    return JLI_Launch(margc, margv,
-                   sizeof(const_jargs) / sizeof(char *), const_jargs,
-                   sizeof(const_appclasspath) / sizeof(char *), const_appclasspath,
-                   FULL_VERSION,
-                   DOT_VERSION,
-                   (const_progname != NULL) ? const_progname : *margv,
-                   (const_launcher != NULL) ? const_launcher : *margv,
-                   (const_jargs != NULL) ? JNI_TRUE : JNI_FALSE,
-                   const_cpwildcard, const_javaw, const_ergo_class);
-}
-</code></pre><ul>
-<li>随便打几个断点，点击运行,先不要急着一头扎进源码，快速让调试结束，如果终端输出如下，恭喜你已经完成了所有任务</li>
-</ul>
-<pre><code>Hello World !
-Program ended with exit code: 0
-</code></pre><p><br></p>
-<p><img src="https://ws1.sinaimg.cn/large/987832a0gy1fq4aw6xhmdj21kk17m1bi.jpg" alt=""></p>
-<p><br></p>
-<h4 id="start-the-world"><a href="#start-the-world" class="headerlink" title="start the world"></a>start the world</h4><ul>
-<li>接下来我们来调试 HotSpot，在hotspot目录下的jni.cpp中找到 JNI_CreateJavaVM</li>
-</ul>
-<pre><code>/Users/alberthumbert/jdk7u-dev/hotspot/src/share/vm/prims/jni.cpp
-</code></pre><ul>
-<li><p>也是随便打上断点，如果你上一步已经成功，那么现在所有的配置参数都不需要改变，直接调试即可</p>
+<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><ul>
+<li><p>api 和 compile 没有区别，也就是说 api会向外暴露它的依赖</p>
 </li>
-<li><p><strong> 现在，开始你的深入理解 java 虚拟机之旅吧 ！</strong></p>
+<li><p>如果 app 和 test 都是使用 api 来依赖各自的库，在 app 中可以调用到b库,但在 test 中无法调用 a 库，同时由于c库版本不同又重复依赖，所以会报错</p>
 </li>
 </ul>
-<p><br><br><br><br><br></p>
-<h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h3><p><strong> 废话很多，如果运气好，上面的流程都通过了，下面就不用看了</strong></p>
+<ul>
+<li>被编译组件依赖的组件如果又含有api依赖，那么所有这些 依赖都要被gradle检查，这会增加编译时间，同时使用api时需要注意重复的库版本必须一致</li>
+</ul>
 <p><br></p>
-<h4 id="ant-版本过低-1"><a href="#ant-版本过低-1" class="headerlink" title="ant 版本过低"></a>ant 版本过低</h4><pre><code>ERROR: The version of ant being used is older than
-   the required version of &apos;1.7.1&apos;.
-   The version of ant found was &apos;1.7.0&apos;.
-</code></pre><ul>
-<li>使用 ant -version ，如果发现版本确实过低，那么下载新版 ant 即可</li>
+<h3 id="implementation"><a href="#implementation" class="headerlink" title="implementation"></a>implementation</h3><ul>
+<li>implementation，和 compile 相反，它会对外屏蔽依赖</li>
 </ul>
 <ul>
-<li>然而我的机器上原先就没有 1.7.0 版本的 ant，反复使用 homebrew 安装了 ant，可以确定运行的 ant 版本是最新的，网上的说法是使用软连接将ant链接过去，看了一下源码，确实 openjdk 里面将 ant 目录写死在了/usr/bin/ant，问题是这个 ‘1.7.0’ 的ant到底是哪来的，为什么能找到这个版本的ant</li>
+<li>如果场景中全部使用 implementation ，则 app 可以使用 a 库，但不能使用b库，app 和 test 都能使用各自的c库而不报错</li>
 </ul>
-<pre><code>sudo ln -s Users/alberthumbert/Desktop/apache-ant-1.10.3/bin/ant /usr/bin/ant
-</code></pre><ul>
-<li>再看一下make sanity的输出, 上面是我下载的ant，1.10.3 ,但下面的 ANT_VER 却是 1.7.0，这么说来这个 ant 的版本可能跟我指定的 ant 没有关系</li>
-</ul>
-<pre><code>ANT_HOME = /Users/alberthumbert/Desktop/apache-ant-1.10.3
-…
-ANT_VER = 1.7.0 [requires at least 1.7.1]
-</code></pre><ul>
-<li>使用 mdfind 查找 这个ant version 是怎么来的，直接 mdfind “ANT_VER”</li>
-</ul>
-<pre><code>/Users/alberthumbert/jdk7u-dev/build.sh
-/Users/alberthumbert/jdk7u-dev/jaxp/src/com/sun/org/apache/xalan/internal/xslt/EnvironmentCheck.java
-/Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/org/apache/tools/ant/MagicNames.html
-/Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/index-all.html
-/Users/alberthumbert/Desktop/apache-ant-1.10.3/manual/api/constant-values.html
-</code></pre><ul>
-<li>上面这个 EnvironmentCheck.java 很可疑，打开看下，有个检查 ant 版本的方法，这里用到反射，理论上查找的就是 ANT_HOME 当中 ant.jar 里的类，还是不明所以</li>
-</ul>
-<pre><code>/\**    * Report product version information from Ant.
-  *    * @param h Hashtable to put information in
-  \*/
- protected void checkAntVersion(Hashtable h)
- {
-
-   if (null == h)
-     h = new Hashtable();
-
-   try
-   {
-     final String ANT_VERSION_CLASS = &quot;org.apache.tools.ant.Main&quot;;
-     final String ANT_VERSION_METHOD = &quot;getAntVersion&quot;; // noArgs
-     final Class noArgs[] = new Class[0];
-
-     Class clazz = ObjectFactory.findProviderClass(ANT_VERSION_CLASS, true);
-
-     Method method = clazz.getMethod(ANT_VERSION_METHOD, noArgs);
-     Object returnValue = method.invoke(null, new Object[0]);
-
-     h.put(VERSION + &quot;ant&quot;, (String)returnValue);
-   }
-   catch (Exception e)
-   {
-     h.put(VERSION + &quot;ant&quot;, CLASS_NOTPRESENT);
-   }
-   }
-</code></pre><ul>
-<li>尝试更换 boostrap jdk 版本，这次使用 1.8.0 然后发现 make sanity 通过了，而输出的配置列表中 ANT_VER 就等于 1.8.0    </li>
-</ul>
-<pre><code>ANT_VER = 1.8.0 [requires at least 1.7.1]
-</code></pre><ul>
-<li>下意识的想起之前使用的boostrap jdk 是1.7.0 而提示的 ANT_VER 就是1.7.0，看了下我的机子里还有 1.6.0 的 jdk ，那么用它来编译一下… 黑人问号.jpg ，所以这个 ant 版本就等于 jdk 版本 ？？？WTF ？？？</li>
-</ul>
-<pre><code>ERROR: The version of ant being used is older than
-   the required version of &apos;1.7.1&apos;.
-   The version of ant found was &apos;1.6.0.&apos;.
-</code></pre><ul>
-<li>总结一下，boostrap jdk 版本接近或者大于指定的ant版本，否则设定 ANT_HOME 没有作用，但是网上很多解决办法都是使用后者，可能是平台差异，具体原因不明, 推荐使用Oracle JDK 7u40</li>
+<ul>
+<li>被编译组件依赖的组件如果又含有implementation依赖，这些依赖会被忽略，因为它们对外是不可见的，准确的说编译时不可见，运行时可见</li>
 </ul>
 <p><br></p>
-<h4 id="Bootstrap-JDK-版本过高"><a href="#Bootstrap-JDK-版本过高" class="headerlink" title="Bootstrap JDK 版本过高"></a>Bootstrap JDK 版本过高</h4><ul>
-<li>如果你尝试使用 JDK 8 去编译 OpenJDK 7 ，那么肯定是行不通的，在 OpenJDK 7 当中，许多 ant 的配置中都指定了 -werror 参数，这个参数意味着参与编译的文件在编译过程中导致的 warnning 都会被视为 error ，而在用 javac 编译 java 文件时又由于 Bootstrap JDK 过高而出现大量的 warnning ，最典型的比如下面这个</li>
+<h3 id="compileOnly"><a href="#compileOnly" class="headerlink" title="compileOnly"></a>compileOnly</h3><ul>
+<li>compileOnly 和 provided 一致，编译时可见，运行时不可见</li>
 </ul>
-<pre><code>主版本 52 比 51 新, 此编译器支持最新的主版本。建议升级此编译器
-</code></pre><ul>
-<li>个人推荐 Oracle JDK 7u40 ，使用这个版本搭配 1.7.1 以上并接近这个版本的 ant</li>
+<ul>
+<li>test使用compileOnly依赖b库时，app不可以调用b库，同时如果test运行时调用了b库会崩溃，compileOnly主要用于只在编译期使用的库，如注解解释器</li>
+</ul>
+<ul>
+<li><p>compileOnly也可用于一些可配置的组件，需要某些功能时将compileOnly改为api对外开放，不需要时则使用compileOnly，不影响该组件的开发</p>
+</li>
+<li><p>compileOnly只在编译期存在不会将整个库打包到apk，合理使用compileOnly可以减小apk体积</p>
+</li>
 </ul>
 <p><br></p>
-<h4 id="OS-X-10-10-以上无法安装-Oracle-JDK"><a href="#OS-X-10-10-以上无法安装-Oracle-JDK" class="headerlink" title="OS X 10.10 以上无法安装 Oracle JDK"></a>OS X 10.10 以上无法安装 Oracle JDK</h4><ul>
-<li>本来是觉得不需要写这部分内容的，但mac上的 Oracle JDK 有个bug ，在安装旧版本的 jdk 时你可能会收到这样一条提示</li>
+<h3 id="runtimeOnly"><a href="#runtimeOnly" class="headerlink" title="runtimeOnly"></a>runtimeOnly</h3><ul>
+<li>这个就厉害了，运行时可见，编译时不可见，在开发时，使用runtimeOnly依赖的库和调用者是完全解耦的</li>
 </ul>
-<pre><code>Java from Oracle requires Mac OS X 10.7.3 or later.
-Your system has Mac OS X Version 10.11.6. This product can be installed on Version 10.7.3 or later.
-Visit java.com/help for more information.
-</code></pre><ul>
-<li><p>MDZZ，多么清奇的脑回路，而且这个问题直到 JDK 8 的一些版本都存在，但是我们说过 Bootstrap JDK 版本不能过高，那么怎么安装这个JDK呢，无奈只好帮Oracle 修一波 bug</p>
-</li>
-<li><p>在 dmg 加载上来之后，用下面命令解压安装包, 第一个路径是你的 dmg 文件，第二个路径是解压目录的目标地址，命名随意</p>
-</li>
+<ul>
+<li>runtimeOnly主要用于组件化开发，本文不涉及这部分内容，所以略过</li>
 </ul>
-<pre><code>pkgutil --expand /Volumes/JDK\ 7\ Update\ 40/JDK\ 7\ Update\ 40.pkg
-</code></pre><ul>
-<li>进入解压目录在 Distribution 文件中找到 pm_instal_check() 函数，用什么方法都好，总之让它返回 true</li>
+<p><br></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>debugImplementation，releaseImplementation，testImplementation，这三个就好懂了，使用这三者进行依赖，被依赖的库只会在debug包，release包，和单元测试时有效</li>
 </ul>
-<pre><code>function pm\_install\_check() {
-//就是这么粗暴
-  return true;
-}
-</code></pre><ul>
-<li>重新打包, 然后用这个新的dmg进行安装即可</li>
-</ul>
-<pre><code>pkgutil --flatten /Users/alberthumbert/Desktop/740.unpkg /Users/alberthumbert/Desktop/jdk740.pkg
-</code></pre>
+<p><br></p>
+<p><br></p>
+<p><strong>全文完</strong></p>
+
     
 
     
@@ -985,7 +620,7 @@ Visit java.com/help for more information.
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/05/17/OperatingSystem/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/05/24/LiveData/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -999,7 +634,7 @@ Visit java.com/help for more information.
 
     <!-- Next Nav -->
     
-        <a href="/2018/03/29/ComputerNetwork/" id="post_nav-older" class="next-content">
+        <a href="/2018/05/17/OperatingSystem/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
