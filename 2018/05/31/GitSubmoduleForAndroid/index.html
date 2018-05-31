@@ -12,7 +12,7 @@
     
     <title>
         
-            Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项 | 
+            在 Android 项目中使用 git submodule | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项 | Albert&#39;s Blog">
+    <meta property="og:title" content="在 Android 项目中使用 git submodule | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="12月 09, 2017" />
-        <meta property="article:modified_time" content="12月 10, 2017" />
+        <meta property="article:published_time" content="5月 31, 2018" />
+        <meta property="article:modified_time" content="5月 31, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="在 Android 项目中使用 git submodule | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项",
-    "url": "https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html",
-    "datePublished": "12月 09, 2017",
-    "dateModified": "12月 10, 2017",
+    "headline": "在 Android 项目中使用 git submodule",
+    "url": "https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html",
+    "datePublished": "5月 31, 2018",
+    "dateModified": "5月 31, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么使用Gdal"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">为什么使用Gdal</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于Shape"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">关于Shape</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于编译"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">关于编译</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#submodule-命令概览"><span class="post-toc-number">1.</span> <span class="post-toc-text">submodule 命令概览</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加子模块-git-submodule-add"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">添加子模块 git submodule add</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化子模块"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">初始化子模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新子模块"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">更新子模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除子模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">删除子模块</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项
+                在 Android 项目中使用 git submodule
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>12月 09, 2017</span>
+        <span>5月 31, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项&url=https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=在 Android 项目中使用 git submodule&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项&url=https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=在 Android 项目中使用 git submodule&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html&title=Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&title=在 Android 项目中使用 git submodule" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=在 Android 项目中使用 git submodule&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/12/09/makeFuckingGdalSo/index.html&text=Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&text=在 Android 项目中使用 git submodule" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,89 +503,95 @@
     
         <p>-</p>
 <a id="more"></a>
+<p><strong>简单记录一下 如何在 Android 项目中使用 git 的模块化管理</strong></p>
 <p><br></p>
-<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><ul>
-<li>目前编译出来的so包只能兼容 Android 5.0 及以上的系统</li>
-</ul>
-<ul>
-<li>网络上有编译好并且兼容Android 4.4的so包可以直接拿来用，这些so包都是armeabi-v7a的，目前绝大部分手机都是ARMv7架构，当前项目使用的设备也是ARMv7的，因此暂时没有问题</li>
-</ul>
-<ul>
-<li>由于pc端一般是x86或x86_64架构的处理器，因此虚拟机也是x86或x86_64架构，因此调试阶段先加入x86的so，正式版本中会移除</li>
-</ul>
+<h2 id="submodule-命令概览"><a href="#submodule-命令概览" class="headerlink" title="submodule 命令概览"></a>submodule 命令概览</h2><p><strong>这一部分是通用的 git 命令，因为对新手来说这部分命令基本不常用甚至没有听说过，所以在这里先介绍一下</strong></p>
 <p><br></p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><br></p>
-<h3 id="为什么使用Gdal"><a href="#为什么使用Gdal" class="headerlink" title="为什么使用Gdal"></a>为什么使用Gdal</h3><ul>
-<li>就目前所知Java平台的地理数据文件的处理工具主要有GeoTools，ArcGIS Runtime SDK 以及 Gdal</li>
+<h3 id="添加子模块-git-submodule-add"><a href="#添加子模块-git-submodule-add" class="headerlink" title="添加子模块 git submodule add"></a>添加子模块 git submodule add</h3><ul>
+<li>添加一个子模块 使用 git submodule add 仓库地址</li>
 </ul>
-<ul>
-<li>GeoTools的jar文件至少有70mb，虽然可以精简，但核心部分依赖了Java的awt库，awt库无法再Android上使用直接导致crash</li>
-</ul>
-<ul>
-<li>ArcGIS Runtime SDK 的大小没有了解过，估计也小不到哪里去，ArcGIS 可以读取shp文件，但是不能直接修改和创建shp，而且ArcGIS 读取shp也是通过Gdal实现的</li>
-</ul>
-<ul>
-<li>Gdal 精简并且支持多种地理数据文件的操作，社区活跃度也很高，就在写这篇文章的上个月还发布了新的稳定版，但是和其他工具一样，Gdal并不针对 Android开发，因此为了能够在Android平台上使用，编译过程比较复杂</li>
-</ul>
-<p><br></p>
-<h3 id="关于Shape"><a href="#关于Shape" class="headerlink" title="关于Shape"></a>关于Shape</h3><ul>
-<li>Shape文件至少包含三个后缀不同的文件，.shp .dbf .shx</li>
-</ul>
-<ul>
-<li>类似 Gdal和GeoTools等工具可以只读取其中一个文件，如shp和dbf，但是导入文件的时候注意全部导入，否则某些数据将会缺失</li>
-</ul>
-<ul>
-<li>Gdal 支持 shp 和 KML，GeoJson 直接互换，KML实际上是一种专门的XML规范，GeoJson则是Json的规范，如果自行解析，可以直接将其视为XML和Json</li>
-</ul>
-<p><br></p>
-<h3 id="关于编译"><a href="#关于编译" class="headerlink" title="关于编译"></a>关于编译</h3><ul>
-<li>请在Linux上按照<a href="http://www.jianshu.com/p/b6899345d18e" title="这篇文章" target="_blank" rel="external">这篇文章</a>的流程进行编译，作者写得十分详细</li>
-</ul>
-<ul>
-<li>x86 交叉编译的配置参考如下,其他abi请自行推断CC 和CXX参数</li>
-</ul>
-<pre><code>export NDK\_HOME=/home/parallels/albert/Android/android-ndk-r14b
- export PATH=$NDK\_HOME:$PATH
- export TOOLCHAIN\_HOME=/home/parallels/Android/android-toolchain/x86
- export PATH=$TOOLCHAIN\_HOME/bin:$PATH
- export LIBS=&quot;-lstdc++ -lgnustl\_shared&quot;
- export CC=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-gcc-4.9
- export CXX=/home/parallels/Android/android-toolchain/x86/bin/i686-linux-android-g++
- export CXXFLAGS=&quot;-march=i686&quot;
- export CFLAGS=&quot;-march=i686&quot;
- export LDFLAGS=&quot;-march=i686&quot;
+<pre><code>git submodule add https://github.com/AlbertHumbert/submodule-test-1.git
 </code></pre><ul>
-<li>./configure 阶段如果报错，务必在configure.log中查看详细的错误信息</li>
+<li>不出意外当前仓库会出现子模块的目录和一份 .gitModule 文件,它保存了远程仓库与本地目录之间的映射，注意它和 .gitignore 文件一样会收到版本控制的影响</li>
 </ul>
-<ul>
-<li>在 gdal 2.0.3版本以下会出现  x86_64-unknown-linux-gnu 错误，无法检测到编译平台，这里需要更新 gdal源文件的config.guess和config.sub文件，可以在<a href="http://git.savannah.gnu.org/gitweb/?p=config.git;a=tree" title="这里" target="_blank" rel="external">这里</a>获取</li>
-</ul>
-<ul>
-<li>使用APP_PLATFORM = 19 编译无法通过，这是由于signal和atof等库或函数在21以下不存在，将APP_PLATFORM下调至8可以通过，但是运行时可能出现链接错误，暂时没有找到解决办法</li>
-</ul>
-<ul>
-<li>其中由于库或函数不存在而出错的源文件如下,可以考虑直接修改源文件，如atof可以修改strtod(nptr, NULL)</li>
-</ul>
-<pre><code>gxf\_ogcwkt.c
-
-hf2dataset.cpp
-
-tif\_luv.c
-
-cpl\_strtod.cpp
-
-gdalwarper.cpp
-
-gdalnodatamaskband.cpp
-
-ilwisdataset.cpp
-
-cpl\_spawn.cpp
+<pre><code>[submodule &quot;submodule-test-1&quot;]
+    path = submodule-test-1
+    url = https://github.com/AlbertHumbert/submodule-test-1.git
 </code></pre><ul>
-<li>使用低版本源码有时在swig目录中make出错，本人是直接忽略的，gdal社区中有人给出的建议是调低swig版本，实际使用发现一般swig正常生成jar包可以通用，可能是由于绝大部分接口的定义都是一致的</li>
+<li>这里继续添加两个仓库</li>
 </ul>
+<pre><code>[submodule &quot;submodule-test-1&quot;]
+    path = submodule-test-1
+    url = https://github.com/AlbertHumbert/submodule-test-1.git
+[submodule &quot;submodule-test-2&quot;]
+    path = submodule-test-2
+    url = https://github.com/AlbertHumbert/submodule-test-2.git
+[submodule &quot;submodule-test-3&quot;]
+    path = submodule-test-3
+    url = https://github.com/AlbertHumbert/submodule-test-3.git
+</code></pre><ul>
+<li><p>被添加的仓库会作为特殊的提交记录，而不是一个硬盘快照,这里的 160000 是这种特殊类型的标记</p>
+<p>  $ git commit -m “add module 1 2 3”<br>  [master 3fc2889] add module 1 2 3<br>   5 files changed, 12 insertions(+)<br>   create mode 100644 .DS_Store<br>   create mode 100644 .gitmodules<br>   create mode 160000 submodule-test-1<br>   create mode 160000 submodule-test-2<br>   create mode 160000 submodule-test-3</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="初始化子模块"><a href="#初始化子模块" class="headerlink" title="初始化子模块"></a>初始化子模块</h3><ul>
+<li>一个模块化管理的 git 项目同样使用 clone 命令拉取</li>
+</ul>
+<pre><code>git clone https://github.com/AlbertHumbert/module-test-main.git
+</code></pre><ul>
+<li>克隆之后直属于该项目的文件会被直接拉取，但子模块只是一个空目录，需要手动拉取，首先初始化子模块仓库</li>
+</ul>
+<pre><code>git submodule init
+</code></pre><p>‘</p>
 <ul>
-<li>正式发版时记得将x86的so文件移除</li>
+<li>然后拉取子仓库的提交记录,现在子模块就不为空了</li>
+</ul>
+<pre><code>git submodule update
+</code></pre><ul>
+<li>上面的三条命令可以简化为下面这一条，命令提示中给出的 –recursive 的作用是 initialize all contained submodules,初始化所有被囊括的子模块</li>
+</ul>
+<pre><code>git clone --recursive https://github.com/AlbertHumbert/module-test-main.git
+</code></pre><p><br></p>
+<h3 id="更新子模块"><a href="#更新子模块" class="headerlink" title="更新子模块"></a>更新子模块</h3><ul>
+<li>使用 git submodule update 可以更新所有子模块，但这个命令实际上非常的坑，很让人费解，它的实际作用是直接 checkout 本地的指定远程分支上最新的 commit ，这样会导致当前工作区处于游离状态</li>
+</ul>
+<pre><code>$ git status
+HEAD detached at 2a70dd5
+nothing to commit, working directory clean
+</code></pre><ul>
+<li>如果本地的指定远程分支状态和远程仓库上的一致，那么只需要在当前游离的指针创建一个分支,然后将其合并到需要的分支即可，这里不再赘述了</li>
+</ul>
+<pre><code>git branch tmp 2a70dd5
+</code></pre><ul>
+<li>正确的做法是使用 git submodule update –remote –merge , 它可以自动拉取和合并指定分支</li>
+</ul>
+<pre><code>git submodule update --remote --merge #更新所有子模块
+git submodule update --remote --merge 子模块名 #更新指定模块
+</code></pre><ul>
+<li>刚刚多次提到指定分支这个概念，在没有配置的情况下，这个指定分支就是 master ，可以通过 .gitmodule 进行配置</li>
+</ul>
+<pre><code>[submodule &quot;submodule-test-1&quot;]
+    path = submodule-test-1
+    url = https://github.com/AlbertHumbert/submodule-test-1.git
+    branch = master
+[submodule &quot;submodule-test-2&quot;]
+    path = submodule-test-2
+    url = https://github.com/AlbertHumbert/submodule-test-2.git
+    branch = dev
+[submodule &quot;submodule-test-3&quot;]
+    path = submodule-test-3
+    url = https://github.com/AlbertHumbert/submodule-test-3.git
+    branch = release
+</code></pre><ul>
+<li>如果有多个分支需要更新，可以使用 foreach 操作</li>
+</ul>
+<pre><code>git submodule foreach git checkout master 
+git submodule foreach git pull
+</code></pre><p><br></p>
+<h3 id="删除子模块"><a href="#删除子模块" class="headerlink" title="删除子模块"></a>删除子模块</h3><ul>
+<li>删除 gitmodules 和 .git/config,</li>
+<li>然后执行 git rm –cached 模块名即可</li>
 </ul>
 
     
@@ -606,21 +612,13 @@ cpl\_spawn.cpp
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/12/30/Hungarian-translate/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/11/17/Jni/" id="post_nav-older" class="next-content">
+        <a href="/2018/05/25/GitFlowModel/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

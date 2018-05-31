@@ -3,6 +3,118 @@
   
     
     <entry>
+      <title><![CDATA[在 Android 项目中使用 git submodule]]></title>
+      <url>/2018/05/31/GitSubmoduleForAndroid/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>简单记录一下 如何在 Android 项目中使用 git 的模块化管理</strong></p>
+<p><br></p>
+<h2 id="submodule-命令概览"><a href="#submodule-命令概览" class="headerlink" title="submodule 命令概览"></a>submodule 命令概览</h2><p><strong>这一部分是通用的 git 命令，因为对新手来说这部分命令基本不常用甚至没有听说过，所以在这里先介绍一下</strong></p>
+<p><br></p>
+<h3 id="添加子模块-git-submodule-add"><a href="#添加子模块-git-submodule-add" class="headerlink" title="添加子模块 git submodule add"></a>添加子模块 git submodule add</h3><ul>
+<li>添加一个子模块 使用 git submodule add 仓库地址</li>
+</ul>
+<pre><code>git submodule add https://github.com/AlbertHumbert/submodule-test-1.git
+</code></pre><ul>
+<li>不出意外当前仓库会出现子模块的目录和一份 .gitModule 文件,它保存了远程仓库与本地目录之间的映射，注意它和 .gitignore 文件一样会收到版本控制的影响</li>
+</ul>
+<pre><code>[submodule &quot;submodule-test-1&quot;]
+    path = submodule-test-1
+    url = https://github.com/AlbertHumbert/submodule-test-1.git
+</code></pre><ul>
+<li>这里继续添加两个仓库</li>
+</ul>
+<pre><code>[submodule &quot;submodule-test-1&quot;]
+    path = submodule-test-1
+    url = https://github.com/AlbertHumbert/submodule-test-1.git
+[submodule &quot;submodule-test-2&quot;]
+    path = submodule-test-2
+    url = https://github.com/AlbertHumbert/submodule-test-2.git
+[submodule &quot;submodule-test-3&quot;]
+    path = submodule-test-3
+    url = https://github.com/AlbertHumbert/submodule-test-3.git
+</code></pre><ul>
+<li><p>被添加的仓库会作为特殊的提交记录，而不是一个硬盘快照,这里的 160000 是这种特殊类型的标记</p>
+<p>  $ git commit -m “add module 1 2 3”<br>  [master 3fc2889] add module 1 2 3<br>   5 files changed, 12 insertions(+)<br>   create mode 100644 .DS_Store<br>   create mode 100644 .gitmodules<br>   create mode 160000 submodule-test-1<br>   create mode 160000 submodule-test-2<br>   create mode 160000 submodule-test-3</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="初始化子模块"><a href="#初始化子模块" class="headerlink" title="初始化子模块"></a>初始化子模块</h3><ul>
+<li>一个模块化管理的 git 项目同样使用 clone 命令拉取</li>
+</ul>
+<pre><code>git clone https://github.com/AlbertHumbert/module-test-main.git
+</code></pre><ul>
+<li>克隆之后直属于该项目的文件会被直接拉取，但子模块只是一个空目录，需要手动拉取，首先初始化子模块仓库</li>
+</ul>
+<pre><code>git submodule init
+</code></pre><p>‘</p>
+<ul>
+<li>然后拉取子仓库的提交记录,现在子模块就不为空了</li>
+</ul>
+<pre><code>git submodule update
+</code></pre><ul>
+<li>上面的三条命令可以简化为下面这一条，命令提示中给出的 –recursive 的作用是 initialize all contained submodules,初始化所有被囊括的子模块</li>
+</ul>
+<pre><code>git clone --recursive https://github.com/AlbertHumbert/module-test-main.git
+</code></pre><p><br></p>
+<h3 id="更新子模块"><a href="#更新子模块" class="headerlink" title="更新子模块"></a>更新子模块</h3><ul>
+<li>使用 git submodule update 可以更新所有子模块，但这个命令实际上非常的坑，很让人费解，它的实际作用是直接 checkout 本地的指定远程分支上最新的 commit ，这样会导致当前工作区处于游离状态</li>
+</ul>
+<pre><code>$ git status
+HEAD detached at 2a70dd5
+nothing to commit, working directory clean
+</code></pre><ul>
+<li>如果本地的指定远程分支状态和远程仓库上的一致，那么只需要在当前游离的指针创建一个分支,然后将其合并到需要的分支即可，这里不再赘述了</li>
+</ul>
+<pre><code>git branch tmp 2a70dd5
+</code></pre><ul>
+<li>正确的做法是使用 git submodule update –remote –merge , 它可以自动拉取和合并指定分支</li>
+</ul>
+<pre><code>git submodule update --remote --merge #更新所有子模块
+git submodule update --remote --merge 子模块名 #更新指定模块
+</code></pre><ul>
+<li>刚刚多次提到指定分支这个概念，在没有配置的情况下，这个指定分支就是 master ，可以通过 .gitmodule 进行配置</li>
+</ul>
+<pre><code>[submodule &quot;submodule-test-1&quot;]
+    path = submodule-test-1
+    url = https://github.com/AlbertHumbert/submodule-test-1.git
+    branch = master
+[submodule &quot;submodule-test-2&quot;]
+    path = submodule-test-2
+    url = https://github.com/AlbertHumbert/submodule-test-2.git
+    branch = dev
+[submodule &quot;submodule-test-3&quot;]
+    path = submodule-test-3
+    url = https://github.com/AlbertHumbert/submodule-test-3.git
+    branch = release
+</code></pre><ul>
+<li>如果有多个分支需要更新，可以使用 foreach 操作</li>
+</ul>
+<pre><code>git submodule foreach git checkout master 
+git submodule foreach git pull
+</code></pre><p><br></p>
+<h3 id="删除子模块"><a href="#删除子模块" class="headerlink" title="删除子模块"></a>删除子模块</h3><ul>
+<li>删除 gitmodules 和 .git/config,</li>
+<li>然后执行 git rm –cached 模块名即可</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[基于 Git Flow 模型的工作流程]]></title>
       <url>/2018/05/25/GitFlowModel/</url>
       <content type="html"><![CDATA[<p>-</p>
