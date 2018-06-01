@@ -12,7 +12,7 @@
     
     <title>
         
-            在 Android 项目中使用 git submodule | 
+            在 Android 项目中使用 git submodule 与 ARounter | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="在 Android 项目中使用 git submodule | Albert&#39;s Blog">
+    <meta property="og:title" content="在 Android 项目中使用 git submodule 与 ARounter | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="5月 31, 2018" />
-        <meta property="article:modified_time" content="5月 31, 2018" />
+        <meta property="article:modified_time" content="6月 01, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="在 Android 项目中使用 git submodule | Albert&#39;s Blog">
+    <meta name="twitter:title" content="在 Android 项目中使用 git submodule 与 ARounter | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "在 Android 项目中使用 git submodule",
+    "headline": "在 Android 项目中使用 git submodule 与 ARounter",
     "url": "https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html",
     "datePublished": "5月 31, 2018",
-    "dateModified": "5月 31, 2018",
+    "dateModified": "6月 01, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#submodule-命令概览"><span class="post-toc-number">1.</span> <span class="post-toc-text">submodule 命令概览</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加子模块-git-submodule-add"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">添加子模块 git submodule add</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化子模块"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">初始化子模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新子模块"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">更新子模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除子模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">删除子模块</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#submodule-命令概览"><span class="post-toc-number">1.</span> <span class="post-toc-text">submodule 命令概览</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加子模块-git-submodule-add"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">添加子模块 git submodule add</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化子模块"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">初始化子模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新子模块"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">更新子模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除子模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">删除子模块</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在-Android-项目中使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">在 Android 项目中使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建-module"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">创建 module</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-module"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">配置 module</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                在 Android 项目中使用 git submodule
+                在 Android 项目中使用 git submodule 与 ARounter
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=在 Android 项目中使用 git submodule&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=在 Android 项目中使用 git submodule 与 ARounter&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=在 Android 项目中使用 git submodule&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=在 Android 项目中使用 git submodule 与 ARounter&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&title=在 Android 项目中使用 git submodule" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&title=在 Android 项目中使用 git submodule 与 ARounter" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=在 Android 项目中使用 git submodule&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=在 Android 项目中使用 git submodule 与 ARounter&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&text=在 Android 项目中使用 git submodule" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/index.html&text=在 Android 项目中使用 git submodule 与 ARounter" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,7 +503,7 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><strong>简单记录一下 如何在 Android 项目中使用 git 的模块化管理</strong></p>
+<p><strong>简单记录一下 如何在 Android 项目中使用 git 的模块化管理, 本文的主要内容是 git submodule 而不是 ARounter，想学习 ARounter 的使用方法直接去看官方文档更快</strong></p>
 <p><br></p>
 <h2 id="submodule-命令概览"><a href="#submodule-命令概览" class="headerlink" title="submodule 命令概览"></a>submodule 命令概览</h2><p><strong>这一部分是通用的 git 命令，因为对新手来说这部分命令基本不常用甚至没有听说过，所以在这里先介绍一下</strong></p>
 <p><br></p>
@@ -530,11 +530,17 @@
     path = submodule-test-3
     url = https://github.com/AlbertHumbert/submodule-test-3.git
 </code></pre><ul>
-<li><p>被添加的仓库会作为特殊的提交记录，而不是一个硬盘快照,这里的 160000 是这种特殊类型的标记</p>
-<p>  $ git commit -m “add module 1 2 3”<br>  [master 3fc2889] add module 1 2 3<br>   5 files changed, 12 insertions(+)<br>   create mode 100644 .DS_Store<br>   create mode 100644 .gitmodules<br>   create mode 160000 submodule-test-1<br>   create mode 160000 submodule-test-2<br>   create mode 160000 submodule-test-3</p>
-</li>
+<li>被添加的仓库会作为特殊的提交记录，而不是一个硬盘快照,这里的 160000 是这种特殊类型的标记</li>
 </ul>
-<p><br></p>
+<pre><code>    $ git commit -m &quot;add module 1 2 3&quot;
+\[master 3fc2889] add module 1 2 3
+ 5 files changed, 12 insertions(+)
+ create mode 100644 .DS\_Store
+ create mode 100644 .gitmodules
+ create mode 160000 submodule-test-1
+ create mode 160000 submodule-test-2
+ create mode 160000 submodule-test-3
+</code></pre><p><br></p>
 <h3 id="初始化子模块"><a href="#初始化子模块" class="headerlink" title="初始化子模块"></a>初始化子模块</h3><ul>
 <li>一个模块化管理的 git 项目同样使用 clone 命令拉取</li>
 </ul>
@@ -590,9 +596,51 @@ git submodule foreach git pull
 </code></pre><p><br></p>
 <h3 id="删除子模块"><a href="#删除子模块" class="headerlink" title="删除子模块"></a>删除子模块</h3><ul>
 <li>删除 gitmodules 和 .git/config,</li>
-<li>然后执行 git rm –cached 模块名即可</li>
+<li>然后执行 git rm –cached 模块名</li>
+<li>最后执行 rm -rf .git/modules/模块名</li>
 </ul>
+<p><br></p>
+<h2 id="在-Android-项目中使用"><a href="#在-Android-项目中使用" class="headerlink" title="在 Android 项目中使用"></a>在 Android 项目中使用</h2><p><br></p>
+<h3 id="创建-module"><a href="#创建-module" class="headerlink" title="创建 module"></a>创建 module</h3><p><strong>从这里开始，本文中的 module 即指 git 中的 submodule 也指 Android 项目中的 module、模块、组件</strong></p>
+<ul>
+<li>首先在 AS 中创建一个 module ，注意如果弹出询问是否跟踪这些新文件的弹窗，直接取消，因为我们只要把这些文件添加到新的远程仓库（对于子模块依赖的远程仓库，下文直接称之为子仓库）</li>
+</ul>
+<ul>
+<li>在 github，gitlab，coding 或者任意服务器上创建子仓库，注意项目名应该与子模块的目录名一致，某则 git 无法识别其为子模块的仓库 </li>
+</ul>
+<ul>
+<li>然后在本地添加依赖，常见操作就不解释了</li>
+</ul>
+<pre><code>git init
+git commit -m &quot;init&quot; 
+git remote add origin https://git.coding.net/AlbertHumbert/basemodule.git  
+git push -u origin master   
+</code></pre><ul>
+<li>在项目根目录添加这个子模块的信息，这里我们看到这里将已有的远程仓库添加到记录当中了</li>
+</ul>
+<pre><code>$ git submodule add https://git.coding.net/AlbertHumbert/basemodule.git 
+Adding existing repo at &apos;basemodule&apos; to the index
+</code></pre><p><br></p>
+<h3 id="配置-module"><a href="#配置-module" class="headerlink" title="配置 module"></a>配置 module</h3><ul>
+<li>在 basemodule 中添加 ARouter 的依赖,这里使用 exclude，避免与我们的 support 库产生冲突，ARouter 只由一个模块去依赖就好</li>
+</ul>
+<pre><code>implementation (&apos;com.alibaba:arouter-api:1.2.4&apos;){
+    exclude module: &apos;support-v4&apos;
+}
+annotationProcessor &apos;com.alibaba:arouter-compiler:1.2.4&apos;
+</code></pre><ul>
+<li>在项目根目录的 gradle.properties 中添加全局标志位，当需要单独编译某个模块，设其为真，当需要集成整个项目时设其为假,同时在各个模块的 build.gradle 中判断该模块应该当做 Library 还是 Application</li>
+</ul>
+<pre><code># gradle.properties
+isSingleBuildModule = false
 
+# 
+if (isSingleBuildModule.toBoolean()) {
+    apply plugin: &apos;com.android.application&apos;
+} else {
+    apply plugin: &apos;com.android.library&apos;
+}
+</code></pre>
     
 
     
