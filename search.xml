@@ -15008,7 +15008,7 @@ public void onStartCommand(Intent intent, int flags,int startId){
     <entry>
       <title><![CDATA[Core Java 笔记]]></title>
       <url>/2017/03/26/JavaCore/</url>
-      <content type="html"><![CDATA[<p>onRestart</p>
+      <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <h1 id="Core-Java-卷-1"><a href="#Core-Java-卷-1" class="headerlink" title="Core Java 卷 1"></a>Core Java 卷 1</h1><p><strong>（待续…）</strong></p>
 <h2 id="第四章：类与对象"><a href="#第四章：类与对象" class="headerlink" title="第四章：类与对象"></a>第四章：类与对象</h2><h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><ul>
@@ -15133,9 +15133,7 @@ import java.util.Date;//指明选定的类
 <li><p>扩展抽象类时定义部分或者不定义抽象方法，就必须把子类标记为抽象;定义全部抽象方法，则子类不再抽象</p>
 </li>
 <li>抽象类的非抽象方法可用不重写</li>
-<li>可以定义一个抽象类的引用对象，但它只能引用非抽象子类的对象（多态）</li>
-</ul>
-<h3 id="受保护访问"><a href="#受保护访问" class="headerlink" title="受保护访问"></a>受保护访问</h3><ul>
+<li>可以定义一个抽象类的引用对象，但它只能引用非抽象子类的对象（多态）<h3 id="受保护访问"><a href="#受保护访问" class="headerlink" title="受保护访问"></a>受保护访问</h3></li>
 <li>protected让类对本包和所有子类可见</li>
 <li>prtected允许方法或域被子类访问</li>
 </ul>
@@ -15195,8 +15193,7 @@ import java.util.Date;//指明选定的类
 <li>输入输出异常，IOException，包括：试图在文件尾部后面读取数据，试图打开一个不存在的文件，试图根据给定的字符串查找不存在的class对象等等</li>
 <li>自己编写方法时不必声明所有抛出的异常，但必须声明所有可能抛出的受查异常，如果没有声明所有的受查异常，编译器将报错</li>
 <li>如果一个方法声明将会抛出一个特定类型的异常，那么结果它可能抛出这个类型或其子类的异常</li>
-<li><p>抛出已存在异常类的步骤：找到一个合适的异常类，创造这个类的一个对象，将对象抛出  </p>
-<pre><code>String readData(Scanner in)throws EOFException
+<li>抛出已存在异常类的步骤：找到一个合适的异常类，创造这个类的一个对象，将对象抛出  <pre><code>String readData(Scanner in)throws EOFException
 {
 ...
 while(...)
@@ -15218,11 +15215,8 @@ while(...)
         super(gripe);
     }
 }
-</code></pre></li>
-</ul>
-<h3 id="异常语块"><a href="#异常语块" class="headerlink" title="异常语块"></a>异常语块</h3><ul>
-<li><p>使用try/catch语块，如果try中的任何代码抛出了catch说明的异常类，那么try中剩余的语句将被跳过，执行catch中的处理器代码</p>
-<pre><code>try
+</code></pre><h3 id="异常语块"><a href="#异常语块" class="headerlink" title="异常语块"></a>异常语块</h3></li>
+<li>使用try/catch语块，如果try中的任何代码抛出了catch说明的异常类，那么try中剩余的语句将被跳过，执行catch中的处理器代码<pre><code>try
 {
     code
     more code
@@ -15278,10 +15272,8 @@ finally
     in.close
 }
 </code></pre></li>
-<li><p>当利用return语句在try中退出时，finally字句中的内容将被执行，如果finally语句中含有return，返回值将被后者覆盖</p>
-</li>
-<li><p>带资源的try语句，假设资源属于一个实现了AutoCloseable接口的类，try块退出时会自动调用声明了异常的close方法，因此用于关闭资源的finally语句可以省略，另外可以指定多个资源</p>
-<pre><code>try(Resoure res = ...)
+<li>当利用return语句在try中退出时，finally字句中的内容将被执行，如果finally语句中含有return，返回值将被后者覆盖</li>
+<li>带资源的try语句，假设资源属于一个实现了AutoCloseable接口的类，try块退出时会自动调用声明了异常的close方法，因此用于关闭资源的finally语句可以省略，另外可以指定多个资源<pre><code>try(Resoure res = ...)
 {
         work with res
 }
@@ -15378,17 +15370,14 @@ String middle = ArrayAlg.&lt;String&gt;getMiddle(&quot;John&quot;,&quot;Q&quot;,
 </li>
 </ul>
 <h3 id="类型变量的限定"><a href="#类型变量的限定" class="headerlink" title="类型变量的限定"></a>类型变量的限定</h3><ul>
-<li><p>有时要确信所属的类具有特定的IS-A关系，可以使用限定变量类型</p>
-<pre><code>public static &lt; T extends Comparable &gt; T min( T[] a)
+<li>有时要确信所属的类具有特定的IS-A关系，可以使用限定变量类型<pre><code>public static &lt; T extends Comparable &gt; T min( T[] a)
 {
     code for someting...
 }
 </code></pre></li>
 <li>类型变量和绑定类型可以是类也可以是接口，都使用extends关键字</li>
-<li><p>一个类型变量或通配符可以有多个限定，如果用作为限定，它一定是列表中的第一个</p>
-<pre><code>T extends Comparable &amp; Serializable
-</code></pre><p>* </p>
-</li>
+<li>一个类型变量或通配符可以有多个限定，如果用作为限定，它一定是列表中的第一个<pre><code>T extends Comparable &amp; Serializable
+</code></pre>* </li>
 </ul>
 <p><strong>(待续…)</strong></p>
 <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h3><ul>
@@ -15550,8 +15539,7 @@ setIconImage(img);
 
 }
 </code></pre><ul>
-<li><p>新建一个框架，需要注意以下步骤</p>
-<pre><code>JFrame frame = new SizedFrame();
+<li>新建一个框架，需要注意以下步骤<pre><code>JFrame frame = new SizedFrame();
 frame.setTitle(&quot;SizedFrame&quot;);
 //设置标题栏的文字frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //定义关闭的响应动作
@@ -15616,8 +15604,7 @@ if()....
 <li>使用panel.revalidate方法会重新计算所有组件的大小，然后立即重新布局</li>
 </ul>
 <h3 id="文本域-JTextField"><a href="#文本域-JTextField" class="headerlink" title="文本域 JTextField"></a>文本域 JTextField</h3><ul>
-<li><p>文本域只能接受单行输入</p>
-<pre><code>JPanel textPanel=new JPanel();
+<li>文本域只能接受单行输入<pre><code>JPanel textPanel=new JPanel();
 JTextField textField = new JTextField(&quot;default input&quot;,20);
 //设置初始输入和显示长度
 textPanel.add(textField);
@@ -15651,11 +15638,12 @@ textArea.setLineWrap(true);
 </ul>
 <h3 id="滚动窗格-JScrollPane"><a href="#滚动窗格-JScrollPane" class="headerlink" title="滚动窗格 JScrollPane"></a>滚动窗格 JScrollPane</h3><ul>
 <li>这是一种为任意组件添加滚动功能的机制，不是文本区特有</li>
-<li>滚动条会自动出现自动消失，无需另外编写程序</li>
-</ul>
+<li><p>滚动条会自动出现自动消失，无需另外编写程序</p>
 <pre><code>JScrollPane scrollPane = new JScrollPane(textArea);
 frame.add(scrollPane,BorderLayout.CENTER);
-</code></pre><h3 id="复选框-JCheckBox"><a href="#复选框-JCheckBox" class="headerlink" title="复选框 JCheckBox"></a>复选框 JCheckBox</h3><ul>
+</code></pre></li>
+</ul>
+<h3 id="复选框-JCheckBox"><a href="#复选框-JCheckBox" class="headerlink" title="复选框 JCheckBox"></a>复选框 JCheckBox</h3><ul>
 <li>用户点击复选框会激发一个事件</li>
 <li>通常为多个复选框选定共同的监听器</li>
 <li><p>用isSelected方法获取复选框状态</p>
@@ -15761,8 +15749,7 @@ t.start();
 <li>完成流读写时应该通过调用close方法来关闭它，这个调用会释放掉十分有限的操作系统资源</li>
 <li>完整的流家族，与c单一的FILE * 类型不同，java的流家族包含各种流类型，数量超过60个</li>
 <li>FileInputStream和FileOutStream可以提供一个附在磁盘上的输入流和输出流，所有提供的相对路径名解释以用户工作目录开始</li>
-<li><p>组合流过滤器，流可自由组合，将希望得到的流置于最外层，中间的流只是提供所需要的功能</p>
-<pre><code>FileOutputStream fin = new FileOutputStream(&quot;javaFile.txt&quot;);
+<li>组合流过滤器，流可自由组合，将希望得到的流置于最外层，中间的流只是提供所需要的功能<pre><code>FileOutputStream fin = new FileOutputStream(&quot;javaFile.txt&quot;);
 </code></pre></li>
 </ul>
 <h3 id="读写二进制数据"><a href="#读写二进制数据" class="headerlink" title="读写二进制数据"></a>读写二进制数据</h3><ul>
@@ -15881,16 +15868,13 @@ staff[2]=tony;
 <h2 id="可扩展标记语言-XML"><a href="#可扩展标记语言-XML" class="headerlink" title="可扩展标记语言 XML"></a>可扩展标记语言 XML</h2><p>** 大概不会经常用到，只做简要了解**</p>
 <h3 id="XML文档简介"><a href="#XML文档简介" class="headerlink" title="XML文档简介"></a>XML文档简介</h3><ul>
 <li>XML 被设计为传输和存储数据，其焦点是数据的内容，XML 格式能够表达层次结构,并且重复的元素不会被曲解</li>
-<li><p>XML 文档应当以一个文档开始，虽然它是可选的</p>
-<pre><code>&lt;? xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<li>XML 文档应当以一个文档开始，虽然它是可选的<pre><code>&lt;? xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 </code></pre></li>
-<li><p>文档头之后通常是文档类型的定义</p>
-<pre><code>&lt;!DOCTYPE web-app PUBLIC
+<li>文档头之后通常是文档类型的定义<pre><code>&lt;!DOCTYPE web-app PUBLIC
 &quot;-//Sun Microsystem, Ins. //DTD Web Application 2.2//EN&quot;
 &quot;http://java.sun.com/j2ee/dtds/web-app_2_2.dtd&quot;&gt;
 </code></pre></li>
-<li><p>最后，XML文档的正文包含根元素，根元素包含其他元素</p>
-<pre><code>&lt;font&gt;
+<li>最后，XML文档的正文包含根元素，根元素包含其他元素<pre><code>&lt;font&gt;
     &lt;name&gt;Helvetica&lt;/name&gt;
     &lt;size&gt;36&lt;/size&gt;
 &lt;/font&gt;
@@ -15926,9 +15910,8 @@ Element root = doc.getDocumentElement();        //返回font元素
 String name = root.getTagName();
 //返回标签名，此处为font
 </code></pre></li>
-</ul>
-<ul>
-<li>如果要得到该元素的子元素(可能是子元素、文本、注 或其他节点),请使用 getChild Nodes方法,这个方法返回一个类型为NodeList的集合<br>  <strong>(待续)</strong></li>
+<li><p>如果要得到该元素的子元素(可能是子元素、文本、注 或其他节点),请使用 getChild Nodes方法,这个方法返回一个类型为NodeList的集合<br>  <strong>(待续)</strong></p>
+</li>
 </ul>
 ]]></content>
       
