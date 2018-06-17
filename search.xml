@@ -165,14 +165,309 @@ D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络�
 <p><br></p>
 <h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p><strong> 物理层的主要任务：确定与传输媒体的接口有关的一些特性；即机械特性，电气特性，功能特性，过程特性。 物理层可实现在传输媒体上透明地传送比特流 </strong></p>
 <p><br></p>
+<h2 id="数字通信系统模型"><a href="#数字通信系统模型" class="headerlink" title="数字通信系统模型"></a>数字通信系统模型</h2><ul>
+<li><p>数字通信系统可划分为，源系统（发送端），传输系统（传输网络），目的系统（接收端）</p>
+</li>
+<li><p>源系统包括，源点（信源），发送器，接收器，终点</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><ul>
+<li><p>单工，只有一个方向的通信，没有反方向的交互</p>
+</li>
+<li><p>半双工，双方都能发送信息，但不能同时发送</p>
+</li>
+<li><p>全双工，双方都能同时发送和接受消息</p>
+</li>
+<li><p>基带信号：来自信源的（未经调制的）信号</p>
+</li>
+<li><p>带通信号：经过载波调制后的信号</p>
+</li>
+<li><p>调制：用高频率载波携带信号进行传输的过程</p>
+</li>
+<li><p>最基本的调制方法：调频，调幅，调相（载波的频率、振幅、相位携带信号进行传输）</p>
+</li>
+<li><p>信噪比,信号的平均功率和噪声的平均功率之比</p>
+<p>  信噪比(dB) = 10lg(S/N) </p>
+</li>
+<li><p>香农公式, 信道极限信息传输速率</p>
+<p>  C=Wlog2(1+S/N) W为带宽</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="传输媒体"><a href="#传输媒体" class="headerlink" title="传输媒体"></a>传输媒体</h2><ul>
+<li><p>传输媒体类型：导引型，非导引型（按有线无线分类）</p>
+</li>
+<li><p>双绞线类型：无屏蔽双绞线，屏蔽双绞线（双绞线是两根绝缘铜导线绞合成的物理线路，按有无再套一层屏蔽层进行分类）</p>
+</li>
+<li><p>光纤类型：多模光纤，单模光纤（利用光反射的物理线路，按能否支持多条光线同时传输进行分类）</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><p><strong>多路复用：在一个物理信道中实现多个逻辑信道，可同时传输多路信号</strong></p>
+<ul>
+<li><p>频分复用FDM：多路信号占用不同的频带进行多路复用</p>
+</li>
+<li><p>时分复用TDM：多路信号占用不同的时隙进行多路复用</p>
+</li>
+<li><p>统计时分复用STDM：按需动态分配时隙</p>
+</li>
+<li><p>波分复用WDM：多路光信号采用不同波段的光载波进行多路复用，是光的频分复用</p>
+</li>
+<li><p>密集波分复用DWDM：一根光纤上复用多路数的光载波信号</p>
+</li>
+<li><p>码分复用CDM：各用户使用经过特殊挑选的相互正交的码序列进行扩频通信，从而实现的多路复用</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="数字传输系统标准化"><a href="#数字传输系统标准化" class="headerlink" title="数字传输系统标准化"></a>数字传输系统标准化</h2><ul>
+<li><p>脉码调制PCM：通过抽样、量化、编码过程将模拟信号数字化</p>
+</li>
+<li><p>准同步数字系列PDH：由于历史原因而产生的两套互不兼容的数字序列。其一次群为两个互不兼容的PCM标准：T1：1.544Mb/s（美国、日本）；E1：2.048Mb/s（中国、欧洲）</p>
+</li>
+<li><p>同步数字系列SDH：世界统一的数字传输系列。其第一级同步传输模块STM-1：155.52Mb/s，更高等级模块由N个STM-1构成</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="因特网的宽带接入方法"><a href="#因特网的宽带接入方法" class="headerlink" title="因特网的宽带接入方法"></a>因特网的宽带接入方法</h2><p><br></p>
+<h3 id="ADSL"><a href="#ADSL" class="headerlink" title="ADSL"></a>ADSL</h3><p><strong>非对称数据用户线，即用数字技术对现有的模拟电话用户线进行改造</strong></p>
+<ul>
+<li><p>非对称，下行带宽远远大于上行带宽</p>
+</li>
+<li><p>传输距离取决于用户线的粗细</p>
+</li>
+<li><p>需要在用户线两端各安装一个调制解调器（ATU）</p>
+</li>
+<li><p>VDSL，ADSL的高速版本；SDSL，ADSL的企业版本（平均分配上下行带宽）</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="HFC"><a href="#HFC" class="headerlink" title="HFC"></a>HFC</h3><p><strong>光纤同轴混合网，利用有线电视网开发的一种接入网</strong></p>
+<ul>
+<li><p>将有线电视网的同轴电缆主干部分换成光纤</p>
+</li>
+<li><p>原有模拟电视机需加装机顶盒</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="FTTx"><a href="#FTTx" class="headerlink" title="FTTx"></a>FTTx</h3><p><strong>Fiber to xxx</strong></p>
+<ul>
+<li><p>无源光配线网（ODN），光配线网中无需配备电源，维护成本很低</p>
+</li>
+<li><p>光线路终端OLT，连接光纤干线的终端设备，把下行数据发往无缘的 1：N 光分路由器，然后用广播的方式向所有用户端的光网络单元 ONU 发送</p>
+</li>
+<li><p>采用波分复用</p>
+</li>
+</ul>
+<p><br></p>
 <h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p><br></p>
-<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p><br></p>
+<h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><ul>
+<li><p>数据链路层将网络层IP数据报组装成帧，提供结点到结点的透明传输</p>
+</li>
+<li><p>链路：是一条无源的点到点的物理线路段，中间没有任何其他的交换结点</p>
+</li>
+<li><p>数据链路：除了物理线路外，还必须有通信协议来控制这些数据的传输，若把实现这些协议的硬件和软件加到链路上，就构成了数据链路</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="三个基本问题"><a href="#三个基本问题" class="headerlink" title="三个基本问题"></a>三个基本问题</h2><p><br></p>
+<h3 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a>封装成帧</h3><ul>
+<li><p>封装成帧：在一段数据后面添加首部和尾部，构成一个帧</p>
+</li>
+<li><p>首部和尾部的作用是进行帧定界，和携带必要的控制信息</p>
+</li>
+<li><p>数据部分不能大于 MTU（最大传输单元）</p>
+</li>
+<li><p>帧定界使用特殊的帧定界字符，SOH（00000001），表示首部的开始，EOT（00000100），表示帧结束，只有 SOH 没有 EOT 的帧会被丢弃</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="透明传输"><a href="#透明传输" class="headerlink" title="透明传输"></a>透明传输</h3><ul>
+<li><p>透明传输：数据链路层对数据来说是透明的，不需要主动适应数据链路层的具体设计，为此，数据中碰巧出现的定界符需要数据链路层自行处理</p>
+</li>
+<li><p>解决方式是字节填充，向下传输时在 SOH 和 EOT 前面插入 ESC（1B，00011011），向上传输时去掉这些填充的字符</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="差错检测"><a href="#差错检测" class="headerlink" title="差错检测"></a>差错检测</h3><ul>
+<li>差错检测：比特差错，比特传输过程中可能出现差错，1变为0或0变为1；帧差错：帧丢失，帧重复，帧失序（在运输层处理）</li>
+</ul>
+<ul>
+<li>解决方式是使用 CRC 校验，有差错的帧会被简单的丢弃不做处理</li>
+</ul>
+<p><br></p>
+<h2 id="PPP协议"><a href="#PPP协议" class="headerlink" title="PPP协议"></a>PPP协议</h2><p><strong>点对点协议，用于拨号电话线接入因特网</strong></p>
+<p><br></p>
+<h3 id="帧结构"><a href="#帧结构" class="headerlink" title="帧结构"></a>帧结构</h3><p><br></p>
+<h4 id="首部"><a href="#首部" class="headerlink" title="首部"></a>首部</h4><ul>
+<li><p>首部，共四个字段，简记为 F A C 协议，分别为 1，1，1，2 字节</p>
+</li>
+<li><p>F（0x7e，表示帧开始）</p>
+</li>
+<li><p>A（0xFF,无意，未使用）</p>
+</li>
+<li><p>C（0x03，无意，未使用）</p>
+</li>
+<li><p>协议（协议标记，如 0x0021，0xC021，0x8021，信息部分为ip数据报，LCP数据，网络层的控制数据）</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="信息部分"><a href="#信息部分" class="headerlink" title="信息部分"></a>信息部分</h4><p><strong>经过字节填充的数据，类型由首部协议字段指定</strong></p>
+<p><br></p>
+<h4 id="尾部"><a href="#尾部" class="headerlink" title="尾部"></a>尾部</h4><ul>
+<li><p>尾部，共两个字段，简记为 FCS F ，分别为 2，1 字节</p>
+</li>
+<li><p>FCS，CRC帧检验序列</p>
+</li>
+<li><p>F（0x7e，表示帧结束）</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="字节填充"><a href="#字节填充" class="headerlink" title="字节填充"></a>字节填充</h3><ul>
+<li><p>每一个 0x7e 转变为 0x7d 0x5e</p>
+</li>
+<li><p>每一个 0x7d 转变为 0x7d 0x5d</p>
+</li>
+<li><p>小于 0x20 （ascii控制字符），转变为 0x7d 0x..（该字符）</p>
+</li>
+<li><p>接收端需要进行相反的转换还原原本的信息</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="零比特填充"><a href="#零比特填充" class="headerlink" title="零比特填充"></a>零比特填充</h4><ul>
+<li><p>每5个连续的1后面填0</p>
+</li>
+<li><p>接收端需要进行相反的转换还原原本的信息</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="CSMA-CD协议"><a href="#CSMA-CD协议" class="headerlink" title="CSMA/CD协议"></a>CSMA/CD协议</h2><p><strong>载波监听多点接入/碰撞检测，用于局域网(以太网)</strong></p>
+<h3 id="以太网的特点"><a href="#以太网的特点" class="headerlink" title="以太网的特点"></a>以太网的特点</h3><ul>
+<li><p>无连接的工作方式，不建立连接，不进行帧编号，不要求发挥确认，帧错误直接丢弃</p>
+</li>
+<li><p>使用曼切斯特编码</p>
+</li>
+</ul>
+<h3 id="CSMA-CD的特点"><a href="#CSMA-CD的特点" class="headerlink" title="CSMA/CD的特点"></a>CSMA/CD的特点</h3><ul>
+<li><p>多点接入：许多计算机以多点接入的方式连接在一根总线上</p>
+</li>
+<li><p>载波监听：每一个站在发送数据之前先要检测一下总线上是否有其他计算机在发送数据，如果有，则暂时不要发送数据，以免发生碰撞</p>
+</li>
+</ul>
+<ul>
+<li><p>碰撞检测：计算机边发送数据边检测信道上的信号电压大小。 为了能及时发现碰撞，需要设置最小帧长，以太网的争用期</p>
+</li>
+<li><p>使用 CSMA/CD 协议只能进行半双工，但有些全双工的通信方式取用了 CSMA/CD 帧结构</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h3><ul>
+<li><p>根据电压检测是否有碰撞，有就随机等待一段时间再发</p>
+</li>
+<li><p>碰撞有可能发生在数据发送过程当中，因为电磁波传输存在时延，这个时延最多为两倍端到端时间</p>
+</li>
+<li><p>等待时间使用截断二进制退避算法，从 0，1…2的k次方-1中随机取一个数r，退避时间为r倍争用时间（51.2μ，512bit时间），k = min（重传次数，10），当重传次数到达10是不再增大，当到达16时，丢弃该帧并向高层报告</p>
+</li>
+</ul>
+<ul>
+<li>凡小于 64 字节（512bit）的帧直接丢弃，且帧间最小间隔为 9.6μs</li>
+</ul>
+<p><br></p>
+<h2 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h2><ul>
+<li><p>由48位，16进制的数字组成的地址，也就是网卡的物理地址，实际上就是适配器地址或适配器标识符EUI—48</p>
+</li>
+<li><p>MAC地址，也称为物理地址、硬件地址，用来定义网络设备的位置</p>
+</li>
+<li><p>在OSI模型中，第三层网络层负责 IP地址，第二层数据链路层则负责 MAC地址。因此一个主机会有一个IP地址，而每个网络位置会有一个专属于它的MAC地址</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="MAC帧格式"><a href="#MAC帧格式" class="headerlink" title="MAC帧格式"></a>MAC帧格式</h3><ul>
+<li>略</li>
+</ul>
+<h2 id="碰撞域与网桥"><a href="#碰撞域与网桥" class="headerlink" title="碰撞域与网桥"></a>碰撞域与网桥</h2><ul>
+<li><p>也称冲突域，在以太网中，如果某个一个CSMA/CD网络上的两台计算机在同时通信时会发生冲突，那么这个CSMA/CD网络就是一个冲突域。</p>
+</li>
+<li><p>如果以太网中的各个网段以中继器连接，因为不能避免冲突，所以它们仍然是一个冲突域。但网桥可以隔离冲突域</p>
+</li>
+<li><p>网桥工作在数据链路层，它根据 MAC 帧的目的地址对收到的帧进行转发。网桥工作在数据链路层，它根据 MAC 帧的目的地址对收到的帧进行转发。以太网交换机是多端口的网桥</p>
+</li>
+<li><p>广播风暴：网桥并不隔离广播域，当网桥连接成较大的局域网时，会因传播过多的广播信息而产生网络拥塞。这就是所谓的广播风暴。VLAN可以隔离广播域</p>
+</li>
+</ul>
+<p><br></p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><ul>
+<li><p>网络层将分组从源主机传到目的主机，网络层提供网络互连</p>
+</li>
+<li><p>网络层提供的两种服务：虚电路服务和数据报服务</p>
+</li>
+<li><p>网络层中间设备：路由器</p>
+</li>
+</ul>
+<p><br></p>
 <h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p><br></p>
 <h2 id="分类的IP地址"><a href="#分类的IP地址" class="headerlink" title="分类的IP地址"></a>分类的IP地址</h2><p><br></p>
-<h2 id="ARP-协议"><a href="#ARP-协议" class="headerlink" title="ARP 协议"></a>ARP 协议</h2><p><br></p>
+<h2 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h2><p><br></p>
+<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p><br></p>
+<h2 id="特殊地址"><a href="#特殊地址" class="headerlink" title="特殊地址"></a>特殊地址</h2><ul>
+<li><p>回环地址</p>
+</li>
+<li><p>私有地址（10/8，172.16/12，192.168/16）</p>
+</li>
+<li><p>网络地址与广播地址</p>
+</li>
+<li><p>单播地址与多播地址</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="ARP-协议"><a href="#ARP-协议" class="headerlink" title="ARP 协议"></a>ARP 协议</h2><p><strong>ARP即地址解析协议，可以实现通过IP地址获得其物理地址。</strong></p>
+<ul>
+<li><p>ARP进程在本局域网上广播发送一个ARP请求分组</p>
+</li>
+<li><p>在本局域网上所有主机上运行的ARP进程都收到此ARP请求分组</p>
+</li>
+<li><p>主机B在ARP分组中见到自己的IP地址，就向主机A发送ARP响应分组，并写入自己的硬件地址</p>
+</li>
+<li><p>主机A收到主机B的ARP响应分组后，就在其ARP高速缓存中写入主机B的IP地址到硬件地址的映射</p>
+</li>
+<li><p>IP地址通过ARP转变为物理地址</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="IP数据报转发过程"><a href="#IP数据报转发过程" class="headerlink" title="IP数据报转发过程"></a>IP数据报转发过程</h2><p><br></p>
 <h2 id="ICMP-协议"><a href="#ICMP-协议" class="headerlink" title="ICMP 协议"></a>ICMP 协议</h2><p><br></p>
 <h2 id="IGMP-协议"><a href="#IGMP-协议" class="headerlink" title="IGMP 协议"></a>IGMP 协议</h2><p><br></p>
 <h2 id="IP-协议"><a href="#IP-协议" class="headerlink" title="IP 协议"></a>IP 协议</h2><p><br></p>
+<h2 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h2><p><br></p>
+<h3 id="IGP"><a href="#IGP" class="headerlink" title="IGP"></a>IGP</h3><p><strong>EGP （外部网关协议）：不同自治系统间路由器交流路由选择信息的协议</strong></p>
+<p><br></p>
+<h4 id="RIP"><a href="#RIP" class="headerlink" title="RIP"></a>RIP</h4><ul>
+<li>路由信息协议，是一种分布式的基于距离向量的路由选择协议。相邻路由器间定时交换各自的路由表。基于UDP</li>
+</ul>
+<p><br></p>
+<h4 id="OSPF"><a href="#OSPF" class="headerlink" title="OSPF"></a>OSPF</h4><ul>
+<li>开放最短路径优先协议，是一种分布式的链路状态路由协议。链路状态改变时洪泛发送邻居信息。基于IP协议进行传输</li>
+</ul>
+<p><br></p>
+<h3 id="EGP"><a href="#EGP" class="headerlink" title="EGP"></a>EGP</h3><p><strong>EGP （外部网关协议）：不同自治系统间路由器交流路由选择信息的协议</strong></p>
+<p><br></p>
+<h4 id="BGP"><a href="#BGP" class="headerlink" title="BGP"></a>BGP</h4><ul>
+<li>一种基于路径向量的路由选择协议。基于TCP。<br>路由器的构成：路由选择部分（控制部分，核心构件是路由选择处理机）和分组转发部分（交换结构，一组输入端口，一组输出端口）</li>
+</ul>
+<p><br></p>
+<h3 id="IGMP"><a href="#IGMP" class="headerlink" title="IGMP"></a>IGMP</h3><ul>
+<li>网际组管理协议：让连接在本地局域网上的多播路由器知道本局域网上是否有主机参加或退出了某个多播组。</li>
+</ul>
+<p><br></p>
+<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><ul>
+<li>虚拟专用网：通过一个公用网络建立一个临时的、安全的连接，是一条穿过混乱的公用网络的安全、稳定的隧道。</li>
+</ul>
+<p><br></p>
+<h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><ul>
+<li>网络地址转换：将私有(保留)地址转化为合法IP地址的转换技术,被广泛应用于各种类型Internet接入方式和各种类型的网络中。原因很简单，NAT不仅完美地解决了IP地址不足的问题，而且还能够有效地避免来自网络外部的攻击，隐藏并保护网络内部的计算机</li>
+</ul>
+<p><br></p>
+<h1 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h1><p><br></p>
 <h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1>]]></content>
       
         <categories>
