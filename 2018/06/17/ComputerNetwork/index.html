@@ -12,6 +12,8 @@
     
     <title>
         
+            计算机网络 学习笔记 | 
+        
         Albert&#39;s Blog
     </title>
 
@@ -33,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -63,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Albert&#39;s Blog">
+    <meta property="og:title" content="计算机网络 学习笔记 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="6月 17, 2018" />
+        <meta property="article:modified_time" content="6月 17, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="计算机网络 学习笔记 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/page/2/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "计算机网络 学习笔记",
+    "url": "https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html",
+    "datePublished": "6月 17, 2018",
+    "dateModified": "6月 17, 2018",
+    "description": "-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -273,636 +308,405 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#互联网"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">互联网</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#边缘部分，主机间的通信模式"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">边缘部分，主机间的通信模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#核心部分，数据交换"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">核心部分，数据交换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#计算机网络"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">计算机网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分类"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#性能指标"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">性能指标</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#速率与带宽"><span class="post-toc-number">1.2.2.1.</span> <span class="post-toc-text">速率与带宽</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#时延"><span class="post-toc-number">1.2.2.2.</span> <span class="post-toc-text">时延</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#利用率"><span class="post-toc-number">1.2.2.3.</span> <span class="post-toc-text">利用率</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网络协议"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">网络协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#网络的体系结构"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">网络的体系结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网络分层"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">网络分层</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OSI-七层协议，TCP-IP-四层协议-五层协议"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">OSI 七层协议，TCP/IP 四层协议, 五层协议</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#各层作用"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">各层作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#各层的协议数据单元"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">各层的协议数据单元</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网络设备"><span class="post-toc-number">1.3.5.</span> <span class="post-toc-text">网络设备</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#物理层"><span class="post-toc-number">2.</span> <span class="post-toc-text">物理层</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据链路层"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据链路层</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#网络层"><span class="post-toc-number">4.</span> <span class="post-toc-text">网络层</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IP地址"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">IP地址</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分类的IP地址"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">分类的IP地址</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ARP-协议"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">ARP 协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ICMP-协议"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">ICMP 协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IGMP-协议"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">IGMP 协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IP-协议"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">IP 协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#应用层"><span class="post-toc-number">5.</span> <span class="post-toc-text">应用层</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/03/04/httpGuide/">HTTP权威指南 笔记</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/03/04/httpGuide/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>3月 04, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/03/04/CommandLineAndShellScriptNote/">Linux命令行与shell脚本编程大全 笔记</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-英文书名 Linux Command Line and Shell Scripting Bible
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/03/04/CommandLineAndShellScriptNote/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>3月 04, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/12/30/Hungarian-translate/">译文：对匈牙利命名法说不</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/12/30/Hungarian-translate/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>12月 30, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/12/09/makeFuckingGdalSo/">Android 交叉编译 Shape/KML/GeoJSON 文件读写库 Gdal 注意事项</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/12/09/makeFuckingGdalSo/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>12月 09, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/11/17/Jni/">Jni ，从入门到入坟</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/11/17/Jni/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>11月 17, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/10/23/RxJava/">RxJava 与 Retrofit</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/10/23/RxJava/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>10月 23, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/09/11/RemoteView/">RemoteView 使用详解与实现原理</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/09/11/RemoteView/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 11, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/09/06/BUG/">Bug 合集</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/09/06/BUG/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 06, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/08/16/Volatile/">volatile 相关概念</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/08/16/Volatile/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>8月 16, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/08/14/GC/">GC 基础知识</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/08/14/GC/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>8月 14, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-    <!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <a class="extend prev" rel="prev" href="/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_forward</i></button></a>
-        </nav>
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                计算机网络 学习笔记
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>6月 17, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=计算机网络 学习笔记&url=https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=计算机网络 学习笔记&url=https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html&title=计算机网络 学习笔记" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=计算机网络 学习笔记&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/06/17/ComputerNetwork/index.html&text=计算机网络 学习笔记" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><br></p>
+<h2 id="互联网"><a href="#互联网" class="headerlink" title="互联网"></a>互联网</h2><p><br></p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li><p>互联网(Internet、因特网)： 指由APPANET发展而来、采用 TCP/IP 协议族作为通信的规则的特定的计算机网络</p>
+</li>
+<li><p>互联网的组成：边缘部分（连接在互联网上的所有主机）、核心部分（由网络与路由器组成）</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="边缘部分，主机间的通信模式"><a href="#边缘部分，主机间的通信模式" class="headerlink" title="边缘部分，主机间的通信模式"></a>边缘部分，主机间的通信模式</h3><ul>
+<li><p>客户端/服务器模式（C/S，Client/Server），描述进程之间服务和被服务的关系。客户知道服务器的地址并主动发起请求，不需要特殊的硬件和很复杂的操作系统。服务器同时被动处理多个请求，一般需要更强大的硬件支持</p>
+</li>
+<li><p>浏览器/服务器模式（B/S，Browser/Server）</p>
+</li>
+</ul>
+<ul>
+<li>对等模式（P2P，Peer-to-Peer），连接中的每一台主机即是客户又是服务器</li>
+</ul>
+<p><br></p>
+<h3 id="核心部分，数据交换"><a href="#核心部分，数据交换" class="headerlink" title="核心部分，数据交换"></a>核心部分，数据交换</h3><ul>
+<li><p>数据交换方式分为电路交换，报文交换，分组交换，互联网使用分组交换</p>
+</li>
+<li><p>电路交换：先建立源点到终点的链路，然后整个报文的比特流连续地从源点直达终点，通话的全部时间内，两个用户始终占用端到端的通信资源</p>
+</li>
+<li><p>报文交换：整个报文先传送到相邻结点，全部存储下来后查找转发表，转发到下一个结点，需要各结点存储转发</p>
+</li>
+<li><p>分组交换：单个分组（这只是整个报文的一部分）传送到相邻结点，存储下来后查找转发表，转发到下一个结点。需要各结点存储转发</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p><strong> 计算机网络：一些互相连接的、自治的计算机的集合 </strong></p>
+<p><br></p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
+<li><p>广域网（WAN）</p>
+</li>
+<li><p>城域网（MAN）</p>
+</li>
+<li><p>局域网（LAN）</p>
+</li>
+<li><p>个人区域网（PAN）</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><p><br></p>
+<h4 id="速率与带宽"><a href="#速率与带宽" class="headerlink" title="速率与带宽"></a>速率与带宽</h4><ul>
+<li><p>速率（信息速率、码元速率），单位 bit/s，b/s，bps，k = 10的3次方，M = 10的6次方，G = 10的9次方，T = 10的12次方</p>
+</li>
+<li><p>带宽，通道传递数据的能力，即所能通过的最高数据率，单位 bit/s</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h4><pre><code>总时延 = 发送时延 + 传播时延 + 处理时延 + 排队时延
+</code></pre><ul>
+<li>发送时延，数据路由发送数据帧所需要的时间</li>
+</ul>
+<pre><code>发送时延 = 数据帧长度(bit)/发送速率(bit/s)
+</code></pre><ul>
+<li>传播时延，电磁波在信道中传播一定距离需要的时间</li>
+</ul>
+<pre><code>传播时延 = 信道长度(m)/电磁波在信道上的传播速率(m/s)
+</code></pre><ul>
+<li>处理时延，主机或路由器处理分组花费的时间</li>
+</ul>
+<ul>
+<li>排队时延，分组在路由器中排队等待处理的时间，丢包时为无限大</li>
+</ul>
+<ul>
+<li>时延带宽积，以bit为单位的链路长度</li>
+</ul>
+<pre><code>时延带宽积 = 传播时延 * 带宽
+</code></pre><ul>
+<li>往返时间（RTT），双向交互的时间</li>
+</ul>
+<pre><code>有效数据率 = 数据长度/（发送时间+RTT）
+</code></pre><p><br></p>
+<h4 id="利用率"><a href="#利用率" class="headerlink" title="利用率"></a>利用率</h4><ul>
+<li><p>信道利用率，信道有百分之几的时间被利用</p>
+</li>
+<li><p>网络利用率，全网络信道利用率的加权平均值</p>
+</li>
+</ul>
+<pre><code>D = D0/(1-U) 
+D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络的利用率
+</code></pre><p><br></p>
+<h3 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h3><ul>
+<li><p>网络协议：为进行网络中心的数据交换而建立的规则、标准或约定，主要由语法、语义、同步三个要素组成</p>
+</li>
+<li><p>语法：数据与控制信息的结构或格式</p>
+</li>
+<li><p>语义：需要发出何种控制信息，完成何种动作以及做出何种响应</p>
+</li>
+<li><p>同步：事件实现顺序的详细说明</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="网络的体系结构"><a href="#网络的体系结构" class="headerlink" title="网络的体系结构"></a>网络的体系结构</h2><p><strong> 网络的体系结构（Architecture）：计算机网络的各层及其协议的集合，是对该网络及其构件所应完成的功能的精确定义 </strong></p>
+<p><br></p>
+<h3 id="网络分层"><a href="#网络分层" class="headerlink" title="网络分层"></a>网络分层</h3><ul>
+<li><p>网络各层的主要功能：差错控制、流量控制、分段与重装、复用和分用、连接建立和释放</p>
+</li>
+<li><p>协议：对等实体间进行通信的规则，协议必须能应付各种可能的情况。协议是水平的</p>
+</li>
+<li><p>服务：下层为上层提供服务。上下层实体进行信息交互的地方称为服务访问点SAP。服务是垂直的</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="OSI-七层协议，TCP-IP-四层协议-五层协议"><a href="#OSI-七层协议，TCP-IP-四层协议-五层协议" class="headerlink" title="OSI 七层协议，TCP/IP 四层协议, 五层协议"></a>OSI 七层协议，TCP/IP 四层协议, 五层协议</h3><ul>
+<li><p>OSI的七层协议：物理层，数据链路层，网络层，运输层，会话层，表示层，应用层</p>
+</li>
+<li><p>TCP/IP的四层协议：网络接口层，网际层IP，运输层，应用层</p>
+</li>
+<li><p>五层协议：物理层，数据链路层，网络层，运输层，应用层</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="各层作用"><a href="#各层作用" class="headerlink" title="各层作用"></a>各层作用</h3><ul>
+<li>应用层：直接为用户的应用进程提供特定的服务</li>
+</ul>
+<ul>
+<li><p>运输层：负责向两个主机中进程之间的通信提供通用的数据传输服务。运输层有复用和分用的功能。运输层提供端到端的通信服务</p>
+</li>
+<li><p>网络层：负责为分组交换网上的不同主机提供通信服务，其中包括封装成包和路由选择。网络层提供主机到主机的通信服务</p>
+</li>
+</ul>
+<ul>
+<li>数据链路层：将网络层交下来的IP数据报组装成帧，在两个相邻结点间的链路上“透明”地传送帧中的数据。链路层提供两相邻结点（点到点）的通信服务</li>
+</ul>
+<ul>
+<li>物理层：透明地传送比特流。物理层要确定信号形式、物理接口规则。物理媒体不属于物理层，处于物理层的下面</li>
+</ul>
+<p><br></p>
+<h3 id="各层的协议数据单元"><a href="#各层的协议数据单元" class="headerlink" title="各层的协议数据单元"></a>各层的协议数据单元</h3><ul>
+<li><p>应用层：消息（message）</p>
+</li>
+<li><p>运输层：段（segment、数据报datagram）</p>
+</li>
+<li><p>网络层：分组（packet）</p>
+</li>
+<li><p>链路层：帧（frame）</p>
+</li>
+<li><p>物理层：bit（信号）</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="网络设备"><a href="#网络设备" class="headerlink" title="网络设备"></a>网络设备</h3><ul>
+<li><p>应用层（主机）</p>
+</li>
+<li><p>网络层（路由器）</p>
+</li>
+<li><p>链路层（交换机、网桥、网络适配器）</p>
+</li>
+<li><p>物理层（集线器、转发器、中继器、调制解调器）</p>
+</li>
+</ul>
+<p><br></p>
+<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p><strong> 物理层的主要任务：确定与传输媒体的接口有关的一些特性；即机械特性，电气特性，功能特性，过程特性。 物理层可实现在传输媒体上透明地传送比特流 </strong></p>
+<p><br></p>
+<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p><br></p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p><br></p>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p><br></p>
+<h2 id="分类的IP地址"><a href="#分类的IP地址" class="headerlink" title="分类的IP地址"></a>分类的IP地址</h2><p><br></p>
+<h2 id="ARP-协议"><a href="#ARP-协议" class="headerlink" title="ARP 协议"></a>ARP 协议</h2><p><br></p>
+<h2 id="ICMP-协议"><a href="#ICMP-协议" class="headerlink" title="ICMP 协议"></a>ICMP 协议</h2><p><br></p>
+<h2 id="IGMP-协议"><a href="#IGMP-协议" class="headerlink" title="IGMP 协议"></a>IGMP 协议</h2><p><br></p>
+<h2 id="IP-协议"><a href="#IP-协议" class="headerlink" title="IP 协议"></a>IP 协议</h2><p><br></p>
+<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1>
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/05/31/GitSubmoduleForAndroid/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
