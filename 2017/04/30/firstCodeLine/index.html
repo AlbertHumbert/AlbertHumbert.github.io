@@ -35,7 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="onRestart">
+    <meta name="description" itemprop="description" content="">
     <meta name="keywords" content="null,安卓">
 
     <!-- Site Verification -->
@@ -67,17 +67,17 @@
     <meta property="og:type" content="blog">
     <meta property="og:title" content="第一行代码 笔记 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="onRestart">
+    <meta property="og:description" content="">
     <meta property="og:article:tag" content="安卓"> 
 
     
         <meta property="article:published_time" content="4月 30, 2017" />
-        <meta property="article:modified_time" content="1月 05, 2018" />
+        <meta property="article:modified_time" content="6月 18, 2018" />
     
 
     <!-- The Twitter Card protocol -->
     <meta name="twitter:title" content="第一行代码 笔记 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="onRestart">
+    <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
@@ -113,8 +113,8 @@
     "headline": "第一行代码 笔记",
     "url": "https://alberthumbert.github.io/2017/04/30/FirstCodeLine/index.html",
     "datePublished": "4月 30, 2017",
-    "dateModified": "1月 05, 2018",
-    "description": "onRestart",
+    "dateModified": "6月 18, 2018",
+    "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
@@ -501,7 +501,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>onRestart</p>
+        <hr>
 <a id="more"></a>
 <h2 id="第一章-开始启程"><a href="#第一章-开始启程" class="headerlink" title="第一章 开始启程"></a>第一章 开始启程</h2><p><br></p>
 <h3 id="Android-系统架构"><a href="#Android-系统架构" class="headerlink" title="Android 系统架构"></a>Android 系统架构</h3><hr>
@@ -538,14 +538,8 @@
 <p><br>   </p>
 <h3 id="详解build-gradle"><a href="#详解build-gradle" class="headerlink" title="详解build.gradle"></a>详解build.gradle</h3><hr>
 <p><br></p>
-<h4 id="app目录下"><a href="#app目录下" class="headerlink" title="- app目录下"></a>- app目录下</h4><p>*  </p>
-<pre><code>apply plugin: &apos;com.android.application&apos;
-// 应用一个插件，有两种可选值
-// com.android.application 表示应用程序模块
-// com.android.library 表示库模块
-// 前者可以直接运行，后者依赖与其他应用程序模块运行
-
-android {
+<h4 id="app目录下"><a href="#app目录下" class="headerlink" title="- app目录下"></a>- app目录下</h4><p>*<br>        apply plugin: ‘com.android.application’<br>        // 应用一个插件，有两种可选值<br>        // com.android.application 表示应用程序模块<br>        // com.android.library 表示库模块<br>        // 前者可以直接运行，后者依赖与其他应用程序模块运行</p>
+<pre><code>android {
 // android闭包可以配置项目构建的各种属性
 
     compileSdkVersion 25
@@ -626,8 +620,7 @@ dependencies {
 <h3 id="创建和加载布局"><a href="#创建和加载布局" class="headerlink" title="创建和加载布局"></a>创建和加载布局</h3><p><strong>——Android讲究逻辑和视图分离，最好每个活动都能对应一个布局，布局就是用来显示界面内容的</strong></p>
 <hr>
 <ul>
-<li>在app/src/main/res 中创建目录并新建布局资源文件</li>
-</ul>
+<li><p>在app/src/main/res 中创建目录并新建布局资源文件</p>
 <pre><code>&lt;LinearLayout 
 在创建布局时选择了LinearLayou为根元素，根元素自动创建
 ...          
@@ -645,15 +638,16 @@ android:text=&quot;Button 1&quot;
 指定元素中显示的文字内容
    /&gt;           
 &lt;/LinearLayout&gt;
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>在app/src/main/java/*Activity中扩展onCreate()，任何活动都应该重写这个方法</li>
 </ul>
 <pre><code>setContentView(R.layout.first_layout);
 //该方法给当前活动添加一个布局，它需要布局文件的id
 //项目中任何添加的资源都会在R文件中生成相应的id，用文件名调用即可
 </code></pre><ul>
-<li>在AndroidManifest文件中注册，as已负责完成，只需添加主活动</li>
-</ul>
+<li><p>在AndroidManifest文件中注册，as已负责完成，只需添加主活动</p>
 <pre><code> &lt;activity android:name=&quot;.MainActivity&quot;
     android:label=&quot;This is a Activity&quot;&gt;
     指定活动标签栏的内容
@@ -665,13 +659,13 @@ android:text=&quot;Button 1&quot;
     配置主活动，这是程序最先运行的活动
 
 &lt;/activity&gt;
-</code></pre><h3 id="使用Toast"><a href="#使用Toast" class="headerlink" title="使用Toast"></a>使用Toast</h3><p><strong>——一种用于提示短小信息的方式</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="使用Toast"><a href="#使用Toast" class="headerlink" title="使用Toast"></a>使用Toast</h3><p><strong>——一种用于提示短小信息的方式</strong></p>
 <hr>
 <ul>
 <li>在活动中通过findViewById()方法获取布局文件中定义的元素，该方法返回一个View对象，需要向下转型为View子类对象</li>
-<li>使用静态makeText方法创建Toast对象</li>
-</ul>
-<pre><code>...
+<li>使用静态makeText方法创建Toast对象<pre><code>...
 Button button1 = (Button)findViewById(R.id.button_1);
 button1.setOnClickListener(new View.OnClickListener(){
    public void onClick(View v){
@@ -680,20 +674,21 @@ button1.setOnClickListener(new View.OnClickListener(){
         }
     });
 ...
-</code></pre><h3 id="使用Menu"><a href="#使用Menu" class="headerlink" title="使用Menu"></a>使用Menu</h3><p><strong>——不占用界面空间的菜单</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="使用Menu"><a href="#使用Menu" class="headerlink" title="使用Menu"></a>使用Menu</h3><p><strong>——不占用界面空间的菜单</strong></p>
 <hr>
 <ul>
-<li>在res目录新建一个menu文件夹即可选择创建Menu resouce file，在main.xml中添加控件信息</li>
-</ul>
-<pre><code>&lt;item
+<li>在res目录新建一个menu文件夹即可选择创建Menu resouce file，在main.xml中添加控件信息<pre><code>&lt;item
     android:id=&quot;@+id/add_item&quot;
 android:title=&quot;Add&quot;/&gt;
 &lt;item
     android:id=&quot;@+id/removed_item&quot;
     android:title=&quot;removed&quot; /&gt;
-</code></pre><ul>
-<li>重写onCreateOptionsMenu()方法</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>重写onCreateOptionsMenu()方法</p>
 <pre><code> public boolean onOptionsItemSelected(MenuItem item){
 
     switch(item.getItemId()){
@@ -709,10 +704,10 @@ android:title=&quot;Add&quot;/&gt;
     }
     return true;
 }
-</code></pre><ul>
-<li>销毁一个活动，在适当的地方，如监听器中添加，finish()方法，活动会自行退出</li>
+</code></pre></li>
 </ul>
-<pre><code>...
+<ul>
+<li>销毁一个活动，在适当的地方，如监听器中添加，finish()方法，活动会自行退出<pre><code>...
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
         Toast.makeText(MainActivity.this,&quot;You Clicked it!&quot;,Toast.LENGTH_SHORT).show();
@@ -720,13 +715,13 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><h3 id="使用Intent在活动之间穿梭"><a href="#使用Intent在活动之间穿梭" class="headerlink" title="使用Intent在活动之间穿梭"></a>使用Intent在活动之间穿梭</h3><p><strong>——组件间交互的方式</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="使用Intent在活动之间穿梭"><a href="#使用Intent在活动之间穿梭" class="headerlink" title="使用Intent在活动之间穿梭"></a>使用Intent在活动之间穿梭</h3><p><strong>——组件间交互的方式</strong></p>
 <hr>
 <h4 id="显式Intent"><a href="#显式Intent" class="headerlink" title="- 显式Intent"></a>- 显式Intent</h4><ul>
 <li>启动活动，调用Activity类的startActivity()方法，该方法接受一个Intent参数</li>
-<li>Intent 有多个构造器，其中一个 Intent( Context packageContext, Class\&lt;?>cls )，要求传入一个启动活动的上下文和要启动的目标活动，这种构造方法很好地说明了意图，因此称它为显式的</li>
-</ul>
-<pre><code>...
+<li>Intent 有多个构造器，其中一个 Intent( Context packageContext, Class\&lt;?>cls )，要求传入一个启动活动的上下文和要启动的目标活动，这种构造方法很好地说明了意图，因此称它为显式的<pre><code>...
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
         Intent intent = new Intent(MainActivity.this,SecondActivity.class);
@@ -734,7 +729,9 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><h4 id="隐式Intent"><a href="#隐式Intent" class="headerlink" title="- 隐式Intent"></a>- 隐式Intent</h4><ul>
+</code></pre></li>
+</ul>
+<h4 id="隐式Intent"><a href="#隐式Intent" class="headerlink" title="- 隐式Intent"></a>- 隐式Intent</h4><ul>
 <li>在<activity>标签下配置action和category内容</activity></li>
 </ul>
 <pre><code>...
@@ -750,8 +747,7 @@ button1.setOnClickListener(new View.OnClickListener(){
 </code></pre><ul>
 <li>调用Intent的另一构造器，该构造器接受一个action字段</li>
 <li>调用Intent的add()方法，该构造器接受一个category字段</li>
-<li>一个Intent可以有多个category字段，默认为DEFAULT，但action只能有一个</li>
-</ul>
+<li><p>一个Intent可以有多个category字段，默认为DEFAULT，但action只能有一个</p>
 <pre><code>...
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
@@ -763,9 +759,10 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><h4 id="更多隐式Intent-的用法"><a href="#更多隐式Intent-的用法" class="headerlink" title="- 更多隐式Intent 的用法"></a>- 更多隐式Intent 的用法</h4><ul>
-<li>打开网页</li>
+</code></pre></li>
 </ul>
+<h4 id="更多隐式Intent-的用法"><a href="#更多隐式Intent-的用法" class="headerlink" title="- 更多隐式Intent 的用法"></a>- 更多隐式Intent 的用法</h4><ul>
+<li><p>打开网页</p>
 <pre><code>...
 Button button1 = (Button)findViewById(R.id.button_1);
 button1.setOnClickListener(new View.OnClickListener(){
@@ -780,7 +777,7 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><ul>
+</code></pre></li>
 <li>拨号界面</li>
 </ul>
 <pre><code>...
@@ -790,8 +787,7 @@ Intent intent = new Intent(Intent.ACTION_VIEW);
     startActivity(intent);
 ...
 </code></pre><ul>
-<li>向下一个活动传递消息</li>
-</ul>
+<li><p>向下一个活动传递消息</p>
 <pre><code>     ...
          String data = &quot;hello SecondActivity&quot;;
          Intent intent = new Intent(MainActivity.this,SecondActivity.class);
@@ -813,9 +809,10 @@ public class SecondActivity extends AppCompatActivity {
      // 形如 get**Extra
      Log.d(&quot;SecondActivity&quot;,data);
      ...
-</code></pre><ul>
-<li>返回数据给上一个活动</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>返回数据给上一个活动</p>
 <pre><code>// in MainActivity
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
@@ -851,7 +848,9 @@ switch (requestCode){
     default:
     }
 }
-</code></pre><p><br>      </p>
+</code></pre></li>
+</ul>
+<p><br>      </p>
 <h3 id="活动生命周期"><a href="#活动生命周期" class="headerlink" title="活动生命周期"></a>活动生命周期</h3><hr>
 <p><br>  </p>
 <h4 id="返回栈"><a href="#返回栈" class="headerlink" title="- 返回栈"></a>- 返回栈</h4><ul>
@@ -886,27 +885,25 @@ switch (requestCode){
 <li>singleTop，启动活动时若栈顶已是该活动则不再创建新实例</li>
 <li>singleTask，启动活动时若栈中含有该活动则将其上的活动全部出栈</li>
 <li>singleInstance，使用单独的返回栈来管理活动，实现实例的共享</li>
-<li>用例：</li>
-</ul>
-<pre><code>&lt;activity
+<li>用例：<pre><code>&lt;activity
     android:name=&quot;.FirstActivity&quot;
     android:laucMode=&quot;singleTask&quot;
     ....
-</code></pre><p><br>  </p>
+</code></pre><br>  </li>
+</ul>
 <h3 id="活动的实践技巧"><a href="#活动的实践技巧" class="headerlink" title="活动的实践技巧"></a>活动的实践技巧</h3><hr>
 <ul>
-<li>知晓当前活动</li>
-</ul>
-<pre><code>//让其他类继承这个类
+<li>知晓当前活动<pre><code>//让其他类继承这个类
 public class BaseActivity extends AppCompatActivity {
 protected void onCreate(Bundle savedInstanceState){
 super.onCreate(savedInstanceState);
 Log.d(&quot;BaseActivity&quot;,getClass().getSimpleName());
 //获取活动名
 ｝
-</code></pre><ul>
-<li>随时随地退出程序</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>随时随地退出程序</p>
 <pre><code>//创建一个类充当容器
 public class ActivityCollector {
 
@@ -951,9 +948,10 @@ button2.setOnClickListener(new View.OnClickListener(){
 
     }
 });
-</code></pre><ul>
-<li>启动活动的最佳写法</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>启动活动的最佳写法</p>
 <pre><code>//在活动中写一个开启自己的静态方法
 public static void actionStart(Context context, String data1, String data2){
 
@@ -971,6 +969,8 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
     }
 });
 </code></pre><p><br>  </p>
+</li>
+</ul>
 <h2 id="第三章-UI开发"><a href="#第三章-UI开发" class="headerlink" title="第三章 UI开发"></a>第三章 UI开发</h2><hr>
 <p><br>  </p>
 <h3 id="常用控件的使用方法"><a href="#常用控件的使用方法" class="headerlink" title="常用控件的使用方法"></a>常用控件的使用方法</h3><hr>
@@ -1148,8 +1148,7 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
 }
 </code></pre><p><br>  </p>
 <h4 id="界面定制"><a href="#界面定制" class="headerlink" title="- 界面定制"></a>- 界面定制</h4><ul>
-<li>定义实体类，作为适配器的适配类型</li>
-</ul>
+<li><p>定义实体类，作为适配器的适配类型</p>
 <pre><code>public class ItemTest {
 
     private String name;
@@ -1168,7 +1167,9 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
         return imageId;
         }
 }
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>为ListView子项目定义布局</li>
 </ul>
 <pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
@@ -1187,8 +1188,7 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
     android:layout_margin=&quot;10dp&quot;/&gt;
 &lt;/LinearLayout&gt;
 </code></pre><ul>
-<li>自定义适配器</li>
-</ul>
+<li><p>自定义适配器</p>
 <pre><code>public class TestAdapter extends ArrayAdapter&lt;ItemTest&gt; {
 
 private int resourceId;
@@ -1223,9 +1223,10 @@ public View getView(int position,View convertView,ViewGroup parent){
     }
 
 }
-</code></pre><ul>
-<li>使用</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>使用</p>
 <pre><code>public class MainActivity extends AppCompatActivity{
 
 private List data = new ArrayList();
@@ -1250,7 +1251,9 @@ private void initItem(){
     ....
 }
 }
-</code></pre><p><br></p>
+</code></pre></li>
+</ul>
+<p><br></p>
 <h4 id="提升效率"><a href="#提升效率" class="headerlink" title="- 提升效率"></a>- 提升效率</h4><p><strong>（待续）</strong><br><br></p>
 <h4 id="点击事件"><a href="#点击事件" class="headerlink" title="- 点击事件"></a>- 点击事件</h4><ul>
 <li>添加监听器</li>
@@ -1266,12 +1269,11 @@ private void initItem(){
 </code></pre><p><br></p>
 <h3 id="RecycleView"><a href="#RecycleView" class="headerlink" title="RecycleView"></a>RecycleView</h3><p><strong>——更强大的滚动控件</strong></p>
 <h4 id="基本用法"><a href="#基本用法" class="headerlink" title="- 基本用法"></a>- 基本用法</h4><ul>
-<li>在 app/build.gradle 文件中的dependencies闭包中添加依赖库</li>
+<li>在 app/build.gradle 文件中的dependencies闭包中添加依赖库<pre><code>compile &apos;com.android.support:recyclerview-v7:24.2.1&apos;
+</code></pre></li>
 </ul>
-<pre><code>compile &apos;com.android.support:recyclerview-v7:24.2.1&apos;
-</code></pre><ul>
-<li>创建item布局，注意RecyclerView本身不具备点击动画，需要自行设置</li>
-</ul>
+<ul>
+<li><p>创建item布局，注意RecyclerView本身不具备点击动画，需要自行设置</p>
 <pre><code>&lt;LinearLayout
 xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
 android:orientation=&quot;vertical&quot;
@@ -1295,9 +1297,10 @@ android:layout_height=&quot;wrap_content&quot;&gt;
     android:layout_gravity=&quot;center_vertical&quot;
     android:layout_marginStart=&quot;10dp&quot;/&gt;
 &lt;/LinearLayout&gt;
-</code></pre><ul>
-<li>创建adapter，应重写ViewHolder，onCreateViewHolder，onBindViewHolder，getItemCount，点击事件应该在onCreateViewHolder中实现</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>创建adapter，应重写ViewHolder，onCreateViewHolder，onBindViewHolder，getItemCount，点击事件应该在onCreateViewHolder中实现</p>
 <pre><code>public class RecyclerViewAdapter extends RecyclerView.Adapter&lt;RecyclerViewAdapter.ViewHolder&gt; {
 
     private List&lt;String&gt; dataList;
@@ -1350,7 +1353,9 @@ public int getItemCount() {
 }
 
 }
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>通过指定LinearLayoutManager，GridLayoutManager，StaggeredGridLayoutManager 分别可以实现线性，网格布局，瀑布流布局</li>
 </ul>
 <p><br></p>
@@ -1478,8 +1483,7 @@ public int getItemCount() {
 <ul>
 <li>文件储存比较适合于储存一些简单的文本数据或二进制数据</li>
 <li>Context中提供一个openFileOutput方法，用于将数据储存到指定的文件当中</li>
-<li>openFileOutput()的第一个参数是文件名，不可以包括路径，第二个参数是操作模式，有两种可选，MODE_PRIVATE 和 MODE_APPEND，表示覆盖和追加</li>
-</ul>
+<li><p>openFileOutput()的第一个参数是文件名，不可以包括路径，第二个参数是操作模式，有两种可选，MODE_PRIVATE 和 MODE_APPEND，表示覆盖和追加</p>
 <pre><code>public void save(){
 
     String data = &quot;data to save&quot;;
@@ -1502,7 +1506,9 @@ public int getItemCount() {
         }
     }
 }
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>Context中提供一个openFileInput方法，用于从文件中读取数据，它只接受一个参数，即文件名</li>
 </ul>
 <pre><code>public String Load(){
@@ -1559,8 +1565,7 @@ public int getItemCount() {
 </code></pre><p><br></p>
 <h4 id="两个步骤读取数据"><a href="#两个步骤读取数据" class="headerlink" title="- 两个步骤读取数据"></a>- 两个步骤读取数据</h4><ul>
 <li>调用edit()方法获取一个SharedPreferences.Editor对象</li>
-<li>从Editor中获取数据，如调用getBoolean()等</li>
-</ul>
+<li><p>从Editor中获取数据，如调用getBoolean()等</p>
 <pre><code>saveData.setOnClickListener(new View.OnClickListener(){
     public void onClick(View V) {
         SharedPreferences.Editor editor = getSharedPreferences(&quot;data&quot;,MODE_PRIVATE).edit();
@@ -1569,7 +1574,9 @@ public int getItemCount() {
         editor.putBoolean(&quot;married&quot;,false);
         editor.apply();
     }
-</code></pre><h3 id="SQLite数据库存储"><a href="#SQLite数据库存储" class="headerlink" title="SQLite数据库存储"></a>SQLite数据库存储</h3><p><strong>——一个轻量级关系型数据库</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="SQLite数据库存储"><a href="#SQLite数据库存储" class="headerlink" title="SQLite数据库存储"></a>SQLite数据库存储</h3><p><strong>——一个轻量级关系型数据库</strong></p>
 <hr>
 <h4 id="创建更新数据库"><a href="#创建更新数据库" class="headerlink" title="- 创建更新数据库"></a>- 创建更新数据库</h4><ul>
 <li>使用SQLiteOpenHelper帮助类可以非常简单地对数据库进行创建和升级</li>
@@ -1600,8 +1607,7 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 }
 </code></pre><ul>
-<li>创建和更新数据库</li>
-</ul>
+<li><p>创建和更新数据库</p>
 <pre><code>public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 //建表语句，autoincrement
@@ -1639,11 +1645,12 @@ public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     //重新建表
     }
 }
-</code></pre><h4 id="增删查改数据库"><a href="#增删查改数据库" class="headerlink" title="- 增删查改数据库"></a>- 增删查改数据库</h4><ul>
+</code></pre></li>
+</ul>
+<h4 id="增删查改数据库"><a href="#增删查改数据库" class="headerlink" title="- 增删查改数据库"></a>- 增删查改数据库</h4><ul>
 <li>添加数据，SQLiteDatabase提供insert()方法专门用于添加数据</li>
 <li>insert()方法接受3个参数，分别为表名，可以为空的列，ContentValues对象</li>
-<li>ContentValues提供一系列的put()方法用于添加数据</li>
-</ul>
+<li><p>ContentValues提供一系列的put()方法用于添加数据</p>
 <pre><code>SQLiteDatabase db = dbHelper.getWritableDatabase();
 ContentValues values = new ContentValues();
 values.put(&quot;name&quot;,&quot;The Da Vinci Code&quot;);
@@ -1651,7 +1658,9 @@ values.put(&quot;author&quot;,&quot;Dan Brown&quot;);
 values.put(&quot;pages&quot;,454);
 values.put(&quot;price&quot;,16.96);
 db.insert(&quot;Book&quot;,null,values);
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>删除数据，SQLiteDatabase提供delete()方法专门用于删除数据</li>
 <li>delete()方法接受3个参数，分别为表名和对行列的约束</li>
 </ul>
@@ -1695,8 +1704,7 @@ manager.notify(1,notification);
 <p><br>  </p>
 <h3 id="WebView用法"><a href="#WebView用法" class="headerlink" title="WebView用法"></a>WebView用法</h3><hr>
 <ul>
-<li>设置WebView </li>
-</ul>
+<li><p>设置WebView </p>
 <pre><code>protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -1706,11 +1714,13 @@ manager.notify(1,notification);
     webView.loadUrl(&quot;http://www.baidu.com&quot;);
 
 }
-</code></pre><ul>
-<li>声明权限，访问网络需要声明权限，声明权限需要修改AndroidManifest.xml文件</li>
+</code></pre></li>
 </ul>
-<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
-</code></pre><p><br>  </p>
+<ul>
+<li>声明权限，访问网络需要声明权限，声明权限需要修改AndroidManifest.xml文件<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
+</code></pre></li>
+</ul>
+<p><br>  </p>
 <h3 id="HTTP协议访问网络"><a href="#HTTP协议访问网络" class="headerlink" title="HTTP协议访问网络"></a>HTTP协议访问网络</h3><hr>
 <p><br>  </p>
 <h4 id="使用HttpURLConnection"><a href="#使用HttpURLConnection" class="headerlink" title="- 使用HttpURLConnection"></a>- 使用HttpURLConnection</h4><ul>
@@ -1880,8 +1890,7 @@ private void getJsonWithHttpURLConnection() {
 <h3 id="Android-多线程编程"><a href="#Android-多线程编程" class="headerlink" title="Android 多线程编程"></a>Android 多线程编程</h3><hr>
 <p><br>  </p>
 <h4 id="线程的基本用法"><a href="#线程的基本用法" class="headerlink" title="- 线程的基本用法"></a>- 线程的基本用法</h4><ul>
-<li>Runable 接口定义线程</li>
-</ul>
+<li><p>Runable 接口定义线程</p>
 <pre><code>class MyThread implements Runnable{
  @Override
     public void run() {
@@ -1893,16 +1902,17 @@ private void getJsonWithHttpURLConnection() {
 
 MyThread myThread = new MyThread();
 new Thread(myThread).start();
-</code></pre><ul>
-<li>匿名类实现接口</li>
-</ul>
+</code></pre></li>
+<li><p>匿名类实现接口</p>
 <pre><code>new Thread(new Runnable() {
             @Override
             public void run() {
 
             }
         }).start();
-</code></pre><p><br>  </p>
+</code></pre></li>
+</ul>
+<p><br>  </p>
 <h4 id="异步消息处理机制"><a href="#异步消息处理机制" class="headerlink" title="- 异步消息处理机制"></a>- 异步消息处理机制</h4><ul>
 <li>更新UI元素需要在主线程中进行</li>
 <li>Android的异步消息由四个部分组成：Messag、handler、MessageQueue、Looper</li>
@@ -2019,8 +2029,7 @@ public void onClick(View v) {
 <li>在Service中新建继承自Binder的子类，在其中提供具体服务的方法，并在onBind中返回这个子类的实例</li>
 <li>在活动中创建一个ServiceConnection类，重写onServiceConnected()方法和onServiceDisconnected()方法，分别在绑定与断开时会被调用</li>
 <li>在onServiceConnected()方法中向下转型获得binder的实例，此时可以通过binder指挥服务</li>
-<li>可能是书中的一个错误，应使用boolean值标记绑定状态并检查，否则重复解绑会抛出异常，参考 <a href="http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered" target="_blank" rel="external">http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered</a></li>
-</ul>
+<li><p>可能是书中的一个错误，应使用boolean值标记绑定状态并检查，否则重复解绑会抛出异常，参考 <a href="http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered" target="_blank" rel="external">http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered</a></p>
 <pre><code>public class MyService extends Service {
 
     private DownloadBinder mBinder = new DownloadBinder();
@@ -2084,6 +2093,8 @@ private ServiceConnection connection = new ServiceConnection() {
         Intent bindIntent = new Intent(this,MyService.class);
         bindService(bindIntent,connection,BIND_AUTO_CREATE);
 </code></pre><p><br>  </p>
+</li>
+</ul>
 <h4 id="服务的生命周期"><a href="#服务的生命周期" class="headerlink" title="- 服务的生命周期"></a>- 服务的生命周期</h4><ul>
 <li>一个项目的任何位置调用了Context的startService()方法，相应的服务都会启动</li>
 <li>每个服务只有一个实例，一个服务只要被启动或者绑定之后就会一直处于运行状态</li>
@@ -2130,8 +2141,7 @@ public void onStartCommand(Intent intent, int flags,int startId){
     }).start();
 }
 </code></pre><ul>
-<li>为避免忘记开启线程或停止服务，可以使用IntentService类</li>
-</ul>
+<li><p>为避免忘记开启线程或停止服务，可以使用IntentService类</p>
 <pre><code>public class MyIntentService extends IntentService {
 
     public MyIntentService(){
@@ -2152,6 +2162,8 @@ public void onStartCommand(Intent intent, int flags,int startId){
     }
 }
 </code></pre><p><br>  </p>
+</li>
+</ul>
 <h2 id="第十一章-基于位置的服务"><a href="#第十一章-基于位置的服务" class="headerlink" title="第十一章 基于位置的服务"></a>第十一章 基于位置的服务</h2><hr>
 <p><br>  </p>
 <h2 id="第十二章-Material-Design"><a href="#第十二章-Material-Design" class="headerlink" title="第十二章 Material Design"></a>第十二章 Material Design</h2><hr>
@@ -2264,7 +2276,7 @@ public void onStartCommand(Intent intent, int flags,int startId){
 
     <!-- Next Nav -->
     
-        <a href="/2017/03/26/JavaCore/" id="post_nav-older" class="next-content">
+        <a href="/2017/02/21/Unp/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -2356,7 +2368,7 @@ public void onStartCommand(Intent intent, int flags,int startId){
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

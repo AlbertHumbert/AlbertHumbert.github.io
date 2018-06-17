@@ -13258,7 +13258,7 @@ android:layout_width=&quot;match_parent&quot;
     <entry>
       <title><![CDATA[第一行代码 笔记]]></title>
       <url>/2017/04/30/FirstCodeLine/</url>
-      <content type="html"><![CDATA[<p>onRestart</p>
+      <content type="html"><![CDATA[<hr>
 <a id="more"></a>
 <h2 id="第一章-开始启程"><a href="#第一章-开始启程" class="headerlink" title="第一章 开始启程"></a>第一章 开始启程</h2><p><br></p>
 <h3 id="Android-系统架构"><a href="#Android-系统架构" class="headerlink" title="Android 系统架构"></a>Android 系统架构</h3><hr>
@@ -13295,14 +13295,8 @@ android:layout_width=&quot;match_parent&quot;
 <p><br>   </p>
 <h3 id="详解build-gradle"><a href="#详解build-gradle" class="headerlink" title="详解build.gradle"></a>详解build.gradle</h3><hr>
 <p><br></p>
-<h4 id="app目录下"><a href="#app目录下" class="headerlink" title="- app目录下"></a>- app目录下</h4><p>*  </p>
-<pre><code>apply plugin: &apos;com.android.application&apos;
-// 应用一个插件，有两种可选值
-// com.android.application 表示应用程序模块
-// com.android.library 表示库模块
-// 前者可以直接运行，后者依赖与其他应用程序模块运行
-
-android {
+<h4 id="app目录下"><a href="#app目录下" class="headerlink" title="- app目录下"></a>- app目录下</h4><p>*<br>        apply plugin: ‘com.android.application’<br>        // 应用一个插件，有两种可选值<br>        // com.android.application 表示应用程序模块<br>        // com.android.library 表示库模块<br>        // 前者可以直接运行，后者依赖与其他应用程序模块运行</p>
+<pre><code>android {
 // android闭包可以配置项目构建的各种属性
 
     compileSdkVersion 25
@@ -13383,8 +13377,7 @@ dependencies {
 <h3 id="创建和加载布局"><a href="#创建和加载布局" class="headerlink" title="创建和加载布局"></a>创建和加载布局</h3><p><strong>——Android讲究逻辑和视图分离，最好每个活动都能对应一个布局，布局就是用来显示界面内容的</strong></p>
 <hr>
 <ul>
-<li>在app/src/main/res 中创建目录并新建布局资源文件</li>
-</ul>
+<li><p>在app/src/main/res 中创建目录并新建布局资源文件</p>
 <pre><code>&lt;LinearLayout 
 在创建布局时选择了LinearLayou为根元素，根元素自动创建
 ...          
@@ -13402,15 +13395,16 @@ android:text=&quot;Button 1&quot;
 指定元素中显示的文字内容
    /&gt;           
 &lt;/LinearLayout&gt;
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>在app/src/main/java/*Activity中扩展onCreate()，任何活动都应该重写这个方法</li>
 </ul>
 <pre><code>setContentView(R.layout.first_layout);
 //该方法给当前活动添加一个布局，它需要布局文件的id
 //项目中任何添加的资源都会在R文件中生成相应的id，用文件名调用即可
 </code></pre><ul>
-<li>在AndroidManifest文件中注册，as已负责完成，只需添加主活动</li>
-</ul>
+<li><p>在AndroidManifest文件中注册，as已负责完成，只需添加主活动</p>
 <pre><code> &lt;activity android:name=&quot;.MainActivity&quot;
     android:label=&quot;This is a Activity&quot;&gt;
     指定活动标签栏的内容
@@ -13422,13 +13416,13 @@ android:text=&quot;Button 1&quot;
     配置主活动，这是程序最先运行的活动
 
 &lt;/activity&gt;
-</code></pre><h3 id="使用Toast"><a href="#使用Toast" class="headerlink" title="使用Toast"></a>使用Toast</h3><p><strong>——一种用于提示短小信息的方式</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="使用Toast"><a href="#使用Toast" class="headerlink" title="使用Toast"></a>使用Toast</h3><p><strong>——一种用于提示短小信息的方式</strong></p>
 <hr>
 <ul>
 <li>在活动中通过findViewById()方法获取布局文件中定义的元素，该方法返回一个View对象，需要向下转型为View子类对象</li>
-<li>使用静态makeText方法创建Toast对象</li>
-</ul>
-<pre><code>...
+<li>使用静态makeText方法创建Toast对象<pre><code>...
 Button button1 = (Button)findViewById(R.id.button_1);
 button1.setOnClickListener(new View.OnClickListener(){
    public void onClick(View v){
@@ -13437,20 +13431,21 @@ button1.setOnClickListener(new View.OnClickListener(){
         }
     });
 ...
-</code></pre><h3 id="使用Menu"><a href="#使用Menu" class="headerlink" title="使用Menu"></a>使用Menu</h3><p><strong>——不占用界面空间的菜单</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="使用Menu"><a href="#使用Menu" class="headerlink" title="使用Menu"></a>使用Menu</h3><p><strong>——不占用界面空间的菜单</strong></p>
 <hr>
 <ul>
-<li>在res目录新建一个menu文件夹即可选择创建Menu resouce file，在main.xml中添加控件信息</li>
-</ul>
-<pre><code>&lt;item
+<li>在res目录新建一个menu文件夹即可选择创建Menu resouce file，在main.xml中添加控件信息<pre><code>&lt;item
     android:id=&quot;@+id/add_item&quot;
 android:title=&quot;Add&quot;/&gt;
 &lt;item
     android:id=&quot;@+id/removed_item&quot;
     android:title=&quot;removed&quot; /&gt;
-</code></pre><ul>
-<li>重写onCreateOptionsMenu()方法</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>重写onCreateOptionsMenu()方法</p>
 <pre><code> public boolean onOptionsItemSelected(MenuItem item){
 
     switch(item.getItemId()){
@@ -13466,10 +13461,10 @@ android:title=&quot;Add&quot;/&gt;
     }
     return true;
 }
-</code></pre><ul>
-<li>销毁一个活动，在适当的地方，如监听器中添加，finish()方法，活动会自行退出</li>
+</code></pre></li>
 </ul>
-<pre><code>...
+<ul>
+<li>销毁一个活动，在适当的地方，如监听器中添加，finish()方法，活动会自行退出<pre><code>...
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
         Toast.makeText(MainActivity.this,&quot;You Clicked it!&quot;,Toast.LENGTH_SHORT).show();
@@ -13477,13 +13472,13 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><h3 id="使用Intent在活动之间穿梭"><a href="#使用Intent在活动之间穿梭" class="headerlink" title="使用Intent在活动之间穿梭"></a>使用Intent在活动之间穿梭</h3><p><strong>——组件间交互的方式</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="使用Intent在活动之间穿梭"><a href="#使用Intent在活动之间穿梭" class="headerlink" title="使用Intent在活动之间穿梭"></a>使用Intent在活动之间穿梭</h3><p><strong>——组件间交互的方式</strong></p>
 <hr>
 <h4 id="显式Intent"><a href="#显式Intent" class="headerlink" title="- 显式Intent"></a>- 显式Intent</h4><ul>
 <li>启动活动，调用Activity类的startActivity()方法，该方法接受一个Intent参数</li>
-<li>Intent 有多个构造器，其中一个 Intent( Context packageContext, Class\&lt;?>cls )，要求传入一个启动活动的上下文和要启动的目标活动，这种构造方法很好地说明了意图，因此称它为显式的</li>
-</ul>
-<pre><code>...
+<li>Intent 有多个构造器，其中一个 Intent( Context packageContext, Class\&lt;?>cls )，要求传入一个启动活动的上下文和要启动的目标活动，这种构造方法很好地说明了意图，因此称它为显式的<pre><code>...
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
         Intent intent = new Intent(MainActivity.this,SecondActivity.class);
@@ -13491,7 +13486,9 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><h4 id="隐式Intent"><a href="#隐式Intent" class="headerlink" title="- 隐式Intent"></a>- 隐式Intent</h4><ul>
+</code></pre></li>
+</ul>
+<h4 id="隐式Intent"><a href="#隐式Intent" class="headerlink" title="- 隐式Intent"></a>- 隐式Intent</h4><ul>
 <li>在<activity>标签下配置action和category内容</activity></li>
 </ul>
 <pre><code>...
@@ -13507,8 +13504,7 @@ button1.setOnClickListener(new View.OnClickListener(){
 </code></pre><ul>
 <li>调用Intent的另一构造器，该构造器接受一个action字段</li>
 <li>调用Intent的add()方法，该构造器接受一个category字段</li>
-<li>一个Intent可以有多个category字段，默认为DEFAULT，但action只能有一个</li>
-</ul>
+<li><p>一个Intent可以有多个category字段，默认为DEFAULT，但action只能有一个</p>
 <pre><code>...
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
@@ -13520,9 +13516,10 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><h4 id="更多隐式Intent-的用法"><a href="#更多隐式Intent-的用法" class="headerlink" title="- 更多隐式Intent 的用法"></a>- 更多隐式Intent 的用法</h4><ul>
-<li>打开网页</li>
+</code></pre></li>
 </ul>
+<h4 id="更多隐式Intent-的用法"><a href="#更多隐式Intent-的用法" class="headerlink" title="- 更多隐式Intent 的用法"></a>- 更多隐式Intent 的用法</h4><ul>
+<li><p>打开网页</p>
 <pre><code>...
 Button button1 = (Button)findViewById(R.id.button_1);
 button1.setOnClickListener(new View.OnClickListener(){
@@ -13537,7 +13534,7 @@ button1.setOnClickListener(new View.OnClickListener(){
     }
 });
 ...
-</code></pre><ul>
+</code></pre></li>
 <li>拨号界面</li>
 </ul>
 <pre><code>...
@@ -13547,8 +13544,7 @@ Intent intent = new Intent(Intent.ACTION_VIEW);
     startActivity(intent);
 ...
 </code></pre><ul>
-<li>向下一个活动传递消息</li>
-</ul>
+<li><p>向下一个活动传递消息</p>
 <pre><code>     ...
          String data = &quot;hello SecondActivity&quot;;
          Intent intent = new Intent(MainActivity.this,SecondActivity.class);
@@ -13570,9 +13566,10 @@ public class SecondActivity extends AppCompatActivity {
      // 形如 get**Extra
      Log.d(&quot;SecondActivity&quot;,data);
      ...
-</code></pre><ul>
-<li>返回数据给上一个活动</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>返回数据给上一个活动</p>
 <pre><code>// in MainActivity
 button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
@@ -13608,7 +13605,9 @@ switch (requestCode){
     default:
     }
 }
-</code></pre><p><br>      </p>
+</code></pre></li>
+</ul>
+<p><br>      </p>
 <h3 id="活动生命周期"><a href="#活动生命周期" class="headerlink" title="活动生命周期"></a>活动生命周期</h3><hr>
 <p><br>  </p>
 <h4 id="返回栈"><a href="#返回栈" class="headerlink" title="- 返回栈"></a>- 返回栈</h4><ul>
@@ -13643,27 +13642,25 @@ switch (requestCode){
 <li>singleTop，启动活动时若栈顶已是该活动则不再创建新实例</li>
 <li>singleTask，启动活动时若栈中含有该活动则将其上的活动全部出栈</li>
 <li>singleInstance，使用单独的返回栈来管理活动，实现实例的共享</li>
-<li>用例：</li>
-</ul>
-<pre><code>&lt;activity
+<li>用例：<pre><code>&lt;activity
     android:name=&quot;.FirstActivity&quot;
     android:laucMode=&quot;singleTask&quot;
     ....
-</code></pre><p><br>  </p>
+</code></pre><br>  </li>
+</ul>
 <h3 id="活动的实践技巧"><a href="#活动的实践技巧" class="headerlink" title="活动的实践技巧"></a>活动的实践技巧</h3><hr>
 <ul>
-<li>知晓当前活动</li>
-</ul>
-<pre><code>//让其他类继承这个类
+<li>知晓当前活动<pre><code>//让其他类继承这个类
 public class BaseActivity extends AppCompatActivity {
 protected void onCreate(Bundle savedInstanceState){
 super.onCreate(savedInstanceState);
 Log.d(&quot;BaseActivity&quot;,getClass().getSimpleName());
 //获取活动名
 ｝
-</code></pre><ul>
-<li>随时随地退出程序</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>随时随地退出程序</p>
 <pre><code>//创建一个类充当容器
 public class ActivityCollector {
 
@@ -13708,9 +13705,10 @@ button2.setOnClickListener(new View.OnClickListener(){
 
     }
 });
-</code></pre><ul>
-<li>启动活动的最佳写法</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>启动活动的最佳写法</p>
 <pre><code>//在活动中写一个开启自己的静态方法
 public static void actionStart(Context context, String data1, String data2){
 
@@ -13728,6 +13726,8 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
     }
 });
 </code></pre><p><br>  </p>
+</li>
+</ul>
 <h2 id="第三章-UI开发"><a href="#第三章-UI开发" class="headerlink" title="第三章 UI开发"></a>第三章 UI开发</h2><hr>
 <p><br>  </p>
 <h3 id="常用控件的使用方法"><a href="#常用控件的使用方法" class="headerlink" title="常用控件的使用方法"></a>常用控件的使用方法</h3><hr>
@@ -13905,8 +13905,7 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
 }
 </code></pre><p><br>  </p>
 <h4 id="界面定制"><a href="#界面定制" class="headerlink" title="- 界面定制"></a>- 界面定制</h4><ul>
-<li>定义实体类，作为适配器的适配类型</li>
-</ul>
+<li><p>定义实体类，作为适配器的适配类型</p>
 <pre><code>public class ItemTest {
 
     private String name;
@@ -13925,7 +13924,9 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
         return imageId;
         }
 }
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>为ListView子项目定义布局</li>
 </ul>
 <pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
@@ -13944,8 +13945,7 @@ SecondActivity.actionStart(MainActivity.this,&quot;data1&quot;,&quot;data2&quot;
     android:layout_margin=&quot;10dp&quot;/&gt;
 &lt;/LinearLayout&gt;
 </code></pre><ul>
-<li>自定义适配器</li>
-</ul>
+<li><p>自定义适配器</p>
 <pre><code>public class TestAdapter extends ArrayAdapter&lt;ItemTest&gt; {
 
 private int resourceId;
@@ -13980,9 +13980,10 @@ public View getView(int position,View convertView,ViewGroup parent){
     }
 
 }
-</code></pre><ul>
-<li>使用</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>使用</p>
 <pre><code>public class MainActivity extends AppCompatActivity{
 
 private List data = new ArrayList();
@@ -14007,7 +14008,9 @@ private void initItem(){
     ....
 }
 }
-</code></pre><p><br></p>
+</code></pre></li>
+</ul>
+<p><br></p>
 <h4 id="提升效率"><a href="#提升效率" class="headerlink" title="- 提升效率"></a>- 提升效率</h4><p><strong>（待续）</strong><br><br></p>
 <h4 id="点击事件"><a href="#点击事件" class="headerlink" title="- 点击事件"></a>- 点击事件</h4><ul>
 <li>添加监听器</li>
@@ -14023,12 +14026,11 @@ private void initItem(){
 </code></pre><p><br></p>
 <h3 id="RecycleView"><a href="#RecycleView" class="headerlink" title="RecycleView"></a>RecycleView</h3><p><strong>——更强大的滚动控件</strong></p>
 <h4 id="基本用法"><a href="#基本用法" class="headerlink" title="- 基本用法"></a>- 基本用法</h4><ul>
-<li>在 app/build.gradle 文件中的dependencies闭包中添加依赖库</li>
+<li>在 app/build.gradle 文件中的dependencies闭包中添加依赖库<pre><code>compile &apos;com.android.support:recyclerview-v7:24.2.1&apos;
+</code></pre></li>
 </ul>
-<pre><code>compile &apos;com.android.support:recyclerview-v7:24.2.1&apos;
-</code></pre><ul>
-<li>创建item布局，注意RecyclerView本身不具备点击动画，需要自行设置</li>
-</ul>
+<ul>
+<li><p>创建item布局，注意RecyclerView本身不具备点击动画，需要自行设置</p>
 <pre><code>&lt;LinearLayout
 xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
 android:orientation=&quot;vertical&quot;
@@ -14052,9 +14054,10 @@ android:layout_height=&quot;wrap_content&quot;&gt;
     android:layout_gravity=&quot;center_vertical&quot;
     android:layout_marginStart=&quot;10dp&quot;/&gt;
 &lt;/LinearLayout&gt;
-</code></pre><ul>
-<li>创建adapter，应重写ViewHolder，onCreateViewHolder，onBindViewHolder，getItemCount，点击事件应该在onCreateViewHolder中实现</li>
+</code></pre></li>
 </ul>
+<ul>
+<li><p>创建adapter，应重写ViewHolder，onCreateViewHolder，onBindViewHolder，getItemCount，点击事件应该在onCreateViewHolder中实现</p>
 <pre><code>public class RecyclerViewAdapter extends RecyclerView.Adapter&lt;RecyclerViewAdapter.ViewHolder&gt; {
 
     private List&lt;String&gt; dataList;
@@ -14107,7 +14110,9 @@ public int getItemCount() {
 }
 
 }
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>通过指定LinearLayoutManager，GridLayoutManager，StaggeredGridLayoutManager 分别可以实现线性，网格布局，瀑布流布局</li>
 </ul>
 <p><br></p>
@@ -14235,8 +14240,7 @@ public int getItemCount() {
 <ul>
 <li>文件储存比较适合于储存一些简单的文本数据或二进制数据</li>
 <li>Context中提供一个openFileOutput方法，用于将数据储存到指定的文件当中</li>
-<li>openFileOutput()的第一个参数是文件名，不可以包括路径，第二个参数是操作模式，有两种可选，MODE_PRIVATE 和 MODE_APPEND，表示覆盖和追加</li>
-</ul>
+<li><p>openFileOutput()的第一个参数是文件名，不可以包括路径，第二个参数是操作模式，有两种可选，MODE_PRIVATE 和 MODE_APPEND，表示覆盖和追加</p>
 <pre><code>public void save(){
 
     String data = &quot;data to save&quot;;
@@ -14259,7 +14263,9 @@ public int getItemCount() {
         }
     }
 }
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>Context中提供一个openFileInput方法，用于从文件中读取数据，它只接受一个参数，即文件名</li>
 </ul>
 <pre><code>public String Load(){
@@ -14316,8 +14322,7 @@ public int getItemCount() {
 </code></pre><p><br></p>
 <h4 id="两个步骤读取数据"><a href="#两个步骤读取数据" class="headerlink" title="- 两个步骤读取数据"></a>- 两个步骤读取数据</h4><ul>
 <li>调用edit()方法获取一个SharedPreferences.Editor对象</li>
-<li>从Editor中获取数据，如调用getBoolean()等</li>
-</ul>
+<li><p>从Editor中获取数据，如调用getBoolean()等</p>
 <pre><code>saveData.setOnClickListener(new View.OnClickListener(){
     public void onClick(View V) {
         SharedPreferences.Editor editor = getSharedPreferences(&quot;data&quot;,MODE_PRIVATE).edit();
@@ -14326,7 +14331,9 @@ public int getItemCount() {
         editor.putBoolean(&quot;married&quot;,false);
         editor.apply();
     }
-</code></pre><h3 id="SQLite数据库存储"><a href="#SQLite数据库存储" class="headerlink" title="SQLite数据库存储"></a>SQLite数据库存储</h3><p><strong>——一个轻量级关系型数据库</strong></p>
+</code></pre></li>
+</ul>
+<h3 id="SQLite数据库存储"><a href="#SQLite数据库存储" class="headerlink" title="SQLite数据库存储"></a>SQLite数据库存储</h3><p><strong>——一个轻量级关系型数据库</strong></p>
 <hr>
 <h4 id="创建更新数据库"><a href="#创建更新数据库" class="headerlink" title="- 创建更新数据库"></a>- 创建更新数据库</h4><ul>
 <li>使用SQLiteOpenHelper帮助类可以非常简单地对数据库进行创建和升级</li>
@@ -14357,8 +14364,7 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 }
 </code></pre><ul>
-<li>创建和更新数据库</li>
-</ul>
+<li><p>创建和更新数据库</p>
 <pre><code>public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 //建表语句，autoincrement
@@ -14396,11 +14402,12 @@ public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     //重新建表
     }
 }
-</code></pre><h4 id="增删查改数据库"><a href="#增删查改数据库" class="headerlink" title="- 增删查改数据库"></a>- 增删查改数据库</h4><ul>
+</code></pre></li>
+</ul>
+<h4 id="增删查改数据库"><a href="#增删查改数据库" class="headerlink" title="- 增删查改数据库"></a>- 增删查改数据库</h4><ul>
 <li>添加数据，SQLiteDatabase提供insert()方法专门用于添加数据</li>
 <li>insert()方法接受3个参数，分别为表名，可以为空的列，ContentValues对象</li>
-<li>ContentValues提供一系列的put()方法用于添加数据</li>
-</ul>
+<li><p>ContentValues提供一系列的put()方法用于添加数据</p>
 <pre><code>SQLiteDatabase db = dbHelper.getWritableDatabase();
 ContentValues values = new ContentValues();
 values.put(&quot;name&quot;,&quot;The Da Vinci Code&quot;);
@@ -14408,7 +14415,9 @@ values.put(&quot;author&quot;,&quot;Dan Brown&quot;);
 values.put(&quot;pages&quot;,454);
 values.put(&quot;price&quot;,16.96);
 db.insert(&quot;Book&quot;,null,values);
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li>删除数据，SQLiteDatabase提供delete()方法专门用于删除数据</li>
 <li>delete()方法接受3个参数，分别为表名和对行列的约束</li>
 </ul>
@@ -14452,8 +14461,7 @@ manager.notify(1,notification);
 <p><br>  </p>
 <h3 id="WebView用法"><a href="#WebView用法" class="headerlink" title="WebView用法"></a>WebView用法</h3><hr>
 <ul>
-<li>设置WebView </li>
-</ul>
+<li><p>设置WebView </p>
 <pre><code>protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -14463,11 +14471,13 @@ manager.notify(1,notification);
     webView.loadUrl(&quot;http://www.baidu.com&quot;);
 
 }
-</code></pre><ul>
-<li>声明权限，访问网络需要声明权限，声明权限需要修改AndroidManifest.xml文件</li>
+</code></pre></li>
 </ul>
-<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
-</code></pre><p><br>  </p>
+<ul>
+<li>声明权限，访问网络需要声明权限，声明权限需要修改AndroidManifest.xml文件<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
+</code></pre></li>
+</ul>
+<p><br>  </p>
 <h3 id="HTTP协议访问网络"><a href="#HTTP协议访问网络" class="headerlink" title="HTTP协议访问网络"></a>HTTP协议访问网络</h3><hr>
 <p><br>  </p>
 <h4 id="使用HttpURLConnection"><a href="#使用HttpURLConnection" class="headerlink" title="- 使用HttpURLConnection"></a>- 使用HttpURLConnection</h4><ul>
@@ -14637,8 +14647,7 @@ private void getJsonWithHttpURLConnection() {
 <h3 id="Android-多线程编程"><a href="#Android-多线程编程" class="headerlink" title="Android 多线程编程"></a>Android 多线程编程</h3><hr>
 <p><br>  </p>
 <h4 id="线程的基本用法"><a href="#线程的基本用法" class="headerlink" title="- 线程的基本用法"></a>- 线程的基本用法</h4><ul>
-<li>Runable 接口定义线程</li>
-</ul>
+<li><p>Runable 接口定义线程</p>
 <pre><code>class MyThread implements Runnable{
  @Override
     public void run() {
@@ -14650,16 +14659,17 @@ private void getJsonWithHttpURLConnection() {
 
 MyThread myThread = new MyThread();
 new Thread(myThread).start();
-</code></pre><ul>
-<li>匿名类实现接口</li>
-</ul>
+</code></pre></li>
+<li><p>匿名类实现接口</p>
 <pre><code>new Thread(new Runnable() {
             @Override
             public void run() {
 
             }
         }).start();
-</code></pre><p><br>  </p>
+</code></pre></li>
+</ul>
+<p><br>  </p>
 <h4 id="异步消息处理机制"><a href="#异步消息处理机制" class="headerlink" title="- 异步消息处理机制"></a>- 异步消息处理机制</h4><ul>
 <li>更新UI元素需要在主线程中进行</li>
 <li>Android的异步消息由四个部分组成：Messag、handler、MessageQueue、Looper</li>
@@ -14776,8 +14786,7 @@ public void onClick(View v) {
 <li>在Service中新建继承自Binder的子类，在其中提供具体服务的方法，并在onBind中返回这个子类的实例</li>
 <li>在活动中创建一个ServiceConnection类，重写onServiceConnected()方法和onServiceDisconnected()方法，分别在绑定与断开时会被调用</li>
 <li>在onServiceConnected()方法中向下转型获得binder的实例，此时可以通过binder指挥服务</li>
-<li>可能是书中的一个错误，应使用boolean值标记绑定状态并检查，否则重复解绑会抛出异常，参考 <a href="http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered" target="_blank" rel="external">http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered</a></li>
-</ul>
+<li><p>可能是书中的一个错误，应使用boolean值标记绑定状态并检查，否则重复解绑会抛出异常，参考 <a href="http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered" target="_blank" rel="external">http://stackoverflow.com/questions/22079909/android-java-lang-illegalargumentexception-service-not-registered</a></p>
 <pre><code>public class MyService extends Service {
 
     private DownloadBinder mBinder = new DownloadBinder();
@@ -14841,6 +14850,8 @@ private ServiceConnection connection = new ServiceConnection() {
         Intent bindIntent = new Intent(this,MyService.class);
         bindService(bindIntent,connection,BIND_AUTO_CREATE);
 </code></pre><p><br>  </p>
+</li>
+</ul>
 <h4 id="服务的生命周期"><a href="#服务的生命周期" class="headerlink" title="- 服务的生命周期"></a>- 服务的生命周期</h4><ul>
 <li>一个项目的任何位置调用了Context的startService()方法，相应的服务都会启动</li>
 <li>每个服务只有一个实例，一个服务只要被启动或者绑定之后就会一直处于运行状态</li>
@@ -14887,8 +14898,7 @@ public void onStartCommand(Intent intent, int flags,int startId){
     }).start();
 }
 </code></pre><ul>
-<li>为避免忘记开启线程或停止服务，可以使用IntentService类</li>
-</ul>
+<li><p>为避免忘记开启线程或停止服务，可以使用IntentService类</p>
 <pre><code>public class MyIntentService extends IntentService {
 
     public MyIntentService(){
@@ -14909,6 +14919,8 @@ public void onStartCommand(Intent intent, int flags,int startId){
     }
 }
 </code></pre><p><br>  </p>
+</li>
+</ul>
 <h2 id="第十一章-基于位置的服务"><a href="#第十一章-基于位置的服务" class="headerlink" title="第十一章 基于位置的服务"></a>第十一章 基于位置的服务</h2><hr>
 <p><br>  </p>
 <h2 id="第十二章-Material-Design"><a href="#第十二章-Material-Design" class="headerlink" title="第十二章 Material Design"></a>第十二章 Material Design</h2><hr>
@@ -15006,9 +15018,276 @@ public void onStartCommand(Intent intent, int flags,int startId){
     </entry>
     
     <entry>
+      <title><![CDATA[unix网络编程 笔记]]></title>
+      <url>/2017/02/21/Unp/</url>
+      <content type="html"><![CDATA[<p>onDestroy</p>
+<a id="more"></a>
+<h2 id="函数与头文件"><a href="#函数与头文件" class="headerlink" title="函数与头文件"></a>函数与头文件</h2><p>netinet/in.h</p>
+<pre><code>struct sockaddr_in
+
+{
+short sin_family;
+//Address family一般来说为AF_INET（地址族）PF_INET（协议族）
+
+unsigned short sin_port;
+//Port number 必须要采用网络数据格式
+//普通数字可以用htons()函数转换成网络数据格式的数字
+
+struct in_addr sin_addr;
+//IP address in network byte order（Internet address）
+
+
+unsigned char sin_zero[8];
+//没有实际意义,只是为了跟SOCKADDR结构在内存中对齐
+}
+</code></pre><p>sys/socket.h </p>
+<pre><code>int socket( int af, int type, int protocol) 
+</code></pre><p>string.h</p>
+<pre><code>void *memset(void *s, int ch, size_t n)
+</code></pre><p>stdio.h</p>
+<pre><code>int fputs(char * string, FILE * stream)
+</code></pre><p>unistd.h</p>
+<pre><code>ssize_t read(int fd,void * buf ,size_t count)
+</code></pre><p>arpa/inet.h</p>
+<pre><code>int inet_pton(int af, const char *src, void *dst)
+</code></pre><p>time.h</p>
+<pre><code>ctime()
+</code></pre><h2 id="daytime客户端程序"><a href="#daytime客户端程序" class="headerlink" title="daytime客户端程序"></a>daytime客户端程序</h2><pre><code>#include &lt;stdio.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;time.h&gt;
+
+
+int
+main(int argc,char **argv)
+{
+</code></pre><p>用来保存文件描述符（fd = file descriptor）</p>
+<pre><code>int sockfd,n;
+</code></pre><p>用来保存返回的字符</p>
+<pre><code>char recvline[41];
+
+struct sockaddr_in servaddr;
+
+if(argc !=2)
+{ 
+    printf(&quot;usage: a.out &lt;IPaddress&gt;&quot;);
+    exit(0);
+}
+</code></pre><p>AF_INET：协议族，常量2，socket只能使用这个协议</p>
+<p>SOCK_STREAM： 提供面向连接的稳定数据传输，即TCP协议</p>
+<p>参数protocol : 指定socket所使用的传输协议编号,这一参数通常不具体设置，一般设置为0即可（0即为默认）</p>
+<p>这里创建一个套接字，采用tcp协议，并获取这个socket的文件描述符</p>
+<pre><code>if((sockfd = socket(AF_INET,SOCK_STREAM,0))&lt;0)
+{
+    printf(&quot;socket error&quot;);
+    exit(0);
+}
+</code></pre><p>初始化一个sockaddr_in结构，采用相同协议族</p>
+<pre><code>memset(&amp;servaddr,0,sizeof(servaddr));
+servaddr.sin_family=AF_INET;
+</code></pre><p>sin_port : 存储端口号（使用网络字节顺序）<br>htons：将整型变量从主机字节顺序转变成网络字节顺序<br>13：daytime端口</p>
+<pre><code>servaddr.sin_port = htons(13);
+</code></pre><p>inet_pton()将IP地址从字符串格式转换成网络地址格式，支持Ipv4和Ipv6</p>
+<pre><code>if(inet_pton(AF_INET,argv[1],&amp;servaddr.sin_addr)&lt;=0)
+{
+    printf(&quot;inet_pton error for %s&quot;,argv[1]);
+}
+</code></pre><p>connect函数利用文件描述符与地址，为客户端建立tcp连接<br>sockaddr和sockaddr_in的结构是一致的<br>但sockaddr一般保留给计算机使用，所以需要强制转换</p>
+<pre><code>if(connect(sockfd,(struct sockaddr*)&amp;servaddr,sizeof(servaddr))&lt;0)
+{
+    printf(&quot;connect error&quot;);
+    exit(0);
+}
+</code></pre><p>read()读取服务器应答，无法保证一次读取完全部数据，因此使用循环</p>
+<pre><code>while((n=read(sockfd,recvline,40))&gt;0)
+{
+  recvline[n]=0;
+  if(fputs(recvline,stdout)==EOF) 
+</code></pre><p>输出到控制台</p>
+<pre><code>exit(0);
+
+if(n&lt;0)
+{
+    printf(&quot;read error&quot;);
+    exit(0);
+}
+
+}
+
+exit(0);
+}
+</code></pre><h2 id="daytime服务器程序"><a href="#daytime服务器程序" class="headerlink" title="daytime服务器程序"></a>daytime服务器程序</h2><pre><code>int main(int argc,char **argv)
+{
+
+
+int listenfd,connfd;
+socklen_t len;
+struct sockaddr_in servaddr,cliaddr;
+char buff[40];
+time_t ticks;
+
+if( ( listenfd = socket(AF_INET,SOCK_STREAM,0 ) )&lt;0)
+printf(&quot;socket error&quot;),exit(0);
+memset(&amp;servaddr,0,sizeof(servaddr));
+servaddr.sin_family = AF_INET;
+</code></pre><p>-</p>
+<pre><code>servaddr.sin_port = htons(9999);
+</code></pre><p>选择端口，1024以下的端口一般保留给系统内部使用，书中使用daytime的端口13，但是这么做并没有任何意义，该程序通过time()、ctime()获取系统时间</p>
+<pre><code>servaddr.sin_addr.s_addr =htonl(INADDR_ANY);
+if(bind(listenfd,(struct sockaddr *)&amp;servaddr ,sizeof(servaddr))==-1)
+printf(&quot;bind error &quot;),exit(0);
+</code></pre><p>当用socket()函数创建套接字以后，套接字在名称空间(网络地址族)中存在，但没有任何地址给它赋值。bind()把用addr指定的地址与文件描述符代表的套接字sockfd绑定。addrlen指定了以addr所指向的地址结构体的字节长度</p>
+<p>使用tcp协议通信时客户端不需要使用bind()</p>
+<pre><code>if(listen(listenfd,2)==-1)printf(&quot;listen error\n&quot;),exit(0);
+</code></pre><p>listen函数使用主动连接套接口变为被连接套接口，使得一个进程可以接受其它进程的请求，从而成为一个服务器进程。在TCP服务器编程中listen函数把进程变为一个服务器，并指定相应的套接字变为被动连接</p>
+<pre><code>for(;;)
+ {
+len=sizeof(cliaddr);
+connfd = accept(listenfd,(struct sockaddr *)&amp;cliaddr,&amp;len);
+</code></pre><p>accept()按照顺序提取用于监听的socket所监听到的连接请求，用相应的端口以及通信地址创建一个新的socket，并将其文件描述符返回</p>
+<pre><code>if(connfd==-1)printf(&quot;accept error\n&quot;),exit(0);
+printf(&quot;connection from %s,port %d\n&quot;,inet_ntop(AF_INET,
+&amp;cliaddr.sin_addr,buff,sizeof(buff)),ntohs(cliaddr.sin_port));
+</code></pre><p>ntohs()将一个无符号短整形数从网络络字节顺序转换为主机字节顺序</p>
+<p> -</p>
+<pre><code>ticks = time(NULL);
+</code></pre><p>获取系统时间</p>
+<pre><code>snprintf(buff,sizeof(buff),&quot;%.24s\r\n&quot;,ctime(&amp;ticks));
+</code></pre><p>ctime()将参数&amp;ticks所指的time_t结构中的信息转换成真实世界所使用的时间日期表示方法，然后将结果以字符串形态返回。<br>snprintf()将可变个参数(…)按照format格式化成字符串，然后将其复制到str中</p>
+<pre><code>write(connfd,buff,strlen(buff));
+</code></pre><p>write函数将buff中的nbytes字节内容写入socket,成功时返回写的字节数</p>
+<pre><code>if(close(connfd)==-1)printf(&quot;close error\n&quot;),exit(0);
+</code></pre><p>关闭本进程的socket id，但链接还是开着的，用这个socket id的其它进程还能用这个链接，能读或写这个socket id</p>
+<pre><code>  }
+}
+</code></pre><h2 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h2><p>socket: 一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）</p>
+<p>Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。<br>在设计模式中，Socket其实就是一个门面模式<br>它把复杂的TCP/IP协议族隐藏在Socket接口后面<br>对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议</p>
+<p>OSI: open system insterconnection 开放系统互连模型</p>
+<p>物理层、数据链路层：设备驱动程序、网络硬件<br>网络层：IPv4／IPv6<br>传输层：TCP、UDP<br>（这之间的接口是构建api的自然位置）<br>回话、表示、应用层：应用层<br>传输层：TCP、UDP和SCTP</p>
+<p>UDP：一个简单的传输层协议，往一个UDP套接字写入消息，<br>    该消息随后被封装到一个UDP数据报，<br>    该UDP数据报进而又被封装到一个IP数据报，然后发送到目的地<br>    UDP的特点是记录边界，提供无连接服务，缺乏可靠性</p>
+<p>TCP：提供客户与服务器之间的连接，TCP客户先与某个给定的服务器建立一个连接，<br>    再跨该连接与那个服务器交换数据，然后终止这个连接<br>    TCP的特点是自动重传，动态估算往返时间（RTT），数据排序<br>    流量控制，全双工</p>
+<p>SCTP：类似TCP，但面向消息，有多宿性</p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> unix </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ubuntu 16.04 开启daytime服务（端口13）]]></title>
+      <url>/2017/02/20/Daytime/</url>
+      <content type="html"><![CDATA[<hr>
+<a id="more"></a>
+<p>学习《unix网络编程》时，解决完编译问题，第一个程序又出现如下错误代码</p>
+<pre><code>connect error: Connection refused
+</code></pre><p>这个serve一般被系统默认关闭，用书中的daytimesrv程序可以暂时打开端口</p>
+<p>不过最好通过xinetd（守护进程服务程序）开启</p>
+<p>ubuntu不自带xinetd，因此</p>
+<pre><code>sudo apt install xinetd
+</code></pre><p>这个时候又报错 : (</p>
+<pre><code>......
+E: Unable to locate package xinetd
+</code></pre><p>尝试用upgrade更新源依然失败<br>在系统设置->软件和更新->下载自：->其他站点中选择最佳服务区<br>再次安装xinetd成功</p>
+<p>然后在/etc/xinetd.d中将daytime的两个disable改为no<br>（注意在vim中修改只读模式仍然可能无法保存，建议使用sudo chmod）</p>
+<p>最后重新启动xinetd</p>
+<pre><code>/etc/init.d/xinetd restart
+</code></pre><p>运行，正常</p>
+<pre><code>$ ./daytimetcpcli 127.0.0.1
+
+20 FEB 2017 23:39:29 CST
+counter = 1
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> unix </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[新年贺图]]></title>
+      <url>/2017/01/25/2017/</url>
+      <content type="html"><![CDATA[<p>不肝了，不肝了<br><a id="more"></a></p>
+<p><img src="http://p1.bqimg.com/567571/9c34ec604599fff3.jpg"></p>
+<p>魔学第一集的设定<br>线稿阶段本来没想那么多，然而越画越复杂<br>顺便尝试一下多色块的赛璐璐，结果是配色配到头晕</p>
+<p>过几天再来看才感觉饱和度用低了，这个习惯很难改啊</p>
+<p>pixiv地址：<a href="http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=61224806" target="_blank" rel="external">http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=61224806</a></p>
+<p>个人页面：<a href="http://www.pixiv.net/member.php?id=7314348" target="_blank" rel="external">http://www.pixiv.net/member.php?id=7314348</a></p>
+<p>whatever：<a href="https://alberthumbert.github.io/2016/10/15/mypaintings/">https://alberthumbert.github.io/2016/10/15/mypaintings/</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 创作 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 涂鸦 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[简单栈和树的简单操作]]></title>
+      <url>/2017/01/23/LinearList2/</url>
+      <content type="html"><![CDATA[<hr>
+<a id="more"></a>
+<h2 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> #include &lt;stdio.h&gt;</div><div class="line"> #include &lt;stdlib.h&gt;</div><div class="line"> #include&lt;time.h&gt;</div><div class="line"> #define OK 1</div><div class="line"> #define ERROR 0      </div><div class="line"> #define MAXSIZE 30</div><div class="line"></div><div class="line">typedef int SElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">SElemType data[MAXSIZE];</div><div class="line">int top;</div><div class="line">&#125;SqStack;</div><div class="line"></div><div class="line">void StackPrint(SqStack *sp);</div><div class="line">Status Push(SqStack *sp,SElemType e);</div><div class="line">Status Pop(SqStack *sp,SElemType * ep);</div><div class="line"></div><div class="line">int</div><div class="line">main(void)</div><div class="line">&#123;</div><div class="line">int i,e,k,*ep=&amp;e;</div><div class="line">SqStack S;</div><div class="line">SqStack *sp=&amp;S;</div><div class="line">srand(time(0));</div><div class="line"></div><div class="line">//初始化随机栈</div><div class="line">i=rand()%10;</div><div class="line">S.top=i;</div><div class="line">for(k=0;k&lt;=i;k++)</div><div class="line"> S.data[k]=rand()%100+1;</div><div class="line"> StackPrint(sp);</div><div class="line"></div><div class="line">//进栈操作</div><div class="line">e=rand()%100+1;</div><div class="line">Push(sp,e);</div><div class="line">StackPrint(sp);</div><div class="line"></div><div class="line">//出栈操作</div><div class="line">Pop(sp,ep);</div><div class="line">StackPrint(sp);</div><div class="line"></div><div class="line">printf(&quot;done !\n\n&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void StackPrint(SqStack * sp)</div><div class="line">&#123;</div><div class="line">printf(&quot;new list: &quot;);</div><div class="line">for(int i=0;i&lt;=sp-&gt;top;i++)</div><div class="line"> printf(&quot;%d &quot;,sp-&gt;data[i]);</div><div class="line"> printf(&quot;\n&quot;);</div><div class="line"> &#125;</div><div class="line"></div><div class="line">Status Push(SqStack *sp,SElemType e)</div><div class="line">&#123;</div><div class="line">if(sp-&gt;top==MAXSIZE-1)</div><div class="line">&#123;</div><div class="line"> printf(&quot;Push Failed\n&quot;);</div><div class="line"> return ERROR;</div><div class="line">&#125;</div><div class="line">sp-&gt;top++;</div><div class="line">sp-&gt;data[sp-&gt;top]=e;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Pop(SqStack *sp,SElemType * ep)</div><div class="line">&#123;</div><div class="line">if(sp-&gt;top==-1)</div><div class="line">&#123;</div><div class="line"> printf(&quot;Pop Failed\n&quot;);</div><div class="line"> return ERROR;</div><div class="line">&#125;</div><div class="line">*ep=sp-&gt;data[sp-&gt;top];</div><div class="line">sp-&gt;top--;</div><div class="line">return OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="两栈共享空间"><a href="#两栈共享空间" class="headerlink" title="两栈共享空间"></a>两栈共享空间</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 30</div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">ElemType data[MAXSIZE];</div><div class="line">int top1;</div><div class="line">int top2;</div><div class="line">&#125;DoubleStack;</div><div class="line"></div><div class="line">Status Push(DoubleStack *S,ElemType e,int StackNumber);</div><div class="line">Status Pop(DoubleStack *S,ElemType *e,int StackNumber);</div><div class="line">Status StackInit(DoubleStack *S);</div><div class="line">Status stackprint(DoubleStack *S);</div><div class="line"></div><div class="line">int</div><div class="line">main()</div><div class="line">&#123;</div><div class="line">DoubleStack S;</div><div class="line">StackInit(&amp;S);</div><div class="line">int e,*pe=&amp;e;</div><div class="line"></div><div class="line">e=1;</div><div class="line">Push(&amp;S,e,1);</div><div class="line">stackprint(&amp;S);</div><div class="line"></div><div class="line">e=2;</div><div class="line">Push(&amp;S,e,2);</div><div class="line">stackprint(&amp;S);</div><div class="line"></div><div class="line">Pop(&amp;S,pe,1);</div><div class="line">stackprint(&amp;S);</div><div class="line"></div><div class="line">Pop(&amp;S,pe,2);</div><div class="line">stackprint(&amp;S);</div><div class="line">   </div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status StackInit(DoubleStack *S)</div><div class="line">&#123;</div><div class="line">S-&gt;top1=-1;</div><div class="line">S-&gt;top2=MAXSIZE;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Push(DoubleStack *S,ElemType e,int StackNumber)</div><div class="line">&#123;</div><div class="line">if(S-&gt;top2+1==S-&gt;top2)</div><div class="line">    return ERROR;</div><div class="line">if(StackNumber==1)S-&gt;data[++S-&gt;top1]=e;</div><div class="line">if(StackNumber==2)S-&gt;data[--S-&gt;top2]=e;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Pop(DoubleStack *S,ElemType *e,int StackNumber)</div><div class="line">&#123;</div><div class="line">if(StackNumber==1)</div><div class="line">&#123;</div><div class="line">    if(S-&gt;top1==-1)return ERROR;</div><div class="line">    *e=S-&gt;data[S-&gt;top1--];</div><div class="line">&#125;</div><div class="line"></div><div class="line">if(StackNumber==2)</div><div class="line">&#123;</div><div class="line">    if(S-&gt;top2==MAXSIZE)return ERROR;</div><div class="line">    *e=S-&gt;data[S-&gt;top2++];</div><div class="line">&#125;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status stackprint(DoubleStack *S)</div><div class="line">&#123;</div><div class="line">for(int i=0;i&lt;=S-&gt;top1;i++)</div><div class="line">    printf(&quot; %d &quot;,S-&gt;data[i]);</div><div class="line"></div><div class="line">for(int i=MAXSIZE-1;i&gt;=S-&gt;top2;i--)</div><div class="line">    printf(&quot; %d &quot;,S-&gt;data[i]);</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="链栈"><a href="#链栈" class="headerlink" title="链栈"></a>链栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 30</div><div class="line"></div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line"> ElemType data;</div><div class="line"> struct StackNode *next;</div><div class="line">&#125;StackNode,*LinkStackPtr;</div><div class="line"></div><div class="line">typedef struct LinkStack</div><div class="line">&#123;</div><div class="line">LinkStackPtr top;</div><div class="line">int count;</div><div class="line">&#125;LinkStack;</div><div class="line"> </div><div class="line">Status Push(LinkStack *S,ElemType e);</div><div class="line">Status Pop(LinkStack *S,ElemType *e);</div><div class="line">Status StackInit(LinkStack *S);</div><div class="line">Status stackprint(LinkStack S);</div><div class="line"></div><div class="line">int </div><div class="line">main()</div><div class="line">&#123;</div><div class="line">LinkStack S;</div><div class="line">int e,*pe=&amp;e;</div><div class="line">StackInit(&amp;S);</div><div class="line"></div><div class="line">e=1;</div><div class="line">Push(&amp;S, e);</div><div class="line">stackprint(S);</div><div class="line"></div><div class="line">e=2;</div><div class="line">Push(&amp;S, e);</div><div class="line">stackprint(S);</div><div class="line"></div><div class="line"></div><div class="line">Pop(&amp;S, pe);</div><div class="line">stackprint(S);</div><div class="line"></div><div class="line">Pop(&amp;S, pe);</div><div class="line">stackprint(S)；</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Push(LinkStack *S,ElemType e)</div><div class="line">&#123;</div><div class="line">LinkStackPtr tmp=(LinkStackPtr)malloc(sizeof(StackNode));</div><div class="line">tmp-&gt;next=S-&gt;top;</div><div class="line">tmp-&gt;data=e;</div><div class="line">S-&gt;count++;</div><div class="line">S-&gt;top=tmp;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Pop(LinkStack *S,ElemType *pe)</div><div class="line">&#123;</div><div class="line">LinkStackPtr tmp;</div><div class="line">if(S-&gt;top==NULL)</div><div class="line">    return ERROR;</div><div class="line">*pe=S-&gt;top-&gt;data;</div><div class="line">tmp=S-&gt;top;</div><div class="line">S-&gt;top=S-&gt;top-&gt;next;</div><div class="line">free(tmp);</div><div class="line">S-&gt;count--;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status StackInit(LinkStack *S)</div><div class="line">&#123;</div><div class="line">S-&gt;top=NULL;</div><div class="line">S-&gt;count=0;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status stackprint(LinkStack S)</div><div class="line">&#123;</div><div class="line">LinkStackPtr seek=S.top;</div><div class="line">while(seek)</div><div class="line">&#123;</div><div class="line">printf(&quot;%d &quot;,seek-&gt;data);</div><div class="line">seek=seek-&gt;next;</div><div class="line">&#125;</div><div class="line">printf(&quot;\n&quot;);</div><div class="line">return OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  #include &lt;stdio.h&gt;</div><div class="line">  #include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 20</div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">  ElemType data[MAXSIZE];</div><div class="line">  int front;</div><div class="line">  int rear;</div><div class="line">&#125;Queue;</div><div class="line"></div><div class="line">Status QueueInit(Queue *Q);</div><div class="line">Status QueueEn(Queue *Q,ElemType e);</div><div class="line">Status QueueDe(Queue *Q,ElemType *e);</div><div class="line">Status QueuePr(Queue Q);</div><div class="line">int QueueLength(Queue Q);</div><div class="line"></div><div class="line">int</div><div class="line">main()</div><div class="line">&#123;</div><div class="line">int e;</div><div class="line">//初始化队列</div><div class="line">Queue Q;</div><div class="line">QueueInit(&amp;Q);</div><div class="line"></div><div class="line">//入队列操作</div><div class="line">for(e=1;e&lt;=MAXSIZE;e++)</div><div class="line">&#123;</div><div class="line">QueueEn(&amp;Q, e);</div><div class="line">QueuePr(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//出队列操作</div><div class="line">for(e=1;e&lt;=MAXSIZE;e++)</div><div class="line">&#123;</div><div class="line">    QueueDe(&amp;Q, &amp;e);</div><div class="line">    QueuePr(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line">Status QueueInit(Queue *Q)</div><div class="line">&#123;</div><div class="line"> Q-&gt;front=0;</div><div class="line"> Q-&gt;rear=0;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status QueueEn(Queue *Q,ElemType e)</div><div class="line">&#123;</div><div class="line"> if((Q-&gt;rear+1)%MAXSIZE==Q-&gt;front)</div><div class="line"> &#123;</div><div class="line">    printf(&quot;QueueEn failed\n&quot;);</div><div class="line">    return ERROR;</div><div class="line"> &#125;</div><div class="line"> Q-&gt;data[Q-&gt;rear]=e;</div><div class="line"> Q-&gt;rear=(Q-&gt;rear+1)%MAXSIZE;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">Status QueueDe(Queue *Q,ElemType *e)</div><div class="line">&#123;</div><div class="line">  if(Q-&gt;front==Q-&gt;rear)</div><div class="line"> &#123;</div><div class="line">    printf(&quot;QueueDe failed!\n&quot;);</div><div class="line">    return ERROR;</div><div class="line"> &#125;</div><div class="line"></div><div class="line">  Q-&gt;front=(Q-&gt;front+1)%MAXSIZE;</div><div class="line"></div><div class="line">  return OK;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">int QueueLength(Queue Q)</div><div class="line">&#123;</div><div class="line">  return (Q.rear+MAXSIZE-Q.front)%MAXSIZE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status QueuePr(Queue Q)</div><div class="line">&#123;</div><div class="line">  if(QueueLength(Q)==0)</div><div class="line">  &#123;</div><div class="line">    return ERROR;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  for(int seek=Q.front;seek!=Q.rear;seek=(seek+1)%MAXSIZE)</div><div class="line">  printf(&quot;%d &quot;,Q.data[seek]);</div><div class="line">  printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">  return OK;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="链队列"><a href="#链队列" class="headerlink" title="链队列"></a>链队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 20</div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">  ElemType data;</div><div class="line">  struct Node *next;</div><div class="line">&#125;Node,*QueuePtr;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line"> QueuePtr front,rear;</div><div class="line">&#125;LinkQueue;</div><div class="line"></div><div class="line">Status EnQueue(LinkQueue *Q,ElemType e);</div><div class="line">Status DeQueue(LinkQueue *Q,ElemType *e);</div><div class="line">Status InQueue(LinkQueue *Q);</div><div class="line">Status PrQueue(LinkQueue Q);</div><div class="line"></div><div class="line">int</div><div class="line">main()</div><div class="line">&#123;</div><div class="line">LinkQueue Q;</div><div class="line">int e,*pe=&amp;e;</div><div class="line">InQueue(&amp;Q);</div><div class="line"></div><div class="line">for(e=1;e&lt;=20;e++)</div><div class="line">&#123;</div><div class="line">EnQueue(&amp;Q, e);</div><div class="line">PrQueue(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line">for(e=1;e&lt;=20;e++)</div><div class="line">&#123;</div><div class="line"></div><div class="line">DeQueue(&amp;Q, pe);</div><div class="line">PrQueue(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status EnQueue(LinkQueue *Q,ElemType e)</div><div class="line">&#123;</div><div class="line">QueuePtr new=(QueuePtr)malloc(sizeof(Node));</div><div class="line">new-&gt;data=e;</div><div class="line">new-&gt;next=NULL;</div><div class="line">Q-&gt;rear-&gt;next=new;</div><div class="line">Q-&gt;rear=new;</div><div class="line"></div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status DeQueue(LinkQueue *Q,ElemType *e)</div><div class="line">&#123;</div><div class="line">if(Q-&gt;front==Q-&gt;rear)</div><div class="line">  &#123;</div><div class="line">    printf(&quot;delete failed\n&quot;);</div><div class="line">    return ERROR;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">QueuePtr del=Q-&gt;front-&gt;next;</div><div class="line">*e=del-&gt;data;</div><div class="line">Q-&gt;front-&gt;next=del-&gt;next;</div><div class="line">if(del==Q-&gt;rear)</div><div class="line">    Q-&gt;rear=Q-&gt;front;</div><div class="line">free(del);</div><div class="line"></div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status InQueue(LinkQueue *Q)</div><div class="line">&#123;</div><div class="line"> QueuePtr new=(QueuePtr)malloc(sizeof(Node));</div><div class="line"> Q-&gt;front=new;</div><div class="line"> Q-&gt;rear=new;</div><div class="line"> return OK;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Status PrQueue(LinkQueue Q)</div><div class="line">&#123;</div><div class="line"> if(Q.front==Q.rear)</div><div class="line">&#123;</div><div class="line">    printf(&quot;PrQueue failed\n&quot;);</div><div class="line">    return ERROR;</div><div class="line"></div><div class="line">&#125;</div><div class="line">QueuePtr seek=Q.front-&gt;next;</div><div class="line">while(seek!=NULL)</div><div class="line">&#123;</div><div class="line">    printf(&quot;%d &quot;,seek-&gt;data);</div><div class="line">    seek=seek-&gt;next;</div><div class="line">&#125;</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">return OK;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/*</div><div class="line">//几种树的结构</div><div class="line">#define MAX_TREE_SIZE 100</div><div class="line">typedef int ElemType;</div><div class="line">typedef  struct Node</div><div class="line">&#123;</div><div class="line">    ElemType data;</div><div class="line">    int parent;</div><div class="line">&#125;Node;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">    Node nodes[MAX_TREE_SIZE];</div><div class="line">    int r,n;</div><div class="line">&#125;Tree;</div><div class="line">*/</div><div class="line"> </div><div class="line">/*</div><div class="line">#define MAX_TREE_SIZE 100</div><div class="line">typedef int ElemType;</div><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">    int child;</div><div class="line">    struct Node *next;</div><div class="line">&#125;* ChildPtr;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">ElemType data;</div><div class="line">ChildPtr firstchild;</div><div class="line">&#125;Box;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">Box nodes[MAX_TREE_SIZE];</div><div class="line">int r,n;</div><div class="line">&#125;Tree;</div><div class="line">*/</div><div class="line"> </div><div class="line">/*</div><div class="line">#define MAX_TREE_SIZE 100</div><div class="line">typedef int ElemType;</div><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">    ElemType data;</div><div class="line">    struct Node *firstchild,*rightsib;</div><div class="line">&#125;Node,*Tree;</div><div class="line">*/</div><div class="line"> </div><div class="line">#include&lt;stdio.h&gt;</div><div class="line">typedef char ElemType;</div><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">    ElemType data;</div><div class="line">    struct Node * lchild,*rchild;</div><div class="line"> </div><div class="line">&#125;Node,* Tree;</div><div class="line">void CreatTree(Tree *T);</div><div class="line">void PreOrderTraverse(Tree T);</div><div class="line">void InOrderTreaverse(Tree T);</div><div class="line">void PostOrderTraverse(Tree T);</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line"> </div><div class="line">//创建二叉树</div><div class="line">Tree T;</div><div class="line">CreatTree(&amp;T);</div><div class="line"></div><div class="line">//前序遍历二叉树</div><div class="line">PreOrderTraverse(T);</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">//中序遍历二叉树</div><div class="line">InOrderTreaverse(T);</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">//后序遍历二叉树</div><div class="line">PostOrderTraverse(T);</div><div class="line">printf(&quot;\n\n&quot;);</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void CreatTree(Tree *T)</div><div class="line">&#123;</div><div class="line">ElemType ch;</div><div class="line">scanf(&quot;%c&quot;,&amp;ch);</div><div class="line">if(ch==&apos;#&apos;)*T=NULL;</div><div class="line">else</div><div class="line">  &#123;</div><div class="line">    (*T)=(Tree)malloc(sizeof(Node));</div><div class="line">    if(!*T)return;</div><div class="line">     (*T)-&gt;data=ch;</div><div class="line">    CreatTree(&amp;(*T)-&gt;lchild);</div><div class="line">    CreatTree(&amp;(*T)-&gt;rchild);</div><div class="line">   </div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">void PreOrderTraverse(Tree T)</div><div class="line">&#123;</div><div class="line">if(T==NULL)</div><div class="line">       return;</div><div class="line"></div><div class="line">printf(&quot;%c&quot;,T-&gt;data);</div><div class="line">PreOrderTraverse(T-&gt;lchild);</div><div class="line">PreOrderTraverse(T-&gt;rchild);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">void InOrderTreaverse(Tree T)</div><div class="line">&#123;</div><div class="line">if(T==NULL)</div><div class="line">    return;</div><div class="line"></div><div class="line">PreOrderTraverse(T-&gt;lchild);</div><div class="line">printf(&quot;%c&quot;,T-&gt;data);</div><div class="line">PreOrderTraverse(T-&gt;rchild);</div><div class="line"></div><div class="line">&#125;   </div><div class="line">void PostOrderTraverse(Tree T)</div><div class="line">&#123;</div><div class="line">  if(T==NULL)</div><div class="line">        return;</div><div class="line"></div><div class="line">  PreOrderTraverse(T-&gt;lchild);</div><div class="line">  PreOrderTraverse(T-&gt;rchild);</div><div class="line">    printf(&quot;%c&quot;,T-&gt;data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 代码 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Core Java 笔记]]></title>
-      <url>/2017/03/26/JavaCore/</url>
-      <content type="html"><![CDATA[<p>-</p>
+      <url>/2017/01/11/JavaCore/</url>
+      <content type="html"><![CDATA[<hr>
 <a id="more"></a>
 <h1 id="Core-Java-卷-1"><a href="#Core-Java-卷-1" class="headerlink" title="Core Java 卷 1"></a>Core Java 卷 1</h1><p><strong>（待续…）</strong></p>
 <h2 id="第四章：类与对象"><a href="#第四章：类与对象" class="headerlink" title="第四章：类与对象"></a>第四章：类与对象</h2><h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><ul>
@@ -15925,273 +16204,6 @@ String name = root.getTagName();
         <tags>
             
             <tag> Java </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[unix网络编程 笔记]]></title>
-      <url>/2017/02/21/Unp/</url>
-      <content type="html"><![CDATA[<p>onDestroy</p>
-<a id="more"></a>
-<h2 id="函数与头文件"><a href="#函数与头文件" class="headerlink" title="函数与头文件"></a>函数与头文件</h2><p>netinet/in.h</p>
-<pre><code>struct sockaddr_in
-
-{
-short sin_family;
-//Address family一般来说为AF_INET（地址族）PF_INET（协议族）
-
-unsigned short sin_port;
-//Port number 必须要采用网络数据格式
-//普通数字可以用htons()函数转换成网络数据格式的数字
-
-struct in_addr sin_addr;
-//IP address in network byte order（Internet address）
-
-
-unsigned char sin_zero[8];
-//没有实际意义,只是为了跟SOCKADDR结构在内存中对齐
-}
-</code></pre><p>sys/socket.h </p>
-<pre><code>int socket( int af, int type, int protocol) 
-</code></pre><p>string.h</p>
-<pre><code>void *memset(void *s, int ch, size_t n)
-</code></pre><p>stdio.h</p>
-<pre><code>int fputs(char * string, FILE * stream)
-</code></pre><p>unistd.h</p>
-<pre><code>ssize_t read(int fd,void * buf ,size_t count)
-</code></pre><p>arpa/inet.h</p>
-<pre><code>int inet_pton(int af, const char *src, void *dst)
-</code></pre><p>time.h</p>
-<pre><code>ctime()
-</code></pre><h2 id="daytime客户端程序"><a href="#daytime客户端程序" class="headerlink" title="daytime客户端程序"></a>daytime客户端程序</h2><pre><code>#include &lt;stdio.h&gt;
-#include &lt;sys/socket.h&gt;
-#include &lt;netinet/in.h&gt;
-#include &lt;string.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;arpa/inet.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;time.h&gt;
-
-
-int
-main(int argc,char **argv)
-{
-</code></pre><p>用来保存文件描述符（fd = file descriptor）</p>
-<pre><code>int sockfd,n;
-</code></pre><p>用来保存返回的字符</p>
-<pre><code>char recvline[41];
-
-struct sockaddr_in servaddr;
-
-if(argc !=2)
-{ 
-    printf(&quot;usage: a.out &lt;IPaddress&gt;&quot;);
-    exit(0);
-}
-</code></pre><p>AF_INET：协议族，常量2，socket只能使用这个协议</p>
-<p>SOCK_STREAM： 提供面向连接的稳定数据传输，即TCP协议</p>
-<p>参数protocol : 指定socket所使用的传输协议编号,这一参数通常不具体设置，一般设置为0即可（0即为默认）</p>
-<p>这里创建一个套接字，采用tcp协议，并获取这个socket的文件描述符</p>
-<pre><code>if((sockfd = socket(AF_INET,SOCK_STREAM,0))&lt;0)
-{
-    printf(&quot;socket error&quot;);
-    exit(0);
-}
-</code></pre><p>初始化一个sockaddr_in结构，采用相同协议族</p>
-<pre><code>memset(&amp;servaddr,0,sizeof(servaddr));
-servaddr.sin_family=AF_INET;
-</code></pre><p>sin_port : 存储端口号（使用网络字节顺序）<br>htons：将整型变量从主机字节顺序转变成网络字节顺序<br>13：daytime端口</p>
-<pre><code>servaddr.sin_port = htons(13);
-</code></pre><p>inet_pton()将IP地址从字符串格式转换成网络地址格式，支持Ipv4和Ipv6</p>
-<pre><code>if(inet_pton(AF_INET,argv[1],&amp;servaddr.sin_addr)&lt;=0)
-{
-    printf(&quot;inet_pton error for %s&quot;,argv[1]);
-}
-</code></pre><p>connect函数利用文件描述符与地址，为客户端建立tcp连接<br>sockaddr和sockaddr_in的结构是一致的<br>但sockaddr一般保留给计算机使用，所以需要强制转换</p>
-<pre><code>if(connect(sockfd,(struct sockaddr*)&amp;servaddr,sizeof(servaddr))&lt;0)
-{
-    printf(&quot;connect error&quot;);
-    exit(0);
-}
-</code></pre><p>read()读取服务器应答，无法保证一次读取完全部数据，因此使用循环</p>
-<pre><code>while((n=read(sockfd,recvline,40))&gt;0)
-{
-  recvline[n]=0;
-  if(fputs(recvline,stdout)==EOF) 
-</code></pre><p>输出到控制台</p>
-<pre><code>exit(0);
-
-if(n&lt;0)
-{
-    printf(&quot;read error&quot;);
-    exit(0);
-}
-
-}
-
-exit(0);
-}
-</code></pre><h2 id="daytime服务器程序"><a href="#daytime服务器程序" class="headerlink" title="daytime服务器程序"></a>daytime服务器程序</h2><pre><code>int main(int argc,char **argv)
-{
-
-
-int listenfd,connfd;
-socklen_t len;
-struct sockaddr_in servaddr,cliaddr;
-char buff[40];
-time_t ticks;
-
-if( ( listenfd = socket(AF_INET,SOCK_STREAM,0 ) )&lt;0)
-printf(&quot;socket error&quot;),exit(0);
-memset(&amp;servaddr,0,sizeof(servaddr));
-servaddr.sin_family = AF_INET;
-</code></pre><p>-</p>
-<pre><code>servaddr.sin_port = htons(9999);
-</code></pre><p>选择端口，1024以下的端口一般保留给系统内部使用，书中使用daytime的端口13，但是这么做并没有任何意义，该程序通过time()、ctime()获取系统时间</p>
-<pre><code>servaddr.sin_addr.s_addr =htonl(INADDR_ANY);
-if(bind(listenfd,(struct sockaddr *)&amp;servaddr ,sizeof(servaddr))==-1)
-printf(&quot;bind error &quot;),exit(0);
-</code></pre><p>当用socket()函数创建套接字以后，套接字在名称空间(网络地址族)中存在，但没有任何地址给它赋值。bind()把用addr指定的地址与文件描述符代表的套接字sockfd绑定。addrlen指定了以addr所指向的地址结构体的字节长度</p>
-<p>使用tcp协议通信时客户端不需要使用bind()</p>
-<pre><code>if(listen(listenfd,2)==-1)printf(&quot;listen error\n&quot;),exit(0);
-</code></pre><p>listen函数使用主动连接套接口变为被连接套接口，使得一个进程可以接受其它进程的请求，从而成为一个服务器进程。在TCP服务器编程中listen函数把进程变为一个服务器，并指定相应的套接字变为被动连接</p>
-<pre><code>for(;;)
- {
-len=sizeof(cliaddr);
-connfd = accept(listenfd,(struct sockaddr *)&amp;cliaddr,&amp;len);
-</code></pre><p>accept()按照顺序提取用于监听的socket所监听到的连接请求，用相应的端口以及通信地址创建一个新的socket，并将其文件描述符返回</p>
-<pre><code>if(connfd==-1)printf(&quot;accept error\n&quot;),exit(0);
-printf(&quot;connection from %s,port %d\n&quot;,inet_ntop(AF_INET,
-&amp;cliaddr.sin_addr,buff,sizeof(buff)),ntohs(cliaddr.sin_port));
-</code></pre><p>ntohs()将一个无符号短整形数从网络络字节顺序转换为主机字节顺序</p>
-<p> -</p>
-<pre><code>ticks = time(NULL);
-</code></pre><p>获取系统时间</p>
-<pre><code>snprintf(buff,sizeof(buff),&quot;%.24s\r\n&quot;,ctime(&amp;ticks));
-</code></pre><p>ctime()将参数&amp;ticks所指的time_t结构中的信息转换成真实世界所使用的时间日期表示方法，然后将结果以字符串形态返回。<br>snprintf()将可变个参数(…)按照format格式化成字符串，然后将其复制到str中</p>
-<pre><code>write(connfd,buff,strlen(buff));
-</code></pre><p>write函数将buff中的nbytes字节内容写入socket,成功时返回写的字节数</p>
-<pre><code>if(close(connfd)==-1)printf(&quot;close error\n&quot;),exit(0);
-</code></pre><p>关闭本进程的socket id，但链接还是开着的，用这个socket id的其它进程还能用这个链接，能读或写这个socket id</p>
-<pre><code>  }
-}
-</code></pre><h2 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h2><p>socket: 一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）</p>
-<p>Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。<br>在设计模式中，Socket其实就是一个门面模式<br>它把复杂的TCP/IP协议族隐藏在Socket接口后面<br>对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议</p>
-<p>OSI: open system insterconnection 开放系统互连模型</p>
-<p>物理层、数据链路层：设备驱动程序、网络硬件<br>网络层：IPv4／IPv6<br>传输层：TCP、UDP<br>（这之间的接口是构建api的自然位置）<br>回话、表示、应用层：应用层<br>传输层：TCP、UDP和SCTP</p>
-<p>UDP：一个简单的传输层协议，往一个UDP套接字写入消息，<br>    该消息随后被封装到一个UDP数据报，<br>    该UDP数据报进而又被封装到一个IP数据报，然后发送到目的地<br>    UDP的特点是记录边界，提供无连接服务，缺乏可靠性</p>
-<p>TCP：提供客户与服务器之间的连接，TCP客户先与某个给定的服务器建立一个连接，<br>    再跨该连接与那个服务器交换数据，然后终止这个连接<br>    TCP的特点是自动重传，动态估算往返时间（RTT），数据排序<br>    流量控制，全双工</p>
-<p>SCTP：类似TCP，但面向消息，有多宿性</p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> unix </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[ubuntu 16.04 开启daytime服务（端口13）]]></title>
-      <url>/2017/02/20/Daytime/</url>
-      <content type="html"><![CDATA[<hr>
-<a id="more"></a>
-<p>学习《unix网络编程》时，解决完编译问题，第一个程序又出现如下错误代码</p>
-<pre><code>connect error: Connection refused
-</code></pre><p>这个serve一般被系统默认关闭，用书中的daytimesrv程序可以暂时打开端口</p>
-<p>不过最好通过xinetd（守护进程服务程序）开启</p>
-<p>ubuntu不自带xinetd，因此</p>
-<pre><code>sudo apt install xinetd
-</code></pre><p>这个时候又报错 : (</p>
-<pre><code>......
-E: Unable to locate package xinetd
-</code></pre><p>尝试用upgrade更新源依然失败<br>在系统设置->软件和更新->下载自：->其他站点中选择最佳服务区<br>再次安装xinetd成功</p>
-<p>然后在/etc/xinetd.d中将daytime的两个disable改为no<br>（注意在vim中修改只读模式仍然可能无法保存，建议使用sudo chmod）</p>
-<p>最后重新启动xinetd</p>
-<pre><code>/etc/init.d/xinetd restart
-</code></pre><p>运行，正常</p>
-<pre><code>$ ./daytimetcpcli 127.0.0.1
-
-20 FEB 2017 23:39:29 CST
-counter = 1
-</code></pre>]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> unix </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[新年贺图]]></title>
-      <url>/2017/01/25/2017/</url>
-      <content type="html"><![CDATA[<p>不肝了，不肝了<br><a id="more"></a></p>
-<p><img src="http://p1.bqimg.com/567571/9c34ec604599fff3.jpg"></p>
-<p>魔学第一集的设定<br>线稿阶段本来没想那么多，然而越画越复杂<br>顺便尝试一下多色块的赛璐璐，结果是配色配到头晕</p>
-<p>过几天再来看才感觉饱和度用低了，这个习惯很难改啊</p>
-<p>pixiv地址：<a href="http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=61224806" target="_blank" rel="external">http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=61224806</a></p>
-<p>个人页面：<a href="http://www.pixiv.net/member.php?id=7314348" target="_blank" rel="external">http://www.pixiv.net/member.php?id=7314348</a></p>
-<p>whatever：<a href="https://alberthumbert.github.io/2016/10/15/mypaintings/">https://alberthumbert.github.io/2016/10/15/mypaintings/</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> 创作 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 涂鸦 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[简单栈和树的简单操作]]></title>
-      <url>/2017/01/23/LinearList2/</url>
-      <content type="html"><![CDATA[<hr>
-<a id="more"></a>
-<h2 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> #include &lt;stdio.h&gt;</div><div class="line"> #include &lt;stdlib.h&gt;</div><div class="line"> #include&lt;time.h&gt;</div><div class="line"> #define OK 1</div><div class="line"> #define ERROR 0      </div><div class="line"> #define MAXSIZE 30</div><div class="line"></div><div class="line">typedef int SElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">SElemType data[MAXSIZE];</div><div class="line">int top;</div><div class="line">&#125;SqStack;</div><div class="line"></div><div class="line">void StackPrint(SqStack *sp);</div><div class="line">Status Push(SqStack *sp,SElemType e);</div><div class="line">Status Pop(SqStack *sp,SElemType * ep);</div><div class="line"></div><div class="line">int</div><div class="line">main(void)</div><div class="line">&#123;</div><div class="line">int i,e,k,*ep=&amp;e;</div><div class="line">SqStack S;</div><div class="line">SqStack *sp=&amp;S;</div><div class="line">srand(time(0));</div><div class="line"></div><div class="line">//初始化随机栈</div><div class="line">i=rand()%10;</div><div class="line">S.top=i;</div><div class="line">for(k=0;k&lt;=i;k++)</div><div class="line"> S.data[k]=rand()%100+1;</div><div class="line"> StackPrint(sp);</div><div class="line"></div><div class="line">//进栈操作</div><div class="line">e=rand()%100+1;</div><div class="line">Push(sp,e);</div><div class="line">StackPrint(sp);</div><div class="line"></div><div class="line">//出栈操作</div><div class="line">Pop(sp,ep);</div><div class="line">StackPrint(sp);</div><div class="line"></div><div class="line">printf(&quot;done !\n\n&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void StackPrint(SqStack * sp)</div><div class="line">&#123;</div><div class="line">printf(&quot;new list: &quot;);</div><div class="line">for(int i=0;i&lt;=sp-&gt;top;i++)</div><div class="line"> printf(&quot;%d &quot;,sp-&gt;data[i]);</div><div class="line"> printf(&quot;\n&quot;);</div><div class="line"> &#125;</div><div class="line"></div><div class="line">Status Push(SqStack *sp,SElemType e)</div><div class="line">&#123;</div><div class="line">if(sp-&gt;top==MAXSIZE-1)</div><div class="line">&#123;</div><div class="line"> printf(&quot;Push Failed\n&quot;);</div><div class="line"> return ERROR;</div><div class="line">&#125;</div><div class="line">sp-&gt;top++;</div><div class="line">sp-&gt;data[sp-&gt;top]=e;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Pop(SqStack *sp,SElemType * ep)</div><div class="line">&#123;</div><div class="line">if(sp-&gt;top==-1)</div><div class="line">&#123;</div><div class="line"> printf(&quot;Pop Failed\n&quot;);</div><div class="line"> return ERROR;</div><div class="line">&#125;</div><div class="line">*ep=sp-&gt;data[sp-&gt;top];</div><div class="line">sp-&gt;top--;</div><div class="line">return OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="两栈共享空间"><a href="#两栈共享空间" class="headerlink" title="两栈共享空间"></a>两栈共享空间</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 30</div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">ElemType data[MAXSIZE];</div><div class="line">int top1;</div><div class="line">int top2;</div><div class="line">&#125;DoubleStack;</div><div class="line"></div><div class="line">Status Push(DoubleStack *S,ElemType e,int StackNumber);</div><div class="line">Status Pop(DoubleStack *S,ElemType *e,int StackNumber);</div><div class="line">Status StackInit(DoubleStack *S);</div><div class="line">Status stackprint(DoubleStack *S);</div><div class="line"></div><div class="line">int</div><div class="line">main()</div><div class="line">&#123;</div><div class="line">DoubleStack S;</div><div class="line">StackInit(&amp;S);</div><div class="line">int e,*pe=&amp;e;</div><div class="line"></div><div class="line">e=1;</div><div class="line">Push(&amp;S,e,1);</div><div class="line">stackprint(&amp;S);</div><div class="line"></div><div class="line">e=2;</div><div class="line">Push(&amp;S,e,2);</div><div class="line">stackprint(&amp;S);</div><div class="line"></div><div class="line">Pop(&amp;S,pe,1);</div><div class="line">stackprint(&amp;S);</div><div class="line"></div><div class="line">Pop(&amp;S,pe,2);</div><div class="line">stackprint(&amp;S);</div><div class="line">   </div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status StackInit(DoubleStack *S)</div><div class="line">&#123;</div><div class="line">S-&gt;top1=-1;</div><div class="line">S-&gt;top2=MAXSIZE;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Push(DoubleStack *S,ElemType e,int StackNumber)</div><div class="line">&#123;</div><div class="line">if(S-&gt;top2+1==S-&gt;top2)</div><div class="line">    return ERROR;</div><div class="line">if(StackNumber==1)S-&gt;data[++S-&gt;top1]=e;</div><div class="line">if(StackNumber==2)S-&gt;data[--S-&gt;top2]=e;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Pop(DoubleStack *S,ElemType *e,int StackNumber)</div><div class="line">&#123;</div><div class="line">if(StackNumber==1)</div><div class="line">&#123;</div><div class="line">    if(S-&gt;top1==-1)return ERROR;</div><div class="line">    *e=S-&gt;data[S-&gt;top1--];</div><div class="line">&#125;</div><div class="line"></div><div class="line">if(StackNumber==2)</div><div class="line">&#123;</div><div class="line">    if(S-&gt;top2==MAXSIZE)return ERROR;</div><div class="line">    *e=S-&gt;data[S-&gt;top2++];</div><div class="line">&#125;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status stackprint(DoubleStack *S)</div><div class="line">&#123;</div><div class="line">for(int i=0;i&lt;=S-&gt;top1;i++)</div><div class="line">    printf(&quot; %d &quot;,S-&gt;data[i]);</div><div class="line"></div><div class="line">for(int i=MAXSIZE-1;i&gt;=S-&gt;top2;i--)</div><div class="line">    printf(&quot; %d &quot;,S-&gt;data[i]);</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="链栈"><a href="#链栈" class="headerlink" title="链栈"></a>链栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 30</div><div class="line"></div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line"> ElemType data;</div><div class="line"> struct StackNode *next;</div><div class="line">&#125;StackNode,*LinkStackPtr;</div><div class="line"></div><div class="line">typedef struct LinkStack</div><div class="line">&#123;</div><div class="line">LinkStackPtr top;</div><div class="line">int count;</div><div class="line">&#125;LinkStack;</div><div class="line"> </div><div class="line">Status Push(LinkStack *S,ElemType e);</div><div class="line">Status Pop(LinkStack *S,ElemType *e);</div><div class="line">Status StackInit(LinkStack *S);</div><div class="line">Status stackprint(LinkStack S);</div><div class="line"></div><div class="line">int </div><div class="line">main()</div><div class="line">&#123;</div><div class="line">LinkStack S;</div><div class="line">int e,*pe=&amp;e;</div><div class="line">StackInit(&amp;S);</div><div class="line"></div><div class="line">e=1;</div><div class="line">Push(&amp;S, e);</div><div class="line">stackprint(S);</div><div class="line"></div><div class="line">e=2;</div><div class="line">Push(&amp;S, e);</div><div class="line">stackprint(S);</div><div class="line"></div><div class="line"></div><div class="line">Pop(&amp;S, pe);</div><div class="line">stackprint(S);</div><div class="line"></div><div class="line">Pop(&amp;S, pe);</div><div class="line">stackprint(S)；</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Push(LinkStack *S,ElemType e)</div><div class="line">&#123;</div><div class="line">LinkStackPtr tmp=(LinkStackPtr)malloc(sizeof(StackNode));</div><div class="line">tmp-&gt;next=S-&gt;top;</div><div class="line">tmp-&gt;data=e;</div><div class="line">S-&gt;count++;</div><div class="line">S-&gt;top=tmp;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status Pop(LinkStack *S,ElemType *pe)</div><div class="line">&#123;</div><div class="line">LinkStackPtr tmp;</div><div class="line">if(S-&gt;top==NULL)</div><div class="line">    return ERROR;</div><div class="line">*pe=S-&gt;top-&gt;data;</div><div class="line">tmp=S-&gt;top;</div><div class="line">S-&gt;top=S-&gt;top-&gt;next;</div><div class="line">free(tmp);</div><div class="line">S-&gt;count--;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status StackInit(LinkStack *S)</div><div class="line">&#123;</div><div class="line">S-&gt;top=NULL;</div><div class="line">S-&gt;count=0;</div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status stackprint(LinkStack S)</div><div class="line">&#123;</div><div class="line">LinkStackPtr seek=S.top;</div><div class="line">while(seek)</div><div class="line">&#123;</div><div class="line">printf(&quot;%d &quot;,seek-&gt;data);</div><div class="line">seek=seek-&gt;next;</div><div class="line">&#125;</div><div class="line">printf(&quot;\n&quot;);</div><div class="line">return OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  #include &lt;stdio.h&gt;</div><div class="line">  #include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 20</div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">  ElemType data[MAXSIZE];</div><div class="line">  int front;</div><div class="line">  int rear;</div><div class="line">&#125;Queue;</div><div class="line"></div><div class="line">Status QueueInit(Queue *Q);</div><div class="line">Status QueueEn(Queue *Q,ElemType e);</div><div class="line">Status QueueDe(Queue *Q,ElemType *e);</div><div class="line">Status QueuePr(Queue Q);</div><div class="line">int QueueLength(Queue Q);</div><div class="line"></div><div class="line">int</div><div class="line">main()</div><div class="line">&#123;</div><div class="line">int e;</div><div class="line">//初始化队列</div><div class="line">Queue Q;</div><div class="line">QueueInit(&amp;Q);</div><div class="line"></div><div class="line">//入队列操作</div><div class="line">for(e=1;e&lt;=MAXSIZE;e++)</div><div class="line">&#123;</div><div class="line">QueueEn(&amp;Q, e);</div><div class="line">QueuePr(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//出队列操作</div><div class="line">for(e=1;e&lt;=MAXSIZE;e++)</div><div class="line">&#123;</div><div class="line">    QueueDe(&amp;Q, &amp;e);</div><div class="line">    QueuePr(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line">Status QueueInit(Queue *Q)</div><div class="line">&#123;</div><div class="line"> Q-&gt;front=0;</div><div class="line"> Q-&gt;rear=0;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status QueueEn(Queue *Q,ElemType e)</div><div class="line">&#123;</div><div class="line"> if((Q-&gt;rear+1)%MAXSIZE==Q-&gt;front)</div><div class="line"> &#123;</div><div class="line">    printf(&quot;QueueEn failed\n&quot;);</div><div class="line">    return ERROR;</div><div class="line"> &#125;</div><div class="line"> Q-&gt;data[Q-&gt;rear]=e;</div><div class="line"> Q-&gt;rear=(Q-&gt;rear+1)%MAXSIZE;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">Status QueueDe(Queue *Q,ElemType *e)</div><div class="line">&#123;</div><div class="line">  if(Q-&gt;front==Q-&gt;rear)</div><div class="line"> &#123;</div><div class="line">    printf(&quot;QueueDe failed!\n&quot;);</div><div class="line">    return ERROR;</div><div class="line"> &#125;</div><div class="line"></div><div class="line">  Q-&gt;front=(Q-&gt;front+1)%MAXSIZE;</div><div class="line"></div><div class="line">  return OK;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">int QueueLength(Queue Q)</div><div class="line">&#123;</div><div class="line">  return (Q.rear+MAXSIZE-Q.front)%MAXSIZE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status QueuePr(Queue Q)</div><div class="line">&#123;</div><div class="line">  if(QueueLength(Q)==0)</div><div class="line">  &#123;</div><div class="line">    return ERROR;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  for(int seek=Q.front;seek!=Q.rear;seek=(seek+1)%MAXSIZE)</div><div class="line">  printf(&quot;%d &quot;,Q.data[seek]);</div><div class="line">  printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">  return OK;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<h2 id="链队列"><a href="#链队列" class="headerlink" title="链队列"></a>链队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#define OK 1</div><div class="line">#define ERROR 0</div><div class="line">#define MAXSIZE 20</div><div class="line">typedef int ElemType;</div><div class="line">typedef int Status;</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">  ElemType data;</div><div class="line">  struct Node *next;</div><div class="line">&#125;Node,*QueuePtr;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line"> QueuePtr front,rear;</div><div class="line">&#125;LinkQueue;</div><div class="line"></div><div class="line">Status EnQueue(LinkQueue *Q,ElemType e);</div><div class="line">Status DeQueue(LinkQueue *Q,ElemType *e);</div><div class="line">Status InQueue(LinkQueue *Q);</div><div class="line">Status PrQueue(LinkQueue Q);</div><div class="line"></div><div class="line">int</div><div class="line">main()</div><div class="line">&#123;</div><div class="line">LinkQueue Q;</div><div class="line">int e,*pe=&amp;e;</div><div class="line">InQueue(&amp;Q);</div><div class="line"></div><div class="line">for(e=1;e&lt;=20;e++)</div><div class="line">&#123;</div><div class="line">EnQueue(&amp;Q, e);</div><div class="line">PrQueue(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line">for(e=1;e&lt;=20;e++)</div><div class="line">&#123;</div><div class="line"></div><div class="line">DeQueue(&amp;Q, pe);</div><div class="line">PrQueue(Q);</div><div class="line">&#125;</div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status EnQueue(LinkQueue *Q,ElemType e)</div><div class="line">&#123;</div><div class="line">QueuePtr new=(QueuePtr)malloc(sizeof(Node));</div><div class="line">new-&gt;data=e;</div><div class="line">new-&gt;next=NULL;</div><div class="line">Q-&gt;rear-&gt;next=new;</div><div class="line">Q-&gt;rear=new;</div><div class="line"></div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status DeQueue(LinkQueue *Q,ElemType *e)</div><div class="line">&#123;</div><div class="line">if(Q-&gt;front==Q-&gt;rear)</div><div class="line">  &#123;</div><div class="line">    printf(&quot;delete failed\n&quot;);</div><div class="line">    return ERROR;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">QueuePtr del=Q-&gt;front-&gt;next;</div><div class="line">*e=del-&gt;data;</div><div class="line">Q-&gt;front-&gt;next=del-&gt;next;</div><div class="line">if(del==Q-&gt;rear)</div><div class="line">    Q-&gt;rear=Q-&gt;front;</div><div class="line">free(del);</div><div class="line"></div><div class="line"></div><div class="line">return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Status InQueue(LinkQueue *Q)</div><div class="line">&#123;</div><div class="line"> QueuePtr new=(QueuePtr)malloc(sizeof(Node));</div><div class="line"> Q-&gt;front=new;</div><div class="line"> Q-&gt;rear=new;</div><div class="line"> return OK;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Status PrQueue(LinkQueue Q)</div><div class="line">&#123;</div><div class="line"> if(Q.front==Q.rear)</div><div class="line">&#123;</div><div class="line">    printf(&quot;PrQueue failed\n&quot;);</div><div class="line">    return ERROR;</div><div class="line"></div><div class="line">&#125;</div><div class="line">QueuePtr seek=Q.front-&gt;next;</div><div class="line">while(seek!=NULL)</div><div class="line">&#123;</div><div class="line">    printf(&quot;%d &quot;,seek-&gt;data);</div><div class="line">    seek=seek-&gt;next;</div><div class="line">&#125;</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">return OK;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/*</div><div class="line">//几种树的结构</div><div class="line">#define MAX_TREE_SIZE 100</div><div class="line">typedef int ElemType;</div><div class="line">typedef  struct Node</div><div class="line">&#123;</div><div class="line">    ElemType data;</div><div class="line">    int parent;</div><div class="line">&#125;Node;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">    Node nodes[MAX_TREE_SIZE];</div><div class="line">    int r,n;</div><div class="line">&#125;Tree;</div><div class="line">*/</div><div class="line"> </div><div class="line">/*</div><div class="line">#define MAX_TREE_SIZE 100</div><div class="line">typedef int ElemType;</div><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">    int child;</div><div class="line">    struct Node *next;</div><div class="line">&#125;* ChildPtr;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">ElemType data;</div><div class="line">ChildPtr firstchild;</div><div class="line">&#125;Box;</div><div class="line"></div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">Box nodes[MAX_TREE_SIZE];</div><div class="line">int r,n;</div><div class="line">&#125;Tree;</div><div class="line">*/</div><div class="line"> </div><div class="line">/*</div><div class="line">#define MAX_TREE_SIZE 100</div><div class="line">typedef int ElemType;</div><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">    ElemType data;</div><div class="line">    struct Node *firstchild,*rightsib;</div><div class="line">&#125;Node,*Tree;</div><div class="line">*/</div><div class="line"> </div><div class="line">#include&lt;stdio.h&gt;</div><div class="line">typedef char ElemType;</div><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">    ElemType data;</div><div class="line">    struct Node * lchild,*rchild;</div><div class="line"> </div><div class="line">&#125;Node,* Tree;</div><div class="line">void CreatTree(Tree *T);</div><div class="line">void PreOrderTraverse(Tree T);</div><div class="line">void InOrderTreaverse(Tree T);</div><div class="line">void PostOrderTraverse(Tree T);</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line"> </div><div class="line">//创建二叉树</div><div class="line">Tree T;</div><div class="line">CreatTree(&amp;T);</div><div class="line"></div><div class="line">//前序遍历二叉树</div><div class="line">PreOrderTraverse(T);</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">//中序遍历二叉树</div><div class="line">InOrderTreaverse(T);</div><div class="line">printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">//后序遍历二叉树</div><div class="line">PostOrderTraverse(T);</div><div class="line">printf(&quot;\n\n&quot;);</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void CreatTree(Tree *T)</div><div class="line">&#123;</div><div class="line">ElemType ch;</div><div class="line">scanf(&quot;%c&quot;,&amp;ch);</div><div class="line">if(ch==&apos;#&apos;)*T=NULL;</div><div class="line">else</div><div class="line">  &#123;</div><div class="line">    (*T)=(Tree)malloc(sizeof(Node));</div><div class="line">    if(!*T)return;</div><div class="line">     (*T)-&gt;data=ch;</div><div class="line">    CreatTree(&amp;(*T)-&gt;lchild);</div><div class="line">    CreatTree(&amp;(*T)-&gt;rchild);</div><div class="line">   </div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">void PreOrderTraverse(Tree T)</div><div class="line">&#123;</div><div class="line">if(T==NULL)</div><div class="line">       return;</div><div class="line"></div><div class="line">printf(&quot;%c&quot;,T-&gt;data);</div><div class="line">PreOrderTraverse(T-&gt;lchild);</div><div class="line">PreOrderTraverse(T-&gt;rchild);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">void InOrderTreaverse(Tree T)</div><div class="line">&#123;</div><div class="line">if(T==NULL)</div><div class="line">    return;</div><div class="line"></div><div class="line">PreOrderTraverse(T-&gt;lchild);</div><div class="line">printf(&quot;%c&quot;,T-&gt;data);</div><div class="line">PreOrderTraverse(T-&gt;rchild);</div><div class="line"></div><div class="line">&#125;   </div><div class="line">void PostOrderTraverse(Tree T)</div><div class="line">&#123;</div><div class="line">  if(T==NULL)</div><div class="line">        return;</div><div class="line"></div><div class="line">  PreOrderTraverse(T-&gt;lchild);</div><div class="line">  PreOrderTraverse(T-&gt;rchild);</div><div class="line">    printf(&quot;%c&quot;,T-&gt;data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> 代码 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 数据结构 </tag>
             
         </tags>
         
