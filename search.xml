@@ -77,7 +77,7 @@
 <ul>
 <li>时延带宽积，以bit为单位的链路长度</li>
 </ul>
-<pre><code>时延带宽积 = 传播时延 * 带宽
+<pre><code>时延带宽积 = 传播时延 \* 带宽
 </code></pre><ul>
 <li>往返时间（RTT），双向交互的时间</li>
 </ul>
@@ -454,6 +454,23 @@ D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络�
 <li>开放最短路径优先协议，是一种分布式的链路状态路由协议。链路状态改变时洪泛发送邻居信息。基于IP协议进行传输</li>
 </ul>
 <p><br></p>
+<h4 id="RIP-和-OSPF-的区别"><a href="#RIP-和-OSPF-的区别" class="headerlink" title="RIP 和 OSPF 的区别"></a>RIP 和 OSPF 的区别</h4><ul>
+<li><p>RIP协议是一种传统的路由协议，适合比较小型的网络，OSPF协议是在Internet网络急剧膨胀的时候制定的，克服了RIP协议的许多缺陷</p>
+</li>
+<li><p>RIP是距离矢量路由协议；OSPF是链路状态路由协议。RIP&amp;OSPF管理距离分别是：120和110</p>
+</li>
+<li><p>RIP协议一条路由有15跳的限制，如果一个RIP网络路由跨越超过15跳，则认为网络不可到达，OSPF对跨越路由器的个数没有限制。</p>
+</li>
+<li><p>OSPF协议支持可变长度子网掩码（VLSM），RIP则不支持，</p>
+</li>
+<li><p>RIP协议定期地广播路由表，对网络的带宽资源是个极大的浪费。OSPF协议的路由广播更新只发生在路由状态变化的时候，采用IP多路广播来发送链路状态更新信息</p>
+</li>
+<li><p>RIP对网络没有分层。OSPF在自治域中可以划分网络域，使路由的广播限制在一定的范围</p>
+</li>
+<li><p>OSPF在路由广播时采用了授权机制，保证了网络安全。</p>
+</li>
+</ul>
+<p><br></p>
 <h3 id="EGP"><a href="#EGP" class="headerlink" title="EGP"></a>EGP</h3><p><strong>EGP （外部网关协议）：不同自治系统间路由器交流路由选择信息的协议</strong></p>
 <p><br></p>
 <h4 id="BGP"><a href="#BGP" class="headerlink" title="BGP"></a>BGP</h4><ul>
@@ -473,6 +490,28 @@ D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络�
 </ul>
 <p><br></p>
 <h1 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h1><p><br></p>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><br></p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><br></p>
+<h2 id="TCP-和-UDP-的区别"><a href="#TCP-和-UDP-的区别" class="headerlink" title="TCP 和 UDP 的区别"></a>TCP 和 UDP 的区别</h2><ul>
+<li><p>TCP面向字节流;UDP面向报文</p>
+</li>
+<li><p>TCP面向连接;UDP是无连接的，即发送数据之前不需要建立连接</p>
+</li>
+</ul>
+<ul>
+<li>TCP提供可靠的服务，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</li>
+</ul>
+<ul>
+<li><p>TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
+</li>
+<li><p>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低</p>
+</li>
+<li><p>每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p>
+</li>
+<li><p>TCP首部开销20字节;UDP的首部开销小，只有8个字节</p>
+</li>
+</ul>
+<p><br></p>
 <h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1>]]></content>
       
         <categories>
