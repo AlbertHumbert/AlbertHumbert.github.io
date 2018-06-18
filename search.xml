@@ -410,18 +410,93 @@ D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络�
 </li>
 </ul>
 <p><br></p>
-<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p><br></p>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p><strong>32位的标识符</strong></p>
+<p><br></p>
 <h2 id="分类的IP地址"><a href="#分类的IP地址" class="headerlink" title="分类的IP地址"></a>分类的IP地址</h2><p><br></p>
+<h3 id="A-类"><a href="#A-类" class="headerlink" title="A 类"></a>A 类</h3><ul>
+<li><p>由网络号，主机号构成</p>
+</li>
+<li><p>网络号：一个类别位 0，共8位（一字节），最后一个网络号 126</p>
+</li>
+<li><p>主机号：三字节</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="B-类"><a href="#B-类" class="headerlink" title="B 类"></a>B 类</h3><ul>
+<li><p>由网络号，主机号构成</p>
+</li>
+<li><p>网络号：两个类别位 10，共16位（两字节），最后一个网络号 191.255</p>
+</li>
+<li><p>主机号：二字节</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="C-类"><a href="#C-类" class="headerlink" title="C 类"></a>C 类</h3><ul>
+<li><p>由网络号，主机号构成</p>
+</li>
+<li><p>网络号：三个类别位 110，共16位（三字节），最后一个网络号 223.255.255</p>
+</li>
+<li><p>主机号：一字节</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="D-类"><a href="#D-类" class="headerlink" title="D 类"></a>D 类</h3><ul>
+<li>前四位1110，后28位多播地址</li>
+</ul>
+<p><br></p>
+<h3 id="E-类"><a href="#E-类" class="headerlink" title="E 类"></a>E 类</h3><ul>
+<li>前四位1111，后28位保留</li>
+</ul>
+<p><br></p>
+<h2 id="IP-地址与硬件地址"><a href="#IP-地址与硬件地址" class="headerlink" title="IP 地址与硬件地址"></a>IP 地址与硬件地址</h2><ul>
+<li><p>物理地址是数据链路层和物理层使用的地址</p>
+</li>
+<li><p>ip地址是网络层及其以上使用的地址，是一种逻辑地址</p>
+</li>
+<li><p>ip地址屏蔽了物理细节</p>
+</li>
+</ul>
+<p><br></p>
 <h2 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h2><p><br></p>
-<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p><br></p>
+<h3 id="划分子网"><a href="#划分子网" class="headerlink" title="划分子网"></a>划分子网</h3><ul>
+<li><p>三级ip地址，主机号借用若干位表示子网号，减少了主机数</p>
+</li>
+<li><p>外界看不见子网划分，路由器需要使用子网掩码进行路由</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="子网掩码-1"><a href="#子网掩码-1" class="headerlink" title="子网掩码"></a>子网掩码</h3><ul>
+<li><p>使用子网划分之后，路由表必须包括，目的网络地址，子网掩码，下一跳端口</p>
+</li>
+<li><p>转发时从数据报首部提取目的ip地址</p>
+</li>
+<li><p>对直接相连的网络的子网掩码与目的ip按位与，如果与网络ip匹配则交付</p>
+</li>
+<li><p>否则查找是否有为D的特定主机路由，有则交付</p>
+</li>
+<li><p>否则对路由表中的网络的子网掩码与目的ip按位与，如果与网络ip匹配则交付，否则报告转发报文出错</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><ul>
+<li><p>CIDR 消除了 A B C 分类的概念</p>
+</li>
+<li><p>使用网络前缀和主机号进行二级编址</p>
+</li>
+<li><p>使用斜线记法，ip/网络前缀位数，或/子网掩码1的个数</p>
+</li>
+<li><p>路由器转发时使用最长前缀匹配</p>
+</li>
+</ul>
+<p><br></p>
 <h2 id="特殊地址"><a href="#特殊地址" class="headerlink" title="特殊地址"></a>特殊地址</h2><ul>
-<li><p>回环地址</p>
+<li><p>本网络上的本主机（全0）</p>
+</li>
+<li><p>本网络上进行多播（全1）</p>
+</li>
+<li><p>回环地址（网络号127，主机号非全0非全1）</p>
 </li>
 <li><p>私有地址（10/8，172.16/12，192.168/16）</p>
-</li>
-<li><p>网络地址与广播地址</p>
-</li>
-<li><p>单播地址与多播地址</p>
 </li>
 </ul>
 <p><br></p>
@@ -439,7 +514,6 @@ D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络�
 </li>
 </ul>
 <p><br></p>
-<h2 id="IP数据报转发过程"><a href="#IP数据报转发过程" class="headerlink" title="IP数据报转发过程"></a>IP数据报转发过程</h2><p><br></p>
 <h2 id="ICMP-协议"><a href="#ICMP-协议" class="headerlink" title="ICMP 协议"></a>ICMP 协议</h2><p><br></p>
 <h2 id="IGMP-协议"><a href="#IGMP-协议" class="headerlink" title="IGMP 协议"></a>IGMP 协议</h2><p><br></p>
 <h2 id="IP-协议"><a href="#IP-协议" class="headerlink" title="IP 协议"></a>IP 协议</h2><p><br></p>
@@ -492,6 +566,16 @@ D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络�
 <h1 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h1><p><br></p>
 <h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><br></p>
 <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><br></p>
+<h3 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h3><p><br></p>
+<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p><br></p>
+<h4 id="选择确认"><a href="#选择确认" class="headerlink" title="选择确认"></a>选择确认</h4><p><br></p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><ul>
+<li><p>慢开始</p>
+</li>
+<li><p>拥塞避免</p>
+</li>
+</ul>
+<p><br></p>
 <h2 id="TCP-和-UDP-的区别"><a href="#TCP-和-UDP-的区别" class="headerlink" title="TCP 和 UDP 的区别"></a>TCP 和 UDP 的区别</h2><ul>
 <li><p>TCP面向字节流;UDP面向报文</p>
 </li>
