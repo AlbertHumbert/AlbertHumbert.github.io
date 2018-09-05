@@ -3,6 +3,118 @@
   
     
     <entry>
+      <title><![CDATA[android 系统源码概览]]></title>
+      <url>/2018/09/05/androidSource/</url>
+      <content type="html"><![CDATA[<ul>
+<li>不一定开的坑</li>
+</ul>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[深入计算机网络]]></title>
+      <url>/2018/09/05/net-0/</url>
+      <content type="html"><![CDATA[<ul>
+<li>假装深入</li>
+</ul>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Java 并发 学习笔记]]></title>
+      <url>/2018/09/05/concurrent/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[jvm 学习笔记]]></title>
+      <url>/2018/09/05/jvm/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[操作系统 学习笔记]]></title>
+      <url>/2018/09/05/OperatingSystem/</url>
+      <content type="html"><![CDATA[<p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
+<a id="more"></a>
+<p><strong>主要内容来自 Tanenbaum 的《操作系统设计与实现（第三版）》和操作系统相关的网络博客文章</strong></p>
+<p><strong>Tanenbaum，此人就是 minix 系统的开发者，minix 是他独立开发用作授课一个操作系统，minix 基于 posix 标准，并且兼容 unix 命令，当年 Linus 就是阅读此人的代码，以 minix 为样本开发出来最早的 Linux 内核，如今 minix 已经更新到 3.0，Tanenbaum 编著的这本教材也更新到了第三版,不过他在国内主要还是因为那本大名鼎鼎的《现代操作系统》而被人认识</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[计算机网络 学习笔记]]></title>
       <url>/2018/06/17/ComputerNetwork/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -595,11 +707,7 @@ D表示网络当前的时延，D0表示网络空闲时的时延，U表示网络�
 <li><p>TCP首部开销20字节;UDP的首部开销小，只有8个字节</p>
 </li>
 </ul>
-<p><br></p>
-<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><p><br></p>
-<h2 id="邮件传输"><a href="#邮件传输" class="headerlink" title="邮件传输"></a>邮件传输</h2><p><br></p>
-<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p><br></p>
-<h2 id="万维网"><a href="#万维网" class="headerlink" title="万维网"></a>万维网</h2>]]></content>
+]]></content>
       
         <categories>
             
@@ -1457,30 +1565,6 @@ Summary of actions:
 <p><br></p>
 <p><br></p>
 <p><strong>全文完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[操作系统 学习笔记]]></title>
-      <url>/2018/05/17/OperatingSystem/</url>
-      <content type="html"><![CDATA[<p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
-<a id="more"></a>
-<p><strong>主要内容来自 Tanenbaum 的《操作系统设计与实现（第三版）》和操作系统相关的网络博客文章</strong></p>
-<p><strong>Tanenbaum，此人就是 minix 系统的开发者，minix 是他独立开发用作授课一个操作系统，minix 基于 poxix 标准，并且兼容 unix 命令，当年 Linus 就是阅读此人的代码，以 minix 为样本开发出来最早的 Linux 内核，如今 minix 已经更新到 3.0，Tanenbaum 编著的这本教材也更新到了第三版,不过他在国内主要还是因为那本大名鼎鼎的《现代操作系统》而被人认识</strong></p>
 ]]></content>
       
         <categories>

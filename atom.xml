@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-06-18T16:02:25.000Z</updated>
+  <updated>2018-09-05T14:41:54.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,115 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>android 系统源码概览</title>
+    <link href="https://alberthumbert.github.io/2018/09/05/androidSource/"/>
+    <id>https://alberthumbert.github.io/2018/09/05/androidSource/</id>
+    <published>2018-09-05T14:31:28.000Z</published>
+    <updated>2018-09-05T14:41:54.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;不一定开的坑&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入计算机网络</title>
+    <link href="https://alberthumbert.github.io/2018/09/05/net-0/"/>
+    <id>https://alberthumbert.github.io/2018/09/05/net-0/</id>
+    <published>2018-09-05T14:30:15.000Z</published>
+    <updated>2018-09-05T14:38:29.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;假装深入&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java 并发 学习笔记</title>
+    <link href="https://alberthumbert.github.io/2018/09/05/concurrent/"/>
+    <id>https://alberthumbert.github.io/2018/09/05/concurrent/</id>
+    <published>2018-09-05T14:30:00.000Z</published>
+    <updated>2018-09-05T14:39:38.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jvm 学习笔记</title>
+    <link href="https://alberthumbert.github.io/2018/09/05/jvm/"/>
+    <id>https://alberthumbert.github.io/2018/09/05/jvm/</id>
+    <published>2018-09-05T14:29:31.000Z</published>
+    <updated>2018-09-05T14:41:07.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>操作系统 学习笔记</title>
+    <link href="https://alberthumbert.github.io/2018/09/05/OperatingSystem/"/>
+    <id>https://alberthumbert.github.io/2018/09/05/OperatingSystem/</id>
+    <published>2018-09-05T14:20:15.000Z</published>
+    <updated>2018-09-05T14:42:41.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt; 程序员的三大浪漫，编译原理，图形学，操作系统 &lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>计算机网络 学习笔记</title>
     <link href="https://alberthumbert.github.io/2018/06/17/ComputerNetwork/"/>
     <id>https://alberthumbert.github.io/2018/06/17/ComputerNetwork/</id>
     <published>2018-06-17T14:36:40.000Z</published>
-    <updated>2018-06-18T16:02:25.000Z</updated>
+    <updated>2018-09-05T14:33:07.000Z</updated>
     
     <summary type="html">
     
@@ -125,26 +229,6 @@
     <summary type="html">
     
       &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>操作系统 学习笔记</title>
-    <link href="https://alberthumbert.github.io/2018/05/17/OperatingSystem/"/>
-    <id>https://alberthumbert.github.io/2018/05/17/OperatingSystem/</id>
-    <published>2018-05-17T15:59:40.000Z</published>
-    <updated>2018-05-17T16:27:37.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt; 程序员的三大浪漫，编译原理，图形学，操作系统 &lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -325,86 +409,6 @@
     <id>https://alberthumbert.github.io/2017/10/23/RxJava/</id>
     <published>2017-10-23T13:13:02.000Z</published>
     <updated>2017-11-21T07:35:53.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RemoteView 使用详解与实现原理</title>
-    <link href="https://alberthumbert.github.io/2017/09/11/RemoteView/"/>
-    <id>https://alberthumbert.github.io/2017/09/11/RemoteView/</id>
-    <published>2017-09-11T11:30:35.000Z</published>
-    <updated>2017-11-21T07:21:17.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bug 合集</title>
-    <link href="https://alberthumbert.github.io/2017/09/06/BUG/"/>
-    <id>https://alberthumbert.github.io/2017/09/06/BUG/</id>
-    <published>2017-09-06T15:53:24.000Z</published>
-    <updated>2018-01-27T02:17:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="error" scheme="https://alberthumbert.github.io/tags/error/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>volatile 相关概念</title>
-    <link href="https://alberthumbert.github.io/2017/08/16/Volatile/"/>
-    <id>https://alberthumbert.github.io/2017/08/16/Volatile/</id>
-    <published>2017-08-16T03:14:39.000Z</published>
-    <updated>2017-11-21T07:21:25.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GC 基础知识</title>
-    <link href="https://alberthumbert.github.io/2017/08/14/GC/"/>
-    <id>https://alberthumbert.github.io/2017/08/14/GC/</id>
-    <published>2017-08-14T13:07:14.000Z</published>
-    <updated>2017-11-21T07:21:28.000Z</updated>
     
     <summary type="html">
     
