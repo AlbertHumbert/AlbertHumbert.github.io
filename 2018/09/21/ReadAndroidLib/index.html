@@ -12,7 +12,7 @@
     
     <title>
         
-            ViewPager+TabLayout+Fragment 实现懒加载 | 
+            Android 框架源码阅读计划 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="ViewPager+TabLayout+Fragment 实现懒加载 | Albert&#39;s Blog">
+    <meta property="og:title" content="Android 框架源码阅读计划 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="7月 17, 2017" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+        <meta property="article:published_time" content="9月 21, 2018" />
+        <meta property="article:modified_time" content="9月 21, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="ViewPager+TabLayout+Fragment 实现懒加载 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Android 框架源码阅读计划 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "ViewPager+TabLayout+Fragment 实现懒加载",
-    "url": "https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html",
-    "datePublished": "7月 17, 2017",
-    "dateModified": "11月 21, 2017",
+    "headline": "Android 框架源码阅读计划",
+    "url": "https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html",
+    "datePublished": "9月 21, 2018",
+    "dateModified": "9月 21, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TabLayout"><span class="post-toc-number">1.</span> <span class="post-toc-text">TabLayout</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FragmentPagerAdapter"><span class="post-toc-number">2.</span> <span class="post-toc-text">FragmentPagerAdapter</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#懒加载"><span class="post-toc-number">3.</span> <span class="post-toc-text">懒加载</span></a></li></ol>
+        
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                ViewPager+TabLayout+Fragment 实现懒加载
+                Android 框架源码阅读计划
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>7月 17, 2017</span>
+        <span>9月 21, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ViewPager+TabLayout+Fragment 实现懒加载&url=https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 框架源码阅读计划&url=https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=ViewPager+TabLayout+Fragment 实现懒加载&url=https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 框架源码阅读计划&url=https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html&title=ViewPager+TabLayout+Fragment 实现懒加载" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html&title=Android 框架源码阅读计划" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=ViewPager+TabLayout+Fragment 实现懒加载&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 框架源码阅读计划&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/17/ViewPagerTabFragments/index.html&text=ViewPager+TabLayout+Fragment 实现懒加载" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/index.html&text=Android 框架源码阅读计划" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,153 +503,8 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><strong>本篇乙烷</strong></p>
-<h2 id="TabLayout"><a href="#TabLayout" class="headerlink" title="TabLayout"></a>TabLayout</h2><p><strong>水平展示标签的布局，在Google推出TabLayout之前，一般使用TabActivity或者ViewPageIndicator等第三方库实现这种功能</strong></p>
-<ul>
-<li>使用之前需要先添加支持库</li>
-</ul>
-<pre><code>compile &apos;com.android.support:design:24.2.1&apos;
-</code></pre><ul>
-<li>像普通控件一样，在需要的地方设置XML属性，注意app:tabMode属性一般设置为滚动，因为当标签数目较少时scrollable默认是静止的，而当标签数目较多时如果没有设置这个属性时，Tab不能滚动，文字会显示不全</li>
-</ul>
-<pre><code>&lt;android.support.design.widget.TabLayout
-android:id=&quot;@+id/tab&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;wrap_content&quot;
-app:tabMode=&quot;scrollable&quot;/&gt;
-</code></pre><ul>
-<li>动态添加Tab，使用addTag方法和newTab方法</li>
-</ul>
-<pre><code>for(int i = 0;i&lt;10;i++){
-    tabLayout.addTab(tabLayout.newTab().setText(&quot;NO: &quot;+i));
-}
-</code></pre><ul>
-<li>这时一个TabLayout已经可以正常显示了，但是它并没有什么作用，TabLayout一般与ViewPager相结合，实现翻页的功能</li>
-</ul>
-<h2 id="FragmentPagerAdapter"><a href="#FragmentPagerAdapter" class="headerlink" title="FragmentPagerAdapter"></a>FragmentPagerAdapter</h2><p>** 用于显示一组Fragment的ViewPager的Adapter**</p>
-<ul>
-<li>必须实现的方法有两个，和pagerAdapter的含义基本一致，在getItem中根据位置返回Fragment，getcount中返回item总数量</li>
-</ul>
-<pre><code>public FragmentAdapter(FragmentManager fm,List&lt;Fragment&gt; list) {
-super(fm);
-this.list = list;
+<p><strong>这学期Android框架源码分析文章的索引</strong><br><strong>这里的框架指的是Android官方或常用的第三方应用开发框架</strong></p>
 
-}
-
-@Override
-public Fragment getItem(int position) {
-return list.get(position);
-}
-
-@Override
-public int getCount() {
-return list.size();
-}
-</code></pre><ul>
-<li>为Fragment设定Adapter之后调用tabLayout的setupWithViewPager方法即可将TabLayout和ViewPager关联起来</li>
-</ul>
-<pre><code>FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragments);
-viewPager.setAdapter(fragmentAdapter);
-tabLayout.setupWithViewPager(viewPager); 
-</code></pre><ul>
-<li>注意如果在之前设置了文字，这些文字会被<a href="http://blog.csdn.net/u013233097/article/details/54708202" target="_blank" rel="external">清除</a>，将这个步骤放在这之后即可</li>
-</ul>
-<pre><code>for(int i = 0;i\&lt;10;i++){
-        tabLayout.getTabAt(i).setText(&quot;No：&quot;+i);
-    }
-</code></pre><ul>
-<li>显示效果是这样的</li>
-</ul>
-<ul>
-<li><img src="http://i1.buimg.com/1949/3df635474afa9281.png" alt=""></li>
-</ul>
-<h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2><ul>
-<li>ViewPager默认会缓存三页数据，这个属性是由DEFAULT_OFFSCREEN_PAGES决定的，可以使用setOffscreenPageLimit方法设定预加载的页数，但是没有办法设定为0</li>
-<li>如果预加载的每个Fragment都去加载数据，Activity的创建时会造成卡顿，所以我们需要在页面切换到可见时再去加载数据</li>
-<li>为了解决这个问题，必须从Fragment中入手，Fragment中含有setUserVisibleHint方法，它会在onCreateView之前被调用一次出入false参数，表示Fragment不可见，之后在每次Fragment变为可见时传入true，不可见时传入false</li>
-<li>首先需要创建Fragment的子类作为我们使用Fragment的基类，设定三个标记，分别表示当前Fragment是否可见，布局是否已经加载，Fragment是否为第一次可见</li>
-</ul>
-<pre><code>    private boolean isVisible;
-private boolean isPrepared;
-private boolean isFirst; 
-</code></pre><ul>
-<li>在setUserVisibleHint方法中设置isVisible标记，注意必须调用父类的方法，否则在需要使用getUserVisibleHint时可能得到错误的返回值</li>
-</ul>
-<pre><code>@Override
-public void setUserVisibleHint(boolean isVisibleToUser) {
-    if(isVisibleToUser){
-        isVisible = true;
-        Log.d(TAG, &quot;setUserVisibleHint: fragment NO: &quot;+getArguments().getInt(&quot;name&quot;,0)+&quot; true&quot;);
-        loadData();
-
-    }else {
-        isVisible = false;
-        Log.d(TAG, &quot;setUserVisibleHint: fragment NO: &quot;+getArguments().getInt(&quot;name&quot;,0)+&quot; false&quot;);
-
-    }
-    super.setUserVisibleHint(isVisibleToUser);
-}
-</code></pre><ul>
-<li>在onCreateView中返回RootView，注意判空，并设置isPrepared标记，当然，直接判断RootView是否为空也能起到isPrepared标记的作用</li>
-</ul>
-<pre><code>@Override
-public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                     Bundle savedInstanceState) {
-
-if(mRoot ==null){
-    mRoot = initView(inflater,container);
-    Log.d(TAG, &quot;onCreateView: &quot;);
-}            
-    isPrepared = true;
-return mRoot;
-}
-</code></pre><ul>
-<li>在setUserVisibleHint中调用了loadData方法，它大致上是这样的，在加载数据之前先检查一下三个标记</li>
-</ul>
-<pre><code>void loadData(){
-if(isFirst&amp;&amp;isPrepared&amp;&amp;isVisible) {
-    Log.d(TAG, &quot;loadData: --------------&quot;);
-    Log.d(TAG, &quot;loadData: &quot;+ getArguments().getInt(&quot;name&quot;,0));
-    isFirst = false;
-   return;
-}
-    ...
-}
-</code></pre><ul>
-<li>注意在onActivityCreated中也要调用一次loadData方法这是因为当ViewPager第一次加载两个Fragment时，setUserVisibleHint 在 onCreateView之前调用了，这时 isPrepared是false，当然无法加载数据。如果不在onActivityCreated中调用loadData方法，第一页的数据将无法在第一次显示时初始化</li>
-</ul>
-<pre><code>@Override
-public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-super.onActivityCreated(savedInstanceState);
-
-Log.d(TAG, &quot;onActivityCreated: &quot;+ getArguments().getInt(&quot;name&quot;,0));
-loadData();
-
-}
-</code></pre><ul>
-<li>下面滑动页面进行测试，可以看到进入Activity和翻页时虽然各个Fragment都有回应ViewPager的缓存机制，但是只有到它们被显示时才会去加载数据，懒加载的目的达成了，当需要使用这个Fragment时重写loadData方法和initView方法即可  </li>
-</ul>
-<pre><code>onActivityCreated: 0
-loadData: --------------
-loadData: 0
-initView: 
-onCreateView: 
-onActivityCreated: 1
-
-setUserVisibleHint: fragment NO: 2 false
-setUserVisibleHint: fragment NO: 0 false
-setUserVisibleHint: fragment NO: 1 true
-
-loadData: 1
-initView: 
-onCreateView: 
-onActivityCreated: 2
-setUserVisibleHint: fragment NO: 3 false
-setUserVisibleHint: fragment NO: 1 false
-setUserVisibleHint: fragment NO: 2 true
-loadData: --------------
-loadData: 2
-</code></pre>
     
 
     
@@ -668,21 +523,13 @@ loadData: 2
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/07/18/RecycleView/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/07/17/Fragment/" id="post_nav-older" class="next-content">
+        <a href="/2018/09/05/androidSource/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

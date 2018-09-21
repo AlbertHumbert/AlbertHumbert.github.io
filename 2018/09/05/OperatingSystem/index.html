@@ -12,7 +12,7 @@
     
     <title>
         
-            操作系统 学习笔记 | 
+            深入操作系统 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="操作系统 学习笔记 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入操作系统 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content=" 程序员的三大浪漫，编译原理，图形学，操作系统 ">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="9月 05, 2018" />
-        <meta property="article:modified_time" content="9月 05, 2018" />
+        <meta property="article:modified_time" content="9月 21, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="操作系统 学习笔记 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入操作系统 | Albert&#39;s Blog">
     <meta name="twitter:description" content=" 程序员的三大浪漫，编译原理，图形学，操作系统 ">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "操作系统 学习笔记",
+    "headline": "深入操作系统",
     "url": "https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html",
     "datePublished": "9月 05, 2018",
-    "dateModified": "9月 05, 2018",
+    "dateModified": "9月 21, 2018",
     "description": " 程序员的三大浪漫，编译原理，图形学，操作系统 ",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程管理"><span class="post-toc-number">1.</span> <span class="post-toc-text">进程管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程模型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">进程模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实现"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">实现</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Linux"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">Linux</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#minix"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">minix</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程状态"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">进程状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程调度"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">进程调度</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#概述-1"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实现-1"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">实现</span></a></li></ol></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                操作系统 学习笔记
+                深入操作系统
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=操作系统 学习笔记&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=操作系统 学习笔记&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&title=操作系统 学习笔记" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&title=深入操作系统" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=操作系统 学习笔记&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&text=操作系统 学习笔记" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/09/05/OperatingSystem/index.html&text=深入操作系统" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,9 +503,22 @@
     
         <p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
 <a id="more"></a>
-<p><strong>主要内容来自 Tanenbaum 的《操作系统设计与实现（第三版）》和操作系统相关的网络博客文章</strong></p>
-<p><strong>Tanenbaum，此人就是 minix 系统的开发者，minix 是他独立开发用作授课一个操作系统，minix 基于 posix 标准，并且兼容 unix 命令，当年 Linus 就是阅读此人的代码，以 minix 为样本开发出来最早的 Linux 内核，如今 minix 已经更新到 3.0，Tanenbaum 编著的这本教材也更新到了第三版,不过他在国内主要还是因为那本大名鼎鼎的《现代操作系统》而被人认识</strong></p>
-
+<p><strong>本文主要内容来自以下书籍和操作系统相关的网络博客文章</strong></p>
+<p><strong>《计算机操作系统（第四版）》</strong><br><strong>《操作系统设计与实现（第三版）》</strong><br><strong>《Linux内核设计与实现（第三版）》</strong><br><strong>《Android 系统源代码情景分析（第三版）》</strong></p>
+<p><strong>第一本为学校课本，后三本分别为 minix，linux 和 android 源码分析相关的书籍，本文只是将部分重要的学习内容进行整理备忘，诸如编译\安装操作系统或者内核的流程不会在这里记录，有时间的话可能会再写相关的文章。</strong></p>
+<p><strong>另外，建议学习操作系统之前先系统地学习计算机组成原理，否则 io，中断等硬件相关的内容将会比较难以理解。推荐《计算机组成与设计：软件/硬件接口》</strong></p>
+<p><br></p>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><br></p>
+<h3 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h3><p><br></p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><br></p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p><br></p>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p><br></p>
+<h4 id="minix"><a href="#minix" class="headerlink" title="minix"></a>minix</h4><p><br></p>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p><br></p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p><br></p>
+<h3 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h3><p><br></p>
+<h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p><br></p>
+<h4 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h4>
     
 
     
@@ -630,7 +643,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

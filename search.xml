@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[Android 框架源码阅读计划]]></title>
+      <url>/2018/09/21/ReadAndroidLib/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>这学期Android框架源码分析文章的索引</strong><br><strong>这里的框架指的是Android官方或常用的第三方应用开发框架</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[android 系统源码概览]]></title>
       <url>/2018/09/05/androidSource/</url>
       <content type="html"><![CDATA[<ul>
@@ -91,13 +114,26 @@
     </entry>
     
     <entry>
-      <title><![CDATA[操作系统 学习笔记]]></title>
+      <title><![CDATA[深入操作系统]]></title>
       <url>/2018/09/05/OperatingSystem/</url>
       <content type="html"><![CDATA[<p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
 <a id="more"></a>
-<p><strong>主要内容来自 Tanenbaum 的《操作系统设计与实现（第三版）》和操作系统相关的网络博客文章</strong></p>
-<p><strong>Tanenbaum，此人就是 minix 系统的开发者，minix 是他独立开发用作授课一个操作系统，minix 基于 posix 标准，并且兼容 unix 命令，当年 Linus 就是阅读此人的代码，以 minix 为样本开发出来最早的 Linux 内核，如今 minix 已经更新到 3.0，Tanenbaum 编著的这本教材也更新到了第三版,不过他在国内主要还是因为那本大名鼎鼎的《现代操作系统》而被人认识</strong></p>
-]]></content>
+<p><strong>本文主要内容来自以下书籍和操作系统相关的网络博客文章</strong></p>
+<p><strong>《计算机操作系统（第四版）》</strong><br><strong>《操作系统设计与实现（第三版）》</strong><br><strong>《Linux内核设计与实现（第三版）》</strong><br><strong>《Android 系统源代码情景分析（第三版）》</strong></p>
+<p><strong>第一本为学校课本，后三本分别为 minix，linux 和 android 源码分析相关的书籍，本文只是将部分重要的学习内容进行整理备忘，诸如编译\安装操作系统或者内核的流程不会在这里记录，有时间的话可能会再写相关的文章。</strong></p>
+<p><strong>另外，建议学习操作系统之前先系统地学习计算机组成原理，否则 io，中断等硬件相关的内容将会比较难以理解。推荐《计算机组成与设计：软件/硬件接口》</strong></p>
+<p><br></p>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><br></p>
+<h3 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h3><p><br></p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><br></p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p><br></p>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p><br></p>
+<h4 id="minix"><a href="#minix" class="headerlink" title="minix"></a>minix</h4><p><br></p>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p><br></p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p><br></p>
+<h3 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h3><p><br></p>
+<h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p><br></p>
+<h4 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h4>]]></content>
       
         <categories>
             
