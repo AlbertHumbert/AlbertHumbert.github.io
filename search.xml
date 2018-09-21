@@ -8,7 +8,7 @@
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
-<p><strong>通过xv6可以了解一个操作系统从编译到 bochs和qemu调试运行的整个流程，如果你打算手写操作系统，那么这个流程也是你开发的基础。</strong></p>
+<p><strong>通过xv6可以了解一个操作系统从编译到 bochs和qemu调试运行的整个流程，如果你打算手写操作系统，那么这个流程也是你开发的基础（至少大同小异）。</strong></p>
 <p><strong>调试linux内核的流程则有些不同，因为linux允许你在boot阶段选择不同的内核，所以你需要做的是编译内核并将其放到指定的位置</strong></p>
 <p><br></p>
 <h2 id="xv6"><a href="#xv6" class="headerlink" title="xv6"></a>xv6</h2><p><br></p>
@@ -60,6 +60,12 @@ $ brew link bochs
 </ul>
 <pre><code>$ git clone git://github.com/mit-pdos/xv6-public.git
 </code></pre><p><br></p>
+<h3 id="安装-MacPorts"><a href="#安装-MacPorts" class="headerlink" title="安装 MacPorts"></a>安装 MacPorts</h3><ul>
+<li><p>请在该页面下载对应版本的 pkg 并安装</p>
+<p>  <a href="https://www.macports.org/install.php" target="_blank" rel="external">https://www.macports.org/install.php</a></p>
+</li>
+</ul>
+<h3 id="安装编译器"><a href="#安装编译器" class="headerlink" title="安装编译器"></a>安装编译器</h3><p><br></p>
 <h3 id="编译-xv6"><a href="#编译-xv6" class="headerlink" title="编译 xv6"></a>编译 xv6</h3><pre><code>$ cd xv6-public
 $ make
 $ make qemu-nox
@@ -146,8 +152,8 @@ $ make qemu-nox
 <p><strong>第一本为学校课本，后四本分别为 minix，linux 和 android 源码分析相关的书籍，最后一本是基于xv6的<a href="https://th0ar.gitbooks.io/xv6-chinese/content/content/cover.html" target="_blank" rel="external">教材</a>，本文只是将部分重要的学习内容进行整理备忘</strong></p>
 <p><strong>另外，建议学习操作系统之前先系统地学习计算机组成原理，否则 io，中断等硬件相关的内容将会比较难以理解。推荐《计算机组成与设计：软件/硬件接口》</strong></p>
 <p><br></p>
-<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p><a href="https://tocreate.app/2018/09/21/OSEnv/" target="_blank" rel="external">详见</a></p>
-<p><strong>包括了 xv6 编译与调试运行，linux 内核的编译与安装，Android与 minix 系统的源码获取，篇幅较长，跳转到专门的文章，下同</strong></p>
+<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p><strong>包括了 xv6 编译与调试运行，linux 内核的编译与安装，Android与 minix 系统的源码获取，篇幅较长，跳转到专门的文章，下同</strong></p>
+<p><a href="https://tocreate.app/2018/09/21/OSEnv/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
