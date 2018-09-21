@@ -7,6 +7,7 @@
       <url>/2018/09/21/OSEnv/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><strong>通过xv6可以了解一个操作系统从编译到 bochs和qemu调试运行的整个流程，如果你打算手写操作系统，那么这个流程也是你开发的基础。</strong></p>
 <p><strong>调试linux内核的流程则有些不同，因为linux允许你在boot阶段选择不同的内核，所以你需要做的是编译内核并将其放到指定的位置</strong></p>
 <p><br></p>
@@ -110,7 +111,7 @@ $ make qemu-nox
       <url>/2018/09/21/OSProcess/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">全部</a></p>
+<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <h3 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h3><p><br></p>
 <h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
 <h4 id="linux-与-init"><a href="#linux-与-init" class="headerlink" title="linux 与 init"></a>linux 与 init</h4><p><br></p>
