@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="9月 21, 2018" />
-        <meta property="article:modified_time" content="9月 21, 2018" />
+        <meta property="article:modified_time" content="9月 22, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统",
     "url": "https://alberthumbert.github.io/2018/09/21/OperatingSystem/index.html",
     "datePublished": "9月 21, 2018",
-    "dateModified": "9月 21, 2018",
+    "dateModified": "9月 22, 2018",
     "description": " 程序员的三大浪漫，编译原理，图形学，操作系统 ",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#搭建环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">搭建环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程管理"><span class="post-toc-number">2.</span> <span class="post-toc-text">进程管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程同步"><span class="post-toc-number">3.</span> <span class="post-toc-text">进程同步</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统调用"><span class="post-toc-number">4.</span> <span class="post-toc-text">系统调用</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译"><span class="post-toc-number">2.</span> <span class="post-toc-text">交叉编译</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程管理"><span class="post-toc-number">3.</span> <span class="post-toc-text">进程管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程同步"><span class="post-toc-number">4.</span> <span class="post-toc-text">进程同步</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统调用"><span class="post-toc-number">5.</span> <span class="post-toc-text">系统调用</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -508,8 +508,11 @@
 <p><strong>第一本为学校课本，后四本分别为 minix，linux 和 android 源码分析相关的书籍，最后一本是基于xv6的<a href="https://th0ar.gitbooks.io/xv6-chinese/content/content/cover.html" target="_blank" rel="external">教材</a>，本文只是将部分重要的学习内容进行整理备忘</strong></p>
 <p><strong>另外，建议学习操作系统之前先系统地学习计算机组成原理，否则 io，中断等硬件相关的内容将会比较难以理解。推荐《计算机组成与设计：软件/硬件接口》</strong></p>
 <p><br></p>
-<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p><strong>包括了 xv6 编译与调试运行，linux 内核的编译与安装，Android与 minix 系统的源码获取，篇幅较长，跳转到专门的文章，下同</strong></p>
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><p><strong>包括了 xv6 ,linux 内核，minix, android 系统的源码获取和部分基础环境的搭建，篇幅较长，跳转到专门的文章，下同</strong></p>
 <p><a href="https://tocreate.app/2018/09/21/OSEnv/" target="_blank" rel="external">详见</a></p>
+<p><br></p>
+<h2 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h2><p><strong>编译一个 GCC Cross-Compiler</strong></p>
+<p><a href="https://tocreate.app/2018/09/22/OSCrossGcc/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
@@ -638,7 +641,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
