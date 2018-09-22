@@ -7,7 +7,7 @@
       <url>/2018/09/22/Early/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><strong>这个学期准备笔试面试，要系统地开始复习了，我大概准备从操作系统，计网，Jvm，并发，Android系统，Android常用框架这几方面开始入手，笔记方面按照下面几个系列来整理，应该会更新得比较勤快，不过基本看心情，所以完全不按顺序</strong></p>
+<p><strong>这个学期准备笔试面试要系统地开始复习了，我大概准备从操作系统，计网，Jvm，并发，Android系统，Android常用框架 这几方面开始入手，笔记会按照下面几个系列来整理，应该会更新得比较勤快，不过基本看心情，所以完全不按顺序</strong></p>
 <ul>
 <li><p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">深入操作系统 系列</a></p>
 </li>
@@ -197,7 +197,12 @@ $ make
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
-<h3 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h3><p><br></p>
+<p><br></p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p><br></p>
+<h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
+<h4 id="fork-与-exec"><a href="#fork-与-exec" class="headerlink" title="fork 与 exec"></a>fork 与 exec</h4><p><br></p>
+<h4 id="xv6-上的实现"><a href="#xv6-上的实现" class="headerlink" title="xv6 上的实现"></a>xv6 上的实现</h4><p><br></p>
+<h4 id="linux-上的实现"><a href="#linux-上的实现" class="headerlink" title="linux 上的实现"></a>linux 上的实现</h4><p><br></p>
 <h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
 <h4 id="linux-与-init"><a href="#linux-与-init" class="headerlink" title="linux 与 init"></a>linux 与 init</h4><p><br></p>
 <h4 id="xv6-与-userinit"><a href="#xv6-与-userinit" class="headerlink" title="xv6 与 userinit"></a>xv6 与 userinit</h4><p><br></p>
@@ -246,6 +251,7 @@ $ make
 </ul>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
+<p><br><br><br></p>
 <p><strong>待续</strong></p>
 ]]></content>
       
