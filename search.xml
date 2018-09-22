@@ -189,8 +189,8 @@ $ make
       <content type="html"><![CDATA[<p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
 <a id="more"></a>
 <p><strong>本文主要内容来自以下书籍和操作系统相关的网络博客文章</strong></p>
-<p><strong>《计算机操作系统（第四版）》</strong><br><strong>《操作系统设计与实现（第三版）》</strong><br><strong>《Linux内核设计与实现（第三版）》</strong><br><strong>《Android 系统源代码情景分析（第三版）》</strong><br><strong>《xv6 一个简单，类 Unix 的教学操作系统》</strong></p>
-<p><strong>第一本为学校课本，后四本分别为 minix，linux 和 android 源码分析相关的书籍，最后一本是基于xv6的<a href="https://th0ar.gitbooks.io/xv6-chinese/content/content/cover.html" target="_blank" rel="external">教材</a>，本文只是将部分重要的学习内容进行整理备忘</strong></p>
+<p><strong>《计算机操作系统（第四版）》</strong><br><strong>《操作系统设计与实现（第三版）》</strong><br><strong>《Linux内核设计与实现（第三版）》</strong><br><strong><a href="https://th0ar.gitbooks.io/xv6-chinese/content/content/cover.html" target="_blank" rel="external">《xv6 一个简单，类 Unix 的教学操作系统》</a></strong></p>
+<p><strong>第一本为学校课本，后三本分别为 minix，linux，xv6 源码分析相关的书籍，本文只是将部分重要的学习内容进行整理备忘，本来也想在这篇文章中加入 Android 系统的内容的，不过这部分内容的重点就操作系统的概念来说属于应用层了，所以<a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">分开</a>来学习</strong></p>
 <p><strong>另外，建议学习操作系统之前先系统地学习计算机组成原理，否则 io，中断等硬件相关的内容将会比较难以理解。推荐《计算机组成与设计：软件/硬件接口》</strong></p>
 <p><br></p>
 <h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><p><strong>包括了 xv6 ,linux 内核，minix, android 系统的源码获取和部分基础环境的搭建，篇幅较长，跳转到专门的文章，下同</strong></p>
@@ -198,10 +198,18 @@ $ make
 <p><br></p>
 <h2 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h2><p><strong>编译一个 GCC Cross-Compiler</strong></p>
 <p><a href="https://tocreate.app/2018/09/22/OSCrossGcc/" target="_blank" rel="external">详见</a></p>
+<h2 id="内核与系统调用"><a href="#内核与系统调用" class="headerlink" title="内核与系统调用"></a>内核与系统调用</h2><ul>
+<li><p>内核概念是一个向其他运行中程序提供服务的特殊程序</p>
+</li>
+<li><p>进程通过系统调用使用内核服务。系统调用会进入内核，让内核执行服务然后返回</p>
+</li>
+<li><p>内核提供的一系列系统调用就是用户程序可见的操作系统接口</p>
+</li>
+</ul>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
-<p><br></p>
-<h2 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h2><h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2>]]></content>
+<p><strong>待续</strong></p>
+]]></content>
       
         <categories>
             
@@ -242,12 +250,14 @@ $ make
     </entry>
     
     <entry>
-      <title><![CDATA[android 系统源码概览]]></title>
+      <title><![CDATA[Android 系统源码概览]]></title>
       <url>/2018/09/05/androidSource/</url>
       <content type="html"><![CDATA[<ul>
 <li>不一定开的坑</li>
 </ul>
-<a id="more"></a>]]></content>
+<a id="more"></a>
+<p><strong>比较贴近业务相关的框架的文章写在另一个<a href="https://tocreate.app/2018/09/21/ReadAndroidLib/" target="_blank" rel="external">系列</a></strong></p>
+]]></content>
       
         <categories>
             
