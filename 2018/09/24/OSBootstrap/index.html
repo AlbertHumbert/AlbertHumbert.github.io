@@ -12,7 +12,7 @@
     
     <title>
         
-            git学习笔记 | 
+            深入操作系统 -  GRUB 引导 &amp; multiboot 镜像 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="onDestroy">
-    <meta name="keywords" content="null,git">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,26 +65,26 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="git学习笔记 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入操作系统 -  GRUB 引导 &amp; multiboot 镜像 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="onDestroy">
-    <meta property="og:article:tag" content="git"> 
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="12月 06, 2016" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+        <meta property="article:published_time" content="9月 24, 2018" />
+        <meta property="article:modified_time" content="9月 24, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="git学习笔记 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="onDestroy">
+    <meta name="twitter:title" content="深入操作系统 -  GRUB 引导 &amp; multiboot 镜像 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2016/12/06/Git/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,11 +110,11 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "git学习笔记",
-    "url": "https://alberthumbert.github.io/2016/12/06/Git/index.html",
-    "datePublished": "12月 06, 2016",
-    "dateModified": "11月 21, 2017",
-    "description": "onDestroy",
+    "headline": "深入操作系统 -  GRUB 引导 & multiboot 镜像",
+    "url": "https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html",
+    "datePublished": "9月 24, 2018",
+    "dateModified": "9月 24, 2018",
+    "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提交版本"><span class="post-toc-number">1.</span> <span class="post-toc-text">提交版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#版本穿梭"><span class="post-toc-number">2.</span> <span class="post-toc-text">版本穿梭</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#丢弃修改"><span class="post-toc-number">3.</span> <span class="post-toc-text">丢弃修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#删除恢复"><span class="post-toc-number">4.</span> <span class="post-toc-text">删除恢复</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#克隆仓库"><span class="post-toc-number">5.</span> <span class="post-toc-text">克隆仓库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制分支"><span class="post-toc-number">6.</span> <span class="post-toc-text">控制分支</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#储藏工作区"><span class="post-toc-number">7.</span> <span class="post-toc-text">储藏工作区</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#远程库"><span class="post-toc-number">8.</span> <span class="post-toc-text">远程库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用标签"><span class="post-toc-number">9.</span> <span class="post-toc-text">使用标签</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#忽略文件"><span class="post-toc-number">10.</span> <span class="post-toc-text">忽略文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置别名"><span class="post-toc-number">11.</span> <span class="post-toc-text">设置别名 </span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#搭建Git服务器"><span class="post-toc-number">12.</span> <span class="post-toc-text">搭建Git服务器</span></a></li></ol>
+        
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                git学习笔记
+                深入操作系统 -  GRUB 引导 & multiboot 镜像
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>12月 06, 2016</span>
+        <span>9月 24, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -416,7 +416,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/git/">git</a>
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
     </ul>
     
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=git学习笔记&url=https://alberthumbert.github.io/2016/12/06/Git/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 -  GRUB 引导 &amp; multiboot 镜像&url=https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=git学习笔记&url=https://alberthumbert.github.io/2016/12/06/Git/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 -  GRUB 引导 &amp; multiboot 镜像&url=https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2016/12/06/Git/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2016/12/06/Git/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2016/12/06/Git/index.html&title=git学习笔记" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html&title=深入操作系统 -  GRUB 引导 &amp; multiboot 镜像" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=git学习笔记&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2016/12/06/Git/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 -  GRUB 引导 &amp; multiboot 镜像&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2016/12/06/Git/index.html&text=git学习笔记" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/09/24/OSBootstrap/index.html&text=深入操作系统 -  GRUB 引导 &amp; multiboot 镜像" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -501,92 +501,11 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>onDestroy<br><img src="http://p1.bpimg.com/4851/923b28f3dcd37179.jpg" class="img-topic"></p>
+        <p>-</p>
 <a id="more"></a>
-<h2 id="提交版本"><a href="#提交版本" class="headerlink" title="提交版本"></a>提交版本</h2><p>初始Git仓库：</p>
-<pre><code>git init
-</code></pre><p>   添加文件到Git仓库<br>    git add <file><br>   提交到版本库<br>    git commit -m “ ”<br>   掌握工作区状态<br>    git status<br>   git status告知有文件被修改，查看修改</file></p>
-<pre><code>git diff
-</code></pre><hr>
-<pre><code>git add把文件修改添加到暂存区stage（或叫index）
-git commit提交更改，实际上是把暂存区的所有内容提交到当前分支
-.git/index 是一个包含文件索引的目录树
-.git/master 是master分支所代表的目录树
-这里目录树像是一个虚拟的工作区，当中记录了文件名、文件的状态信息（时间戳、文件长度等）
-文件内容并不存储其中，而是保存在 Git 对象库（.git/objects）
-</code></pre><h2 id="版本穿梭"><a href="#版本穿梭" class="headerlink" title="版本穿梭"></a>版本穿梭</h2><p>  HEAD指向当前版本，在版本的历史之间穿梭，使用命令</p>
-<pre><code>git reset --hard commit_id 
-</code></pre><hr>
-<pre><code>git reset --hard^
-</code></pre><hr>
-<pre><code>git reset --hard^^
-</code></pre><hr>
-<pre><code>git reset --hard~100
-</code></pre><p>   查看提交历史，确定回退版本 </p>
-<pre><code>git log
-</code></pre><hr>
-<pre><code>＃精简输出 git log —pretty=oneline
-</code></pre><p>  查看命令历史，确定未来版本<br>    git reflog</p>
-<h2 id="丢弃修改"><a href="#丢弃修改" class="headerlink" title="丢弃修改"></a>丢弃修改</h2><p>   未add，丢弃工作区的修改<br>    git checkout – file</p>
-<p>   已add，丢弃修改<br>    git reset HEAD file<br>    git checkout – file</p>
-<p>   已commit，撤销提交<br>    git reset —hard^</p>
-<h2 id="删除恢复"><a href="#删除恢复" class="headerlink" title="删除恢复"></a>删除恢复</h2><p>   删除文件导致工作区版本库不一致，查看被删除文件</p>
-<pre><code>git status
-</code></pre><p>   确定要从版本库中删除该文件  </p>
-<p>   添加删除信息到暂存区<br>    git rm &lt;&gt;<br>   更新版本库<br>    git commit</p>
-<p>   恢复文件<br>    git checkout – file </p>
-<h2 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h2><p>   克隆仓库  </p>
-<pre><code>git clone
-</code></pre><hr>
-<pre><code>#Git支持多种协议，包括https
-通过ssh支持的原生git协议速度最快
-</code></pre><h2 id="控制分支"><a href="#控制分支" class="headerlink" title="控制分支"></a>控制分支</h2><p>   Git鼓励大量使用分支：</p>
-<p>   查看分支：<br>    git branch<br>   创建分支：<br>    git branch <name><br>   切换分支：<br>    git checkout <name><br>   创建+切换分支：<br>    git checkout -b <name><br>   合并某分支到当前分支：<br>    git merge <name><br>   删除已合并分支：<br>    git branch -d <name><br>   删除未合并分支：<br>    git branch -D <name><br>   合并分支：<br>   默认Fast forward模式，删除分支后丢掉分支信息<br>   禁用Fast forward模式 —no-ff 生成新commit<br>    git merge –no-ff -m “ ” <branch name=""><br>   查看分支信息<br>    git log</branch></name></name></name></name></name></name></p>
-<h2 id="储藏工作区"><a href="#储藏工作区" class="headerlink" title="储藏工作区"></a>储藏工作区</h2><p>   储藏工作现场：<br>    git stash<br>   查看：<br>    git stash list<br>   恢复：<br>    git stash apply<br>  删除：  </p>
-<pre><code>git stash drop   
-</code></pre><p>  恢复并删除：<br>    git stash pop        </p>
-<h2 id="远程库"><a href="#远程库" class="headerlink" title="远程库"></a>远程库</h2><p>   关联远程库<br>    git remote add origin git@server-name:path/repo-name.git</p>
-<p>   关联后第一次推送master分支所有内容<br>    git push -u origin master</p>
-<p>   推送最新修改<br>    git push origin master</p>
-<p>   查看远程库信息:<br>    git remote -v</p>
-<p> 从本地推送分支：<br>    git push origin branch-name<br>   推送失败,抓取远程的新提交 </p>
-<pre><code>git pull
-</code></pre><hr>
-<pre><code>＃本地新建的分支不推送到远程，他人不可见
-＃如有冲突,先处理冲突
-</code></pre><p>   本地创建和远程分支对应的分支<br>    git checkout -b branch-name origin/branch-name<br>   建立本地分支和远程分支的关联</p>
-<pre><code>git branch --set-upstream branch-name origin/branch-name
-</code></pre><hr>
-<pre><code>＃本地和远程分支的名称最好一致
-</code></pre><h2 id="使用标签"><a href="#使用标签" class="headerlink" title="使用标签"></a>使用标签</h2><p>   新建标签<br>    git tag <name><br>   查看标签<br>    git tag<br>   默认为HEAD，可以指定commit id</name></p>
-<p>   指定标签信息<br>    git tag -a <tagname> -m “ ”</tagname></p>
-<p>   PGP签名标签<br>    git tag -s <tagname> -m “ ”</tagname></p>
-<p>   推送本地标签<br>    git push origin <tagname></tagname></p>
-<p>   推送全部未推送的本地标签<br>    git push origin —tags</p>
-<p>   删除本地标签<br>    git tag -d <tagname></tagname></p>
-<p>   删除远程标签<br>    git push origin :refs/tags/<tagname></tagname></p>
-<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>   忽略文件编写 .gitignore 放到版本库<br>   强制添加<br>    git add -f <file><br>   检查配置<br>    git check-ignore <file></file></file></p>
-<h2 id="设置别名"><a href="#设置别名" class="headerlink" title="设置别名 "></a>设置别名 </h2><p>   配置别名</p>
-<pre><code>git config --global alias.&lt;..&gt;  &lt;…….&gt;
-</code></pre><hr>
-<pre><code>git config --global alias.lg &quot;log --color --graph —pretty=format:&apos;%Cred%h %Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; —abbrev-commit&quot;
-</code></pre><h2 id="搭建Git服务器"><a href="#搭建Git服务器" class="headerlink" title="搭建Git服务器"></a>搭建Git服务器</h2><p>   安装git</p>
-<pre><code>sudo apt-get install git
-</code></pre><p>   创建一个git用户</p>
-<pre><code>sudo adduser git
-</code></pre><p>   创建证书登录：<br>   收集所有需要登录的用户的公钥id_rsa.pub，把所<br>   有公钥导入到/home/git/.ssh/authorized_keys</p>
-<p>   初始化Git仓库：<br>   先选定一个目录作为Git仓库，在目录下输入命令</p>
-<pre><code>sudo git init --bare sample.git
-</code></pre><p>   禁用shell登录：<br>   编辑/etc/passwd</p>
-<pre><code>git:x:1001:1001:,,,:/home/git:/bin/bash
-</code></pre><p>   改为</p>
-<pre><code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
-</code></pre><p>   克隆远程仓库：</p>
-<p>   通过git clone命令克隆远程仓库,在各自的电脑上运行<br>    git clone git@server:/srv/sample.git<br><img src="http://p1.bpimg.com/4851/e8b3de05b5049f9e.jpg"></p>
-<pre><code>http://www.cnblogs.com/hutaoer/archive/2013/05/07/git_checkout.html?utm_source=tuicool&amp;utm_medium=referral
-</code></pre><hr>
-<pre><code>http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
-</code></pre>
+<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/09/22/OSCrossGcc/" target="_blank" rel="external">可能需要阅读前文</a></p>
+
     
 
     
@@ -605,21 +524,13 @@ git commit提交更改，实际上是把暂存区的所有内容提交到当前�
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/01/11/LinearList/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2016/11/14/SnakeInC/" id="post_nav-older" class="next-content">
+        <a href="/2018/09/22/Early/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
