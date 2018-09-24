@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[TextView 源码解析]]></title>
+      <url>/2018/09/24/LibTextView/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/21/ReadAndroidLib/" target="_blank" rel="external">本文为深入 Android 框架源码系列的一部分</a></p>
+<h3 id="TextView"><a href="#TextView" class="headerlink" title="TextView"></a>TextView</h3>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 -  GRUB 引导 & multiboot 镜像]]></title>
       <url>/2018/09/24/OSBootstrap/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -416,7 +439,11 @@ $ make
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><strong>这学期Android框架源码分析文章的索引</strong><br><strong>这里的框架指的是Android官方或常用的第三方应用开发框架</strong></p>
-]]></content>
+<p><br></p>
+<h3 id="Android-SDK"><a href="#Android-SDK" class="headerlink" title="Android SDK"></a>Android SDK</h3><p><br></p>
+<h4 id="TextView"><a href="#TextView" class="headerlink" title="TextView"></a>TextView</h4><p><strong><a href="http://tocreate.app/2018/09/24/LibTextView/" target="_blank" rel="external">详见</a></strong></p>
+<p><br></p>
+<h3 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h3>]]></content>
       
         <categories>
             
