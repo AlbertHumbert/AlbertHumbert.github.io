@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-09-24T08:21:44.000Z</updated>
+  <updated>2018-09-23T17:08:14.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,26 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>TextView 源码解析</title>
-    <link href="https://alberthumbert.github.io/2018/09/24/LibTextView/"/>
-    <id>https://alberthumbert.github.io/2018/09/24/LibTextView/</id>
-    <published>2018-09-24T08:17:57.000Z</published>
-    <updated>2018-09-24T08:21:44.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
   
   <entry>
     <title>深入操作系统 -  GRUB 引导 &amp; multiboot 镜像</title>
@@ -160,7 +140,7 @@
     <link href="https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/"/>
     <id>https://alberthumbert.github.io/2018/09/21/ReadAndroidLib/</id>
     <published>2018-09-21T13:52:16.000Z</published>
-    <updated>2018-09-24T08:23:34.000Z</updated>
+    <updated>2018-09-24T09:35:15.000Z</updated>
     
     <summary type="html">
     
@@ -405,6 +385,26 @@
     <id>https://alberthumbert.github.io/2018/03/29/kotlin/</id>
     <published>2018-03-29T14:33:18.000Z</published>
     <updated>2018-05-25T11:47:59.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Architecture Components 系列 - Lifecycle</title>
+    <link href="https://alberthumbert.github.io/2018/03/29/Lifecycle/"/>
+    <id>https://alberthumbert.github.io/2018/03/29/Lifecycle/</id>
+    <published>2018-03-29T14:16:36.000Z</published>
+    <updated>2018-05-25T11:41:27.000Z</updated>
     
     <summary type="html">
     
