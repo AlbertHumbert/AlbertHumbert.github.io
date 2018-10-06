@@ -3,6 +3,194 @@
   
     
     <entry>
+      <title><![CDATA[Android 注解进阶]]></title>
+      <url>/2018/10/06/AndroidAnnotation/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h2 id="Java-注解基础"><a href="#Java-注解基础" class="headerlink" title="Java 注解基础"></a>Java 注解基础</h2><p><strong>简单回顾一下注解，加入了一些Java 8中的新特性</strong></p>
+<p><br></p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>注解 (Annotation)，也叫元数据。一种代码级别的说明。它是 JDK1.5 及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释</li>
+</ul>
+<ul>
+<li>注解中的数据可以在编译、运行时进行解析和使用，也可以单纯为编码人员提供很多的信息</li>
+</ul>
+<p><br></p>
+<h3 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h3><ul>
+<li>元注解是使用在注解上的注解，它为注解提供构成信息，是最基本的注解，Java中的元注解包括，@Retention, @Documented, @Target, @Inherited，@Repeatable（Java 8）</li>
+</ul>
+<p><br></p>
+<h4 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h4><p><strong>Retention用于指示注解的生命周期，即存活时间</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Retention {
+    /**
+     * Returns the retention policy.
+     * @return the retention policy
+     */
+    RetentionPolicy value();
+}
+</code></pre><ul>
+<li>RetentionPolicy.SOURCE, 注解会被编译器抛弃，即注解只在源码阶段中使用，一般用于程序员阅读</li>
+</ul>
+<ul>
+<li>RetentionPolicy.CLASS，注解会被记录在class文件中，但不会被JVM加载，即注解可以在编译期使用</li>
+</ul>
+<ul>
+<li>RetentionPolicy.RUNTIME，注解会被JVM加载，即注解可以在运行时使用</li>
+</ul>
+<pre><code>public enum RetentionPolicy {
+    /**
+     * Annotations are to be discarded by the compiler.
+     */
+    SOURCE,
+
+    /**
+     * Annotations are to be recorded in the class file by the compiler
+     * but need not be retained by the VM at run time.  This is the default
+     * behavior.
+     */
+    CLASS,
+
+    /**
+     * Annotations are to be recorded in the class file by the compiler and
+     * retained by the VM at run time, so they may be read reflectively.
+     *
+     * @see java.lang.reflect.AnnotatedElement
+     */
+    RUNTIME
+}
+</code></pre><p><br></p>
+<h4 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h4><p><strong> Target用于指示注解的标注对象，如类，方法，变量等</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Target {
+    /**
+     * Returns an array of the kinds of elements an annotation type
+     * can be applied to.
+     * @return an array of the kinds of elements an annotation type
+     * can be applied to
+     */
+    ElementType[] value();
+}
+</code></pre><ul>
+<li>ElementType.CONSTRUCTOR: 作用于构造方法</li>
+<li>ElementType.ANNOTATION_TYPE:  作用于注解</li>
+<li>ElementType.FIELD: 作用于域（包括枚举）</li>
+<li>ElementType.LOCAL_VARIABLE: 作用于局部变量</li>
+<li>ElementType.METHOD: 作用于方法</li>
+<li>ElementType.PACKAGE: 作用于包，一般使用在编译器生成的package-info.java类当中</li>
+<li>ElementType.PARAMETER: 作用于方法参数</li>
+<li>ElementType.TYPE: 作用于类、接口、枚举</li>
+<li>ElementType.TYPE_PARAMETER: 作用于提供给泛型的类型参数（Java 8）</li>
+<li>ElementType.TYPE_USE：作用于变量类型（Java 8）</li>
+</ul>
+<pre><code>public enum ElementType {
+    /** Class, interface (including annotation type), or enum declaration */
+    TYPE,
+
+    /** Field declaration (includes enum constants) */
+    FIELD,
+
+    /** Method declaration */
+    METHOD,
+
+    /** Formal parameter declaration */
+    PARAMETER,
+
+    /** Constructor declaration */
+    CONSTRUCTOR,
+
+    /** Local variable declaration */
+    LOCAL_VARIABLE,
+
+    /** Annotation type declaration */
+    ANNOTATION_TYPE,
+
+    /** Package declaration */
+    PACKAGE,
+
+    /**
+     * Type parameter declaration
+     *
+     * @since 1.8
+     */
+    TYPE_PARAMETER,
+
+    /**
+     * Use of a type
+     *
+     * @since 1.8
+     */
+    TYPE_USE
+}
+</code></pre><p><br></p>
+<h4 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><p><strong> Inherited用于指示使用了某个注解的类，其子类是否继承该注解</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Inherited {
+}
+</code></pre><p><br></p>
+<h4 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h4><p><strong> Documented用于指示注解是否被javadoc等文档工具记录</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Documented {
+}
+</code></pre><p><br></p>
+<h4 id="Repeatable（Java-8）"><a href="#Repeatable（Java-8）" class="headerlink" title="@Repeatable（Java 8）"></a>@Repeatable（Java 8）</h4><p><strong> Documented用于指示注解可以在同一个元素中多次使用</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Repeatable {
+    /**
+         * Indicates the &lt;em&gt;containing annotation type&lt;/em&gt; for the
+     * repeatable annotation type.
+     * @return the containing annotation type
+     */
+    Class&lt;? extends Annotation&gt; value();
+}
+</code></pre><p><br></p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li>注解的属性也叫做成员变量，使用无参方法声明的形式来声明，可以设置默认值</li>
+</ul>
+<pre><code>public @interface Test {
+
+    int testInt() default 1;
+    String testStr();
+}
+</code></pre><ul>
+<li>没有设置默认值的属性必须在使用时赋值，设置了值的属性可以在使用时覆盖</li>
+</ul>
+<pre><code>@Test(testInt = 2,testStr = &quot;test&quot;)
+public class Xxx{
+}
+</code></pre><p><strong>未完待续</strong></p>
+<p><br></p>
+<h3 id="运行时注解解释器"><a href="#运行时注解解释器" class="headerlink" title="运行时注解解释器"></a>运行时注解解释器</h3><p><br></p>
+<h3 id="编译时注解解释器"><a href="#编译时注解解释器" class="headerlink" title="编译时注解解释器"></a>编译时注解解释器</h3><p><br></p>
+<h3 id="注解框架实例"><a href="#注解框架实例" class="headerlink" title="注解框架实例"></a>注解框架实例</h3>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入JVM系列 - mac平台编译调试 OpenJdk7 & HotSpot]]></title>
       <url>/2018/09/26/JVMCompileOpenJdk7/</url>
       <content type="html"><![CDATA[<p>-</p>
