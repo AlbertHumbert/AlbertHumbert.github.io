@@ -7,9 +7,26 @@
       <url>/2018/10/15/OSBaseLib/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/15/OSBootstrap/" target="_blank" rel="external">可能需要阅读前文</a></p>
-]]></content>
+<p><strong>本文大概内容为在现有环境上搭建一个操作系统基础开发框架，包括基本的库函数，makefile等</strong></p>
+<p><br></p>
+<h2 id="基础条件"><a href="#基础条件" class="headerlink" title="基础条件"></a>基础条件</h2><p><strong>下面所有的条件除了 make 以外都在前几篇文章中提及了</strong></p>
+<ul>
+<li><p>cross-gcc</p>
+</li>
+<li><p>GRUB 与 Xorriso</p>
+</li>
+<li><p>Qemu</p>
+</li>
+<li><p>make，4.0以上</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="sysroot"><a href="#sysroot" class="headerlink" title="sysroot"></a>sysroot</h2><ul>
+<li>在交叉编译环境中如果我们不指定 sysroot，编译器会默认在 /usr/include 和 /usr/lib 中寻找头文件和库，我们这里应该使用自己编写的库，因此需要指定 sysroot</li>
+</ul>
+<h2 id="系统头文件"><a href="#系统头文件" class="headerlink" title="系统头文件"></a>系统头文件</h2>]]></content>
       
         <categories>
             
@@ -31,7 +48,7 @@
       <url>/2018/10/15/OSBootstrap/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/09/22/OSCrossGcc/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>本文中我们首先编写编译一个简单的内核，使用 GRUB 制作一个镜像，然后使用 qemu 的CDROM模式启动，最后再来详细解释发生了什么</strong></p>
 <p><strong>到了这一步理论上你已经可以制作一个可以在真实硬件上跑的系统了</strong></p>
@@ -45,7 +62,7 @@
 </code></pre><ul>
 <li>使用 g++ 编译, 编译过程中遇到一个变量溢出的问题，看起来是 windows 相关的问题，我是直接注释掉了，编译完之后将文件夹添加到环境变量</li>
 </ul>
-<pre><code>g++ -o objconv -O2 src/*.cpp
+<pre><code>g++ -o objconv -O2 src/\*.cpp
 </code></pre><ul>
 <li>下载源码，注意被不是所有版本都适合在 osx 上使用,建议使用 commit id 为 77063f4cb6 的版本</li>
 </ul>
@@ -53,7 +70,7 @@
 </code></pre><ul>
 <li>执行目录中的 autogen.sh 脚本，然后执行 config</li>
 </ul>
-<pre><code>../grub/configure --disable-werror TARGET_CC=i386-elf-gcc TARGET_OBJCOPY=i386-elf-objcopy TARGET_STRIP=i386-elf-strip TARGET_NM=i386-elf-nm TARGET_RANLIB=i386-elf-ranlib --target=i386-elf
+<pre><code>../grub/configure --disable-werror TARGET\_CC=i386-elf-gcc TARGET\_OBJCOPY=i386-elf-objcopy TARGET\_STRIP=i386-elf-strip TARGET\_NM=i386-elf-nm TARGET\_RANLIB=i386-elf-ranlib --target=i386-elf
 </code></pre><ul>
 <li><p>然后 make 和 make install 即可，注意一定要 install，否则制作出来的镜像是损坏的</p>
 </li>
@@ -163,7 +180,7 @@ call kernel_main
  non-maskable interrupt occurring or due to system management mode.
     */
 cli
-1:    hlt
+1:  hlt
 jmp 1b
 
 /*
@@ -190,27 +207,27 @@ jmp 1b
 <h4 id="简单-VGA-输出"><a href="#简单-VGA-输出" class="headerlink" title="简单 VGA 输出"></a>简单 VGA 输出</h4><ul>
 <li>下一步，来编写一个 VGA 输出函数库，这将是除了编译器内置的库以外，我们操作系统的第一个函数库，头文件定义如下</li>
 </ul>
-<pre><code>#include &lt;stdbool.h&gt;
-#include &lt;stddef.h&gt;
-#include &lt;stdint.h&gt;
+<pre><code># include \&lt;stdbool.h\&gt;
+# include \&lt;stddef.h\&gt;
+# include \&lt;stdint.h\&gt;
 
-void terminal_initialize(void);
+void terminal\_initialize(void);
 
-void terminal_setcolor(uint8_t color);
+void terminal\_setcolor(uint8\_t color);
 
-void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) ;
+void terminal\_putentryat(char c, uint8\_t color, size\_t x, size\_t y) ;
 
-void terminal_putchar(char c) ;
+void terminal\_putchar(char c) ;
 
-void terminal_write(const char* data, size_t size) ;
+void terminal\_write(const char\* data, size\_t size) ;
 
-void terminal_writestring(const char* data) ;
+void terminal\_writestring(const char\* data) ;
 </code></pre><ul>
 <li>在 intel PCI 总线 VGA 显示模式的编址为 0xA0000 -> 0xBFFFF，其中 0xB8000 开始为彩色字符模式，每字节前4位为背景色后4位为字符色（也就是只支持16色），我们要做的只是通过  0xB8000 这个地址拿到缓冲区，并填入数据即可，实现起来很简单不多说了</li>
 </ul>
-<pre><code>#include &quot;tty.h&quot;
+<pre><code># include &quot;tty.h&quot;
 
-enum vga_color {
+enum vga\_color {
     VGA_COLOR_BLACK = 0,
     VGA_COLOR_BLUE = 1,
     VGA_COLOR_GREEN = 2,
@@ -229,17 +246,17 @@ enum vga_color {
     VGA_COLOR_WHITE = 15,
 };
 
-static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) 
+static inline uint8\_t vga\_entry\_color(enum vga\_color fg, enum vga\_color bg) 
 {
     return fg | bg &lt;&lt; 4;
 }
 
-static inline uint16_t vga_entry(unsigned char uc, uint8_t color) 
+static inline uint16\_t vga\_entry(unsigned char uc, uint8\_t color) 
 {
     return (uint16_t) uc | (uint16_t) color &lt;&lt; 8;
 }
 
-size_t strlen(const char* str) 
+size\_t strlen(const char\* str) 
 {
     size_t len = 0;
     while (str[len])
@@ -247,15 +264,15 @@ size_t strlen(const char* str)
     return len;
 }
 
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 25;
+static const size\_t VGA\_WIDTH = 80;
+static const size\_t VGA\_HEIGHT = 25;
 
-size_t terminal_row;
-size_t terminal_column;
-uint8_t terminal_color;
-uint16_t* terminal_buffer;
+size\_t terminal\_row;
+size\_t terminal\_column;
+uint8\_t terminal\_color;
+uint16\_t\* terminal\_buffer;
 
-void terminal_initialize(void) 
+void terminal\_initialize(void) 
 {
     terminal_row = 0;
     terminal_column = 0;
@@ -269,12 +286,12 @@ void terminal_initialize(void)
     }
 }
 
-void terminal_setcolor(uint8_t color) 
+void terminal\_setcolor(uint8\_t color) 
 {
     terminal_color = color;
 }
 
-void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) 
+void terminal\_putentryat(char c, uint8\_t color, size\_t x, size\_t y) 
 {
     size_t index;
     if(c == &apos;\n&apos;){
@@ -285,7 +302,7 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
     }
 }
 
-void terminal_putchar(char c) 
+void terminal\_putchar(char c) 
 {
     terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
     if (++terminal_column == VGA_WIDTH) {
@@ -296,13 +313,13 @@ void terminal_putchar(char c)
     }
 }
 
-void terminal_write(const char* data, size_t size) 
+void terminal\_write(const char\* data, size\_t size) 
 {
     for (size_t i = 0; i &lt; size; i++)
         terminal_putchar(data[i]);
 }
 
-void terminal_writestring(const char* data) 
+void terminal\_writestring(const char\* data) 
 {
     terminal_write(data, strlen(data));
 }
@@ -310,9 +327,9 @@ void terminal_writestring(const char* data)
 <h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><ul>
 <li>现在调用我们刚刚实现的函数，编写一个内核，它除了在屏幕上打印 hello world 之外什么也不干</li>
 </ul>
-<pre><code>#include &quot;tty.h&quot;
+<pre><code># include &quot;tty.h&quot;
 
-void kernel_main()
+void kernel\_main()
 {
     terminal_initialize();
     terminal_writestring(&quot;          \n\n\n&quot;);
@@ -323,12 +340,12 @@ void kernel_main()
 <h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><ul>
 <li>核心代码已经实现了，现在需要一份连接脚本，然后使用交叉编译器编译它们</li>
 </ul>
-<pre><code>/* The bootloader will look at this image and start execution at the symbol
-   designated as the entry point. */
-ENTRY(_start)
+<pre><code>/\* The bootloader will look at this image and start execution at the symbol
+   designated as the entry point. \*/
+ENTRY(\_start)
 
-/* Tell where the various sections of the object files will be put in the final
-   kernel image. */
+/\* Tell where the various sections of the object files will be put in the final
+   kernel image. \*/
 SECTIONS
 {
     /* Begin putting sections at 1 MiB, a conventional place for kernels to be
@@ -1213,7 +1230,7 @@ Visit java.com/help for more information.
       <url>/2018/09/22/OSCrossGcc/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/09/21/OSEnv/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>不需要编写和编译相关例程的非硬核玩家无需阅读此文</strong></p>
 <p><br></p>
@@ -1306,7 +1323,6 @@ export PATH=&quot;$PREFIX/bin:$PATH&quot;
 <li>编译 binutils</li>
 </ul>
 <pre><code>cd $HOME/src
-
 mkdir build-binutils
 cd build-binutils
 ../binutils-x.y.z/configure --target=$TARGET --prefix=&quot;$PREFIX&quot; --with-sysroot --disable-nls --disable-werror
@@ -1316,10 +1332,8 @@ make install
 <li>编译 gcc</li>
 </ul>
 <pre><code>cd $HOME/src
-
 # The $PREFIX/bin dir _must_ be in the PATH. We did that above.
 which -- $TARGET-as || echo $TARGET-as is not in the PATH
-
 mkdir build-gcc
 cd build-gcc
 ../gcc-x.y.z/configure --target=$TARGET --prefix=&quot;$PREFIX&quot; --disable-nls --enable-languages=c,c++ --without-headers

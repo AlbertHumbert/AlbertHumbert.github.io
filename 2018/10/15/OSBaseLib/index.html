@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 15, 2018" />
-        <meta property="article:modified_time" content="10月 15, 2018" />
+        <meta property="article:modified_time" content="10月 16, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 4 - 系统库函数",
     "url": "https://alberthumbert.github.io/2018/10/15/OSBaseLib/index.html",
     "datePublished": "10月 15, 2018",
-    "dateModified": "10月 15, 2018",
+    "dateModified": "10月 16, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础条件"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础条件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sysroot"><span class="post-toc-number">2.</span> <span class="post-toc-text">sysroot</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统头文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">系统头文件</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -503,9 +503,26 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/15/OSBootstrap/" target="_blank" rel="external">可能需要阅读前文</a></p>
-
+<p><strong>本文大概内容为在现有环境上搭建一个操作系统基础开发框架，包括基本的库函数，makefile等</strong></p>
+<p><br></p>
+<h2 id="基础条件"><a href="#基础条件" class="headerlink" title="基础条件"></a>基础条件</h2><p><strong>下面所有的条件除了 make 以外都在前几篇文章中提及了</strong></p>
+<ul>
+<li><p>cross-gcc</p>
+</li>
+<li><p>GRUB 与 Xorriso</p>
+</li>
+<li><p>Qemu</p>
+</li>
+<li><p>make，4.0以上</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="sysroot"><a href="#sysroot" class="headerlink" title="sysroot"></a>sysroot</h2><ul>
+<li>在交叉编译环境中如果我们不指定 sysroot，编译器会默认在 /usr/include 和 /usr/lib 中寻找头文件和库，我们这里应该使用自己编写的库，因此需要指定 sysroot</li>
+</ul>
+<h2 id="系统头文件"><a href="#系统头文件" class="headerlink" title="系统头文件"></a>系统头文件</h2>
     
 
     
