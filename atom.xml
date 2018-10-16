@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-10-16T13:42:46.000Z</updated>
+  <updated>2018-10-16T18:23:05.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入JVM系列 - gdb 调试 OpenJdk7</title>
+    <link href="https://alberthumbert.github.io/2018/10/17/JVMUseGdb/"/>
+    <id>https://alberthumbert.github.io/2018/10/17/JVMUseGdb/</id>
+    <published>2018-10-16T18:20:34.000Z</published>
+    <updated>2018-10-16T18:23:05.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入操作系统 4 - 系统库函数</title>
@@ -385,26 +405,6 @@
     <id>https://alberthumbert.github.io/2018/05/24/LiveData/</id>
     <published>2018-05-24T13:54:39.000Z</published>
     <updated>2018-05-25T14:35:54.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>gradle 3.x 依赖方式</title>
-    <link href="https://alberthumbert.github.io/2018/05/20/gradle3/"/>
-    <id>https://alberthumbert.github.io/2018/05/20/gradle3/</id>
-    <published>2018-05-20T14:20:54.000Z</published>
-    <updated>2018-05-31T12:42:42.000Z</updated>
     
     <summary type="html">
     

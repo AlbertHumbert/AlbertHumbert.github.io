@@ -12,7 +12,7 @@
     
     <title>
         
-            基于 Git Flow 模型的工作流程 | 
+            深入JVM系列 - gdb 调试 OpenJdk7 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="基于 Git Flow 模型的工作流程 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入JVM系列 - gdb 调试 OpenJdk7 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="5月 25, 2018" />
-        <meta property="article:modified_time" content="5月 27, 2018" />
+        <meta property="article:published_time" content="10月 17, 2018" />
+        <meta property="article:modified_time" content="10月 17, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="基于 Git Flow 模型的工作流程 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入JVM系列 - gdb 调试 OpenJdk7 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "基于 Git Flow 模型的工作流程",
-    "url": "https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html",
-    "datePublished": "5月 25, 2018",
-    "dateModified": "5月 27, 2018",
+    "headline": "深入JVM系列 - gdb 调试 OpenJdk7",
+    "url": "https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html",
+    "datePublished": "10月 17, 2018",
+    "dateModified": "10月 17, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支"><span class="post-toc-number">1.</span> <span class="post-toc-text">分支</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#长期分支-amp-辅助分支"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">长期分支 & 辅助分支</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分支概述"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">分支概述</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">开发流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开发新特性"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">开发新特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#完成新特性"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">完成新特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试新版本"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">测试新版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#发布新版本"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">发布新版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修复线上-bug"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">修复线上 bug</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-gdb"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 gdb</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                基于 Git Flow 模型的工作流程
+                深入JVM系列 - gdb 调试 OpenJdk7
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>5月 25, 2018</span>
+        <span>10月 17, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=基于 Git Flow 模型的工作流程&url=https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 - gdb 调试 OpenJdk7&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=基于 Git Flow 模型的工作流程&url=https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 - gdb 调试 OpenJdk7&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html&title=基于 Git Flow 模型的工作流程" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&title=深入JVM系列 - gdb 调试 OpenJdk7" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=基于 Git Flow 模型的工作流程&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 - gdb 调试 OpenJdk7&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/05/25/GitFlowModel/index.html&text=基于 Git Flow 模型的工作流程" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&text=深入JVM系列 - gdb 调试 OpenJdk7" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,133 +503,8 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><br></p>
-<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p><br></p>
-<h3 id="长期分支-amp-辅助分支"><a href="#长期分支-amp-辅助分支" class="headerlink" title="长期分支 &amp; 辅助分支"></a>长期分支 &amp; 辅助分支</h3><ul>
-<li><p>在 git-flow 中最主要的五个分支是 master，release，develop，feature，hotfix</p>
-</li>
-<li><p>长期分支包括 master，develop</p>
-</li>
-<li><p>辅助分支包括 feature，release，hotfix</p>
-</li>
-<li><p>长期分支是相对稳定的分支，所有被认可的提交最终都会被合并到它们当中</p>
-</li>
-<li><p>辅助分支是临时开辟的短期分支，在完成它们的工作之后通常可以删除</p>
-</li>
-</ul>
-<p><br></p>
-<h3 id="分支概述"><a href="#分支概述" class="headerlink" title="分支概述"></a>分支概述</h3><ul>
-<li><p>master，对外发布产品使用的分支，该分支的最新提交必须是一个已近对外提供的版本，不允许直接在该分支上开发，因为它必须永远保持最稳定的状态</p>
-</li>
-<li><p>develop，内部开发产品使用的分支，该分支的最新提交必须是一个相对稳定的测试版本，同样不允许直接在该分支上开发</p>
-</li>
-<li><p>feature，功能特性分支，直接在 develop 上创建的分支，feature 是不确定数量的分支的统称（如feature/a, feature/b），可以在这些分支上直接开发新特性，如果需要多人协作，则将分支推送到远程仓库，不允许在一个功能未完成之前将其合并到 develop 分支</p>
-</li>
-<li><p>release，测试分支，develop 分支上创建的分支，用于产品对外发布之前（即更新 master 分支）的测试工作，在创建完该分支之后最好立即推送到远程仓库</p>
-</li>
-<li><p>hotfix，修复分支，在 master 上创建的分支，用于对线上版本的bug的修复，每一个特定的问题创建一个分支</p>
-</li>
-</ul>
-<p><br></p>
-<h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><p><br></p>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
-<li><p>创建本地仓库，并推送到远程，这部分太基础所有略过</p>
-</li>
-<li><p>由于 master 分支是默认创建的，所以只需创建另一个长期分支 ——develop 并推送到远程</p>
-</li>
-</ul>
-<pre><code>git checkout -b develop
-git push origin develop:develop
-</code></pre><ul>
-<li>其他成员克隆后需要拉取 develop 分支,并指定好跟踪的远程分支，注意最好远程分支和本地分支使用相同的命名</li>
-</ul>
-<pre><code>git fetch origin develop:develop
-git branch --set-upstream-to=origin/develop develop
-</code></pre><p><br></p>
-<h3 id="开发新特性"><a href="#开发新特性" class="headerlink" title="开发新特性"></a>开发新特性</h3><ul>
-<li>开发特性a，在 develop 分支上创建新特性分支 feature/a ，注意不要在 develop 分支上直接开发</li>
-</ul>
-<pre><code>git checkout develop
-git checkout -b feature/a
-</code></pre><ul>
-<li>如果有必要，将该特性分支推送到远程</li>
-</ul>
-<pre><code>git push origin feature/a:feature/a
-</code></pre><ul>
-<li>如果有必要，其他成员拉取特性分支</li>
-</ul>
-<pre><code>git fetch origin feature/a:feature/a
-</code></pre><p><br></p>
-<h3 id="完成新特性"><a href="#完成新特性" class="headerlink" title="完成新特性"></a>完成新特性</h3><ul>
-<li>新特性完成之后需要将 feature 分支合并到 develop 分支</li>
-</ul>
-<pre><code>git checkout develop
-git merge feature/a
-git push origin develop
-</code></pre><ul>
-<li>合并完成并确定无人使用该 feature 分支之后，将其删除</li>
-</ul>
-<pre><code>git branch -d feature/a  #删除本地分支
-git push origin --delete feature/a #删除远程分支
-</code></pre><p><br></p>
-<h3 id="测试新版本"><a href="#测试新版本" class="headerlink" title="测试新版本"></a>测试新版本</h3><ul>
-<li>重复上面的流程完成多个新特性之后，我们开始在 release 分支上测试,用版本号创建 release 分支，版本号根据 master 分支当前最新的 tag 来确定即可，根据改动的情况选择要增加的位</li>
-</ul>
-<pre><code>git checkout -b release/1.0.0
-git push origin release/1.0.0:release/1.0.0
-</code></pre><p><br></p>
-<h3 id="发布新版本"><a href="#发布新版本" class="headerlink" title="发布新版本"></a>发布新版本</h3><ul>
-<li>在确定当前版本足够完善时，就可以进行发布了,注意发布前确定本地的release分支处于最新的状态</li>
-</ul>
-<pre><code>git pull origin release/1.0.0
-</code></pre><ul>
-<li>将 release 分支合并到 develop 分支</li>
-</ul>
-<pre><code>git checkout develop
-git merge release/1.0.0
-</code></pre><ul>
-<li>将 release 分支合并到 maseter 分支</li>
-</ul>
-<pre><code>git checkout master
-git merge release/1.0.0
-</code></pre><ul>
-<li>根据命名的tag进行真正的标签记录</li>
-</ul>
-<pre><code>git checkout master
-git tag -a &quot;1.0.0&quot; HEAD -m &quot;新版本改动描述&quot;
-</code></pre><ul>
-<li>删除 release 分支</li>
-</ul>
-<pre><code>git branch -d release/1.0.0
-git push origin --delete release/1.0.0
-</code></pre><p><br></p>
-<h3 id="修复线上-bug"><a href="#修复线上-bug" class="headerlink" title="修复线上 bug"></a>修复线上 bug</h3><ul>
-<li><p>注意如果不是线上的版本而是开发过程中的 develop 的 bug 则在 develop 中创建分支进行修复，如果是在 release 分支上的 bug 则直接在 release 分支上修改即可</p>
-</li>
-<li><p>有些问题在上线之后才会被发现，那么我们需要创建 hotfix 分支进行处理,注意不要直接在 feature 上进行修复，而是在 master 分支上根据具体的问题创建分支并推到远程</p>
-</li>
-</ul>
-<pre><code>git checkout master
-git checkout -b hotfix/typo
-git push origin hotfix/typo:hotfix/typo
-</code></pre><ul>
-<li>修改完成后重新发版,确定当前 hotfix 分支版本是最新的，再将hotfix 分支合并到 develope 分支</li>
-</ul>
-<pre><code>git pull origin hotfix/typo
-git checkout develop
-git merge hotfix/typo
-</code></pre><ul>
-<li>然后将 hotfix 分支合并到 master 分支,注意改动了 master 分支之后 tag 也要更新，因为是修复 bug，一般最后一位加一即可</li>
-</ul>
-<pre><code>git checkout master
-git merge hotfix/typo
-git tag -a &quot;1.0.1&quot; HEAD -m &quot;fix typo&quot;
-</code></pre><ul>
-<li>到这里我们从创建项目，添加特性，测试发布，修改bug的流程就走完一遍了</li>
-</ul>
-<p><br><br><br><br><br> </p>
-<p><strong>全文完</strong></p>
-
+<p><a href="https://tocreate.app/2018/09/26/JVMCompileOpenJdk7/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<h3 id="安装-gdb"><a href="#安装-gdb" class="headerlink" title="安装 gdb"></a>安装 gdb</h3>
     
 
     
@@ -648,21 +523,13 @@ git tag -a &quot;1.0.1&quot; HEAD -m &quot;fix typo&quot;
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/05/31/GitSubmoduleForAndroid/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/05/25/git-flow/" id="post_nav-older" class="next-content">
+        <a href="/2018/10/15/OSBaseLib/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
