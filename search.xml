@@ -3,6 +3,73 @@
   
     
     <entry>
+      <title><![CDATA[深入JVM系列 3 - OOP-Klass]]></title>
+      <url>/2018/10/17/JVMOopKlass/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/10/17/JVMUseGdb/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><br></p>
+<h3 id="HotSpot对象实现机制"><a href="#HotSpot对象实现机制" class="headerlink" title="HotSpot对象实现机制"></a>HotSpot对象实现机制</h3><p><br></p>
+<h3 id="OOP-Klass"><a href="#OOP-Klass" class="headerlink" title="OOP-Klass"></a>OOP-Klass</h3><p><strong>OOP-Klass 是 HotSpot 中对象实现的模型</strong></p>
+<ul>
+<li><p>实现 OOP-Klass 的动机，是为了避免每个对象都持有一个虚函数表的指针</p>
+</li>
+<li><p>OOP：普通对象指针，用来描述对象实例信息</p>
+</li>
+<li><p>Klass：Java 类的 c++ 对等实体，用来描述 Java 类，持有 VTBL, OOP 对象可以使用它来找到所有虚函数</p>
+</li>
+</ul>
+<pre><code>对于第一点，实现 OOP-Klass 的动机，很多人说&quot;OOP-Klass 是为了避免每个对象都 生成/含有 一个虚函数表”
+实际上在 c++ 中如果一个类有虚函数，那么这个类的所有对象共享一个虚函数表，每个对象的指针 _vptr 指向了虚函数表
+OOP-Klass 模型是了避免每个对象都 生成/含有 一个虚函数表指针 _vptr
+
+下面 klass.hpp 中的这段注释正好证实了这一点
+//in http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/87ee5ee27509/src/share/vm/oops/klass.hpp
+// One reason for the oop/klass dichotomy in the implementation is
+// that we don&apos;t want a C++ vtbl pointer in every object.  Thus,
+// normal oops don&apos;t have any virtual functions.  Instead, they
+// forward all &quot;virtual&quot; functions to their klass, which does have
+// a vtbl and does the C++ dispatch depending on the object&apos;s
+// actual type.  (See oop.inline.hpp for some of the forwarding code.)
+// ALL FUNCTIONS IMPLEMENTING THIS DISPATCH ARE PREFIXED WITH &quot;oop_&quot;!
+</code></pre><h3 id="OOP-框架"><a href="#OOP-框架" class="headerlink" title="OOP 框架"></a>OOP 框架</h3><pre><code>//in hotspot/src/share/vm/oops/oop.hpp
+class oopDesc {
+  friend class VMStructs;
+ private:
+  volatile markOop  _mark;
+  union _metadata {
+    wideKlassOop    _klass;
+    narrowOop       _compressed_klass;
+  } _metadata;
+</code></pre><ul>
+<li>oop类的共同基类为 oopDesc,每一个 oopDesc 子类对应一种对象类型</li>
+</ul>
+<pre><code>instanceOopDesc 描述java类的实例
+methodOopDesc 描述java方法
+arrayOopDesc 描述数组
+klassOopDesc 描述java类
+markOopDesc 描述对象头
+...
+</code></pre><p><strong>未完待续</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入JVM系列 2 - gdb 调试 HotSpot]]></title>
       <url>/2018/10/17/JVMUseGdb/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -1799,6 +1866,8 @@ $ make
 <p><br></p>
 <h2 id="编译与调试"><a href="#编译与调试" class="headerlink" title="编译与调试"></a>编译与调试</h2><p><strong>在mac平台上编译OpenJdk和HotSpot，如果没有兴趣，下载一份源码也是好的</strong></p>
 <p><strong>编译与ide调试 <a href="http://tocreate.app/2018/09/26/JVMCompileOpenJdk7/" target="_blank" rel="external">详见</a></strong><br><strong>gdb 调试 <a href="https://tocreate.app/2018/10/17/JVMUseGdb/" target="_blank" rel="external">详见</a></strong></p>
+<p><br></p>
+<h2 id="对象-OOP-Klass-模型"><a href="#对象-OOP-Klass-模型" class="headerlink" title="对象(OOP-Klass 模型)"></a>对象(OOP-Klass 模型)</h2><p><strong>HotSpot中的对象表示机制 <a href="https://tocreate.app/2018/10/17/JVMOopKlass" target="_blank" rel="external">详见</a></strong></p>
 ]]></content>
       
         <categories>
