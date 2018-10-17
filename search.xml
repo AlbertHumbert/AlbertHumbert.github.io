@@ -3,10 +3,11 @@
   
     
     <entry>
-      <title><![CDATA[深入JVM系列 - gdb 调试 HotSpot]]></title>
+      <title><![CDATA[深入JVM系列 2 - gdb 调试 HotSpot]]></title>
       <url>/2018/10/17/JVMUseGdb/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/09/26/JVMCompileOpenJdk7/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><br></p>
 <h3 id="安装-gdb"><a href="#安装-gdb" class="headerlink" title="安装 gdb"></a>安装 gdb</h3><ul>
@@ -16,14 +17,14 @@
 <h3 id="启动-HotSpot"><a href="#启动-HotSpot" class="headerlink" title="启动 HotSpot"></a>启动 HotSpot</h3><ul>
 <li>可以参考这个路径找到启动脚本，注意必须为 debug 版本，否则可能无法调试</li>
 </ul>
-<pre><code>/Users/alberthumbert/jdk7u-dev/build/macosx-x86_64-debug/hotspot/outputdir/bsd_amd64_compiler2/jvmg
+<pre><code>/Users/alberthumbert/jdk7u-dev/build/macosx-x86\_64-debug/hotspot/outputdir/bsd\_amd64\_compiler2/jvmg
 </code></pre><ul>
 <li>在 env.sh 中将 JavaPath 改为编译出来的版本</li>
 </ul>
 <ul>
 <li>使用如下命令可以启动虚拟机，其中 Test 为我们编译出来的 class 文件</li>
 </ul>
-<pre><code>./hotspot -gdb -classpath /Users/alberthumbert/jdk7u-dev/build/macosx-x86_64/hotspot/outputdir/bsd_amd64_compiler2/product Test
+<pre><code>./hotspot -gdb -classpath /Users/alberthumbert/jdk7u-dev/build/macosx-x86\_64/hotspot/outputdir/bsd\_amd64\_compiler2/product Test
 </code></pre><p><br></p>
 <h3 id="使用-gdb"><a href="#使用-gdb" class="headerlink" title="使用 gdb"></a>使用 gdb</h3><p><strong>gdb虽然没有可视化的调试程序直观，但提供了足够丰富的命令</strong></p>
 <p><br></p>
@@ -826,7 +827,7 @@ implementation project(&apos;:test&apos;)
     </entry>
     
     <entry>
-      <title><![CDATA[深入JVM系列 - mac平台编译调试 OpenJdk7 & HotSpot]]></title>
+      <title><![CDATA[深入JVM系列 1 - mac平台编译调试 OpenJdk7 & HotSpot]]></title>
       <url>/2018/09/26/JVMCompileOpenJdk7/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -1791,13 +1792,13 @@ $ make
     </entry>
     
     <entry>
-      <title><![CDATA[深入 Jvm 系列]]></title>
+      <title><![CDATA[深入 Jvm 系列 0]]></title>
       <url>/2018/09/05/jvm/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><br></p>
 <h2 id="编译与调试"><a href="#编译与调试" class="headerlink" title="编译与调试"></a>编译与调试</h2><p><strong>在mac平台上编译OpenJdk和HotSpot，如果没有兴趣，下载一份源码也是好的</strong></p>
-<p><a href="http://tocreate.app/2018/09/26/JVMCompileOpenJdk7/" target="_blank" rel="external">详见</a></p>
+<p><strong>编译与ide调试 <a href="http://tocreate.app/2018/09/26/JVMCompileOpenJdk7/" target="_blank" rel="external">详见</a></strong><br><strong>gdb 调试 <a href="https://tocreate.app/2018/10/17/JVMUseGdb/" target="_blank" rel="external">详见</a></strong></p>
 ]]></content>
       
         <categories>
