@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 17, 2018" />
-        <meta property="article:modified_time" content="10月 18, 2018" />
+        <meta property="article:modified_time" content="10月 19, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入JVM系列 3 - OOP-Klass",
     "url": "https://alberthumbert.github.io/2018/10/17/JVMOopKlass/index.html",
     "datePublished": "10月 17, 2018",
-    "dateModified": "10月 18, 2018",
+    "dateModified": "10月 19, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HotSpot对象实现机制"><span class="post-toc-number">1.</span> <span class="post-toc-text">HotSpot对象实现机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OOP-Klass"><span class="post-toc-number">2.</span> <span class="post-toc-text">OOP-Klass</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OOP-框架"><span class="post-toc-number">3.</span> <span class="post-toc-text">OOP 框架</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OOP-Klass"><span class="post-toc-number">1.</span> <span class="post-toc-text">OOP-Klass</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OOP"><span class="post-toc-number">2.</span> <span class="post-toc-text">OOP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OOP-框架"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">OOP 框架</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象与对象头"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">对象与对象头</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Klass"><span class="post-toc-number">3.</span> <span class="post-toc-text">Klass</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Klass-类"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Klass 类</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#instanceKlass-类"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">instanceKlass 类</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -505,8 +505,8 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/17/JVMUseGdb/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>注意本文中若没有特别指明 java 类与 java 对象，则所有类和对象都是指 c++ 中的类和对象</strong></p>
 <p><br></p>
-<h3 id="HotSpot对象实现机制"><a href="#HotSpot对象实现机制" class="headerlink" title="HotSpot对象实现机制"></a>HotSpot对象实现机制</h3><p><br></p>
 <h3 id="OOP-Klass"><a href="#OOP-Klass" class="headerlink" title="OOP-Klass"></a>OOP-Klass</h3><p><strong>OOP-Klass 是 HotSpot 中对象实现的模型</strong></p>
 <ul>
 <li><p>实现 OOP-Klass 的动机，是为了避免每个对象都持有一个虚函数表的指针</p>
@@ -529,7 +529,9 @@ OOP-Klass 模型是了避免每个对象都 生成/含有 一个虚函数表指�
 // a vtbl and does the C++ dispatch depending on the object&apos;s
 // actual type.  (See oop.inline.hpp for some of the forwarding code.)
 // ALL FUNCTIONS IMPLEMENTING THIS DISPATCH ARE PREFIXED WITH &quot;oop_&quot;!
-</code></pre><h3 id="OOP-框架"><a href="#OOP-框架" class="headerlink" title="OOP 框架"></a>OOP 框架</h3><pre><code>//in hotspot/src/share/vm/oops/oop.hpp
+</code></pre><p><br></p>
+<h3 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h3><p><br></p>
+<h4 id="OOP-框架"><a href="#OOP-框架" class="headerlink" title="OOP 框架"></a>OOP 框架</h4><pre><code>//in hotspot/src/share/vm/oops/oop.hpp
 class oopDesc {
   friend class VMStructs;
  private:
@@ -541,14 +543,137 @@ class oopDesc {
 </code></pre><ul>
 <li>oop类的共同基类为 oopDesc,每一个 oopDesc 子类对应一种对象类型</li>
 </ul>
-<pre><code>instanceOopDesc 描述java类的实例
+<pre><code>instanceOopDesc 描述java类的实例，对象头
 methodOopDesc 描述java方法
 arrayOopDesc 描述数组
 klassOopDesc 描述java类
 markOopDesc 描述对象头
 ...
-</code></pre><p><strong>未完待续</strong></p>
+</code></pre><p><br></p>
+<h4 id="对象与对象头"><a href="#对象与对象头" class="headerlink" title="对象与对象头"></a>对象与对象头</h4><ul>
+<li><p>虚拟机中对象的内存布局分为连续的两部分，instanceOopDesc(对象头)和实例数据</p>
+</li>
+<li><p>对象头又分为两部分，mark word 和 元数据指针(继承自oopDesc，见上文)</p>
+</li>
+<li><p>mark word，占用大小与虚拟机字长一致，存储 hashCode，GC分代年龄，锁状态标志，线程持有的锁，偏向线程ID，偏向时间戳等</p>
+</li>
+<li><p>元数据指针，指向 klassInstance 的指针， klassInstance 包含了类的元数据可以定位到位于方法区的类型信息</p>
+</li>
+</ul>
+<pre><code>//对象头的定义
+//in hotspot/src/share/vm/oops/markOop.hpp
+// Bit-format of an object header (most significant first, big endian layout below):
+//
+//  32 bits:
+//  --------
+//             hash:25 ------------&gt;| age:4    biased_lock:1 lock:2 (normal object)
+//             JavaThread*:23 epoch:2 age:4    biased_lock:1 lock:2 (biased object)
+//             size:32 ------------------------------------------&gt;| (CMS free block)
+//             PromotedObject*:29 ----------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)
+//
+//  64 bits:
+//  --------
+//  unused:25 hash:31 --&gt;| unused:1   age:4    biased_lock:1 lock:2 (normal object)
+//  JavaThread*:54 epoch:2 unused:1   age:4    biased_lock:1 lock:2 (biased object)
+//  PromotedObject*:61 ---------------------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)
+//  size:64 -----------------------------------------------------&gt;| (CMS free block)
+//
+//  unused:25 hash:31 --&gt;| cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; normal object)
+//  JavaThread*:54 epoch:2 cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; biased object)
+//  narrowOop:32 unused:24 cms_free:1 unused:4 promo_bits:3 -----&gt;| (COOPs &amp;&amp; CMS promoted object)
+//  unused:21 size:35 --&gt;| cms_free:1 unused:7 ------------------&gt;| (COOPs &amp;&amp; CMS free block)
 
+//元数据的定义
+&apos;&apos;   union _metadata {
+&apos;&apos;     wideKlassOop    _klass; //klassInstance指针
+&apos;&apos;     narrowOop       _compressed_klass; //klassInstance指针的压缩形式32位，在 64 位机上使用它可以提高效率
+&apos;&apos;   } _metadata;
+</code></pre><p><br></p>
+<h3 id="Klass"><a href="#Klass" class="headerlink" title="Klass"></a>Klass</h3><p><br></p>
+<h4 id="Klass-类"><a href="#Klass-类" class="headerlink" title="Klass 类"></a>Klass 类</h4><p><strong>对象访问机制: new -> 堆中分配对象头和实例数据 -> java 中引用 -> 访问 instanceOop -> 元数据指针 -> instanceKlass </strong></p>
+<ul>
+<li>Klass 是所有 Klass 类的共同父类，定义了 Klass 类的共同行为</li>
+</ul>
+<ul>
+<li><p>Klass 类包含 layout_helper 字段，对于instance类型用于表示instance大小，对于数组类型，它是数组描述的位图，被分割为如下四部分，tag（OOP或基本类型），hsz（头不大行，即第一个元素的偏移），ebt（基本类型的元素），esz（元素大小）</p>
+</li>
+<li><p>name 字段,是类的名称</p>
+</li>
+</ul>
+<ul>
+<li>java_mirror 字段，是java的class类的实例</li>
+</ul>
+<ul>
+<li>super，first subklass，next<em>sibling，为父类，第一子类，和兄弟类，这些的字段足以构成一棵树</em></li>
+</ul>
+<pre><code>//klassOop 对象的布局
+//in hotspot/src/share/vm/oops/klass.hpp
+//  Klass layout:
+//    [header        ] klassOop
+//    [klass pointer ] klassOop
+//    [C++ vtbl ptr  ] (contained in Klass_vtbl)
+//    [layout_helper ]
+//    [super_check_offset   ] for fast subtype checks
+//    [secondary_super_cache] for fast subtype checks
+//    [secondary_supers     ] array of 2ndary supertypes
+//    [primary_supers 0]
+//    [primary_supers 1]
+//    [primary_supers 2]
+//    ...
+//    [primary_supers 7]
+//    [java_mirror   ]
+//    [super         ]
+//    [name          ]
+//    [first subklass]
+//    [next_sibling  ] link to chain additional subklasses
+//    [modifier_flags]
+//    [access_flags  ]
+//    [verify_count  ] - not in product
+//    [alloc_count   ]
+//    [last_biased_lock_bulk_revocation_time] (64 bits)
+//    [prototype_header]
+//    [biased_lock_revocation_count]
+//    [trace_id]
+</code></pre><p><br></p>
+<h4 id="instanceKlass-类"><a href="#instanceKlass-类" class="headerlink" title="instanceKlass 类"></a>instanceKlass 类</h4><ul>
+<li>每个已加载的 Java 类对应一个 instanceKlass 类的对象，instanceKlass的成员可以描述一个 java 类的所有信息，它们在类解析阶段赋值</li>
+</ul>
+<pre><code>    //instanceKlass 对象的布局
+    //hotspot/src/share/vm/oops/instanceKlass.hpp
+    //instanceKlass layout:
+//    [header                     ] klassOop
+//    [klass pointer              ] klassOop
+//    [C++ vtbl pointer           ] Klass
+//    [subtype cache              ] Klass
+//    [instance size              ] Klass
+//    [java mirror                ] Klass
+//    [super                      ] Klass
+//    [access_flags               ] Klass
+//    [name                       ] Klass
+//    [first subklass             ] Klass
+//    [next sibling               ] Klass
+//    [array klasses              ]
+//    [methods                    ]
+//    [local interfaces           ]
+//    [transitive interfaces      ]
+//    [fields                     ]
+//    [constants                  ]
+//    [class loader               ]
+//    [protection domain          ]
+//    [signers                    ]
+//    [source file name           ]
+//    [inner classes              ]
+//    [static field size          ]
+//    [nonstatic field size       ]
+//    [static oop fields size     ]
+//    [nonstatic oop maps size    ]
+//    [has finalize method        ]
+//    [deoptimization mark bit    ]
+//    [initialization state       ]
+//    [initializing thread        ]
+//    [Java vtable length         ]
+//    [oop map cache (stack maps) ]
+</code></pre>
     
 
     
@@ -673,7 +798,7 @@ markOopDesc 描述对象头
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
