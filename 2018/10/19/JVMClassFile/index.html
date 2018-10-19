@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Class-文件结构"><span class="post-toc-number">1.</span> <span class="post-toc-text">Class 文件结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常量池类型"><span class="post-toc-number">2.</span> <span class="post-toc-text">常量池类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字段表"><span class="post-toc-number">3.</span> <span class="post-toc-text">字段表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法表"><span class="post-toc-number">4.</span> <span class="post-toc-text">方法表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#属性表"><span class="post-toc-number">5.</span> <span class="post-toc-text">属性表</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -505,6 +505,136 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/17/JVMOopKlass/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><br></p>
+<h3 id="Class-文件结构"><a href="#Class-文件结构" class="headerlink" title="Class 文件结构"></a>Class 文件结构</h3><pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
+ClassFile {
+       u4             magic; //魔数，固定值为 0xCAFEBABE
+       u2             minor_version; //次版本号
+       u2             major_version; //主版本号
+       u2             constant_pool_count; //常量池大小
+       cp_info        constant_pool[constant_pool_count-1]; //常量池
+       u2             access_flags; //访问标识符
+       u2             this_class; //当前类
+       u2             super_class; //父类
+       u2             interfaces_count; //接口数量
+       u2             interfaces[interfaces_count]; //接口
+       u2             fields_count; //字段数量
+       field_info     fields[fields_count]; //字段表
+       u2             methods_count; //方法数
+       method_info    methods[methods_count]; //方法表
+       u2             attributes_count; //属性数量
+       attribute_info attributes[attributes_count]; //属性表
+}
+
+cp_info {
+    u1 tag;
+    u1 info[]; 
+}
+</code></pre><p><br></p>
+<h3 id="常量池类型"><a href="#常量池类型" class="headerlink" title="常量池类型"></a>常量池类型</h3><table>
+<thead>
+<tr>
+<th>Constant Type</th>
+<th>Value</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CONSTANT_Class</td>
+<td>7</td>
+<td>类常量</td>
+</tr>
+<tr>
+<td>CONSTANT_Fieldref</td>
+<td>9</td>
+<td>字段符号引用</td>
+</tr>
+<tr>
+<td>CONSTANT_Methodref</td>
+<td>10</td>
+<td>类方法符号引用</td>
+</tr>
+<tr>
+<td>CONSTANT_InterfaceMethodref</td>
+<td>11</td>
+<td>接口方法符号引用</td>
+</tr>
+<tr>
+<td>CONSTANT_String</td>
+<td>8</td>
+<td>String 常量</td>
+</tr>
+<tr>
+<td>CONSTANT_Integer</td>
+<td>3</td>
+<td>int常量</td>
+</tr>
+<tr>
+<td>CONSTANT_Float</td>
+<td>4</td>
+<td>float常量</td>
+</tr>
+<tr>
+<td>CONSTANT_Long</td>
+<td>5</td>
+<td>long 常量</td>
+</tr>
+<tr>
+<td>CONSTANT_Double</td>
+<td>6</td>
+<td>double 常量</td>
+</tr>
+<tr>
+<td>CONSTANT_NameAndType</td>
+<td>12</td>
+<td>字段或方法的部分符号引用</td>
+</tr>
+<tr>
+<td>CONSTANT_Utf8</td>
+<td>1</td>
+<td>UTF-8 编码字符串</td>
+</tr>
+<tr>
+<td>CONSTANT_MethodHandle</td>
+<td>15</td>
+</tr>
+<tr>
+<td>CONSTANT_MethodType</td>
+<td>16</td>
+</tr>
+<tr>
+<td>CONSTANT_InvokeDynamic</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="字段表"><a href="#字段表" class="headerlink" title="字段表"></a>字段表</h3><pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
+ field_info {
+       u2             access_flags;
+       u2             name_index;
+       u2             descriptor_index;
+       u2             attributes_count;
+       attribute_info attributes[attributes_count];
+}
+</code></pre><p><br></p>
+<h3 id="方法表"><a href="#方法表" class="headerlink" title="方法表"></a>方法表</h3><pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
+   method_info {
+       u2             access_flags;
+       u2             name_index;
+       u2             descriptor_index;
+       u2             attributes_count;
+       attribute_info attributes[attributes_count];
+}
+</code></pre><p><br></p>
+<h3 id="属性表"><a href="#属性表" class="headerlink" title="属性表"></a>属性表</h3><pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
+ attribute_info {
+       u2 attribute_name_index;
+       u4 attribute_length;
+       u1 info[attribute_length];
+}
+</code></pre><p><strong>未完待续</strong></p>
 
     
 

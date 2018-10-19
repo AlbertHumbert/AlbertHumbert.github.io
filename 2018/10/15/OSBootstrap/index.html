@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 15, 2018" />
-        <meta property="article:modified_time" content="10月 16, 2018" />
+        <meta property="article:modified_time" content="10月 19, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 3 -  GRUB 引导 & multiboot 镜像",
     "url": "https://alberthumbert.github.io/2018/10/15/OSBootstrap/index.html",
     "datePublished": "10月 15, 2018",
-    "dateModified": "10月 16, 2018",
+    "dateModified": "10月 19, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -665,7 +665,6 @@ jmp 1b
 <pre><code># include \&lt;stdbool.h\&gt;
 # include \&lt;stddef.h\&gt;
 # include \&lt;stdint.h\&gt;
-
 void terminal\_initialize(void);
 
 void terminal\_setcolor(uint8\_t color);
@@ -700,17 +699,14 @@ enum vga\_color {
     VGA_COLOR_LIGHT_BROWN = 14,
     VGA_COLOR_WHITE = 15,
 };
-
 static inline uint8\_t vga\_entry\_color(enum vga\_color fg, enum vga\_color bg) 
 {
     return fg | bg &lt;&lt; 4;
 }
-
 static inline uint16\_t vga\_entry(unsigned char uc, uint8\_t color) 
 {
     return (uint16_t) uc | (uint16_t) color &lt;&lt; 8;
 }
-
 size\_t strlen(const char\* str) 
 {
     size_t len = 0;
@@ -718,15 +714,12 @@ size\_t strlen(const char\* str)
         len++;
     return len;
 }
-
 static const size\_t VGA\_WIDTH = 80;
 static const size\_t VGA\_HEIGHT = 25;
-
 size\_t terminal\_row;
 size\_t terminal\_column;
 uint8\_t terminal\_color;
 uint16\_t\* terminal\_buffer;
-
 void terminal\_initialize(void) 
 {
     terminal_row = 0;
@@ -740,12 +733,10 @@ void terminal\_initialize(void)
         }
     }
 }
-
 void terminal\_setcolor(uint8\_t color) 
 {
     terminal_color = color;
 }
-
 void terminal\_putentryat(char c, uint8\_t color, size\_t x, size\_t y) 
 {
     size_t index;
@@ -767,13 +758,11 @@ void terminal\_putchar(char c)
             terminal_row = 0;
     }
 }
-
 void terminal\_write(const char\* data, size\_t size) 
 {
     for (size_t i = 0; i &lt; size; i++)
         terminal_putchar(data[i]);
 }
-
 void terminal\_writestring(const char\* data) 
 {
     terminal_write(data, strlen(data));
@@ -798,7 +787,6 @@ void kernel\_main()
 <pre><code>/\* The bootloader will look at this image and start execution at the symbol
    designated as the entry point. \*/
 ENTRY(\_start)
-
 /\* Tell where the various sections of the object files will be put in the final
    kernel image. \*/
 SECTIONS
@@ -873,7 +861,8 @@ cp src/grub.cfg isodir/boot/grub/grub.cfg
 <li>使用 qemu CD-ROM 模式启动 </li>
 </ul>
 <pre><code>qemu-system-i386 -cdrom ./build/chaos.iso
-</code></pre>
+</code></pre><p><strong>本篇完</strong></p>
+
     
 
     
