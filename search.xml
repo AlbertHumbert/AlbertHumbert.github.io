@@ -608,7 +608,7 @@ break7 if &lt;state&gt;
     </entry>
     
     <entry>
-      <title><![CDATA[深入操作系统 5 - 系统库函数]]></title>
+      <title><![CDATA[深入操作系统 4 - 系统库函数]]></title>
       <url>/2018/10/15/OSBaseLib/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -618,7 +618,8 @@ break7 if &lt;state&gt;
 <p><strong>题外话，今天发现一个不错的个人开发的开源操作系统 <a href="https://gitlab.com/sortix" target="_blank" rel="external"> sortix </a>, 小巧，干净，self-hosting，有完整的posix 实现，开发者是 Jonas Termansen，目前任职于 google，参与 dart 语言的开发，他在大学时期开始编写 sortix，维护至今</strong></p>
 <p><strong>未完待续</strong></p>
 <p><br></p>
-<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><p><strong>下面所有的条件除了 make 以外都在前几篇文章中提及了</strong></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p><br></p>
+<h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><p><strong>下面所有的条件除了 make 以外都在前几篇文章中提及了</strong></p>
 <ul>
 <li><p>cross-gcc</p>
 </li>
@@ -630,14 +631,14 @@ break7 if &lt;state&gt;
 </li>
 </ul>
 <p><br></p>
-<h2 id="makefile"><a href="#makefile" class="headerlink" title="makefile"></a>makefile</h2><ul>
+<h4 id="makefile"><a href="#makefile" class="headerlink" title="makefile"></a>makefile</h4><ul>
 <li>从现在开始，我们的项目的复杂度又上了一个台阶，之前我一直借助简单的 shell 脚本简化来编译和启动的命令，但现在这种方法已经很难行的通了</li>
 </ul>
 <ul>
 <li>我们需要一些 makefile 的知识来管理整个编译流程，makefile 的博文，我想没有那篇写得比陈皓大神的<a href="https://blog.csdn.net/weixin_38391755/article/details/80380786" target="_blank" rel="external">这篇</a>好了吧</li>
 </ul>
 <p><br></p>
-<h2 id="sysroot"><a href="#sysroot" class="headerlink" title="sysroot"></a>sysroot</h2><ul>
+<h3 id="sysroot"><a href="#sysroot" class="headerlink" title="sysroot"></a>sysroot</h3><ul>
 <li>在交叉编译环境中如果我们不指定 sysroot，编译器会默认在 /usr/include 和 /usr/lib 中寻找头文件和库，我们这里应该使用自己编写的库，因此需要指定 sysroot</li>
 </ul>
 <ul>
@@ -647,7 +648,35 @@ break7 if &lt;state&gt;
 </code></pre><ul>
 <li>我们将某个路径指定为 sysroot 之后，为了不让编译器去该路径查找标准库函数，我们之前使用 –without-headers 参数编译了 cross-gcc, 如果之后我们实现了自己的 libc 和用户空间，那么就需要用 –with-sysroot 重新编译，这样编译器就会去找它们了</li>
 </ul>
-<p><br><br><strong>未完待续</strong></p>
+<p><br></p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li>为了能够更好地分模块管理，这里按如下划分目录，其中 kernel 是我们内核的实现，libc则是系统库函数</li>
+</ul>
+<ul>
+<li>我们将所有体系架构相关的实现放在 arch 目录</li>
+</ul>
+<pre><code>dir - kernel - arch - i386
+    |        |- include - kernel
+    |        |_ kernel
+    |
+    |_ libc --  arch - i386
+            |_ include
+            |_ stdio
+            |_ stdib
+            |_ string 
+</code></pre><p><br></p>
+<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><p><strong>在目前的开发环境中，我们可以使用的头文件包括以下两部分</strong></p>
+<ul>
+<li>编译器自带的头文件，这些头文件一般只是声明了一些编译器目标体系架构中可以使用的数据类型和相关的宏，如 stddef.h，stdint.h，但是它们非常有用</li>
+</ul>
+<ul>
+<li>自己编写的头文件，这是当然的，不过为了编译器能够在 sysroot 中找到这些文件，我们需要将这些文件放在 sysroot 当中</li>
+</ul>
+<p><br></p>
+<h3 id="动工"><a href="#动工" class="headerlink" title="动工"></a>动工</h3><p><strong>现在我们来写几个简单又必要的库函数</strong></p>
+<p><br></p>
+<h4 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h4><p><br></p>
+<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><p><br><br><strong>未完待续</strong></p>
 ]]></content>
       
         <categories>
