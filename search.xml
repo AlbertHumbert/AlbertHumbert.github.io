@@ -615,6 +615,7 @@ break7 if &lt;state&gt;
 <p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/15/OSBootstrap/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>本文大概内容为在现有环境上搭建一个操作系统基础开发框架，包括基本的库函数，makefile等</strong></p>
+<p><strong>本文中的所有代码可以在 <a href="https://github.com/AlbertHumbert/Chaos" target="_blank" rel="external">https://github.com/AlbertHumbert/Chaos</a> 获取</strong><br><strong>对应 commit版本为 ce2e1e2b27806ebbb387ed3c1285204845fa800d</strong></p>
 <p><strong>题外话，今天发现一个不错的个人开发的开源操作系统 <a href="https://gitlab.com/sortix" target="_blank" rel="external"> sortix </a>, 小巧，干净，self-hosting，有完整的posix 实现，开发者是 Jonas Termansen，目前任职于 google，参与 dart 语言的开发，他在大学时期开始编写 sortix，维护至今</strong></p>
 <p><strong>未完待续</strong></p>
 <p><br></p>
@@ -656,8 +657,8 @@ break7 if &lt;state&gt;
 <li>我们将所有体系架构相关的实现放在 arch 目录</li>
 </ul>
 <pre><code>dir - kernel - arch - i386
-    |        |- include - kernel
-    |        |_ kernel
+    |       |- include - kernel
+    |       |_ kernel
     |
     |_ libc --  arch - i386
             |_ include
