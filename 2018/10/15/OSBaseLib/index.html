@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#环境"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#makefile"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">makefile</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sysroot"><span class="post-toc-number">2.</span> <span class="post-toc-text">sysroot</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目录"><span class="post-toc-number">3.</span> <span class="post-toc-text">目录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#头文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">头文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#动工"><span class="post-toc-number">5.</span> <span class="post-toc-text">动工</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#printf"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">printf</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#string"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">string</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#环境"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#makefile"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">makefile</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sysroot"><span class="post-toc-number">2.</span> <span class="post-toc-text">sysroot</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目录"><span class="post-toc-number">3.</span> <span class="post-toc-text">目录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#头文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">头文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#动工"><span class="post-toc-number">5.</span> <span class="post-toc-text">动工</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#stdio"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">stdio</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#string"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">string</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -567,8 +567,21 @@
 <p><br></p>
 <h3 id="动工"><a href="#动工" class="headerlink" title="动工"></a>动工</h3><p><strong>现在我们来写几个简单又必要的库函数</strong></p>
 <p><br></p>
-<h4 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h4><p><br></p>
-<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><p><br><br><strong>未完待续</strong></p>
+<h4 id="stdio"><a href="#stdio" class="headerlink" title="stdio"></a>stdio</h4><ul>
+<li>printf</li>
+</ul>
+<p><br></p>
+<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><ul>
+<li>strlen</li>
+</ul>
+<pre><code>#include &lt;string.h&gt;
+size_t strlen(const char * str){
+    size_t len = 0;
+    while(str[len])
+        len ++;
+    return len;
+}
+</code></pre><p><br><br><strong>未完待续</strong></p>
 
     
 

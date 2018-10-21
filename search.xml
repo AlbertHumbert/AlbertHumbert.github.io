@@ -3,6 +3,398 @@
   
     
     <entry>
+      <title><![CDATA[Android 注解进阶]]></title>
+      <url>/2018/10/21/AndroidAnnotation/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h2 id="Java-注解基础"><a href="#Java-注解基础" class="headerlink" title="Java 注解基础"></a>Java 注解基础</h2><p><strong>简单回顾一下注解，加入了一些Java 8中的新特性</strong></p>
+<p><br></p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>注解 (Annotation)，也叫元数据。一种代码级别的说明。它是 JDK1.5 及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释</li>
+</ul>
+<ul>
+<li>注解中的数据可以在编译、运行时进行解析和使用，也可以单纯为编码人员提供很多的信息</li>
+</ul>
+<p><br></p>
+<h3 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h3><ul>
+<li>元注解是使用在注解上的注解，它为注解提供构成信息，是最基本的注解，Java中的元注解包括，@Retention, @Documented, @Target, @Inherited，@Repeatable（Java 8）</li>
+</ul>
+<p><br></p>
+<h4 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h4><p><strong>Retention用于指示注解的生命周期，即存活时间</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Retention {
+    /**
+     * Returns the retention policy.
+     * @return the retention policy
+     */
+    RetentionPolicy value();
+}
+</code></pre><ul>
+<li>RetentionPolicy.SOURCE, 注解会被编译器抛弃，即注解只在源码阶段中使用，一般用于程序员阅读</li>
+</ul>
+<ul>
+<li>RetentionPolicy.CLASS，注解会被记录在class文件中，但不会被JVM加载，即注解可以在编译期使用</li>
+</ul>
+<ul>
+<li>RetentionPolicy.RUNTIME，注解会被JVM加载，即注解可以在运行时使用</li>
+</ul>
+<pre><code>public enum RetentionPolicy {
+    /**
+     * Annotations are to be discarded by the compiler.
+     */
+    SOURCE,
+
+    /**
+     * Annotations are to be recorded in the class file by the compiler
+     * but need not be retained by the VM at run time.  This is the default
+     * behavior.
+     */
+    CLASS,
+
+    /**
+     * Annotations are to be recorded in the class file by the compiler and
+     * retained by the VM at run time, so they may be read reflectively.
+     *
+     * @see java.lang.reflect.AnnotatedElement
+     */
+    RUNTIME
+}
+</code></pre><p><br></p>
+<h4 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h4><p><strong> Target用于指示注解的标注对象，如类，方法，变量等</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Target {
+    /**
+     * Returns an array of the kinds of elements an annotation type
+     * can be applied to.
+     * @return an array of the kinds of elements an annotation type
+     * can be applied to
+     */
+    ElementType[] value();
+}
+</code></pre><ul>
+<li>ElementType.CONSTRUCTOR: 作用于构造方法</li>
+<li>ElementType.ANNOTATION_TYPE:  作用于注解</li>
+<li>ElementType.FIELD: 作用于域（包括枚举）</li>
+<li>ElementType.LOCAL_VARIABLE: 作用于局部变量</li>
+<li>ElementType.METHOD: 作用于方法</li>
+<li>ElementType.PACKAGE: 作用于包，一般使用在编译器生成的package-info.java类当中</li>
+<li>ElementType.PARAMETER: 作用于方法参数</li>
+<li>ElementType.TYPE: 作用于类、接口、枚举</li>
+<li>ElementType.TYPE_PARAMETER: 作用于提供给泛型的类型参数（Java 8）</li>
+<li>ElementType.TYPE_USE：作用于变量类型（Java 8）</li>
+</ul>
+<pre><code>public enum ElementType {
+    /** Class, interface (including annotation type), or enum declaration */
+    TYPE,
+
+    /** Field declaration (includes enum constants) */
+    FIELD,
+
+    /** Method declaration */
+    METHOD,
+
+    /** Formal parameter declaration */
+    PARAMETER,
+
+    /** Constructor declaration */
+    CONSTRUCTOR,
+
+    /** Local variable declaration */
+    LOCAL_VARIABLE,
+
+    /** Annotation type declaration */
+    ANNOTATION_TYPE,
+
+    /** Package declaration */
+    PACKAGE,
+
+    /**
+     * Type parameter declaration
+     *
+     * @since 1.8
+     */
+    TYPE_PARAMETER,
+
+    /**
+     * Use of a type
+     *
+     * @since 1.8
+     */
+    TYPE_USE
+}
+</code></pre><p><br></p>
+<h4 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><p><strong> Inherited用于指示使用了某个注解的类，其子类是否继承该注解</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Inherited {
+}
+</code></pre><p><br></p>
+<h4 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h4><p><strong> Documented用于指示注解是否被javadoc等文档工具记录</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Documented {
+}
+</code></pre><p><br></p>
+<h4 id="Repeatable（Java-8）"><a href="#Repeatable（Java-8）" class="headerlink" title="@Repeatable（Java 8）"></a>@Repeatable（Java 8）</h4><p><strong> Documented用于指示注解可以在同一个元素中多次使用</strong></p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Repeatable {
+    /**
+         * Indicates the &lt;em&gt;containing annotation type&lt;/em&gt; for the
+     * repeatable annotation type.
+     * @return the containing annotation type
+     */
+    Class&lt;? extends Annotation&gt; value();
+}
+</code></pre><p><br></p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li>注解的属性也叫做成员变量，使用无参方法声明的形式来声明，可以设置默认值</li>
+</ul>
+<pre><code>public @interface Test {
+    int testInt() default 1;
+    String testStr();
+}
+</code></pre><ul>
+<li>没有设置默认值的属性必须在使用时赋值，设置了值的属性可以在使用时覆盖</li>
+</ul>
+<pre><code>@Test(testInt = 2,testStr = &quot;test&quot;)
+public class Xxx{
+}
+</code></pre><p><br></p>
+<h2 id="处理注解的时机"><a href="#处理注解的时机" class="headerlink" title="处理注解的时机"></a>处理注解的时机</h2><ul>
+<li><p>根据注解的处理时机我们可以将注解分为如下三类</p>
+</li>
+<li><p>运行时处理，这一类注解拥有 RetentionPolicy.RUNTIME 生命周期，并且只使用反射处理</p>
+</li>
+</ul>
+<ul>
+<li>编译时处理，这一类注解至少拥有 RetentionPolicy.CLASS 生命周期，需要使用注解解释器处理,通常在这个阶段会使用注解生成java代码</li>
+</ul>
+<ul>
+<li>不处理，这里指的是程序员无需使用代码去解析注解，这些注解通常只提供一些简单的信息</li>
+</ul>
+<p><br></p>
+<h2 id="运行时处理"><a href="#运行时处理" class="headerlink" title="运行时处理"></a>运行时处理</h2><ul>
+<li>运行时处理注解即通过反射获取需要解析的注解和注解的属性</li>
+</ul>
+<pre><code>public void process(Class clazz) {
+
+    for (Method method : clazz.getMethods()) {
+        Test annotation = method.getAnnotation(Test.class);
+        handleMethodAnnotation(annotation);
+    }
+
+    for (Field field : clazz.getDeclaredFields()) {
+        Test annotation = field.getAnnotation(Test.class);
+        handleFieldAnnotation(annotation);
+    }
+}
+
+public void handleMethodAnnotation(Test test) {
+    int intValue = test.testInt();
+    String strValue = test.testStr();
+    //...
+
+}
+
+public void handleFieldAnnotation(Test test) {
+    int intValue = test.testInt();
+    String strValue = test.testStr();
+    //...
+}
+</code></pre><ul>
+<li>这种处理方法非常简单，很好上手，但问题是反射比较耗性能，不需要运行时处理的注解理应尽量在编译器处理</li>
+</ul>
+<p><br></p>
+<h2 id="编译时处理"><a href="#编译时处理" class="headerlink" title="编译时处理"></a>编译时处理</h2><p><br></p>
+<h3 id="两种方案"><a href="#两种方案" class="headerlink" title="两种方案"></a>两种方案</h3><ul>
+<li>APT(Annotation Processing Tool) 是 Android 过去通用的注解框架，现已退出历史舞台，这里只是提一下，有兴趣的可以看一下<a href="https://blog.csdn.net/Ru_Zhan/article/details/78232851?locationNum=8&amp;fps=1" target="_blank" rel="external">这篇文档</a></li>
+</ul>
+<ul>
+<li>Annotation Processor 是谷歌新推出的方案，减少了很多配置方面的工作，本文选用该方案进行讲解</li>
+</ul>
+<p><br></p>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><ul>
+<li>一般来说，使用 Annotation Processor 的框架会将编译期执行的代码单独出来，这样可以使用gradle 的 annotationProcessor 使这部分代码和相关依赖不会被打包</li>
+</ul>
+<ul>
+<li>因此框架至少包含两个模块 ，一个用于实现框架的主体功能，该模块自然也存放了注解，另一个用于解析注解并生成代码，后者依赖前者，这两个模块要么都是 Android Library 要么都是 Java Library</li>
+</ul>
+<ul>
+<li>这里我创建两个 java 模块，test 和 testCompiler,在 app 和 testCompiler中添加如下依赖，Annotation Processor相对于apt来说添加依赖非常简单，只需要在gradle中使用 annotationProcessor 即可</li>
+</ul>
+<pre><code>//in app
+implementation project(&apos;:test&apos;)
+annotationProcessor project(&apos;:testCompiler&apos;)
+//in testCompiler
+implementation project(&apos;:test&apos;)
+</code></pre><p><br></p>
+<h3 id="AbstractProcessor"><a href="#AbstractProcessor" class="headerlink" title="AbstractProcessor"></a>AbstractProcessor</h3><ul>
+<li>AbstractProcessor 是注解处理器的抽象类，我们需要实现它来处理我们的注解</li>
+</ul>
+<pre><code>public class TestProcessor extends AbstractProcessor
+</code></pre><ul>
+<li>我们先来看第一个需要重写的方法 getSupportedAnnotationTypes , 该方法需要返回包含我们的注解处理器想要处理的注解的名称 的集合，这里的名称使用的是 getCanonicalName 这个和我们平时使用的 getName 不同的是不会有 $ 或 ；等符号</li>
+</ul>
+<pre><code>@Override
+public Set&lt;String&gt; getSupportedAnnotationTypes() {
+    Set&lt;String&gt; types = new LinkedHashSet&lt;&gt;();
+    types.add(TestAno.class.getCanonicalName());
+    return types;
+}
+</code></pre><ul>
+<li>getSupportedSourceVersion 这个方法是可选的，返回最低兼容的Java版本</li>
+</ul>
+<pre><code>@Override
+public SourceVersion getSupportedSourceVersion() {
+    return SourceVersion.RELEASE_7;
+}
+</code></pre><ul>
+<li>我们也可以使用注解一次实现这两个方法</li>
+</ul>
+<pre><code>@SupportedAnnotationTypes(&quot;com.example.annotation.SetContentView&quot;)
+@SupportedSourceVersion(SourceVersion.RELEASE\_7)
+public class TestProcessor extends AbstractProcessor {
+</code></pre><ul>
+<li>init方法，这是 processor 的初始化方法，这个方法的目的是让我们实现 processor 时可以获取到 ProcessingEnvironment，我们之后会详细讲解它</li>
+</ul>
+<pre><code>@Override
+public synchronized void init(ProcessingEnvironment processingEnvironment) {
+}
+</code></pre><ul>
+<li>Processor类最核心的方法是Processor方法，在编译时，处理编译器收集到的所有我们需要的注解后会执行这个方法, 怎么知道是在编译时呢，我们可以简单测试一下，使用sout，在 build 窗口，也就是 gradle 构建信息的输出窗口，如果 processor被成功实现了，我们可以看到打印的信息（新版的AS中这个窗口提供了图形化的界面，按一下左侧的按钮可以回到终端模式）</li>
+</ul>
+<pre><code>@Override
+public boolean process(Set&lt;? extends TypeElement&gt; set, RoundEnvironment roundEnvironment) {
+    System.out.println(&quot;----&quot;);
+    return false;
+}
+</code></pre><ul>
+<li>实现完 AbstractProcessor ，需要让编译器找到这个类，在 testCompiler 模块下的 main 文件夹下创建 resource/META-INF/services 目录，并创建名为 javax.annotation.processing.Processor 的文件，内容如下,是 自定义 processor 的全名，注意使用这个方法我的 processor 没有得到执行，后来改用 auto-service 了</li>
+</ul>
+<pre><code>com.topview.xxy.testcompiler.TestProcessor
+</code></pre><p><br></p>
+<h3 id="init-方法-和-process-方法"><a href="#init-方法-和-process-方法" class="headerlink" title="init 方法 和 process 方法"></a>init 方法 和 process 方法</h3><p><strong>上面我们简单讲解了怎么瞎几把写个 init 和 process，但是对于这个方法该怎么正确书写还是不太了解，现在来深入学习它</strong></p>
+<p><br></p>
+<h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><p><br></p>
+<h5 id="ProcessingEnvironment"><a href="#ProcessingEnvironment" class="headerlink" title="ProcessingEnvironment"></a>ProcessingEnvironment</h5><ul>
+<li>public synchronized void init(ProcessingEnvironment processingEnvironment)</li>
+</ul>
+<ul>
+<li>ProcessingEnvironment，直译处理环境，实际上它提供了很多有用的工具，我们先来看它的声明</li>
+</ul>
+<pre><code>public interface ProcessingEnvironment {
+    Map&lt;String, String&gt; getOptions();
+
+    Messager getMessager();
+
+    Filer getFiler();
+
+    Elements getElementUtils();
+
+    Types getTypeUtils();
+
+    SourceVersion getSourceVersion();
+
+    Locale getLocale();
+}
+</code></pre><p><br></p>
+<h5 id="Messager"><a href="#Messager" class="headerlink" title="Messager"></a>Messager</h5><ul>
+<li>Messager<br>是注解处理器的日志输出工具，它输出的信息会显示在 build 窗口中</li>
+</ul>
+<pre><code>public interface Messager {
+    void printMessage(Kind var1, CharSequence var2);
+
+    void printMessage(Kind var1, CharSequence var2, Element var3);
+
+    void printMessage(Kind var1, CharSequence var2, Element var3, AnnotationMirror var4);
+
+    void printMessage(Kind var1, CharSequence var2, Element var3, AnnotationMirror var4, AnnotationValue var5);
+}
+
+public static enum Kind {
+        ERROR,
+        WARNING,
+        MANDATORY_WARNING,
+        NOTE,
+        OTHER;
+}
+</code></pre><ul>
+<li>你可以使用如下的方法打印日志，注意 Messager 比起一般的日志工具有更高的权能，如果输出级别为 error，那么表示编译出错，build 就不会成功，我们要小心谨慎地使用这个级别</li>
+</ul>
+<pre><code>@Override
+public boolean process(Set&lt;? extends TypeElement&gt; set, RoundEnvironment roundEnvironment){
+    messager.printMessage(Diagnostic.Kind.WARNING,&quot;message&quot;);
+    return false;
+}
+</code></pre><p><br></p>
+<h4 id="process"><a href="#process" class="headerlink" title="process"></a>process</h4><ul>
+<li>返回值，表示是否处理了这个注解，返回 true 则该注解被当前 processor 消耗，不再处理</li>
+</ul>
+<ul>
+<li>Set\&lt;? extends TypeElement> set </li>
+</ul>
+<ul>
+<li>RoundEnvironment</li>
+</ul>
+<p><br></p>
+<h3 id="原生动态编译-api"><a href="#原生动态编译-api" class="headerlink" title="原生动态编译 api"></a>原生动态编译 api</h3><ul>
+<li>从 Java 6 开始 Java 提供了JavaFileObject等一系列动态编译 api，说了这么多，我们现在就开始用代码生成代码</li>
+</ul>
+<ul>
+<li>这里建议先将需要生成的代码手写一遍，然后尽量复制粘贴</li>
+</ul>
+<p><br></p>
+<h3 id="AutoService"><a href="#AutoService" class="headerlink" title="AutoService"></a>AutoService</h3><ul>
+<li>auto-service 是谷歌提供的一套工具，可以自动生成我们刚刚提到的 META-INF/services/ 下的文件</li>
+</ul>
+<ul>
+<li>网络上很多文章对 auto-service 的作用不了解，以为为了生成代码就必须要依赖它，结果到最后根本就没有使用 auto-service</li>
+</ul>
+<ul>
+<li>使用起来很简单，只需要添加依赖之后给自己的processor 这样加上注解既可</li>
+</ul>
+<pre><code>compileOnly &quot;com.google.auto.service:auto-service:1.0-rc4&quot;
+
+@AutoService(Processor.class)
+public class TestProcessor extends AbstractProcessor {
+}
+</code></pre><p><br></p>
+<h2 id="Javapoet"><a href="#Javapoet" class="headerlink" title="Javapoet"></a>Javapoet</h2><ul>
+<li>在 gradle 中添加依赖</li>
+</ul>
+<pre><code>dependencies {
+    compileOnly &quot;com.squareup:javapoet:1.11.1&quot;
+    annotationProcessor &quot;com.google.auto.service:auto-service:1.0-rc4&quot;
+}
+</code></pre><p><br></p>
+<h2 id="注解框架实例"><a href="#注解框架实例" class="headerlink" title="注解框架实例"></a>注解框架实例</h2><p><strong>未完待续</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入JVM系列 4 - Class 文件]]></title>
       <url>/2018/10/19/JVMClassFile/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -676,8 +1068,21 @@ break7 if &lt;state&gt;
 <p><br></p>
 <h3 id="动工"><a href="#动工" class="headerlink" title="动工"></a>动工</h3><p><strong>现在我们来写几个简单又必要的库函数</strong></p>
 <p><br></p>
-<h4 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h4><p><br></p>
-<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><p><br><br><strong>未完待续</strong></p>
+<h4 id="stdio"><a href="#stdio" class="headerlink" title="stdio"></a>stdio</h4><ul>
+<li>printf</li>
+</ul>
+<p><br></p>
+<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><ul>
+<li>strlen</li>
+</ul>
+<pre><code>#include &lt;string.h&gt;
+size_t strlen(const char * str){
+    size_t len = 0;
+    while(str[len])
+        len ++;
+    return len;
+}
+</code></pre><p><br><br><strong>未完待续</strong></p>
 ]]></content>
       
         <categories>
@@ -1059,287 +1464,6 @@ cp src/grub.cfg isodir/boot/grub/grub.cfg
 </ul>
 <pre><code>qemu-system-i386 -cdrom ./build/chaos.iso
 </code></pre><p><strong>本篇完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Android 注解进阶 AnnotationProcessor & Javapoet]]></title>
-      <url>/2018/10/06/AndroidAnnotation/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h2 id="Java-注解基础"><a href="#Java-注解基础" class="headerlink" title="Java 注解基础"></a>Java 注解基础</h2><p><strong>简单回顾一下注解，加入了一些Java 8中的新特性</strong></p>
-<p><br></p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>注解 (Annotation)，也叫元数据。一种代码级别的说明。它是 JDK1.5 及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释</li>
-</ul>
-<ul>
-<li>注解中的数据可以在编译、运行时进行解析和使用，也可以单纯为编码人员提供很多的信息</li>
-</ul>
-<p><br></p>
-<h3 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h3><ul>
-<li>元注解是使用在注解上的注解，它为注解提供构成信息，是最基本的注解，Java中的元注解包括，@Retention, @Documented, @Target, @Inherited，@Repeatable（Java 8）</li>
-</ul>
-<p><br></p>
-<h4 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h4><p><strong>Retention用于指示注解的生命周期，即存活时间</strong></p>
-<pre><code>@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.ANNOTATION_TYPE)
-public @interface Retention {
-    /**
-     * Returns the retention policy.
-     * @return the retention policy
-     */
-    RetentionPolicy value();
-}
-</code></pre><ul>
-<li>RetentionPolicy.SOURCE, 注解会被编译器抛弃，即注解只在源码阶段中使用，一般用于程序员阅读</li>
-</ul>
-<ul>
-<li>RetentionPolicy.CLASS，注解会被记录在class文件中，但不会被JVM加载，即注解可以在编译期使用</li>
-</ul>
-<ul>
-<li>RetentionPolicy.RUNTIME，注解会被JVM加载，即注解可以在运行时使用</li>
-</ul>
-<pre><code>public enum RetentionPolicy {
-    /**
-     * Annotations are to be discarded by the compiler.
-     */
-    SOURCE,
-
-    /**
-     * Annotations are to be recorded in the class file by the compiler
-     * but need not be retained by the VM at run time.  This is the default
-     * behavior.
-     */
-    CLASS,
-
-    /**
-     * Annotations are to be recorded in the class file by the compiler and
-     * retained by the VM at run time, so they may be read reflectively.
-     *
-     * @see java.lang.reflect.AnnotatedElement
-     */
-    RUNTIME
-}
-</code></pre><p><br></p>
-<h4 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h4><p><strong> Target用于指示注解的标注对象，如类，方法，变量等</strong></p>
-<pre><code>@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.ANNOTATION_TYPE)
-public @interface Target {
-    /**
-     * Returns an array of the kinds of elements an annotation type
-     * can be applied to.
-     * @return an array of the kinds of elements an annotation type
-     * can be applied to
-     */
-    ElementType[] value();
-}
-</code></pre><ul>
-<li>ElementType.CONSTRUCTOR: 作用于构造方法</li>
-<li>ElementType.ANNOTATION_TYPE:  作用于注解</li>
-<li>ElementType.FIELD: 作用于域（包括枚举）</li>
-<li>ElementType.LOCAL_VARIABLE: 作用于局部变量</li>
-<li>ElementType.METHOD: 作用于方法</li>
-<li>ElementType.PACKAGE: 作用于包，一般使用在编译器生成的package-info.java类当中</li>
-<li>ElementType.PARAMETER: 作用于方法参数</li>
-<li>ElementType.TYPE: 作用于类、接口、枚举</li>
-<li>ElementType.TYPE_PARAMETER: 作用于提供给泛型的类型参数（Java 8）</li>
-<li>ElementType.TYPE_USE：作用于变量类型（Java 8）</li>
-</ul>
-<pre><code>public enum ElementType {
-    /** Class, interface (including annotation type), or enum declaration */
-    TYPE,
-
-    /** Field declaration (includes enum constants) */
-    FIELD,
-
-    /** Method declaration */
-    METHOD,
-
-    /** Formal parameter declaration */
-    PARAMETER,
-
-    /** Constructor declaration */
-    CONSTRUCTOR,
-
-    /** Local variable declaration */
-    LOCAL_VARIABLE,
-
-    /** Annotation type declaration */
-    ANNOTATION_TYPE,
-
-    /** Package declaration */
-    PACKAGE,
-
-    /**
-     * Type parameter declaration
-     *
-     * @since 1.8
-     */
-    TYPE_PARAMETER,
-
-    /**
-     * Use of a type
-     *
-     * @since 1.8
-     */
-    TYPE_USE
-}
-</code></pre><p><br></p>
-<h4 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><p><strong> Inherited用于指示使用了某个注解的类，其子类是否继承该注解</strong></p>
-<pre><code>@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.ANNOTATION_TYPE)
-public @interface Inherited {
-}
-</code></pre><p><br></p>
-<h4 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h4><p><strong> Documented用于指示注解是否被javadoc等文档工具记录</strong></p>
-<pre><code>@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.ANNOTATION_TYPE)
-public @interface Documented {
-}
-</code></pre><p><br></p>
-<h4 id="Repeatable（Java-8）"><a href="#Repeatable（Java-8）" class="headerlink" title="@Repeatable（Java 8）"></a>@Repeatable（Java 8）</h4><p><strong> Documented用于指示注解可以在同一个元素中多次使用</strong></p>
-<pre><code>@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.ANNOTATION_TYPE)
-public @interface Repeatable {
-    /**
-         * Indicates the &lt;em&gt;containing annotation type&lt;/em&gt; for the
-     * repeatable annotation type.
-     * @return the containing annotation type
-     */
-    Class&lt;? extends Annotation&gt; value();
-}
-</code></pre><p><br></p>
-<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
-<li>注解的属性也叫做成员变量，使用无参方法声明的形式来声明，可以设置默认值</li>
-</ul>
-<pre><code>public @interface Test {
-
-    int testInt() default 1;
-    String testStr();
-}
-</code></pre><ul>
-<li>没有设置默认值的属性必须在使用时赋值，设置了值的属性可以在使用时覆盖</li>
-</ul>
-<pre><code>@Test(testInt = 2,testStr = &quot;test&quot;)
-public class Xxx{
-}
-</code></pre><p><br></p>
-<h2 id="处理注解"><a href="#处理注解" class="headerlink" title="处理注解"></a>处理注解</h2><ul>
-<li><p>根据注解的处理时机我们可以将注解分为如下三类</p>
-</li>
-<li><p>运行时处理，这一类注解拥有 RetentionPolicy.RUNTIME 生命周期，并且只使用反射处理</p>
-</li>
-</ul>
-<ul>
-<li>编译时处理，这一类注解至少拥有 RetentionPolicy.CLASS 生命周期，需要使用注解解释器处理,通常在这个阶段会使用注解生成java代码</li>
-</ul>
-<ul>
-<li>不处理，这里指的是程序员无需使用代码去解析注解，这些注解通常只提供一些简单的信息</li>
-</ul>
-<p><br></p>
-<h3 id="运行时注解处理"><a href="#运行时注解处理" class="headerlink" title="运行时注解处理"></a>运行时注解处理</h3><ul>
-<li>运行时处理注解即通过反射获取需要解析的注解和注解的属性</li>
-</ul>
-<pre><code>public void process(Class clazz) {
-
-    for (Method method : clazz.getMethods()) {
-        Test annotation = method.getAnnotation(Test.class);
-        handleMethodAnnotation(annotation);
-    }
-
-    for (Field field : clazz.getDeclaredFields()) {
-        Test annotation = field.getAnnotation(Test.class);
-        handleFieldAnnotation(annotation);
-    }
-}
-
-public void handleMethodAnnotation(Test test) {
-    int intValue = test.testInt();
-    String strValue = test.testStr();
-    //...
-
-}
-
-public void handleFieldAnnotation(Test test) {
-    int intValue = test.testInt();
-    String strValue = test.testStr();
-    //...
-}
-</code></pre><ul>
-<li>这种处理方法非常简单，很好上手，但问题是反射比较耗性能，不需要运行时处理的注解理应尽量在编译器处理</li>
-</ul>
-<p><br></p>
-<h3 id="编译时注解处理器"><a href="#编译时注解处理器" class="headerlink" title="编译时注解处理器"></a>编译时注解处理器</h3><p><br></p>
-<h4 id="Annotation-Processing-Tool"><a href="#Annotation-Processing-Tool" class="headerlink" title="Annotation Processing Tool"></a>Annotation Processing Tool</h4><ul>
-<li>APT 是 Android 过去通用的注解框架，现已退出历史舞台，这里只是提一下，有兴趣的可以看一下<a href="https://blog.csdn.net/Ru_Zhan/article/details/78232851?locationNum=8&amp;fps=1" target="_blank" rel="external">这篇文档</a></li>
-</ul>
-<p><br></p>
-<h4 id="Annotation-Processor"><a href="#Annotation-Processor" class="headerlink" title="Annotation Processor"></a>Annotation Processor</h4><p><br></p>
-<h5 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h5><ul>
-<li>一般来说，使用 Annotation Processor 的框架会将编译期执行的代码单独出来，这样可以使用gradle 的 annotationProcessor 使这部分代码和相关依赖不会被打包</li>
-</ul>
-<ul>
-<li>因此框架至少包含两个模块 ，一个用于实现框架的主体功能，该模块自然也存放了注解，另一个用于解析注解并生成代码，后者依赖前者，这两个模块要么都是 Android Library 要么都是 Java Library</li>
-</ul>
-<ul>
-<li>这里我创建两个 java 模块，test 和 testCompiler,在 app 和 testCompiler中添加如下依赖，Annotation Processor相对于apt来说添加依赖非常简单，只需要在gradle中使用 annotationProcessor 即可</li>
-</ul>
-<pre><code>//in app
-implementation project(&apos;:test&apos;)
-annotationProcessor project(&apos;:testCompiler&apos;)
-
-//in testCompiler
-implementation project(&apos;:test&apos;)
-</code></pre><p><br></p>
-<h5 id="AbstractProcessor"><a href="#AbstractProcessor" class="headerlink" title="AbstractProcessor"></a>AbstractProcessor</h5><pre><code>public class TestProcessor extends AbstractProcessor {
-    @Override
-    public boolean process(Set&lt;? extends TypeElement&gt; set, RoundEnvironment roundEnvironment) {
-        return false;
-    }
-}
-</code></pre><p><strong>未完待续</strong></p>
-<p><br></p>
-<h5 id="原生动态编译-api"><a href="#原生动态编译-api" class="headerlink" title="原生动态编译 api"></a>原生动态编译 api</h5><ul>
-<li>从 Java 6 开始 Java 提供了JavaFileObject等一系列动态编译 api，我们使用这些api来实现 AbstractProcessor</li>
-</ul>
-<p><br></p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ul>
-<li>在 gradle 中添加依赖</li>
-</ul>
-<pre><code>dependencies {
-    annotationProcessor &quot;com.google.auto.service:auto-service:1.0-rc4&quot;
-}
-</code></pre><p><br></p>
-<h4 id="AutoService"><a href="#AutoService" class="headerlink" title="AutoService"></a>AutoService</h4><p><br></p>
-<h4 id="Javapoet"><a href="#Javapoet" class="headerlink" title="Javapoet"></a>Javapoet</h4><ul>
-<li>在 gradle 中添加依赖</li>
-</ul>
-<pre><code>dependencies {
-    compileOnly &quot;com.squareup:javapoet:1.11.1&quot;
-    annotationProcessor &quot;com.google.auto.service:auto-service:1.0-rc4&quot;
-}
-</code></pre><p><br></p>
-<h2 id="注解框架实例"><a href="#注解框架实例" class="headerlink" title="注解框架实例"></a>注解框架实例</h2><p><strong>未完待续</strong></p>
 ]]></content>
       
         <categories>
