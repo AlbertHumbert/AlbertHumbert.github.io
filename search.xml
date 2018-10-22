@@ -832,7 +832,49 @@ ifconfig br0 up  # 启动 br0
 </code></pre><p><br></p>
 <h4 id="生成树协议"><a href="#生成树协议" class="headerlink" title="生成树协议"></a>生成树协议</h4><p><strong>网桥与其他网桥共同运行时可能存在级联关系导致帧循环</strong></p>
 <p><br></p>
-<h5 id="BPDU"><a href="#BPDU" class="headerlink" title="BPDU"></a>BPDU</h5><p><br></p>
+<h5 id="STP"><a href="#STP" class="headerlink" title="STP"></a>STP</h5><ul>
+<li>STP (生成树) 协议使用分布式的算法在多个网桥之间建立成本最低的生成树，在新的标准中已经被 RSTP (快速生成树) 协议替代</li>
+</ul>
+<ul>
+<li>STP 实现原理是：在每个网桥禁用一些端口，以及根据链路速度计算到根网桥的最小成本</li>
+</ul>
+<p><br></p>
+<h5 id="BPDU"><a href="#BPDU" class="headerlink" title="BPDU"></a>BPDU</h5><ul>
+<li>BPDU(网桥协议数据单元) 是 STP用来形成和维护生成树的帧</li>
+</ul>
+<ul>
+<li>网桥端口有 5 种状态</li>
+</ul>
+<pre><code>阻塞：不学习，不转发数据，接受 BPDU
+侦听：不学习，不转发数据，收发 BPDU
+学习：学习，不转发数据，收发 BPDU
+转发：学习，转发数据，收发 BPDU
+禁用：不学习，不转发数据，不收发 BPDU
+</code></pre><ul>
+<li>状态转换过程，注意所有初始化外的状态都可以转为禁用</li>
+</ul>
+<pre><code>初始化
+ |
+ |&lt;--------------------------------------------|
+ V      最大时间 20s             转发延迟 15s     |
+阻塞 ---------------&gt; 监听 ------------------&gt; 学习
+ A                                              |
+ |                                              |  转发延迟 15s
+ |      拓扑改变                 拓扑改变          |  
+ |&lt;------------------ 转发 &lt;---------------------|
+
+                   --&gt;禁用
+</code></pre><ul>
+<li>端口有四种常见角色</li>
+</ul>
+<pre><code>根端口：指向根的线段的终点的端口
+指定端口：用于转发状态并与根相连的线段中路径成本最小的端口
+备用端口: 比指定端口成本高的端口
+备份端口：连接到同一线段作为同一网桥指定端口使用的端口
+</code></pre><ul>
+<li>BPDU 帧结构</li>
+</ul>
+<p><br></p>
 <h5 id="建立生成树"><a href="#建立生成树" class="headerlink" title="建立生成树"></a>建立生成树</h5><p><strong>未完待续</strong></p>
 ]]></content>
       
