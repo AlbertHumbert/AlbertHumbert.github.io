@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 15, 2018" />
-        <meta property="article:modified_time" content="10月 21, 2018" />
+        <meta property="article:modified_time" content="10月 23, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 4 - 系统库函数",
     "url": "https://alberthumbert.github.io/2018/10/15/OSBaseLib/index.html",
     "datePublished": "10月 15, 2018",
-    "dateModified": "10月 21, 2018",
+    "dateModified": "10月 23, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -565,17 +565,27 @@
 <li>自己编写的头文件，这是当然的，不过为了编译器能够在 sysroot 中找到这些文件，我们需要将这些文件放在 sysroot 当中</li>
 </ul>
 <p><br></p>
-<h3 id="动工"><a href="#动工" class="headerlink" title="动工"></a>动工</h3><p><strong>现在我们来写几个简单又必要的库函数</strong></p>
+<h3 id="动工"><a href="#动工" class="headerlink" title="动工"></a>动工</h3><p><strong>现在我们来写几个简单又必要的库函数，相信学过c语言的人都能读懂，没学过的。。。大概也能读懂</strong></p>
 <p><br></p>
 <h4 id="stdio"><a href="#stdio" class="headerlink" title="stdio"></a>stdio</h4><ul>
+<li>purchar</li>
+</ul>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;kernel/tty.h&gt;
+
+int putchar(int ic){
+    terminal_putchar((char)ic);
+    return ic;
+}
+</code></pre><ul>
 <li>printf</li>
 </ul>
 <p><br></p>
 <h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><ul>
 <li>strlen</li>
 </ul>
-<pre><code>#include &lt;string.h&gt;
-size_t strlen(const char * str){
+<pre><code># include \&lt;string.h\&gt;
+size\_t strlen(const char \* str){
     size_t len = 0;
     while(str[len])
         len ++;
