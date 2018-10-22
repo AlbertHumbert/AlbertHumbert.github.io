@@ -1290,6 +1290,208 @@ size\_t strlen(const char \* str){
         len ++;
     return len;
 }
+</code></pre><p><br></p>
+<h5 id="makefile-1"><a href="#makefile-1" class="headerlink" title="makefile"></a>makefile</h5><ul>
+<li>makefile 我们暂时分为两步分 kernel 和 libc ，这部分都是基本语法，只是环境变量比较多而已</li>
+</ul>
+<ul>
+<li>kernel</li>
+</ul>
+<pre><code>DEFAULT_HOST!=../default-host.sh
+HOST?=DEFAULT_HOST
+HOSTARCH!=../target-triplet-to-arch.sh $(HOST)
+
+CFLAGS?=-O2 -g
+CPPFLAGS?=
+LDFLAGS?=
+LIBS?=
+
+DESTDIR?=
+PREFIX?=/usr/local
+EXEC_PREFIX?=$(PREFIX)
+BOOTDIR?=$(EXEC_PREFIX)/boot
+INCLUDEDIR?=$(PREFIX)/include
+
+CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
+CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
+LDFLAGS:=$(LDFLAGS)
+LIBS:=$(LIBS) -nostdlib -lk -lgcc
+
+ARCHDIR=arch/i386
+
+include $(ARCHDIR)/make.config
+
+CFLAGS:=$(CFLAGS) $(KERNEL_ARCH_CFLAGS)
+CPPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
+LDFLAGS:=$(LDFLAGS) $(KERNEL_ARCH_LDFLAGS)
+LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
+
+KERNEL_OBJS=\
+$(KERNEL_ARCH_OBJS) \
+kernel/kernel.o \
+
+OBJS=\
+$(ARCHDIR)/crti.o \
+$(ARCHDIR)/crtbegin.o \
+$(KERNEL_OBJS) \
+$(ARCHDIR)/crtend.o \
+$(ARCHDIR)/crtn.o \
+
+LINK_LIST=\
+$(LDFLAGS) \
+$(ARCHDIR)/crti.o \
+$(ARCHDIR)/crtbegin.o \
+$(KERNEL_OBJS) \
+$(LIBS) \
+$(ARCHDIR)/crtend.o \
+$(ARCHDIR)/crtn.o \
+
+.PHONY: all clean install install-headers install-kernel
+.SUFFIXES: .o .c .S
+
+all: chaos.kernel
+
+chaos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
+    $(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
+    grub-file --is-x86-multiboot chaos.kernel
+
+$(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
+    OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` &amp;&amp; cp &quot;$$OBJ&quot; $@
+
+.c.o:
+    $(CC) -MD -c $&lt; -o $@ -std=gnu99 $(CFLAGS) $(CPPFLAGS)
+
+.S.o:
+    $(CC) -MD -c $&lt; -o $@ $(CFLAGS) $(CPPFLAGS)
+
+clean:
+    rm -f chaos.kernel
+    rm -f $(OBJS) *.o */*.o */*/*.o
+    rm -f $(OBJS:.o=.d) *.d */*.d */*/*.d
+
+install: install-headers install-kernel
+
+install-headers:
+    mkdir -p $(DESTDIR)$(INCLUDEDIR)
+    cp -R -p include/. $(DESTDIR)$(INCLUDEDIR)/.
+
+install-kernel: chaos.kernel
+    mkdir -p $(DESTDIR)$(BOOTDIR)
+    cp chaos.kernel $(DESTDIR)$(BOOTDIR)
+
+-include $(OBJS:.o=.d)
+</code></pre><ul>
+<li>libc</li>
+</ul>
+<pre><code>DEFAULT_HOST!=../default-host.sh
+HOST?=DEFAULT_HOST
+
+HOSTARCH!=../target-triplet-to-arch.sh $(HOST)
+
+CFLAGS?=-O2 -g
+CPPFLAGS?=
+LDFLAGS?=
+LIBS?=
+
+DESTDIR?=
+PREFIX?=/usr/local
+EXEC_PREFIX?=$(PREFIX)
+BOOTDIR?=$(EXEC_PREFIX)/boot
+INCLUDEDIR?=$(PREFIX)/include
+
+CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
+CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
+LDFLAGS:=$(LDFLAGS)
+LIBS:=$(LIBS) -nostdlib -lk -lgcc
+
+ARCHDIR=arch/i386
+
+include $(ARCHDIR)/make.config
+
+CFLAGS:=$(CFLAGS) $(ARCH_CFLAGS)
+CPPFLAGS:=$(CPPFLAGS) $(ARCH_CPPFLAGS)
+LIBK_CFLAGS:=$(LIBK_CFLAGS) $(KERNEL_ARCH_CFLAGS)
+LIBK_CPPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
+
+FREEOBJS=\
+$(ARCH_FREEOBJS) \
+stdio/puts.o \
+string/strlen.o \
+stdio/printf.o \
+stdio/putchar.o \
+#stdlib/abort.o \
+#string/memcmp.o \
+#string/memcpy.o \
+#string/memmove.o \
+#string/memset.o \
+
+
+HOSTEDOBJS=\
+$(ARCH_HOSTEDOBJS) \
+
+OBJS=\
+$(FREEOBJS) \
+$(HOSTEDOBJS) \
+
+LIBK_OBJS=$(FREEOBJS:.o=.libk.o)
+
+#BINARIES=libc.a libk.a # Not ready for libc yet.
+BINARIES=libk.a
+
+.PHONY: all clean install install-headers install-libs
+.SUFFIXES: .o .libk.o .c .S
+
+all: $(BINARIES)
+
+libc.a: $(OBJS)
+    $(AR) rcs $@ $(OBJS)
+
+libk.a: $(LIBK_OBJS)
+    $(AR) rcs $@ $(LIBK_OBJS)
+
+.c.o:
+    $(CC) -MD -c $&lt; -o $@ -std=gnu99 $(CFLAGS) $(CPPFLAGS)
+
+.c.S:
+    $(CC) -MD -c $&lt; -o $@ $(CFLAGS) $(CPPFLAGS)
+
+.c.libk.o:
+    $(CC) -MD -c $&lt; -o $@ -std=gnu99 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+
+.S.libk.o:
+    $(CC) -MD -c $&lt; -o $@ $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+
+clean:
+    rm -f $(BINARIES) *.a
+    rm -f $(OBJS) $(LIBK_OBJS) *.o */*.o */*/*.o
+    rm -f $(OBJS:.o=.d) $(LIBK_OBJS:.o=.d) *.d */*.d */*/*.d
+
+install: install-headers install-libs
+
+install-headers:
+    mkdir -p $(DESTDIR)$(INCLUDEDIR)
+    cp -R -p include/. $(DESTDIR)$(INCLUDEDIR)/.
+
+install-libs: $(BINARIES)
+    mkdir -p $(DESTDIR)$(LIBDIR)
+    cp $(BINARIES) $(DESTDIR)$(LIBDIR)
+
+-include $(OBJS:.o=.d)
+-include $(LIBK_OBJS:.o=.d)
+</code></pre><ul>
+<li>该脚本用于输出我们的 gcc 版本</li>
+</ul>
+<pre><code>#!/bin/sh
+echo i686-elf
+</code></pre><ul>
+<li>该脚本输出体系架构版本，ix86, 均输出为 1386</li>
+</ul>
+<pre><code>#!/bin/sh
+if echo &quot;$1&quot; | grep -Eq &apos;i[[:digit:]]86-&apos;; then
+  echo i386
+else
+ echo &quot;$1&quot; | grep -Eo &apos;^[[:alnum:]_]*&apos;
+fi
 </code></pre><p><br><br><strong>未完待续</strong></p>
 ]]></content>
       
