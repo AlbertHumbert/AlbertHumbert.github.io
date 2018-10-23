@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-10-22T14:12:46.000Z</updated>
+  <updated>2018-10-23T07:52:01.000Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入操作系统 5 - 分段 &amp; GDT</title>
+    <link href="https://alberthumbert.github.io/2018/10/23/OSGdt/"/>
+    <id>https://alberthumbert.github.io/2018/10/23/OSGdt/</id>
+    <published>2018-10-23T07:43:22.000Z</published>
+    <updated>2018-10-23T07:52:01.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Android 注解进阶</title>
@@ -120,7 +140,7 @@
     <link href="https://alberthumbert.github.io/2018/10/15/OSBaseLib/"/>
     <id>https://alberthumbert.github.io/2018/10/15/OSBaseLib/</id>
     <published>2018-10-14T17:01:45.000Z</published>
-    <updated>2018-10-22T17:00:52.000Z</updated>
+    <updated>2018-10-23T07:46:38.000Z</updated>
     
     <summary type="html">
     
@@ -260,7 +280,7 @@
     <link href="https://alberthumbert.github.io/2018/09/21/OperatingSystem/"/>
     <id>https://alberthumbert.github.io/2018/09/21/OperatingSystem/</id>
     <published>2018-09-21T14:01:30.000Z</published>
-    <updated>2018-10-14T17:05:01.000Z</updated>
+    <updated>2018-10-23T07:50:23.000Z</updated>
     
     <summary type="html">
     
@@ -385,26 +405,6 @@
     <id>https://alberthumbert.github.io/2018/06/17/ComputerNetwork/</id>
     <published>2018-06-17T14:36:40.000Z</published>
     <updated>2018-09-05T14:33:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android 模块化开发指南</title>
-    <link href="https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/"/>
-    <id>https://alberthumbert.github.io/2018/05/31/GitSubmoduleForAndroid/</id>
-    <published>2018-05-31T08:11:54.000Z</published>
-    <updated>2018-10-19T03:03:47.000Z</updated>
     
     <summary type="html">
     
