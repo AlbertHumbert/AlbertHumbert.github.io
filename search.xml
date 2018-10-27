@@ -86,6 +86,233 @@ $ brew install dart
     </entry>
     
     <entry>
+      <title><![CDATA[Dart 语言 入门]]></title>
+      <url>/2018/10/25/LangDart/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<p>无聊的时候，学点 Dart</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="基本样例"><a href="#基本样例" class="headerlink" title="基本样例"></a>基本样例</h3><p><strong>可以在<a href="https://dartpad.cn/" target="_blank" rel="external">这里</a>运行代码（无需翻墙）</strong></p>
+<pre><code>// 函数定义
+printInteger(int aNumber) {
+  print(&apos;The number is $aNumber.&apos;); // Print to console.
+}
+
+// 应用从这里开始执行
+main() {
+  var number = 42; // Declare and initialize a variable.
+  printInteger(number); // Call a function.
+}
+</code></pre><p><br></p>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><ul>
+<li>注释</li>
+</ul>
+<pre><code>// This is a comment.
+</code></pre><ul>
+<li>一切变量皆对象，一切对象皆 Object</li>
+</ul>
+<ul>
+<li>dart 是强类型语言，但 dart 支持类型推断（使用 var），也支持声明非限定的类型（使用 dynamic）</li>
+</ul>
+<ul>
+<li>dart 支持泛型,如 List\<int\> ，List\<dynamic\>（List中的对象可以是任何类型）</dynamic\></int\></li>
+</ul>
+<ul>
+<li>dart 支持顶级函数（如 main），类（静态）函数，实例函数，闭包（函数定义的函数）</li>
+</ul>
+<ul>
+<li>dart 支持静态变量和实例变量（属性）</li>
+</ul>
+<ul>
+<li>dart 没有  public, protected, private 字段，但可以使用下滑线开始的名称使其只能在库中使用</li>
+</ul>
+<ul>
+<li>dart 包含表达式和语句，表达式可以作为值</li>
+</ul>
+<ul>
+<li>dart tools 可以报告两种问题，warnings 和 errors. 编译时 error 直接导致代码无法运行，运行时 error 则将抛出异常</li>
+</ul>
+<p><br></p>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>abstract</td>
+<td>dynamic</td>
+<td>implements</td>
+<td>show</td>
+</tr>
+<tr>
+<td>as</td>
+<td>else</td>
+<td>import</td>
+<td>static</td>
+</tr>
+<tr>
+<td>assert</td>
+<td>enum</td>
+<td>in</td>
+<td>super</td>
+</tr>
+<tr>
+<td>async</td>
+<td>export</td>
+<td>interface</td>
+<td>switch</td>
+</tr>
+<tr>
+<td>await</td>
+<td>external</td>
+<td>is</td>
+<td>sync</td>
+</tr>
+<tr>
+<td>break</td>
+<td>extends</td>
+<td>library</td>
+<td>this</td>
+</tr>
+<tr>
+<td>case</td>
+<td>factory</td>
+<td>mixin</td>
+<td>throw</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>false</td>
+<td>new</td>
+<td>true</td>
+</tr>
+<tr>
+<td>class</td>
+<td>final</td>
+<td>null</td>
+<td>try</td>
+</tr>
+<tr>
+<td>const</td>
+<td>finally</td>
+<td>on</td>
+<td>typedef</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>for</td>
+<td>operator</td>
+<td>var</td>
+</tr>
+<tr>
+<td>covariant</td>
+<td>Function</td>
+<td>part</td>
+<td>void</td>
+</tr>
+<tr>
+<td>default</td>
+<td>get</td>
+<td>rethrow</td>
+<td>while</td>
+</tr>
+<tr>
+<td>deferred</td>
+<td>hide</td>
+<td>return</td>
+<td>with</td>
+</tr>
+<tr>
+<td>do</td>
+<td>if</td>
+<td>set</td>
+<td>yield</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><br></p>
+<h4 id="var"><a href="#var" class="headerlink" title="var"></a>var</h4><pre><code>var name = &apos;Bob&apos;;
+</code></pre><ul>
+<li>name 的类型被推断为 String</li>
+</ul>
+<pre><code>String name = &apos;Bob&apos;;
+</code></pre><ul>
+<li>也可指定类型，如果变量不需要类型限定可以使用 object 或 dynamic 类型</li>
+</ul>
+<p><br></p>
+<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><ul>
+<li>一切变量的默认值都是 null，int double…也是如此，毕竟一切皆变量</li>
+</ul>
+<pre><code>int lineCount;
+assert(lineCount == null);
+//assert 在正式版本中会被忽略，在开发版本中根据条件判断是否抛出异常
+</code></pre><p><br></p>
+<h4 id="Final-和-const"><a href="#Final-和-const" class="headerlink" title="Final 和 const"></a>Final 和 const</h4><ul>
+<li>final 和 const 引用只能赋值一次</li>
+</ul>
+<pre><code>final name = &apos;Bob&apos;; // Without a type annotation
+final String nickname = &apos;Bobby&apos;;
+const nickname2 = &quot;...&quot;;
+</code></pre><ul>
+<li>final 和 const 的其中一个区别是，const可以用于定义编译时变量，这意味着它的值会在编译时被展开，算是一种优化，而final会被延迟到第一次使用前才赋值</li>
+</ul>
+<pre><code>const bar = 1000000; // Unit of pressure (dynes/cm2)
+const double atm = 1.01325 * bar; // Standard atmosphere
+</code></pre><ul>
+<li>另一个区别是，const 可以用于限定常量值</li>
+</ul>
+<pre><code>const baz = []; //baz是常量
+var foo = const []; //foo的值都是常量，即右边这个数组只能放常量
+
+baz = [42]; //改变 baz，报错
+var test = const[1,2,intVar];//如果 intVar 是 const 正确，否则报错
+test[2] = int1;//如果 int1 是 const，正确，否则报错
+</code></pre><p><br></p>
+<h3 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h3><p><br></p>
+<h4 id="七大类型"><a href="#七大类型" class="headerlink" title="七大类型"></a>七大类型</h4><ul>
+<li>dart 包含如下内建类型，它们具有特别的功能</li>
+</ul>
+<pre><code>numbers
+strings
+booleans
+lists (also known as arrays)
+maps
+runes (for expressing Unicode characters in a string)
+symbols
+</code></pre><ul>
+<li>所有这些类型都可以用字面量创建 如 “fasdfas”,true,123</li>
+</ul>
+<p><br></p>
+<h4 id="Numbers"><a href="#Numbers" class="headerlink" title="Numbers"></a>Numbers</h4><ul>
+<li>int，长度小于 64 位 ，具体大小与平台相关，dart vm 上为 -263 到 263 - 1，如果编译为 js 则为 -253 到 253 - 1</li>
+</ul>
+<ul>
+<li>double，64 位浮点型</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 5 - 分段 & GDT]]></title>
       <url>/2018/10/23/OSGdt/</url>
       <content type="html"><![CDATA[<p>-</p>

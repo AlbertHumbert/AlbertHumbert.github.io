@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2018 | 
+            Dart 语言 入门 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-
+无聊的时候，学点 Dart">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,29 +66,65 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2018 | Albert&#39;s Blog">
+    <meta property="og:title" content="Dart 语言 入门 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-
+无聊的时候，学点 Dart">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="10月 25, 2018" />
+        <meta property="article:modified_time" content="10月 27, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2018 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="Dart 语言 入门 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-
+无聊的时候，学点 Dart">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/archives/2018/page/2/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/10/25/LangDart/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "Dart 语言 入门",
+    "url": "https://alberthumbert.github.io/2018/10/25/LangDart/index.html",
+    "datePublished": "10月 25, 2018",
+    "dateModified": "10月 27, 2018",
+    "description": "-
+无聊的时候，学点 Dart",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -275,636 +312,452 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本样例"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本样例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重要概念"><span class="post-toc-number">2.</span> <span class="post-toc-text">重要概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关键字"><span class="post-toc-number">3.</span> <span class="post-toc-text">关键字</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变量"><span class="post-toc-number">4.</span> <span class="post-toc-text">变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#var"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">var</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#默认值"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">默认值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Final-和-const"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">Final 和 const</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内建类型"><span class="post-toc-number">5.</span> <span class="post-toc-text">内建类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#七大类型"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">七大类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Numbers"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Numbers</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/26/JVMCompileOpenJdk7/">深入JVM系列 1 - mac平台编译调试 OpenJdk7 &amp; HotSpot</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/26/JVMCompileOpenJdk7/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 26, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/22/Early/">近期的一些计划</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/22/Early/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 22, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/22/OSCrossGcc/">深入操作系统 2 - 交叉环境编译 &amp; GCC</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/22/OSCrossGcc/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 22, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/21/OSEnv/">深入操作系统 1 - 源码获取 &amp; 编译调试</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/21/OSEnv/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 21, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/21/OSProcess/">深入操作系统 - 进程控制</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/21/OSProcess/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 21, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/21/OperatingSystem/">深入操作系统 系列 0</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-             程序员的三大浪漫，编译原理，图形学，操作系统 
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/21/OperatingSystem/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 21, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/21/ReadAndroidLib/">深入 Android 框架源码 系列</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/21/ReadAndroidLib/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 21, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/05/androidSource/">深入 Android 系统 系列</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-不一定开的坑
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/05/androidSource/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 05, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/05/net-0/">深入计算机网络 系列</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-假装深入
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/05/net-0/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 05, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/09/05/concurrent/">深入 Java 并发 系列</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/09/05/concurrent/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>9月 05, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-    <!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <a class="extend prev" rel="prev" href="/archives/2018/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/archives/2018/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2018/page/3/">3</a><a class="page-number" href="/archives/2018/page/4/">4</a><a class="extend next" rel="next" href="/archives/2018/page/3/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_forward</i></button></a>
-        </nav>
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Dart 语言 入门
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>10月 25, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Dart 语言 入门&url=https://alberthumbert.github.io/2018/10/25/LangDart/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Dart 语言 入门&url=https://alberthumbert.github.io/2018/10/25/LangDart/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/10/25/LangDart/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/10/25/LangDart/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/10/25/LangDart/index.html&title=Dart 语言 入门" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Dart 语言 入门&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/10/25/LangDart/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/10/25/LangDart/index.html&text=Dart 语言 入门" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>-</p>
+<p>无聊的时候，学点 Dart</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="基本样例"><a href="#基本样例" class="headerlink" title="基本样例"></a>基本样例</h3><p><strong>可以在<a href="https://dartpad.cn/" target="_blank" rel="external">这里</a>运行代码（无需翻墙）</strong></p>
+<pre><code>// 函数定义
+printInteger(int aNumber) {
+  print(&apos;The number is $aNumber.&apos;); // Print to console.
+}
+
+// 应用从这里开始执行
+main() {
+  var number = 42; // Declare and initialize a variable.
+  printInteger(number); // Call a function.
+}
+</code></pre><p><br></p>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><ul>
+<li>注释</li>
+</ul>
+<pre><code>// This is a comment.
+</code></pre><ul>
+<li>一切变量皆对象，一切对象皆 Object</li>
+</ul>
+<ul>
+<li>dart 是强类型语言，但 dart 支持类型推断（使用 var），也支持声明非限定的类型（使用 dynamic）</li>
+</ul>
+<ul>
+<li>dart 支持泛型,如 List\<int\> ，List\<dynamic\>（List中的对象可以是任何类型）</dynamic\></int\></li>
+</ul>
+<ul>
+<li>dart 支持顶级函数（如 main），类（静态）函数，实例函数，闭包（函数定义的函数）</li>
+</ul>
+<ul>
+<li>dart 支持静态变量和实例变量（属性）</li>
+</ul>
+<ul>
+<li>dart 没有  public, protected, private 字段，但可以使用下滑线开始的名称使其只能在库中使用</li>
+</ul>
+<ul>
+<li>dart 包含表达式和语句，表达式可以作为值</li>
+</ul>
+<ul>
+<li>dart tools 可以报告两种问题，warnings 和 errors. 编译时 error 直接导致代码无法运行，运行时 error 则将抛出异常</li>
+</ul>
+<p><br></p>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>abstract</td>
+<td>dynamic</td>
+<td>implements</td>
+<td>show</td>
+</tr>
+<tr>
+<td>as</td>
+<td>else</td>
+<td>import</td>
+<td>static</td>
+</tr>
+<tr>
+<td>assert</td>
+<td>enum</td>
+<td>in</td>
+<td>super</td>
+</tr>
+<tr>
+<td>async</td>
+<td>export</td>
+<td>interface</td>
+<td>switch</td>
+</tr>
+<tr>
+<td>await</td>
+<td>external</td>
+<td>is</td>
+<td>sync</td>
+</tr>
+<tr>
+<td>break</td>
+<td>extends</td>
+<td>library</td>
+<td>this</td>
+</tr>
+<tr>
+<td>case</td>
+<td>factory</td>
+<td>mixin</td>
+<td>throw</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>false</td>
+<td>new</td>
+<td>true</td>
+</tr>
+<tr>
+<td>class</td>
+<td>final</td>
+<td>null</td>
+<td>try</td>
+</tr>
+<tr>
+<td>const</td>
+<td>finally</td>
+<td>on</td>
+<td>typedef</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>for</td>
+<td>operator</td>
+<td>var</td>
+</tr>
+<tr>
+<td>covariant</td>
+<td>Function</td>
+<td>part</td>
+<td>void</td>
+</tr>
+<tr>
+<td>default</td>
+<td>get</td>
+<td>rethrow</td>
+<td>while</td>
+</tr>
+<tr>
+<td>deferred</td>
+<td>hide</td>
+<td>return</td>
+<td>with</td>
+</tr>
+<tr>
+<td>do</td>
+<td>if</td>
+<td>set</td>
+<td>yield</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><br></p>
+<h4 id="var"><a href="#var" class="headerlink" title="var"></a>var</h4><pre><code>var name = &apos;Bob&apos;;
+</code></pre><ul>
+<li>name 的类型被推断为 String</li>
+</ul>
+<pre><code>String name = &apos;Bob&apos;;
+</code></pre><ul>
+<li>也可指定类型，如果变量不需要类型限定可以使用 object 或 dynamic 类型</li>
+</ul>
+<p><br></p>
+<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><ul>
+<li>一切变量的默认值都是 null，int double…也是如此，毕竟一切皆变量</li>
+</ul>
+<pre><code>int lineCount;
+assert(lineCount == null);
+//assert 在正式版本中会被忽略，在开发版本中根据条件判断是否抛出异常
+</code></pre><p><br></p>
+<h4 id="Final-和-const"><a href="#Final-和-const" class="headerlink" title="Final 和 const"></a>Final 和 const</h4><ul>
+<li>final 和 const 引用只能赋值一次</li>
+</ul>
+<pre><code>final name = &apos;Bob&apos;; // Without a type annotation
+final String nickname = &apos;Bobby&apos;;
+const nickname2 = &quot;...&quot;;
+</code></pre><ul>
+<li>final 和 const 的其中一个区别是，const可以用于定义编译时变量，这意味着它的值会在编译时被展开，算是一种优化，而final会被延迟到第一次使用前才赋值</li>
+</ul>
+<pre><code>const bar = 1000000; // Unit of pressure (dynes/cm2)
+const double atm = 1.01325 * bar; // Standard atmosphere
+</code></pre><ul>
+<li>另一个区别是，const 可以用于限定常量值</li>
+</ul>
+<pre><code>const baz = []; //baz是常量
+var foo = const []; //foo的值都是常量，即右边这个数组只能放常量
+
+baz = [42]; //改变 baz，报错
+var test = const[1,2,intVar];//如果 intVar 是 const 正确，否则报错
+test[2] = int1;//如果 int1 是 const，正确，否则报错
+</code></pre><p><br></p>
+<h3 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h3><p><br></p>
+<h4 id="七大类型"><a href="#七大类型" class="headerlink" title="七大类型"></a>七大类型</h4><ul>
+<li>dart 包含如下内建类型，它们具有特别的功能</li>
+</ul>
+<pre><code>numbers
+strings
+booleans
+lists (also known as arrays)
+maps
+runes (for expressing Unicode characters in a string)
+symbols
+</code></pre><ul>
+<li>所有这些类型都可以用字面量创建 如 “fasdfas”,true,123</li>
+</ul>
+<p><br></p>
+<h4 id="Numbers"><a href="#Numbers" class="headerlink" title="Numbers"></a>Numbers</h4><ul>
+<li>int，长度小于 64 位 ，具体大小与平台相关，dart vm 上为 -263 到 263 - 1，如果编译为 js 则为 -253 到 253 - 1</li>
+</ul>
+<ul>
+<li>double，64 位浮点型</li>
+</ul>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/10/27/EnvDartFlutter/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/10/23/OSGdt/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
