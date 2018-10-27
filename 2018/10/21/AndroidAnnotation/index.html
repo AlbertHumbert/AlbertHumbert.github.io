@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 21, 2018" />
-        <meta property="article:modified_time" content="10月 22, 2018" />
+        <meta property="article:modified_time" content="10月 24, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 注解进阶",
     "url": "https://alberthumbert.github.io/2018/10/21/AndroidAnnotation/index.html",
     "datePublished": "10月 21, 2018",
-    "dateModified": "10月 22, 2018",
+    "dateModified": "10月 24, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -988,7 +988,10 @@ TypeElement getTypeElement(CharSequence var1);
     UNION,
     INTERSECTION;
 }
-</code></pre><p><br></p>
+</code></pre><ul>
+<li>总结一下，init 方法主要给我们提供了一些处理注解的工具，我们将在 process 方法中用到他们</li>
+</ul>
+<p><br></p>
 <h4 id="process"><a href="#process" class="headerlink" title="process"></a>process</h4><ul>
 <li>返回值，表示是否处理了这个注解，返回 true 则该注解被当前 processor 消耗，不再处理</li>
 </ul>
@@ -998,8 +1001,25 @@ TypeElement getTypeElement(CharSequence var1);
 <ul>
 <li>RoundEnvironment</li>
 </ul>
-<p><br></p>
-<h3 id="原生动态编译-api"><a href="#原生动态编译-api" class="headerlink" title="原生动态编译 api"></a>原生动态编译 api</h3><ul>
+<pre><code>public interface RoundEnvironment {
+
+    boolean processingOver();
+
+    //上一轮注解处理器是否产生错误
+    boolean errorRaised();
+
+    //返回上一轮注解处理器生成的根元素
+    Set&lt;? extends Element&gt; getRootElements();
+
+    //返回包含指定注解类型的元素的集合
+    Set&lt;? extends Element&gt; getElementsAnnotatedWith(TypeElement var1);
+
+    //返回包含指定注解类型的元素的集合
+    Set&lt;? extends Element&gt; getElementsAnnotatedWith(Class&lt;? extends Annotation&gt; var1);
+}
+</code></pre><p><br></p>
+<h3 id="原生动态编译-api"><a href="#原生动态编译-api" class="headerlink" title="原生动态编译 api"></a>原生动态编译 api</h3><p><strong>我们先不用 javapoet 去编写注解处理器，这里的重点在收集注解信息，网上有很多文章这部分写得虎头蛇尾，前面给你复习一堆注解的基本知识，后面要动真格了就单单生成个 hello world，看完了还是什么都不会，注解都不处理，还叫什么注解处理器？</strong></p>
+<ul>
 <li>从 Java 6 开始 Java 提供了JavaFileObject等一系列动态编译 api，说了这么多，我们现在就开始用代码生成代码</li>
 </ul>
 <ul>
@@ -1154,7 +1174,7 @@ public class TestProcessor extends AbstractProcessor {
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

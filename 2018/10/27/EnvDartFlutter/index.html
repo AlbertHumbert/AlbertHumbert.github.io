@@ -12,7 +12,7 @@
     
     <title>
         
-            Android 控件架构与自定义View | 
+            Dart &amp; Flutter 环境搭建 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Android 控件架构与自定义View | Albert&#39;s Blog">
+    <meta property="og:title" content="Dart &amp; Flutter 环境搭建 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="7月 24, 2017" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+        <meta property="article:published_time" content="10月 27, 2018" />
+        <meta property="article:modified_time" content="10月 27, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Android 控件架构与自定义View | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Dart &amp; Flutter 环境搭建 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/24/View/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "Android 控件架构与自定义View",
-    "url": "https://alberthumbert.github.io/2017/07/24/View/index.html",
-    "datePublished": "7月 24, 2017",
-    "dateModified": "11月 21, 2017",
+    "headline": "Dart & Flutter 环境搭建",
+    "url": "https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html",
+    "datePublished": "10月 27, 2018",
+    "dateModified": "10月 27, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#android-控件架构"><span class="post-toc-number">1.</span> <span class="post-toc-text">android 控件架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MeasureSpec"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">MeasureSpec</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#View的工作流程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">View的工作流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义View"><span class="post-toc-number">2.</span> <span class="post-toc-text">自定义View</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attrs-属性"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">attrs 属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#继承View"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">继承View</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#继承特定的View"><span class="post-toc-number">3.</span> <span class="post-toc-text">继承特定的View</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Flutter-SDK"><span class="post-toc-number">1.</span> <span class="post-toc-text">Flutter SDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Studio"><span class="post-toc-number">2.</span> <span class="post-toc-text">Android Studio</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#initializing-gradle"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">initializing gradle</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Could-not-resolve-com-android-tools-lint-lint-gradle-26-1-2"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Could not resolve com.android.tools.lint:lint-gradle:26.1.2.</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Dart"><span class="post-toc-number">3.</span> <span class="post-toc-text">Dart</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                Android 控件架构与自定义View
+                Dart & Flutter 环境搭建
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>7月 24, 2017</span>
+        <span>10月 27, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 控件架构与自定义View&url=https://alberthumbert.github.io/2017/07/24/View/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Dart &amp; Flutter 环境搭建&url=https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 控件架构与自定义View&url=https://alberthumbert.github.io/2017/07/24/View/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Dart &amp; Flutter 环境搭建&url=https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/24/View/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/24/View/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/24/View/index.html&title=Android 控件架构与自定义View" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html&title=Dart &amp; Flutter 环境搭建" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 控件架构与自定义View&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/24/View/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Dart &amp; Flutter 环境搭建&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/24/View/index.html&text=Android 控件架构与自定义View" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/10/27/EnvDartFlutter/index.html&text=Dart &amp; Flutter 环境搭建" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,317 +503,67 @@
     
         <p>-</p>
 <a id="more"></a>
-<h2 id="android-控件架构"><a href="#android-控件架构" class="headerlink" title="android 控件架构"></a>android 控件架构</h2><ul>
-<li>每一个Activity包含一个PhoneWindow对象，它是Window抽象类的唯一实现，PhoneWindow将DectorView作为整个窗口的根View，DectoView只含有一个LinearLayout，其中包含了两个子View，分别是TitleView和ContentView，ContentView为一个FrameLayout，onCreate方法中的setContentView就是把我们的布局添加到ContentView上</li>
+<p><strong>安装 Flutter 和 Dart 环境遇到很多坑，记录一下</strong></p>
+<p><br></p>
+<h4 id="Flutter-SDK"><a href="#Flutter-SDK" class="headerlink" title="Flutter SDK"></a>Flutter SDK</h4><ul>
+<li>下载 Flutter Sdk 并解压</li>
 </ul>
-<p><img src="http://img.mukewang.com/568b5f2d0001c42a11300576.png" alt=""></p>
-<h3 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h3><ul>
-<li>MeasureSpec是一个32位int值，高二位用来表示SpecMode，低30位用来表示SpecSize，SpecMode有三个可能的值UNSPECIFIED，EXACTLY，AT_MOST，view的大小由父布局的属性和MeasureSpec共同决定</li>
-</ul>
-<pre><code>/**
- * Measure specification mode: The parent has not imposed any constraint
- * on the child. It can be whatever size it wants.
- */
-public static final int UNSPECIFIED = 0 &lt;&lt; MODE_SHIFT;
-
-/**
- * Measure specification mode: The parent has determined an exact size
- * for the child. The child is going to be given those bounds regardless
- * of how big it wants to be.
- */
-public static final int EXACTLY     = 1 &lt;&lt; MODE_SHIFT;
-
-/**
- * Measure specification mode: The child can be as large as it wants up
- * to the specified size.
- */
-public static final int AT_MOST     = 2 &lt;&lt; MODE_SHIFT;
+<pre><code>https://flutter.io/sdk-archive/#macos
 </code></pre><ul>
-<li><p>UNSPECIFIED，view的大小不受父布局的限制，view想要多大就多大</p>
-</li>
-<li><p>EXACTLY，对应match_parent和精确数字的布局大小，是父布局测量出来的SpecSize值</p>
-</li>
-<li><p>AT_MOST，父布局指定SpecSize，view不能超过SpecSize规定的大小</p>
-</li>
+<li>添加路径</li>
 </ul>
-<h3 id="View的工作流程"><a href="#View的工作流程" class="headerlink" title="View的工作流程"></a>View的工作流程</h3><ul>
-<li><p>measure，测量View的尺寸,一个ViewGroup会遍历调用子View的测量方法，子View再递归地去执行测量，最终的到所有元素的大小</p>
-<pre><code>protected void measureChild(View child, int parentWidthMeasureSpec,
-
-...
-
-child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
-}
-</code></pre></li>
+<pre><code>export PATH=pwd/flutter/bin:$PATH
+</code></pre><ul>
+<li>执行 flutter doctor，查看需要安装的依赖，按提示安装</li>
+</ul>
+<pre><code>Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel beta, v0.9.4, on Mac OS X 10.14 18A391, locale zh-Hans-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK 27.0.3)
+[!] iOS toolchain - develop for iOS devices (Xcode 10.0)
+    ✗ CocoaPods installed but not initialized.
+        CocoaPods is used to retrieve the iOS platform side&apos;s plugin code that responds to your plugin usage on the Dart side.
+        Without resolving iOS dependencies with CocoaPods, plugins will not work on iOS.
+        For more info, see https://flutter.io/platform-plugins
+      To initialize CocoaPods, run:
+        pod setup
+      once to finalize CocoaPods&apos; installation.
+[✓] Android Studio (version 3.1)
+[✓] IntelliJ IDEA Ultimate Edition (version 2018.1)
+[✓] Connected devices (1 available)
+</code></pre><ul>
+<li>注意 osx 版本需要大于 10.11，OSX 版本 需要大于 9，系统我直接从 10.11.16 更新到了 mojave，暂时没有发现什么不兼容的地方，至于 xcode，appstore 怎么都下不下来，建议去开发者官网下载</li>
+</ul>
+<pre><code>https://developer.apple.com/xcode/
+</code></pre><ul>
+<li>插件中查找 flutter ，安装后重启可以创建 flutter project</li>
+</ul>
+<p><br></p>
+<h4 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h4><p><br></p>
+<h5 id="initializing-gradle"><a href="#initializing-gradle" class="headerlink" title="initializing gradle"></a>initializing gradle</h5><ul>
+<li>编译时永远停留在 initializing gradle，查看gradle 使用版本，很坑的是，flutter 只支持 4.5.x 的版本的 gradle，大了小了都不行，下载 gradle 时建议翻墙</li>
+</ul>
+<pre><code>distributionUrl=https\://services.gradle.org/distributions/gradle-4.5.1-all.zip
+</code></pre><p><br></p>
+<h5 id="Could-not-resolve-com-android-tools-lint-lint-gradle-26-1-2"><a href="#Could-not-resolve-com-android-tools-lint-lint-gradle-26-1-2" class="headerlink" title="Could not resolve com.android.tools.lint:lint-gradle:26.1.2."></a>Could not resolve com.android.tools.lint:lint-gradle:26.1.2.</h5><ul>
+<li>这依赖在 google 仓库里翻墙都下不了，然后 gradle 会自动去 jcenter 上下载，jcenter 上只有25及以下的版本导致 404。GFW 真的牛逼。参考<a href="https://www.jianshu.com/p/2178ed233361" target="_blank" rel="external">这里</a>将镜像改为阿里云的就可以了</li>
+</ul>
+<p><br></p>
+<h4 id="Dart"><a href="#Dart" class="headerlink" title="Dart"></a>Dart</h4><ul>
+<li>在 idea 或者 webstorm 中编写 dart，可以像 AS 一样添加 dart 插件</li>
 </ul>
 <ul>
-<li>layout，确定子View的位置，layout()会确定View本身的位置而onLayout会确定所有子View的位置，和measure的逻辑类似。onLayout，方法由具体的布局去实现，所有ViewGroup的子类都必须去重写这个方法。在layout中可以发现view的位置由四种属性构成，它们分别表示view相对于父布局的位置，left是左上角的横坐标，top是左上角的纵坐标，right是右下角的横坐标，bottom是右下角的纵坐标，x和y轴的的正方向为右和下</li>
+<li>dart sdk，使用 homebrew 可以下载，但我怎么都下不了</li>
 </ul>
-<pre><code>* @param l Left position, relative to parent
-* @param t Top position, relative to parent
-* @param r Right position, relative to parent
-* @param b Bottom position, relative to parent
-
-int oldL = mLeft;
-int oldT = mTop;
-int oldB = mBottom;
-int oldR = mRight;
-boolean changed = setFrame(l, t, r, b);  
+<pre><code>$ brew tap dart-lang/dart
+$ brew install dart
 </code></pre><ul>
-<li>draw，view的绘制 ，主要包括绘制背景，View本身，子View，装饰四个步骤，其中dispatchDraw用于遍历所有子View并绘制</li>
+<li>最后直接用了 flutter 的 dart sdk，flutter的dart版本是 dev 的最新版本，目前是 2.1 的，也就是高于 dart 的稳定版本 2.0，位置如下</li>
 </ul>
-<pre><code>/*
-    * Draw traversal performs several drawing steps which must be executed
-    * in the appropriate order:
-    *
-    *      1. Draw the background
-    *      2. If necessary, save the canvas&apos; layers to prepare for fading
-    *      3. Draw view&apos;s content
-    *      4. Draw children
-    *      5. If necessary, draw the fading edges and restore layers
-    *      6. Draw decorations (scrollbars for instance)
-    *   /
-
-// Step 1, draw the background, if needed
-int saveCount;
-if (!dirtyOpaque) {
-    drawBackground(canvas);
-}
-
-// skip step 2 &amp; 5 if possible (common case)
-final int viewFlags = mViewFlags;
-boolean horizontalEdges = (viewFlags &amp; FADING_EDGE_HORIZONTAL) != 0;
-boolean verticalEdges = (viewFlags &amp; FADING_EDGE_VERTICAL) != 0;
-if (!verticalEdges &amp;&amp; !horizontalEdges) {
-
-    // Step 3, draw the content
-    if (!dirtyOpaque) onDraw(canvas);
-
-    // Step 4, draw the children
-    dispatchDraw(canvas);
-
-    // Overlay is part of the content and draws beneath Foreground
-    if (mOverlay != null &amp;&amp; !mOverlay.isEmpty()) {
-        mOverlay.getOverlayView().dispatchDraw(canvas);
-    }
-
-    // Step 6, draw decorations (foreground, scrollbars)
-    onDrawForeground(canvas);
+<pre><code>/Users/alberthumbert/flutter/bin/cache/dart-sdk
 </code></pre><ul>
-<li>自定义布局，需要实现onMeasure方法和onLayout方法，在onMeasure方法中需要测量出子View的大小，在onLayout中可以通过子View的getMeasuredWidth方法和getMeasuredHeighet方法得到在onMeasure中测量出来的大小。调用子View的layout方法我们可以设定它在这个父布局中的位置，注意如果四个点之间的相对位置和原来子View不同，它就会被拉伸</li>
+<li>2.1 和 2.0 的区别我就不太清楚了，不过最要命的其实是现在所有教程基本都是基于 1.0 的，The Dart Programming Language 都可以用来考古了，建议直接学习官网上的<a href="https://www.dartlang.org/guides/get-started" target="_blank" rel="external">tour</a></li>
 </ul>
-<pre><code>public class MyLayout extends ViewGroup {
-
-public MyLayout(Context context, AttributeSet attrs) {
-    super(context, attrs);
-}
-
-@Override
-protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(getChildCount()&gt;0){
-        View child = getChildAt(0);
-        measureChild(child,widthMeasureSpec,heightMeasureSpec);
-    }
-}
-
-@Override
-protected void onLayout(boolean changed, int l, int t, int r, int b) {
-
-    if(getChildCount()&gt;0){
-        View child = getChildAt(0);
-        child.layout(0,0,child.getMeasuredWidth(),child.getMeasuredHeight());
-    }
-}
-}
-</code></pre><ul>
-<li>重写onDraw，通过Paint和Canvas对象绘制图像，在onLayout方法执行之后可以通过getWidth方法和getHeigh方法得到View的实际显示的宽和高</li>
-</ul>
-<pre><code>@Override
-protected void onDraw(Canvas canvas){
-
-mPaint.setColor(Color.GREEN);
-canvas.drawRect(0,0,getWidth(),getHeight(),mPaint);
-
-mPaint.setColor(Color.YELLOW);
-canvas.drawOval(20,20,getWidth()/2,getHeight()/2,mPaint);
-
-}
-</code></pre><h2 id="自定义View"><a href="#自定义View" class="headerlink" title="自定义View"></a>自定义View</h2><h3 id="attrs-属性"><a href="#attrs-属性" class="headerlink" title="attrs 属性"></a>attrs 属性</h3><ul>
-<li>当使用控件时我们可以设定系统提供的layout_width等属性值，为了能够使用自定义的属性，需要在values文件中加入attrs.xml文件</li>
-</ul>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;resources&gt;
-    &lt;declare-styleable name=&quot;test_attrs&quot;&gt;
-        &lt;attr name=&quot;myColor&quot; format=&quot;color&quot;/&gt;
-        &lt;attr name=&quot;mySize&quot; format=&quot;dimension&quot;/&gt;
-        &lt;attr name=&quot;myFlag&quot; format=&quot;boolean&quot;/&gt;
-    &lt;/declare-styleable&gt;
-&lt;/resources&gt;    
-</code></pre><ul>
-<li>在布局文件中声明名称空间</li>
-</ul>
-<pre><code>xmlns:test_view = &quot;http://schemas.android.com/apk/res-auto&quot;
-</code></pre><ul>
-<li>在控件属性中设置变量值，注意名称空间不需要与attrs中的name属性相同，但是变量的名称一定要能够与attrs中的匹配</li>
-</ul>
-<pre><code>&lt;com.linjiamin.viewtest.MyView
-    android:layout_width=&quot;200dp&quot;
-    android:layout_height=&quot;200dp&quot;
-    test_view:myColor=&quot;#000000&quot;&gt;
-</code></pre><ul>
-<li><p>在java文件中，使用context的obtainStyledAttributes方法获取TypedArray对象，再将属性值在typedArray当中取出，注意typedArray对象使用完之后必须回收</p>
-<pre><code>    public MyView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mContext = context;
-        TypedArray typedArray = mContext.obtainStyledAttributes(attrs,R.styleable.test_attrs2);
-    mColor = typedArray.getColor(R.styleable.test_attrs2_myColor2,Color.BLUE);
-    typedArray.recycle();
-}
-</code></pre></li>
-</ul>
-<h3 id="继承View"><a href="#继承View" class="headerlink" title="继承View"></a>继承View</h3><ul>
-<li>重写构造方法，获取XML中的属性值</li>
-</ul>
-<pre><code>public MyTextView(Context context, @Nullable AttributeSet attrs) {
-super(context, attrs);
-TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.my_text_view);
-mColor = typedArray.getColor(R.styleable.my_text_view_text_color, Color.BLUE);
-mbackColor = typedArray.getInteger(R.styleable.my_text_view_background_color,Color.BLUE);
-mSize = typedArray.getInteger(R.styleable.my_text_view_text_size,10);
-mContent = typedArray.getString(R.styleable.my_text_view_text_content);
-mPaint = new Paint();
-mPaint.setTextSize(mSize);
-typedArray.recycle();
-
-}
-</code></pre><ul>
-<li><p>重写onMeasure，当长宽属性为wrap_content及AT_MOST时，我们需要自己实现测量的逻辑</p>
-<pre><code>@Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-    int heigeht = MeasureSpec.getSize(heightMeasureSpec);
-
-if(widthMode == MeasureSpec.AT_MOST){
-
-    mPaint.setTextSize(mSize);
-    mPaint.getTextBounds(mContent,0,mContent.length(),mBound);
-    width = getPaddingLeft()+ getPaddingEnd() +mBound.width();
-
-}
-
-if(heightMode == MeasureSpec.AT_MOST){
-
-    mPaint.setTextSize(mSize);
-    mPaint.getTextBounds(mContent,0,mContent.length(),mBound);
-    heigeht = getPaddingTop()+ getPaddingBottom() +mBound.height();
-}
-
-setMeasuredDimension(width,heigeht);
-</code></pre><p>  }</p>
-</li>
-<li>重写onDraw，使canvas和paint对象绘制<br>  @Override<br>  protected void onDraw(Canvas canvas) {<pre><code>mPaint.setColor(mbackColor);
-canvas.drawRect(0,0,getWidth(),getHeight(),mPaint);
-mPaint.setColor(mColor);
-canvas.drawText(mContent,getWidth()/2-mBound.width()/2,getHeight()/2,mPaint);
-}
-</code></pre>  }</li>
-</ul>
-<h2 id="继承特定的View"><a href="#继承特定的View" class="headerlink" title="继承特定的View"></a>继承特定的View</h2><ul>
-<li><p>我们想为已有的View类添加新特性的时候，可以继承这个view类，下面实现一个右上角带有选择框的ImageView</p>
-<pre><code>private boolean checked = false;
-private Bitmap mCheckedImage;
-private Bitmap mUncheckImage;
-private Paint mPaint;
-private Rect mRect;
-private static final String TAG = &quot;CheckableImageView&quot;;
-
-public CheckableImageView(Context context, AttributeSet attrs) {
-super(context, attrs);
-
-mCheckedImage = BitmapFactory.decodeResource(getResources(),R.drawable.checked);
-mUncheckImage = BitmapFactory.decodeResource(getResources(),R.drawable.uncheck);
-
-mPaint = new Paint();
-mRect = new Rect();
-}
-</code></pre></li>
-<li><p>在onDraw方法中添加需要绘制的内容，其余操作交回给父类去处理</p>
-<pre><code>public void onDraw(Canvas canvas){
-
-super.onDraw(canvas);
-mRect.left = getWidth()-mUncheckImage.getWidth();
-mRect.right = getWidth();
-mRect.top = 0;
-mRect.bottom = mUncheckImage.getHeight();
-
-if(checked)
-    canvas.drawBitmap(mCheckedImage,null, mRect, mPaint);
-
-else canvas.drawBitmap(mUncheckImage,null, mRect, mPaint);
-}
-</code></pre></li>
-<li><p>处理点击事件，注意最好不要直接使用setOnClickListener方法，而是在onTouchEvent中处理点击事件，需要调用父类的方法并返回true，返回false时onTouchEvent中的操作不会执行</p>
-<pre><code>@Override
-public boolean onTouchEvent(MotionEvent event) {
-
-int action = event.getAction();
-
-super.onTouchEvent(event);
-switch (action) {
-
-    case MotionEvent.ACTION_DOWN:
-        break;
-    case MotionEvent.ACTION_MOVE:
-        break;
-    case MotionEvent.ACTION_UP:
-
-        checked = !checked;
-        invalidate();
-        Log.d(TAG, &quot;onTouchEvent: &quot;);
-
-        break;
-    }
-return true;
-}
-</code></pre></li>
-<li><p>另外还可以创建一个listener,并提供一个set方法，在onTouchEvent中调用listener的方法</p>
-<pre><code>private OnCheckListener listener;
-
-    public CheckableImageView(Context context, AttributeSet attrs) {
-super(context, attrs);
-
-...
-
-setOnCheckedListener(new OnCheckListener() {
-    @Override
-    public void onCheck() {
-        Log.d(TAG, &quot;onCheck: &quot;);
-    }
-}); 
-}
-
-public interface OnCheckListener{
-void onCheck();
-}
-</code></pre></li>
-</ul>
-<ul>
-<li><p>最后像原本的view一样去使用它即可</p>
-<pre><code>&lt;com.linjiamin.CheckableImageView
- android:id=&quot;@+id/item_image&quot;
- android:layout_alignParentEnd=&quot;true&quot;
- android:layout_width=&quot;100dp&quot;
- android:layout_height=&quot;100dp&quot;
- android:padding=&quot;8dp&quot;
- android:contentDescription=&quot;@string/desc&quot;/&gt;
-</code></pre></li>
-<li><p><img src="http://i2.kiimg.com/1949/599504b74c0fd397.png" alt=""></p>
-</li>
-</ul>
+<p><br><br><strong>完</strong></p>
 
     
 
@@ -833,21 +583,13 @@ void onCheck();
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/07/25/Animation/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/07/20/Pattern/" id="post_nav-older" class="next-content">
+        <a href="/2018/10/23/OSGdt/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
