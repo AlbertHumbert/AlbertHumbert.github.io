@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-10-27T07:33:23.116Z</updated>
+  <updated>2018-10-30T15:56:35.338Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入计算机网络系列 2 - 数据链路层</title>
+    <link href="https://alberthumbert.github.io/2018/10/31/NetEthernet/"/>
+    <id>https://alberthumbert.github.io/2018/10/31/NetEthernet/</id>
+    <published>2018-10-31T03:40:52.000Z</published>
+    <updated>2018-10-30T15:56:35.338Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入计算机网络  1 - 模型 &amp; 互连</title>
+    <link href="https://alberthumbert.github.io/2018/10/30/NetLayer/"/>
+    <id>https://alberthumbert.github.io/2018/10/30/NetLayer/</id>
+    <published>2018-10-30T14:10:27.000Z</published>
+    <updated>2018-10-30T15:55:54.801Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Dart &amp; Flutter 环境搭建</title>
@@ -40,7 +80,7 @@
     <link href="https://alberthumbert.github.io/2018/10/25/LangDart/"/>
     <id>https://alberthumbert.github.io/2018/10/25/LangDart/</id>
     <published>2018-10-25T14:15:24.000Z</published>
-    <updated>2018-10-29T12:27:01.418Z</updated>
+    <updated>2018-10-30T14:01:52.792Z</updated>
     
     <summary type="html">
     
@@ -102,26 +142,6 @@
     <id>https://alberthumbert.github.io/2018/10/19/JVMClassFile/</id>
     <published>2018-10-18T16:33:35.000Z</published>
     <updated>2018-10-19T03:02:32.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入计算机网络系列 1 - 数据链路层</title>
-    <link href="https://alberthumbert.github.io/2018/10/18/NetEthernet/"/>
-    <id>https://alberthumbert.github.io/2018/10/18/NetEthernet/</id>
-    <published>2018-10-18T03:40:52.000Z</published>
-    <updated>2018-10-22T16:44:38.000Z</updated>
     
     <summary type="html">
     
@@ -383,33 +403,13 @@
     <link href="https://alberthumbert.github.io/2018/09/05/net-0/"/>
     <id>https://alberthumbert.github.io/2018/09/05/net-0/</id>
     <published>2018-09-05T14:30:15.000Z</published>
-    <updated>2018-10-18T15:24:40.000Z</updated>
+    <updated>2018-10-30T15:58:57.330Z</updated>
     
     <summary type="html">
     
       &lt;ul&gt;
 &lt;li&gt;假装深入&lt;/li&gt;
 &lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入 Java 并发 系列</title>
-    <link href="https://alberthumbert.github.io/2018/09/05/concurrent/"/>
-    <id>https://alberthumbert.github.io/2018/09/05/concurrent/</id>
-    <published>2018-09-05T14:30:00.000Z</published>
-    <updated>2018-09-22T15:30:42.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
     
     </summary>
     

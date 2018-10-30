@@ -3,6 +3,303 @@
   
     
     <entry>
+      <title><![CDATA[深入计算机网络系列 2 - 数据链路层]]></title>
+      <url>/2018/10/31/NetEthernet/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h3><p><br></p>
+<h4 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h4><ul>
+<li><p>以太网(Ethernet)指的是由Xerox公司创建的局域网规范，IEEE 将其稍微修改定义了 802.3 标准，我们现在指以太网帧大多数是指 802.3 帧</p>
+</li>
+<li><p>早期以太网包含一个或多个站，多个站共享电缆段，使用 CSMA/CD 解决冲突</p>
+</li>
+<li><p>目前基于竞争的以太网不再流行，每个站用一条专用线路连接到交换机端口，不再需要 CSMA/CD 协议</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h4><table>
+<thead>
+<tr>
+<th>长度</th>
+<th>字段</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>前导码</td>
+<td>同步</td>
+</tr>
+<tr>
+<td>1</td>
+<td>帧开始符 SFD</td>
+<td>恢复时钟并表示下1字节为MAC字段</td>
+</tr>
+<tr>
+<td>6</td>
+<td>目的 MAC</td>
+<td>指明帧的接受者</td>
+</tr>
+<tr>
+<td>6</td>
+<td>源 MAC</td>
+<td>指明帧的发送者</td>
+</tr>
+<tr>
+<td>2</td>
+<td>长度 Length</td>
+<td>帧的数据字段的长度或类型</td>
+</tr>
+<tr>
+<td>2</td>
+<td>类型 Type</td>
+<td>帧中数据的协议长度或类型</td>
+</tr>
+<tr>
+<td>46-1500</td>
+<td>数据和填充 Data and Pad</td>
+<td>高层的数据，通常为3层协议数据单元。对于TCP/IP是IP数据包</td>
+</tr>
+<tr>
+<td>4</td>
+<td>校验序列 FCS</td>
+<td>CRC 校验</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="帧大小"><a href="#帧大小" class="headerlink" title="帧大小"></a>帧大小</h4><ul>
+<li>最小帧 64 字节，有效载荷最小为 48 字节，保证 CSMA/CD 能探测冲突</li>
+</ul>
+<ul>
+<li>最大帧 1518 字节,避免错误重发时的损耗</li>
+</ul>
+<ul>
+<li>非标准扩展中的以太网巨型帧大小可以远远超于 1518 字节</li>
+</ul>
+<p><br></p>
+<h4 id="VLAN-及-QoS"><a href="#VLAN-及-QoS" class="headerlink" title="VLAN 及 QoS"></a>VLAN 及 QoS</h4><p><strong>避免组播和广播流量盲目消耗带宽，可以使用 VLAN 进行流量分隔</strong></p>
+<ul>
+<li>VLAN 映射包括使用交换机的物理端口分配或将主机的 mac 地址分配到特定VLAN</li>
+</ul>
+<ul>
+<li>不同 VLAN 的主机连接同一交换机时，交换机保证流量不互相泄漏</li>
+</ul>
+<ul>
+<li>不同 VLAN 的主机跨越多个交换机时，交换机负责用 VLAN 标记和确定帧的归属</li>
+</ul>
+<ul>
+<li>以太网帧中的QoS字段用 3 有效位定义了 8 个优先级，但优先级的实现并没有定义</li>
+</ul>
+<p><br></p>
+<h4 id="链路聚合"><a href="#链路聚合" class="headerlink" title="链路聚合"></a>链路聚合</h4><p><strong>对于拥有多个网络接口的系统，链路聚合使多个接口被视为一个</strong></p>
+<ul>
+<li><p>多个链路聚合可以提供更高的带宽，成本比高速的接口更便宜</p>
+</li>
+<li><p>LACP协议用于避免手工配置链路聚合的建立工作，LACP 协议使用特定的 802 帧</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="网桥-交换机"><a href="#网桥-交换机" class="headerlink" title="网桥/交换机"></a>网桥/交换机</h3><p><strong>网桥或交换机用于连接多个物理的链路层网络，交换机本质上是高性能的网桥</strong></p>
+<p><br></p>
+<h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><ul>
+<li><p>交换机互联形成扩展的局域网，其中包括交换机在内的每个节点都有自己的 mac 地址</p>
+</li>
+<li><p>交换机通过“学习”建立端口列表（过滤数据库），即将帧的源地址和对应的端口添加到表中</p>
+</li>
+<li><p>每学习一个地址后，网桥启动一个计时器（通常为5分钟），在有效期内没有再次看见该地址，就将其删除</p>
+</li>
+<li><p>每次接收到目的地不是自己的帧时，交换机为所有的端口发送帧的备份</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="使用-pc-作为交换机"><a href="#使用-pc-作为交换机" class="headerlink" title="使用 pc 作为交换机"></a>使用 pc 作为交换机</h4><ul>
+<li>多数操作系统支持网络接口之间的网桥功能，这意味着有多个接口的计算机可以用作网桥</li>
+</ul>
+<ul>
+<li>在 Linux 上安装 bridge-utils，可以使用如下命令将 pc 作为网桥</li>
+</ul>
+<pre><code>brctl addbr br0 # 创建网桥
+brctl addif br0 eth0 # 为网桥增加接口 eth0
+brctl addif br0 eth1 # 为网桥增加接口 eth1
+ifconfig eth0 up # 启动 eth0
+ifconfig eth1 up  # 启动 eth1
+ifconfig br0 up  # 启动 br0
+</code></pre><p><br></p>
+<h4 id="生成树协议"><a href="#生成树协议" class="headerlink" title="生成树协议"></a>生成树协议</h4><p><strong>网桥与其他网桥共同运行时可能存在级联关系导致帧循环</strong></p>
+<p><br></p>
+<h5 id="STP"><a href="#STP" class="headerlink" title="STP"></a>STP</h5><ul>
+<li>STP (生成树) 协议使用分布式的算法在多个网桥之间建立成本最低的生成树，在新的标准中已经被 RSTP (快速生成树) 协议替代</li>
+</ul>
+<ul>
+<li>STP 实现原理是：在每个网桥禁用一些端口，以及根据链路速度计算到根网桥的最小成本</li>
+</ul>
+<p><br></p>
+<h5 id="BPDU"><a href="#BPDU" class="headerlink" title="BPDU"></a>BPDU</h5><ul>
+<li>BPDU(网桥协议数据单元) 是 STP用来形成和维护生成树的帧</li>
+</ul>
+<ul>
+<li>网桥端口有 5 种状态</li>
+</ul>
+<pre><code>阻塞：不学习，不转发数据，接受 BPDU
+侦听：不学习，不转发数据，收发 BPDU
+学习：学习，不转发数据，收发 BPDU
+转发：学习，转发数据，收发 BPDU
+禁用：不学习，不转发数据，不收发 BPDU
+</code></pre><ul>
+<li>状态转换过程，注意所有初始化外的状态都可以转为禁用</li>
+</ul>
+<pre><code>初始化
+ |
+ |\&lt;--------------------------------------------|
+ V    最大时间 20s             转发延迟 15s     |
+阻塞 ---------------\&gt; 监听 ------------------\&gt; 学习
+ A                                              |
+ |                                              |  转发延迟 15s
+ |      拓扑改变                 拓扑改变          |  
+ |\&lt;------------------ 转发 \&lt;---------------------|
+                   --&gt;禁用
+</code></pre><ul>
+<li>端口有四种常见角色</li>
+</ul>
+<pre><code>根端口：指向根的线段的终点的端口
+指定端口：用于转发状态并与根相连的线段中路径成本最小的端口
+备用端口: 比指定端口成本高的端口
+备份端口：连接到同一线段作为同一网桥指定端口使用的端口
+</code></pre><ul>
+<li>BPDU 帧结构</li>
+</ul>
+<p><br></p>
+<h5 id="建立生成树"><a href="#建立生成树" class="headerlink" title="建立生成树"></a>建立生成树</h5><p><strong>未完待续</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[深入计算机网络  1 - 模型 & 互连]]></title>
+      <url>/2018/10/30/NetLayer/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="分层模型"><a href="#分层模型" class="headerlink" title="分层模型"></a>分层模型</h3><p><br></p>
+<h4 id="OSI-模型"><a href="#OSI-模型" class="headerlink" title="OSI 模型"></a>OSI 模型</h4><p><strong>由国际标准化组织 ISO 定义的开放系统互联标准 OSI 包含七层，OSI模型并未取得最终胜利，但一些思想和部分协议被 TCP/IP 吸收</strong></p>
+<ul>
+<li><p>应用层，由应用开发者实现，如 FTP，Skype</p>
+</li>
+<li><p>表示层，针对应用层的数据表示格式和转换规则的方法，如 EBCDIC 转 ASCII </p>
+</li>
+<li><p>会话层，由多个链接组成一个通信会话的方法，可能包括关闭链接，重启链接和检查点进度</p>
+</li>
+<li><p>传输层，运行在相同计算机系统的多个程序之间链接或关联的方法，如果其他地方没有实现，本层可以实现可靠投递，如 TCP，ISO TP4(等价于TCP)</p>
+</li>
+<li><p>网络层，指定经过潜在的不同类型链路层网络的多跳通信方法，对于分组网络，它描述了抽象的分组格式和标准的编址结构(如IP数据报)</p>
+</li>
+<li><p>链路层，指定经过单一链路的方法，包括多个系统共享同一介质时，“介质访问”控制协议。本层通常包括差错检测和链路层地址格式（如以太网，wifi）</p>
+</li>
+<li><p>物理层，指定连接器，数据率如何在某些介质上进行位编码。也包括底层的差错检测和纠正，频率分配</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="TCP-IP-模型"><a href="#TCP-IP-模型" class="headerlink" title="TCP/IP 模型"></a>TCP/IP 模型</h4><p><strong>TCP/IP 模型源于 ARPANET参考模型的分层</strong></p>
+<ul>
+<li>应用层，实际上是Internet兼容的任何应用，包括 http，dns，dhcp</li>
+</ul>
+<ul>
+<li>传输层，端到端传输，包括差错和流量控制，如 TCP，UDP，SCTP，DCCP</li>
+</ul>
+<ul>
+<li>网络层（辅助），协助完成网络层设置，管理和安全的非正式层，如 ICMP，IGMP，IPsec</li>
+</ul>
+<ul>
+<li>网络层，定义抽象的数据报和提供路由，如 IP，IPv6</li>
+</ul>
+<ul>
+<li>链路层（辅助），用于网络层到基于多接入链路层网络的链路层的地址映射的非正式的层</li>
+</ul>
+<p><br></p>
+<h4 id="五层体系结构"><a href="#五层体系结构" class="headerlink" title="五层体系结构"></a>五层体系结构</h4><p><strong>五层协议只是OSI和TCP/IP的综合，实际应用还是TCP/IP的四层结构</strong></p>
+<ul>
+<li><p>应用层</p>
+</li>
+<li><p>运输层</p>
+</li>
+<li><p>网络层</p>
+</li>
+<li><p>数据链路层</p>
+</li>
+<li><p>物理层</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="应用模型"><a href="#应用模型" class="headerlink" title="应用模型"></a>应用模型</h3><ul>
+<li>对等网模式，拓扑结构为总线型或星型，不一定需要专门的服务器和网络操作系统</li>
+</ul>
+<ul>
+<li>文件服务器模式 ，早期局域网主流系统结构之一，将若干台计算机与一台或多台文件服务器通过通信线路和网络操作系统连接起来</li>
+</ul>
+<ul>
+<li>客户机服务器模式</li>
+</ul>
+<ul>
+<li>浏览器服务器模式</li>
+</ul>
+<p><br></p>
+<h3 id="网络互连设备"><a href="#网络互连设备" class="headerlink" title="网络互连设备"></a>网络互连设备</h3><p><br></p>
+<h4 id="中继器"><a href="#中继器" class="headerlink" title="中继器"></a>中继器</h4><p><strong> 工作在物理层，主要作用是信号的再生放大 </strong></p>
+<ul>
+<li><p>过滤电磁干扰和射频干扰引起的信号干扰或噪声</p>
+</li>
+<li><p>放大和修整进入的信号，使重新传输更精确</p>
+</li>
+<li><p>对信号重定时</p>
+</li>
+<li><p>在所有网段上复制信号</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="集线器（hub）"><a href="#集线器（hub）" class="headerlink" title="集线器（hub）"></a>集线器（hub）</h4><p><strong> 工作在物理层，主要作用还是信号放大和中转，不具备自动转发和自动寻址的功能 </strong></p>
+<ul>
+<li>10base-T hub 可以层层级联扩充网络，但没级联一层带宽会相对降低，堆叠式的 hub 可以不减低带宽的情况下扩充网络</li>
+</ul>
+<p><br></p>
+<h4 id="网桥"><a href="#网桥" class="headerlink" title="网桥"></a>网桥</h4><p><strong>工作在数据链路层，链接两个局域网进行存储转发</strong></p>
+<p><br></p>
+<h4 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h4><p><strong>工作在数据链路层，是高级的网桥</strong></p>
+<p><br></p>
+<h4 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h4><p><strong>工作在网络层，用于连接各局域网、广域网</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Dart & Flutter 环境搭建]]></title>
       <url>/2018/10/27/EnvDartFlutter/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -812,6 +1109,7 @@ assert(2 &lt;= 3);
 </code></pre><ul>
 <li>使用 as 可以简化上面的操作</li>
 </ul>
+<p>#### </p>
 ]]></content>
       
         <categories>
@@ -1558,195 +1856,6 @@ cp_info {
        u1 info[attribute_length];
 }
 </code></pre><p><strong>未完待续</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[深入计算机网络系列 1 - 数据链路层]]></title>
-      <url>/2018/10/18/NetEthernet/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h3 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h3><p><br></p>
-<h4 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h4><ul>
-<li><p>以太网(Ethernet)指的是由Xerox公司创建的局域网规范，IEEE 将其稍微修改定义了 802.3 标准，我们现在指以太网帧大多数是指 802.3 帧</p>
-</li>
-<li><p>早期以太网包含一个或多个站，多个站共享电缆段，使用 CSMA/CD 解决冲突</p>
-</li>
-<li><p>目前基于竞争的以太网不再流行，每个站用一条专用线路连接到交换机端口，不再需要 CSMA/CD 协议</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h4><table>
-<thead>
-<tr>
-<th>长度</th>
-<th>字段</th>
-<th>目的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>7</td>
-<td>前导码</td>
-<td>同步</td>
-</tr>
-<tr>
-<td>1</td>
-<td>帧开始符 SFD</td>
-<td>恢复时钟并表示下1字节为MAC字段</td>
-</tr>
-<tr>
-<td>6</td>
-<td>目的 MAC</td>
-<td>指明帧的接受者</td>
-</tr>
-<tr>
-<td>6</td>
-<td>源 MAC</td>
-<td>指明帧的发送者</td>
-</tr>
-<tr>
-<td>2</td>
-<td>长度 Length</td>
-<td>帧的数据字段的长度或类型</td>
-</tr>
-<tr>
-<td>2</td>
-<td>类型 Type</td>
-<td>帧中数据的协议长度或类型</td>
-</tr>
-<tr>
-<td>46-1500</td>
-<td>数据和填充 Data and Pad</td>
-<td>高层的数据，通常为3层协议数据单元。对于TCP/IP是IP数据包</td>
-</tr>
-<tr>
-<td>4</td>
-<td>校验序列 FCS</td>
-<td>CRC 校验</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h4 id="帧大小"><a href="#帧大小" class="headerlink" title="帧大小"></a>帧大小</h4><ul>
-<li>最小帧 64 字节，有效载荷最小为 48 字节，保证 CSMA/CD 能探测冲突</li>
-</ul>
-<ul>
-<li>最大帧 1518 字节,避免错误重发时的损耗</li>
-</ul>
-<ul>
-<li>非标准扩展中的以太网巨型帧大小可以远远超于 1518 字节</li>
-</ul>
-<p><br></p>
-<h4 id="VLAN-及-QoS"><a href="#VLAN-及-QoS" class="headerlink" title="VLAN 及 QoS"></a>VLAN 及 QoS</h4><p><strong>避免组播和广播流量盲目消耗带宽，可以使用 VLAN 进行流量分隔</strong></p>
-<ul>
-<li>VLAN 映射包括使用交换机的物理端口分配或将主机的 mac 地址分配到特定VLAN</li>
-</ul>
-<ul>
-<li>不同 VLAN 的主机连接同一交换机时，交换机保证流量不互相泄漏</li>
-</ul>
-<ul>
-<li>不同 VLAN 的主机跨越多个交换机时，交换机负责用 VLAN 标记和确定帧的归属</li>
-</ul>
-<ul>
-<li>以太网帧中的QoS字段用 3 有效位定义了 8 个优先级，但优先级的实现并没有定义</li>
-</ul>
-<p><br></p>
-<h4 id="链路聚合"><a href="#链路聚合" class="headerlink" title="链路聚合"></a>链路聚合</h4><p><strong>对于拥有多个网络接口的系统，链路聚合使多个接口被视为一个</strong></p>
-<ul>
-<li><p>多个链路聚合可以提供更高的带宽，成本比高速的接口更便宜</p>
-</li>
-<li><p>LACP协议用于避免手工配置链路聚合的建立工作，LACP 协议使用特定的 802 帧</p>
-</li>
-</ul>
-<p><br></p>
-<h3 id="网桥-交换机"><a href="#网桥-交换机" class="headerlink" title="网桥/交换机"></a>网桥/交换机</h3><p><strong>网桥或交换机用于连接多个物理的链路层网络，交换机本质上是高性能的网桥</strong></p>
-<p><br></p>
-<h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><ul>
-<li><p>交换机互联形成扩展的局域网，其中包括交换机在内的每个节点都有自己的 mac 地址</p>
-</li>
-<li><p>交换机通过“学习”建立端口列表（过滤数据库），即将帧的源地址和对应的端口添加到表中</p>
-</li>
-<li><p>每学习一个地址后，网桥启动一个计时器（通常为5分钟），在有效期内没有再次看见该地址，就将其删除</p>
-</li>
-<li><p>每次接收到目的地不是自己的帧时，交换机为所有的端口发送帧的备份</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="使用-pc-作为交换机"><a href="#使用-pc-作为交换机" class="headerlink" title="使用 pc 作为交换机"></a>使用 pc 作为交换机</h4><ul>
-<li>多数操作系统支持网络接口之间的网桥功能，这意味着有多个接口的计算机可以用作网桥</li>
-</ul>
-<ul>
-<li>在 Linux 上安装 bridge-utils，可以使用如下命令将 pc 作为网桥</li>
-</ul>
-<pre><code>brctl addbr br0 # 创建网桥
-brctl addif br0 eth0 # 为网桥增加接口 eth0
-brctl addif br0 eth1 # 为网桥增加接口 eth1
-ifconfig eth0 up # 启动 eth0
-ifconfig eth1 up  # 启动 eth1
-ifconfig br0 up  # 启动 br0
-</code></pre><p><br></p>
-<h4 id="生成树协议"><a href="#生成树协议" class="headerlink" title="生成树协议"></a>生成树协议</h4><p><strong>网桥与其他网桥共同运行时可能存在级联关系导致帧循环</strong></p>
-<p><br></p>
-<h5 id="STP"><a href="#STP" class="headerlink" title="STP"></a>STP</h5><ul>
-<li>STP (生成树) 协议使用分布式的算法在多个网桥之间建立成本最低的生成树，在新的标准中已经被 RSTP (快速生成树) 协议替代</li>
-</ul>
-<ul>
-<li>STP 实现原理是：在每个网桥禁用一些端口，以及根据链路速度计算到根网桥的最小成本</li>
-</ul>
-<p><br></p>
-<h5 id="BPDU"><a href="#BPDU" class="headerlink" title="BPDU"></a>BPDU</h5><ul>
-<li>BPDU(网桥协议数据单元) 是 STP用来形成和维护生成树的帧</li>
-</ul>
-<ul>
-<li>网桥端口有 5 种状态</li>
-</ul>
-<pre><code>阻塞：不学习，不转发数据，接受 BPDU
-侦听：不学习，不转发数据，收发 BPDU
-学习：学习，不转发数据，收发 BPDU
-转发：学习，转发数据，收发 BPDU
-禁用：不学习，不转发数据，不收发 BPDU
-</code></pre><ul>
-<li>状态转换过程，注意所有初始化外的状态都可以转为禁用</li>
-</ul>
-<pre><code>初始化
- |
- |&lt;--------------------------------------------|
- V      最大时间 20s             转发延迟 15s     |
-阻塞 ---------------&gt; 监听 ------------------&gt; 学习
- A                                              |
- |                                              |  转发延迟 15s
- |      拓扑改变                 拓扑改变          |  
- |&lt;------------------ 转发 &lt;---------------------|
-
-                   --&gt;禁用
-</code></pre><ul>
-<li>端口有四种常见角色</li>
-</ul>
-<pre><code>根端口：指向根的线段的终点的端口
-指定端口：用于转发状态并与根相连的线段中路径成本最小的端口
-备用端口: 比指定端口成本高的端口
-备份端口：连接到同一线段作为同一网桥指定端口使用的端口
-</code></pre><ul>
-<li>BPDU 帧结构</li>
-</ul>
-<p><br></p>
-<h5 id="建立生成树"><a href="#建立生成树" class="headerlink" title="建立生成树"></a>建立生成树</h5><p><strong>未完待续</strong></p>
 ]]></content>
       
         <categories>
@@ -3693,8 +3802,9 @@ $ make
 <li>假装深入</li>
 </ul>
 <a id="more"></a>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p><strong><a href="http://tocreate.app/2018/10/30/NetLayer" target="_blank" rel="external">详见</a></strong></p>
 <p><br></p>
-<h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p><strong><a href="http://tocreate.app/2018/10/18/NetEthernet" target="_blank" rel="external">详见</a></strong></p>
+<h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p><strong><a href="http://tocreate.app/2018/10/31/NetEthernet" target="_blank" rel="external">详见</a></strong></p>
 ]]></content>
       
         <categories>
