@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-02T08:33:17.106Z</updated>
+  <updated>2018-11-02T13:01:23.416Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nginx 静态文件服务器</title>
+    <link href="https://alberthumbert.github.io/2018/11/02/WebNginxImages/"/>
+    <id>https://alberthumbert.github.io/2018/11/02/WebNginxImages/</id>
+    <published>2018-11-02T12:17:15.000Z</published>
+    <updated>2018-11-02T13:01:23.416Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入操作系统 6 - 构建 GDT</title>
@@ -386,28 +406,6 @@
     <summary type="html">
     
       &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入 Android 系统 系列</title>
-    <link href="https://alberthumbert.github.io/2018/09/05/androidSource/"/>
-    <id>https://alberthumbert.github.io/2018/09/05/androidSource/</id>
-    <published>2018-09-05T14:31:28.000Z</published>
-    <updated>2018-09-22T15:30:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;不一定开的坑&lt;/li&gt;
-&lt;/ul&gt;
     
     </summary>
     
