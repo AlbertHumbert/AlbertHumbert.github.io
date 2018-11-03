@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-02T13:01:23.416Z</updated>
+  <updated>2018-11-03T16:16:22.864Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Dart 语言 入门</title>
+    <link href="https://alberthumbert.github.io/2018/11/03/LangDart/"/>
+    <id>https://alberthumbert.github.io/2018/11/03/LangDart/</id>
+    <published>2018-11-03T14:15:24.000Z</published>
+    <updated>2018-11-03T16:16:22.864Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+&lt;p&gt;无聊的时候，学点 Dart&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Nginx 静态文件服务器</title>
@@ -125,27 +146,6 @@
     <summary type="html">
     
       &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Dart 语言 入门</title>
-    <link href="https://alberthumbert.github.io/2018/10/25/LangDart/"/>
-    <id>https://alberthumbert.github.io/2018/10/25/LangDart/</id>
-    <published>2018-10-25T14:15:24.000Z</published>
-    <updated>2018-11-02T09:42:03.965Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-&lt;p&gt;无聊的时候，学点 Dart&lt;/p&gt;
     
     </summary>
     
