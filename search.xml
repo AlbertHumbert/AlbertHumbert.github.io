@@ -866,7 +866,152 @@ for (var x in collection) {
   // Always clean up, even if an exception is thrown.
   cleanLlamaStalls();
 }
-</code></pre>]]></content>
+</code></pre><p><br></p>
+<h3 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h3><p><br></p>
+<h4 id="使用成员变量"><a href="#使用成员变量" class="headerlink" title="使用成员变量"></a>使用成员变量</h4><ul>
+<li>使用点，访问成员变量</li>
+</ul>
+<pre><code>p.y = 3;
+</code></pre><ul>
+<li>使用?.，访问成员变量，防止空指针异常,相当于 if(x.y!=null){ x.y .. }</li>
+</ul>
+<pre><code>// If p is non-null, set its y value to 4.
+p?.y = 4;
+</code></pre><p><br></p>
+<h4 id="使用构造函数"><a href="#使用构造函数" class="headerlink" title="使用构造函数"></a>使用构造函数</h4><ul>
+<li>构造函数可以是 类名 或 类名.标识符</li>
+</ul>
+<pre><code>var p1 = Point(2, 2);
+var p2 = Point.fromJson({&apos;x&apos;: 1, &apos;y&apos;: 2});
+</code></pre><ul>
+<li>Dart 2 以后 new 关键字可以省略，加上它不会带来任何区别</li>
+</ul>
+<pre><code>var p1 = new Point(2, 2);
+var p2 = new Point.fromJson({&apos;x&apos;: 1, &apos;y&apos;: 2});
+</code></pre><ul>
+<li>有些类提供常量构造函数</li>
+</ul>
+<pre><code>var p1 = const Point(2, 2);
+p1.x = 3;//报错
+</code></pre><ul>
+<li>使用相同的参数调用常量构造函数，返回同一个对象的引用, 如果使用普通构造函数，返回的引用将不同</li>
+</ul>
+<pre><code>var p1 = const Point(2, 2);
+ var p2 = const Point(2, 2);
+ assert(identical(p1, p2));
+
+ var p1 =  Point(2, 2);
+ var p2 = const Point(2, 2);
+ assert(!identical(p1, p2));
+</code></pre><ul>
+<li>在常量上下文中，大部分 const 关键字都可以省略</li>
+</ul>
+<pre><code>// Lots of const keywords here.
+const pointAndLine = const {
+  &apos;point&apos;: const [const ImmutablePoint(0, 0)],
+  &apos;line&apos;: const [const ImmutablePoint(1, 10), const ImmutablePoint(-2, 11)],
+};
+
+// Only one const, which establishes the constant context.
+const pointAndLine = {
+  &apos;point&apos;: [ImmutablePoint(0, 0)],
+  &apos;line&apos;: [ImmutablePoint(1, 10), ImmutablePoint(-2, 11)],
+};
+</code></pre><p><br></p>
+<h4 id="声明构造函数"><a href="#声明构造函数" class="headerlink" title="声明构造函数"></a>声明构造函数</h4><ul>
+<li>最简单的声明方式，注意这里使用了 this 关键字，官方的编码规范建议如果 this 不是必要的 dart 则省略它们</li>
+</ul>
+<pre><code>Point(num x, num y) {
+   this.x = x;
+   this.y = y;
+ }
+</code></pre><ul>
+<li>dart 提供了简化这种简单构造函数的语法糖</li>
+</ul>
+<pre><code>Point(this.x, this.y);
+</code></pre><ul>
+<li>如果不声明构造函数 dart 将生成默认无参构造函数，它会调用父类的无参构造函数</li>
+</ul>
+<ul>
+<li>构造函数是不会被继承的</li>
+</ul>
+<ul>
+<li>命名构造函数是另一种构造函数，能有提供一定的信息, 注意这种构造函数也是不参与继承的</li>
+</ul>
+<pre><code>// Named constructor
+ Point.origin() {
+   x = 0;
+   y = 0;
+ }
+</code></pre><ul>
+<li>使用 : 符号, 可以将一些代码写在函数体之前,如调用父类的构造函数等</li>
+</ul>
+<pre><code>Employee.fromJson(Map data) : super.fromJson(data)
+
+Employee() : super.fromJson(getDefaultData());
+
+var p1 = Point.fromJson(Map());
+
+class Point {
+  num x;
+  num y;
+
+  Point.fromJson(Map&lt;String, num&gt; json)
+      : x = json[&apos;x&apos;],
+        y = json[&apos;y&apos;],
+        assert(x &gt; 0) {
+    print(&apos;In Point.fromJson(): ($x, $y)&apos;);
+  }
+}
+</code></pre><ul>
+<li>重定向函数</li>
+</ul>
+<pre><code>Point.alongXAxis(num x) : this(x, 0);
+</code></pre><ul>
+<li>声明常量构造函数，参数需要为 final，定义函数时需要加上 const 关键字</li>
+</ul>
+<pre><code>final num x, y;
+
+ const ImmutablePoint(this.x, this.y);
+</code></pre><ul>
+<li>使用 factory 关键字创建工厂构造函数，工厂构造函数通常用来实现缓存，它不能使用 this 关键字，它需要 return 来确定引用，调用工厂参数和调用其他参数没有区别</li>
+</ul>
+<pre><code>class Logger {
+  final String name;
+  bool mute = false;
+  static final Map&lt;String, Logger&gt; _cache = &lt;String, Logger&gt;{};
+
+  Logger._internal(this.name);
+
+  factory Logger(String name) {
+    if (_cache.containsKey(name)) {
+      return _cache[name];
+    } else {
+      final logger = Logger._internal(name);
+      _cache[name] = logger;
+      return logger;
+    }
+  }
+}
+</code></pre><p><br></p>
+<h4 id="获取对象类型"><a href="#获取对象类型" class="headerlink" title="获取对象类型"></a>获取对象类型</h4><ul>
+<li>使用对象的 runtimeType 属性，可以在运行时获取类型</li>
+</ul>
+<pre><code>var p1 =  Point(2, 2);
+  print(&apos;The type of a is ${p1.runtimeType}&apos;);
+</code></pre><p><br></p>
+<h4 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h4><ul>
+<li>所有为赋值的成员变量都为 null</li>
+</ul>
+<pre><code>class Point {
+  num x; // Declare instance variable x, initially null.
+  num y; // Declare y, initially null.
+  num z = 0; // Declare z, initially 0.
+}
+</code></pre><ul>
+<li>所有成员变量自动生成 getter 函数，非 final 变量自动生成 getter 和 setter 函数</li>
+</ul>
+]]></content>
       
         <categories>
             
