@@ -507,6 +507,7 @@
 <p><a href="https://tocreate.app/2018/10/31/OSGdt/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>本文中的所有代码可以在 <a href="https://github.com/AlbertHumbert/Chaos" target="_blank" rel="external">https://github.com/AlbertHumbert/Chaos</a> 获取</strong><br><strong>对应 commit版本为 7faf1e9cbd8026f57cc207100b481708c2b74d65</strong></p>
 <p><strong>本文源码使用是 GAS 汇编，涉及较多intel cpu的特性</strong></p>
+<p><strong>题外话，最近比较忙没时间死磕了，下一部分本应该是分页，不过还是先回到概念和linux源码方面的内容，这几天主要还是复习计网</strong></p>
 <p><br></p>
 <h3 id="实模式与保护模式的区别"><a href="#实模式与保护模式的区别" class="headerlink" title="实模式与保护模式的区别"></a>实模式与保护模式的区别</h3><ul>
 <li>启动: intel cpu 加电后自动进入实模式，保护模式需要设置特定的寄存器（CR0）</li>
@@ -665,7 +666,8 @@ call kernel_main
 spin:
 jmp spin
 # If bootmain returns (it shouldn&apos;t), loop.
-</code></pre>
+</code></pre><p><strong>本文完</strong></p>
+
     
 
     

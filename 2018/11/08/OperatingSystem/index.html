@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译"><span class="post-toc-number">2.</span> <span class="post-toc-text">交叉编译</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引导"><span class="post-toc-number">3.</span> <span class="post-toc-text">引导</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统库函数"><span class="post-toc-number">4.</span> <span class="post-toc-text">系统库函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内核与系统调用"><span class="post-toc-number">5.</span> <span class="post-toc-text">内核与系统调用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分段"><span class="post-toc-number">6.</span> <span class="post-toc-text">分段</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程管理"><span class="post-toc-number">7.</span> <span class="post-toc-text">进程管理</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译"><span class="post-toc-number">2.</span> <span class="post-toc-text">交叉编译</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引导"><span class="post-toc-number">3.</span> <span class="post-toc-text">引导</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统库函数"><span class="post-toc-number">4.</span> <span class="post-toc-text">系统库函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统调用"><span class="post-toc-number">5.</span> <span class="post-toc-text">系统调用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分段-amp-保护模式"><span class="post-toc-number">6.</span> <span class="post-toc-text">分段 & 保护模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程管理"><span class="post-toc-number">7.</span> <span class="post-toc-text">进程管理</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -518,7 +518,7 @@
 <p><br></p>
 <h2 id="系统库函数"><a href="#系统库函数" class="headerlink" title="系统库函数"></a>系统库函数</h2><p><strong>搭建最基本的开发环境</strong><br><a href="https://tocreate.app/2018/10/15/OSBaseLib/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
-<h2 id="内核与系统调用"><a href="#内核与系统调用" class="headerlink" title="内核与系统调用"></a>内核与系统调用</h2><ul>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><ul>
 <li><p>内核概念是一个向其他运行中程序提供服务的特殊程序</p>
 </li>
 <li><p>进程通过系统调用使用内核服务。系统调用会进入内核，让内核执行服务然后返回</p>
@@ -527,8 +527,8 @@
 </li>
 </ul>
 <p><br></p>
-<h2 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h2><p><strong>简单介绍分段机制与 GDT</strong><br><a href="https://tocreate.app/2018/10/31/OSGdt/" target="_blank" rel="external">详见</a></p>
-<p><strong>创建GDT</strong><br><a href="https://tocreate.app/2018/11/8/OSGdtCreate/" target="_blank" rel="external">详见</a></p>
+<h2 id="分段-amp-保护模式"><a href="#分段-amp-保护模式" class="headerlink" title="分段 &amp; 保护模式"></a>分段 &amp; 保护模式</h2><p><strong>简单介绍分段机制与 GDT</strong><br><a href="https://tocreate.app/2018/10/31/OSGdt/" target="_blank" rel="external">详见</a></p>
+<p><strong>创建GDT，进入保护模式</strong><br><a href="https://tocreate.app/2018/11/8/OSGdtCreate/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
 <p><br><br><br></p>
