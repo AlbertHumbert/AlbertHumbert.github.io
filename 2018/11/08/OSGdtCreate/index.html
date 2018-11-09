@@ -12,7 +12,7 @@
     
     <title>
         
-            深入操作系统 6 - 构建 GDT | 
+            深入操作系统 6 - 构建 GDT &amp; 进入保护模式 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入操作系统 6 - 构建 GDT | Albert&#39;s Blog">
+    <meta property="og:title" content="深入操作系统 6 - 构建 GDT &amp; 进入保护模式 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="11月 02, 2018" />
-        <meta property="article:modified_time" content="11月 02, 2018" />
+        <meta property="article:published_time" content="11月 08, 2018" />
+        <meta property="article:modified_time" content="11月 09, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入操作系统 6 - 构建 GDT | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入操作系统 6 - 构建 GDT &amp; 进入保护模式 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入操作系统 6 - 构建 GDT",
-    "url": "https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html",
-    "datePublished": "11月 02, 2018",
-    "dateModified": "11月 02, 2018",
+    "headline": "深入操作系统 6 - 构建 GDT & 进入保护模式",
+    "url": "https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html",
+    "datePublished": "11月 08, 2018",
+    "dateModified": "11月 09, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实模式与保护模式的区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">实模式与保护模式的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GRUB"><span class="post-toc-number">2.</span> <span class="post-toc-text">GRUB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进入保护模式"><span class="post-toc-number">3.</span> <span class="post-toc-text">进入保护模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#构建描述符"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">构建描述符</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关中断"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">关中断</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#清理寄存器"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">清理寄存器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打开-A20-总线"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">打开 A20 总线</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#lgdt-amp-设置-cr0-寄存器"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">lgdt & 设置 cr0 寄存器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#切换-32-位模式"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">切换 32 位模式</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入操作系统 6 - 构建 GDT
+                深入操作系统 6 - 构建 GDT & 进入保护模式
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>11月 02, 2018</span>
+        <span>11月 08, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 6 - 构建 GDT&url=https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 6 - 构建 GDT &amp; 进入保护模式&url=https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 6 - 构建 GDT&url=https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 6 - 构建 GDT &amp; 进入保护模式&url=https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html&title=深入操作系统 6 - 构建 GDT" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html&title=深入操作系统 6 - 构建 GDT &amp; 进入保护模式" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 6 - 构建 GDT&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 6 - 构建 GDT &amp; 进入保护模式&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/11/02/OSGdtCreate/index.html&text=深入操作系统 6 - 构建 GDT" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html&text=深入操作系统 6 - 构建 GDT &amp; 进入保护模式" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -505,7 +505,167 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/31/OSGdt/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>本文中的所有代码可以在 <a href="https://github.com/AlbertHumbert/Chaos" target="_blank" rel="external">https://github.com/AlbertHumbert/Chaos</a> 获取</strong><br><strong>对应 commit版本为 7faf1e9cbd8026f57cc207100b481708c2b74d65</strong></p>
+<p><strong>本文源码使用是 GAS 汇编，涉及较多intel cpu的特性</strong></p>
+<p><br></p>
+<h3 id="实模式与保护模式的区别"><a href="#实模式与保护模式的区别" class="headerlink" title="实模式与保护模式的区别"></a>实模式与保护模式的区别</h3><ul>
+<li>启动: intel cpu 加电后自动进入实模式，保护模式需要设置特定的寄存器（CR0）</li>
+</ul>
+<ul>
+<li>程序: 实模式只能运行 16 位代码，保护模式可以运行 32 位代码</li>
+</ul>
+<ul>
+<li>寻址能力: 实模式，80286 最高为 1mb，保护模式，允许使用 4g 内存 </li>
+</ul>
+<ul>
+<li>寻址模式：实模式，20位基地址（16位左移4位），16位偏移，保护模式，选择符16位，32位段内偏移</li>
+</ul>
+<ul>
+<li>其他：实模式无内存保护</li>
+</ul>
+<p><br></p>
+<h3 id="GRUB"><a href="#GRUB" class="headerlink" title="GRUB"></a>GRUB</h3><p><strong>如果人生苦短，不妨试一下 GRUB </strong></p>
+<ul>
+<li><p>GRUB 为内核做了充足的工作，使用 GRUB 的内核已经进入了 32 位保护模式</p>
+</li>
+<li><p>由于进入保护模式就意味着必须有一个 GDT 所以 GRUB 已经为我们载入了一个 GDT，但它并没有什么用处，我们还是需要自己设置 GDT</p>
+</li>
+<li><p>虽然使用了 GRUB 但是为了学习之用本文的源码还是去做了诸如打开 A20 总线，设置 cr0 寄存器等工作</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="进入保护模式"><a href="#进入保护模式" class="headerlink" title="进入保护模式"></a>进入保护模式</h3><p><strong>本文的主要代码参考自 xv6，ucore 和 oranges （ucore 来自 jos，jos 来自 xv6，它们之间相同的代码非常多）</strong></p>
+<p><br></p>
+<h5 id="构建描述符"><a href="#构建描述符" class="headerlink" title="构建描述符"></a>构建描述符</h5><ul>
+<li>进入保护模式的前提是必须要有一个 gdt（不然保护模式的寻址模式怎么发挥作用呢），下面这些宏简化了描述符的定义操作，描述符的结构之前的文章已经讲过了</li>
+</ul>
+<pre><code>/* Application segment type bits */
+#define STA_X       0x8     // Executable segment
+#define STA_E       0x4     // Expand down (non-executable segments)
+#define STA_C       0x4     // Conforming code segment (executable only)
+#define STA_W       0x2     // Writeable (non-executable segments)
+#define STA_R       0x2     // Readable (executable segments)
+#define STA_A       0x1     // Accessed
 
+#define SEG_ASM(type,base,lim)                              \
+.word (((lim) &gt;&gt; 12) &amp; 0xffff), ((base) &amp; 0xffff);          \
+.byte (((base) &gt;&gt; 16) &amp; 0xff), (0x90 | (type)),             \
+(0xC0 | (((lim) &gt;&gt; 28) &amp; 0xf)), (((base) &gt;&gt; 24) &amp; 0xff)
+
+/* Normal segment */
+#define SEG_NULLASM                                         \
+.word 0, 0;                                                 \
+.byte 0, 0, 0, 0
+</code></pre><ul>
+<li>根据 intel 的规范，第一个描述符必须是  Null Segment ，也就是全 0 ，没有为什么，接下来是代码段和数据段，代码段是可读可执行的, 数据段是可写的</li>
+</ul>
+<pre><code># Bootstrap GDT
+.p2align 2                                          # force 4 byte alignment
+gdt:
+SEG_NULLASM                                     # null seg
+SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)           # code seg for bootloader and kernel
+SEG_ASM(STA_W, 0x0, 0xffffffff)                 # data seg for bootloader and kernel
+</code></pre><ul>
+<li>接下来是构造 GDTR （回顾上文），它由 gdt 大小和基地址构成 </li>
+</ul>
+<pre><code>gdtdesc:
+.word 0x17                                      # sizeof(gdt) - 1
+.long gdt                                       # address gdt
+</code></pre><p><br></p>
+<h4 id="关中断"><a href="#关中断" class="headerlink" title="关中断"></a>关中断</h4><ul>
+<li>现在我们不能被任何事情打扰，使用 cli 指令关中断，注意这里的 .code16，这是告诉编译器代码以16形式编译，因为我们还处于实模式因此需要告知编译器</li>
+</ul>
+<pre><code>.code16
+.section .text
+.globl _start
+.type _start, @function
+.code16
+_start:
+
+cli                                             # Disable interrupts
+</code></pre><p><br></p>
+<h4 id="清理寄存器"><a href="#清理寄存器" class="headerlink" title="清理寄存器"></a>清理寄存器</h4><pre><code># Set up the important data segment registers (DS, ES, SS).
+xorw %ax, %ax                                   # Segment number zero
+movw %ax, %ds                                   # -&gt; Data Segment
+movw %ax, %es                                   # -&gt; Extra Segment
+movw %ax, %ss                                   # -&gt; Stack Segment
+</code></pre><p><br></p>
+<h4 id="打开-A20-总线"><a href="#打开-A20-总线" class="headerlink" title="打开 A20 总线"></a>打开 A20 总线</h4><ul>
+<li>这里主要涉及一个兼容性的问题，我们前面提到 8086 使用 左移4位+16位偏移来寻址，实际上这样的算出来的最大地址是略大于1m的，有兴趣的话可以自己去算一下，那么现在问题就和原来的反过来了，地址表示能力大于了寻址能力（20位地址线）</li>
+</ul>
+<ul>
+<li>为了解决这个问题，当访问的地址超过1m时，intel设计使 cpu 不产生越界异常，而是进行回滚（wrap around，重0开始算，即取模）</li>
+</ul>
+<ul>
+<li>进入下一个时代，80286 已经可以拥有了 24 条总线了，当访问的地址超过 1m 时，又该怎么办呢，intel决定兼容 8086，intel 设计了一个门结构来决定 A20总线（第21条总线）是否启用回滚功能</li>
+</ul>
+<ul>
+<li>我们提到过保护模式是 80286 的产物，因此 A20 总线应该总是开启，由于 intel 选择使用 8042 键盘控制器来实现前面提到特殊的门结构，而此时键盘缓冲仍被占用，因此我们写入数据之前还要进行等待然后再写入数据</li>
+</ul>
+<pre><code># Enable A20:
+#  For backwards compatibility with the earliest PCs, physical
+#  address line 20 is tied low, so that addresses higher than
+#  1MB wrap around to zero by default. This code undoes this.
+seta20.1:
+inb $0x64, %al                                  # Wait for not busy(8042 input buffer empty).
+testb $0x2, %al
+jnz seta20.1
+
+movb $0xd1, %al                                 # 0xd1 -&gt; port 0x64
+outb %al, $0x64                                 # 0xd1 means: write data to 8042&apos;s P2 port
+
+seta20.2:
+inb $0x64, %al                                  # Wait for not busy(8042 input buffer empty).
+testb $0x2, %al
+jnz seta20.2
+
+
+movb $0xdf, %al                                 # 0xdf -&gt; port 0x60
+outb %al, $0x60                                 # 0xdf = 11011111, means set P2&apos;s A20 bit(the 1 bit) to 1
+</code></pre><p><br></p>
+<h4 id="lgdt-amp-设置-cr0-寄存器"><a href="#lgdt-amp-设置-cr0-寄存器" class="headerlink" title="lgdt &amp; 设置 cr0 寄存器"></a>lgdt &amp; 设置 cr0 寄存器</h4><ul>
+<li>lgdt 指令专门用来设置 gdtr</li>
+</ul>
+<ul>
+<li>cr0 主要用于存储两个标志位，保护模式和分页，理论上来讲，设置了这个位 cpu 就进入了保护模式，但是知道新值载入到段寄存器 CS，地址转换的过程都不会发生变化</li>
+</ul>
+<pre><code># Switch from real to protected mode, using a bootstrap GDT
+# and segment translation that makes virtual addresses
+# identical to physical addresses, so that the
+# effective memory map does not change during the switch.
+lgdt gdtdesc
+movl %cr0, %eax
+orl $CR0_PE_ON, %eax
+movl %eax, %cr0
+</code></pre><p><br></p>
+<h4 id="切换-32-位模式"><a href="#切换-32-位模式" class="headerlink" title="切换 32 位模式"></a>切换 32 位模式</h4><ul>
+<li>下面第一行的远跳转指令中 PROT_MODE_CSEG 为 0000 0000 0000 1000 即是GDT中的第1个段，即代码段，intel 不允许直接修改 cs 寄存器所以这里使用跳转指令，protcseg 偏移量</li>
+</ul>
+<ul>
+<li>.code32 的作用和前面提到 .code16 对应，现在打开了 cr0 的保护模式标志，cpu 就按保护模式的方式寻址，那么这里就应该告诉编译器切换到 32 位模式 protcseg 即为段内偏移</li>
+</ul>
+<pre><code># Jump to next instruction, but in 32-bit code segment.
+# Switches processor into 32-bit mode.
+ljmp $PROT_MODE_CSEG, $protcseg
+.code32                                        # Assemble for 32-bit mode
+protcseg:
+# Set up the protected-mode data segment registers
+movw $PROT_MODE_DSEG, %ax                       # Our data segment selector
+movw %ax, %ds                                   # -&gt; DS: Data Segment
+movw %ax, %es                                   # -&gt; ES: Extra Segment
+movw %ax, %fs                                   # -&gt; FS
+movw %ax, %gs                                   # -&gt; GS
+movw %ax, %ss                                   # -&gt; SS: Stack Segment
+
+# Set up the stack pointer and call into C. The stack region is from 0--start(0x7c00)
+movl $0x0, %ebp
+movl $_start, %esp
+
+call kernel_main
+spin:
+jmp spin
+# If bootmain returns (it shouldn&apos;t), loop.
+</code></pre>
     
 
     
@@ -524,7 +684,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/11/02/WebNginxImages/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/11/08/OperatingSystem/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -538,7 +698,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2018/10/31/OSGdt/" id="post_nav-older" class="next-content">
+        <a href="/2018/11/07/NetEthernet/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -630,7 +790,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

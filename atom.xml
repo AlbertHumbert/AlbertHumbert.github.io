@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-06T15:31:17.114Z</updated>
+  <updated>2018-11-09T14:28:35.246Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入操作系统 系列 0</title>
+    <link href="https://alberthumbert.github.io/2018/11/08/OperatingSystem/"/>
+    <id>https://alberthumbert.github.io/2018/11/08/OperatingSystem/</id>
+    <published>2018-11-08T14:01:30.000Z</published>
+    <updated>2018-11-09T14:28:35.246Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt; 程序员的三大浪漫，编译原理，图形学，操作系统 &lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入操作系统 6 - 构建 GDT &amp; 进入保护模式</title>
+    <link href="https://alberthumbert.github.io/2018/11/08/OSGdtCreate/"/>
+    <id>https://alberthumbert.github.io/2018/11/08/OSGdtCreate/</id>
+    <published>2018-11-08T08:31:13.000Z</published>
+    <updated>2018-11-09T14:26:55.897Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入计算机网络系列 3 - 数据链路层</title>
@@ -97,31 +137,11 @@
   </entry>
   
   <entry>
-    <title>深入操作系统 6 - 构建 GDT</title>
-    <link href="https://alberthumbert.github.io/2018/11/02/OSGdtCreate/"/>
-    <id>https://alberthumbert.github.io/2018/11/02/OSGdtCreate/</id>
-    <published>2018-11-02T08:31:13.000Z</published>
-    <updated>2018-11-02T08:33:17.106Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
     <title>深入操作系统 5 - 分段 &amp; GDT</title>
     <link href="https://alberthumbert.github.io/2018/10/31/OSGdt/"/>
     <id>https://alberthumbert.github.io/2018/10/31/OSGdt/</id>
     <published>2018-10-31T07:43:22.000Z</published>
-    <updated>2018-11-02T08:38:11.455Z</updated>
+    <updated>2018-11-09T12:32:51.445Z</updated>
     
     <summary type="html">
     
@@ -141,7 +161,7 @@
     <link href="https://alberthumbert.github.io/2018/10/30/NetLayer/"/>
     <id>https://alberthumbert.github.io/2018/10/30/NetLayer/</id>
     <published>2018-10-30T14:10:27.000Z</published>
-    <updated>2018-11-06T15:10:45.703Z</updated>
+    <updated>2018-11-07T16:14:49.608Z</updated>
     
     <summary type="html">
     
@@ -386,26 +406,6 @@
     <summary type="html">
     
       &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 系列 0</title>
-    <link href="https://alberthumbert.github.io/2018/09/21/OperatingSystem/"/>
-    <id>https://alberthumbert.github.io/2018/09/21/OperatingSystem/</id>
-    <published>2018-09-21T14:01:30.000Z</published>
-    <updated>2018-11-02T08:34:11.265Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt; 程序员的三大浪漫，编译原理，图形学，操作系统 &lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     

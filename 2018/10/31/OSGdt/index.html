@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 31, 2018" />
-        <meta property="article:modified_time" content="11月 02, 2018" />
+        <meta property="article:modified_time" content="11月 09, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 5 - 分段 & GDT",
     "url": "https://alberthumbert.github.io/2018/10/31/OSGdt/index.html",
     "datePublished": "10月 31, 2018",
-    "dateModified": "11月 02, 2018",
+    "dateModified": "11月 09, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -544,7 +544,8 @@
 <h4 id="寻址-1"><a href="#寻址-1" class="headerlink" title="寻址"></a>寻址</h4><ul>
 <li>80286 及其后的 CPU 提供保护模式，允许访问 4GB 的内存地址</li>
 </ul>
-<ul>
+<pre><code>此时 80286 实际上已经有 24 根地址线，理论寻址能力为16MB
+</code></pre><ul>
 <li>保护模式不再直接使用段基地址，实际情况是 CS 寄存器中存储一个段选择符，在段描述符表中可以通过该选择符找到段描述符，而 IP 依然保存偏移量</li>
 </ul>
 <ul>
@@ -552,7 +553,7 @@
 </ul>
 <p><br></p>
 <h4 id="段描述符"><a href="#段描述符" class="headerlink" title="段描述符"></a>段描述符</h4><ul>
-<li>段选描述符用于表示一个段的信息，它的长度为 8 字节，结构如下</li>
+<li>段描述符用于表示一个段的信息，它的长度为 8 字节，结构如下</li>
 </ul>
 <table>
 <thead>
@@ -645,7 +646,7 @@
 <li>段基地址可以是0到4GB范围内的任意地址，是段的起始地址</li>
 </ul>
 <ul>
-<li>段限长是段的最大长度，G用来指定其单位，TYPE 中的 E指定其方向(向上扩展或向下扩展)</li>
+<li>段限长是段的最大长度，G用来指定其单位，TYPE 中的 E 指定其方向(向上扩展或向下扩展)</li>
 </ul>
 <p><br></p>
 <h4 id="段选择符"><a href="#段选择符" class="headerlink" title="段选择符"></a>段选择符</h4><ul>
@@ -691,6 +692,7 @@
 <ul>
 <li>LDTR 为局部描述符寄存器，因为一个时刻只有一个任务在运行，因此 LDT 的寄存器也只需要有一个，这个寄存器存储当前 LDT 的位置，也就是GDT的段描述符</li>
 </ul>
+<p><strong>本篇主要记录保护模式实模式与 GDT 之间的关系，下篇我们尝试构建 GDT 从实模式进入保护模式</strong></p>
 <p><br><br><strong>本篇完</strong></p>
 
     
@@ -711,7 +713,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/11/02/OSGdtCreate/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/11/02/WebNginxImages/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -817,7 +819,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
