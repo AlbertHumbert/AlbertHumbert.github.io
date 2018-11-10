@@ -3,6 +3,260 @@
   
     
     <entry>
+      <title><![CDATA[深入计算机网络  2 - IPv6]]></title>
+      <url>/2018/11/11/NetIPv6/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[深入计算机网络  2 - IP 和 IPv4]]></title>
+      <url>/2018/11/10/NetIPv4/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="传统分类"><a href="#传统分类" class="headerlink" title="传统分类"></a>传统分类</h3><p><br></p>
+<h4 id="网络号划分"><a href="#网络号划分" class="headerlink" title="网络号划分"></a>网络号划分</h4><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>网络号</th>
+<th>主机</th>
+<th>百分比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>0开头，共8位</td>
+<td>24位</td>
+<td>1/2</td>
+</tr>
+<tr>
+<td>B</td>
+<td>10开头，共16位</td>
+<td>16位</td>
+<td>1/4</td>
+</tr>
+<tr>
+<td>C</td>
+<td>110开头，共24位</td>
+<td>8位</td>
+<td>1/8</td>
+</tr>
+<tr>
+<td>D</td>
+<td>1110开头，共32位，组播地址</td>
+<td>-</td>
+<td>1/16</td>
+</tr>
+<tr>
+<td>E</td>
+<td>1111开头，共32位，保留</td>
+<td>-</td>
+<td>1/16</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>传统ip分类，A B 类浪费太多地址，C 类不能提供足够地址，这种分类方式已经过时，基本已无实际意义，它被 CIDR 取代</li>
+</ul>
+<p><br></p>
+<h4 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h4><ul>
+<li>站点由 isp 分配网络号之后，可以进行子网划分</li>
+</ul>
+<ul>
+<li>在32位ip地址中。网络号后面的位可以再划分为子网号和主机号</li>
+</ul>
+<pre><code>       固定位数     自由分配
+ip地址 = 网络号 +（子网号+主机号）
+</code></pre><ul>
+<li>只有划分子网的网络中的主机和路由器知道子网结构，internet 的其他部分不受影响</li>
+</ul>
+<p><br></p>
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><ul>
+<li>由连续的1和连续的0组成,常见的表示方法有三种</li>
+</ul>
+<pre><code>点分十进制：255.255.255.192  
+前缀长度：/27  
+二进制：11111111 11111111 11111111 11100000
+</code></pre><ul>
+<li>子网掩码有路由器和注解使用，以确定一个ip地址的网络/子网部分的结束和主机部分的开始，方法是和IP地址进行按位与，结果是ip地址所属子网号</li>
+</ul>
+<pre><code>地址：10000000 00100000 00000001 00001110  -&gt; 128.32.1.14
+掩码：11111111 11111111 11111111 00000000  -&gt; 255.255.255.0
+结果：10000000 00100000 00000001 00000000  -&gt; 128.32.1.0
+</code></pre><p><br></p>
+<h4 id="可变长子网掩码-VLSM"><a href="#可变长子网掩码-VLSM" class="headerlink" title="可变长子网掩码 VLSM"></a>可变长子网掩码 VLSM</h4><ul>
+<li>VLAM 支持每个站点的不同部分使用不同长度的子网掩码，这样每个子网可以支持不同数量的主机</li>
+</ul>
+<ul>
+<li>主机和路由器的每个接口都必须用 IP 地址和子网掩码来描述</li>
+</ul>
+<ul>
+<li>基于动态路由协议（如 OSPF, IS-IS, RIPv2 ）,流量可以在同一站点的主机之间正确流动</li>
+</ul>
+<p><br></p>
+<h4 id="广播地址"><a href="#广播地址" class="headerlink" title="广播地址"></a>广播地址</h4><ul>
+<li>子网中主机部分全为1的ip地址，编程上可以子网中的ip地址与按位取反后的掩码进行按位或的方法获取</li>
+</ul>
+<pre><code>地址：10000000 00100000 00000001 00001110  -&gt; 128.32.1.14
+掩码：00000000 00000000 00000000 11111111 -&gt; 255.255.255.0
+结果：10000000 00100000 00000001 11111111  -&gt; 128.32.1.255
+</code></pre><ul>
+<li>理论上，这种地址可以通过internet路由到目标子网，再作为一组广播数据报发给子网中的所有主机，这种数据报叫定向广播</li>
+</ul>
+<pre><code>路由器现在默认禁止转发定向广播，甚至完全省略支持能力
+</code></pre><ul>
+<li>255.255.255.255 被保留为本地网络广播，它不会被路由器转发，注意 IPv6 中不存在任何广播地址</li>
+</ul>
+<pre><code>主机默认支持本地网络广播，并且不需要路由器支持
+</code></pre><p><br></p>
+<h3 id="CIDR-amp-聚合"><a href="#CIDR-amp-聚合" class="headerlink" title="CIDR &amp; 聚合"></a>CIDR &amp; 聚合</h3><p><br></p>
+<h4 id="前缀"><a href="#前缀" class="headerlink" title="前缀"></a>前缀</h4><ul>
+<li>CIDR 使用类似子网掩码的 CIDR 掩码，它不局限于一个站点，对整个 Internet 可见</li>
+</ul>
+<ul>
+<li>路由器必须可以处理网络号和掩码，网络号和子网掩码合称网络前缀，表示如下，括号为固定的数值，用来涵盖可能的地址范围</li>
+</ul>
+<pre><code>128.0.0.0/1 (1)0000000 00000000 00000000 00000000
+128.0.0.0/24 (10000000 00000000 00000000) 00000000
+198.128.128.192/27 (10000000 00000000 0000000 0000)0000
+</code></pre><p><br></p>
+<h4 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h4><ul>
+<li>CIDR 前缀实现了可定义的网络号长度，但是没有解决路由表中表项过多的问题</li>
+</ul>
+<ul>
+<li>路由聚合将多个IP前缀合并到更短的前缀中去，过程如下</li>
+</ul>
+<pre><code>长前缀表项：
+172.18.129.0/24
+172.18.130.0/24
+172.18.132.0/24
+172.18.133.0/24
+
+二进制:
+129 -&gt; 10000001
+130 -&gt; 10000010
+132 -&gt; 10000100
+133 -&gt; 10000101
+
+划归相同位:
+172.18.128.0/21
+</code></pre><p><br></p>
+<h4 id="组播"><a href="#组播" class="headerlink" title="组播"></a>组播</h4><p><strong>这里只讨论IPv4的组播形式</strong></p>
+<ul>
+<li>组播表示一组计算机接口而不是单个</li>
+</ul>
+<ul>
+<li>不同于广播，主机可以选择加入或离开一个组，不再特定组内的主机不会接收改组的数据报</li>
+</ul>
+<ul>
+<li>D类地址空间被分配为组播地址，之后又被继续细分</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>范围</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>224.0.0.0 - 224.0.0.255</td>
+<td>本地网络控制，不转发</td>
+</tr>
+<tr>
+<td>224.0.1.0 - 224.0.1.255</td>
+<td>互联网络控制，转发</td>
+</tr>
+<tr>
+<td>224.0.2.0 - 224.0.255.255</td>
+<td>Ad hoc 块 1</td>
+</tr>
+<tr>
+<td>224.1.0.0 - 224.1.255.255</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>224.2.0.0 - 224.2.255.255</td>
+<td>SDP/SAP</td>
+</tr>
+<tr>
+<td>224.3.0.0 - 224.4.255.255</td>
+<td>Ad hoc 块 2</td>
+</tr>
+<tr>
+<td>224.5.0.0 - 224.255.255.255</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>225.0.0.0 - 231.255.255.255</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>232.0.0.0 - 232.255.255.255</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>233.0.0.0 - 233.255.255.255</td>
+<td>源特定组播（SSM）</td>
+</tr>
+<tr>
+<td>233.0.0.0 - 233.251.255.255</td>
+<td>GLOP</td>
+</tr>
+<tr>
+<td>233.252.0.0 - 233.255.255.255</td>
+<td>Ad hoc 块3(233.252.0.0/24)</td>
+</tr>
+<tr>
+<td>234.0.0.0 - 234.255.255.255</td>
+<td>基于单播前缀的IPv4 组播地址保留</td>
+</tr>
+<tr>
+<td>235.0.0.0 - 238.255.255.255</td>
+<td>基于单播前缀的IPv4 组播地址保留</td>
+</tr>
+<tr>
+<td>239.0.0.0 - 239.255.255.255</td>
+<td>管理范围</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><strong>本篇完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 系列 0]]></title>
       <url>/2018/11/08/OperatingSystem/</url>
       <content type="html"><![CDATA[<p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
@@ -241,7 +495,7 @@ jmp spin
     </entry>
     
     <entry>
-      <title><![CDATA[深入计算机网络系列 3 - 数据链路层]]></title>
+      <title><![CDATA[深入计算机网络系列 4 - 数据链路层]]></title>
       <url>/2018/11/07/NetEthernet/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -411,75 +665,6 @@ ifconfig br0 up  # 启动 br0
 </ul>
 <p><br></p>
 <h5 id="建立生成树"><a href="#建立生成树" class="headerlink" title="建立生成树"></a>建立生成树</h5><p><strong>未完待续</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[深入计算机网络  2 - IP 和 IPv4]]></title>
-      <url>/2018/11/06/NetIPv4/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h3 id="地址划分"><a href="#地址划分" class="headerlink" title="地址划分"></a>地址划分</h3><p><br></p>
-<h4 id="传统分类"><a href="#传统分类" class="headerlink" title="传统分类"></a>传统分类</h4><ul>
-<li>传统ip分类，这种分类方式已经过时，基本已无实际意义，它被 CIDR 取代</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>类别</th>
-<th>网络号</th>
-<th>主机</th>
-<th>百分比</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>0开头，共8位</td>
-<td>24位</td>
-<td>1/2</td>
-</tr>
-<tr>
-<td>B</td>
-<td>10开头，共16位</td>
-<td>16位</td>
-<td>1/4</td>
-</tr>
-<tr>
-<td>C</td>
-<td>110开头，共24位</td>
-<td>8位</td>
-<td>1/8</td>
-</tr>
-<tr>
-<td>D</td>
-<td>1110开头，共32位，组播地址</td>
-<td>-</td>
-<td>1/16</td>
-</tr>
-<tr>
-<td>E</td>
-<td>1111开头，共32位，保留</td>
-<td>-</td>
-<td>1/16</td>
-</tr>
-</tbody>
-</table>
 ]]></content>
       
         <categories>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-09T14:30:15.876Z</updated>
+  <updated>2018-11-10T17:02:30.599Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入计算机网络  2 - IPv6</title>
+    <link href="https://alberthumbert.github.io/2018/11/11/NetIPv6/"/>
+    <id>https://alberthumbert.github.io/2018/11/11/NetIPv6/</id>
+    <published>2018-11-10T17:02:18.000Z</published>
+    <updated>2018-11-10T17:02:30.599Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入计算机网络  2 - IP 和 IPv4</title>
+    <link href="https://alberthumbert.github.io/2018/11/10/NetIPv4/"/>
+    <id>https://alberthumbert.github.io/2018/11/10/NetIPv4/</id>
+    <published>2018-11-10T15:13:18.000Z</published>
+    <updated>2018-11-10T17:03:17.609Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入操作系统 系列 0</title>
@@ -56,31 +96,11 @@
   </entry>
   
   <entry>
-    <title>深入计算机网络系列 3 - 数据链路层</title>
+    <title>深入计算机网络系列 4 - 数据链路层</title>
     <link href="https://alberthumbert.github.io/2018/11/07/NetEthernet/"/>
     <id>https://alberthumbert.github.io/2018/11/07/NetEthernet/</id>
     <published>2018-11-07T03:40:52.000Z</published>
-    <updated>2018-11-06T15:31:17.114Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入计算机网络  2 - IP 和 IPv4</title>
-    <link href="https://alberthumbert.github.io/2018/11/06/NetIPv4/"/>
-    <id>https://alberthumbert.github.io/2018/11/06/NetIPv4/</id>
-    <published>2018-11-06T15:13:18.000Z</published>
-    <updated>2018-11-06T15:57:14.893Z</updated>
+    <updated>2018-11-10T17:02:38.161Z</updated>
     
     <summary type="html">
     
@@ -382,26 +402,6 @@
     <id>https://alberthumbert.github.io/2018/09/21/OSEnv/</id>
     <published>2018-09-21T14:47:42.000Z</published>
     <updated>2018-10-19T03:03:28.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 - 进程控制</title>
-    <link href="https://alberthumbert.github.io/2018/09/21/OSProcess/"/>
-    <id>https://alberthumbert.github.io/2018/09/21/OSProcess/</id>
-    <published>2018-09-21T14:01:34.000Z</published>
-    <updated>2018-10-14T17:06:02.000Z</updated>
     
     <summary type="html">
     
