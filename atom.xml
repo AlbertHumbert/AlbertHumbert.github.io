@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-10T17:02:30.599Z</updated>
+  <updated>2018-11-11T15:50:46.783Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入计算机网络系列 5 - RIP &amp; OSPF</title>
+    <link href="https://alberthumbert.github.io/2018/11/11/NetRipOspf/"/>
+    <id>https://alberthumbert.github.io/2018/11/11/NetRipOspf/</id>
+    <published>2018-11-11T06:09:08.000Z</published>
+    <updated>2018-11-11T15:50:46.783Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入计算机网络  2 - IPv6</title>
     <link href="https://alberthumbert.github.io/2018/11/11/NetIPv6/"/>
     <id>https://alberthumbert.github.io/2018/11/11/NetIPv6/</id>
     <published>2018-11-10T17:02:18.000Z</published>
-    <updated>2018-11-10T17:02:30.599Z</updated>
+    <updated>2018-11-11T06:06:31.009Z</updated>
     
     <summary type="html">
     
@@ -100,7 +120,7 @@
     <link href="https://alberthumbert.github.io/2018/11/07/NetEthernet/"/>
     <id>https://alberthumbert.github.io/2018/11/07/NetEthernet/</id>
     <published>2018-11-07T03:40:52.000Z</published>
-    <updated>2018-11-10T17:02:38.161Z</updated>
+    <updated>2018-11-11T07:18:39.742Z</updated>
     
     <summary type="html">
     
@@ -181,7 +201,7 @@
     <link href="https://alberthumbert.github.io/2018/10/30/NetLayer/"/>
     <id>https://alberthumbert.github.io/2018/10/30/NetLayer/</id>
     <published>2018-10-30T14:10:27.000Z</published>
-    <updated>2018-11-07T16:14:49.608Z</updated>
+    <updated>2018-11-11T07:40:41.890Z</updated>
     
     <summary type="html">
     
@@ -382,26 +402,6 @@
     <id>https://alberthumbert.github.io/2018/09/22/OSCrossGcc/</id>
     <published>2018-09-22T14:41:40.000Z</published>
     <updated>2018-10-19T03:03:19.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 1 - 源码获取 &amp; 编译调试</title>
-    <link href="https://alberthumbert.github.io/2018/09/21/OSEnv/"/>
-    <id>https://alberthumbert.github.io/2018/09/21/OSEnv/</id>
-    <published>2018-09-21T14:47:42.000Z</published>
-    <updated>2018-10-19T03:03:28.000Z</updated>
     
     <summary type="html">
     
