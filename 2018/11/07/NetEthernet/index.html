@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="11月 07, 2018" />
-        <meta property="article:modified_time" content="11月 11, 2018" />
+        <meta property="article:modified_time" content="11月 13, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入计算机网络系列 4 - 数据链路层",
     "url": "https://alberthumbert.github.io/2018/11/07/NetEthernet/index.html",
     "datePublished": "11月 07, 2018",
-    "dateModified": "11月 11, 2018",
+    "dateModified": "11月 13, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -625,20 +625,20 @@
 </ul>
 <p><br></p>
 <h5 id="基于路由的VLAN"><a href="#基于路由的VLAN" class="headerlink" title="基于路由的VLAN"></a>基于路由的VLAN</h5><ul>
+<li>原理，路由协议工作在7层协议的第3层-网络层，比如基于IP和IPX的路由协议，这类设备包括路由器和路由交换机。该方式允许一个VLAN跨越多个交换机，或一个端口位于多个VLAN中。在按IP划分的VLAN中，很容易实现路由，即将交换功能和路由功能融合在VLAN交换机</li>
+</ul>
+<ul>
+<li>优点，这种方式既达到了作为VLAN控制广播风暴的最基本目的，又不需要外接路由器</li>
+</ul>
+<ul>
+<li>缺点，对VLAN成员之间的通信速度不是很理想</li>
+</ul>
+<p><br></p>
+<h5 id="基于策略的VLAN"><a href="#基于策略的VLAN" class="headerlink" title="基于策略的VLAN"></a>基于策略的VLAN</h5><ul>
 <li>原理，同时使用三种进行融合划分</li>
 </ul>
 <ul>
 <li>优点，控制广播风暴、增强网络的安全性、增强网络管理</li>
-</ul>
-<p><br></p>
-<h5 id="基于策略的VLAN"><a href="#基于策略的VLAN" class="headerlink" title="基于策略的VLAN"></a>基于策略的VLAN</h5><ul>
-<li>原理</li>
-</ul>
-<ul>
-<li>优点</li>
-</ul>
-<ul>
-<li>优点</li>
 </ul>
 <p><br></p>
 <h4 id="链路聚合"><a href="#链路聚合" class="headerlink" title="链路聚合"></a>链路聚合</h4><p><strong>对于拥有多个网络接口的系统，链路聚合使多个接口被视为一个</strong></p>
