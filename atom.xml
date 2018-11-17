@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-11T15:50:46.783Z</updated>
+  <updated>2018-11-17T17:15:59.417Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring Boot 部署</title>
+    <link href="https://alberthumbert.github.io/2018/11/17/SpringDeploy/"/>
+    <id>https://alberthumbert.github.io/2018/11/17/SpringDeploy/</id>
+    <published>2018-11-17T15:44:21.000Z</published>
+    <updated>2018-11-17T17:15:59.417Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入计算机网络系列 5 - RIP &amp; OSPF</title>
@@ -382,26 +402,6 @@
     <id>https://alberthumbert.github.io/2018/09/22/Early/</id>
     <published>2018-09-22T15:32:25.000Z</published>
     <updated>2018-09-22T15:46:32.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 2 - 交叉环境编译 &amp; GCC</title>
-    <link href="https://alberthumbert.github.io/2018/09/22/OSCrossGcc/"/>
-    <id>https://alberthumbert.github.io/2018/09/22/OSCrossGcc/</id>
-    <published>2018-09-22T14:41:40.000Z</published>
-    <updated>2018-10-19T03:03:19.000Z</updated>
     
     <summary type="html">
     
