@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 17, 2018" />
-        <meta property="article:modified_time" content="10月 19, 2018" />
+        <meta property="article:modified_time" content="11月 26, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入JVM系列 3 - OOP-Klass",
     "url": "https://alberthumbert.github.io/2018/10/17/JVMOopKlass/index.html",
     "datePublished": "10月 17, 2018",
-    "dateModified": "10月 19, 2018",
+    "dateModified": "11月 26, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -517,8 +517,8 @@
 </li>
 </ul>
 <pre><code>对于第一点，实现 OOP-Klass 的动机，很多人说&quot;OOP-Klass 是为了避免每个对象都 生成/含有 一个虚函数表”
-实际上在 c++ 中如果一个类有虚函数，那么这个类的所有对象共享一个虚函数表，每个对象的指针 _vptr 指向了虚函数表
-OOP-Klass 模型是了避免每个对象都 生成/含有 一个虚函数表指针 _vptr
+实际上在 c++ 中如果一个类有虚函数，那么这个类的所有对象共享一个虚函数表，每个对象的指针 \_vptr 指向了虚函数表
+OOP-Klass 模型是了避免每个对象都 生成/含有 一个虚函数表指针 \_vptr
 
 下面 klass.hpp 中的这段注释正好证实了这一点
 //in http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/87ee5ee27509/src/share/vm/oops/klass.hpp
@@ -528,7 +528,7 @@ OOP-Klass 模型是了避免每个对象都 生成/含有 一个虚函数表指�
 // forward all &quot;virtual&quot; functions to their klass, which does have
 // a vtbl and does the C++ dispatch depending on the object&apos;s
 // actual type.  (See oop.inline.hpp for some of the forwarding code.)
-// ALL FUNCTIONS IMPLEMENTING THIS DISPATCH ARE PREFIXED WITH &quot;oop_&quot;!
+// ALL FUNCTIONS IMPLEMENTING THIS DISPATCH ARE PREFIXED WITH &quot;oop\_&quot;!
 </code></pre><p><br></p>
 <h3 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h3><p><br></p>
 <h4 id="OOP-框架"><a href="#OOP-框架" class="headerlink" title="OOP 框架"></a>OOP 框架</h4><pre><code>//in hotspot/src/share/vm/oops/oop.hpp
@@ -551,7 +551,7 @@ markOopDesc 描述对象头
 ...
 </code></pre><p><br></p>
 <h4 id="对象与对象头"><a href="#对象与对象头" class="headerlink" title="对象与对象头"></a>对象与对象头</h4><ul>
-<li><p>虚拟机中对象的内存布局分为连续的两部分，instanceOopDesc(对象头)和实例数据</p>
+<li><p>虚拟机中对象的内存布局分为连续的两部分，instanceOopDesc(对象头)和实例数据（算上对齐填充是三部分）</p>
 </li>
 <li><p>对象头又分为两部分，mark word 和 元数据指针(继承自oopDesc，见上文)</p>
 </li>
@@ -566,28 +566,28 @@ markOopDesc 描述对象头
 //
 //  32 bits:
 //  --------
-//             hash:25 ------------&gt;| age:4    biased_lock:1 lock:2 (normal object)
-//             JavaThread*:23 epoch:2 age:4    biased_lock:1 lock:2 (biased object)
-//             size:32 ------------------------------------------&gt;| (CMS free block)
-//             PromotedObject*:29 ----------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)
+//             hash:25 ------------\&gt;| age:4    biased\_lock:1 lock:2 (normal object)
+//             JavaThread\*:23 epoch:2 age:4    biased\_lock:1 lock:2 (biased object)
+//             size:32 ------------------------------------------\&gt;| (CMS free block)
+//             PromotedObject\*:29 ----------\&gt;| promo\_bits:3 -----\&gt;| (CMS promoted object)
 //
 //  64 bits:
 //  --------
-//  unused:25 hash:31 --&gt;| unused:1   age:4    biased_lock:1 lock:2 (normal object)
-//  JavaThread*:54 epoch:2 unused:1   age:4    biased_lock:1 lock:2 (biased object)
-//  PromotedObject*:61 ---------------------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)
-//  size:64 -----------------------------------------------------&gt;| (CMS free block)
+//  unused:25 hash:31 --\&gt;| unused:1   age:4    biased\_lock:1 lock:2 (normal object)
+//  JavaThread\*:54 epoch:2 unused:1   age:4    biased\_lock:1 lock:2 (biased object)
+//  PromotedObject\*:61 ---------------------\&gt;| promo\_bits:3 -----\&gt;| (CMS promoted object)
+//  size:64 -----------------------------------------------------\&gt;| (CMS free block)
 //
-//  unused:25 hash:31 --&gt;| cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; normal object)
-//  JavaThread*:54 epoch:2 cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; biased object)
-//  narrowOop:32 unused:24 cms_free:1 unused:4 promo_bits:3 -----&gt;| (COOPs &amp;&amp; CMS promoted object)
-//  unused:21 size:35 --&gt;| cms_free:1 unused:7 ------------------&gt;| (COOPs &amp;&amp; CMS free block)
+//  unused:25 hash:31 --\&gt;| cms\_free:1 age:4    biased\_lock:1 lock:2 (COOPs &amp;&amp; normal object)
+//  JavaThread\*:54 epoch:2 cms\_free:1 age:4    biased\_lock:1 lock:2 (COOPs &amp;&amp; biased object)
+//  narrowOop:32 unused:24 cms\_free:1 unused:4 promo\_bits:3 -----\&gt;| (COOPs &amp;&amp; CMS promoted object)
+//  unused:21 size:35 --\&gt;| cms\_free:1 unused:7 ------------------\&gt;| (COOPs &amp;&amp; CMS free block)
 
 //元数据的定义
-&apos;&apos;   union _metadata {
-&apos;&apos;     wideKlassOop    _klass; //klassInstance指针
-&apos;&apos;     narrowOop       _compressed_klass; //klassInstance指针的压缩形式32位，在 64 位机上使用它可以提高效率
-&apos;&apos;   } _metadata;
+\&apos;&apos;   union \_metadata {
+\&apos;&apos;     wideKlassOop    \_klass; //klassInstance指针
+\&apos;&apos;     narrowOop       \_compressed\_klass; //klassInstance指针的压缩形式32位，在 64 位机上使用它可以提高效率
+\&apos;&apos;   } \_metadata;
 </code></pre><p><br></p>
 <h3 id="Klass"><a href="#Klass" class="headerlink" title="Klass"></a>Klass</h3><p><br></p>
 <h4 id="Klass-类"><a href="#Klass-类" class="headerlink" title="Klass 类"></a>Klass 类</h4><p><strong>对象访问机制: new -> 堆中分配对象头和实例数据 -> java 中引用 -> 访问 instanceOop -> 元数据指针 -> instanceKlass </strong></p>
@@ -604,36 +604,36 @@ markOopDesc 描述对象头
 <li>java_mirror 字段，是java的class类的实例</li>
 </ul>
 <ul>
-<li>super，first subklass，next<em>sibling，为父类，第一子类，和兄弟类，这些的字段足以构成一棵树</em></li>
+<li>super，first subklass，next_sibling，为父类，第一子类，和兄弟类，这些的字段足以构成一棵树_</li>
 </ul>
 <pre><code>//klassOop 对象的布局
 //in hotspot/src/share/vm/oops/klass.hpp
 //  Klass layout:
 //    [header        ] klassOop
 //    [klass pointer ] klassOop
-//    [C++ vtbl ptr  ] (contained in Klass_vtbl)
-//    [layout_helper ]
-//    [super_check_offset   ] for fast subtype checks
-//    [secondary_super_cache] for fast subtype checks
-//    [secondary_supers     ] array of 2ndary supertypes
-//    [primary_supers 0]
-//    [primary_supers 1]
-//    [primary_supers 2]
+//    [C++ vtbl ptr  ] (contained in Klass\_vtbl)
+//    [layout\_helper ]
+//    [super\_check\_offset   ] for fast subtype checks
+//    [secondary\_super\_cache] for fast subtype checks
+//    [secondary\_supers     ] array of 2ndary supertypes
+//    [primary\_supers 0]
+//    [primary\_supers 1]
+//    [primary\_supers 2]
 //    ...
-//    [primary_supers 7]
-//    [java_mirror   ]
+//    [primary\_supers 7]
+//    [java\_mirror   ]
 //    [super         ]
 //    [name          ]
 //    [first subklass]
-//    [next_sibling  ] link to chain additional subklasses
-//    [modifier_flags]
-//    [access_flags  ]
-//    [verify_count  ] - not in product
-//    [alloc_count   ]
-//    [last_biased_lock_bulk_revocation_time] (64 bits)
-//    [prototype_header]
-//    [biased_lock_revocation_count]
-//    [trace_id]
+//    [next\_sibling  ] link to chain additional subklasses
+//    [modifier\_flags]
+//    [access\_flags  ]
+//    [verify\_count  ] - not in product
+//    [alloc\_count   ]
+//    [last\_biased\_lock\_bulk\_revocation\_time] (64 bits)
+//    [prototype\_header]
+//    [biased\_lock\_revocation\_count]
+//    [trace\_id]
 </code></pre><p><br></p>
 <h4 id="instanceKlass-类"><a href="#instanceKlass-类" class="headerlink" title="instanceKlass 类"></a>instanceKlass 类</h4><ul>
 <li>每个已加载的 Java 类对应一个 instanceKlass 类的对象，instanceKlass的成员可以描述一个 java 类的所有信息，它们在类解析阶段赋值</li>
@@ -648,7 +648,7 @@ markOopDesc 描述对象头
 //    [instance size              ] Klass
 //    [java mirror                ] Klass
 //    [super                      ] Klass
-//    [access_flags               ] Klass
+//    [access\_flags               ] Klass
 //    [name                       ] Klass
 //    [first subklass             ] Klass
 //    [next sibling               ] Klass
@@ -799,7 +799,7 @@ markOopDesc 描述对象头
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

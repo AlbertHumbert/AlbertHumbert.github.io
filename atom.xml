@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-17T17:15:59.417Z</updated>
+  <updated>2018-11-26T16:12:05.015Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入JVM系列 5 - 对象和静态变量的内存布局</title>
+    <link href="https://alberthumbert.github.io/2018/11/26/JVMObjectField/"/>
+    <id>https://alberthumbert.github.io/2018/11/26/JVMObjectField/</id>
+    <published>2018-11-26T14:31:17.000Z</published>
+    <updated>2018-11-26T16:12:05.015Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring Boot 部署</title>
     <link href="https://alberthumbert.github.io/2018/11/17/SpringDeploy/"/>
     <id>https://alberthumbert.github.io/2018/11/17/SpringDeploy/</id>
     <published>2018-11-17T15:44:21.000Z</published>
-    <updated>2018-11-17T17:15:59.417Z</updated>
+    <updated>2018-11-17T17:20:37.554Z</updated>
     
     <summary type="html">
     
@@ -301,7 +321,7 @@
     <link href="https://alberthumbert.github.io/2018/10/17/JVMOopKlass/"/>
     <id>https://alberthumbert.github.io/2018/10/17/JVMOopKlass/</id>
     <published>2018-10-17T14:14:44.000Z</published>
-    <updated>2018-10-19T03:02:45.000Z</updated>
+    <updated>2018-11-26T14:47:10.614Z</updated>
     
     <summary type="html">
     
@@ -382,26 +402,6 @@
     <id>https://alberthumbert.github.io/2018/09/26/JVMCompileOpenJdk7/</id>
     <published>2018-09-26T15:25:23.000Z</published>
     <updated>2018-10-19T03:03:24.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>近期的一些计划</title>
-    <link href="https://alberthumbert.github.io/2018/09/22/Early/"/>
-    <id>https://alberthumbert.github.io/2018/09/22/Early/</id>
-    <published>2018-09-22T15:32:25.000Z</published>
-    <updated>2018-09-22T15:46:32.000Z</updated>
     
     <summary type="html">
     
