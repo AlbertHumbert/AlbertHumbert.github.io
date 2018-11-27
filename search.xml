@@ -51,7 +51,7 @@ class oopDesc {
 <li>初始化instanceKlass，这个过程需要加锁并且会初始化父类和接口，初始化时就会完成成员布局的初始化也就是实现上文提到的几个规则（具体可以阅读<a href="https://blog.csdn.net/sky1young/article/details/27063821" target="_blank" rel="external">这篇文章</a>）</li>
 </ul>
 <ul>
-<li>创建对象，检查是否设置Finalizer函数，获取对象所需空间的大小，调用CollectedHeap的obj_allocate()创建一个instanceOop(堆上的对象实例)，并根据情况注册Finalizer函数</li>
+<li>创建对象，检查是否设置Finalizer函数，获取对象所需空间的大小，调用CollectedHeap的obj_allocate()创建一个instanceOop(堆上对象实例)，并根据情况注册Finalizer函数</li>
 </ul>
 <pre><code>IRT_ENTRY(void, InterpreterRuntime::_new(JavaThread* thread, constantPoolOopDesc* pool, int index))
 
@@ -86,6 +86,129 @@ instanceOop instanceKlass::allocate_instance(TRAPS) {
   return i;
 }
 </code></pre><p><br></p>
+<h3 id="对象内存空间分配"><a href="#对象内存空间分配" class="headerlink" title="对象内存空间分配"></a>对象内存空间分配</h3><p><br></p>
+<h4 id="tlab分配"><a href="#tlab分配" class="headerlink" title="tlab分配"></a>tlab分配</h4><ul>
+<li>hotspot 1.6 引入了 tlab（ThreadLocalAllocBuffer）</li>
+</ul>
+<ul>
+<li>tlab 是从 eden 区划分出来的内存空间，是提供给线程的专用的内存分配区域，tlab 与 线程有一对一的关系，每个线程使用自己的tlab 分配对象空间，避免同步的消耗</li>
+</ul>
+<ul>
+<li>tlab 默认开启，可以使用 XX:+UseTLAB 参数进行设置，如果开启了tlab，vm 就会尝试在 tlab 上创建对象，tlab上创建失败才在 eden 的普通区域中创建对象</li>
+</ul>
+<pre><code>//in hotspot/src/share/vm/gc_interface/collectedHeap.inline.hpp
+//in common_mem_allocate_noinit()
+
+ if (UseTLAB) {
+    result = allocate_from_tlab(klass, THREAD, size);
+    if (result != NULL) {
+      assert(!HAS_PENDING_EXCEPTION,
+             &quot;Unexpected exception, will result in uninitialized storage&quot;);
+      return result;
+    }
+  }
+  bool gc_overhead_limit_was_exceeded = false;
+  result = Universe::heap()-&gt;mem_allocate(size,
+                                          &amp;gc_overhead_limit_was_exceeded);
+</code></pre><ul>
+<li>tlab 只涉及对象的分配，整个eden区上的对象依然允许多个线程访问的，tlab本质上只是指向eden某区域的三个指针，start，top 和 end，使用指针碰撞规则进行管理，即 top + new_obj_size >= end时重新分配内存，根据新开辟的裸空间重新设置指针</li>
+</ul>
+<pre><code> HeapWord* _start;                               //起始地址
+  HeapWord* _top;                                //当前地址
+  HeapWord* _pf_top;                             // allocation prefetch watermark
+  HeapWord* _end;                                //结束地址
+  size_t    _desired_size;                       //tlab大小
+  size_t    _refill_waste_limit;                 //最大浪费空间
+//如果某次请求时空间不足分配，如果剩余空间如果大于改值
+//则不会重新申请tlab，而是使用慢分配
+</code></pre><ul>
+<li>当 tlab 重新分配时原有已使用的空间只是归还给了 CollectedHeap管理，而未使用的空间则会被设置为一个 filler object 而浪费掉</li>
+</ul>
+<pre><code>filler object对堆管理器来说是一个假对象，这样做是为了让堆可以线性扫描，即将堆作为一个个连续的对象，只要通过对象头记录的对象大小就可以访问下一个对象
+如果没有filler object，则由于未使用的部分不是对象，堆管理器为了实现线性访问需要额外记录这些空洞，但这样做的缺点是filler object本质上无谓地占用了堆内存，这些空间只能等待gc回收
+</code></pre><p><br></p>
+<h4 id="慢速分配"><a href="#慢速分配" class="headerlink" title="慢速分配"></a>慢速分配</h4><ul>
+<li>有的人称其为堆分配，实际上tlab也在堆上，称之为慢速分配更加合适，毕竟相对的tlab只在申请时才加锁，算是快了。从哪里开始算慢速分配这点也需要说下，有人觉得 InterpreterRuntime::_new，就是慢速分配，还有人觉得只要用cas无锁分配也算快速分配。上文提到 InterpreterRuntime::_new 也会先尝试在tlab上分配，然后尝试cas无锁分配，这就很矛盾，所以个人认为上文的 common_mem_allocate_noinit 用来划分最合适，要么调用 allocate_from_tlab，要么调用 mem_allocate(由堆实现)，前者代表快速分配后者代表慢速分配，当然并不是所有情况都会走这个函数，只是将tlab称为快速分配，其余的都划分为慢速分配会更加清晰，mem_allocate 核心在于 GenCollectorPolicy::mem_allocate_work</li>
+</ul>
+<ul>
+<li>创建对象会开启循环重试，要么分配成功要么分配失败抛出异常</li>
+</ul>
+<pre><code>for (int try_count = 1, gclocker_stalled_count = 0; /* return or throw */; try_count += 1) {
+</code></pre><ul>
+<li>第一次分配使用 cas，对象优先在eden区分配，但大对象略过这一步，直接在老年代分配</li>
+</ul>
+<pre><code>// First allocation attempt is lock-free.
+Generation *gen0 = gch-&gt;get_gen(0);
+assert(gen0-&gt;supports_inline_contig_alloc(),
+  &quot;Otherwise, must do alloc within heap lock&quot;);
+if (gen0-&gt;should_allocate(size, is_tlab)) {
+  result = gen0-&gt;par_allocate(size, is_tlab);
+  if (result != NULL) {
+    assert(gch-&gt;is_in_reserved(result), &quot;result not in heap&quot;);
+    return result;
+  }
+}
+</code></pre><ul>
+<li>如果无锁分配失败，则在新生代或老年代使用堆的互斥锁进行加锁分配，其中只有大对象才会在老年代分配</li>
+</ul>
+<pre><code>unsigned int gc_count_before;  // read inside the Heap_lock locked region
+{
+  MutexLocker ml(Heap_lock);
+  if (PrintGC &amp;&amp; Verbose) {
+    gclog_or_tty-&gt;print_cr(&quot;TwoGenerationCollectorPolicy::mem_allocate_work:&quot;
+                  &quot; attempting locked slow path allocation&quot;);
+  }
+  // Note that only large objects get a shot at being
+  // allocated in later generations.
+  bool first_only = ! should_try_older_generation_allocation(size);
+
+  result = gch-&gt;attempt_allocation(size, is_tlab, first_only);
+  if (result != NULL) {
+    assert(gch-&gt;is_in_reserved(result), &quot;result not in heap&quot;);
+    return result;
+  }
+</code></pre><ul>
+<li>分配失败,如果这个时候 gc 已经被其他线程触发，但仍未执行，那么尝试扩展堆空间并再次尝试</li>
+</ul>
+<pre><code>if (GC_locker::is_active_and_needs_gc()) {
+   if (is_tlab) {
+     return NULL;  // Caller will retry allocating individual object
+   }
+   if (!gch-&gt;is_maximal_no_gc()) {
+     // Try and expand heap to satisfy request
+     result = expand_heap_and_allocate(size, is_tlab);
+     // result could be null if we are out of space
+     if (result != NULL) {
+       return result;
+     }
+   }
+</code></pre><ul>
+<li>如果没有空间可以扩展，那么只能gc了，这个时候释放堆的互斥锁，让被触发的gc可以执行</li>
+</ul>
+<pre><code>JavaThread* jthr = JavaThread::current();
+        if (!jthr-&gt;in_critical()) {
+          MutexUnlocker mul(Heap_lock);
+          // Wait for JNI critical section to be exited
+          GC_locker::stall_until_clear();
+          continue;
+        }
+</code></pre><ul>
+<li>在没有gc被触发的情况下，则主动触发一次gc，这之后会做一些记录操作信息之类的零碎工作，然后循坏重头开始</li>
+</ul>
+<pre><code>VM_GenCollectForAllocation op(size,
+                              is_tlab,
+                              gc_count_before);
+VMThread::execute(&amp;op);
+if (op.prologue_succeeded()) {
+  result = op.result();
+  if (op.gc_locked()) {
+     assert(result == NULL, &quot;must be NULL if gc_locked() is true&quot;);
+     continue;  // retry and/or stall as necessary
+  }
+</code></pre><ul>
+<li>注意 hotSpot 中gc分为minor gc和full gc两种，前者回收新生代，后者回收所有分代，这个时候对象可能会按 eden->survivor->老年代的顺序晋升，是否晋升到老年代由对象经历的minor gc次数和大小决定</li>
+</ul>
+<p><br></p>
 <h3 id="Class-对象-amp-java-mirror"><a href="#Class-对象-amp-java-mirror" class="headerlink" title="Class 对象 &amp; java mirror"></a>Class 对象 &amp; java mirror</h3>]]></content>
       
         <categories>
