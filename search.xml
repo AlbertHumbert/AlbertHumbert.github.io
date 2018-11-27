@@ -128,7 +128,7 @@ instanceOop instanceKlass::allocate_instance(TRAPS) {
 如果没有filler object，则由于未使用的部分不是对象，堆管理器为了实现线性访问需要额外记录这些空洞，但这样做的缺点是filler object本质上无谓地占用了堆内存，这些空间只能等待gc回收
 </code></pre><p><br></p>
 <h4 id="慢速分配"><a href="#慢速分配" class="headerlink" title="慢速分配"></a>慢速分配</h4><ul>
-<li>有的人称其为堆分配，实际上tlab也在堆上，称之为慢速分配更加合适，毕竟相对的tlab只在申请时才加锁，算是快了。从哪里开始算慢速分配这点也需要说下，有人觉得 InterpreterRuntime::_new，就是慢速分配，还有人觉得只要用cas无锁分配也算快速分配。上文提到 InterpreterRuntime::_new 也会先尝试在tlab上分配，然后尝试cas无锁分配，这就很矛盾，所以个人认为上文的 common_mem_allocate_noinit 用来划分最合适，要么调用 allocate_from_tlab，要么调用 mem_allocate(由堆实现)，前者代表快速分配后者代表慢速分配，当然并不是所有情况都会走这个函数，只是将tlab称为快速分配，其余的都划分为慢速分配会更加清晰，mem_allocate 核心在于 GenCollectorPolicy::mem_allocate_work</li>
+<li>有的人称其为堆分配，实际上tlab也在堆上，称之为慢速分配更加合适，毕竟相对的tlab只在申请时才加锁，算是快了。从哪里开始算慢速分配这点也需要说下，有人觉得 InterpreterRuntime::_new，就是慢速分配，还有人觉得只要用cas无锁分配也算快速分配。上文提到 InterpreterRuntime::_new 也会先尝试在tlab上分配，然后尝试cas无锁分配，这就很矛盾，所以个人认为上文的 common_mem_allocate_noinit 用来划分最合适，要么调用 allocate_from_tlab，要么调用 mem_allocate(由堆实现)，前者代表快速分配后者代表慢速分配，当然并不是所有情况都会走这个函数，只是将tlab称为快速分配，其余的都划分为慢速分配会更加清晰，mem_allocate 核心在于 GenCollectorPolicy::mem_allocate_work，主要流程如下</li>
 </ul>
 <ul>
 <li>创建对象会开启循环重试，要么分配成功要么分配失败抛出异常</li>
@@ -209,7 +209,7 @@ if (op.prologue_succeeded()) {
 <li>注意 hotSpot 中gc分为minor gc和full gc两种，前者回收新生代，后者回收所有分代，这个时候对象可能会按 eden->survivor->老年代的顺序晋升，是否晋升到老年代由对象经历的minor gc次数和大小决定</li>
 </ul>
 <p><br></p>
-<h3 id="Class-对象-amp-java-mirror"><a href="#Class-对象-amp-java-mirror" class="headerlink" title="Class 对象 &amp; java mirror"></a>Class 对象 &amp; java mirror</h3>]]></content>
+<h3 id="Class-对象-amp-java-mirror"><a href="#Class-对象-amp-java-mirror" class="headerlink" title="Class 对象 &amp; java mirror"></a>Class 对象 &amp; java mirror</h3><h4 id="class-对象"><a href="#class-对象" class="headerlink" title="class 对象"></a>class 对象</h4><h4 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h4>]]></content>
       
         <categories>
             
