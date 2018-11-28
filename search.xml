@@ -645,7 +645,7 @@ ip地址 = 网络号 +（子网号+主机号）
 </ul>
 <p><br></p>
 <h2 id="分段-amp-保护模式"><a href="#分段-amp-保护模式" class="headerlink" title="分段 &amp; 保护模式"></a>分段 &amp; 保护模式</h2><p><strong>简单介绍分段机制与 GDT</strong><br><a href="https://tocreate.app/2018/10/31/OSGdt/" target="_blank" rel="external">详见</a></p>
-<p><strong>创建GDT，进入保护模式</strong><br><a href="https://tocreate.app/2018/11/8/OSGdtCreate/" target="_blank" rel="external">详见</a></p>
+<p><strong>创建GDT，进入保护模式</strong><br><a href="https://tocreate.app/2018/11/08/OSGdtCreate/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
 <p><br><br><br></p>
