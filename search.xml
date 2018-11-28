@@ -209,12 +209,105 @@ if (op.prologue_succeeded()) {
 <li>注意 hotSpot 中gc分为minor gc和full gc两种，前者回收新生代，后者回收所有分代，这个时候对象可能会按 eden->survivor->老年代的顺序晋升，是否晋升到老年代由对象经历的minor gc次数和大小决定</li>
 </ul>
 <p><br></p>
-<h3 id="Class-对象-amp-java-mirror"><a href="#Class-对象-amp-java-mirror" class="headerlink" title="Class 对象 &amp; java mirror"></a>Class 对象 &amp; java mirror</h3><ul>
+<h3 id="反射-amp-mirror"><a href="#反射-amp-mirror" class="headerlink" title="反射 &amp; mirror"></a>反射 &amp; mirror</h3><ul>
+<li>R大在这篇<a href="http://rednaxelafx.iteye.com/blog/730461" target="_blank" rel="external">文章</a>和这篇<a href="http://rednaxelafx.iteye.com/blog/1847971" target="_blank" rel="external">文章</a>里提到了mirror,原话差不多是这样,HotSpot并不把instanceKlass暴露给Java，而会另外创建对应的java.lang.Class对象，将instanceKlass包装了一层来暴露给Java层使用，并将后者称为前者的镜像，InstanceKlass和java_mirror互相持有，obj.getClass()，在HotSpot VM里实际上经过了两层间接引用才能找到最终的Class对象</li>
+</ul>
+<pre><code>obj-&gt;_klass-&gt;_java_mirror  
+</code></pre><ul>
+<li>关于 mirror ，我现在也只了解了一些表面的东西，这篇<a href="chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://bracha.org/mirrors.pdf" target="_blank" rel="external">论文</a>专门描述了这种设计，不过看得我云里雾里的</li>
+</ul>
+<ul>
+<li>传统的反射实现中，class的实现横跨了基本层面和元数据层面，但使用镜像模式设计的class，每次从基本层面访问元数据层面都是一次反射调用，很清楚地隔离了边界，可以屏蔽一些实现细节（运行期从本地或远程获取元数据，甚至使用多种不同的实现来获取元数据，诸如此类的特性），其他还有一些涉及可移植性的优点实在是没搞明白</li>
+</ul>
+<p><img src="http://wx4.sinaimg.cn/mw690/987832a0gy1fxo6ctblqvj21980bkwgi.jpg" alt=""></p>
+<p><br></p>
+<h3 id="java-mirror"><a href="#java-mirror" class="headerlink" title="java mirror"></a>java mirror</h3><p><br></p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>java mirror 是class的实现，这个指的是java mirror java.lang.Class 在 native 层的对等实体，再准确的说，java mirror的类型是 instanceMirrorKlass，它是 Klass 类的属性，自然也被子类继承</li>
+</ul>
+<pre><code>// An instanceMirrorKlass is a specialized instanceKlass for
+// java.lang.Class instances.  These instances are special because
+// they contain the static fields of the class in addition to the
+// normal fields of Class.  This means they are variable sized
+// instances and need special logic for computing their size and for
+// iteration of their oops.
+
+class instanceMirrorKlass: public instanceKlass {
+
+//...
+
+}
+
+class Klass : public Klass_vtbl {
+
+//...
+
+// java/lang/Class instance mirroring this class
+  oop       _java_mirror;
+}
+</code></pre><ul>
+<li>instanceMirrorKlass很容易和hotspot中的java_lang_Class类搞混,实际上后者只提供了一些java层的java.lang.Class类的访问接口，在设置或查询信息时用到</li>
+</ul>
+<pre><code>// Interface to java.lang.Class objects
+
+class java_lang_Class : AllStatic {
+</code></pre><p><br></p>
+<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><ul>
+<li>当然这里指定的是hotspot中的实现，从java语言层面上来说是否使用mirror都是底层技术细节，不是规范里的内容，只是class类的一种实现而已</li>
+</ul>
+<ul>
+<li>既然是反射相关，那么当然从反射入手，关于反射我这里强推一篇<a href="https://www.jianshu.com/p/b6cb4c694951" target="_blank" rel="external">文章</a>，以反射为例将 klass opp 模型讲得很具体了(物理)，这里我就直接切入到后面了，我们平时调用的 getDeclaredMethod 会调用到 Reflection::new_method 函数,它会创建一个java.lang.reflect.Method对象</li>
+</ul>
+<pre><code>// Create a java.lang.reflect.Method object based on a method
+ static oop new_method(methodHandle method, bool intern_name, bool for_constant_pool_access, TRAPS);
+</code></pre><ul>
+<li>而在创建的过程中会调用 get_parameter_types 函数返回的是所有的objArrayHandle对象，如果参数声明是类，那么它包含了 java mirror</li>
+</ul>
+<pre><code>objArrayHandle Reflection::get_parameter_types(methodHandle method, int parameter_count, oop* return_type, TRAPS) {
+//...
+ while (!ss.at_return_type()) {
+    oop mirror = get_mirror_from_signature(method, &amp;ss, CHECK_(objArrayHandle()));
+    mirrors-&gt;obj_at_put(index++, mirror);
+    ss.next();
+  }
+//...
+}
+
+oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
+//...
+
+    case T_OBJECT:
+    case T_ARRAY:
+//..
+      klassOop k = SystemDictionary::resolve_or_fail(
+                                       name,
+                                       Handle(THREAD, loader),
+                                       Handle(THREAD, protection_domain),
+                                       true, CHECK_NULL);
+
+      return k-&gt;java_mirror();
+  };
+</code></pre><ul>
+<li>之后分配Method对象，也就是上文说过的那部分内容了，我们回到java层，Method中的parameterType正是Class类型</li>
+</ul>
+<pre><code>public final class Method extends Executable {
+    private Class&lt;?&gt;            clazz;
+    private int                 slot;
+    // This is guaranteed to be interned by the VM in the 1.4
+    // reflection implementation
+    private String              name;
+    private Class&lt;?&gt;            returnType;
+    private Class&lt;?&gt;[]          parameterTypes;
+    private Class&lt;?&gt;[]          exceptionTypes;
+    private int                 modifiers;
+</code></pre><p><br></p>
+<h4 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h4><ul>
+<li><p>hotspot 7 中静态字段会被分配在 java mirror当中</p>
+</li>
 <li></li>
 </ul>
-<p><br></p>
-<h4 id="class-对象"><a href="#class-对象" class="headerlink" title="class 对象"></a>class 对象</h4><p><br></p>
-<h4 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h4>]]></content>
+<p><strong>未完待续</strong></p>
+]]></content>
       
         <categories>
             
