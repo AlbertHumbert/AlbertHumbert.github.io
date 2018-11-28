@@ -209,7 +209,12 @@ if (op.prologue_succeeded()) {
 <li>注意 hotSpot 中gc分为minor gc和full gc两种，前者回收新生代，后者回收所有分代，这个时候对象可能会按 eden->survivor->老年代的顺序晋升，是否晋升到老年代由对象经历的minor gc次数和大小决定</li>
 </ul>
 <p><br></p>
-<h3 id="Class-对象-amp-java-mirror"><a href="#Class-对象-amp-java-mirror" class="headerlink" title="Class 对象 &amp; java mirror"></a>Class 对象 &amp; java mirror</h3><h4 id="class-对象"><a href="#class-对象" class="headerlink" title="class 对象"></a>class 对象</h4><h4 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h4>]]></content>
+<h3 id="Class-对象-amp-java-mirror"><a href="#Class-对象-amp-java-mirror" class="headerlink" title="Class 对象 &amp; java mirror"></a>Class 对象 &amp; java mirror</h3><ul>
+<li></li>
+</ul>
+<p><br></p>
+<h4 id="class-对象"><a href="#class-对象" class="headerlink" title="class 对象"></a>class 对象</h4><p><br></p>
+<h4 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h4>]]></content>
       
         <categories>
             
@@ -5788,6 +5793,10 @@ $ make
 <p><br></p>
 <h3 id="Class文件"><a href="#Class文件" class="headerlink" title="Class文件"></a>Class文件</h3><ul>
 <li><strong>解析Class文件</strong><br><a href="https://tocreate.app/2018/10/19/JVMClassFile/" target="_blank" rel="external">详见</a></li>
+</ul>
+<p><br></p>
+<h4 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h4><ul>
+<li><strong>对象和静态变量内存布局</strong><br><a href="https://tocreate.app/2018/11/26/JVMObjectField/" target="_blank" rel="external">详见</a></li>
 </ul>
 ]]></content>
       
