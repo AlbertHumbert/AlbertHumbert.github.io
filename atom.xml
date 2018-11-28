@@ -56,46 +56,6 @@
   </entry>
   
   <entry>
-    <title>深入计算机网络系列 5 - RIP &amp; OSPF</title>
-    <link href="https://alberthumbert.github.io/2018/11/11/NetRipOspf/"/>
-    <id>https://alberthumbert.github.io/2018/11/11/NetRipOspf/</id>
-    <published>2018-11-11T06:09:08.000Z</published>
-    <updated>2018-11-11T15:50:46.783Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入计算机网络  2 - IPv6</title>
-    <link href="https://alberthumbert.github.io/2018/11/11/NetIPv6/"/>
-    <id>https://alberthumbert.github.io/2018/11/11/NetIPv6/</id>
-    <published>2018-11-10T17:02:18.000Z</published>
-    <updated>2018-11-11T06:06:31.009Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
     <title>深入计算机网络  2 - IP 和 IPv4</title>
     <link href="https://alberthumbert.github.io/2018/11/10/NetIPv4/"/>
     <id>https://alberthumbert.github.io/2018/11/10/NetIPv4/</id>
@@ -241,7 +201,7 @@
     <link href="https://alberthumbert.github.io/2018/10/30/NetLayer/"/>
     <id>https://alberthumbert.github.io/2018/10/30/NetLayer/</id>
     <published>2018-10-30T14:10:27.000Z</published>
-    <updated>2018-11-12T15:19:11.597Z</updated>
+    <updated>2018-11-28T11:07:26.313Z</updated>
     
     <summary type="html">
     
@@ -402,6 +362,46 @@
     <id>https://alberthumbert.github.io/2018/09/26/JVMCompileOpenJdk7/</id>
     <published>2018-09-26T15:25:23.000Z</published>
     <updated>2018-10-19T03:03:24.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>近期的一些计划</title>
+    <link href="https://alberthumbert.github.io/2018/09/22/Early/"/>
+    <id>https://alberthumbert.github.io/2018/09/22/Early/</id>
+    <published>2018-09-22T15:32:25.000Z</published>
+    <updated>2018-09-22T15:46:32.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入操作系统 2 - 交叉环境编译 &amp; GCC</title>
+    <link href="https://alberthumbert.github.io/2018/09/22/OSCrossGcc/"/>
+    <id>https://alberthumbert.github.io/2018/09/22/OSCrossGcc/</id>
+    <published>2018-09-22T14:41:40.000Z</published>
+    <updated>2018-10-19T03:03:19.000Z</updated>
     
     <summary type="html">
     
