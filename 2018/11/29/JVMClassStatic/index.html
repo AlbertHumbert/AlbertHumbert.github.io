@@ -599,10 +599,126 @@ oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
     private Class&lt;?&gt;[]          exceptionTypes;
     private int                 modifiers;
 </code></pre><p><br></p>
-<h3 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h3><h4 id="jdk-6"><a href="#jdk-6" class="headerlink" title="jdk 6"></a>jdk 6</h4><h4 id="jdk-7"><a href="#jdk-7" class="headerlink" title="jdk 7"></a>jdk 7</h4><ul>
-<li>hotspot 7 中静态字段会被分配在 java mirror当中</li>
+<h3 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h3><p><br></p>
+<h4 id="jdk-6"><a href="#jdk-6" class="headerlink" title="jdk 6"></a>jdk 6</h4><ul>
+<li>hotspot 6 当中的 klass 不管是普通的 instanceklass 还是其子类 instanceMirrorklass(java mirror，java.lang.class)、instanceRefKlass<br>(softRefenrence,weakRefenrence..) 都存放在 PermGen(对应概念上的方法区)中, 而静态变量存放在instanceklass的末尾</li>
 </ul>
-<h4 id="Jdk-8"><a href="#Jdk-8" class="headerlink" title="Jdk 8"></a>Jdk 8</h4><p><strong>未完待续</strong></p>
+<pre><code>//src/share/vm/oops/klass.cpp 
+klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
+                                      const Klass_vtbl&amp; vtbl, TRAPS) {
+  size = align_object_size(size);
+// allocate and initialize vtable
+// 在PermGen中分配
+  Klass*   kl = (Klass*) vtbl.allocate_permanent(klass, size, CHECK_NULL);
+  klassOop k  = kl-&gt;as_klassOop();
+</code></pre><ul>
+<li>jdk 6 中 instanceKlass 内存布局如下，末尾为 static 变量</li>
+</ul>
+<pre><code>//  instanceKlass layout:
+//    [header                     ] klassOop
+//    [klass pointer              ] klassOop
+//    [C++ vtbl pointer           ] Klass
+//    [subtype cache              ] Klass
+//    [instance size              ] Klass
+//    [java mirror                ] Klass
+//    [super                      ] Klass
+//    [access_flags               ] Klass
+//    [name                       ] Klass
+//    [first subklass             ] Klass
+//    [next sibling               ] Klass
+//    [array klasses              ]
+//    [methods                    ]
+//    [local interfaces           ]
+//    [transitive interfaces      ]
+//    [number of implementors     ]
+//    [implementors               ] klassOop[2]
+//    [fields                     ]
+//    [constants                  ]
+//    [class loader               ]
+//    [protection domain          ]
+//    [signers                    ]
+//    [source file name           ]
+//    [inner classes              ]
+//    [static field size          ]
+//    [nonstatic field size       ]
+//    [static oop fields size     ]
+//    [nonstatic oop maps size    ]
+//    [has finalize method        ]
+//    [deoptimization mark bit    ]
+//    [initialization state       ]
+//    [initializing thread        ]
+//    [Java vtable length         ]
+//    [oop map cache (stack maps) ]
+//    [EMBEDDED Java vtable             ] size in words = vtable_len
+//    [EMBEDDED static oop fields       ] size in words = static_oop_fields_size
+//    [         static non-oop fields   ] size in words = static_field_size - static_oop_fields_size
+//    [EMBEDDED nonstatic oop-map blocks] size in words = nonstatic_oop_map_size
+</code></pre><p><br></p>
+<h4 id="jdk-7"><a href="#jdk-7" class="headerlink" title="jdk 7"></a>jdk 7</h4><ul>
+<li>hotspot 7 中 java_mirror 的实例在堆中创建，静态变量存放在 java_mirror 当中，初始化静态变量时，核心都是调用xxx field_put函数，将变量存放在指定偏移量处</li>
+</ul>
+<pre><code>//初始化静态变量
+//src/share/vm/classfile/javaClasses.cpp
+static void initialize_static_field(fieldDescriptor* fd, TRAPS) {
+  Handle mirror (THREAD, fd-&gt;field_holder()-&gt;java_mirror());
+//...
+    switch (t) {
+      case T_BYTE:
+        mirror()-&gt;byte_field_put(fd-&gt;offset(), fd-&gt;int_initial_value());
+              break;
+      case T_BOOLEAN:
+        mirror()-&gt;bool_field_put(fd-&gt;offset(), fd-&gt;int_initial_value());
+              break;
+      case T_CHAR:
+        mirror()-&gt;char_field_put(fd-&gt;offset(), fd-&gt;int_initial_value());
+              break;
+      case T_SHORT:
+        mirror()-&gt;short_field_put(fd-&gt;offset(), fd-&gt;int_initial_value());
+              break;
+      case T_INT:
+        mirror()-&gt;int_field_put(fd-&gt;offset(), fd-&gt;int_initial_value());
+        break;
+      case T_FLOAT:
+        mirror()-&gt;float_field_put(fd-&gt;offset(), fd-&gt;float_initial_value());
+        break;
+      case T_DOUBLE:
+        mirror()-&gt;double_field_put(fd-&gt;offset(), fd-&gt;double_initial_value());
+        break;
+      case T_LONG:
+        mirror()-&gt;long_field_put(fd-&gt;offset(), fd-&gt;long_initial_value());
+        break;
+      case T_OBJECT:
+        {
+          oop string = fd-&gt;string_initial_value(CHECK);
+          mirror()-&gt;obj_field_put(fd-&gt;offset(), string);
+        }
+        break;
+      default:
+    }
+  }
+}
+</code></pre><ul>
+<li>instanceMirrorKlass 的创建如下，JavaObjectsInPerm 写死是 false，common_mem_allocate_init 上一篇分析过了，在堆中分配内存</li>
+</ul>
+<pre><code>//创建java_mirror，调用过程由上到下
+/java_lang_Class::create_mirror
+//instanceMirrorKlass::allocate_instance
+//CollectedHeap::Class_obj_allocate
+
+oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle real_klass, TRAPS) {
+  HeapWord* obj;
+//默认为false
+  if (JavaObjectsInPerm) {
+    obj = common_permanent_mem_allocate_init(size, CHECK_NULL);
+  } else {
+    assert(ScavengeRootsInCode &gt; 0, &quot;must be&quot;);
+    obj = common_mem_allocate_init(real_klass, size, CHECK_NULL);
+  }
+</code></pre><p><br></p>
+<h4 id="Jdk-8"><a href="#Jdk-8" class="headerlink" title="Jdk 8"></a>Jdk 8</h4><ul>
+<li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响，静态变量也不受影响，大体上保留 7 中的做法，只是不再判断JavaObjectsInPerm了，这里不再赘述</li>
+</ul>
+<p><strong>本篇完</strong></p>
 
     
 

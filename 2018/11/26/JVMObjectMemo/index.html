@@ -560,7 +560,6 @@ class oopDesc {
 //初始化klass
   klass-&gt;initialize(CHECK);
 
-//创建对象
   oop obj = klass-&gt;allocate_instance(CHECK);
   thread-&gt;set_vm_result(obj);
 IRT_END
@@ -573,7 +572,7 @@ instanceOop instanceKlass::allocate_instance(TRAPS) {
   KlassHandle h_k(THREAD, as_klassOop());
 
   instanceOop i;
-
+//创建对象
   i = (instanceOop)CollectedHeap::obj_allocate(h_k, size, CHECK_NULL);
   if (has_finalizer_flag &amp;&amp; !RegisterFinalizersAtInit) {
     i = register_finalizer(i, CHECK_NULL);
@@ -591,7 +590,8 @@ instanceOop instanceKlass::allocate_instance(TRAPS) {
 <ul>
 <li>tlab 默认开启，可以使用 XX:+UseTLAB 参数进行设置，如果开启了tlab，vm 就会尝试在 tlab 上创建对象，tlab上创建失败才在 eden 的普通区域中创建对象</li>
 </ul>
-<pre><code>//in hotspot/src/share/vm/gc_interface/collectedHeap.inline.hpp
+<pre><code>//下面这个函数会被上文中的 CollectedHeap::obj\_allocate 函数调用
+//in hotspot/src/share/vm/gc_interface/collectedHeap.inline.hpp
 //in common_mem_allocate_noinit()
 
  if (UseTLAB) {
