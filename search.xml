@@ -3,6 +3,30 @@
   
     
     <entry>
+      <title><![CDATA[深入JVM系列 7 - 类的加载与链接]]></title>
+      <url>/2018/11/29/JVMLoadLink/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/11/29/JVMClassStatic/" target="_blank" rel="external">可能需要阅读前文</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 7 - 中断]]></title>
       <url>/2018/11/29/OSInterrupts/</url>
       <content type="html"><![CDATA[<p>-</p>
