@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2018/5 | 
+            深入JVM系列 5 - 对象内存布局与分配 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2018/5 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入JVM系列 5 - 对象内存布局与分配 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="11月 26, 2018" />
+        <meta property="article:modified_time" content="11月 29, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2018/5 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="深入JVM系列 5 - 对象内存布局与分配 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/archives/2018/05/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "深入JVM系列 5 - 对象内存布局与分配",
+    "url": "https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html",
+    "datePublished": "11月 26, 2018",
+    "dateModified": "11月 29, 2018",
+    "description": "-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -275,332 +308,448 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象的内存布局"><span class="post-toc-number">1.</span> <span class="post-toc-text">对象的内存布局</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象头"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">对象头</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实例数据"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实例数据</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对齐填充"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">对齐填充</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象的创建流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">对象的创建流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象内存空间分配"><span class="post-toc-number">3.</span> <span class="post-toc-text">对象内存空间分配</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tlab分配"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">tlab分配</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#慢速分配"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">慢速分配</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/31/GitSubmoduleForAndroid/">Android 模块化开发指南</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/31/GitSubmoduleForAndroid/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 31, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/25/GitFlowModel/">基于 Git Flow 模型的工作流程</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/25/GitFlowModel/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 25, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/25/git-flow/">git-flow 工作流 上手指南</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/25/git-flow/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 25, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/24/LiveData/">Architecture Components 系列 - LiveData &amp; ViewModel</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/24/LiveData/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 24, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/20/gradle3/">gradle 3.x 依赖方式</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/20/gradle3/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 20, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                深入JVM系列 5 - 对象内存布局与分配
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>11月 26, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 5 - 对象内存布局与分配&url=https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 5 - 对象内存布局与分配&url=https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html&title=深入JVM系列 5 - 对象内存布局与分配" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 5 - 对象内存布局与分配&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/index.html&text=深入JVM系列 5 - 对象内存布局与分配" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/10/19/JVMClassFile/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>最近备考一些垃圾课没怎么复习，现在考完3科，正式开始复习了</strong></p>
+<p><br></p>
+<h3 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h3><p><strong>hotSpot中对象可以分为对象头，实例数据和对齐填充三部分</strong></p>
+<p><br></p>
+<h4 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h4><ul>
+<li>对象头在上一篇写过了，它分为mark word 和 元数据指针（klassInstance指针），不再复述</li>
+</ul>
+<pre><code>//in hotspot/src/share/vm/oops/oop.hpp
+class oopDesc {
+  friend class VMStructs;
+ private:
+  volatile markOop  _mark;
+  union _metadata {
+    wideKlassOop    _klass;
+    narrowOop       _compressed_klass;
+  } _metadata;
+</code></pre><p><br></p>
+<h4 id="实例数据"><a href="#实例数据" class="headerlink" title="实例数据"></a>实例数据</h4><ul>
+<li>实例数据包括通过继承或自身定义得到的所有字段(成员变量)，不包括类变量（静态变量）</li>
+</ul>
+<ul>
+<li>字段的存储顺序受定义顺序和虚拟机策略共同影响，默认规则如下</li>
+</ul>
+<pre><code>顺序为 longs/doubles，ints，shorts/chars，bytes/booleans，OOPS
+父类定义的变量可能出现在子类之前
+子类较窄的变量可能插入到父类变量的空隙之中
+</code></pre><p><br></p>
+<h4 id="对齐填充"><a href="#对齐填充" class="headerlink" title="对齐填充"></a>对齐填充</h4><ul>
+<li>对象大小必须是8字节的整数倍</li>
+</ul>
+<p><br></p>
+<h3 id="对象的创建流程"><a href="#对象的创建流程" class="headerlink" title="对象的创建流程"></a>对象的创建流程</h3><ul>
+<li>new 关键字的实现为InterpreterRuntime::_new，主要分为三部</li>
+</ul>
+<ul>
+<li>解析类获得instanceKlass，它是java类在jvm的对等实体，如果已被解析过则直接返回查找到的instanceKlass，否则加载类，生成对应的instanceKlass对象并更新符号引用</li>
+</ul>
+<ul>
+<li>初始化instanceKlass，这个过程需要加锁并且会初始化父类和接口，初始化时就会完成成员布局的初始化也就是实现上文提到的几个规则（具体可以阅读<a href="https://blog.csdn.net/sky1young/article/details/27063821" target="_blank" rel="external">这篇文章</a>）</li>
+</ul>
+<ul>
+<li>创建对象，检查是否设置Finalizer函数，获取对象所需空间的大小，调用CollectedHeap的obj_allocate()创建一个instanceOop(堆上对象实例)，并根据情况注册Finalizer函数</li>
+</ul>
+<pre><code>IRT_ENTRY(void, InterpreterRuntime::_new(JavaThread* thread, constantPoolOopDesc* pool, int index))
+
+//解析
+  klassOop k_oop = pool-&gt;klass_at(index, CHECK);
+  instanceKlassHandle klass (THREAD, k_oop);
+
+//检查是否为抽象类
+  klass-&gt;check_valid_for_instantiation(true, CHECK);
+
+//初始化klass
+  klass-&gt;initialize(CHECK);
+
+//创建对象
+  oop obj = klass-&gt;allocate_instance(CHECK);
+  thread-&gt;set_vm_result(obj);
+IRT_END
+
+instanceOop instanceKlass::allocate_instance(TRAPS) {
+  assert(!oop_is_instanceMirror(), &quot;wrong allocation path&quot;);
+  bool has_finalizer_flag = has_finalizer(); // Query before possible GC
+  int size = size_helper();  // Query before forming handle.
+
+  KlassHandle h_k(THREAD, as_klassOop());
+
+  instanceOop i;
+
+  i = (instanceOop)CollectedHeap::obj_allocate(h_k, size, CHECK_NULL);
+  if (has_finalizer_flag &amp;&amp; !RegisterFinalizersAtInit) {
+    i = register_finalizer(i, CHECK_NULL);
+  }
+  return i;
+}
+</code></pre><p><br></p>
+<h3 id="对象内存空间分配"><a href="#对象内存空间分配" class="headerlink" title="对象内存空间分配"></a>对象内存空间分配</h3><p><br></p>
+<h4 id="tlab分配"><a href="#tlab分配" class="headerlink" title="tlab分配"></a>tlab分配</h4><ul>
+<li>hotspot 1.6 引入了 tlab（ThreadLocalAllocBuffer）</li>
+</ul>
+<ul>
+<li>tlab 是从 eden 区划分出来的内存空间，是提供给线程的专用的内存分配区域，tlab 与 线程有一对一的关系，每个线程使用自己的tlab 分配对象空间，避免同步的消耗</li>
+</ul>
+<ul>
+<li>tlab 默认开启，可以使用 XX:+UseTLAB 参数进行设置，如果开启了tlab，vm 就会尝试在 tlab 上创建对象，tlab上创建失败才在 eden 的普通区域中创建对象</li>
+</ul>
+<pre><code>//in hotspot/src/share/vm/gc_interface/collectedHeap.inline.hpp
+//in common_mem_allocate_noinit()
+
+ if (UseTLAB) {
+    result = allocate_from_tlab(klass, THREAD, size);
+    if (result != NULL) {
+      assert(!HAS_PENDING_EXCEPTION,
+             &quot;Unexpected exception, will result in uninitialized storage&quot;);
+      return result;
+    }
+  }
+  bool gc_overhead_limit_was_exceeded = false;
+  result = Universe::heap()-&gt;mem_allocate(size,
+                                          &amp;gc_overhead_limit_was_exceeded);
+</code></pre><ul>
+<li>tlab 只涉及对象的分配，整个eden区上的对象依然允许多个线程访问的，tlab本质上只是指向eden某区域的三个指针，start，top 和 end，使用指针碰撞规则进行管理，即 top + new_obj_size >= end时重新分配内存，根据新开辟的裸空间重新设置指针</li>
+</ul>
+<pre><code> HeapWord* _start;                               //起始地址
+  HeapWord* _top;                                //当前地址
+  HeapWord* _pf_top;                             // allocation prefetch watermark
+  HeapWord* _end;                                //结束地址
+  size_t    _desired_size;                       //tlab大小
+  size_t    _refill_waste_limit;                 //最大浪费空间
+//如果某次请求时空间不足分配，如果剩余空间如果大于改值
+//则不会重新申请tlab，而是使用慢分配
+</code></pre><ul>
+<li>当 tlab 重新分配时原有已使用的空间只是归还给了 CollectedHeap管理，而未使用的空间则会被设置为一个 filler object 而浪费掉</li>
+</ul>
+<pre><code>filler object对堆管理器来说是一个假对象，这样做是为了让堆可以线性扫描，即将堆作为一个个连续的对象，只要通过对象头记录的对象大小就可以访问下一个对象
+如果没有filler object，则由于未使用的部分不是对象，堆管理器为了实现线性访问需要额外记录这些空洞，但这样做的缺点是filler object本质上无谓地占用了堆内存，这些空间只能等待gc回收
+</code></pre><p><br></p>
+<h4 id="慢速分配"><a href="#慢速分配" class="headerlink" title="慢速分配"></a>慢速分配</h4><ul>
+<li>有的人称其为堆分配，实际上tlab也在堆上，称之为慢速分配更加合适，毕竟相对的tlab只在申请时才加锁，算是快了。从哪里开始算慢速分配这点也需要说下，有人觉得 InterpreterRuntime::_new，就是慢速分配，还有人觉得只要用cas无锁分配也算快速分配。上文提到 InterpreterRuntime::_new 也会先尝试在tlab上分配，然后尝试cas无锁分配，这就很矛盾，所以个人认为上文的 common_mem_allocate_noinit 用来划分最合适，要么调用 allocate_from_tlab，要么调用 mem_allocate(由堆实现)，前者代表快速分配后者代表慢速分配，当然并不是所有情况都会走这个函数，只是将tlab称为快速分配，其余的都划分为慢速分配会更加清晰，mem_allocate 核心在于 GenCollectorPolicy::mem_allocate_work，主要流程如下</li>
+</ul>
+<ul>
+<li>创建对象会开启循环重试，要么分配成功要么分配失败抛出异常</li>
+</ul>
+<pre><code>for (int try_count = 1, gclocker_stalled_count = 0; /* return or throw */; try_count += 1) {
+</code></pre><ul>
+<li>第一次分配使用 cas，对象优先在eden区分配，但大对象略过这一步，直接在老年代分配</li>
+</ul>
+<pre><code>// First allocation attempt is lock-free.
+Generation *gen0 = gch-&gt;get_gen(0);
+assert(gen0-&gt;supports_inline_contig_alloc(),
+  &quot;Otherwise, must do alloc within heap lock&quot;);
+if (gen0-&gt;should_allocate(size, is_tlab)) {
+  result = gen0-&gt;par_allocate(size, is_tlab);
+  if (result != NULL) {
+    assert(gch-&gt;is_in_reserved(result), &quot;result not in heap&quot;);
+    return result;
+  }
+}
+</code></pre><ul>
+<li>如果无锁分配失败，则在新生代或老年代使用堆的互斥锁进行加锁分配，其中只有大对象才会在老年代分配</li>
+</ul>
+<pre><code>unsigned int gc_count_before;  // read inside the Heap_lock locked region
+{
+  MutexLocker ml(Heap_lock);
+  if (PrintGC &amp;&amp; Verbose) {
+    gclog_or_tty-&gt;print_cr(&quot;TwoGenerationCollectorPolicy::mem_allocate_work:&quot;
+                  &quot; attempting locked slow path allocation&quot;);
+  }
+  // Note that only large objects get a shot at being
+  // allocated in later generations.
+  bool first_only = ! should_try_older_generation_allocation(size);
+
+  result = gch-&gt;attempt_allocation(size, is_tlab, first_only);
+  if (result != NULL) {
+    assert(gch-&gt;is_in_reserved(result), &quot;result not in heap&quot;);
+    return result;
+  }
+</code></pre><ul>
+<li>分配失败,如果这个时候 gc 已经被其他线程触发，但仍未执行，那么尝试扩展堆空间并再次尝试</li>
+</ul>
+<pre><code>if (GC_locker::is_active_and_needs_gc()) {
+   if (is_tlab) {
+     return NULL;  // Caller will retry allocating individual object
+   }
+   if (!gch-&gt;is_maximal_no_gc()) {
+     // Try and expand heap to satisfy request
+     result = expand_heap_and_allocate(size, is_tlab);
+     // result could be null if we are out of space
+     if (result != NULL) {
+       return result;
+     }
+   }
+</code></pre><ul>
+<li>如果没有空间可以扩展，那么只能gc了，这个时候释放堆的互斥锁，让被触发的gc可以执行</li>
+</ul>
+<pre><code>JavaThread* jthr = JavaThread::current();
+        if (!jthr-&gt;in_critical()) {
+          MutexUnlocker mul(Heap_lock);
+          // Wait for JNI critical section to be exited
+          GC_locker::stall_until_clear();
+          continue;
+        }
+</code></pre><ul>
+<li>在没有gc被触发的情况下，则主动触发一次gc，这之后会做一些记录操作信息之类的零碎工作，然后循坏重头开始</li>
+</ul>
+<pre><code>VM_GenCollectForAllocation op(size,
+                              is_tlab,
+                              gc_count_before);
+VMThread::execute(&amp;op);
+if (op.prologue_succeeded()) {
+  result = op.result();
+  if (op.gc_locked()) {
+     assert(result == NULL, &quot;must be NULL if gc_locked() is true&quot;);
+     continue;  // retry and/or stall as necessary
+  }
+</code></pre><ul>
+<li>注意 hotSpot 中gc分为minor gc和full gc两种，前者回收新生代，后者回收所有分代，这个时候对象可能会按 eden->survivor->老年代的顺序晋升，是否晋升到老年代由对象经历的minor gc次数和大小决定</li>
+</ul>
+<p><strong>本篇完</strong></p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/11/29/JVMClassStatic/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/11/17/SpringDeploy/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     

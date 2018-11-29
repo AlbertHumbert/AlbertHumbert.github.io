@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2018/5 | 
+            深入JVM系列 6 - Class对象与静态变量的存储 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2018/5 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入JVM系列 6 - Class对象与静态变量的存储 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="11月 29, 2018" />
+        <meta property="article:modified_time" content="11月 29, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2018/5 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="深入JVM系列 6 - Class对象与静态变量的存储 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/archives/2018/05/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Albert&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
+    },
+    "headline": "深入JVM系列 6 - Class对象与静态变量的存储",
+    "url": "https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html",
+    "datePublished": "11月 29, 2018",
+    "dateModified": "11月 29, 2018",
+    "description": "-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alberthumbert.github.io"
+    }
+}
+</script>
 
 
     
@@ -275,332 +308,339 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#反射-amp-mirror"><span class="post-toc-number">1.</span> <span class="post-toc-text">反射 & mirror</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#java-mirror"><span class="post-toc-number">2.</span> <span class="post-toc-text">java mirror</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#定义"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">创建</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#静态字段的内存分配"><span class="post-toc-number">3.</span> <span class="post-toc-text">静态字段的内存分配</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#jdk-6"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">jdk 6</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#jdk-7"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">jdk 7</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Jdk-8"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Jdk 8</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/31/GitSubmoduleForAndroid/">Android 模块化开发指南</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/31/GitSubmoduleForAndroid/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 31, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/25/GitFlowModel/">基于 Git Flow 模型的工作流程</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/25/GitFlowModel/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 25, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/25/git-flow/">git-flow 工作流 上手指南</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/25/git-flow/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 25, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/24/LiveData/">Architecture Components 系列 - LiveData &amp; ViewModel</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/24/LiveData/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 24, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/20/gradle3/">gradle 3.x 依赖方式</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/20/gradle3/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>5月 20, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                深入JVM系列 6 - Class对象与静态变量的存储
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>11月 29, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 6 - Class对象与静态变量的存储&url=https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 6 - Class对象与静态变量的存储&url=https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html&title=深入JVM系列 6 - Class对象与静态变量的存储" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 6 - Class对象与静态变量的存储&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html&text=深入JVM系列 6 - Class对象与静态变量的存储" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/11/26/JVMObjectMemo/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>这部分太长了，和上篇拆开来</strong></p>
+<p><br></p>
+<h3 id="反射-amp-mirror"><a href="#反射-amp-mirror" class="headerlink" title="反射 &amp; mirror"></a>反射 &amp; mirror</h3><ul>
+<li>R大在这篇<a href="http://rednaxelafx.iteye.com/blog/730461" target="_blank" rel="external">文章</a>和这篇<a href="http://rednaxelafx.iteye.com/blog/1847971" target="_blank" rel="external">文章</a>里提到了mirror,原话差不多是这样,HotSpot并不把instanceKlass暴露给Java，而会另外创建对应的java.lang.Class对象，将instanceKlass包装了一层来暴露给Java层使用，并将后者称为前者的镜像，InstanceKlass和java_mirror互相持有，obj.getClass()，在HotSpot VM里实际上经过了两层间接引用才能找到最终的Class对象</li>
+</ul>
+<pre><code>obj-&gt;_klass-&gt;_java_mirror  
+</code></pre><ul>
+<li>关于 mirror ，我现在也只了解了一些表面的东西，这篇<a href="chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://bracha.org/mirrors.pdf" target="_blank" rel="external">论文</a>专门描述了这种设计，不过看得我云里雾里的</li>
+</ul>
+<ul>
+<li>传统的反射实现中，class的实现横跨了基本层面和元数据层面，但使用镜像模式设计的class，每次从基本层面访问元数据层面都是一次反射调用，很清楚地隔离了边界，可以屏蔽一些实现细节（运行期从本地或远程获取元数据，甚至使用多种不同的实现来获取元数据，诸如此类的特性），其他还有一些涉及可移植性的优点实在是没搞明白</li>
+</ul>
+<p><img src="http://wx4.sinaimg.cn/mw690/987832a0gy1fxo6ctblqvj21980bkwgi.jpg" alt=""></p>
+<p><br></p>
+<h3 id="java-mirror"><a href="#java-mirror" class="headerlink" title="java mirror"></a>java mirror</h3><p><br></p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>java mirror 是class的实现，这个指的是java mirror java.lang.Class 在 native 层的对等实体，再准确的说，java mirror的类型是 instanceMirrorKlass，它是 Klass 类的属性，自然也被子类继承</li>
+</ul>
+<pre><code>// An instanceMirrorKlass is a specialized instanceKlass for
+// java.lang.Class instances.  These instances are special because
+// they contain the static fields of the class in addition to the
+// normal fields of Class.  This means they are variable sized
+// instances and need special logic for computing their size and for
+// iteration of their oops.
+
+class instanceMirrorKlass: public instanceKlass {
+
+//...
+
+}
+
+class Klass : public Klass_vtbl {
+
+//...
+
+// java/lang/Class instance mirroring this class
+  oop       _java_mirror;
+}
+</code></pre><ul>
+<li>instanceMirrorKlass很容易和hotspot中的java_lang_Class类搞混,实际上后者只提供了一些java层的java.lang.Class类的访问接口，在设置或查询信息时用到</li>
+</ul>
+<pre><code>// Interface to java.lang.Class objects
+
+class java_lang_Class : AllStatic {
+</code></pre><p><br></p>
+<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><ul>
+<li>当然这里指定的是hotspot中的实现，从java语言层面上来说是否使用mirror都是底层技术细节，不是规范里的内容，只是class类的一种实现而已</li>
+</ul>
+<ul>
+<li>既然是反射相关，那么当然从反射入手，关于反射我这里强推一篇<a href="https://www.jianshu.com/p/b6cb4c694951" target="_blank" rel="external">文章</a>，以反射为例将 klass opp 模型讲得很具体了(物理)，这里我就直接切入到后面了，我们平时调用的 getDeclaredMethod 会调用到 Reflection::new_method 函数,它会创建一个java.lang.reflect.Method对象</li>
+</ul>
+<pre><code>// Create a java.lang.reflect.Method object based on a method
+ static oop new_method(methodHandle method, bool intern_name, bool for_constant_pool_access, TRAPS);
+</code></pre><ul>
+<li>而在创建的过程中会调用 get_parameter_types 函数返回的是所有的objArrayHandle对象，如果参数声明是类，那么它包含了 java mirror</li>
+</ul>
+<pre><code>objArrayHandle Reflection::get_parameter_types(methodHandle method, int parameter_count, oop* return_type, TRAPS) {
+//...
+ while (!ss.at_return_type()) {
+    oop mirror = get_mirror_from_signature(method, &amp;ss, CHECK_(objArrayHandle()));
+    mirrors-&gt;obj_at_put(index++, mirror);
+    ss.next();
+  }
+//...
+}
+
+oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
+//...
+
+    case T_OBJECT:
+    case T_ARRAY:
+//..
+      klassOop k = SystemDictionary::resolve_or_fail(
+                                       name,
+                                       Handle(THREAD, loader),
+                                       Handle(THREAD, protection_domain),
+                                       true, CHECK_NULL);
+
+      return k-&gt;java_mirror();
+  };
+</code></pre><ul>
+<li>之后分配Method对象，也就是上文说过的那部分内容了，我们回到java层，Method中的parameterType正是Class类型</li>
+</ul>
+<pre><code>public final class Method extends Executable {
+    private Class&lt;?&gt;            clazz;
+    private int                 slot;
+    // This is guaranteed to be interned by the VM in the 1.4
+    // reflection implementation
+    private String              name;
+    private Class&lt;?&gt;            returnType;
+    private Class&lt;?&gt;[]          parameterTypes;
+    private Class&lt;?&gt;[]          exceptionTypes;
+    private int                 modifiers;
+</code></pre><p><br></p>
+<h3 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h3><h4 id="jdk-6"><a href="#jdk-6" class="headerlink" title="jdk 6"></a>jdk 6</h4><h4 id="jdk-7"><a href="#jdk-7" class="headerlink" title="jdk 7"></a>jdk 7</h4><ul>
+<li>hotspot 7 中静态字段会被分配在 java mirror当中</li>
+</ul>
+<h4 id="Jdk-8"><a href="#Jdk-8" class="headerlink" title="Jdk 8"></a>Jdk 8</h4><p><strong>未完待续</strong></p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/11/26/JVMObjectMemo/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
