@@ -131,7 +131,7 @@ oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
 </code></pre><p><br></p>
 <h3 id="静态字段的内存分配"><a href="#静态字段的内存分配" class="headerlink" title="静态字段的内存分配"></a>静态字段的内存分配</h3><p><br></p>
 <h4 id="jdk-6"><a href="#jdk-6" class="headerlink" title="jdk 6"></a>jdk 6</h4><ul>
-<li>hotspot 6 当中的 klass 不管是普通的 instanceklass 还是其子类 instanceMirrorklass(java mirror，java.lang.class)、instanceRefKlass<br>(softRefenrence,weakRefenrence..) 都存放在 PermGen(对应概念上的方法区)中, 而静态变量存放在instanceklass的末尾</li>
+<li>hotspot 6 当中的 klass 不管是普通的 instanceklass 还是其子类 instanceMirrorklass(java mirror，java.lang.class)、instanceRefKlass(softRefenrence,weakRefenrence..) 都存放在 PermGen(对应概念上的方法区)中, 而静态变量存放在instanceklass的末尾</li>
 </ul>
 <pre><code>//src/share/vm/oops/klass.cpp 
 klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
@@ -246,7 +246,10 @@ oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle r
   }
 </code></pre><p><br></p>
 <h4 id="Jdk-8"><a href="#Jdk-8" class="headerlink" title="Jdk 8"></a>Jdk 8</h4><ul>
-<li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响，静态变量也不受影响，大体上保留 7 中的做法，只是不再判断JavaObjectsInPerm了，这里不再赘述</li>
+<li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响</li>
+</ul>
+<ul>
+<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是不判断JavaObjectsInPerm了，这里不再赘述</li>
 </ul>
 <p><strong>本篇完</strong></p>
 ]]></content>
