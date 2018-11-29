@@ -106,8 +106,8 @@ class Klass : public Klass_vtbl {
 
 class java_lang_Class : AllStatic {
 </code></pre><p><br></p>
-<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><ul>
-<li>当然这里指定的是hotspot中的实现，从java语言层面上来说是否使用mirror都是底层技术细节，不是规范里的内容，只是class类的一种实现而已</li>
+<h4 id="对应"><a href="#对应" class="headerlink" title="对应"></a>对应</h4><ul>
+<li>当然这里指定的是hotspot中的实现，从java语言层面上来说是否使用mirror都是底层技术细节，不是规范里的内容，只是class类的一种实现而已，现在我们来验证一下java mirror是怎么对应到class类的</li>
 </ul>
 <ul>
 <li>既然是反射相关，那么当然从反射入手，关于反射我这里强推一篇<a href="https://www.jianshu.com/p/b6cb4c694951" target="_blank" rel="external">文章</a>，以反射为例将 klass opp 模型讲得很具体了(物理)，这里我就直接切入到后面了，我们平时调用的 getDeclaredMethod 会调用到 Reflection::new_method 函数,它会创建一个java.lang.reflect.Method对象</li>
@@ -115,7 +115,7 @@ class java_lang_Class : AllStatic {
 <pre><code>// Create a java.lang.reflect.Method object based on a method
  static oop new_method(methodHandle method, bool intern_name, bool for_constant_pool_access, TRAPS);
 </code></pre><ul>
-<li>而在创建的过程中会调用 get_parameter_types 函数返回的是所有的objArrayHandle对象，如果参数声明是类，那么它包含了 java mirror</li>
+<li>而在创建的过程中会调用 set_parameter_types 函数返回设置parameterTypes属性，它则调用get_parameter_types获取objArrayHandle对象，如果参数声明是类，那么它内部包含了java mirror</li>
 </ul>
 <pre><code>objArrayHandle Reflection::get_parameter_types(methodHandle method, int parameter_count, oop* return_type, TRAPS) {
 //...
@@ -142,7 +142,7 @@ oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
       return k-&gt;java_mirror();
   };
 </code></pre><ul>
-<li>之后分配Method对象，也就是上文说过的那部分内容了，我们回到java层，Method中的parameterType正是Class类型</li>
+<li>至于Method对象的创建就是上文说过的内容，略过，我们回到java层，在Method中的parameterType正是Class类型，returnType同理，也是靠get_mirror_from_signature，不过上文的代码省略掉了</li>
 </ul>
 <pre><code>public final class Method extends Executable {
     private Class&lt;?&gt;            clazz;
