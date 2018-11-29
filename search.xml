@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title><![CDATA[深入操作系统 7 - 中断]]></title>
+      <url>/2018/11/29/OSInterrupts/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/11/08/OSGdtCreate/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>前面制作镜像，库函数，gdt，保护模式都有可执行的代码，中断这部分就没有了，没时间，如果你的操作系统想要支持中断，核心部分在idt，为了实现idt，首先需要gdt，可以看一下前几篇文章</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入JVM系列 6 - Class对象与静态变量的存储]]></title>
       <url>/2018/11/29/JVMClassStatic/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -669,6 +694,8 @@ ip地址 = 网络号 +（子网号+主机号）
 <p><br></p>
 <h2 id="分段-amp-保护模式"><a href="#分段-amp-保护模式" class="headerlink" title="分段 &amp; 保护模式"></a>分段 &amp; 保护模式</h2><p><strong>简单介绍分段机制与 GDT</strong><br><a href="https://tocreate.app/2018/10/31/OSGdt/" target="_blank" rel="external">详见</a></p>
 <p><strong>创建GDT，进入保护模式</strong><br><a href="https://tocreate.app/2018/11/08/OSGdtCreate/" target="_blank" rel="external">详见</a></p>
+<p><br></p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><p><strong>中断</strong><br><a href="https://tocreate.app/2018/11/29/OSInterrupts/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
 <p><br><br><br></p>
