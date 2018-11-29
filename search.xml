@@ -10,6 +10,7 @@
 <p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/11/08/OSGdtCreate/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>前面制作镜像，库函数，gdt，保护模式都有可执行的代码，中断这部分就没有了，没时间，如果你的操作系统想要支持中断，核心部分在idt，为了实现idt，首先需要gdt，可以看一下前几篇文章</strong></p>
+<p><strong>未完待续</strong></p>
 ]]></content>
       
         <categories>
