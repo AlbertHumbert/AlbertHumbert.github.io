@@ -3672,8 +3672,11 @@ public class TestProcessor extends AbstractProcessor {
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/17/JVMOopKlass/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><br></p>
-<h3 id="Class-文件结构"><a href="#Class-文件结构" class="headerlink" title="Class 文件结构"></a>Class 文件结构</h3><pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
-ClassFile {
+<h3 id="Class-文件结构"><a href="#Class-文件结构" class="headerlink" title="Class 文件结构"></a>Class 文件结构</h3><ul>
+<li>下面是class文件的格式，class文件是以字节为单位的二进制流，包含无符号数和表两种数据项，所有数据项紧密排列没有空隙，大于1字节的数据以高位在前的形式存储，class文件不依赖于实际的存储形式，不管是在内存中还是硬盘中，只要可以用流读取就可以</li>
+</ul>
+<pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
+ClassFile { //编译后的class文件格式
        u4             magic; //魔数，固定值为 0xCAFEBABE
        u2             minor_version; //次版本号
        u2             major_version; //主版本号
@@ -3691,13 +3694,16 @@ ClassFile {
        u2             attributes_count; //属性数量
        attribute_info attributes[attributes_count]; //属性表
 }
-
-cp_info {
-    u1 tag;
-    u1 info[]; 
-}
+</code></pre><ul>
+<li>在 linux 下可以使用 od 命令以16形式查看，不过个人觉得有个概念就行了</li>
+</ul>
+<pre><code>od -t xCc 文件名 #用16进制来输出文件的内容，同时用ASCII字符对照显示
+od -t xC 文件名 #纯16进制显示
 </code></pre><p><br></p>
-<h3 id="常量池类型"><a href="#常量池类型" class="headerlink" title="常量池类型"></a>常量池类型</h3><table>
+<h3 id="常量池类型"><a href="#常量池类型" class="headerlink" title="常量池类型"></a>常量池类型</h3><ul>
+<li>constant_pool，即存储所有常量的地方，包括字符串常量，类名，接口名，方法名等等，虚拟机是围绕符号引用设计的，也就是指令执行时只引用了常量池表中的符号信息, 常量池的所有类型都有自己的结构</li>
+</ul>
+<table>
 <thead>
 <tr>
 <th>Constant Type</th>
@@ -3764,19 +3770,107 @@ cp_info {
 <tr>
 <td>CONSTANT_MethodHandle</td>
 <td>15</td>
+<td>方法句柄</td>
 </tr>
 <tr>
 <td>CONSTANT_MethodType</td>
 <td>16</td>
+<td>标识方法类型</td>
 </tr>
 <tr>
 <td>CONSTANT_InvokeDynamic</td>
 <td>18</td>
+<td>表示一个动态方法的调用点</td>
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<h3 id="字段表"><a href="#字段表" class="headerlink" title="字段表"></a>字段表</h3><pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
+<ul>
+<li>例如，CONSTANT_Class_info，tag用于区分类型，其值如上表所述，name_index指向CONSTANT_Utf8_info常量，该常量是类的全限定名，下面是其他所有类型的定义</li>
+</ul>
+<pre><code>CONSTANT_Class_info {
+      u1 tag;
+      u2 name_index; //类全限定名的CONSTANT_Utf8_info索引
+ }
+
+CONSTANT_Fieldref_info {
+      u1 tag;
+      u2 class_index; //声明该字段的类或接口的CONSTANT_Class_info索引
+      u2 name_and_type_index;//字段描述符的CONSTANT_NameAndType_info索引
+ }
+
+ CONSTANT_Methodref_info {
+      u1 tag;
+      u2 class_index; //声明该方法的类或接口的CONSTANT_Class_info索引
+      u2 name_and_type_index; //指向名称及类型的CONSTANT_NameAndType_info索引
+ }
+
+ CONSTANT_InterfaceMethodref_info {
+      u1 tag;
+      u2 class_index;
+      u2 name_and_type_index;
+ }
+
+ CONSTANT_Utf8_info {
+      u1 tag;
+      u2 length;//长度
+      u1 bytes[length];//内容
+ }
+
+ CONSTANT_String_info {
+      u1 tag;
+      u2 string_index;//CONSTANT_Utf8_info
+ }
+
+ CONSTANT_Integer_info {
+      u1 tag;
+      u4 bytes; 
+ }
+
+ CONSTANT_Float_info {
+      u1 tag;
+      u4 bytes; 
+ }
+
+ CONSTANT_Long_info {
+      u1 tag;
+      u4 high_bytes;
+      u4 low_bytes;
+ }
+
+ CONSTANT_Double_info {
+      u1 tag;
+      u4 high_bytes;
+      u4 low_bytes;
+ }
+
+ CONSTANT_NameAndType_info {
+      u1 tag;
+      u2 name_index; //名称常量索引
+      u2 descriptor_index;//描述符常量索引
+ }
+
+
+ CONSTANT_MethodHandle_info {
+  u1 tag;
+  u1 reference_kind;//句柄类型
+  u2 reference_index;
+ }
+
+ CONSTANT_MethodType_info {
+  u1 tag;
+  u2 descriptor_index;
+ }
+
+ CONSTANT_InvokeDynamic_info {
+  u1 tag;
+  u2 bootstrap_method_attr_index;
+  u2 name_and_type_index;
+ }
+</code></pre><p><br></p>
+<h3 id="字段表"><a href="#字段表" class="headerlink" title="字段表"></a>字段表</h3><ul>
+<li>包含静态字段和实例字段</li>
+</ul>
+<pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
  field_info {
        u2             access_flags;
        u2             name_index;
@@ -3785,7 +3879,10 @@ cp_info {
        attribute_info attributes[attributes_count];
 }
 </code></pre><p><br></p>
-<h3 id="方法表"><a href="#方法表" class="headerlink" title="方法表"></a>方法表</h3><pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
+<h3 id="方法表"><a href="#方法表" class="headerlink" title="方法表"></a>方法表</h3><ul>
+<li>包含实例初始化方法和类初始化方法的所有方法</li>
+</ul>
+<pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
    method_info {
        u2             access_flags;
        u2             name_index;
@@ -3794,7 +3891,10 @@ cp_info {
        attribute_info attributes[attributes_count];
 }
 </code></pre><p><br></p>
-<h3 id="属性表"><a href="#属性表" class="headerlink" title="属性表"></a>属性表</h3><pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
+<h3 id="属性表"><a href="#属性表" class="headerlink" title="属性表"></a>属性表</h3><ul>
+<li>字段表，方法表都可以拥有自己的属性表集合，用来描述特定场景的信息</li>
+</ul>
+<pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
  attribute_info {
        u2 attribute_name_index;
        u4 attribute_length;
