@@ -36,8 +36,20 @@
 <p><a href="https://tocreate.app/2018/11/08/OSGdtCreate/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>前面制作镜像，库函数，gdt，保护模式都有可执行的代码，中断这部分就没有了，没时间，如果你的操作系统想要支持中断，核心部分在idt，为了实现idt，首先需要gdt，可以看一下前几篇文章</strong></p>
 <p><strong>题外话，android系统源码的也差不多开始看了，预计jvm系列完了以后，包括dalvik和art一起看，之前就有找过android虚拟机方面国内像样的书和文章几乎没有，有空找一下有没有好的英文资料，没有就随缘学学了</strong></p>
-<p><strong>待续</strong></p>
-]]></content>
+<p><br></p>
+<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p><strong>中断的相关的分类概念基本上是一团乱麻（软中断，硬中断，内中断，外中断，异常，陷入 ..），不同的cpu架构对中断有不同的定义，而不同的操作系统对中断指令的使用和中断处理程序又有不同的实现，个人认为最好的学习方法是，不去划分边界，我只关注x86中断的定义和指令，及linux在基于其上的实现</strong></p>
+<p><br></p>
+<h4 id="x86"><a href="#x86" class="headerlink" title="x86"></a>x86</h4><p><br></p>
+<h5 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h5><p><br></p>
+<h5 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h5><p><br></p>
+<h4 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h4><p><br></p>
+<h5 id="异常和非屏蔽中断"><a href="#异常和非屏蔽中断" class="headerlink" title="异常和非屏蔽中断"></a>异常和非屏蔽中断</h5><p><br></p>
+<h5 id="屏蔽中断"><a href="#屏蔽中断" class="headerlink" title="屏蔽中断"></a>屏蔽中断</h5><p><br></p>
+<h5 id="软中断"><a href="#软中断" class="headerlink" title="软中断"></a>软中断</h5><p><br></p>
+<h3 id="硬件中断实现"><a href="#硬件中断实现" class="headerlink" title="硬件中断实现"></a>硬件中断实现</h3><p><br></p>
+<h4 id="NMI-amp-INTR"><a href="#NMI-amp-INTR" class="headerlink" title="NMI &amp; INTR"></a>NMI &amp; INTR</h4><p><br></p>
+<h4 id="APIC"><a href="#APIC" class="headerlink" title="APIC"></a>APIC</h4><p><br></p>
+<h4 id="8259A"><a href="#8259A" class="headerlink" title="8259A"></a>8259A</h4>]]></content>
       
         <categories>
             
