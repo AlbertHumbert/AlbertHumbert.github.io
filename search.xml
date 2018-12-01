@@ -122,8 +122,23 @@
 <ul>
 <li>注意linux应用中中断处理程序的一种实现方式也叫软件中断（另一种方式叫tasklet），它只是linux提供给开发者的接口，属于上层的业务，碰巧起了这个名字，不过也不能说完全错误</li>
 </ul>
+<ul>
+<li>一般来说异常的优先级是最高的，可以粗略地定义为 异常>nmi中断>intr中断</li>
+</ul>
+<pre><code>调试故障    
+其它故障    
+陷阱指令INT n和INTO    
+调试陷阱    
+NMI中断 
+INTR中断    
+</code></pre><p><br></p>
+<h4 id="ivt-amp-idt"><a href="#ivt-amp-idt" class="headerlink" title="ivt &amp; idt"></a>ivt &amp; idt</h4><ul>
+<li>实模式下中断处理程序入口为ivt</li>
+</ul>
+<ul>
+<li>保护模式下中断处理程序入口为idt</li>
+</ul>
 <p><br></p>
-<h4 id="ivt-amp-idt"><a href="#ivt-amp-idt" class="headerlink" title="ivt &amp; idt"></a>ivt &amp; idt</h4><p><br></p>
 <h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p><br></p>
 <h4 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h4><p><br></p>
 <h4 id="中断请求"><a href="#中断请求" class="headerlink" title="中断请求"></a>中断请求</h4><p><br></p>
