@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-11-29T15:40:41.323Z</updated>
+  <updated>2018-12-02T08:58:16.574Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入操作系统 8 - 系统调用</title>
+    <link href="https://alberthumbert.github.io/2018/12/02/OSSysCall/"/>
+    <id>https://alberthumbert.github.io/2018/12/02/OSSysCall/</id>
+    <published>2018-12-02T08:53:14.000Z</published>
+    <updated>2018-12-02T08:58:16.574Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入JVM系列 7 - 类的加载与链接</title>
@@ -140,7 +160,7 @@
     <link href="https://alberthumbert.github.io/2018/11/08/OperatingSystem/"/>
     <id>https://alberthumbert.github.io/2018/11/08/OperatingSystem/</id>
     <published>2018-11-08T14:01:30.000Z</published>
-    <updated>2018-11-29T10:08:26.574Z</updated>
+    <updated>2018-12-02T08:59:05.541Z</updated>
     
     <summary type="html">
     
@@ -382,26 +402,6 @@
     <id>https://alberthumbert.github.io/2018/10/15/OSBaseLib/</id>
     <published>2018-10-14T17:01:45.000Z</published>
     <updated>2018-10-23T07:46:38.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 3 -  GRUB 引导 &amp; multiboot 镜像</title>
-    <link href="https://alberthumbert.github.io/2018/10/15/OSBootstrap/"/>
-    <id>https://alberthumbert.github.io/2018/10/15/OSBootstrap/</id>
-    <published>2018-10-14T17:00:10.000Z</published>
-    <updated>2018-10-19T03:03:08.000Z</updated>
     
     <summary type="html">
     
