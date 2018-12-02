@@ -133,12 +133,13 @@ NMI中断
 INTR中断    
 </code></pre><p><br></p>
 <h4 id="ivt-amp-idt"><a href="#ivt-amp-idt" class="headerlink" title="ivt &amp; idt"></a>ivt &amp; idt</h4><ul>
-<li>实模式下中断处理程序入口为ivt</li>
+<li>实模式下中断处理程序入口为的数据结构ivt（中断向量表），保护模式下中断处理程序入口的数据结构为idt（中断描述符表）</li>
 </ul>
 <ul>
-<li>保护模式下中断处理程序入口为idt</li>
+<li>ivt：CPU 加电以后会访问0xFFFFFFF0处的第一条地址，最终会访问到ROM，此时ROM将BIOS装入系统，BIOS的初始化过程中IVT也会被初始化，当和前面系列提到的一样，这些初始化过程能做的十分有限，BIOS只是将IVT的入口地址设置为 0（此处与arm一致，这个非常特殊的地址导致了很多旧的设计上中断号和中断向量直接等同），大小则为0x00000到0x003ff（1KB，共 256 个中断），而这个表中的中断处理程序地址全都指向一条iret指令，也就是说IVT是空的，操作系统可以选择使用lidt指令设置基址，简单使用 mov 填充ivt表</li>
 </ul>
 <p><br></p>
+<h4 id="中断处理过程"><a href="#中断处理过程" class="headerlink" title="中断处理过程"></a>中断处理过程</h4><p><br></p>
 <h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p><br></p>
 <h4 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h4><p><br></p>
 <h4 id="中断请求"><a href="#中断请求" class="headerlink" title="中断请求"></a>中断请求</h4><p><br></p>
