@@ -271,7 +271,12 @@ sys_call_table:
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/11/29/JVMClassStatic/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>之前解析Class文件的内容没怎么用心看（虽然都是些零碎的定义就是了），这次顺便补充一下</strong></p>
-]]></content>
+<p><br></p>
+<h3 id="类的状态"><a href="#类的状态" class="headerlink" title="类的状态"></a>类的状态</h3><p><br></p>
+<h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p><br></p>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><br></p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><br></p>
+<h3 id="ClassLoader"><a href="#ClassLoader" class="headerlink" title="ClassLoader"></a>ClassLoader</h3>]]></content>
       
         <categories>
             
