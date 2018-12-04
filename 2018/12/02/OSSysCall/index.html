@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="12月 02, 2018" />
-        <meta property="article:modified_time" content="12月 03, 2018" />
+        <meta property="article:modified_time" content="12月 04, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 8 - 系统调用",
     "url": "https://alberthumbert.github.io/2018/12/02/OSSysCall/index.html",
     "datePublished": "12月 02, 2018",
-    "dateModified": "12月 03, 2018",
+    "dateModified": "12月 04, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -510,17 +510,85 @@
 <h4 id="产生"><a href="#产生" class="headerlink" title="产生"></a>产生</h4><ul>
 <li>系统调用设计目的为：用户进程和内核之间的一个中间层，为用户提供抽象接口；保证系统的稳定安全，进行访问裁决</li>
 </ul>
+<ul>
+<li>在绝大多数操作系统当中，系统调用都直接(如 linux)或间接（如 minix）通过软中断（或者说陷入来实现）实现，需要中断的原因是”用户空间的程序无法直接执行内核代码，不能直接调用内核空间中的函数，因为内核驻留在受保护的地址空间上。如果进程可以直接在内核的地址空间上读写的话，系统的安全性和稳定性将不存在”，至于中断相关的内容可以阅读上文</li>
+</ul>
+<ul>
+<li>系统调用倾向于简洁，似乎提供的函数越少越好，提供50+个系统调用的minix被认为比提供300+个系统调用的linux简洁，对于那些有一千多个系统调用的系统来说，linux其实已经算十分优秀了</li>
+</ul>
 <p><br></p>
 <h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p><br></p>
 <h5 id="minix"><a href="#minix" class="headerlink" title="minix"></a>minix</h5><ul>
+<li>minix的系统调用使用的软中断指令为 int 33，但这个中断号在 minix 是给 ipc（进程间通信）使用的，本质上来说 minix 的系统调用就是 ipc 的一种实际用途，只是将需要执行的任务以消息的形式发往指定的进程，因此在内核中其实只存在用于进程通信的系统调用，微内核非常喜欢这种能复用就复用的设计</li>
+</ul>
+<pre><code> /* Now check if the call is known and try to perform the request. The only
+   * system calls that exist in MINIX are sending and receiving messages.
+   *   - SENDREC: combines SEND and RECEIVE in a single system call
+   *   - SEND:    sender blocks until its message has been delivered
+   *   - RECEIVE: receiver blocks until an acceptable message has arrived
+   *   - NOTIFY:  asynchronous call; deliver notification or mark pending
+   *   - SENDA:   list of asynchronous send requests
+   */
+  switch(call_nr) {
+      case SENDREC:
+      case SEND:            
+      case RECEIVE:            
+      case NOTIFY:
+      case SENDNB:
+//...
+</code></pre><ul>
 <li>minix 上系统调用的实现，见<a href="https://www.cnblogs.com/Ricezhang/articles/MINIX.html" target="_blank" rel="external">文章</a></li>
 </ul>
 <ul>
 <li>在minix上添加系统调用，见<a href="http://zealscott.com/posts/65090/" target="_blank" rel="external">文章</a></li>
 </ul>
 <p><br></p>
-<h5 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h5><p><br></p>
+<h5 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h5><p><img src="http://wx3.sinaimg.cn/mw690/987832a0gy1fxtnj3u7pfj20dz078jtw.jpg" alt=""></p>
+<ul>
+<li><a href="http://www.cnblogs.com/yangyuliufeng/p/9214400.html" target="_blank" rel="external">图源</a></li>
+</ul>
+<ul>
+<li>linux 的系统调用则复杂一点调用使用的软中断指令为 int 80h，unistd_32.h 中定义了 300 多个系统调用</li>
+</ul>
+<pre><code>//linux-2.6/arch/sh/include/uapi/asm/unistd_32.h
+//...
+#define __NR_userfaultfd    377
+#define __NR_membarrier        378
+#define __NR_mlock2        379
+#define __NR_copy_file_range    380
+#define __NR_preadv2        381
+#define __NR_pwritev2        382
+
+#define NR_syscalls 383
+</code></pre><ul>
+<li>这些系统调用号需要添加的一个系统调用表当中</li>
+</ul>
+<pre><code># linux-2.6/arch/alpha/kernel/systbls.S    
+.data
+    .align 3
+    .globl sys_call_table
+sys_call_table:
+    .quad alpha_ni_syscall            /* 0 */
+    .quad sys_exit
+    .quad alpha_fork
+    .quad sys_read
+    .quad sys_write
+    .quad alpha_ni_syscall            /* 5 */
+# ...
+</code></pre><ul>
+<li>中断处理程序会根据系统调用号在系统调用表中查找系统调用函数，然后执行</li>
+</ul>
+<ul>
+<li>linux 上系统调用的实现，见<a href="https://www.cnblogs.com/sky-heaven/p/6985616.html" target="_blank" rel="external">文章</a></li>
+</ul>
+<p><br></p>
 <h3 id="posix-amp-ANSI-C"><a href="#posix-amp-ANSI-C" class="headerlink" title="posix &amp; ANSI C"></a>posix &amp; ANSI C</h3><ul>
+<li>posix 是由 IEEE 定制的系统调用标准，旨在提高可移植性，并没有规定需要使用什么语言实现，只是大多数操作系统倾向用c语言实现，但往往不会完全根据规范去定义函数接口，因为部分系统调用完全可以合并实现，对参数可能也有自己的考量，有些垃圾操作系统则宁愿去实现一套似是而非的posix接口，比如windows</li>
+</ul>
+<ul>
+<li>ANSI C 和 posix 同时制定，ANSI C 支持了一部分 posix 的函数，但没有完全支持，可以认为 posix 是 ANSI C 的一个超集，没有特殊的理由，程序员应该使用 ANSI C 定义的函数，ANSI C 才是具有可移植性的</li>
+</ul>
+<ul>
 <li>ANSI C 头文件</li>
 </ul>
 <pre><code>&lt;assert.h&gt;      Contains the assert macro, used to assist with detecting logical errors and other types of bug in debugging versions of a program.
@@ -636,7 +704,7 @@
 &lt;wchar.h&gt;   Wide-Character Handling, see C string handling   ??
 &lt;wctype.h&gt;  Wide-Character Classification and Mapping Utilities, see C character classification  ??
 &lt;wordexp.h&gt; Word-expansion like the shell would perform
-</code></pre><p><strong>未完待续</strong></p>
+</code></pre><p><strong>本篇完</strong></p>
 
     
 
@@ -655,6 +723,14 @@
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2018/12/02/OSProcess/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -754,7 +830,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

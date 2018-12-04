@@ -3,6 +3,42 @@
   
     
     <entry>
+      <title><![CDATA[深入操作系统 9 - 进程控制]]></title>
+      <url>/2018/12/02/OSProcess/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/12/02/OSSysCall/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><br></p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p><br></p>
+<h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
+<h4 id="fork-与-exec"><a href="#fork-与-exec" class="headerlink" title="fork 与 exec"></a>fork 与 exec</h4><p><br></p>
+<h4 id="xv6-上的实现"><a href="#xv6-上的实现" class="headerlink" title="xv6 上的实现"></a>xv6 上的实现</h4><p><br></p>
+<h4 id="linux-上的实现"><a href="#linux-上的实现" class="headerlink" title="linux 上的实现"></a>linux 上的实现</h4><p><br></p>
+<h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
+<h4 id="linux-与-init"><a href="#linux-与-init" class="headerlink" title="linux 与 init"></a>linux 与 init</h4><p><br></p>
+<h4 id="xv6-与-userinit"><a href="#xv6-与-userinit" class="headerlink" title="xv6 与 userinit"></a>xv6 与 userinit</h4><p><br></p>
+<h4 id="Android-zygote-与-内核-init"><a href="#Android-zygote-与-内核-init" class="headerlink" title="Android zygote 与 内核 init"></a>Android zygote 与 内核 init</h4><ul>
+<li>严格来说，这部分内容不应该放在这里，但是，顺便了解一下</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 8 - 系统调用]]></title>
       <url>/2018/12/02/OSSysCall/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -14,17 +50,85 @@
 <h4 id="产生"><a href="#产生" class="headerlink" title="产生"></a>产生</h4><ul>
 <li>系统调用设计目的为：用户进程和内核之间的一个中间层，为用户提供抽象接口；保证系统的稳定安全，进行访问裁决</li>
 </ul>
+<ul>
+<li>在绝大多数操作系统当中，系统调用都直接(如 linux)或间接（如 minix）通过软中断（或者说陷入来实现）实现，需要中断的原因是”用户空间的程序无法直接执行内核代码，不能直接调用内核空间中的函数，因为内核驻留在受保护的地址空间上。如果进程可以直接在内核的地址空间上读写的话，系统的安全性和稳定性将不存在”，至于中断相关的内容可以阅读上文</li>
+</ul>
+<ul>
+<li>系统调用倾向于简洁，似乎提供的函数越少越好，提供50+个系统调用的minix被认为比提供300+个系统调用的linux简洁，对于那些有一千多个系统调用的系统来说，linux其实已经算十分优秀了</li>
+</ul>
 <p><br></p>
 <h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p><br></p>
 <h5 id="minix"><a href="#minix" class="headerlink" title="minix"></a>minix</h5><ul>
+<li>minix的系统调用使用的软中断指令为 int 33，但这个中断号在 minix 是给 ipc（进程间通信）使用的，本质上来说 minix 的系统调用就是 ipc 的一种实际用途，只是将需要执行的任务以消息的形式发往指定的进程，因此在内核中其实只存在用于进程通信的系统调用，微内核非常喜欢这种能复用就复用的设计</li>
+</ul>
+<pre><code> /* Now check if the call is known and try to perform the request. The only
+   * system calls that exist in MINIX are sending and receiving messages.
+   *   - SENDREC: combines SEND and RECEIVE in a single system call
+   *   - SEND:    sender blocks until its message has been delivered
+   *   - RECEIVE: receiver blocks until an acceptable message has arrived
+   *   - NOTIFY:  asynchronous call; deliver notification or mark pending
+   *   - SENDA:   list of asynchronous send requests
+   */
+  switch(call_nr) {
+      case SENDREC:
+      case SEND:            
+      case RECEIVE:            
+      case NOTIFY:
+      case SENDNB:
+//...
+</code></pre><ul>
 <li>minix 上系统调用的实现，见<a href="https://www.cnblogs.com/Ricezhang/articles/MINIX.html" target="_blank" rel="external">文章</a></li>
 </ul>
 <ul>
 <li>在minix上添加系统调用，见<a href="http://zealscott.com/posts/65090/" target="_blank" rel="external">文章</a></li>
 </ul>
 <p><br></p>
-<h5 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h5><p><br></p>
+<h5 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h5><p><img src="http://wx3.sinaimg.cn/mw690/987832a0gy1fxtnj3u7pfj20dz078jtw.jpg" alt=""></p>
+<ul>
+<li><a href="http://www.cnblogs.com/yangyuliufeng/p/9214400.html" target="_blank" rel="external">图源</a></li>
+</ul>
+<ul>
+<li>linux 的系统调用则复杂一点调用使用的软中断指令为 int 80h，unistd_32.h 中定义了 300 多个系统调用</li>
+</ul>
+<pre><code>//linux-2.6/arch/sh/include/uapi/asm/unistd_32.h
+//...
+#define __NR_userfaultfd    377
+#define __NR_membarrier        378
+#define __NR_mlock2        379
+#define __NR_copy_file_range    380
+#define __NR_preadv2        381
+#define __NR_pwritev2        382
+
+#define NR_syscalls 383
+</code></pre><ul>
+<li>这些系统调用号需要添加的一个系统调用表当中</li>
+</ul>
+<pre><code># linux-2.6/arch/alpha/kernel/systbls.S    
+.data
+    .align 3
+    .globl sys_call_table
+sys_call_table:
+    .quad alpha_ni_syscall            /* 0 */
+    .quad sys_exit
+    .quad alpha_fork
+    .quad sys_read
+    .quad sys_write
+    .quad alpha_ni_syscall            /* 5 */
+# ...
+</code></pre><ul>
+<li>中断处理程序会根据系统调用号在系统调用表中查找系统调用函数，然后执行</li>
+</ul>
+<ul>
+<li>linux 上系统调用的实现，见<a href="https://www.cnblogs.com/sky-heaven/p/6985616.html" target="_blank" rel="external">文章</a></li>
+</ul>
+<p><br></p>
 <h3 id="posix-amp-ANSI-C"><a href="#posix-amp-ANSI-C" class="headerlink" title="posix &amp; ANSI C"></a>posix &amp; ANSI C</h3><ul>
+<li>posix 是由 IEEE 定制的系统调用标准，旨在提高可移植性，并没有规定需要使用什么语言实现，只是大多数操作系统倾向用c语言实现，但往往不会完全根据规范去定义函数接口，因为部分系统调用完全可以合并实现，对参数可能也有自己的考量，有些垃圾操作系统则宁愿去实现一套似是而非的posix接口，比如windows</li>
+</ul>
+<ul>
+<li>ANSI C 和 posix 同时制定，ANSI C 支持了一部分 posix 的函数，但没有完全支持，可以认为 posix 是 ANSI C 的一个超集，没有特殊的理由，程序员应该使用 ANSI C 定义的函数，ANSI C 才是具有可移植性的</li>
+</ul>
+<ul>
 <li>ANSI C 头文件</li>
 </ul>
 <pre><code>&lt;assert.h&gt;      Contains the assert macro, used to assist with detecting logical errors and other types of bug in debugging versions of a program.
@@ -140,7 +244,7 @@
 &lt;wchar.h&gt;   Wide-Character Handling, see C string handling   ??
 &lt;wctype.h&gt;  Wide-Character Classification and Mapping Utilities, see C character classification  ??
 &lt;wordexp.h&gt; Word-expansion like the shell would perform
-</code></pre><p><strong>未完待续</strong></p>
+</code></pre><p><strong>本篇完</strong></p>
 ]]></content>
       
         <categories>
@@ -295,9 +399,12 @@ INTR中断
 <li>ivt：CPU 加电以后会访问0xFFFFFFF0处的第一条地址，最终会访问到ROM，此时ROM将BIOS装入系统，BIOS的初始化过程中IVT也会被初始化，当和前面系列提到的一样，这些初始化过程能做的十分有限，BIOS只是将IVT的入口地址设置为 0（此处与arm一致，这个非常特殊的地址导致了很多旧的设计上中断号和中断向量直接等同），大小则为0x00000到0x003ff（1KB，共 256 个中断），而这个表中的中断处理程序地址全都指向一条iret指令，也就是说IVT是空的，操作系统可以选择使用lidt指令设置基址，简单使用 mov 填充ivt表</li>
 </ul>
 <p><br></p>
+<h4 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h4><ul>
+<li>操作系统往往使用软中断来实现系统调用，详见下一篇<a href="https://tocreate.app/2018/12/02/OSSysCall/" target="_blank" rel="external">文章</a></li>
+</ul>
+<p><br></p>
 <h4 id="中断处理过程"><a href="#中断处理过程" class="headerlink" title="中断处理过程"></a>中断处理过程</h4><p><br></p>
 <h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p><br></p>
-<h4 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h4><p><br></p>
 <h4 id="中断请求"><a href="#中断请求" class="headerlink" title="中断请求"></a>中断请求</h4><p><br></p>
 <h4 id="中断处理程序"><a href="#中断处理程序" class="headerlink" title="中断处理程序"></a>中断处理程序</h4><p><br></p>
 <h5 id="前半部"><a href="#前半部" class="headerlink" title="前半部"></a>前半部</h5><p><br></p>
@@ -1106,7 +1213,7 @@ ip地址 = 网络号 +（子网号+主机号）
 <p><a href="https://tocreate.app/2018/12/2/OSSysCall/" target="_blank" rel="external">详见</a></p>
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><strong>进程管理</strong></p>
-<p><a href="https://tocreate.app/2018/09/21/OSProcess/" target="_blank" rel="external">详见</a></p>
+<p><a href="https://tocreate.app/2018/12/02/OSProcess/" target="_blank" rel="external">详见</a></p>
 <p><br><br><br></p>
 <p><strong>待续</strong></p>
 ]]></content>
@@ -5950,41 +6057,6 @@ $ make
 </code></pre><p><br></p>
 <h3 id="minix-源码获取"><a href="#minix-源码获取" class="headerlink" title="minix 源码获取"></a>minix 源码获取</h3><pre><code>git clone git://github.com/Stichting-MINIX-Research-Foundation/minix.git
 </code></pre><p><strong>本篇完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[深入操作系统 - 进程控制]]></title>
-      <url>/2018/09/21/OSProcess/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
-<p><br></p>
-<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p><br></p>
-<h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
-<h4 id="fork-与-exec"><a href="#fork-与-exec" class="headerlink" title="fork 与 exec"></a>fork 与 exec</h4><p><br></p>
-<h4 id="xv6-上的实现"><a href="#xv6-上的实现" class="headerlink" title="xv6 上的实现"></a>xv6 上的实现</h4><p><br></p>
-<h4 id="linux-上的实现"><a href="#linux-上的实现" class="headerlink" title="linux 上的实现"></a>linux 上的实现</h4><p><br></p>
-<h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
-<h4 id="linux-与-init"><a href="#linux-与-init" class="headerlink" title="linux 与 init"></a>linux 与 init</h4><p><br></p>
-<h4 id="xv6-与-userinit"><a href="#xv6-与-userinit" class="headerlink" title="xv6 与 userinit"></a>xv6 与 userinit</h4><p><br></p>
-<h4 id="Android-zygote-与-内核-init"><a href="#Android-zygote-与-内核-init" class="headerlink" title="Android zygote 与 内核 init"></a>Android zygote 与 内核 init</h4><ul>
-<li>严格来说，这部分内容不应该放在这里，但是，顺便了解一下</li>
-</ul>
 ]]></content>
       
         <categories>
