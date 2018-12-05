@@ -322,6 +322,106 @@ sys_call_table:
 <li>非数组类由类加载器加载，数组类由虚拟机直接创建，在内存中生成一个java.lang.class对象作为类数据的访问入口，java规范没有规定该对象存于何处，对于 hotspot，早期存在永久代，7及以后存在堆中</li>
 </ul>
 <p><br></p>
+<h4 id="ClassFileParser"><a href="#ClassFileParser" class="headerlink" title="ClassFileParser"></a>ClassFileParser</h4><ul>
+<li>在hotspot中加载过程由Classloader，ClassFileStream，ClassFileParser共同完成，这里的Classloader就是BootStrap ClassLoader的主要实现，主要逻辑在ClassLoader::load_classfile函数中，Classloader的主要职责是根据符号引用来构造ClassFileStream并将其传递给ClassFileParser去处理</li>
+</ul>
+<pre><code>// Load individual .class file
+static instanceKlassHandle load_classfile(Symbol* h_name, TRAPS);
+</code></pre><ul>
+<li>本质上ClassFileStream只是个bytes数组，Classloader根据路径获取class文件并读取成ClassFileStream</li>
+</ul>
+<pre><code>ClassFileStream* ClassPathDirEntry::open_stream(const char* name, TRAPS) {
+  // construct full path name
+  char path[JVM_MAXPATHLEN];
+  if (jio_snprintf(path, sizeof(path), &quot;%s%s%s&quot;, _dir, os::file_separator(), name) == -1) {
+    return NULL;
+  }
+</code></pre><ul>
+<li>ClassFileParser的ClassFileStream 的处理过程主要在parseClassFile函数当中，在读取数据的同时进行校验，最终创建klass对象和java mirror对象，下面只列出大致流程，校验的代码略去</li>
+</ul>
+<ul>
+<li>校验魔数即CAFEBABE</li>
+</ul>
+<pre><code>// Version numbers
+ u2 minor_version = cfs-&gt;get_u2_fast();
+ u2 major_version = cfs-&gt;get_u2_fast();
+
+ // Check version numbers - we check this even with verifier off
+ if (!is_supported_version(major_version, minor_version)) 
+</code></pre><ul>
+<li>校验版本号</li>
+</ul>
+<pre><code>_major_version = major_version;
+ _minor_version = minor_version;
+</code></pre><ul>
+<li>设置 accessflag</li>
+</ul>
+<pre><code>AccessFlags access_flags;
+ jint flags = cfs-&gt;get_u2_fast() &amp; JVM_RECOGNIZED_CLASS_MODIFIERS;
+
+ if ((flags &amp; JVM_ACC_INTERFACE) &amp;&amp; _major_version &lt; JAVA_6_VERSION) {
+   // Set abstract bit for old class files for backward compatibility
+   flags |= JVM_ACC_ABSTRACT;
+ }
+
+ verify_legal_class_modifiers(flags, CHECK_(nullHandle));
+ access_flags.set_flags(flags);
+</code></pre><ul>
+<li>读取该类及其父类索引和句柄</li>
+</ul>
+<pre><code>instanceKlassHandle super_klass;
+ u2 this_class_index = cfs-&gt;get_u2_fast();
+ check_property(
+   valid_cp_range(this_class_index, cp_size) &amp;&amp;
+     cp-&gt;tag_at(this_class_index).is_unresolved_klass(),
+   &quot;Invalid this class index %u in constant pool in class file %s&quot;,
+   this_class_index, CHECK_(nullHandle));
+
+ Symbol*  class_name  = cp-&gt;unresolved_klass_at(this_class_index);
+ assert(class_name != NULL, &quot;class_name can&apos;t be null&quot;);
+</code></pre><ul>
+<li>读取接口包括本类的接口和父类传递的接口</li>
+</ul>
+<pre><code>local_interfaces = parse_interfaces(cp, itfs_len, class_loader, protection_domain, _class_name, CHECK_(nullHandle));
+</code></pre><ul>
+<li>读取字段，会计算域的大小，偏移和按分配策略进行分配</li>
+</ul>
+<pre><code>typeArrayHandle fields = parse_fields(class_name, cp, access_flags.is_interface(), &amp;fac, &amp;fields_annotations,
+                                      &amp;java_fields_count,
+                                      CHECK_(nullHandle));
+</code></pre><ul>
+<li>读取方法</li>
+</ul>
+<pre><code>// These need to be oop pointers because they are allocated lazily
+// inside parse_methods inside a nested HandleMark
+objArrayOop methods_annotations_oop = NULL;
+objArrayOop methods_parameter_annotations_oop = NULL;
+objArrayOop methods_default_annotations_oop = NULL;
+objArrayHandle methods = parse_methods(class_loader, cp,
+                                       access_flags.is_interface(),
+                                       &amp;promoted_flags,
+                                       &amp;has_final_method,
+                                       &amp;methods_annotations_oop,
+                                       &amp;methods_parameter_annotations_oop,
+                                       &amp;methods_default_annotations_oop,
+                                       CHECK_(nullHandle));
+</code></pre><ul>
+<li>根据上面的信息创建klass对象，这样类元信息就存放到方法区了</li>
+</ul>
+<pre><code>// We can now create the basic klassOop for this klass
+klassOop ik = oopFactory::new_instanceKlass(name, vtable_size, itable_size,
+                                            static_field_size,
+                                            total_oop_map_count,
+                                            access_flags,
+                                            rt, host_klass,
+                                            CHECK_(nullHandle));
+instanceKlassHandle this_klass (THREAD, ik);
+</code></pre><ul>
+<li>最后创建 java mirror</li>
+</ul>
+<pre><code>// Allocate mirror and initialize static fields
+java_lang_Class::create_mirror(this_klass, class_loader, CHECK_(nullHandle));
+</code></pre><p><br></p>
 <h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><br></p>
 <h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><ul>
 <li>由于规范中没有限制class文件需要如何产生，因此jvm需验证以避免有害的字节流，不符合规范的class文件在验证阶段将抛出 java.lang.VerifyError</li>
