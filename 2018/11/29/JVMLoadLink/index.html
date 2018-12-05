@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="11月 29, 2018" />
-        <meta property="article:modified_time" content="12月 04, 2018" />
+        <meta property="article:modified_time" content="12月 05, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入JVM系列 7 - 类的加载与链接",
     "url": "https://alberthumbert.github.io/2018/11/29/JVMLoadLink/index.html",
     "datePublished": "11月 29, 2018",
-    "dateModified": "12月 04, 2018",
+    "dateModified": "12月 05, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类的状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">类的状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#加载"><span class="post-toc-number">2.</span> <span class="post-toc-text">加载</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#链接"><span class="post-toc-number">3.</span> <span class="post-toc-text">链接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化"><span class="post-toc-number">4.</span> <span class="post-toc-text">初始化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ClassLoader"><span class="post-toc-number">5.</span> <span class="post-toc-text">ClassLoader</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类的状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">类的状态</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#类的生命周期"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">类的生命周期</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#hotspot-类内部状态"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">hotspot 类内部状态</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#加载"><span class="post-toc-number">2.</span> <span class="post-toc-text">加载</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#链接"><span class="post-toc-number">3.</span> <span class="post-toc-text">链接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化"><span class="post-toc-number">4.</span> <span class="post-toc-text">初始化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ClassLoader"><span class="post-toc-number">5.</span> <span class="post-toc-text">ClassLoader</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -508,6 +508,44 @@
 <p><strong>之前解析Class文件的内容没怎么用心看（虽然都是些零碎的定义就是了），这次顺便补充一下</strong></p>
 <p><br></p>
 <h3 id="类的状态"><a href="#类的状态" class="headerlink" title="类的状态"></a>类的状态</h3><p><br></p>
+<h4 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h4><ul>
+<li>加载，加载过程通过类的全限定名来获取类的二进制流字节流，将字节流的静态存储结构转换为方法区的运行时数据结构，在内存中生成一个java.lang.class对象作为类数据的访问入口</li>
+</ul>
+<ul>
+<li>链接（验证，准备，解析）</li>
+</ul>
+<ul>
+<li>初始化</li>
+</ul>
+<ul>
+<li>使用</li>
+</ul>
+<ul>
+<li>卸载</li>
+</ul>
+<p><br></p>
+<h4 id="hotspot-类内部状态"><a href="#hotspot-类内部状态" class="headerlink" title="hotspot 类内部状态"></a>hotspot 类内部状态</h4><ul>
+<li>未解析</li>
+</ul>
+<ul>
+<li>已分配</li>
+</ul>
+<ul>
+<li>已加载</li>
+</ul>
+<ul>
+<li>已链接</li>
+</ul>
+<ul>
+<li>初始化中</li>
+</ul>
+<ul>
+<li>完成初始化</li>
+</ul>
+<ul>
+<li>初始化出错</li>
+</ul>
+<p><br></p>
 <h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p><br></p>
 <h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><br></p>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><br></p>
