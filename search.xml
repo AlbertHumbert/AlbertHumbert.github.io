@@ -264,7 +264,7 @@ sys_call_table:
     </entry>
     
     <entry>
-      <title><![CDATA[深入JVM系列 7 - 类的加载与链接]]></title>
+      <title><![CDATA[深入JVM系列 7 - 类的加载]]></title>
       <url>/2018/11/29/JVMLoadLink/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -274,7 +274,7 @@ sys_call_table:
 <p><br></p>
 <h3 id="类的状态"><a href="#类的状态" class="headerlink" title="类的状态"></a>类的状态</h3><p><br></p>
 <h4 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h4><ul>
-<li>加载，加载过程通过类的全限定名来获取类的二进制流字节流，将字节流的静态存储结构转换为方法区的运行时数据结构，在内存中生成一个java.lang.class对象作为类数据的访问入口</li>
+<li>加载</li>
 </ul>
 <ul>
 <li>链接（验证，准备，解析）</li>
@@ -287,6 +287,9 @@ sys_call_table:
 </ul>
 <ul>
 <li>卸载</li>
+</ul>
+<ul>
+<li>这些生命周期不是完全分离的，如验证往往就和加载交叉进行</li>
 </ul>
 <p><br></p>
 <h4 id="hotspot-类内部状态"><a href="#hotspot-类内部状态" class="headerlink" title="hotspot 类内部状态"></a>hotspot 类内部状态</h4><ul>
@@ -312,9 +315,42 @@ sys_call_table:
 </ul>
 <p><br></p>
 <h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p><br></p>
+<h4 id="加载-1"><a href="#加载-1" class="headerlink" title="加载"></a>加载</h4><ul>
+<li>加载过程通过类的全限定名来获取类的二进制流字节流，将字节流的静态存储结构转换为方法区的运行时数据结构</li>
+</ul>
+<ul>
+<li>非数组类由类加载器加载，数组类由虚拟机直接创建，在内存中生成一个java.lang.class对象作为类数据的访问入口，java规范没有规定该对象存于何处，对于 hotspot，早期存在永久代，7及以后存在堆中</li>
+</ul>
+<p><br></p>
 <h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><br></p>
-<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><br></p>
-<h3 id="ClassLoader"><a href="#ClassLoader" class="headerlink" title="ClassLoader"></a>ClassLoader</h3>]]></content>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><ul>
+<li>由于规范中没有限制class文件需要如何产生，因此jvm需验证以避免有害的字节流，不符合规范的class文件在验证阶段将抛出 java.lang.VerifyError</li>
+</ul>
+<ul>
+<li>验证过程主要包括，文件格式验证（在加载时进行），类的元数据信息验证，字节码的语义验证，符号引用合法性验证</li>
+</ul>
+<p><br></p>
+<h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><ul>
+<li>准备主要指为静态变量分配内存并设置其初始值，一般来说分配在堆中（hotspot最终分配在堆中，详见上一篇），初始值一般则为零值，而不是在声明时定义的值（如static int i = 123），除非字段属性表中存在 ConstantValue 属性（如 final 常量），则会将其初始化为 ConstantValue 定义的值</li>
+</ul>
+<p><br></p>
+<h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><ul>
+<li>解析主要指将符号引用转换为直接引用</li>
+</ul>
+<ul>
+<li>class 文件使用符号引用进行逻辑上的链接，以字符串形式存在，在class文件中的常量池存放这些符号引用，加载完后class文件的常量池会在jvm内部创建为运行时内存中的常量池，即运行时常量池。符号引用需要被转换为直接引用才可以定位内存实体，这个过程则为解析</li>
+</ul>
+<p><br></p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ul>
+<li>初始化值得是执行类或接口的初始化方法，触发初始化的情形如下</li>
+</ul>
+<pre><code>jvm遇到需要引用类和接口的指令时：new getstatic putstatic invokestatic
+初次调用 java.lang.invoke.MethodHandle 实例时，返回结果为 REF_getstatic REF_putStatic或REF_invokeStatic的方法句柄
+调用类库中的反射方法时，如class类或java.lang.reflect包
+初始化类的子类时
+类被设计用作jvm启动的启动类
+</code></pre><p><strong>未完待续</strong></p>
+]]></content>
       
         <categories>
             
@@ -690,7 +726,7 @@ oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle r
 <li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响</li>
 </ul>
 <ul>
-<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是不判断JavaObjectsInPerm了，这里不再赘述</li>
+<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是不判断JavaObjectsInPerm了,klass也放在了元空间当中，这里不再赘述</li>
 </ul>
 <p><strong>本篇完</strong></p>
 ]]></content>

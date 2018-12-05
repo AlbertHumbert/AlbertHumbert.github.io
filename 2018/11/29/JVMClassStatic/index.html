@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="11月 29, 2018" />
-        <meta property="article:modified_time" content="11月 30, 2018" />
+        <meta property="article:modified_time" content="12月 05, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入JVM系列 6 - Class对象与静态变量的存储",
     "url": "https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html",
     "datePublished": "11月 29, 2018",
-    "dateModified": "11月 30, 2018",
+    "dateModified": "12月 05, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -719,7 +719,7 @@ oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle r
 <li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响</li>
 </ul>
 <ul>
-<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是不判断JavaObjectsInPerm了，这里不再赘述</li>
+<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是不判断JavaObjectsInPerm了,klass也放在了元空间当中，这里不再赘述</li>
 </ul>
 <p><strong>本篇完</strong></p>
 

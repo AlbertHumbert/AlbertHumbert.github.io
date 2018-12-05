@@ -56,11 +56,11 @@
   </entry>
   
   <entry>
-    <title>深入JVM系列 7 - 类的加载与链接</title>
+    <title>深入JVM系列 7 - 类的加载</title>
     <link href="https://alberthumbert.github.io/2018/11/29/JVMLoadLink/"/>
     <id>https://alberthumbert.github.io/2018/11/29/JVMLoadLink/</id>
     <published>2018-11-29T15:31:30.000Z</published>
-    <updated>2018-12-05T03:30:21.250Z</updated>
+    <updated>2018-12-05T14:03:19.909Z</updated>
     
     <summary type="html">
     
@@ -100,7 +100,7 @@
     <link href="https://alberthumbert.github.io/2018/11/29/JVMClassStatic/"/>
     <id>https://alberthumbert.github.io/2018/11/29/JVMClassStatic/</id>
     <published>2018-11-29T09:46:42.000Z</published>
-    <updated>2018-11-29T16:06:31.518Z</updated>
+    <updated>2018-12-05T13:09:53.521Z</updated>
     
     <summary type="html">
     
