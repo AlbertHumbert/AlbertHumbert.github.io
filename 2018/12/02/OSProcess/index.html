@@ -12,7 +12,7 @@
     
     <title>
         
-            深入操作系统 9 - 进程控制 | 
+            深入操作系统 9 - 进程与线程 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入操作系统 9 - 进程控制 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入操作系统 9 - 进程与线程 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="12月 02, 2018" />
-        <meta property="article:modified_time" content="12月 09, 2018" />
+        <meta property="article:modified_time" content="12月 10, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入操作系统 9 - 进程控制 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入操作系统 9 - 进程与线程 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入操作系统 9 - 进程控制",
+    "headline": "深入操作系统 9 - 进程与线程",
     "url": "https://alberthumbert.github.io/2018/12/02/OSProcess/index.html",
     "datePublished": "12月 02, 2018",
-    "dateModified": "12月 09, 2018",
+    "dateModified": "12月 10, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#相关概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">相关概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建和运行"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建和运行</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#fork-与-exec"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">fork 与 exec</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xv6-上的实现"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">xv6 上的实现</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#linux-上的实现"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">linux 上的实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一个进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">第一个进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#linux-与-init"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">linux 与 init</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xv6-与-userinit"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">xv6 与 userinit</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-zygote-与-内核-init"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Android zygote 与 内核 init</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#程序流类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">程序流类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程和线程的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">进程和线程的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内核线程-amp-用户线程"><span class="post-toc-number">3.</span> <span class="post-toc-text">内核线程 & 用户线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LinuxThread-amp-NPTL"><span class="post-toc-number">4.</span> <span class="post-toc-text">LinuxThread & NPTL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建和运行"><span class="post-toc-number">5.</span> <span class="post-toc-text">创建和运行</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#fork-与-exec"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">fork 与 exec</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xv6-上的实现"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">xv6 上的实现</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#linux-上的实现"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">linux 上的实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一个进程"><span class="post-toc-number">6.</span> <span class="post-toc-text">第一个进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#linux-与-init"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">linux 与 init</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xv6-与-userinit"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">xv6 与 userinit</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-zygote-与-内核-init"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">Android zygote 与 内核 init</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入操作系统 9 - 进程控制
+                深入操作系统 9 - 进程与线程
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 9 - 进程控制&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 9 - 进程与线程&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 9 - 进程控制&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 9 - 进程与线程&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&title=深入操作系统 9 - 进程控制" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&title=深入操作系统 9 - 进程与线程" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 9 - 进程控制&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 9 - 进程与线程&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&text=深入操作系统 9 - 进程控制" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&text=深入操作系统 9 - 进程与线程" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -506,14 +506,37 @@
 <p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/12/02/OSSysCall/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><br></p>
-<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><p><strong>在os的发展历程当中与调度相关的概念有任务，作业，进程，线程，这些模型可能全部或部分存在于某一个实际的操作系统上，并且往往相互交叉</strong></p>
+<h3 id="程序流类型"><a href="#程序流类型" class="headerlink" title="程序流类型"></a>程序流类型</h3><p><strong>在os的发展历程当中与调度相关的概念有任务，作业，进程，线程，这些模型可能全部或部分存在于某一个实际的操作系统上，并且往往相互交叉</strong></p>
 <ul>
-<li>任务是最抽象的，指由软件完成的一个活动，它显然是一个依赖于语境才能推测其含义的概念，它本质上可以是作业，进程，或线程，如在linux中，它只是进程的别名，而在uC/OS-II中，它的本质是线程</li>
+<li>任务是最抽象的，指由软件完成的一个活动，它显然是一个依赖于语境才能推测其含义的概念，本质上可以是作业，进程，或线程，如在linux中，它只是进程的别名，而在uC/OS-II中，它是线程</li>
 </ul>
 <ul>
-<li>作业，早期使用作业这个概念的时候，进程的概念还没有出现，作业往往被用在批处理操作系统当中，当时程序以作业的形式脱机输入到磁带（或别的什么低效存储介质），操作系统做的只是将作业调入内存一个一个地执行，从这个角度来说，如今实时操作系统的时代已经不存在作业这个概念了，不过在linux中，作业这个词被用来形容由一个或多个命令组成的整体，<a href="https://www.cnblogs.com/echobfy/p/3851497.html" target="_blank" rel="external">详见</a></li>
+<li>作业，早期使用作业这个概念的时候，进程的概念还没有出现，作业往往被用在批处理操作系统当中，当时程序以作业的形式脱机输入到磁带（或别的什么低效存储介质），操作系统做的只是将作业调入内存一个一个地执行，从这个角度来说，如今实时操作系统的时代已经不存在作业这个概念了，不过在linux中，作业这个词被用来形容由一个或多个命令组成的整体,类似于脚本，<a href="https://www.cnblogs.com/echobfy/p/3851497.html" target="_blank" rel="external">详见</a></li>
+</ul>
+<ul>
+<li>进程，最早叫顺序进程，是多道程序设计中发展出来的概念，进程是运行中的程序与相关资源的统称，在概念上拥有自己的虚拟cpu，是正在执行代码的实时结果，再具体地说，进程不但包含代码段，全局变量的数据段，还包含打开的文件句柄，挂起的信号，内核内部数据，处理器状态（程序计数器、寄存器的当前值），一个或多个具有内存映射的内存地址空间，一个或多个线程等等，现代内核的调度单位一般是线程，对于那些直接使用进程来实现线程的操作系统，如linux，调度单位也可以说是进程</li>
+</ul>
+<ul>
+<li>线程是在进程中活动的对象，是进程的一个执行流，也是内核的调度对象，每个线程都拥有一个独立的程序计数器，进程栈，和一组进程寄存器，线程的出现是为了更加高效地利用多处理器的性能和简化异步事件的处理</li>
 </ul>
 <p><br></p>
+<h3 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h3><p><strong>一般只讨论进程和线程的区别，现代程序员不关心作业</strong></p>
+<ul>
+<li>进程是资源分配的基本单位，线程是处理机调度的基本单位</li>
+</ul>
+<ul>
+<li>进程有独立的内存空间，线程则共享进程中的资源，使用相同的地址空间，因此CPU创建和切换一个线程的花费远比进程要小很多</li>
+</ul>
+<ul>
+<li>进程下的线程共享内存空间，线程间通信基本不需要什么特别的机制，而进程之间的通信需要IPC</li>
+</ul>
+<ul>
+<li>进程和线程都存在同步问题，只不过进程主要处理资源的同步</li>
+</ul>
+<p><br></p>
+<h3 id="内核线程-amp-用户线程"><a href="#内核线程-amp-用户线程" class="headerlink" title="内核线程 &amp; 用户线程"></a>内核线程 &amp; 用户线程</h3><p><strong>网络上很多关于linux线程的文章在这部分都有错误，这里更正一下</strong></p>
+<p><br></p>
+<h3 id="LinuxThread-amp-NPTL"><a href="#LinuxThread-amp-NPTL" class="headerlink" title="LinuxThread &amp; NPTL"></a>LinuxThread &amp; NPTL</h3><p><br></p>
 <h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
 <h4 id="fork-与-exec"><a href="#fork-与-exec" class="headerlink" title="fork 与 exec"></a>fork 与 exec</h4><p><br></p>
 <h4 id="xv6-上的实现"><a href="#xv6-上的实现" class="headerlink" title="xv6 上的实现"></a>xv6 上的实现</h4><p><br></p>
