@@ -9,6 +9,7 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/12/02/OSSysCall/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>这篇无图字多，看起来会有点恐怖</strong></p>
 <p><br></p>
 <h3 id="程序流类型"><a href="#程序流类型" class="headerlink" title="程序流类型"></a>程序流类型</h3><p><strong>在os的发展历程当中与调度相关的概念有任务，作业，进程，线程，这些模型可能全部或部分存在于某一个实际的操作系统上，并且往往相互交叉</strong></p>
 <ul>
@@ -38,9 +39,40 @@
 <li>进程和线程都存在同步问题，只不过进程主要处理资源的同步</li>
 </ul>
 <p><br></p>
-<h3 id="内核线程-amp-用户线程"><a href="#内核线程-amp-用户线程" class="headerlink" title="内核线程 &amp; 用户线程"></a>内核线程 &amp; 用户线程</h3><p><strong>网络上很多关于linux线程的文章在这部分都有错误，这里更正一下</strong></p>
+<h3 id="内核线程-amp-用户线程-amp-轻量进程"><a href="#内核线程-amp-用户线程-amp-轻量进程" class="headerlink" title="内核线程 &amp; 用户线程 &amp; 轻量进程"></a>内核线程 &amp; 用户线程 &amp; 轻量进程</h3><p><strong>网络上很多关于linux线程的文章在这部分都有错误，这里更正一下</strong></p>
+<ul>
+<li>通常的进程，无论是系统进程还是用户进程，进程的创建、撤消，I/O 操作，都是利用系统调用而进入内核，再由内核中的相应处理程序予以完成的，进程的切换同样是在内核的支持下实现的 </li>
+</ul>
+<ul>
+<li>内核线程：准确的说是内核支持线程，同样是在内核支持下运行的，即无论是用户进程中的线程，还是系统进程中的线程，创建、撤消和切换等也是依靠内核，在内核空间实现。在内核空间还为每一个内核支持线程设置一个线程控制块，内核根据该控制块而感知某线程的存在，并加以控制</li>
+</ul>
+<ul>
+<li>用户线程：准确的说是用户级线程，与内核无关的，仅存在于用户空间中，创建、撤消、同步、通信等功能，都无须利用系统调用。切换的规则简单，切换速度快。线程的任务控制块都是设置在用户空间，所执行的操作也无须内核帮助，因而内核完全不知道用户级线程的存在</li>
+</ul>
+<ul>
+<li>轻量进程：轻量进程（LWP）是一种特殊的用户线程，每一个进程可拥有多个 LWP，每个 LWP 都有自己的数据结构(如 TCB)，其中包括线程标识符、优先级、状态，另外还有栈和局部存储区等，它们也可以共享进程所拥有的资源，一个用户级线程运行时，只要将它连接到一个 LWP 上，此时它便具有了内核支持线程的所有属性，用户级线程数量可能很大，为了节省系统开销，可把 LWP 做成一个缓冲池。用户进程中任一用户线程可以连接到池中任一个 LWP，连接根据用户线程和内核线程的映射数量关系可以有三种不同的实现模型:一对一、多对一和多对多</li>
+</ul>
+<ul>
+<li>那么Linux的线程属于哪一种呢？答案是它是一种特殊的轻量进程，linux中使用一对一模型的LWP，linux上的pthread的实现在glibc中，在2.4以前使用的是的linuxThreads，在2.4以后使用的是NPTL，不管是哪一种，都是直接使用进程实现线程，使用的是同样的系统调用(clone，最终调用fork)和结构体(task_struct)，只不过同一进程下创建的线程公用进程的内存空间（准确的说只是部分，用户栈和内核栈不同），内核只看得见进程，一个进程就对应了一个线程，从这个角度来说，linux的线程就是内核线程，之所以成为轻量进程是因为他对于普通的进程来说权重较轻。使用这种手段的原因是实现者认为linux的进程以及很轻量了，不用在去实现一个更加轻量的东西(线程)</li>
+</ul>
 <p><br></p>
-<h3 id="LinuxThread-amp-NPTL"><a href="#LinuxThread-amp-NPTL" class="headerlink" title="LinuxThread &amp; NPTL"></a>LinuxThread &amp; NPTL</h3><p><br></p>
+<h3 id="LinuxThread-amp-NPTL"><a href="#LinuxThread-amp-NPTL" class="headerlink" title="LinuxThread &amp; NPTL"></a>LinuxThread &amp; NPTL</h3><p><strong>linux上线程的两种实现，简单对比一下差异</strong></p>
+<ul>
+<li>PID，LinuxThreads拥有独立的PID，这是不符合posix标准的。NPTL则在原来的进程管理结构新增了一个TGIP的字段，当一个线程的TGID等于PID时，这个线程就是线程组长，其PID也就是这个线程组的进程号，线程组内所有线程的TGID字段都指向线程组长的PID，由于使用getpid返回的都是TGID字段，所以线程返回的就是相同的PID字段，而不是线程各自的PID</li>
+</ul>
+<ul>
+<li>创建，同样是使用clone()系统调用，不过新的clone()调用的flag参数新增了一个标志位CLONE_THREAD，表示创建一个线程，内核内部初始管理结构时把TGID指向调用者的PID</li>
+</ul>
+<ul>
+<li>同步，NPTL提供的线程同步互斥机制都建立在futex上，快速用户空间系统锁。因为进程内的所有线程都使用了相同的内存空间，所以这个锁可以保存在用户空间。这样对这个锁的操作不需要每次都切换到内核态</li>
+</ul>
+<ul>
+<li>信号，LinuxThreads在进程调度、信号处理、IO等方面享有与普通进程一样的能力，NPTL中同一个进程内的线程都属于该进程，所以信号处理跟POSIX标准完全统一</li>
+</ul>
+<ul>
+<li>管理，LinuxThreads中专门为每一个进程构造了一个管理线程，负责处理线程相关的管理工作。当进程第一次调用pthread_create()创建一个线程的时候就会创建并启动管理线程,由管理线程再来创建用户请求的线程，如果管理线程被杀死将会造成僵尸线程，同时管理线程在高并发环境下本身也是一个开销，NTPL中线程创建与结束的管理都由内核负责，不存在管理线程</li>
+</ul>
+<p><br></p>
 <h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
 <h4 id="fork-与-exec"><a href="#fork-与-exec" class="headerlink" title="fork 与 exec"></a>fork 与 exec</h4><p><br></p>
 <h4 id="xv6-上的实现"><a href="#xv6-上的实现" class="headerlink" title="xv6 上的实现"></a>xv6 上的实现</h4><p><br></p>
