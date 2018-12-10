@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-12-10T15:22:25.131Z</updated>
+  <updated>2018-12-10T16:06:45.030Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入Java并发 1 基础</title>
+    <link href="https://alberthumbert.github.io/2018/12/10/ConcurBase/"/>
+    <id>https://alberthumbert.github.io/2018/12/10/ConcurBase/</id>
+    <published>2018-12-10T15:30:47.000Z</published>
+    <updated>2018-12-10T16:06:45.030Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入操作系统 10 - Linux内核同步</title>
     <link href="https://alberthumbert.github.io/2018/12/10/OSsynchro/"/>
     <id>https://alberthumbert.github.io/2018/12/10/OSsynchro/</id>
     <published>2018-12-10T14:56:38.000Z</published>
     <updated>2018-12-10T15:22:25.131Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入 Java 并发 系列</title>
+    <link href="https://alberthumbert.github.io/2018/12/10/concurrent/"/>
+    <id>https://alberthumbert.github.io/2018/12/10/concurrent/</id>
+    <published>2018-12-10T14:30:00.000Z</published>
+    <updated>2018-12-10T16:06:31.003Z</updated>
     
     <summary type="html">
     
@@ -200,7 +240,7 @@
     <link href="https://alberthumbert.github.io/2018/11/08/OperatingSystem/"/>
     <id>https://alberthumbert.github.io/2018/11/08/OperatingSystem/</id>
     <published>2018-11-08T14:01:30.000Z</published>
-    <updated>2018-12-10T14:59:21.432Z</updated>
+    <updated>2018-12-10T15:34:59.393Z</updated>
     
     <summary type="html">
     
@@ -362,46 +402,6 @@
     <id>https://alberthumbert.github.io/2018/10/21/AndroidAnnotation/</id>
     <published>2018-10-21T14:23:13.000Z</published>
     <updated>2018-10-24T12:06:50.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入JVM系列 4 - Class 文件</title>
-    <link href="https://alberthumbert.github.io/2018/10/19/JVMClassFile/"/>
-    <id>https://alberthumbert.github.io/2018/10/19/JVMClassFile/</id>
-    <published>2018-10-18T16:33:35.000Z</published>
-    <updated>2018-11-30T09:46:59.004Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入JVM系列 3 - OOP-Klass</title>
-    <link href="https://alberthumbert.github.io/2018/10/17/JVMOopKlass/"/>
-    <id>https://alberthumbert.github.io/2018/10/17/JVMOopKlass/</id>
-    <published>2018-10-17T14:14:44.000Z</published>
-    <updated>2018-11-26T14:47:10.614Z</updated>
     
     <summary type="html">
     

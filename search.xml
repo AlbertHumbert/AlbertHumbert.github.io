@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[深入Java并发 1 基础]]></title>
+      <url>/2018/12/10/ConcurBase/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/112/10/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 10 - Linux内核同步]]></title>
       <url>/2018/12/10/OSsynchro/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -20,6 +43,34 @@
 <p><br></p>
 <h3 id="顺序锁"><a href="#顺序锁" class="headerlink" title="顺序锁"></a>顺序锁</h3><p><br></p>
 <h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[深入 Java 并发 系列]]></title>
+      <url>/2018/12/10/concurrent/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>本系列主要内容来自以下书籍和并发相关的网络博客文章</strong></p>
+<p><strong>  ifeve并发编程网</strong><br><strong>Java多线程编程实战指南（核心篇）
+</strong>java并发编程实战<strong>
+</strong>java并发编程的艺术**</p>
+<p><br></p>
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><p><a href="https://tocreate.app/2018/12/11/ConcurBase/" target="_blank" rel="external">详见</a></p>
+]]></content>
       
         <categories>
             
@@ -1464,7 +1515,7 @@ ip地址 = 网络号 +（子网号+主机号）
       <url>/2018/11/08/OperatingSystem/</url>
       <content type="html"><![CDATA[<p><strong> 程序员的三大浪漫，编译原理，图形学，操作系统 </strong></p>
 <a id="more"></a>
-<p><strong>本文主要内容来自以下书籍和操作系统相关的网络博客文章</strong></p>
+<p><strong>本系列主要内容来自以下书籍和操作系统相关的网络博客文章</strong></p>
 <p><strong>  OSDev社区</strong><br><strong>《计算机操作系统（第四版）》</strong><br><strong>《操作系统设计与实现（第三版）》</strong><br><strong>《Linux内核设计与实现（第三版）》</strong><br><strong>《OrangeS一个操作系统的实现》</strong><br><strong><a href="https://th0ar.gitbooks.io/xv6-chinese/content/content/cover.html" target="_blank" rel="external">《xv6 一个简单，类 Unix 的教学操作系统》</a></strong></p>
 <p><strong>另外，建议学习操作系统之前先系统地学习计算机组成原理，否则 io，中断等硬件相关的内容将会比较难以理解。推荐《计算机组成与设计：软件/硬件接口》</strong></p>
 <p><br></p>
@@ -6417,27 +6468,6 @@ $ make
 <p><br></p>
 <h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p><strong><a href="http://tocreate.app/2018/10/31/NetEthernet" target="_blank" rel="external">详见</a></strong></p>
 ]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[深入 Java 并发 系列]]></title>
-      <url>/2018/09/05/concurrent/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>]]></content>
       
         <categories>
             
