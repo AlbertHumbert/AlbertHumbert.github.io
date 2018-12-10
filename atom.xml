@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-12-10T14:50:53.002Z</updated>
+  <updated>2018-12-10T15:00:57.948Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入操作系统 10 - 内核同步</title>
+    <link href="https://alberthumbert.github.io/2018/12/10/OSsynchro/"/>
+    <id>https://alberthumbert.github.io/2018/12/10/OSsynchro/</id>
+    <published>2018-12-10T14:56:38.000Z</published>
+    <updated>2018-12-10T15:00:57.948Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入操作系统 9 - 进程与线程</title>
     <link href="https://alberthumbert.github.io/2018/12/02/OSProcess/"/>
     <id>https://alberthumbert.github.io/2018/12/02/OSProcess/</id>
     <published>2018-12-02T14:01:34.000Z</published>
-    <updated>2018-12-10T14:50:53.002Z</updated>
+    <updated>2018-12-10T14:55:30.037Z</updated>
     
     <summary type="html">
     
@@ -180,7 +200,7 @@
     <link href="https://alberthumbert.github.io/2018/11/08/OperatingSystem/"/>
     <id>https://alberthumbert.github.io/2018/11/08/OperatingSystem/</id>
     <published>2018-11-08T14:01:30.000Z</published>
-    <updated>2018-12-04T15:26:30.663Z</updated>
+    <updated>2018-12-10T14:59:21.432Z</updated>
     
     <summary type="html">
     
@@ -382,26 +402,6 @@
     <id>https://alberthumbert.github.io/2018/10/17/JVMOopKlass/</id>
     <published>2018-10-17T14:14:44.000Z</published>
     <updated>2018-11-26T14:47:10.614Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入JVM系列 2 - gdb 调试 HotSpot</title>
-    <link href="https://alberthumbert.github.io/2018/10/17/JVMUseGdb/"/>
-    <id>https://alberthumbert.github.io/2018/10/17/JVMUseGdb/</id>
-    <published>2018-10-16T18:20:34.000Z</published>
-    <updated>2018-10-19T03:02:51.000Z</updated>
     
     <summary type="html">
     

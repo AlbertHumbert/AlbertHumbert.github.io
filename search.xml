@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title><![CDATA[深入操作系统 10 - 内核同步]]></title>
+      <url>/2018/12/10/OSsynchro/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/12/02/OSProcess/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>前面中断和进程线程还没总结完，主要是看得烦了，过两天再说</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 9 - 进程与线程]]></title>
       <url>/2018/12/02/OSProcess/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -73,10 +98,8 @@
 <li>管理，LinuxThreads中专门为每一个进程构造了一个管理线程，负责处理线程相关的管理工作。当进程第一次调用pthread_create()创建一个线程的时候就会创建并启动管理线程,由管理线程再来创建用户请求的线程，如果管理线程被杀死将会造成僵尸线程，同时管理线程在高并发环境下本身也是一个开销，NTPL中线程创建与结束的管理都由内核负责，不存在管理线程</li>
 </ul>
 <p><br></p>
+<h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><p><br></p>
 <h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
-<h4 id="fork-与-exec"><a href="#fork-与-exec" class="headerlink" title="fork 与 exec"></a>fork 与 exec</h4><p><br></p>
-<h4 id="xv6-上的实现"><a href="#xv6-上的实现" class="headerlink" title="xv6 上的实现"></a>xv6 上的实现</h4><p><br></p>
-<h4 id="linux-上的实现"><a href="#linux-上的实现" class="headerlink" title="linux 上的实现"></a>linux 上的实现</h4><p><br></p>
 <h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
 <h4 id="linux-与-init"><a href="#linux-与-init" class="headerlink" title="linux 与 init"></a>linux 与 init</h4><p><br></p>
 <h4 id="xv6-与-userinit"><a href="#xv6-与-userinit" class="headerlink" title="xv6 与 userinit"></a>xv6 与 userinit</h4><p><br></p>
@@ -1461,6 +1484,9 @@ ip地址 = 网络号 +（子网号+主机号）
 <p><br></p>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p><strong>进程管理</strong></p>
 <p><a href="https://tocreate.app/2018/12/02/OSProcess/" target="_blank" rel="external">详见</a></p>
+<p><br></p>
+<h2 id="内核同步"><a href="#内核同步" class="headerlink" title="内核同步"></a>内核同步</h2><p><strong>主要为Linux下的同步与互斥</strong></p>
+<p><a href="https://tocreate.app/2018/12/10/OSsynchro/" target="_blank" rel="external">详见</a></p>
 <p><br><br><br></p>
 <p><strong>待续</strong></p>
 ]]></content>

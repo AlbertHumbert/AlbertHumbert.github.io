@@ -12,7 +12,7 @@
     
     <title>
         
-            Activity 知识补充 | 
+            深入操作系统 10 - 内核同步 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Activity 知识补充 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入操作系统 10 - 内核同步 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="7月 10, 2017" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+        <meta property="article:published_time" content="12月 10, 2018" />
+        <meta property="article:modified_time" content="12月 10, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Activity 知识补充 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入操作系统 10 - 内核同步 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "Activity 知识补充",
-    "url": "https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html",
-    "datePublished": "7月 10, 2017",
-    "dateModified": "11月 21, 2017",
+    "headline": "深入操作系统 10 - 内核同步",
+    "url": "https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html",
+    "datePublished": "12月 10, 2018",
+    "dateModified": "12月 10, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onWindowFocusChanged"><span class="post-toc-number">2.</span> <span class="post-toc-text">onWindowFocusChanged</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onSaveInstanceState"><span class="post-toc-number">3.</span> <span class="post-toc-text">onSaveInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#onRestoreInstanceState"><span class="post-toc-number">4.</span> <span class="post-toc-text">onRestoreInstanceState</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动模式与Flags"><span class="post-toc-number">5.</span> <span class="post-toc-text">启动模式与Flags</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TaskAffinity"><span class="post-toc-number">6.</span> <span class="post-toc-text">TaskAffinity</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看和修改任务栈"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">查看和修改任务栈</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TaskAffinity与任务栈"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">TaskAffinity与任务栈</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用Bundle传递数据"><span class="post-toc-number">7.</span> <span class="post-toc-text">使用Bundle传递数据</span></a></li></ol>
+        
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                Activity 知识补充
+                深入操作系统 10 - 内核同步
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>7月 10, 2017</span>
+        <span>12月 10, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Activity 知识补充&url=https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 10 - 内核同步&url=https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Activity 知识补充&url=https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 10 - 内核同步&url=https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html&title=Activity 知识补充" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html&title=深入操作系统 10 - 内核同步" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Activity 知识补充&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 10 - 内核同步&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2017/07/10/AdditionOfActivity/index.html&text=Activity 知识补充" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html&text=深入操作系统 10 - 内核同步" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,315 +503,10 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><strong>参考资料</strong></p>
-<p><a href="http://blog.csdn.net/liuhe688/article/details/6733407" target="_blank" rel="external">liuhe688</a></p>
-<p><a href="http://blog.csdn.net/weizongwei5/article/details/50515719" target="_blank" rel="external">weizongwei5</a></p>
-<p><a href="http://download.csdn.net/detail/jsntghf/9602444" target="_blank" rel="external">Android开发艺术探索</a></p>
-<p>**<br>第一行代码中Activity的内容比较简单，因此额外找了一些内容进一步学习<br>**</p>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
-<li>首先看一下<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#%E6%B4%BB%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">Android生命周期的普通过程</a>，这一部分应该已经学习过几遍了，不再赘述，通过一个简单的demo进行回顾，稍后修改这个demo并切入主题</li>
-</ul>
-<pre><code>public class LifeActivity extends AppCompatActivity {
+<p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/12/02/OSProcess/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>前面中断和进程线程还没总结完，主要是看得烦了，过两天再说</strong></p>
 
-    private static final String TAG = &quot;LifeActivity&quot;;
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_life);
-        Log.i(TAG, &quot;onCreate called&quot;);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, &quot;onStart called&quot;);
-    }
-
- @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG, &quot;nRestart called&quot;);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, &quot;onResume called&quot;);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, &quot;onPause called&quot;);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, &quot;onStop called&quot;);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, &quot;onDestroy called&quot;);
-    }
-}
-</code></pre><ul>
-<li>启动Activity</li>
-</ul>
-<pre><code>LifeActivity: onCreate called
-LifeActivity: onStart called
-LifeActivity: onResume called
-</code></pre><ul>
-<li>启动另一个Activity，可以看到前一个Activity的onPause执行之后下一个Activity的onCreated才会执行，这就是onPause耗时操作要少的原因，应当考虑能否将这部分操作在onStoped进行</li>
-</ul>
-<pre><code>LifeActivity: onPause called
-AnotherActivity: onCreate called
-AnotherActivity: onStart called
-AnotherActivity: onResume called
-LifeActivity: onStop called
-</code></pre><ul>
-<li>back键返回LifeActivity，同样前一个Activity的onPause执行后下一个Activity的onRestart才会执行</li>
-</ul>
-<pre><code>AnotherActivity: onPause called
-LifeActivity: onRestart called
-LifeActivity: onStart called
-AnotherActivity: onStop called
-AnotherActivity: onDestroy called
-</code></pre><ul>
-<li>点击home键</li>
-</ul>
-<pre><code>LifeActivity: onPause called
-LifeActivity: onStop called     
-</code></pre><ul>
-<li>点击home键后回到应用</li>
-</ul>
-<pre><code>lifeActivity: oRestart called
-ifeActivity: onStart called
-LifeActivity: onResume called
-</code></pre><p>**<br>接下来对这些调用方法进行一些奇怪的操作<br>**</p>
-<ul>
-<li>在onCreate执行之前让Activity结束</li>
-</ul>
-<pre><code>...
-finish();
-super.onCreate(savedInstanceState);
-...
-</code></pre><ul>
-<li>输出</li>
-</ul>
-<pre><code>LifeActivity: onCreate called
-LifeActivity: onDestroy called
-</code></pre><ul>
-<li>很正常，onCreate被完整执行后onDestory()被执行了</li>
-</ul>
-<ul>
-<li>在onStart()中执行finish()，从结果可见没有进入前台期，与onStart对应的onStop被执行了</li>
-</ul>
-<pre><code>onStart called
-onStop called
-onDestroy called
-</code></pre><ul>
-<li>接下来尝试在onRestart()中执行finish()，然后在第二个Activity中按back键。有点奇怪，LifeActivity并不直接执行onStop，而是回到了前台，经历了一个非常完整的生命周期并且在第二个Activity之前被销毁</li>
-</ul>
-<pre><code>AnotherActivity: onPause called
-LifeActivity: onRestart called
-LifeActivity: onStart called
-LifeActivity: onResume called
-LifeActivity: onPause called
-LifeActivity: onStop called
-LifeActivity: onDestroy called
-AnotherActivity: onStop called
-AnotherActivity: onDestroy called
-</code></pre><ul>
-<li>到这里本来想测试一下Activity因内存不足而被销毁会经历什么过程，于是把虚拟机内存调为了128m，但是没能成功实现内存不足的情况…搜索到了使用adb模拟内存不足销毁应用的方法</li>
-</ul>
-<pre><code>adb shell am kill-all
-adb shell am kill package-name 
-# 我们关注的应用只有一个，所以这两个命令是一样的
-</code></pre><ul>
-<li>如无意外，应用会被kill，然而这里出现一个错误导致缓冲区被锁，log无法打印，暂时没有找到解决办法，实在不行以后下载个大点的游戏进行真机调试……</li>
-</ul>
-<pre><code>E/Surface: getSlotFromBufferLocked: unknown buffer: 0xb40152c0
-</code></pre><ul>
-<li>另外屏幕旋转会导致Activity被销毁重建，销毁过程为</li>
-</ul>
-<pre><code>AnotherActivity: onPause called
-AnotherActivity: onStop called
-AnotherActivity: onDestroy called
-</code></pre><h2 id="onWindowFocusChanged"><a href="#onWindowFocusChanged" class="headerlink" title="onWindowFocusChanged"></a>onWindowFocusChanged</h2><p>**<br>这个方法会在Activity窗口获得或失去焦点被调用，和生命周期方法一样，程序员不应该自己去调用它<br>**</p>
-<pre><code>onResume called
-onWindowFocusChanged called
-</code></pre><ul>
-<li>当我们在想在onCreate方法中获取组件大小时，有可能会因为window对象未创建而失败，必须保证在onCreate方法完成之后再执行</li>
-<li>重写onWindowFocusChanged方法可以解决这个问题</li>
-</ul>
-<h2 id="onSaveInstanceState"><a href="#onSaveInstanceState" class="headerlink" title="onSaveInstanceState"></a>onSaveInstanceState</h2><p>**<br>这是一个为了Activity被调离栈顶时保存数据而存在的方法<br>**</p>
-<ul>
-<li>被调用的位置，下一个活动进入前台，而之前的活动转为不可见时</li>
-</ul>
-<pre><code>AnotherActivity: onResume called
-LifeActivity: onSaveInstanceState called
-LifeActivity: onStop called
-</code></pre><ul>
-<li>注意一个会被销毁的Activity是不会调用这个方法的，只在可以被返回的Activity中重写它</li>
-</ul>
-<pre><code>    @Override
-    protected void onSaveInstanceState(Bundle outState){
-    outState.putInt(&quot;param&quot;,param);
-    Log.i(TAG, &quot;onSaveInstanceState called&quot;);
-}
-</code></pre><h2 id="onRestoreInstanceState"><a href="#onRestoreInstanceState" class="headerlink" title="onRestoreInstanceState"></a>onRestoreInstanceState</h2><p>**<br>生命周期相关的方法总是两两配对，而onRestoreInstanceState的作用自然是获取保留下来的数据了，不过它的情况有点特殊，只会在Activity在后台被杀死或者屏幕旋转时被调用<br>**</p>
-<ul>
-<li>同样重写这个方法，以键值对的形式得到数据</li>
-</ul>
-<pre><code>@Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        param = savedInstanceState.getInt(&quot;param&quot;);
-        Log.i(TAG, &quot;onRestoreInstanceState called get&quot;+param);
-        super.onRestoreInstanceState(savedInstanceState);
-    } 
-</code></pre><ul>
-<li>旋转屏幕并恢复</li>
-</ul>
-<pre><code>LifeActivity: onCreate called
-LifeActivity: onStart called
-LifeActivity: onRestoreInstanceState called get 1
-LifeActivity: onResume called
-LifeActivity: onWindowFocusChanged called 
-</code></pre><h2 id="启动模式与Flags"><a href="#启动模式与Flags" class="headerlink" title="启动模式与Flags"></a>启动模式与Flags</h2><p>**<br>除了<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#%E5%9B%9B%E4%B8%AA%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F">在XML中设置启动模式</a>，<br>下面还有一种设置启动模式的方法<br>**</p>
-<ul>
-<li>Flags标记位有许多作用，其中一种是设置启动模式</li>
-<li><p>Flags标记位的优先级要大于XML属性，但它无法设置singleInstance模式，使用方式如下</p>
-<pre><code>public static void actionStart(Context context){
-
-        Intent intent = new Intent(context,FlagActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        context.startActivity(intent);
-    }
-</code></pre></li>
-</ul>
-<ul>
-<li>几种常用的Flags</li>
-</ul>
-<pre><code>FLAG_ACTIVITY_NEW_TASK
-//指定singleTask模式
-
-FLAG_ACTIVITY_SINGLE_TOP
-//指定singleTop模式
-
-FLAG_ACTIVITY_CLEAR_TOP
-//启动时所用该Activity之上的Activity全部出栈，一般与singleTask一起使用
-//如果采用standard模式，该Activity与其上的Activity会出栈并建立新的Activity
-
-FLAG_ACTIVITY_FROM_RECENTS
-//Activity不出现在历史列表中
-</code></pre><ul>
-<li><p>我们使用 FLAG_ACTIVITY_NEW_TASK 为例循环启动3个Activity，不在XML中标记，可以看出依然为standard模式</p>
-<pre><code>Run #6: ActivityRecord{fd1d8c9 u0 com.linjiamin.myapplication/.NewTaskActivity t138}
- Run #5: ActivityRecord{47b8982 u0 com.linjiamin.myapplication/.NewTaskActivity t138}
- Run #4: ActivityRecord{60095cc u0 com.linjiamin.myapplication/.MainActivity t138}
- Run #3: ActivityRecord{786e788 u0 com.linjiamin.myapplication/.Main2Activity t138}
- Run #2: ActivityRecord{87a03a5 u0 com.linjiamin.myapplication/.Main2Activity t138}
- Run #1: ActivityRecord{9471e17 u0 com.linjiamin.myapplication/.NewTaskActivity t138}
- Run #0: ActivityRecord{49c4ac2 u0 com.linjiamin.myapplication/.MainActivity t138}
-</code></pre></li>
-<li><p>接着在XML中标记为SingleInstance模式，FLAG依然不起作用，singleTask亦同</p>
-<pre><code>   TaskRecord{bfd2cdd #139 A=com.linjiamin.myapplication U=0 sz=5}
-  Run #5: ActivityRecord{6fd6eee u0 com.linjiamin.myapplication/.Main2Activity t139}
-TaskRecord{98a6f23 #140 A=com.linjiamin.myapplication U=0 sz=1}
-  Run #4: ActivityRecord{1d577f4 u0 com.linjiamin.myapplication/.NewTaskActivity t140}
-TaskRecord{bfd2cdd #139 A=com.linjiamin.myapplication U=0 sz=5}
-  Run #3: ActivityRecord{3ba4af9 u0 com.linjiamin.myapplication/.MainActivity t139}
-  Run #2: ActivityRecord{4a4b5bc u0 com.linjiamin.myapplication/.Main2Activity t139}
-  Run #1: ActivityRecord{5e70342 u0 com.linjiamin.myapplication/.Main2Activity t139}
-  Run #0: ActivityRecord{b3bab83 u0 com.linjiamin.myapplication/.MainActivity t139}
-</code></pre></li>
-<li><p>查看文档，这个Flag确实用来标记(或者曾经用来标记)singleTask模式，实践发现手动设置Flag已经不起作用，但文档却没有修改，存在一定的误导性</p>
-<pre><code>* &lt;p&gt;When using this flag, if a task is already running for the activity
-* you are now starting, then a new activity will not be started; instead,
-* the current task will simply be brought to the front of the screen with
-* the state it was last in.  See {@link #FLAG_ACTIVITY_MULTIPLE_TASK} for a flag
-* to disable this behavior.
-</code></pre></li>
-</ul>
-<h2 id="TaskAffinity"><a href="#TaskAffinity" class="headerlink" title="TaskAffinity"></a>TaskAffinity</h2><p><strong>TaskAffinity，指定了Activity将归属于哪一个任务栈，一般只配合singleTask和singleInstance模式使用</strong></p>
-<h3 id="查看和修改任务栈"><a href="#查看和修改任务栈" class="headerlink" title="查看和修改任务栈"></a>查看和修改任务栈</h3><ul>
-<li>首先，需要查看Activity任务栈信息的手段，使用adb shell dumpsys activity可以查看所有与Activity相关的信息，但是输出非常冗长，不妨这样</li>
-</ul>
-<pre><code>adb shell dumpsys activity activities | sed -En -e &apos;/Running activities/,/Run #0/p&apos;
-</code></pre><ul>
-<li>TaskRecord 信息就是我们需要的，例如 com.linjiamin.lifecycle 就是Task的名字</li>
-</ul>
-<pre><code>TaskRecord{776e103 #53 A=com.linjiamin.lifecycle U=0 sz=3}
-</code></pre><ul>
-<li>taskAffinity指定Activity应属于哪一个任务栈，默认情况下它等于包名，这意味着Activity倾向于属于同一个任务，通过XML可以设置这个属性，以singleTask模式为例</li>
-</ul>
-<pre><code>&lt;activity
-    android:name=&quot;.FlagActivity&quot;
-    android:launchMode=&quot;singleTask&quot;
-    android:taskAffinity=&quot;com.linjiamin.lifecycle.task3&quot;&gt;
-    &lt;/activity&gt;
-</code></pre><ul>
-<li>执行 adb shell dumpsys，可见任务栈的已被修改，task3出现了</li>
-</ul>
-<pre><code>TaskRecord{1605ccbd #52 A=com.linjiamin.lifecycle.task3 U=0 sz=1}
-TaskRecord{2300c203 #51 A=com.linjiamin.lifecycle U=0 sz=2}
-</code></pre><h3 id="TaskAffinity与任务栈"><a href="#TaskAffinity与任务栈" class="headerlink" title="TaskAffinity与任务栈"></a>TaskAffinity与任务栈</h3><ul>
-<li>启动一个singleTask属性的Activity，系统首先会查找Activity想要的task，若不存在就会创建这个task。而Activity具体需的Task名，默认情况是使用包名，若标记了TaskAffinity就会使用TaskAffinity指定的值</li>
-</ul>
-<ul>
-<li>使用Standard模式启动Activity，会将Activity加入启动它的Activity的任务栈中，除非是用TaskAffinity去标记MainActivity（一般不会这样），否则TaskAffinity和sandard配合时TaskAffinity是没有意义的</li>
-</ul>
-<pre><code>&lt;activity android:name=&quot;.LifeActivity&quot;
-    android:taskAffinity=&quot;com.linjiamin.lifecycle.task1&quot;
-    android:launchMode=&quot;standard&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
-
-        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/activity&gt;
-
-//输出为
- TaskRecord{21a9d665 #57 A=com.linjiamin.lifecycle.task1 U=0 sz=4}
-</code></pre><ul>
-<li>当使用ApplicationContext去启动standard模式的Activity时，Application根本就没有任务栈，所以这时会报错，为解决这个问题，需要将Activity的FLAG标记为singleTask模式，即</li>
-</ul>
-<pre><code>FLAG_ACTIVITY_NEW_TASK
-</code></pre><ul>
-<li>当使用 singleInstance，若实例存在，它的任务栈不会改变，如果实例不存在且栈不存在，则会创建TaskAffinity指定的任务栈和实例</li>
-</ul>
-<h2 id="使用Bundle传递数据"><a href="#使用Bundle传递数据" class="headerlink" title="使用Bundle传递数据"></a>使用Bundle传递数据</h2><p>**<br>考虑一种情况，当一个组数据需要在Activity间多次添加、修改、传递，如果<a href="https://alberthumbert.github.io/2017/04/30/firstCodeLine/#%E4%BD%BF%E7%94%A8Intent%E5%9C%A8%E6%B4%BB%E5%8A%A8%E4%B9%8B%E9%97%B4%E7%A9%BF%E6%A2%AD">只使用Intent</a>是否会相当麻烦？<br>**</p>
-<ul>
-<li>使用Bundle可以使数据的传输变得简单许多，创建Bundle并调用intent的putExtras(Bundle extras)方法即可</li>
-</ul>
-<pre><code>        button.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(&quot;aBooleanParam&quot;,false);
-        bundle.putInt(&quot;anIntParam&quot;,1);
-        bundle.putString(&quot;aStringParam&quot;,&quot;2&quot;);
-        Intent intent = new Intent(AnotherActivity.this,FlagActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-}); 
-</code></pre><ul>
-<li>获取数据的方法和intent相同，也可以用putParcelable传递自定义的类型</li>
-</ul>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_flag);
-    Bundle bundle = getIntent().getExtras();
-    Log.d(TAG, &quot;onCreate: &quot;+bundle.getBoolean(&quot;aBooleanParam&quot;));
-    Log.d(TAG, &quot;onCreate: &quot;+bundle.getInt(&quot;anIntParam&quot;));
-    Log.d(TAG, &quot;onCreate: &quot;+bundle.getString(&quot;aStringParam&quot;));
-}       
-</code></pre>
     
 
     
@@ -830,21 +525,13 @@ protected void onCreate(Bundle savedInstanceState) {
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/07/10/Service/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/07/08/Gradle/" id="post_nav-older" class="next-content">
+        <a href="/2018/12/02/OSProcess/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
