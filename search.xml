@@ -3,14 +3,23 @@
   
     
     <entry>
-      <title><![CDATA[深入操作系统 10 - 内核同步]]></title>
+      <title><![CDATA[深入操作系统 10 - Linux内核同步]]></title>
       <url>/2018/12/10/OSsynchro/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/12/02/OSProcess/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>前面中断和进程线程还没总结完，主要是看得烦了，过两天再说</strong></p>
-]]></content>
+<p><strong>注意不要将这一部分涉及的同步与互斥和java中的同步与互斥混淆</strong></p>
+<p><br></p>
+<h3 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h3><p><br></p>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p><br></p>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p><br></p>
+<h3 id="互斥体"><a href="#互斥体" class="headerlink" title="互斥体"></a>互斥体</h3><p><br></p>
+<h3 id="大内核锁"><a href="#大内核锁" class="headerlink" title="大内核锁"></a>大内核锁</h3><p><strong>这名字真心牛逼</strong></p>
+<p><br></p>
+<h3 id="顺序锁"><a href="#顺序锁" class="headerlink" title="顺序锁"></a>顺序锁</h3><p><br></p>
+<h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3>]]></content>
       
         <categories>
             
