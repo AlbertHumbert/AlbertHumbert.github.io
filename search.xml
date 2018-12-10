@@ -3,11 +3,37 @@
   
     
     <entry>
+      <title><![CDATA[深入 Java 并发 系列]]></title>
+      <url>/2018/12/11/concurrent/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>本系列主要内容来自以下书籍和并发相关的网络博客文章</strong></p>
+<p><strong>  ifeve并发编程网</strong><br><strong>Java多线程编程实战指南（核心篇）</strong><br><strong>java并发编程实战</strong><br><strong>java并发编程的艺术</strong></p>
+<p><br></p>
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><p><a href="https://tocreate.app/2018/12/11/ConcurBase/" target="_blank" rel="external">详见</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入Java并发 1 基础]]></title>
       <url>/2018/12/10/ConcurBase/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/112/10/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/12/11/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
 ]]></content>
       
         <categories>
@@ -43,34 +69,6 @@
 <p><br></p>
 <h3 id="顺序锁"><a href="#顺序锁" class="headerlink" title="顺序锁"></a>顺序锁</h3><p><br></p>
 <h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3>]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[深入 Java 并发 系列]]></title>
-      <url>/2018/12/10/concurrent/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><strong>本系列主要内容来自以下书籍和并发相关的网络博客文章</strong></p>
-<p><strong>  ifeve并发编程网</strong><br><strong>Java多线程编程实战指南（核心篇）
-</strong>java并发编程实战<strong>
-</strong>java并发编程的艺术**</p>
-<p><br></p>
-<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><p><a href="https://tocreate.app/2018/12/11/ConcurBase/" target="_blank" rel="external">详见</a></p>
-]]></content>
       
         <categories>
             
