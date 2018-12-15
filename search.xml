@@ -244,7 +244,7 @@ int test_bit(int nr, volatile void *addr)
 <pre><code>DEFINE_SPINLOCK(MR_LOCK);
 spin_lock(&amp;mr_lock);
 /* 临界区 */
-spin_unlock
+spin_unlock(&amp;mr_lock);
 </code></pre><p><br></p>
 <h4 id="单核处理器自旋锁"><a href="#单核处理器自旋锁" class="headerlink" title="单核处理器自旋锁"></a>单核处理器自旋锁</h4><ul>
 <li>在单核的情况下如果系统不支持抢占，那么自旋锁就什么都不做，毕竟确实无事要做，编译时自旋锁甚至会被完全剔除出内核</li>
@@ -276,10 +276,26 @@ spin_lock_irqsave(&amp;mr_lock,flag)
 spin_unlock_irqrestore
 </code></pre><p><br></p>
 <h4 id="读-写自旋锁"><a href="#读-写自旋锁" class="headerlink" title="读-写自旋锁"></a>读-写自旋锁</h4><ul>
-<li>由于只要没有写操作，多少个并发读都是安全的，因此锁也可以分成两个用途，一个或多个读任务可以并发地持有读者锁，用于写的锁最多只能被一个写任务持有，而且不能有并发的读操作，写操作需要等待所有读锁释放</li>
+<li>由于只要没有写操作，多少个并发读都是安全的，因此锁也可以分成两个用途，一个或多个读任务可以并发地持有读者锁，用于写的锁最多只能被一个写任务持有，而且不能有并发的读操作，写操作需要等待所有读锁释放，读写锁的用法和自旋锁类似</li>
+</ul>
+<pre><code>DEFINE_RWLOCK(mr_rwlock);
+read_lock(&amp;mr_lock);
+/* 临界区（只读）*/
+read_unlock(&amp;mr_rwlock);
+...
+write_lock(&amp;mr_lock);
+/* 临界区（读写）*/
+write_unlock(&amp;mr_rwlock);
+</code></pre><ul>
+<li>读锁不能被升级为写锁，因为写锁会不断自旋等待读锁释放，下面的代码会造成死锁</li>
+</ul>
+<pre><code>read_lock(&amp;mr_rwlock);
+write_lock(&amp;mr_rwlock);
+</code></pre><p><br></p>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><ul>
+<li>信号量是一种睡眠锁，在任务试图获取不可占用的信号量时，信号量会将其推进一个等待队列，然后让其睡眠，当信号量可用时任务才会被唤醒，由于这个特性，信号量适用于锁会被长时间持有的状况</li>
 </ul>
 <p><br></p>
-<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p><br></p>
 <h3 id="互斥体"><a href="#互斥体" class="headerlink" title="互斥体"></a>互斥体</h3><p><br></p>
 <h3 id="大内核锁"><a href="#大内核锁" class="headerlink" title="大内核锁"></a>大内核锁</h3><p><strong>这名字真心牛逼</strong></p>
 <p><br></p>
