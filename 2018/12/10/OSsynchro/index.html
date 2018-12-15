@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原子操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">原子操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#体系结构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">体系结构</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#atomic-t"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">atomic_t</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#atomic64-t"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">atomic64_t</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#set-bit"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">set_bit</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自旋锁"><span class="post-toc-number">2.</span> <span class="post-toc-text">自旋锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#单核处理器自旋锁"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">单核处理器自旋锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#多核处理器自旋锁"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">多核处理器自旋锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#注意事项"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#读-写自旋锁"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">读-写自旋锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#信号量"><span class="post-toc-number">3.</span> <span class="post-toc-text">信号量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#互斥体"><span class="post-toc-number">4.</span> <span class="post-toc-text">互斥体</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#大内核锁"><span class="post-toc-number">5.</span> <span class="post-toc-text">大内核锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#顺序锁"><span class="post-toc-number">6.</span> <span class="post-toc-text">顺序锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#屏障"><span class="post-toc-number">7.</span> <span class="post-toc-text">屏障</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原子操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">原子操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#体系结构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">体系结构</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#atomic-t"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">atomic_t</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#atomic64-t"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">atomic64_t</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#set-bit"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">set_bit</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自旋锁"><span class="post-toc-number">2.</span> <span class="post-toc-text">自旋锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#单核处理器自旋锁"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">单核处理器自旋锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#多核处理器自旋锁"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">多核处理器自旋锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#注意事项"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#读-写-自旋锁"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">读-写 自旋锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#信号量"><span class="post-toc-number">3.</span> <span class="post-toc-text">信号量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#二值-amp-记数"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">二值 & 记数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#读-写-信号量"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">读-写 信号量</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#互斥体"><span class="post-toc-number">4.</span> <span class="post-toc-text">互斥体</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#大内核锁"><span class="post-toc-number">5.</span> <span class="post-toc-text">大内核锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#顺序锁"><span class="post-toc-number">6.</span> <span class="post-toc-text">顺序锁</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -622,7 +622,7 @@ spin_lock_irqsave(&amp;mr_lock,flag)
 */
 spin_unlock_irqrestore
 </code></pre><p><br></p>
-<h4 id="读-写自旋锁"><a href="#读-写自旋锁" class="headerlink" title="读-写自旋锁"></a>读-写自旋锁</h4><ul>
+<h4 id="读-写-自旋锁"><a href="#读-写-自旋锁" class="headerlink" title="读-写 自旋锁"></a>读-写 自旋锁</h4><ul>
 <li>由于只要没有写操作，多少个并发读都是安全的，因此锁也可以分成两个用途，一个或多个读任务可以并发地持有读者锁，用于写的锁最多只能被一个写任务持有，而且不能有并发的读操作，写操作需要等待所有读锁释放，读写锁的用法和自旋锁类似</li>
 </ul>
 <pre><code>DEFINE_RWLOCK(mr_rwlock);
@@ -640,14 +640,82 @@ write_unlock(&amp;mr_rwlock);
 write_lock(&amp;mr_rwlock);
 </code></pre><p><br></p>
 <h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><ul>
-<li>信号量是一种睡眠锁，在任务试图获取不可占用的信号量时，信号量会将其推进一个等待队列，然后让其睡眠，当信号量可用时任务才会被唤醒，由于这个特性，信号量适用于锁会被长时间持有的状况</li>
+<li>信号量是一种睡眠锁，在任务试图获取不可占用的信号量时，信号量会将其推进一个等待队列，然后让其睡眠，当信号量可用时任务才会被唤醒</li>
+</ul>
+<ul>
+<li>使用信号量有几点需要注意：信号量适用于锁会被长时间持有的状况。信号量只能在进程上下文中使用，因为在中断上下文中是不能执行调度的。信号量不能在持有自旋锁时使用，因为持有自旋锁本质上是禁止抢占（见上文）</li>
 </ul>
 <p><br></p>
-<h3 id="互斥体"><a href="#互斥体" class="headerlink" title="互斥体"></a>互斥体</h3><p><br></p>
-<h3 id="大内核锁"><a href="#大内核锁" class="headerlink" title="大内核锁"></a>大内核锁</h3><p><strong>这名字真心牛逼</strong></p>
+<h4 id="二值-amp-记数"><a href="#二值-amp-记数" class="headerlink" title="二值 &amp; 记数"></a>二值 &amp; 记数</h4><ul>
+<li>信号量允许任意数量的锁持有者，通常情况下设置的数量为1，这个时候称为二值信号量（要么被持有，要么空闲），或者成为互斥信号量，当数量大于1时允许多个线程同时访问临界区，这个时候成为计数信号量</li>
+</ul>
+<ul>
+<li>迪杰斯特拉在提出信号量的时候将信号量支持的两个操作叫做P() V()，在真实的操作系统上一般叫做 down() up()，down() 对信号量减1来获取一个信号量，如果结果是-1，则任务会被放进队列，up()对信号量加1来释放信号量，队列中的任务会被唤醒时会同时获取信号量</li>
+</ul>
+<ul>
+<li>在内核中使用 down_interruptible() 比 down() 更加普遍，如果信号量不可用，进程将睡眠，如果接受到信号它会被唤醒，而不是直接忽略信号</li>
+</ul>
+<pre><code>static DECLARE_MUTEX(MR_SEM);
+
+if(down_interruptible(&amp;mr_sem))
+/*信号被接受但，还未获取到信号量*/
+}
+/*临界区*/
+up(&amp;mr_sem);
+</code></pre><p><br></p>
+<h4 id="读-写-信号量"><a href="#读-写-信号量" class="headerlink" title="读-写 信号量"></a>读-写 信号量</h4><ul>
+<li>读 - 写信号量都是互斥信号量，引用计数都为1，但它只对写者互斥，所有读写锁都不会被信号打断，因此它只有一个down操作，其他特性与普通信号量一致，用法则和读写自旋锁类似</li>
+</ul>
+<pre><code>static DECLEAR_RWSEM(mr_rwsem);
+
+down_read(&amp;mr_rwsem);
+/*临界区 读*/
+up_read(&amp;mr_rwsem);
+
+down_write(&amp;mr_rwsem);
+/*临界区 写*/
+up_write(&amp;mr_rwsem);
+</code></pre><p><br></p>
+<h3 id="互斥体"><a href="#互斥体" class="headerlink" title="互斥体"></a>互斥体</h3><ul>
+<li>互斥体(mutex)本质上是任何可以睡眠的强制互斥锁，比如计数为1的信号量，但是由于以前linux上没有直接对应的实现，所以需要时也就只能用计数为1的信号量，直到后来引入了一个比信号量更加简单的专门实现，直接就叫做 mutex</li>
+</ul>
+<pre><code>mutex_init(&amp;mutex);
+mutex_lock(&amp;mutex);
+/*临界区*/
+mutex_unlock(&amp;mutex);
+</code></pre><ul>
+<li>使用mutex需要注意：mutex计数是1。上锁者必须负责解锁。解锁必须在同一上下文。不允许递归。持有锁时进程不能退出。不能在中断或下半部中使用。不可被拷贝，重复或手动初始化。</li>
+</ul>
 <p><br></p>
-<h3 id="顺序锁"><a href="#顺序锁" class="headerlink" title="顺序锁"></a>顺序锁</h3><p><br></p>
-<h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3>
+<h3 id="大内核锁"><a href="#大内核锁" class="headerlink" title="大内核锁"></a>大内核锁</h3><p><strong>这名字真心牛逼</strong></p>
+<ul>
+<li>大内核锁(BLK)是内核为了向smp(见进程一文)过渡而引入的锁，2.0开始支持smp，但2.2以前不管是多少核的cpu，内核一个时刻只能运行一个任务，BLK就是这种机制的“暴力”实现，BLK本质上是一个全局唯一的锁，有用自旋锁时间的时期，也有用信号量实现的时期，任何处理器进入内核态时就获取该锁，而其他处理器就只能等待，现在内核已经能够很好地支持smp了，BLK也被弃用</li>
+</ul>
+<ul>
+<li>BLK的主要特性：持有时可以睡眠，调度时锁会自动的释放和获取，但锁被释放时临界区的资源得不到保障。可递归，BKL支持多次请求，不会产生死锁。只能用在进程上下文中，和信号量一样不允许用在中断上下文中。新用户禁止使用BLK，因为毫无必要</li>
+</ul>
+<pre><code>lock_kernel();
+/*临界区*/
+unlock_kernel();
+</code></pre><p><br></p>
+<h3 id="顺序锁"><a href="#顺序锁" class="headerlink" title="顺序锁"></a>顺序锁</h3><ul>
+<li>顺序锁(seq)是一种写者优先的读写锁，普通的读写锁中写者需要等待所有读者，但顺序锁中只要没有其他的写者，写者总能成功获取锁，而读者则要反复的进行失败-重试，直到整个临界区的操作过程没有被写者打断，才算成功</li>
+</ul>
+<pre><code>seqlock_t mr_seq_lock = DEFINE_SEQLOCK(mr_seq_lock);
+write_sequnlock(&amp;mr_seq_lock);
+/* 写者操作 */
+write_sequnlock(&amp;mr_seq_lock);
+
+unsigned long seq;
+do{
+        seq = resd_seqbegin(&amp;mr_seq_lock);
+        /* 读者操作 */
+}while(read_seqretry(&amp;mr_seq_lock));
+</code></pre><ul>
+<li>seq锁一般用在读者数量明显大于写者的情况下</li>
+</ul>
+<p><br><br><strong>本篇完</strong></p>
+
     
 
     
@@ -772,7 +840,7 @@ write_lock(&amp;mr_rwlock);
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

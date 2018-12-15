@@ -12,7 +12,7 @@
     
     <title>
         
-            深入JVM系列 4 - Class 文件 | 
+            深入操作系统 11 - 页 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入JVM系列 4 - Class 文件 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入操作系统 11 - 页 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="10月 19, 2018" />
-        <meta property="article:modified_time" content="11月 30, 2018" />
+        <meta property="article:published_time" content="12月 15, 2018" />
+        <meta property="article:modified_time" content="12月 15, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入JVM系列 4 - Class 文件 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入操作系统 11 - 页 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/12/15/page/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入JVM系列 4 - Class 文件",
-    "url": "https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html",
-    "datePublished": "10月 19, 2018",
-    "dateModified": "11月 30, 2018",
+    "headline": "深入操作系统 11 - 页",
+    "url": "https://alberthumbert.github.io/2018/12/15/page/index.html",
+    "datePublished": "12月 15, 2018",
+    "dateModified": "12月 15, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Class-文件结构"><span class="post-toc-number">1.</span> <span class="post-toc-text">Class 文件结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常量池类型"><span class="post-toc-number">2.</span> <span class="post-toc-text">常量池类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字段表"><span class="post-toc-number">3.</span> <span class="post-toc-text">字段表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法表"><span class="post-toc-number">4.</span> <span class="post-toc-text">方法表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#属性表"><span class="post-toc-number">5.</span> <span class="post-toc-text">属性表</span></a></li></ol>
+        
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入JVM系列 4 - Class 文件
+                深入操作系统 11 - 页
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>10月 19, 2018</span>
+        <span>12月 15, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 4 - Class 文件&url=https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 11 - 页&url=https://alberthumbert.github.io/2018/12/15/page/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 4 - Class 文件&url=https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 11 - 页&url=https://alberthumbert.github.io/2018/12/15/page/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/12/15/page/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/12/15/page/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html&title=深入JVM系列 4 - Class 文件" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/15/page/index.html&title=深入操作系统 11 - 页" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 4 - Class 文件&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 11 - 页&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/15/page/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/10/19/JVMClassFile/index.html&text=深入JVM系列 4 - Class 文件" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/15/page/index.html&text=深入操作系统 11 - 页" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,238 +503,8 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
-<p><a href="https://tocreate.app/2018/10/17/JVMOopKlass/" target="_blank" rel="external">可能需要阅读前文</a></p>
-<p><br></p>
-<h3 id="Class-文件结构"><a href="#Class-文件结构" class="headerlink" title="Class 文件结构"></a>Class 文件结构</h3><ul>
-<li>下面是class文件的格式，class文件是以字节为单位的二进制流，包含无符号数和表两种数据项，所有数据项紧密排列没有空隙，大于1字节的数据以高位在前的形式存储，class文件不依赖于实际的存储形式，不管是在内存中还是硬盘中，只要可以用流读取就可以</li>
-</ul>
-<pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
-ClassFile { //编译后的class文件格式
-       u4             magic; //魔数，固定值为 0xCAFEBABE
-       u2             minor_version; //次版本号
-       u2             major_version; //主版本号
-       u2             constant_pool_count; //常量池大小
-       cp_info        constant_pool[constant_pool_count-1]; //常量池
-       u2             access_flags; //访问标识符
-       u2             this_class; //当前类
-       u2             super_class; //父类
-       u2             interfaces_count; //接口数量
-       u2             interfaces[interfaces_count]; //接口
-       u2             fields_count; //字段数量
-       field_info     fields[fields_count]; //字段表
-       u2             methods_count; //方法数
-       method_info    methods[methods_count]; //方法表
-       u2             attributes_count; //属性数量
-       attribute_info attributes[attributes_count]; //属性表
-}
-</code></pre><ul>
-<li>在 linux 下可以使用 od 命令以16形式查看，不过个人觉得有个概念就行了</li>
-</ul>
-<pre><code>od -t xCc 文件名 #用16进制来输出文件的内容，同时用ASCII字符对照显示
-od -t xC 文件名 #纯16进制显示
-</code></pre><p><br></p>
-<h3 id="常量池类型"><a href="#常量池类型" class="headerlink" title="常量池类型"></a>常量池类型</h3><ul>
-<li>constant_pool，即存储所有常量的地方，包括字符串常量，类名，接口名，方法名等等，虚拟机是围绕符号引用设计的，也就是指令执行时只引用了常量池表中的符号信息, 常量池的所有类型都有自己的结构</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Constant Type</th>
-<th>Value</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CONSTANT_Class</td>
-<td>7</td>
-<td>类常量</td>
-</tr>
-<tr>
-<td>CONSTANT_Fieldref</td>
-<td>9</td>
-<td>字段符号引用</td>
-</tr>
-<tr>
-<td>CONSTANT_Methodref</td>
-<td>10</td>
-<td>类方法符号引用</td>
-</tr>
-<tr>
-<td>CONSTANT_InterfaceMethodref</td>
-<td>11</td>
-<td>接口方法符号引用</td>
-</tr>
-<tr>
-<td>CONSTANT_String</td>
-<td>8</td>
-<td>String 常量</td>
-</tr>
-<tr>
-<td>CONSTANT_Integer</td>
-<td>3</td>
-<td>int常量</td>
-</tr>
-<tr>
-<td>CONSTANT_Float</td>
-<td>4</td>
-<td>float常量</td>
-</tr>
-<tr>
-<td>CONSTANT_Long</td>
-<td>5</td>
-<td>long 常量</td>
-</tr>
-<tr>
-<td>CONSTANT_Double</td>
-<td>6</td>
-<td>double 常量</td>
-</tr>
-<tr>
-<td>CONSTANT_NameAndType</td>
-<td>12</td>
-<td>字段或方法的部分符号引用</td>
-</tr>
-<tr>
-<td>CONSTANT_Utf8</td>
-<td>1</td>
-<td>UTF-8 编码字符串</td>
-</tr>
-<tr>
-<td>CONSTANT_MethodHandle</td>
-<td>15</td>
-<td>方法句柄</td>
-</tr>
-<tr>
-<td>CONSTANT_MethodType</td>
-<td>16</td>
-<td>标识方法类型</td>
-</tr>
-<tr>
-<td>CONSTANT_InvokeDynamic</td>
-<td>18</td>
-<td>表示一个动态方法的调用点</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>例如，CONSTANT_Class_info，tag用于区分类型，其值如上表所述，name_index指向CONSTANT_Utf8_info常量，该常量是类的全限定名，下面是其他所有类型的定义</li>
-</ul>
-<pre><code>CONSTANT_Class_info {
-      u1 tag;
-      u2 name_index; //类全限定名的CONSTANT_Utf8_info索引
- }
-
-CONSTANT_Fieldref_info {
-      u1 tag;
-      u2 class_index; //声明该字段的类或接口的CONSTANT_Class_info索引
-      u2 name_and_type_index;//字段描述符的CONSTANT_NameAndType_info索引
- }
-
- CONSTANT_Methodref_info {
-      u1 tag;
-      u2 class_index; //声明该方法的类或接口的CONSTANT_Class_info索引
-      u2 name_and_type_index; //指向名称及类型的CONSTANT_NameAndType_info索引
- }
-
- CONSTANT_InterfaceMethodref_info {
-      u1 tag;
-      u2 class_index;
-      u2 name_and_type_index;
- }
-
- CONSTANT_Utf8_info {
-      u1 tag;
-      u2 length;//长度
-      u1 bytes[length];//内容
- }
-
- CONSTANT_String_info {
-      u1 tag;
-      u2 string_index;//CONSTANT_Utf8_info
- }
-
- CONSTANT_Integer_info {
-      u1 tag;
-      u4 bytes; 
- }
-
- CONSTANT_Float_info {
-      u1 tag;
-      u4 bytes; 
- }
-
- CONSTANT_Long_info {
-      u1 tag;
-      u4 high_bytes;
-      u4 low_bytes;
- }
-
- CONSTANT_Double_info {
-      u1 tag;
-      u4 high_bytes;
-      u4 low_bytes;
- }
-
- CONSTANT_NameAndType_info {
-      u1 tag;
-      u2 name_index; //名称常量索引
-      u2 descriptor_index;//描述符常量索引
- }
-
-
- CONSTANT_MethodHandle_info {
-  u1 tag;
-  u1 reference_kind;//句柄类型
-  u2 reference_index;
- }
-
- CONSTANT_MethodType_info {
-  u1 tag;
-  u2 descriptor_index;
- }
-
- CONSTANT_InvokeDynamic_info {
-  u1 tag;
-  u2 bootstrap_method_attr_index;
-  u2 name_and_type_index;
- }
-</code></pre><p><br></p>
-<h3 id="字段表"><a href="#字段表" class="headerlink" title="字段表"></a>字段表</h3><ul>
-<li>包含静态字段和实例字段</li>
-</ul>
-<pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
- field_info {
-       u2             access_flags;
-       u2             name_index;
-       u2             descriptor_index;
-       u2             attributes_count;
-       attribute_info attributes[attributes_count];
-}
-</code></pre><p><br></p>
-<h3 id="方法表"><a href="#方法表" class="headerlink" title="方法表"></a>方法表</h3><ul>
-<li>包含实例初始化方法和类初始化方法的所有方法</li>
-</ul>
-<pre><code>//in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf
-   method_info {
-       u2             access_flags;
-       u2             name_index;
-       u2             descriptor_index;
-       u2             attributes_count;
-       attribute_info attributes[attributes_count];
-}
-</code></pre><p><br></p>
-<h3 id="属性表"><a href="#属性表" class="headerlink" title="属性表"></a>属性表</h3><ul>
-<li>字段表，方法表都可以拥有自己的属性表集合，用来描述特定场景的信息</li>
-</ul>
-<pre><code> //in https://docs.oracle.com/javase/specs/jvms/se7/jvms7.pdf 
- attribute_info {
-       u2 attribute_name_index;
-       u4 attribute_length;
-       u1 info[attribute_length];
-}
-</code></pre><p><strong>未完待续</strong></p>
+<p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2018/12/10/OSsynchro/" target="_blank" rel="external">可能需要阅读前文</a></p>
 
     
 
@@ -754,21 +524,13 @@ CONSTANT_Fieldref_info {
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/10/21/AndroidAnnotation/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/10/17/JVMOopKlass/" id="post_nav-older" class="next-content">
+        <a href="/2018/12/11/concurrent/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
