@@ -12,7 +12,7 @@
     
     <title>
         
-            深入操作系统 11 - 页 | 
+            深入操作系统 11 - 存储管理 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入操作系统 11 - 页 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入操作系统 11 - 存储管理 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="12月 15, 2018" />
-        <meta property="article:modified_time" content="12月 15, 2018" />
+        <meta property="article:modified_time" content="12月 18, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入操作系统 11 - 页 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入操作系统 11 - 存储管理 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入操作系统 11 - 页",
+    "headline": "深入操作系统 11 - 存储管理",
     "url": "https://alberthumbert.github.io/2018/12/15/page/index.html",
     "datePublished": "12月 15, 2018",
-    "dateModified": "12月 15, 2018",
+    "dateModified": "12月 18, 2018",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#存储层次结构"><span class="post-toc-number">1.</span> <span class="post-toc-text">存储层次结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分段的历史遗留问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">分段的历史遗留问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分页"><span class="post-toc-number">3.</span> <span class="post-toc-text">分页</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入操作系统 11 - 页
+                深入操作系统 11 - 存储管理
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 11 - 页&url=https://alberthumbert.github.io/2018/12/15/page/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 11 - 存储管理&url=https://alberthumbert.github.io/2018/12/15/page/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 11 - 页&url=https://alberthumbert.github.io/2018/12/15/page/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 11 - 存储管理&url=https://alberthumbert.github.io/2018/12/15/page/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/15/page/index.html&title=深入操作系统 11 - 页" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/15/page/index.html&title=深入操作系统 11 - 存储管理" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 11 - 页&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/15/page/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 11 - 存储管理&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/15/page/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/15/page/index.html&text=深入操作系统 11 - 页" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/15/page/index.html&text=深入操作系统 11 - 存储管理" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -505,7 +505,29 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/12/10/OSsynchro/" target="_blank" rel="external">可能需要阅读前文</a></p>
-
+<p><strong>这部分与前几篇的分段相关，老实说现在我也说不准哪里相关，毕竟内容太多了，卒</strong></p>
+<p><strong> 过段时间就告别 hexo 了，最近在用 ssm 和 vue 自己写这个站点，前后端分离，没什么意外的话月末之前挂到自己的vps上面，估计会有很多bug就是了</strong></p>
+<p><br></p>
+<h3 id="存储层次结构"><a href="#存储层次结构" class="headerlink" title="存储层次结构"></a>存储层次结构</h3><p><strong>对程序员来说，理想的存储器应该无限大无限快而且具有永久性，但这样的存储介质并不存在（实际上软件规模的增长速度和存储介质性能的增长速度几乎差不多），现代操作系统的解决方案是使用多层结构的存储系统</strong></p>
+<ul>
+<li>存储层次一般为四层</li>
+</ul>
+<pre><code>一: cpu内部的寄存器
+二: cache
+三: 主存
+四: 磁盘
+</code></pre><ul>
+<li>操作系统当中负责管理这个层次结构的程序叫做存储管理器（memory manager 或 memory management，简称 mm，这个简称实际上是很多内核不约而同的文件命名），它的主要任务包括</li>
+</ul>
+<pre><code>记录存储器使用情况
+分配和回收进程空间
+内存不够时进行交换
+</code></pre><ul>
+<li>多数操作系统的内存管理器都在内核当中，如 linux 内核代码的 mm 目录，minix 3 则很特殊地放在内核之外</li>
+</ul>
+<p><br></p>
+<h3 id="分段的历史遗留问题"><a href="#分段的历史遗留问题" class="headerlink" title="分段的历史遗留问题"></a>分段的历史遗留问题</h3><p><br></p>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3>
     
 
     

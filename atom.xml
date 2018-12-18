@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2018-12-15T06:59:24.496Z</updated>
+  <updated>2018-12-18T15:21:47.807Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>深入操作系统 11 - 页</title>
+    <title>深入操作系统 11 - 存储管理</title>
     <link href="https://alberthumbert.github.io/2018/12/15/page/"/>
     <id>https://alberthumbert.github.io/2018/12/15/page/</id>
     <published>2018-12-15T06:55:29.000Z</published>
-    <updated>2018-12-15T06:59:24.496Z</updated>
+    <updated>2018-12-18T15:21:47.807Z</updated>
     
     <summary type="html">
     

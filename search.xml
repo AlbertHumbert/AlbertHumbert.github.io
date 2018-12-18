@@ -3,13 +3,35 @@
   
     
     <entry>
-      <title><![CDATA[深入操作系统 11 - 页]]></title>
+      <title><![CDATA[深入操作系统 11 - 存储管理]]></title>
       <url>/2018/12/15/page/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/12/10/OSsynchro/" target="_blank" rel="external">可能需要阅读前文</a></p>
-]]></content>
+<p><strong>这部分与前几篇的分段相关，老实说现在我也说不准哪里相关，毕竟内容太多了，卒</strong></p>
+<p><strong> 过段时间就告别 hexo 了，最近在用 ssm 和 vue 自己写这个站点，前后端分离，没什么意外的话月末之前挂到自己的vps上面，估计会有很多bug就是了</strong></p>
+<p><br></p>
+<h3 id="存储层次结构"><a href="#存储层次结构" class="headerlink" title="存储层次结构"></a>存储层次结构</h3><p><strong>对程序员来说，理想的存储器应该无限大无限快而且具有永久性，但这样的存储介质并不存在（实际上软件规模的增长速度和存储介质性能的增长速度几乎差不多），现代操作系统的解决方案是使用多层结构的存储系统</strong></p>
+<ul>
+<li>存储层次一般为四层</li>
+</ul>
+<pre><code>一: cpu内部的寄存器
+二: cache
+三: 主存
+四: 磁盘
+</code></pre><ul>
+<li>操作系统当中负责管理这个层次结构的程序叫做存储管理器（memory manager 或 memory management，简称 mm，这个简称实际上是很多内核不约而同的文件命名），它的主要任务包括</li>
+</ul>
+<pre><code>记录存储器使用情况
+分配和回收进程空间
+内存不够时进行交换
+</code></pre><ul>
+<li>多数操作系统的内存管理器都在内核当中，如 linux 内核代码的 mm 目录，minix 3 则很特殊地放在内核之外</li>
+</ul>
+<p><br></p>
+<h3 id="分段的历史遗留问题"><a href="#分段的历史遗留问题" class="headerlink" title="分段的历史遗留问题"></a>分段的历史遗留问题</h3><p><br></p>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3>]]></content>
       
         <categories>
             
