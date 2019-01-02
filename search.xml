@@ -3,6 +3,146 @@
   
     
     <entry>
+      <title><![CDATA[操作系统 - 复习笔记]]></title>
+      <url>/2018/12/22/OSTest/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>考试知识点复习</strong></p>
+<h3 id="作业调度算法"><a href="#作业调度算法" class="headerlink" title="作业调度算法"></a>作业调度算法</h3><ul>
+<li><p>先来先服务</p>
+</li>
+<li><p>短作业优先</p>
+</li>
+<li><p>优先级调度</p>
+</li>
+<li><p>高响应比优先，动态优先级随等待时间延长而增加，优先级= （等待时间 + 要求服务时间）/ 要求服务时间</p>
+</li>
+</ul>
+<h3 id="进程调度算法"><a href="#进程调度算法" class="headerlink" title="进程调度算法"></a>进程调度算法</h3><ul>
+<li><p>轮转调度</p>
+</li>
+<li><p>优先级调度</p>
+</li>
+<li><p>多队列调度</p>
+</li>
+<li><p>多级反馈队列</p>
+</li>
+</ul>
+<ul>
+<li>基于公平原则的调度：保证调度，公平分享调度</li>
+</ul>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><ul>
+<li><p>全部状态</p>
+<p>  创建，执行，终止，活动就绪，静止就绪，活动阻塞，静止阻塞</p>
+</li>
+</ul>
+<h3 id="实时调度"><a href="#实时调度" class="headerlink" title="实时调度"></a>实时调度</h3><ul>
+<li>最早截止时间优先</li>
+</ul>
+<ul>
+<li>最低松弛优先</li>
+</ul>
+<h3 id="io-设备的层次结构"><a href="#io-设备的层次结构" class="headerlink" title="io 设备的层次结构"></a>io 设备的层次结构</h3><ul>
+<li><p>用户层 io 软件</p>
+</li>
+<li><p>设备独立性软件</p>
+</li>
+<li><p>设备驱动软件</p>
+</li>
+<li><p>中断处理程序</p>
+</li>
+</ul>
+<h3 id="页面置换"><a href="#页面置换" class="headerlink" title="页面置换"></a>页面置换</h3><ul>
+<li>opt，最佳置换，未来最长时间不使用的被换出</li>
+</ul>
+<h3 id="缺页中断率"><a href="#缺页中断率" class="headerlink" title="缺页中断率"></a>缺页中断率</h3><pre><code>(1)分配给作业的主存块数的多少。多则越页中断率低，反之缺页中断率高。
+(2)页面大小。页面大，缺页中断率低。页面小，缺页中断率高。
+(3)程序编制方法。以数组运算为例，如果每一行元素存放在一页中，则当按行处理各元素时缺页中断率低。当按列处理各元素时，缺页中断率高。
+(4)页面调度算法。页面调度算法对缺页中断率影响很大，但不可能找到一种最佳的算法。
+</code></pre><h3 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h3><ul>
+<li><p>分页</p>
+<p>  (帧号*页面大小)+页内偏移形成物理地址。</p>
+</li>
+</ul>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><ul>
+<li><p>原因：竞争不可抢占资源 &amp; 竞争可消耗资源 &amp; 进程推进顺序不当</p>
+</li>
+<li><p>四个条件： 互斥条件，请求和保持条件，不可抢占条件，循环等待条件</p>
+</li>
+</ul>
+<h3 id="假脱机组成"><a href="#假脱机组成" class="headerlink" title="假脱机组成"></a>假脱机组成</h3><ul>
+<li><p>输入井，输出井（磁盘上开辟的存储区）</p>
+</li>
+<li><p>输入缓冲区，输出缓冲区（内存上开辟的缓冲区）</p>
+</li>
+<li><p>输入进程，输出进程</p>
+</li>
+<li><p>井管理程序，控制作业和磁盘井的信息交换</p>
+</li>
+</ul>
+<h3 id="假脱机组成-1"><a href="#假脱机组成-1" class="headerlink" title="假脱机组成"></a>假脱机组成</h3><ul>
+<li><p>提高了 io 熟读</p>
+</li>
+<li><p>独占转为共享</p>
+</li>
+<li><p>实现了虚拟设备功能</p>
+</li>
+</ul>
+<h3 id="设备无关性"><a href="#设备无关性" class="headerlink" title="设备无关性"></a>设备无关性</h3><pre><code>为了提高 操作系统的可适应性和可扩展性，在现代操作系统中都毫无例外地实现了 设备独立性，也称为设备无关性
+
+解释
+设备独立性是指 操作系统把所有 外部设备统一当作成文件来看待，只要安装它们的 驱动程序，任何用户都可以象使用文件一样，操纵、使用这些设备，而不必知道它们的具体存在形式
+</code></pre><h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><ul>
+<li><p>顺序文件，记录按序排列</p>
+</li>
+<li><p>索引文件，可变长记录建立索引表</p>
+</li>
+<li><p>顺序索引文件，可变长记录的组的第一个记录建立索引表</p>
+</li>
+</ul>
+<h3 id="文件控制块"><a href="#文件控制块" class="headerlink" title="文件控制块"></a>文件控制块</h3><ul>
+<li>基本信息</li>
+</ul>
+<pre><code>文件名
+物理地址
+文件逻辑结构
+文件物理结构
+</code></pre><ul>
+<li><p>存取控制信息</p>
+</li>
+<li><p>使用信息</p>
+</li>
+</ul>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><ul>
+<li><p>简单文件目录： 一级（只能实现按名存取），两级（每个用户一个目录）</p>
+</li>
+<li><p>树形结构目录</p>
+</li>
+</ul>
+<h3 id="实现文件共享"><a href="#实现文件共享" class="headerlink" title="实现文件共享"></a>实现文件共享</h3><ul>
+<li><p>基于有向无环图，允许一个文件有多个父目录，可以利用索引节点实现</p>
+</li>
+<li><p>基于符号链接</p>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 11 - 存储管理]]></title>
       <url>/2018/12/15/page/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -30,7 +170,22 @@
 <li>多数操作系统的内存管理器都在内核当中，如 linux 内核代码的 mm 目录，minix 3 则很特殊地放在内核之外</li>
 </ul>
 <p><br></p>
-<h3 id="分段的历史遗留问题"><a href="#分段的历史遗留问题" class="headerlink" title="分段的历史遗留问题"></a>分段的历史遗留问题</h3><p><br></p>
+<h3 id="分段的历史遗留问题"><a href="#分段的历史遗留问题" class="headerlink" title="分段的历史遗留问题"></a>分段的历史遗留问题</h3><ul>
+<li>之前我们构造gdt的时候建立过分段机制，代码如下，null 段是 intel 定死的，不用去管它，关键是我们这里建立了代码段和数据段，基址为0，最大范围都为0xfffff，这意味着每个段都为4g大小（通常情况下32位系统本身也就只支持4g虚拟地址，2^32-1）</li>
+</ul>
+<pre><code>gdt:
+SEG\_NULLASM                                     # null seg
+SEG\_ASM(STA\_X|STA\_R, 0x0, 0xffffffff)           # code seg for bootloader and kernel
+SEG\_ASM(STA\_W, 0x0, 0xffffffff)                 # data seg for bootloader and kernel
+</code></pre><ul>
+<li>引入分段，又只分一个段，这种做法看似毫无意义多此一举，为什么要这么做呢，因为分页机制出来以后分段确实没什么太大意义，而且非常鸡肋，在 x86-64 当中分页是不支持分段（寄存器变直接就是64位，完全依赖分页机制），即使是32位体系结构，也并不都支持分段，因此大多数操作系统更倾向于只使用分页</li>
+</ul>
+<pre><code>Segmentation is considered obsolete memory protection technique in protected mode by both CPU manufacturers and most of programmers. It is no longer supported in long mode. The information here is required to get protected mode working; also 64 bit GDT is needed to enter long mode and segments are still used to jump from long mode to compatibility mode and the other way around. If you want to be serious about OS development, we strongly recommend using flat memory model and paging as memory management technique. For more information, consult x86-64.
+</code></pre><ul>
+<li>由于历史原因 x86 保护模式的分段机制无法关闭，因为不管怎样都需要gdt，不能只使用分页，那么最常见的做法就是使用 flat memory model，也就是只用一个段，基址为 0，大小为4g，剩下的交由分页机制去完成，典型的例子，windows，linux 都是这种，下面就是linux的gdt</li>
+</ul>
+<p><img src="http://wx3.sinaimg.cn/mw690/987832a0gy1fysbs6hr02j20xm06z75r.jpg" alt=""></p>
+<p><br></p>
 <h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3>]]></content>
       
         <categories>
@@ -220,39 +375,39 @@
 </ul>
 <pre><code>typedef struct{
         volatile int counter
-}atomic64_t
+}atomic64\_t
 </code></pre><ul>
 <li>这个类型所提供的原子操作都在 asm/atomic.h 下（关于这个，偶然发现了一篇很暴力的<a href="https://blog.csdn.net/kocmoc5/article/details/68945068" target="_blank" rel="external">文章</a>，写得挺有意思的）</li>
 </ul>
-<pre><code>#define ATOMIC_INIT(i)  { (i) }
+<pre><code># define ATOMIC\_INIT(i)  { (i) }
 
-#define atomic_read(v)  ((v)-&gt;counter)
+# define atomic\_read(v)  ((v)-\&gt;counter)
 
-#define atomic_set(v, i) (((v)-&gt;counter) = (i))
+# define atomic\_set(v, i) (((v)-\&gt;counter) = (i))
 
-static inline void atomic_inc(atomic_t *v)
+static inline void atomic\_inc(atomic\_t \*v)
 {
     atomic_add_return(1, v);
 }
 
-static inline void atomic_dec(atomic_t *v)
+static inline void atomic\_dec(atomic\_t \*v)
 {
     atomic_sub_return(1, v);
 }
 
-#define atomic_dec_return(v)        atomic_sub_return(1, (v))
+# define atomic\_dec\_return(v)        atomic\_sub\_return(1, (v))
 
-#define atomic_inc_return(v)        atomic_add_return(1, (v))
+# define atomic\_inc\_return(v)        atomic\_add\_return(1, (v))
 
-#define atomic_sub_and_test(i, v)   (atomic_sub_return((i), (v)) == 0)
+# define atomic\_sub\_and\_test(i, v)   (atomic\_sub\_return((i), (v)) == 0)
 
-#define atomic_dec_and_test(v)      (atomic_sub_return(1, (v)) == 0)
+# define atomic\_dec\_and\_test(v)      (atomic\_sub\_return(1, (v)) == 0)
 
-#define atomic_inc_and_test(v)      (atomic_add_return(1, (v)) == 0)
+# define atomic\_inc\_and\_test(v)      (atomic\_add\_return(1, (v)) == 0)
 </code></pre><ul>
 <li>原子操作的核心一般都是内联汇编(注意是inline asm，即在c中嵌入汇编语句，不要和普通inline混淆)完成（不过大部分体系结构中读取字节本身就是原子的，这个时候就是个简单的宏）,如atomic_add的实现</li>
 </ul>
-<pre><code>static __inline__ void atomic_add(int i, volatile atomic_t *v)
+<pre><code>static __inline__ void atomic\_add(int i, volatile atomic\_t \*v)
  {
          __asm__ __volatile__(
                  LOCK &quot;addl %1,%0&quot;
@@ -265,38 +420,41 @@ static inline void atomic_dec(atomic_t *v)
 </ul>
 <pre><code>typedef struct{
         volatile long counter
-}atomic64_t
+}atomic64\_t
 </code></pre><p><br></p>
 <h4 id="set-bit"><a href="#set-bit" class="headerlink" title="set_bit"></a>set_bit</h4><ul>
 <li>与atomic不同，set_bit及其类似的原子操作可以是普通的内存地址，只需要传递一个指针和要修改的位的位号即可，set操作将其置1，clear操作将其置0，test操作在除了置位以外还会返回当前值，一般的用法为 if(test_bit(..)){ }</li>
 </ul>
-<pre><code>void set_bit(int nr,void *addr)
-void clear_bit(int nr,void *addr)
-void change_bit(int nr,void *addr)
-int test_and_set_bit(int nr,void *addr)
-int test_and_clear_bit(int nr,void *addr)
-int test_and_change_bit(int nr,void *addr)
-int test_bit(int nr, volatile void *addr)
+<pre><code>void set\_bit(int nr,void \*addr)
+void clear\_bit(int nr,void \*addr)
+void change\_bit(int nr,void \*addr)
+int test\_and\_set\_bit(int nr,void \*addr)
+int test\_and\_clear\_bit(int nr,void \*addr)
+int test\_and\_change\_bit(int nr,void \*addr)
+int test\_bit(int nr, volatile void \*addr)
 </code></pre><p><br></p>
 <h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><ul>
-<li>只是对简单的数据结构或者位进行原子操作无法总是满足需求，我们有时需要时临界区中的整段代码都具有原子性，这个时候就需要用到锁</li>
+<li>只是对简单的数据结构或者位进行原子操作无法总是满足需求，我们有时需要使临界区中的整段代码都具有原子性，这个时候就需要用到锁</li>
 </ul>
 <ul>
-<li>自旋锁是最常见的锁，它只能被一个线程持有，未被持有的自旋锁可以直接获取，被持有的自旋锁取药进行循环-旋转-等待到被释放时才能再次获取，自旋是这种锁最大的特性，这是一种轻量级的锁，适合在短期内使用，另一种实现方式是睡眠（信号量使用的就是这种），睡眠会同时带来上下文切换</li>
+<li>自旋锁是最常见的锁，它只能被一个线程持有，未被持有的自旋锁可以直接获取，被持有的自旋锁获取需要进行循环-旋转-等待到被释放时才能再次获取，自旋是这种锁最大的特性，这是一种轻量级的锁，适合在短期内使用，另一种实现方式是睡眠（信号量使用的就是这种），睡眠会同时带来上下文切换</li>
 </ul>
 <ul>
-<li>自旋锁定义在 asm/spinlock.h 中，使用形式如下，自旋锁可以分两种，一种是内核态的自旋锁，也就是下面这个，本文中的自旋锁指都是这种，在内核当中使用，另一种是用户态的自旋锁，如 pthread，</li>
+<li>自旋锁定义在 asm/spinlock.h 中，使用形式如下，自旋锁可以分两种，一种是内核态的自旋锁，也就是下面这个，本文中的自旋锁指都是这种，在内核当中使用，另一种是用户态的自旋锁，如 pthread 中的自旋锁，</li>
 </ul>
-<pre><code>DEFINE_SPINLOCK(MR_LOCK);
-spin_lock(&amp;mr_lock);
-/* 临界区 */
-spin_unlock(&amp;mr_lock);
+<pre><code>DEFINE\_SPINLOCK(MR\_LOCK);
+spin\_lock(&amp;mr\_lock);
+/\* 临界区 \*/
+spin\_unlock(&amp;mr\_lock);
 </code></pre><p><br></p>
 <h4 id="单核处理器自旋锁"><a href="#单核处理器自旋锁" class="headerlink" title="单核处理器自旋锁"></a>单核处理器自旋锁</h4><ul>
 <li>在单核的情况下如果系统不支持抢占，那么自旋锁就什么都不做，毕竟确实无事要做，编译时自旋锁甚至会被完全剔除出内核</li>
 </ul>
 <ul>
 <li>如果系统支持抢占，那么加锁只是关闭了内核启用抢占的开关，这个时候不允许调度，也就可以独占资源了</li>
+</ul>
+<ul>
+<li>总结一下就是，单核自旋锁不自旋</li>
 </ul>
 <p><br></p>
 <h4 id="多核处理器自旋锁"><a href="#多核处理器自旋锁" class="headerlink" title="多核处理器自旋锁"></a>多核处理器自旋锁</h4><ul>
@@ -311,32 +469,32 @@ spin_unlock(&amp;mr_lock);
 <li>不可递归，自旋锁是不可重入锁，在自旋当中是没有可能再次获得锁的，因为这个时候根本释放不了锁</li>
 </ul>
 <ul>
-<li>在中断处理程序中需要锁时一般使用自旋锁（因为不能睡眠所以不能使用信号量），在内核代码中，获取中断处理程序使用的锁时，一定要先关中断，否则内核中的进程获取了锁后如果产生了中断，那么中断处理程序获取锁时就会由于自旋而无法结束，这时进程也得不到执行自然无法释放锁，这就是双重请求死锁，关中断只需要关当前处理器的中断，其他处理器的中断不会导致死锁，内核提供简洁的自锁锁接口，关闭和启用中断</li>
+<li>在中断处理程序中需要锁时一般使用自旋锁（因为不能睡眠所以不能使用信号量），在内核代码中，获取中断处理程序使用的锁时，一定要先关中断，否则内核中的进程获取了锁后如果产生了中断，那么中断处理程序获取同一个锁时就会由于自旋而无法结束，这时进程也得不到执行自然无法释放锁，这就是双重请求死锁，关中断只需要关当前处理器的中断，其他处理器的中断不会导致死锁，内核提供简洁的自锁锁接口，关闭和启用中断</li>
 </ul>
-<pre><code>DEFINE_SPINLOCK(mr_lock)
+<pre><code>DEFINE\_SPINLOCK(mr\_lock)
 unsigned long flag
-spin_lock_irqsave(&amp;mr_lock,flag)
-/*
+spin\_lock\_irqsave(&amp;mr\_lock,flag)
+/\*
 临界区
-*/
-spin_unlock_irqrestore
+\*/
+spin\_unlock\_irqrestore
 </code></pre><p><br></p>
 <h4 id="读-写-自旋锁"><a href="#读-写-自旋锁" class="headerlink" title="读-写 自旋锁"></a>读-写 自旋锁</h4><ul>
 <li>由于只要没有写操作，多少个并发读都是安全的，因此锁也可以分成两个用途，一个或多个读任务可以并发地持有读者锁，用于写的锁最多只能被一个写任务持有，而且不能有并发的读操作，写操作需要等待所有读锁释放，读写锁的用法和自旋锁类似</li>
 </ul>
-<pre><code>DEFINE_RWLOCK(mr_rwlock);
-read_lock(&amp;mr_lock);
-/* 临界区（只读）*/
-read_unlock(&amp;mr_rwlock);
+<pre><code>DEFINE\_RWLOCK(mr\_rwlock);
+read\_lock(&amp;mr\_lock);
+/\* 临界区（只读）\*/
+read\_unlock(&amp;mr\_rwlock);
 ...
-write_lock(&amp;mr_lock);
-/* 临界区（读写）*/
-write_unlock(&amp;mr_rwlock);
+write\_lock(&amp;mr\_lock);
+/\* 临界区（读写）\*/
+write\_unlock(&amp;mr\_rwlock);
 </code></pre><ul>
 <li>读锁不能被升级为写锁，因为写锁会不断自旋等待读锁释放，下面的代码会造成死锁</li>
 </ul>
-<pre><code>read_lock(&amp;mr_rwlock);
-write_lock(&amp;mr_rwlock);
+<pre><code>read\_lock(&amp;mr\_rwlock);
+write\_lock(&amp;mr\_rwlock);
 </code></pre><p><br></p>
 <h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><ul>
 <li>信号量是一种睡眠锁，在任务试图获取不可占用的信号量时，信号量会将其推进一个等待队列，然后让其睡眠，当信号量可用时任务才会被唤醒</li>
@@ -354,34 +512,34 @@ write_lock(&amp;mr_rwlock);
 <ul>
 <li>在内核中使用 down_interruptible() 比 down() 更加普遍，如果信号量不可用，进程将睡眠，如果接受到信号它会被唤醒，而不是直接忽略信号</li>
 </ul>
-<pre><code>static DECLARE_MUTEX(MR_SEM);
+<pre><code>static DECLARE\_MUTEX(MR\_SEM);
 
-if(down_interruptible(&amp;mr_sem))
+if(down\_interruptible(&amp;mr\_sem))
 /*信号被接受但，还未获取到信号量*/
 }
 /*临界区*/
-up(&amp;mr_sem);
+up(&amp;mr\_sem);
 </code></pre><p><br></p>
 <h4 id="读-写-信号量"><a href="#读-写-信号量" class="headerlink" title="读-写 信号量"></a>读-写 信号量</h4><ul>
 <li>读 - 写信号量都是互斥信号量，引用计数都为1，但它只对写者互斥，所有读写锁都不会被信号打断，因此它只有一个down操作，其他特性与普通信号量一致，用法则和读写自旋锁类似</li>
 </ul>
-<pre><code>static DECLEAR_RWSEM(mr_rwsem);
+<pre><code>static DECLEAR\_RWSEM(mr\_rwsem);
 
-down_read(&amp;mr_rwsem);
+down\_read(&amp;mr\_rwsem);
 /*临界区 读*/
-up_read(&amp;mr_rwsem);
+up\_read(&amp;mr\_rwsem);
 
-down_write(&amp;mr_rwsem);
+down\_write(&amp;mr\_rwsem);
 /*临界区 写*/
-up_write(&amp;mr_rwsem);
+up\_write(&amp;mr\_rwsem);
 </code></pre><p><br></p>
 <h3 id="互斥体"><a href="#互斥体" class="headerlink" title="互斥体"></a>互斥体</h3><ul>
 <li>互斥体(mutex)本质上是任何可以睡眠的强制互斥锁，比如计数为1的信号量，但是由于以前linux上没有直接对应的实现，所以需要时也就只能用计数为1的信号量，直到后来引入了一个比信号量更加简单的专门实现，直接就叫做 mutex</li>
 </ul>
-<pre><code>mutex_init(&amp;mutex);
-mutex_lock(&amp;mutex);
+<pre><code>mutex\_init(&amp;mutex);
+mutex\_lock(&amp;mutex);
 /*临界区*/
-mutex_unlock(&amp;mutex);
+mutex\_unlock(&amp;mutex);
 </code></pre><ul>
 <li>使用mutex需要注意：mutex计数是1。上锁者必须负责解锁。解锁必须在同一上下文。不允许递归。持有锁时进程不能退出。不能在中断或下半部中使用。不可被拷贝，重复或手动初始化。</li>
 </ul>
@@ -393,23 +551,23 @@ mutex_unlock(&amp;mutex);
 <ul>
 <li>BLK的主要特性：持有时可以睡眠，调度时锁会自动的释放和获取，但锁被释放时临界区的资源得不到保障。可递归，BKL支持多次请求，不会产生死锁。只能用在进程上下文中，和信号量一样不允许用在中断上下文中。新用户禁止使用BLK，因为毫无必要</li>
 </ul>
-<pre><code>lock_kernel();
+<pre><code>lock\_kernel();
 /*临界区*/
-unlock_kernel();
+unlock\_kernel();
 </code></pre><p><br></p>
 <h3 id="顺序锁"><a href="#顺序锁" class="headerlink" title="顺序锁"></a>顺序锁</h3><ul>
 <li>顺序锁(seq)是一种写者优先的读写锁，普通的读写锁中写者需要等待所有读者，但顺序锁中只要没有其他的写者，写者总能成功获取锁，而读者则要反复的进行失败-重试，直到整个临界区的操作过程没有被写者打断，才算成功</li>
 </ul>
-<pre><code>seqlock_t mr_seq_lock = DEFINE_SEQLOCK(mr_seq_lock);
-write_sequnlock(&amp;mr_seq_lock);
-/* 写者操作 */
-write_sequnlock(&amp;mr_seq_lock);
+<pre><code>seqlock\_t mr\_seq\_lock = DEFINE\_SEQLOCK(mr\_seq\_lock);
+write\_sequnlock(&amp;mr\_seq\_lock);
+/\* 写者操作 \*/
+write\_sequnlock(&amp;mr\_seq\_lock);
 
 unsigned long seq;
 do{
         seq = resd_seqbegin(&amp;mr_seq_lock);
         /* 读者操作 */
-}while(read_seqretry(&amp;mr_seq_lock));
+}while(read\_seqretry(&amp;mr\_seq\_lock));
 </code></pre><ul>
 <li>seq锁一般用在读者数量明显大于写者的情况下</li>
 </ul>

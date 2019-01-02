@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="12月 10, 2018" />
-        <meta property="article:modified_time" content="12月 15, 2018" />
+        <meta property="article:modified_time" content="1月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 10 - Linux内核同步",
     "url": "https://alberthumbert.github.io/2018/12/10/OSsynchro/index.html",
     "datePublished": "12月 10, 2018",
-    "dateModified": "12月 15, 2018",
+    "dateModified": "1月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -521,39 +521,39 @@
 </ul>
 <pre><code>typedef struct{
         volatile int counter
-}atomic64_t
+}atomic64\_t
 </code></pre><ul>
 <li>这个类型所提供的原子操作都在 asm/atomic.h 下（关于这个，偶然发现了一篇很暴力的<a href="https://blog.csdn.net/kocmoc5/article/details/68945068" target="_blank" rel="external">文章</a>，写得挺有意思的）</li>
 </ul>
-<pre><code>#define ATOMIC_INIT(i)  { (i) }
+<pre><code># define ATOMIC\_INIT(i)  { (i) }
 
-#define atomic_read(v)  ((v)-&gt;counter)
+# define atomic\_read(v)  ((v)-\&gt;counter)
 
-#define atomic_set(v, i) (((v)-&gt;counter) = (i))
+# define atomic\_set(v, i) (((v)-\&gt;counter) = (i))
 
-static inline void atomic_inc(atomic_t *v)
+static inline void atomic\_inc(atomic\_t \*v)
 {
     atomic_add_return(1, v);
 }
 
-static inline void atomic_dec(atomic_t *v)
+static inline void atomic\_dec(atomic\_t \*v)
 {
     atomic_sub_return(1, v);
 }
 
-#define atomic_dec_return(v)        atomic_sub_return(1, (v))
+# define atomic\_dec\_return(v)        atomic\_sub\_return(1, (v))
 
-#define atomic_inc_return(v)        atomic_add_return(1, (v))
+# define atomic\_inc\_return(v)        atomic\_add\_return(1, (v))
 
-#define atomic_sub_and_test(i, v)   (atomic_sub_return((i), (v)) == 0)
+# define atomic\_sub\_and\_test(i, v)   (atomic\_sub\_return((i), (v)) == 0)
 
-#define atomic_dec_and_test(v)      (atomic_sub_return(1, (v)) == 0)
+# define atomic\_dec\_and\_test(v)      (atomic\_sub\_return(1, (v)) == 0)
 
-#define atomic_inc_and_test(v)      (atomic_add_return(1, (v)) == 0)
+# define atomic\_inc\_and\_test(v)      (atomic\_add\_return(1, (v)) == 0)
 </code></pre><ul>
 <li>原子操作的核心一般都是内联汇编(注意是inline asm，即在c中嵌入汇编语句，不要和普通inline混淆)完成（不过大部分体系结构中读取字节本身就是原子的，这个时候就是个简单的宏）,如atomic_add的实现</li>
 </ul>
-<pre><code>static __inline__ void atomic_add(int i, volatile atomic_t *v)
+<pre><code>static __inline__ void atomic\_add(int i, volatile atomic\_t \*v)
  {
          __asm__ __volatile__(
                  LOCK &quot;addl %1,%0&quot;
@@ -566,38 +566,41 @@ static inline void atomic_dec(atomic_t *v)
 </ul>
 <pre><code>typedef struct{
         volatile long counter
-}atomic64_t
+}atomic64\_t
 </code></pre><p><br></p>
 <h4 id="set-bit"><a href="#set-bit" class="headerlink" title="set_bit"></a>set_bit</h4><ul>
 <li>与atomic不同，set_bit及其类似的原子操作可以是普通的内存地址，只需要传递一个指针和要修改的位的位号即可，set操作将其置1，clear操作将其置0，test操作在除了置位以外还会返回当前值，一般的用法为 if(test_bit(..)){ }</li>
 </ul>
-<pre><code>void set_bit(int nr,void *addr)
-void clear_bit(int nr,void *addr)
-void change_bit(int nr,void *addr)
-int test_and_set_bit(int nr,void *addr)
-int test_and_clear_bit(int nr,void *addr)
-int test_and_change_bit(int nr,void *addr)
-int test_bit(int nr, volatile void *addr)
+<pre><code>void set\_bit(int nr,void \*addr)
+void clear\_bit(int nr,void \*addr)
+void change\_bit(int nr,void \*addr)
+int test\_and\_set\_bit(int nr,void \*addr)
+int test\_and\_clear\_bit(int nr,void \*addr)
+int test\_and\_change\_bit(int nr,void \*addr)
+int test\_bit(int nr, volatile void \*addr)
 </code></pre><p><br></p>
 <h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><ul>
-<li>只是对简单的数据结构或者位进行原子操作无法总是满足需求，我们有时需要时临界区中的整段代码都具有原子性，这个时候就需要用到锁</li>
+<li>只是对简单的数据结构或者位进行原子操作无法总是满足需求，我们有时需要使临界区中的整段代码都具有原子性，这个时候就需要用到锁</li>
 </ul>
 <ul>
-<li>自旋锁是最常见的锁，它只能被一个线程持有，未被持有的自旋锁可以直接获取，被持有的自旋锁取药进行循环-旋转-等待到被释放时才能再次获取，自旋是这种锁最大的特性，这是一种轻量级的锁，适合在短期内使用，另一种实现方式是睡眠（信号量使用的就是这种），睡眠会同时带来上下文切换</li>
+<li>自旋锁是最常见的锁，它只能被一个线程持有，未被持有的自旋锁可以直接获取，被持有的自旋锁获取需要进行循环-旋转-等待到被释放时才能再次获取，自旋是这种锁最大的特性，这是一种轻量级的锁，适合在短期内使用，另一种实现方式是睡眠（信号量使用的就是这种），睡眠会同时带来上下文切换</li>
 </ul>
 <ul>
-<li>自旋锁定义在 asm/spinlock.h 中，使用形式如下，自旋锁可以分两种，一种是内核态的自旋锁，也就是下面这个，本文中的自旋锁指都是这种，在内核当中使用，另一种是用户态的自旋锁，如 pthread，</li>
+<li>自旋锁定义在 asm/spinlock.h 中，使用形式如下，自旋锁可以分两种，一种是内核态的自旋锁，也就是下面这个，本文中的自旋锁指都是这种，在内核当中使用，另一种是用户态的自旋锁，如 pthread 中的自旋锁，</li>
 </ul>
-<pre><code>DEFINE_SPINLOCK(MR_LOCK);
-spin_lock(&amp;mr_lock);
-/* 临界区 */
-spin_unlock(&amp;mr_lock);
+<pre><code>DEFINE\_SPINLOCK(MR\_LOCK);
+spin\_lock(&amp;mr\_lock);
+/\* 临界区 \*/
+spin\_unlock(&amp;mr\_lock);
 </code></pre><p><br></p>
 <h4 id="单核处理器自旋锁"><a href="#单核处理器自旋锁" class="headerlink" title="单核处理器自旋锁"></a>单核处理器自旋锁</h4><ul>
 <li>在单核的情况下如果系统不支持抢占，那么自旋锁就什么都不做，毕竟确实无事要做，编译时自旋锁甚至会被完全剔除出内核</li>
 </ul>
 <ul>
 <li>如果系统支持抢占，那么加锁只是关闭了内核启用抢占的开关，这个时候不允许调度，也就可以独占资源了</li>
+</ul>
+<ul>
+<li>总结一下就是，单核自旋锁不自旋</li>
 </ul>
 <p><br></p>
 <h4 id="多核处理器自旋锁"><a href="#多核处理器自旋锁" class="headerlink" title="多核处理器自旋锁"></a>多核处理器自旋锁</h4><ul>
@@ -612,32 +615,32 @@ spin_unlock(&amp;mr_lock);
 <li>不可递归，自旋锁是不可重入锁，在自旋当中是没有可能再次获得锁的，因为这个时候根本释放不了锁</li>
 </ul>
 <ul>
-<li>在中断处理程序中需要锁时一般使用自旋锁（因为不能睡眠所以不能使用信号量），在内核代码中，获取中断处理程序使用的锁时，一定要先关中断，否则内核中的进程获取了锁后如果产生了中断，那么中断处理程序获取锁时就会由于自旋而无法结束，这时进程也得不到执行自然无法释放锁，这就是双重请求死锁，关中断只需要关当前处理器的中断，其他处理器的中断不会导致死锁，内核提供简洁的自锁锁接口，关闭和启用中断</li>
+<li>在中断处理程序中需要锁时一般使用自旋锁（因为不能睡眠所以不能使用信号量），在内核代码中，获取中断处理程序使用的锁时，一定要先关中断，否则内核中的进程获取了锁后如果产生了中断，那么中断处理程序获取同一个锁时就会由于自旋而无法结束，这时进程也得不到执行自然无法释放锁，这就是双重请求死锁，关中断只需要关当前处理器的中断，其他处理器的中断不会导致死锁，内核提供简洁的自锁锁接口，关闭和启用中断</li>
 </ul>
-<pre><code>DEFINE_SPINLOCK(mr_lock)
+<pre><code>DEFINE\_SPINLOCK(mr\_lock)
 unsigned long flag
-spin_lock_irqsave(&amp;mr_lock,flag)
-/*
+spin\_lock\_irqsave(&amp;mr\_lock,flag)
+/\*
 临界区
-*/
-spin_unlock_irqrestore
+\*/
+spin\_unlock\_irqrestore
 </code></pre><p><br></p>
 <h4 id="读-写-自旋锁"><a href="#读-写-自旋锁" class="headerlink" title="读-写 自旋锁"></a>读-写 自旋锁</h4><ul>
 <li>由于只要没有写操作，多少个并发读都是安全的，因此锁也可以分成两个用途，一个或多个读任务可以并发地持有读者锁，用于写的锁最多只能被一个写任务持有，而且不能有并发的读操作，写操作需要等待所有读锁释放，读写锁的用法和自旋锁类似</li>
 </ul>
-<pre><code>DEFINE_RWLOCK(mr_rwlock);
-read_lock(&amp;mr_lock);
-/* 临界区（只读）*/
-read_unlock(&amp;mr_rwlock);
+<pre><code>DEFINE\_RWLOCK(mr\_rwlock);
+read\_lock(&amp;mr\_lock);
+/\* 临界区（只读）\*/
+read\_unlock(&amp;mr\_rwlock);
 ...
-write_lock(&amp;mr_lock);
-/* 临界区（读写）*/
-write_unlock(&amp;mr_rwlock);
+write\_lock(&amp;mr\_lock);
+/\* 临界区（读写）\*/
+write\_unlock(&amp;mr\_rwlock);
 </code></pre><ul>
 <li>读锁不能被升级为写锁，因为写锁会不断自旋等待读锁释放，下面的代码会造成死锁</li>
 </ul>
-<pre><code>read_lock(&amp;mr_rwlock);
-write_lock(&amp;mr_rwlock);
+<pre><code>read\_lock(&amp;mr\_rwlock);
+write\_lock(&amp;mr\_rwlock);
 </code></pre><p><br></p>
 <h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><ul>
 <li>信号量是一种睡眠锁，在任务试图获取不可占用的信号量时，信号量会将其推进一个等待队列，然后让其睡眠，当信号量可用时任务才会被唤醒</li>
@@ -655,34 +658,34 @@ write_lock(&amp;mr_rwlock);
 <ul>
 <li>在内核中使用 down_interruptible() 比 down() 更加普遍，如果信号量不可用，进程将睡眠，如果接受到信号它会被唤醒，而不是直接忽略信号</li>
 </ul>
-<pre><code>static DECLARE_MUTEX(MR_SEM);
+<pre><code>static DECLARE\_MUTEX(MR\_SEM);
 
-if(down_interruptible(&amp;mr_sem))
+if(down\_interruptible(&amp;mr\_sem))
 /*信号被接受但，还未获取到信号量*/
 }
 /*临界区*/
-up(&amp;mr_sem);
+up(&amp;mr\_sem);
 </code></pre><p><br></p>
 <h4 id="读-写-信号量"><a href="#读-写-信号量" class="headerlink" title="读-写 信号量"></a>读-写 信号量</h4><ul>
 <li>读 - 写信号量都是互斥信号量，引用计数都为1，但它只对写者互斥，所有读写锁都不会被信号打断，因此它只有一个down操作，其他特性与普通信号量一致，用法则和读写自旋锁类似</li>
 </ul>
-<pre><code>static DECLEAR_RWSEM(mr_rwsem);
+<pre><code>static DECLEAR\_RWSEM(mr\_rwsem);
 
-down_read(&amp;mr_rwsem);
+down\_read(&amp;mr\_rwsem);
 /*临界区 读*/
-up_read(&amp;mr_rwsem);
+up\_read(&amp;mr\_rwsem);
 
-down_write(&amp;mr_rwsem);
+down\_write(&amp;mr\_rwsem);
 /*临界区 写*/
-up_write(&amp;mr_rwsem);
+up\_write(&amp;mr\_rwsem);
 </code></pre><p><br></p>
 <h3 id="互斥体"><a href="#互斥体" class="headerlink" title="互斥体"></a>互斥体</h3><ul>
 <li>互斥体(mutex)本质上是任何可以睡眠的强制互斥锁，比如计数为1的信号量，但是由于以前linux上没有直接对应的实现，所以需要时也就只能用计数为1的信号量，直到后来引入了一个比信号量更加简单的专门实现，直接就叫做 mutex</li>
 </ul>
-<pre><code>mutex_init(&amp;mutex);
-mutex_lock(&amp;mutex);
+<pre><code>mutex\_init(&amp;mutex);
+mutex\_lock(&amp;mutex);
 /*临界区*/
-mutex_unlock(&amp;mutex);
+mutex\_unlock(&amp;mutex);
 </code></pre><ul>
 <li>使用mutex需要注意：mutex计数是1。上锁者必须负责解锁。解锁必须在同一上下文。不允许递归。持有锁时进程不能退出。不能在中断或下半部中使用。不可被拷贝，重复或手动初始化。</li>
 </ul>
@@ -694,23 +697,23 @@ mutex_unlock(&amp;mutex);
 <ul>
 <li>BLK的主要特性：持有时可以睡眠，调度时锁会自动的释放和获取，但锁被释放时临界区的资源得不到保障。可递归，BKL支持多次请求，不会产生死锁。只能用在进程上下文中，和信号量一样不允许用在中断上下文中。新用户禁止使用BLK，因为毫无必要</li>
 </ul>
-<pre><code>lock_kernel();
+<pre><code>lock\_kernel();
 /*临界区*/
-unlock_kernel();
+unlock\_kernel();
 </code></pre><p><br></p>
 <h3 id="顺序锁"><a href="#顺序锁" class="headerlink" title="顺序锁"></a>顺序锁</h3><ul>
 <li>顺序锁(seq)是一种写者优先的读写锁，普通的读写锁中写者需要等待所有读者，但顺序锁中只要没有其他的写者，写者总能成功获取锁，而读者则要反复的进行失败-重试，直到整个临界区的操作过程没有被写者打断，才算成功</li>
 </ul>
-<pre><code>seqlock_t mr_seq_lock = DEFINE_SEQLOCK(mr_seq_lock);
-write_sequnlock(&amp;mr_seq_lock);
-/* 写者操作 */
-write_sequnlock(&amp;mr_seq_lock);
+<pre><code>seqlock\_t mr\_seq\_lock = DEFINE\_SEQLOCK(mr\_seq\_lock);
+write\_sequnlock(&amp;mr\_seq\_lock);
+/\* 写者操作 \*/
+write\_sequnlock(&amp;mr\_seq\_lock);
 
 unsigned long seq;
 do{
         seq = resd_seqbegin(&amp;mr_seq_lock);
         /* 读者操作 */
-}while(read_seqretry(&amp;mr_seq_lock));
+}while(read\_seqretry(&amp;mr\_seq\_lock));
 </code></pre><ul>
 <li>seq锁一般用在读者数量明显大于写者的情况下</li>
 </ul>
@@ -840,7 +843,7 @@ do{
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

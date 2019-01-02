@@ -12,7 +12,7 @@
     
     <title>
         
-            混乱的贪吃蛇C代码 | 
+            操作系统 - 复习笔记 | 
         
         Albert&#39;s Blog
     </title>
@@ -35,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="咳咳！">
-    <meta name="keywords" content="null,C">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -65,26 +65,26 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="混乱的贪吃蛇C代码 | Albert&#39;s Blog">
+    <meta property="og:title" content="操作系统 - 复习笔记 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="咳咳！">
-    <meta property="og:article:tag" content="C"> 
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="11月 14, 2016" />
-        <meta property="article:modified_time" content="11月 21, 2017" />
+        <meta property="article:published_time" content="12月 22, 2018" />
+        <meta property="article:modified_time" content="12月 24, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="混乱的贪吃蛇C代码 | Albert&#39;s Blog">
-    <meta name="twitter:description" content="咳咳！">
+    <meta name="twitter:title" content="操作系统 - 复习笔记 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2018/12/22/OSTest/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,11 +110,11 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "混乱的贪吃蛇C代码",
-    "url": "https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html",
-    "datePublished": "11月 14, 2016",
-    "dateModified": "11月 21, 2017",
-    "description": "咳咳！",
+    "headline": "操作系统 - 复习笔记",
+    "url": "https://alberthumbert.github.io/2018/12/22/OSTest/index.html",
+    "datePublished": "12月 22, 2018",
+    "dateModified": "12月 24, 2018",
+    "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作业调度算法"><span class="post-toc-number">1.</span> <span class="post-toc-text">作业调度算法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程调度算法"><span class="post-toc-number">2.</span> <span class="post-toc-text">进程调度算法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程状态"><span class="post-toc-number">3.</span> <span class="post-toc-text">进程状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实时调度"><span class="post-toc-number">4.</span> <span class="post-toc-text">实时调度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#io-设备的层次结构"><span class="post-toc-number">5.</span> <span class="post-toc-text">io 设备的层次结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#页面置换"><span class="post-toc-number">6.</span> <span class="post-toc-text">页面置换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#缺页中断率"><span class="post-toc-number">7.</span> <span class="post-toc-text">缺页中断率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#物理地址"><span class="post-toc-number">8.</span> <span class="post-toc-text">物理地址</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#死锁"><span class="post-toc-number">9.</span> <span class="post-toc-text">死锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#假脱机组成"><span class="post-toc-number">10.</span> <span class="post-toc-text">假脱机组成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#假脱机组成-1"><span class="post-toc-number">11.</span> <span class="post-toc-text">假脱机组成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设备无关性"><span class="post-toc-number">12.</span> <span class="post-toc-text">设备无关性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件结构"><span class="post-toc-number">13.</span> <span class="post-toc-text">文件结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件控制块"><span class="post-toc-number">14.</span> <span class="post-toc-text">文件控制块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目录结构"><span class="post-toc-number">15.</span> <span class="post-toc-text">目录结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现文件共享"><span class="post-toc-number">16.</span> <span class="post-toc-text">实现文件共享</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                混乱的贪吃蛇C代码
+                操作系统 - 复习笔记
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>11月 14, 2016</span>
+        <span>12月 22, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -416,7 +416,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/C/">C</a>
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
     </ul>
     
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=混乱的贪吃蛇C代码&url=https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=操作系统 - 复习笔记&url=https://alberthumbert.github.io/2018/12/22/OSTest/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=混乱的贪吃蛇C代码&url=https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=操作系统 - 复习笔记&url=https://alberthumbert.github.io/2018/12/22/OSTest/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/12/22/OSTest/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/12/22/OSTest/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html&title=混乱的贪吃蛇C代码" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/22/OSTest/index.html&title=操作系统 - 复习笔记" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=混乱的贪吃蛇C代码&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=操作系统 - 复习笔记&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/22/OSTest/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2016/11/14/SnakeInC/index.html&text=混乱的贪吃蛇C代码" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/22/OSTest/index.html&text=操作系统 - 复习笔记" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -501,10 +501,126 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>咳咳！</p>
+        <p>-</p>
 <a id="more"></a>
-<p>看懂别人的大致思路之后<br>自己动手用vim写了一个贪吃蛇出来，<br>然后感觉太简陋了，于是改了两个bug，<br>增加了积分、难度、记名排名、储存的功能，<br>改得不成样子了，再过几天估计自己都看不懂，<br>有空再整理了…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#include&lt;stdio.h&gt;</div><div class="line">#include&lt;conio.h&gt;</div><div class="line">#include&lt;string.h&gt;</div><div class="line">#include&lt;time.h&gt;</div><div class="line">#include&lt;stdlib.h&gt;</div><div class="line">#define H 6</div><div class="line">#define L 10</div><div class="line">char map[H][L];</div><div class="line">const char head=&apos;@&apos;;</div><div class="line">const char body=&apos;O&apos;;</div><div class="line">const char ground=&apos;.&apos;;</div><div class="line">const char food=&apos;Q&apos;;</div><div class="line">int st=300;</div><div class="line">int sp=0;</div><div class="line">int end=0;</div><div class="line">int point=1;</div><div class="line">int level=1;</div><div class="line">int maxsp=0;</div><div class="line">int key;</div><div class="line"></div><div class="line">struct snake</div><div class="line">&#123;</div><div class="line">int x,y;</div><div class="line">int dir;</div><div class="line">&#125;snake[H*L];</div><div class="line"></div><div class="line">struct player</div><div class="line">&#123;</div><div class="line">char name[10];</div><div class="line">int sp;</div><div class="line">int level;</div><div class="line">&#125;player[11],new;</div><div class="line"></div><div class="line"></div><div class="line">int dx[]=&#123;0,0,-1,1&#125;;</div><div class="line">int dy[]=&#123;-1,1,0,0&#125;;</div><div class="line">void mapcreat();</div><div class="line">void ref();</div><div class="line">void foodcreat();</div><div class="line">void rmove();</div><div class="line">void check(int x,int y);</div><div class="line">void foodcheck();</div><div class="line">void filecreat();</div><div class="line">void fileload();</div><div class="line">void filesave();</div><div class="line">void playerset();</div><div class="line">void sort();</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">playerset();</div><div class="line">filecreat();</div><div class="line">fileload();</div><div class="line">mapcreat();</div><div class="line">getch();</div><div class="line">ref();</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void mapcreat()</div><div class="line">&#123;</div><div class="line">int hx,hy;</div><div class="line">int i,j;</div><div class="line">memset(map,ground,sizeof map);</div><div class="line">system(&quot;title 贪吃蛇&quot;);</div><div class="line">system(&quot;cls&quot;);</div><div class="line">srand(time(0));</div><div class="line">hx=rand()%H;</div><div class="line">hy=rand()%L;</div><div class="line">map[hx][hy]=head;</div><div class="line">snake[0].x=hx,snake[0].y=hy,snake[0].dir=0;</div><div class="line">foodcreat();</div><div class="line">printf(&quot;\n\n\t\t请按方向键操作&quot;);</div><div class="line">printf(&quot;\n\n\t\t &quot;);</div><div class="line">for(i=0;i&lt;H;i++)</div><div class="line">&#123;for(j=0;j&lt;L;j++)</div><div class="line">&#123;</div><div class="line">    printf(&quot;%c&quot;,map[i][j]);</div><div class="line">    </div><div class="line">&#125;</div><div class="line">    printf(&quot;\n\t\t &quot;);</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">void foodcreat()</div><div class="line">&#123;</div><div class="line">int fx,fy;</div><div class="line">fx=rand()%H;</div><div class="line">fy=rand()%L;</div><div class="line">while(map[fy][fx]!=ground)</div><div class="line">&#123;</div><div class="line">    fx=rand()%H;</div><div class="line">    fy=rand()%L;</div><div class="line">&#125;</div><div class="line"></div><div class="line">map[fy][fx]=food;</div><div class="line">&#125;</div><div class="line">   </div><div class="line">void ref()</div><div class="line">&#123;</div><div class="line">int i,j;</div><div class="line">while(1)</div><div class="line">&#123;</div><div class="line">    _sleep(st);</div><div class="line">    rmove();</div><div class="line">    if(end==1)</div><div class="line">    &#123;</div><div class="line">        system(&quot;cls&quot;);</div><div class="line">        printf(&quot;\n\n\t\t   游戏结束! &quot;);</div><div class="line">        printf(&quot;\n\n\t\t此局得分 : %d&quot;,sp);</div><div class="line">        printf(&quot;\n\n\t\t最高得分 : %d&quot;,maxsp);</div><div class="line">        printf(&quot;\n\n\n\t\t   留下大名!&quot;);</div><div class="line">        printf(&quot;\n\n\t\t君の名は。:&quot;);</div><div class="line">        filesave();</div><div class="line">        fileload();</div><div class="line">        system(&quot;cls&quot;);</div><div class="line">        printf(&quot;\n\n\t\t    得分排行&quot;);</div><div class="line">        printf(&quot;\n\n\t  玩家:\t\t得分:\t难度:\t\n&quot;);</div><div class="line">        for(i=0;i&lt;10;i++)</div><div class="line">        &#123;</div><div class="line">            printf(&quot;\n\t   %-4s \t %-4d \t %-4d \t\n\</div><div class="line">                   &quot;,player[i].name,player[i].sp,player[i].level);</div><div class="line">        &#125;</div><div class="line">        printf(&quot;\n\t  本次纪录:&quot;);</div><div class="line">        printf(&quot;\n\t   %-4s \t %-4d \t %-4d \t\n\</div><div class="line">               &quot;,new.name,new.sp,new.level);</div><div class="line">        printf(&quot;\n\t   &quot;);</div><div class="line">        getchar();</div><div class="line">        getchar();</div><div class="line">        system(&quot;cls&quot;);</div><div class="line">        mapcreat();</div><div class="line">        getch();</div><div class="line">        point=1;</div><div class="line">        end=0;</div><div class="line">        st=300;</div><div class="line">        sp=0;</div><div class="line">        level=0;</div><div class="line">        system(&quot;cls&quot;);</div><div class="line">        end=0;</div><div class="line">    &#125;</div><div class="line">    else</div><div class="line">        system(&quot;cls&quot;);</div><div class="line">    </div><div class="line">    printf(&quot;\n\n\t\tEp:%-4d&quot;,sp);</div><div class="line">    printf(&quot; Lv:%d&quot;,level);</div><div class="line">    printf(&quot;\n\n\t\t &quot;);</div><div class="line">    foodcheck();</div><div class="line">    for(i=0;i&lt;H;i++)</div><div class="line">    &#123;for(j=0;j&lt;L;j++)</div><div class="line">        </div><div class="line">    &#123;</div><div class="line">        printf(&quot;%c&quot;,map[i][j]);</div><div class="line">        </div><div class="line">        </div><div class="line">    &#125;</div><div class="line">        printf(&quot;\n\t\t &quot;);</div><div class="line">        </div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">   </div><div class="line">void rmove()</div><div class="line">&#123;</div><div class="line"></div><div class="line">int i,x,y;</div><div class="line">int t=point;</div><div class="line">if(kbhit())</div><div class="line">&#123;</div><div class="line">    while(kbhit())</div><div class="line">        key=getch();</div><div class="line">    switch(key)</div><div class="line">    &#123;</div><div class="line">        case 75: if(snake[0].dir!=1||point==1)snake[0].dir=0;break;</div><div class="line">        case 77: if(snake[0].dir!=0||point==1)snake[0].dir=1;break;</div><div class="line">        case 72: if(snake[0].dir!=3||point==1)snake[0].dir=2;break;</div><div class="line">        case 80: if(snake[0].dir!=2||point==1)snake[0].dir=3;break;</div><div class="line">            </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">x=snake[0].x,y=snake[0].y;</div><div class="line">map[x][y]=ground;</div><div class="line">snake[0].x=snake[0].x+dx[snake[0].dir];</div><div class="line">snake[0].y=snake[0].y+dy[snake[0].dir];</div><div class="line">check(x,y);</div><div class="line">if(point==t)</div><div class="line">    for(i=1;i&lt;point;i++)</div><div class="line">    &#123;</div><div class="line">        if(i==1)</div><div class="line">            map[snake[i].x][snake[i].y]=ground;</div><div class="line">        if(i==point-1)</div><div class="line">        &#123;</div><div class="line">            snake[i].x=x,snake[i].y=y;</div><div class="line">            snake[i].dir=snake[0].dir;</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            snake[i].x=snake[i+1].x;</div><div class="line">            snake[i].y=snake[i+1].y;</div><div class="line">            snake[i].dir=snake[i+1].dir;</div><div class="line">        &#125;</div><div class="line">        map[snake[i].x][snake[i].y]=&apos;O&apos;;</div><div class="line">    &#125;</div><div class="line">    &#125;</div><div class="line">void check(int x,int y)</div><div class="line">&#123;</div><div class="line">if(snake[0].x&lt;0||snake[0].x&gt;H||snake[0].y&lt;0||snake[0].y&gt;L)</div><div class="line">    end=1;</div><div class="line"></div><div class="line">if(map[snake[0].x][snake[0].y]==ground)</div><div class="line">&#123;</div><div class="line">    map[snake[0].x][snake[0].y]=head;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">else if(map[snake[0].x][snake[0].y]==food)</div><div class="line">&#123;</div><div class="line">    map[snake[0].x][snake[0].y]=head;</div><div class="line">    foodcreat();</div><div class="line">    snake[point].x=x;</div><div class="line">    snake[point].y=y;</div><div class="line">    snake[point].dir=snake[0].dir;</div><div class="line">    point++;</div><div class="line">    if(st&gt;=50)</div><div class="line">    &#123;</div><div class="line">        st=st-10;</div><div class="line">        level=level+1;</div><div class="line">        sp=sp+30;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;   if(sp&gt;maxsp)</div><div class="line">    maxsp=sp;</div><div class="line">    end=1;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">void foodcheck()</div><div class="line">&#123;</div><div class="line">int i,j,check=0;</div><div class="line">for(i=0;i&lt;H;i++)</div><div class="line">    for(j=0;j&lt;L;j++)</div><div class="line">        if(map[i][j]==food)check=1;</div><div class="line">if(check==0)foodcreat();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">void filecreat()</div><div class="line">&#123;</div><div class="line"></div><div class="line">FILE *fp;</div><div class="line">if((fp=fopen(&quot;player.dat&quot;,&quot;ab&quot;))==NULL)</div><div class="line">&#123;</div><div class="line">    printf(&quot;error,cannot open file player.dat&quot;);&#125;</div><div class="line">fwrite(player,sizeof(struct player),11,fp);</div><div class="line">fclose(fp);</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">void fileload()</div><div class="line">&#123;</div><div class="line">FILE *fp;</div><div class="line">fp=fopen(&quot;player.dat&quot;,&quot;rb&quot;);</div><div class="line">fread(player,sizeof(struct player),11,fp);</div><div class="line">fclose(fp);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">void filesave()</div><div class="line">&#123;</div><div class="line">FILE *fp;</div><div class="line">fp=fopen(&quot;player.dat&quot;,&quot;wb&quot;);</div><div class="line">scanf(&quot;%s&quot;,player[10].name);</div><div class="line">player[10].sp=sp;</div><div class="line">player[10].level=level;</div><div class="line">sort();</div><div class="line">fwrite(player,sizeof(struct player),11,fp);</div><div class="line">fclose(fp);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void playerset()</div><div class="line">&#123;</div><div class="line">int i;</div><div class="line">for(i=0;i&lt;11;i++)</div><div class="line">&#123;</div><div class="line">    strcpy(player[i].name,&quot;空&quot;);</div><div class="line">    player[i].sp=0;</div><div class="line">    player[i].level=0;</div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">void sort()</div><div class="line">&#123;</div><div class="line">struct player temp;</div><div class="line">int i,j,max;</div><div class="line">new.level=player[10].level;</div><div class="line">new.sp=player[10].sp;</div><div class="line">strcpy(new.name,player[10].name);</div><div class="line">for(i=0;i&lt;11;i++)</div><div class="line">&#123;   max=i;</div><div class="line">    for(j=i+1;j&lt;11;j++)</div><div class="line">    &#123;</div><div class="line">        if(player[max].sp&lt;player[j].sp)max=j;</div><div class="line">        &#123;</div><div class="line">            temp.level=player[i].level;</div><div class="line">            temp.sp=player[i].sp;</div><div class="line">            strcpy(temp.name,player[i].name);</div><div class="line">        &#125;</div><div class="line">        player[i].level=player[max].level;</div><div class="line">        player[i].sp=player[max].sp;</div><div class="line">        strcpy(player[i].name,player[max].name);</div><div class="line">        player[max].level=temp.level;</div><div class="line">        player[max].sp=temp.sp;</div><div class="line">        strcpy(player[max].name,temp.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>考试知识点复习</strong></p>
+<h3 id="作业调度算法"><a href="#作业调度算法" class="headerlink" title="作业调度算法"></a>作业调度算法</h3><ul>
+<li><p>先来先服务</p>
+</li>
+<li><p>短作业优先</p>
+</li>
+<li><p>优先级调度</p>
+</li>
+<li><p>高响应比优先，动态优先级随等待时间延长而增加，优先级= （等待时间 + 要求服务时间）/ 要求服务时间</p>
+</li>
+</ul>
+<h3 id="进程调度算法"><a href="#进程调度算法" class="headerlink" title="进程调度算法"></a>进程调度算法</h3><ul>
+<li><p>轮转调度</p>
+</li>
+<li><p>优先级调度</p>
+</li>
+<li><p>多队列调度</p>
+</li>
+<li><p>多级反馈队列</p>
+</li>
+</ul>
+<ul>
+<li>基于公平原则的调度：保证调度，公平分享调度</li>
+</ul>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><ul>
+<li><p>全部状态</p>
+<p>  创建，执行，终止，活动就绪，静止就绪，活动阻塞，静止阻塞</p>
+</li>
+</ul>
+<h3 id="实时调度"><a href="#实时调度" class="headerlink" title="实时调度"></a>实时调度</h3><ul>
+<li>最早截止时间优先</li>
+</ul>
+<ul>
+<li>最低松弛优先</li>
+</ul>
+<h3 id="io-设备的层次结构"><a href="#io-设备的层次结构" class="headerlink" title="io 设备的层次结构"></a>io 设备的层次结构</h3><ul>
+<li><p>用户层 io 软件</p>
+</li>
+<li><p>设备独立性软件</p>
+</li>
+<li><p>设备驱动软件</p>
+</li>
+<li><p>中断处理程序</p>
+</li>
+</ul>
+<h3 id="页面置换"><a href="#页面置换" class="headerlink" title="页面置换"></a>页面置换</h3><ul>
+<li>opt，最佳置换，未来最长时间不使用的被换出</li>
+</ul>
+<h3 id="缺页中断率"><a href="#缺页中断率" class="headerlink" title="缺页中断率"></a>缺页中断率</h3><pre><code>(1)分配给作业的主存块数的多少。多则越页中断率低，反之缺页中断率高。
+(2)页面大小。页面大，缺页中断率低。页面小，缺页中断率高。
+(3)程序编制方法。以数组运算为例，如果每一行元素存放在一页中，则当按行处理各元素时缺页中断率低。当按列处理各元素时，缺页中断率高。
+(4)页面调度算法。页面调度算法对缺页中断率影响很大，但不可能找到一种最佳的算法。
+</code></pre><h3 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h3><ul>
+<li><p>分页</p>
+<p>  (帧号*页面大小)+页内偏移形成物理地址。</p>
+</li>
+</ul>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><ul>
+<li><p>原因：竞争不可抢占资源 &amp; 竞争可消耗资源 &amp; 进程推进顺序不当</p>
+</li>
+<li><p>四个条件： 互斥条件，请求和保持条件，不可抢占条件，循环等待条件</p>
+</li>
+</ul>
+<h3 id="假脱机组成"><a href="#假脱机组成" class="headerlink" title="假脱机组成"></a>假脱机组成</h3><ul>
+<li><p>输入井，输出井（磁盘上开辟的存储区）</p>
+</li>
+<li><p>输入缓冲区，输出缓冲区（内存上开辟的缓冲区）</p>
+</li>
+<li><p>输入进程，输出进程</p>
+</li>
+<li><p>井管理程序，控制作业和磁盘井的信息交换</p>
+</li>
+</ul>
+<h3 id="假脱机组成-1"><a href="#假脱机组成-1" class="headerlink" title="假脱机组成"></a>假脱机组成</h3><ul>
+<li><p>提高了 io 熟读</p>
+</li>
+<li><p>独占转为共享</p>
+</li>
+<li><p>实现了虚拟设备功能</p>
+</li>
+</ul>
+<h3 id="设备无关性"><a href="#设备无关性" class="headerlink" title="设备无关性"></a>设备无关性</h3><pre><code>为了提高 操作系统的可适应性和可扩展性，在现代操作系统中都毫无例外地实现了 设备独立性，也称为设备无关性
+
+解释
+设备独立性是指 操作系统把所有 外部设备统一当作成文件来看待，只要安装它们的 驱动程序，任何用户都可以象使用文件一样，操纵、使用这些设备，而不必知道它们的具体存在形式
+</code></pre><h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><ul>
+<li><p>顺序文件，记录按序排列</p>
+</li>
+<li><p>索引文件，可变长记录建立索引表</p>
+</li>
+<li><p>顺序索引文件，可变长记录的组的第一个记录建立索引表</p>
+</li>
+</ul>
+<h3 id="文件控制块"><a href="#文件控制块" class="headerlink" title="文件控制块"></a>文件控制块</h3><ul>
+<li>基本信息</li>
+</ul>
+<pre><code>文件名
+物理地址
+文件逻辑结构
+文件物理结构
+</code></pre><ul>
+<li><p>存取控制信息</p>
+</li>
+<li><p>使用信息</p>
+</li>
+</ul>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><ul>
+<li><p>简单文件目录： 一级（只能实现按名存取），两级（每个用户一个目录）</p>
+</li>
+<li><p>树形结构目录</p>
+</li>
+</ul>
+<h3 id="实现文件共享"><a href="#实现文件共享" class="headerlink" title="实现文件共享"></a>实现文件共享</h3><ul>
+<li><p>基于有向无环图，允许一个文件有多个父目录，可以利用索引节点实现</p>
+</li>
+<li><p>基于符号链接</p>
+</li>
+</ul>
 
     
 
@@ -524,21 +640,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2016/12/06/Git/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2016/11/13/ITerm2/" id="post_nav-older" class="next-content">
+        <a href="/2018/12/15/page/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
