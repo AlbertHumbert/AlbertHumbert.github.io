@@ -153,20 +153,50 @@ enum JavaThreadState {
   _thread_max_state         = 12  // maximum thread state+1 - used for statistics allocation
 };
 </code></pre><ul>
-<li><p>简化一下，从 hotspot的角度看，线程主要有下面四个状态，其他还有一些处于这些状态间的转换转态则不是很重要</p>
-<p>  _thread_new：线程正在初始化<br>  _thread_in_Java：线程正在执行Java代码<br>  _thread_in_vm：线程正在虚拟机内部执行<br>  _thread_blocked：由于某些原因（正在获取锁，等待条件被满足，休眠，执行阻塞的I/O操作等等）线程被阻塞了</p>
-</li>
+<li>简化一下，从 hotspot的角度看，线程主要有下面四个状态，其他还有一些处于这些状态间的转换转态则不是很重要</li>
 </ul>
-<p><br></p>
-<h3 id="线程映射"><a href="#线程映射" class="headerlink" title="线程映射"></a>线程映射</h3><ul>
+<pre><code>_thread_new：线程正在初始化
+_thread_in_Java：线程正在执行Java代码
+_thread_in_vm：线程正在虚拟机内部执行
+_thread_blocked：由于某些原因（正在获取锁，等待条件被满足，休眠，执行阻塞的I/O操作等等）线程被阻塞了
+</code></pre><p><br></p>
+<h3 id="线程映射"><a href="#线程映射" class="headerlink" title="线程映射"></a>线程映射</h3><p><br></p>
+<h4 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h4><ul>
 <li>在考古时代，jdk 1.2 之前的线程都基于绿色线程，1.2 开始开始则是使用本地线程</li>
 </ul>
 <ul>
 <li>绿色线程就是完全在用户空间实现的线程系统，程序里面的线程不会真正映射到操作系统的线程，而是由语言运行平台自身来调度，这种线程相对容易实现平台一致性</li>
 </ul>
 <ul>
-<li>本地线程即 native thread，即使用操作系统原生的线程，这种线程是的特性基于操作系统本身，但平台差异一般来说对用户是透明的</li>
+<li>本地线程即 native thread，使用操作系统原生的线程，这种线程的特性基于操作系统本身，但平台差异一般来说对用户是透明的</li>
 </ul>
+<p><br></p>
+<h4 id="hotspot"><a href="#hotspot" class="headerlink" title="hotspot"></a>hotspot</h4><ul>
+<li>java.lang.Thread 实例表示一个Java层的线程        </li>
+</ul>
+<ul>
+<li>虚拟机内部则用JavaThread表示一个java.lang.Thread实例。它包含了一些附加信息来追踪线程的状态。JavaThread持有一个与之相关联的java.lang.Thread对象（oop表示）的引用，java.lang.Thread对象也保存了对应的JavaThread（原生int类型表示）的引用。JavaThread同时也持有了相关联的OSThread实例的引用。</li>
+</ul>
+<ul>
+<li>OSThread实例表示了一个操作系统线程，它包含了一些操作系统级别的附加信息，用于追踪线程状态。OSThread还包含了一个平台相关的”handle”用来找出真正的操作系统线程</li>
+</ul>
+<pre><code>|                  |              |           |
+|      java        |     vm       |     os    |
+|                  |              |           |
+ java.lang.Thread &lt;-&gt; JavaThread -&gt;  OSThread
+</code></pre><ul>
+<li>在linux当中 Thread.start 方法最终会执行 os::create_thread 函数，在这个函数当中会调用 pthread_create，pthread 在深入操作系统系列中已经提及了，要么是早期的 LinuxThread，要么是 redhat 的 NTPL，重点是 pthread 在 linux 当中是1：1的线程模型，直接使用与当前进程共享内存空间的进程（注意是进程）也就是轻量级进程LWP实现</li>
+</ul>
+<pre><code>pthread_t tid;
+    int ret = pthread_create(&amp;tid, &amp;attr, (void* (*)(void*)) java_start, thread);
+</code></pre><p><br></p>
+<h3 id="本地线程导致的平台相关性"><a href="#本地线程导致的平台相关性" class="headerlink" title="本地线程导致的平台相关性"></a>本地线程导致的平台相关性</h3><ul>
+<li>java 中为线程设置了10个优先级，实际操作系统就不一定了，在 windows上是 7 个，linux上的进程优先级则较为复杂，要么是 -20到19的nice值，要么是0到99的实时优先级，另外有些操作系统会动态改变优先级，因此java线程中的优先级在不同系统甚至同一系统上表现都可能不一致</li>
+</ul>
+<ul>
+<li>同样的，不同系统的调度机制不一致直接导致在同硬件配备的不同系统并发性能也可能相差很大</li>
+</ul>
+<p><strong>本篇完</strong></p>
 ]]></content>
       
         <categories>
@@ -571,7 +601,7 @@ do{
 <p><br></p>
 <h3 id="内核线程-amp-用户线程-amp-轻量进程"><a href="#内核线程-amp-用户线程-amp-轻量进程" class="headerlink" title="内核线程 &amp; 用户线程 &amp; 轻量进程"></a>内核线程 &amp; 用户线程 &amp; 轻量进程</h3><p><strong>网络上很多关于linux线程的文章在这部分都有错误，这里更正一下</strong></p>
 <ul>
-<li>通常的进程，无论是系统进程还是用户进程，进程的创建、撤消，I/O 操作，都是利用系统调用而进入内核，再由内核中的相应处理程序予以完成的，进程的切换同样是在内核的支持下实现的 </li>
+<li>通常的进程，无论是系统进程还是用户进程，进程的创建、撤消，I/O 操作，都是利用系统调用而进入内核，再由内核中的相应处理程序予以完成的，进程的切换同样是在内核的支持下实现的</li>
 </ul>
 <ul>
 <li>内核线程：准确的说是内核支持线程，同样是在内核支持下运行的，即无论是用户进程中的线程，还是系统进程中的线程，创建、撤消和切换等也是依靠内核，在内核空间实现。在内核空间还为每一个内核支持线程设置一个线程控制块，内核根据该控制块而感知某线程的存在，并加以控制</li>
@@ -601,6 +631,13 @@ do{
 </ul>
 <ul>
 <li>管理，LinuxThreads中专门为每一个进程构造了一个管理线程，负责处理线程相关的管理工作。当进程第一次调用pthread_create()创建一个线程的时候就会创建并启动管理线程,由管理线程再来创建用户请求的线程，如果管理线程被杀死将会造成僵尸线程，同时管理线程在高并发环境下本身也是一个开销，NTPL中线程创建与结束的管理都由内核负责，不存在管理线程</li>
+</ul>
+<p><br></p>
+<h3 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h3><ul>
+<li><a href="https://en.wikipedia.org/wiki/Nice_(Unix)" target="_blank" rel="external">nice</a> 是unix和类unix中标准化的概念，一个进程的nice值可以通过同名的nice函数设置它，范围是 -20到19，越低的nice值有越高的优先级，但不同的系统在nice值的使用上并不一致，os x中nice代表分配给进程的时间片的绝对值，在linux中则代表时间片的比例</li>
+</ul>
+<ul>
+<li>linux采用两种不同的优先级，一种是上面的nice，一种是实时优先级，范围从 0 到 99，这个值越高则优先级越高。由于任何实时进程优先级都高于普通进程，因此这两种优先级可以互不相交地工作</li>
 </ul>
 <p><br></p>
 <h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><p><br></p>

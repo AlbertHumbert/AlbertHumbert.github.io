@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="12月 02, 2018" />
-        <meta property="article:modified_time" content="12月 10, 2018" />
+        <meta property="article:modified_time" content="1月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 9 - 进程与线程",
     "url": "https://alberthumbert.github.io/2018/12/02/OSProcess/index.html",
     "datePublished": "12月 02, 2018",
-    "dateModified": "12月 10, 2018",
+    "dateModified": "1月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#程序流类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">程序流类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程和线程的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">进程和线程的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内核线程-amp-用户线程-amp-轻量进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">内核线程 & 用户线程 & 轻量进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LinuxThread-amp-NPTL"><span class="post-toc-number">4.</span> <span class="post-toc-text">LinuxThread & NPTL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PCB"><span class="post-toc-number">5.</span> <span class="post-toc-text">PCB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建和运行"><span class="post-toc-number">6.</span> <span class="post-toc-text">创建和运行</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一个进程"><span class="post-toc-number">7.</span> <span class="post-toc-text">第一个进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#linux-与-init"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">linux 与 init</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xv6-与-userinit"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">xv6 与 userinit</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-zygote-与-内核-init"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">Android zygote 与 内核 init</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#程序流类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">程序流类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程和线程的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">进程和线程的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内核线程-amp-用户线程-amp-轻量进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">内核线程 & 用户线程 & 轻量进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LinuxThread-amp-NPTL"><span class="post-toc-number">4.</span> <span class="post-toc-text">LinuxThread & NPTL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优先级"><span class="post-toc-number">5.</span> <span class="post-toc-text">优先级</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PCB"><span class="post-toc-number">6.</span> <span class="post-toc-text">PCB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建和运行"><span class="post-toc-number">7.</span> <span class="post-toc-text">创建和运行</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一个进程"><span class="post-toc-number">8.</span> <span class="post-toc-text">第一个进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#linux-与-init"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">linux 与 init</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xv6-与-userinit"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">xv6 与 userinit</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-zygote-与-内核-init"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">Android zygote 与 内核 init</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -537,7 +537,7 @@
 <p><br></p>
 <h3 id="内核线程-amp-用户线程-amp-轻量进程"><a href="#内核线程-amp-用户线程-amp-轻量进程" class="headerlink" title="内核线程 &amp; 用户线程 &amp; 轻量进程"></a>内核线程 &amp; 用户线程 &amp; 轻量进程</h3><p><strong>网络上很多关于linux线程的文章在这部分都有错误，这里更正一下</strong></p>
 <ul>
-<li>通常的进程，无论是系统进程还是用户进程，进程的创建、撤消，I/O 操作，都是利用系统调用而进入内核，再由内核中的相应处理程序予以完成的，进程的切换同样是在内核的支持下实现的 </li>
+<li>通常的进程，无论是系统进程还是用户进程，进程的创建、撤消，I/O 操作，都是利用系统调用而进入内核，再由内核中的相应处理程序予以完成的，进程的切换同样是在内核的支持下实现的</li>
 </ul>
 <ul>
 <li>内核线程：准确的说是内核支持线程，同样是在内核支持下运行的，即无论是用户进程中的线程，还是系统进程中的线程，创建、撤消和切换等也是依靠内核，在内核空间实现。在内核空间还为每一个内核支持线程设置一个线程控制块，内核根据该控制块而感知某线程的存在，并加以控制</li>
@@ -567,6 +567,13 @@
 </ul>
 <ul>
 <li>管理，LinuxThreads中专门为每一个进程构造了一个管理线程，负责处理线程相关的管理工作。当进程第一次调用pthread_create()创建一个线程的时候就会创建并启动管理线程,由管理线程再来创建用户请求的线程，如果管理线程被杀死将会造成僵尸线程，同时管理线程在高并发环境下本身也是一个开销，NTPL中线程创建与结束的管理都由内核负责，不存在管理线程</li>
+</ul>
+<p><br></p>
+<h3 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h3><ul>
+<li><a href="https://en.wikipedia.org/wiki/Nice_(Unix)" target="_blank" rel="external">nice</a> 是unix和类unix中标准化的概念，一个进程的nice值可以通过同名的nice函数设置它，范围是 -20到19，越低的nice值有越高的优先级，但不同的系统在nice值的使用上并不一致，os x中nice代表分配给进程的时间片的绝对值，在linux中则代表时间片的比例</li>
+</ul>
+<ul>
+<li>linux采用两种不同的优先级，一种是上面的nice，一种是实时优先级，范围从 0 到 99，这个值越高则优先级越高。由于任何实时进程优先级都高于普通进程，因此这两种优先级可以互不相交地工作</li>
 </ul>
 <p><br></p>
 <h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><p><br></p>
