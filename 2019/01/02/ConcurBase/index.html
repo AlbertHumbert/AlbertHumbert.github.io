@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程状态</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程映射"><span class="post-toc-number">2.</span> <span class="post-toc-text">线程映射</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -505,6 +505,7 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/12/11/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
 <p><strong>网站的基本功能算是写完了，不过写着写着就不自觉给自己加需求了，大概还得摸一段时间</strong></p>
+<hr>
 <p><br></p>
 <h3 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h3><ul>
 <li>实际上jvm和java语言规范中并没有去定义线程状态（至少se 8里面是没有），我们讨论的线程状态一般就是两种 Thread.sate 里面的5个线程状态和jstack里面的线程状态，至于有的人说什么5种状态，那是拿操作系统上进程的状态生搬硬套在java线程上，没什么意义</li>
@@ -522,7 +523,7 @@ Object.wait(),Thread.jon()，LockSupport.park()会导致这种
 Timed Waiting：有限期等待，一段时间后被系统自动唤醒
 Thread.sleep，Object.wait(timeOut)，Thread.join(millis)，LockSupport.parkNanos()，LockSupport.parkUntil()会导致这种
 
-Blocked: 由于获取锁导致的阻塞
+Blocked: 由于阻塞io或获取锁导致的阻塞
 
 Terminated：终止，结束执行
 </code></pre><ul>
@@ -629,7 +630,40 @@ Terminated：终止，结束执行
         */
        TERMINATED;
    }
-</code></pre>
+</code></pre><ul>
+<li>再深入的话，我们也可以参考 hotspot 中的线程状态</li>
+</ul>
+<pre><code>#in http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/2cd3690f644c/src/share/vm/utilities/globalDefinitions.hpp#l749
+enum JavaThreadState {
+  _thread_uninitialized     =  0, // should never happen (missing initialization)
+  _thread_new               =  2, // just starting up, i.e., in process of being initialized
+  _thread_new_trans         =  3, // corresponding transition state (not used, included for completness)
+  _thread_in_native         =  4, // running in native code
+  _thread_in_native_trans   =  5, // corresponding transition state
+  _thread_in_vm             =  6, // running in VM
+  _thread_in_vm_trans       =  7, // corresponding transition state
+  _thread_in_Java           =  8, // running in Java or in stub code
+  _thread_in_Java_trans     =  9, // corresponding transition state (not used, included for completness)
+  _thread_blocked           = 10, // blocked in vm
+  _thread_blocked_trans     = 11, // corresponding transition state
+  _thread_max_state         = 12  // maximum thread state+1 - used for statistics allocation
+};
+</code></pre><ul>
+<li><p>简化一下，从 hotspot的角度看，线程主要有下面四个状态，其他还有一些处于这些状态间的转换转态则不是很重要</p>
+<p>  _thread_new：线程正在初始化<br>  _thread_in_Java：线程正在执行Java代码<br>  _thread_in_vm：线程正在虚拟机内部执行<br>  _thread_blocked：由于某些原因（正在获取锁，等待条件被满足，休眠，执行阻塞的I/O操作等等）线程被阻塞了</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="线程映射"><a href="#线程映射" class="headerlink" title="线程映射"></a>线程映射</h3><ul>
+<li>在考古时代，jdk 1.2 之前的线程都基于绿色线程，1.2 开始开始则是使用本地线程</li>
+</ul>
+<ul>
+<li>绿色线程就是完全在用户空间实现的线程系统，程序里面的线程不会真正映射到操作系统的线程，而是由语言运行平台自身来调度，这种线程相对容易实现平台一致性</li>
+</ul>
+<ul>
+<li>本地线程即 native thread，即使用操作系统原生的线程，这种线程是的特性基于操作系统本身，但平台差异一般来说对用户是透明的</li>
+</ul>
+
     
 
     
@@ -654,7 +688,7 @@ Terminated：终止，结束执行
 
     <!-- Next Nav -->
     
-        <a href="/2018/12/15/page/" id="post_nav-older" class="next-content">
+        <a href="/2019/01/02/JVMHotspotRuntime/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -746,7 +780,7 @@ Terminated：终止，结束执行
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
