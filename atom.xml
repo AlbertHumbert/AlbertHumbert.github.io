@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-02T15:36:49.831Z</updated>
+  <updated>2019-01-02T16:45:15.165Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入Java并发 2 可见性 &amp; 有序性</title>
+    <link href="https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/"/>
+    <id>https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/</id>
+    <published>2019-01-02T15:43:37.000Z</published>
+    <updated>2019-01-02T16:45:15.165Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入Java并发 1 基础</title>
     <link href="https://alberthumbert.github.io/2019/01/02/ConcurBase/"/>
     <id>https://alberthumbert.github.io/2019/01/02/ConcurBase/</id>
     <published>2019-01-02T15:30:47.000Z</published>
-    <updated>2019-01-02T15:36:49.831Z</updated>
+    <updated>2019-01-02T15:46:27.318Z</updated>
     
     <summary type="html">
     
@@ -382,26 +402,6 @@
     <id>https://alberthumbert.github.io/2018/10/31/OSGdt/</id>
     <published>2018-10-31T07:43:22.000Z</published>
     <updated>2018-11-09T12:32:51.445Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入计算机网络  1 - 模型 &amp; 互连</title>
-    <link href="https://alberthumbert.github.io/2018/10/30/NetLayer/"/>
-    <id>https://alberthumbert.github.io/2018/10/30/NetLayer/</id>
-    <published>2018-10-30T14:10:27.000Z</published>
-    <updated>2018-11-28T11:07:26.313Z</updated>
     
     <summary type="html">
     

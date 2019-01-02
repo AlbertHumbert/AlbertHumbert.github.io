@@ -12,7 +12,7 @@
     
     <title>
         
-            深入计算机网络  1 - 模型 &amp; 互连 | 
+            深入Java并发 2 可见性 &amp; 有序性 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入计算机网络  1 - 模型 &amp; 互连 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入Java并发 2 可见性 &amp; 有序性 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="10月 30, 2018" />
-        <meta property="article:modified_time" content="11月 28, 2018" />
+        <meta property="article:published_time" content="1月 02, 2019" />
+        <meta property="article:modified_time" content="1月 03, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入计算机网络  1 - 模型 &amp; 互连 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入Java并发 2 可见性 &amp; 有序性 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2018/10/30/NetLayer/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入计算机网络  1 - 模型 & 互连",
-    "url": "https://alberthumbert.github.io/2018/10/30/NetLayer/index.html",
-    "datePublished": "10月 30, 2018",
-    "dateModified": "11月 28, 2018",
+    "headline": "深入Java并发 2 可见性 & 有序性",
+    "url": "https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html",
+    "datePublished": "1月 02, 2019",
+    "dateModified": "1月 03, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分层模型"><span class="post-toc-number">1.</span> <span class="post-toc-text">分层模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OSI-模型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">OSI 模型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TCP-IP-模型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">TCP/IP 模型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#五层体系结构"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">五层体系结构</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#应用模型"><span class="post-toc-number">2.</span> <span class="post-toc-text">应用模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网络互连设备"><span class="post-toc-number">3.</span> <span class="post-toc-text">网络互连设备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#中继器"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">中继器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#集线器（hub）"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">集线器（hub）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#网桥"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">网桥</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#交换机"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">交换机</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#路由器"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">路由器</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原子性"><span class="post-toc-number">1.</span> <span class="post-toc-text">原子性</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入计算机网络  1 - 模型 & 互连
+                深入Java并发 2 可见性 & 有序性
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>10月 30, 2018</span>
+        <span>1月 02, 2019</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入计算机网络  1 - 模型 &amp; 互连&url=https://alberthumbert.github.io/2018/10/30/NetLayer/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入Java并发 2 可见性 &amp; 有序性&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入计算机网络  1 - 模型 &amp; 互连&url=https://alberthumbert.github.io/2018/10/30/NetLayer/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入Java并发 2 可见性 &amp; 有序性&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/10/30/NetLayer/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/10/30/NetLayer/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/10/30/NetLayer/index.html&title=深入计算机网络  1 - 模型 &amp; 互连" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&title=深入Java并发 2 可见性 &amp; 有序性" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入计算机网络  1 - 模型 &amp; 互连&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/10/30/NetLayer/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入Java并发 2 可见性 &amp; 有序性&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/10/30/NetLayer/index.html&text=深入计算机网络  1 - 模型 &amp; 互连" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&text=深入Java并发 2 可见性 &amp; 有序性" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,102 +503,19 @@
     
         <p>-</p>
 <a id="more"></a>
+<p><a href="https://tocreate.app/2018/12/11/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
+<p><strong>重提无数遍</strong></p>
 <p><br></p>
-<h3 id="分层模型"><a href="#分层模型" class="headerlink" title="分层模型"></a>分层模型</h3><p><br></p>
-<h4 id="OSI-模型"><a href="#OSI-模型" class="headerlink" title="OSI 模型"></a>OSI 模型</h4><p><strong>由国际标准化组织 ISO 定义的开放系统互联标准 OSI 包含七层，OSI模型并未取得最终胜利，但一些思想和部分协议被 TCP/IP 吸收</strong></p>
-<ul>
-<li><p>应用层，由应用开发者实现，如 FTP，Skype</p>
-</li>
-<li><p>表示层，针对应用层的数据表示格式和转换规则的方法，如 EBCDIC 转 ASCII</p>
-</li>
-<li><p>会话层，由多个链接组成一个通信会话的方法，可能包括关闭链接，重启链接和检查点进度</p>
-</li>
-<li><p>传输层，运行在相同计算机系统的多个程序之间链接或关联的方法，如果其他地方没有实现，本层可以实现可靠投递，如 TCP，ISO TP4(等价于TCP)</p>
-</li>
-<li><p>网络层，指定经过潜在的不同类型链路层网络的多跳通信方法，对于分组网络，它描述了抽象的分组格式和标准的编址结构(如IP数据报)</p>
-</li>
-<li><p>链路层，指定经过单一链路的方法，包括多个系统共享同一介质时，“介质访问”控制协议。本层通常包括差错检测和链路层地址格式（如以太网，wifi）</p>
-</li>
-<li><p>物理层，指定连接器，数据率如何在某些介质上进行位编码。也包括底层的差错检测和纠正，频率分配</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="TCP-IP-模型"><a href="#TCP-IP-模型" class="headerlink" title="TCP/IP 模型"></a>TCP/IP 模型</h4><p><strong>TCP/IP 模型源于 ARPANET参考模型的分层</strong></p>
-<ul>
-<li>应用层，实际上是Internet兼容的任何应用，包括 http，dns，dhcp</li>
+<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><ul>
+<li>原子性，即不可分割，其中一个含义是对一个线程对共享变量的读写不会被其他线程看到其执行的中间部分，另一个含义是对共享变量的操作是不可以交错的</li>
 </ul>
 <ul>
-<li>传输层，端到端传输，包括差错和流量控制，如 TCP，UDP，SCTP，DCCP</li>
+<li>在java语言规范中，对long和double以外基本类型变量的单次读写都是原子性的</li>
 </ul>
 <ul>
-<li>网络层（辅助），协助完成网络层设置，管理和安全的非正式层，如 ICMP，IGMP，IPsec</li>
+<li>对long和double和之前深入操作系统系列中提到的一样，32位架构基本上都能提供对一个字节读写的原子性，但是64位则无法保证，之前提到intel的lock前缀就不能用在双字的指令上（不过arm有LDREXD和STREXD来保证独占性），根据虚拟机规范，在JSR-133之前的规范中，读和写都分成了两个32位的操作，从JSR-133规范开始读操作也都具有原子性，不过实现JVM时可以自由选择是否把读写long和double作为原子操作（包括64位架构，只不过虚拟机一般都支持，而32位就不一定，比如32位的hotspot）</li>
 </ul>
-<ul>
-<li>网络层，定义抽象的数据报和提供路由，如 IP，IPv6</li>
-</ul>
-<ul>
-<li>链路层（辅助），用于网络层到基于多接入链路层网络的链路层的地址映射的非正式的层</li>
-</ul>
-<p><br></p>
-<h4 id="五层体系结构"><a href="#五层体系结构" class="headerlink" title="五层体系结构"></a>五层体系结构</h4><p><strong>五层协议只是OSI和TCP/IP的综合，实际应用还是TCP/IP的四层结构</strong></p>
-<ul>
-<li><p>应用层</p>
-</li>
-<li><p>运输层</p>
-</li>
-<li><p>网络层</p>
-</li>
-<li><p>数据链路层</p>
-</li>
-<li><p>物理层</p>
-</li>
-</ul>
-<p><br></p>
-<h3 id="应用模型"><a href="#应用模型" class="headerlink" title="应用模型"></a>应用模型</h3><ul>
-<li>对等网模式，拓扑结构为总线型或星型，不一定需要专门的服务器和网络操作系统</li>
-</ul>
-<ul>
-<li>文件服务器模式 ，早期局域网主流系统结构之一，将若干台计算机与一台或多台文件服务器通过通信线路和网络操作系统连接起来</li>
-</ul>
-<ul>
-<li>客户机服务器模式</li>
-</ul>
-<ul>
-<li>浏览器服务器模式</li>
-</ul>
-<p><br></p>
-<h3 id="网络互连设备"><a href="#网络互连设备" class="headerlink" title="网络互连设备"></a>网络互连设备</h3><p><br></p>
-<h4 id="中继器"><a href="#中继器" class="headerlink" title="中继器"></a>中继器</h4><p><strong> 工作在物理层，主要作用是信号的再生放大 </strong></p>
-<ul>
-<li><p>过滤电磁干扰和射频干扰引起的信号干扰或噪声</p>
-</li>
-<li><p>放大和修整进入的信号，使重新传输更精确</p>
-</li>
-<li><p>对信号重定时</p>
-</li>
-<li><p>在所有网段上复制信号</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="集线器（hub）"><a href="#集线器（hub）" class="headerlink" title="集线器（hub）"></a>集线器（hub）</h4><p><strong> 工作在物理层，主要作用还是信号放大和中转，实际上是一个多端口的中继器</strong></p>
-<ul>
-<li><p>集线器不具备自动转发和自动寻址的功能，所有端口属于一个冲突域</p>
-</li>
-<li><p>10base-T hub 可以层层级联扩充网络，但每级联一层带宽会相对降低，堆叠式的 hub 可以不减低带宽的情况下扩充网络</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="网桥"><a href="#网桥" class="headerlink" title="网桥"></a>网桥</h4><p><strong>工作在数据链路层，链接两个局域网进行存储转发</strong></p>
-<ul>
-<li><p>网桥截获所有的网络信息，读取每一个帧的目的地址，并建立已知目标的地址表</p>
-</li>
-<li><p>网桥的主要优点是限制传输到某些网段的通讯量</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h4><p><strong>工作在数据链路层，是高级的网桥</strong></p>
-<p><br></p>
-<h4 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h4><p><strong>工作在网络层，用于连接各局域网、广域网</strong></p>
+<p><strong>未完待续</strong></p>
 
     
 
@@ -618,21 +535,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/10/31/OSGdt/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/10/27/EnvDartFlutter/" id="post_nav-older" class="next-content">
+        <a href="/2019/01/02/ConcurBase/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
