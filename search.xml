@@ -11,7 +11,7 @@
 <p><strong>网站的基本功能算是写完了，不过写着写着就不自觉给自己加需求了，大概还得摸一段时间</strong></p>
 <p><br></p>
 <h3 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h3><ul>
-<li>实际上jvm和java语言规范中并没有去定义线程状态（至少se 8里面是没有），我们讨论的线程状态一般就是两种 Thread.sate 里面的5个线程状态和jstack里面的8种线程状态，至于有的人说什么5种状态，那是拿操作系统上进程的状态生搬硬套在java线程上，没什么意义</li>
+<li>实际上jvm和java语言规范中并没有去定义线程状态（至少se 8里面是没有），我们讨论的线程状态一般就是两种 Thread.sate 里面的5个线程状态和jstack里面的线程状态，至于有的人说什么5种状态，那是拿操作系统上进程的状态生搬硬套在java线程上，没什么意义</li>
 </ul>
 <ul>
 <li>用 Thead.getState 可以获取线程的状态，在用户层线程的状态定义在 Thread.State 枚举当中：</li>
@@ -29,107 +29,111 @@ Thread.sleep，Object.wait(timeOut)，Thread.join(millis)，LockSupport.parkNano
 Blocked: 由于获取锁导致的阻塞
 
 Terminated：终止，结束执行
+</code></pre><ul>
+<li><p>jstack的 dump文件中线程可能出现下面几个状态，具体可以看这篇<a href="https://jameswxx.iteye.com/blog/1041173" target="_blank" rel="external">文章</a></p>
+<p>  Runnable<br>  Wait on condition：线程等待某个条件的发生，比如等待资源或者被唤醒时间<br>  Waiting on monitor entry和Object.wait()：线程在等待进入一个临界区</p>
+</li>
+</ul>
+<p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fy35vigta5j30xt0u0jzf.jpg" alt=""></p>
+<pre><code>/**
+    * A thread state.  A thread can be in one of the following states:
+    * &lt;ul&gt;
+    * &lt;li&gt;{@link #NEW}&lt;br&gt;
+    *     A thread that has not yet started is in this state.
+    *     &lt;/li&gt;
+    * &lt;li&gt;{@link #RUNNABLE}&lt;br&gt;
+    *     A thread executing in the Java virtual machine is in this state.
+    *     &lt;/li&gt;
+    * &lt;li&gt;{@link #BLOCKED}&lt;br&gt;
+    *     A thread that is blocked waiting for a monitor lock
+    *     is in this state.
+    *     &lt;/li&gt;
+    * &lt;li&gt;{@link #WAITING}&lt;br&gt;
+    *     A thread that is waiting indefinitely for another thread to
+    *     perform a particular action is in this state.
+    *     &lt;/li&gt;
+    * &lt;li&gt;{@link #TIMED_WAITING}&lt;br&gt;
+    *     A thread that is waiting for another thread to perform an action
+    *     for up to a specified waiting time is in this state.
+    *     &lt;/li&gt;
+    * &lt;li&gt;{@link #TERMINATED}&lt;br&gt;
+    *     A thread that has exited is in this state.
+    *     &lt;/li&gt;
+    * &lt;/ul&gt;
+    *
+    * &lt;p&gt;
+    * A thread can be in only one state at a given point in time.
+    * These states are virtual machine states which do not reflect
+    * any operating system thread states.
+    *
+    * @since   1.5
+    * @see #getState
+    */
+   public enum State {
+       /**
+        * Thread state for a thread which has not yet started.
+        */
+       NEW,
 
- /**
-     * A thread state.  A thread can be in one of the following states:
-     * &lt;ul&gt;
-     * &lt;li&gt;{@link #NEW}&lt;br&gt;
-     *     A thread that has not yet started is in this state.
-     *     &lt;/li&gt;
-     * &lt;li&gt;{@link #RUNNABLE}&lt;br&gt;
-     *     A thread executing in the Java virtual machine is in this state.
-     *     &lt;/li&gt;
-     * &lt;li&gt;{@link #BLOCKED}&lt;br&gt;
-     *     A thread that is blocked waiting for a monitor lock
-     *     is in this state.
-     *     &lt;/li&gt;
-     * &lt;li&gt;{@link #WAITING}&lt;br&gt;
-     *     A thread that is waiting indefinitely for another thread to
-     *     perform a particular action is in this state.
-     *     &lt;/li&gt;
-     * &lt;li&gt;{@link #TIMED_WAITING}&lt;br&gt;
-     *     A thread that is waiting for another thread to perform an action
-     *     for up to a specified waiting time is in this state.
-     *     &lt;/li&gt;
-     * &lt;li&gt;{@link #TERMINATED}&lt;br&gt;
-     *     A thread that has exited is in this state.
-     *     &lt;/li&gt;
-     * &lt;/ul&gt;
-     *
-     * &lt;p&gt;
-     * A thread can be in only one state at a given point in time.
-     * These states are virtual machine states which do not reflect
-     * any operating system thread states.
-     *
-     * @since   1.5
-     * @see #getState
-     */
-    public enum State {
-        /**
-         * Thread state for a thread which has not yet started.
-         */
-        NEW,
+       /**
+        * Thread state for a runnable thread.  A thread in the runnable
+        * state is executing in the Java virtual machine but it may
+        * be waiting for other resources from the operating system
+        * such as processor.
+        */
+       RUNNABLE,
 
-        /**
-         * Thread state for a runnable thread.  A thread in the runnable
-         * state is executing in the Java virtual machine but it may
-         * be waiting for other resources from the operating system
-         * such as processor.
-         */
-        RUNNABLE,
+       /**
+        * Thread state for a thread blocked waiting for a monitor lock.
+        * A thread in the blocked state is waiting for a monitor lock
+        * to enter a synchronized block/method or
+        * reenter a synchronized block/method after calling
+        * {@link Object#wait() Object.wait}.
+        */
+       BLOCKED,
 
-        /**
-         * Thread state for a thread blocked waiting for a monitor lock.
-         * A thread in the blocked state is waiting for a monitor lock
-         * to enter a synchronized block/method or
-         * reenter a synchronized block/method after calling
-         * {@link Object#wait() Object.wait}.
-         */
-        BLOCKED,
+       /**
+        * Thread state for a waiting thread.
+        * A thread is in the waiting state due to calling one of the
+        * following methods:
+        * &lt;ul&gt;
+        *   &lt;li&gt;{@link Object#wait() Object.wait} with no timeout&lt;/li&gt;
+        *   &lt;li&gt;{@link #join() Thread.join} with no timeout&lt;/li&gt;
+        *   &lt;li&gt;{@link LockSupport#park() LockSupport.park}&lt;/li&gt;
+        * &lt;/ul&gt;
+        *
+        * &lt;p&gt;A thread in the waiting state is waiting for another thread to
+        * perform a particular action.
+        *
+        * For example, a thread that has called &lt;tt&gt;Object.wait()&lt;/tt&gt;
+        * on an object is waiting for another thread to call
+        * &lt;tt&gt;Object.notify()&lt;/tt&gt; or &lt;tt&gt;Object.notifyAll()&lt;/tt&gt; on
+        * that object. A thread that has called &lt;tt&gt;Thread.join()&lt;/tt&gt;
+        * is waiting for a specified thread to terminate.
+        */
+       WAITING,
 
-        /**
-         * Thread state for a waiting thread.
-         * A thread is in the waiting state due to calling one of the
-         * following methods:
-         * &lt;ul&gt;
-         *   &lt;li&gt;{@link Object#wait() Object.wait} with no timeout&lt;/li&gt;
-         *   &lt;li&gt;{@link #join() Thread.join} with no timeout&lt;/li&gt;
-         *   &lt;li&gt;{@link LockSupport#park() LockSupport.park}&lt;/li&gt;
-         * &lt;/ul&gt;
-         *
-         * &lt;p&gt;A thread in the waiting state is waiting for another thread to
-         * perform a particular action.
-         *
-         * For example, a thread that has called &lt;tt&gt;Object.wait()&lt;/tt&gt;
-         * on an object is waiting for another thread to call
-         * &lt;tt&gt;Object.notify()&lt;/tt&gt; or &lt;tt&gt;Object.notifyAll()&lt;/tt&gt; on
-         * that object. A thread that has called &lt;tt&gt;Thread.join()&lt;/tt&gt;
-         * is waiting for a specified thread to terminate.
-         */
-        WAITING,
+       /**
+        * Thread state for a waiting thread with a specified waiting time.
+        * A thread is in the timed waiting state due to calling one of
+        * the following methods with a specified positive waiting time:
+        * &lt;ul&gt;
+        *   &lt;li&gt;{@link #sleep Thread.sleep}&lt;/li&gt;
+        *   &lt;li&gt;{@link Object#wait(long) Object.wait} with timeout&lt;/li&gt;
+        *   &lt;li&gt;{@link #join(long) Thread.join} with timeout&lt;/li&gt;
+        *   &lt;li&gt;{@link LockSupport#parkNanos LockSupport.parkNanos}&lt;/li&gt;
+        *   &lt;li&gt;{@link LockSupport#parkUntil LockSupport.parkUntil}&lt;/li&gt;
+        * &lt;/ul&gt;
+        */
+       TIMED_WAITING,
 
-        /**
-         * Thread state for a waiting thread with a specified waiting time.
-         * A thread is in the timed waiting state due to calling one of
-         * the following methods with a specified positive waiting time:
-         * &lt;ul&gt;
-         *   &lt;li&gt;{@link #sleep Thread.sleep}&lt;/li&gt;
-         *   &lt;li&gt;{@link Object#wait(long) Object.wait} with timeout&lt;/li&gt;
-         *   &lt;li&gt;{@link #join(long) Thread.join} with timeout&lt;/li&gt;
-         *   &lt;li&gt;{@link LockSupport#parkNanos LockSupport.parkNanos}&lt;/li&gt;
-         *   &lt;li&gt;{@link LockSupport#parkUntil LockSupport.parkUntil}&lt;/li&gt;
-         * &lt;/ul&gt;
-         */
-        TIMED_WAITING,
-
-        /**
-         * Thread state for a terminated thread.
-         * The thread has completed execution.
-         */
-        TERMINATED;
-    }
-</code></pre><p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fy35vigta5j30xt0u0jzf.jpg" alt=""></p>
-]]></content>
+       /**
+        * Thread state for a terminated thread.
+        * The thread has completed execution.
+        */
+       TERMINATED;
+   }
+</code></pre>]]></content>
       
         <categories>
             
