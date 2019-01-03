@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-03T09:38:16.266Z</updated>
+  <updated>2019-01-03T16:07:02.675Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入操作系统 12 - 引导内核</title>
+    <link href="https://alberthumbert.github.io/2019/01/03/OSBiosBootLoader/"/>
+    <id>https://alberthumbert.github.io/2019/01/03/OSBiosBootLoader/</id>
+    <published>2019-01-03T14:08:15.000Z</published>
+    <updated>2019-01-03T16:07:02.675Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android 系统启动流程</title>
+    <link href="https://alberthumbert.github.io/2019/01/03/AOSInit/"/>
+    <id>https://alberthumbert.github.io/2019/01/03/AOSInit/</id>
+    <published>2019-01-03T13:35:14.000Z</published>
+    <updated>2019-01-03T16:07:57.974Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入Java并发 2 原子 可见 有序</title>
@@ -60,7 +100,7 @@
     <link href="https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/"/>
     <id>https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/</id>
     <published>2019-01-02T11:21:40.000Z</published>
-    <updated>2019-01-02T11:24:16.066Z</updated>
+    <updated>2019-01-03T13:16:13.241Z</updated>
     
     <summary type="html">
     
@@ -80,7 +120,7 @@
     <link href="https://alberthumbert.github.io/2018/12/15/page/"/>
     <id>https://alberthumbert.github.io/2018/12/15/page/</id>
     <published>2018-12-15T06:55:29.000Z</published>
-    <updated>2019-01-02T08:36:54.917Z</updated>
+    <updated>2019-01-03T09:42:08.017Z</updated>
     
     <summary type="html">
     
@@ -366,46 +406,6 @@
     
       &lt;p&gt;-&lt;/p&gt;
 &lt;p&gt;无聊的时候，学点 Dart&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx 静态文件服务器</title>
-    <link href="https://alberthumbert.github.io/2018/11/02/WebNginxImages/"/>
-    <id>https://alberthumbert.github.io/2018/11/02/WebNginxImages/</id>
-    <published>2018-11-02T12:17:15.000Z</published>
-    <updated>2018-11-02T13:01:23.416Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 5 - 分段 &amp; GDT</title>
-    <link href="https://alberthumbert.github.io/2018/10/31/OSGdt/"/>
-    <id>https://alberthumbert.github.io/2018/10/31/OSGdt/</id>
-    <published>2018-10-31T07:43:22.000Z</published>
-    <updated>2018-11-09T12:32:51.445Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
     
     </summary>
     
