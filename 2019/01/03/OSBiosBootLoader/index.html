@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BIOS"><span class="post-toc-number">1.</span> <span class="post-toc-text">BIOS ?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pc-机的启动流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">pc 机的启动流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#BIOS-内存分布"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">BIOS 内存分布</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#BIOS-主要工作"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">BIOS 主要工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#加电测试"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">加电测试</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#初始化"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">初始化</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#阶段化的-BootLoader"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">阶段化的 BootLoader</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Bootloader的主要工作"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Bootloader的主要工作</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#linux嵌入系统的启动流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">linux嵌入系统的启动流程</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BIOS"><span class="post-toc-number">1.</span> <span class="post-toc-text">BIOS ?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pc-机的启动流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">pc 机的启动流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#BIOS-内存分布"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">BIOS 内存分布</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#BIOS-主要工作"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">BIOS 主要工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#加电测试"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">加电测试</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#初始化"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">初始化</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主引导扇区"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">主引导扇区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#阶段化的-BootLoader"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">阶段化的 BootLoader</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Bootloader的主要工作"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">Bootloader的主要工作</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#linux嵌入系统的启动流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">linux嵌入系统的启动流程</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -509,7 +509,13 @@
 <p><strong>参考</strong><br><strong><a href="https://www.ibm.com/developerworks/cn/linux/l-bios.html" target="_blank" rel="external">用于 Linux 的开放 BIOS</a></strong><br><strong><a href="https://wiki.osdev.org/BIOS" target="_blank" rel="external">BIOS</a></strong></p>
 <p><br></p>
 <h3 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS ?"></a>BIOS ?</h3><ul>
-<li>bios，bootloader, 两个很容易把人搞糊涂的东西，主要是使用的环境相关，bios一般固化在pc机的主板的rom芯片上和BootLoader共同引导内核，而在嵌入式系统上则是将BootLoader放在 rom 或 flash。bootloader一般会被映射到一个固定的地址开始执行</li>
+<li><p>bios，bootloader, 两个很容易把人搞糊涂的东西，主要是使用的环境相关</p>
+</li>
+<li><p>bios一般固化在pc机的主板的rom芯片上和BootLoader共同引导内核</p>
+</li>
+</ul>
+<ul>
+<li>而在嵌入式系统上则是将BootLoader放在 rom 或 flash。bootloader一般会被映射到一个固定的地址开始执行，BIOS就不存在了，靠BootLoader独立完成</li>
 </ul>
 <p><br></p>
 <h3 id="pc-机的启动流程"><a href="#pc-机的启动流程" class="headerlink" title="pc 机的启动流程"></a>pc 机的启动流程</h3><p><strong>以x86为例，虽然是一个比较典型的例子，但实际上并不是所有pc机都会采用这样的流程，有些机器上就没有bios，这种机器的启动流程贴近于嵌入式机器的启动流程</strong></p>
@@ -549,7 +555,9 @@
 <ul>
 <li>硬件初始化：某些操作系统的硬件驱动程序需要在启动时就已经加载上来，为这些驱动程序提供的标准接口是由 BIOS 来处理的，BIOS 需要对设备进行探测、识别，还可能要进行初始化</li>
 </ul>
-<pre><code>对于 Linux、BSD 或 Windows 来说，操作系统有自己的驱动程序。因此，操作系统可以丢弃连接到系统上的 PCI 设备列表，并开始加载这些设备。BIOS 所做的工作大部分会被忽略掉，操作系统一旦加载 SCSI 驱动程序之后，就会自行扫描 SCSI 总线。BIOS 并没有做什么其他工作，仅仅是提供信息而已，并且它所提供的很多信息也都不会被使用
+<pre><code>对于 Linux、BSD 或 Windows 来说，操作系统有自己的驱动程序。
+操作系统可以丢弃连接到系统上的 PCI 设备列表，并开始加载这些设备。BIOS 所做的工作大部分会被忽略掉，操作系统一旦加载 SCSI 驱动程序之后，就会自行扫描 SCSI 总线。
+BIOS 并没有做什么其他工作，仅仅是提供信息而已，并且它所提供的很多信息也都不会被使用
 </code></pre><ul>
 <li>硬件中断处理；开机时BIOS会告诉CPU各硬件设备的中断号，当用户发出使用某个设备的指令后，CPU就根据中断号使用相对应的硬件完成工作，再根据中断号跳回原来的工作</li>
 </ul>
@@ -570,25 +578,54 @@ INT 0x10, AX = 0x4F01 -- VESA get mode information call
 INT 0x10, AX = 0x4F02 -- select VESA video modes
 INT 0x10, AX = 0x4F0A -- VESA 2.0 protected mode interface
 </code></pre><ul>
-<li>加载引导程序：功能是引导Dos或其他操作系统，此时会在硬盘读取引导记录，然后把计算机的控制权转交给引导记录，由引导记录（IPL与SPL）把操作系统装入电脑，在电脑启动成功后，BIOS的这部分任务就完成了。也就是说BIOS本身不能引导OS内核</li>
+<li>加载引导程序：功能是引导Dos或其他操作系统，此时会在硬盘引导扇区(Boot Sector)读取引导记录，然后把计算机的控制权转交给BootLoader，BIOS的这部分任务就完成了。也就是说BIOS本身不能引导OS内核</li>
 </ul>
 <pre><code>BIOS加载磁盘第一扇区代码到07c00h
 第一扇区代码加载第一阶段的bootloader到090100h
 第二阶段的bootloader加载kernel到08000h，并切换到保护模式
 执行08000h的代码（进入内核）
-</code></pre><p><br></p>
-<h4 id="阶段化的-BootLoader"><a href="#阶段化的-BootLoader" class="headerlink" title="阶段化的 BootLoader"></a>阶段化的 BootLoader</h4><p><strong> x86的BootLoader最大只能使用512字节，因此可能需要使用一些技巧来打破这个限制，一般来说BootLoader都遵循下列设计准则</strong></p>
-<ul>
-<li>Single Stage Bootloader，只有一阶段的BootLoader，被BIOS整个加载上来，在有限的空间内做完所用事情，只使用512字节，这通常不太容易，因为有些空间需要被bios和FAT header占用</li>
+</code></pre><h4 id="主引导扇区"><a href="#主引导扇区" class="headerlink" title="主引导扇区"></a>主引导扇区</h4><ul>
+<li>引导扇区(Boot Sector) 通常指设备的第一个扇区，为硬盘的0柱面、0磁头、1扇区，占用512个字节</li>
 </ul>
 <ul>
-<li>Two-Stage Bootloader，两阶段的BootLoader，第一阶段由bios加载，并且足够小，用来引导第二阶段，第二阶段可以使用需要的全部空间，及时不是x86专用的BootLoader通常也采取阶段式的设计模式，大多数是两阶段，也有三阶段的</li>
+<li>MBR不属于任何一个操作系统，不随操作系统的不同而不同，即使不同，MBR也不会夹带操作系统的性质，具有公共引导的特性。但还是有办法改写，如LINUX的LILO</li>
+</ul>
+<ul>
+<li>主引导记录MBR，446字节，主分区表DPT，64字节，引导区标记Boot Record ID，2字节(0x55AA)</li>
+</ul>
+<p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fyx6993gq3j30bo0e1my0.jpg" alt=""></p>
+<p><br></p>
+<h4 id="阶段化的-BootLoader"><a href="#阶段化的-BootLoader" class="headerlink" title="阶段化的 BootLoader"></a>阶段化的 BootLoader</h4><p><strong> x86的BootLoader最大只能使用512字节，因此可能需要使用一些技巧来打破这个限制，一般来说BootLoader都遵循下列设计准则</strong></p>
+<ul>
+<li>Single Stage Bootloader，只有一阶段的BootLoader，被BIOS整个加载上来，在有限的空间内做完所有事情，只使用446字节，这通常不太容易</li>
+</ul>
+<ul>
+<li>Two-Stage Bootloader，两阶段的BootLoader，第一阶段由bios加载，并且足够小，用来引导第二阶段，第二阶段可以使用需要的全部空间，即使不是x86专用的BootLoader通常也采取阶段式的设计模式，大多数是两阶段，也有三阶段的</li>
 </ul>
 <ul>
 <li>Mixed Bootloader，混合的BootLoader，实际上是将Bootloader拆分，只有一个BootLoader，但前512字节可以加载剩余的部分</li>
 </ul>
 <p><br></p>
 <h4 id="Bootloader的主要工作"><a href="#Bootloader的主要工作" class="headerlink" title="Bootloader的主要工作"></a>Bootloader的主要工作</h4><p><strong>大部分内容不仅限于存在bios的pc机上，嵌入式机器也适用</strong></p>
+<ul>
+<li>将内核载入内存，从“哪里”载入内核的“什么”呢，一般来说常用的BootLoader会提供足够的配置，因为每个操作系统需要载入的文件都不一样，pc上最常用的如GRUB的配置可以看<a href="https://blog.csdn.net/mmoooodd/article/details/53690870" target="_blank" rel="external">这里</a>，而实际载入的方法用到的就是我们之前提到的bios function，具体来说是INT 13</li>
+</ul>
+<pre><code>INT 0x13, AH = 0 -- reset floppy/hard disk
+INT 0x13, AH = 2 -- read floppy/hard disk in CHS mode
+INT 0x13, AH = 3 -- write floppy/hard disk in CHS mode
+INT 0x13, AH = 0x15 -- detect second disk
+INT 0x13, AH = 0x41 -- test existence of INT 13 extensions
+INT 0x13, AH = 0x42 -- read hard disk in LBA mode
+INT 0x13, AH = 0x43 -- write hard disk in LBA mode
+</code></pre><ul>
+<li>为内核提供足够的信息，最重要的是寻址空间，如从哪里开始是物理内存</li>
+</ul>
+<ul>
+<li>将环境切换到内核需要的状态，如保护模式（打开A20总线，加载gdt，设置cr0，这个在前几篇已经讲过了），通常来说BootLoader会保持关中断的状态（内核设置完中断向量表之后自行开启）</li>
+</ul>
+<ul>
+<li>将控制权转交给内核，执行某个固定地址的代码，如x86的08000h</li>
+</ul>
 <p><br></p>
 <h3 id="linux嵌入系统的启动流程"><a href="#linux嵌入系统的启动流程" class="headerlink" title="linux嵌入系统的启动流程"></a>linux嵌入系统的启动流程</h3>
     
