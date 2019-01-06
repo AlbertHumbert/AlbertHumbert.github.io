@@ -17,9 +17,8 @@
 </li>
 <li><p>bios一般固化在pc机的主板的rom芯片上和BootLoader共同引导内核</p>
 </li>
-</ul>
-<ul>
-<li>而在嵌入式系统上则是将BootLoader放在 rom 或 flash。bootloader一般会被映射到一个固定的地址开始执行，BIOS就不存在了，靠BootLoader独立完成</li>
+<li><p>而在嵌入式系统上则是将BootLoader放在 rom 或 flash。bootloader一般会被映射到一个固定的地址开始执行，BIOS就不存在了，靠BootLoader独立完成</p>
+</li>
 </ul>
 <p><br></p>
 <h3 id="pc-机的启动流程"><a href="#pc-机的启动流程" class="headerlink" title="pc 机的启动流程"></a>pc 机的启动流程</h3><p><strong>以x86为例，虽然是一个比较典型的例子，但实际上并不是所有pc机都会采用这样的流程，有些机器上就没有bios，这种机器的启动流程贴近于嵌入式机器的启动流程</strong></p>
@@ -131,7 +130,36 @@ INT 0x13, AH = 0x43 -- write hard disk in LBA mode
 <li>将控制权转交给内核，执行某个固定地址的代码，如x86的08000h</li>
 </ul>
 <p><br></p>
-<h3 id="linux嵌入系统的启动流程"><a href="#linux嵌入系统的启动流程" class="headerlink" title="linux嵌入系统的启动流程"></a>linux嵌入系统的启动流程</h3>]]></content>
+<h3 id="linux嵌入系统的启动流程"><a href="#linux嵌入系统的启动流程" class="headerlink" title="linux嵌入系统的启动流程"></a>linux嵌入系统的启动流程</h3><p><strong>嵌入式系统中不需要bios，因为BootLoader把bios的工作也做了</strong></p>
+<p><br></p>
+<h4 id="uboot"><a href="#uboot" class="headerlink" title="uboot"></a>uboot</h4><p><strong>uboot是嵌入式linux最常用的BootLoader，也是Android系统使用的BootLoader，uboot采用常见的Two-Stage设计</strong></p>
+<p><strong>以下内容来自<a href="https://blog.csdn.net/kai_zone/article/details/80443820" target="_blank" rel="external">这里</a></strong></p>
+<p><br></p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><ul>
+<li>CPU上电后，会从某个地址开始执行，具体取决于架构，如MIPS为0xBFC00000，ARM为0x00000000，嵌入式开发板中，需要把存储器件的ROM或Flash等映射到这个地址，Bootloader就存放在这个地址的开始处，一上电就开始执行</li>
+</ul>
+<ul>
+<li>Stage1使用汇编编写，主要工作如下</li>
+</ul>
+<pre><code>（1）定义入口
+（2）设置异常向量（Exception Vector）。 
+（3）设置CPU的速度、时钟频率及终端控制寄存器。 
+（4）初始化内存控制器。 
+（5）将ROM中的程序复制到RAM中。 
+（6）关中断，关看门狗
+（7）初始化堆栈，清bss段，为第二阶段准备。
+（8）转到RAM中执行，该工作可使用指令ldr pc来完成。
+</code></pre><ul>
+<li>stage2使用c语言编写，主要工作如下</li>
+</ul>
+<pre><code>（1）调用一系列的初始化函数。 
+（2）初始化存储设备
+（3）初始化简单硬件如串口，lcd等 
+（4）初始化相关网络设备，填写IP、MAC地址等。 
+（5）进去命令循环（即整个boot的工作循环），接受用户从串口输入的命令，然后进行相应的工作
+</code></pre><p><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fyx7nb9ki0j30hh0dedh2.jpg" alt=""></p>
+<p><br><br><strong>本篇完</strong></p>
+]]></content>
       
         <categories>
             
