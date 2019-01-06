@@ -10,12 +10,90 @@
 <p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/12/10/OSsynchro/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>看Android系统启动流程的时候又遇到了bootloader相关的内容，想起来之前研究过grub，虽然在qemu上成功引导了一个内核程序，不过毕竟不是自己写BootLoader，对整个启动流程不是很了解，这里做一下总结</strong></p>
+<p><strong>参考</strong><br><strong><a href="https://www.ibm.com/developerworks/cn/linux/l-bios.html" target="_blank" rel="external">用于 Linux 的开放 BIOS</a></strong><br><strong><a href="https://wiki.osdev.org/BIOS" target="_blank" rel="external">BIOS</a></strong></p>
 <p><br></p>
 <h3 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS ?"></a>BIOS ?</h3><ul>
-<li>bios，bootloader, 两个很容易把人搞糊涂的东西，主要是使用的环境相关，bios一般固化在pc机的主板上和BootLoader共同引导内核，而在嵌入式系统上则是将BootLoader放在 rom 或 flash 中，并映射到一个固定的地址由cpu去执行</li>
+<li>bios，bootloader, 两个很容易把人搞糊涂的东西，主要是使用的环境相关，bios一般固化在pc机的主板的rom芯片上和BootLoader共同引导内核，而在嵌入式系统上则是将BootLoader放在 rom 或 flash。bootloader一般会被映射到一个固定的地址开始执行</li>
 </ul>
 <p><br></p>
-<h3 id="pc-机的启动流程"><a href="#pc-机的启动流程" class="headerlink" title="pc 机的启动流程"></a>pc 机的启动流程</h3><p><br></p>
+<h3 id="pc-机的启动流程"><a href="#pc-机的启动流程" class="headerlink" title="pc 机的启动流程"></a>pc 机的启动流程</h3><p><strong>以x86为例，虽然是一个比较典型的例子，但实际上并不是所有pc机都会采用这样的流程，有些机器上就没有bios，这种机器的启动流程贴近于嵌入式机器的启动流程</strong></p>
+<p><br></p>
+<h4 id="BIOS-内存分布"><a href="#BIOS-内存分布" class="headerlink" title="BIOS 内存分布"></a>BIOS 内存分布</h4><ul>
+<li>计算机开机后的第一件事是读取ROM芯片中的bios，上电后cpu的IP指针指向BIOS内存区，开始执行BIOS程序，这个流程是自动的，之前我们说过早期cpu实模式下最多只能寻址1m内存，虽然往后寻址能力大了很多，但是为了向前兼容，bios的内存分布是在这1m（0x00000-0xFFFFF）内定好了的</li>
+</ul>
+<ul>
+<li>0x00000-0x9FFFF: 基本内存（640KB）</li>
+</ul>
+<pre><code>0x00000 ~ 0x003FF: 中断向量表（1024B）
+0x00400 ~ 0x004FF: bios数据区（256B）
+0x00500 ~ 0x07BFF: 自由内存区
+0x07C00 ~ 0x07DFF: 引导程序加载区（512B）
+0x07E00 ~ 0x9FFFF: 自由内存区
+</code></pre><ul>
+<li>0xA0000-0xBFFFF: 显存（128KB）</li>
+</ul>
+<pre><code>0xA0000 ~ 0xAFFFF: EGA/VGA/XGA/XVGA图形视频缓冲区（64KB）
+0xB0000 ~ 0xB7FFF: Mono text video buffer（32KB）
+</code></pre><ul>
+<li>0xC0000-0xFFFFF: bios自己使用（256KB）</li>
+</ul>
+<pre><code>0xC0000 ~ 0xC7FFFF: 显卡bios使用（32KB）
+0xC8000 ~ 0xCBFFFF: ide控制器bios使用（16KB）
+0xCC000 ~ 0xEFFFFF: 
+0xF0000 ~ 0xFFFFFF: 系统bios使用（64KB）
+</code></pre><p><br></p>
+<h4 id="BIOS-主要工作"><a href="#BIOS-主要工作" class="headerlink" title="BIOS 主要工作"></a>BIOS 主要工作</h4><p><br></p>
+<h5 id="加电测试"><a href="#加电测试" class="headerlink" title="加电测试"></a>加电测试</h5><ul>
+<li>检查计算机硬件是否良好，确定可用内存，确定时钟速度等。如果测试成功，机器的喇叭就会响一声。该过程称为加电测试（power-on self test）或 POST。自检中如发现有错误，按两种情况处理：对于严重故障（致命性故障）则停机，此时各种初始化操作还没完成，不能给出任何提示或信号；对于非严重故障则给出提示或声音报警信号，等待用户处理</li>
+</ul>
+<p><br></p>
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h5><ul>
+<li>内存初始化：BIOS 要负责对内存进行初始化。并非所有的操作系统都需要对内存进行初始化，早期的 DOS 系统通常需要进行这种操作，今天大部分 BIOS 为兼容性的目的也进行初始化。这个过程可能需要很长时间，很多现代系统允许彻底或部分将其禁用。BIOS 还会试图确定系统中有多少内存可用，还可能包括对处理器缓存的初始化和启用，配置双 CPU，构建有关处理器的信息表，构建连接到系统中的 PCI 设备，甚至运行这些设备提供的引导 ROM，这可以加载其他驱动程序</li>
+</ul>
+<ul>
+<li>硬件初始化：某些操作系统的硬件驱动程序需要在启动时就已经加载上来，为这些驱动程序提供的标准接口是由 BIOS 来处理的，BIOS 需要对设备进行探测、识别，还可能要进行初始化</li>
+</ul>
+<pre><code>对于 Linux、BSD 或 Windows 来说，操作系统有自己的驱动程序。因此，操作系统可以丢弃连接到系统上的 PCI 设备列表，并开始加载这些设备。BIOS 所做的工作大部分会被忽略掉，操作系统一旦加载 SCSI 驱动程序之后，就会自行扫描 SCSI 总线。BIOS 并没有做什么其他工作，仅仅是提供信息而已，并且它所提供的很多信息也都不会被使用
+</code></pre><ul>
+<li>硬件中断处理；开机时BIOS会告诉CPU各硬件设备的中断号，当用户发出使用某个设备的指令后，CPU就根据中断号使用相对应的硬件完成工作，再根据中断号跳回原来的工作</li>
+</ul>
+<ul>
+<li>程序服务处理；BIOS直接与计算机的I/O设备（Input/Output，即输入/输出设备）打交道，通过特定的数据端口发出命令，传送或者接受各种外部设备的数据，实现软件程序对硬件的直接操作，这些服务通常被叫做bios函数（BIOS functions），这些服务给BootLoader提供很多便利，在实模式（BootLoader一般就运行在实模式，除了最终阶段）下可以直接使用软中断进行调用，一般调用的方法是设定AH寄存器的值，然后使用INT指令，合并后可以cpu可以找到具体的中断，如下表是其中一部分，需要的参数则放在其他寄存器当中，注意在保护模式下这些服务一般不能使用，否则会导致异常或无用的结果，如果一定需要使用，可以考虑虚拟8086模式或则暂时切会实模式，但这不是什么好办法</li>
+</ul>
+<pre><code>INT 0x10, AH = 1 -- set up the cursor
+INT 0x10, AH = 3 -- cursor position
+INT 0x10, AH = 0xE -- display char
+INT 0x10, AH = 0xF -- get video page and mode
+INT 0x10, AH = 0x11 -- set 8x8 font
+INT 0x10, AH = 0x12 -- detect EGA/VGA
+INT 0x10, AH = 0x13 -- display string
+INT 0x10, AH = 0x1200 -- Alternate print screen
+INT 0x10, AH = 0x1201 -- turn off cursor emulation
+INT 0x10, AX = 0x4F00 -- video memory size
+INT 0x10, AX = 0x4F01 -- VESA get mode information call
+INT 0x10, AX = 0x4F02 -- select VESA video modes
+INT 0x10, AX = 0x4F0A -- VESA 2.0 protected mode interface
+</code></pre><ul>
+<li>加载引导程序：功能是引导Dos或其他操作系统，此时会在硬盘读取引导记录，然后把计算机的控制权转交给引导记录，由引导记录（IPL与SPL）把操作系统装入电脑，在电脑启动成功后，BIOS的这部分任务就完成了。也就是说BIOS本身不能引导OS内核</li>
+</ul>
+<pre><code>BIOS加载磁盘第一扇区代码到07c00h
+第一扇区代码加载第一阶段的bootloader到090100h
+第二阶段的bootloader加载kernel到08000h，并切换到保护模式
+执行08000h的代码（进入内核）
+</code></pre><p><br></p>
+<h4 id="阶段化的-BootLoader"><a href="#阶段化的-BootLoader" class="headerlink" title="阶段化的 BootLoader"></a>阶段化的 BootLoader</h4><p><strong> x86的BootLoader最大只能使用512字节，因此可能需要使用一些技巧来打破这个限制，一般来说BootLoader都遵循下列设计准则</strong></p>
+<ul>
+<li>Single Stage Bootloader，只有一阶段的BootLoader，被BIOS整个加载上来，在有限的空间内做完所用事情，只使用512字节，这通常不太容易，因为有些空间需要被bios和FAT header占用</li>
+</ul>
+<ul>
+<li>Two-Stage Bootloader，两阶段的BootLoader，第一阶段由bios加载，并且足够小，用来引导第二阶段，第二阶段可以使用需要的全部空间，及时不是x86专用的BootLoader通常也采取阶段式的设计模式，大多数是两阶段，也有三阶段的</li>
+</ul>
+<ul>
+<li>Mixed Bootloader，混合的BootLoader，实际上是将Bootloader拆分，只有一个BootLoader，但前512字节可以加载剩余的部分</li>
+</ul>
+<p><br></p>
+<h4 id="Bootloader的主要工作"><a href="#Bootloader的主要工作" class="headerlink" title="Bootloader的主要工作"></a>Bootloader的主要工作</h4><p><strong>大部分内容不仅限于存在bios的pc机上，嵌入式机器也适用</strong></p>
+<p><br></p>
 <h3 id="linux嵌入系统的启动流程"><a href="#linux嵌入系统的启动流程" class="headerlink" title="linux嵌入系统的启动流程"></a>linux嵌入系统的启动流程</h3>]]></content>
       
         <categories>
