@@ -63,9 +63,13 @@ monitorexit
    _previous_owner_tid = 0;
  }
 </code></pre><p><br></p>
-<h4 id="等待"><a href="#等待" class="headerlink" title="等待"></a>等待</h4><p><br></p>
-<h4 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h4><p><br></p>
-<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><p><br><br><strong>本篇完</strong></p>
+<h4 id="等待-amp-通知"><a href="#等待-amp-通知" class="headerlink" title="等待 &amp; 通知"></a>等待 &amp; 通知</h4><ul>
+<li>使用wait方法将导致线程被放入WaitSet当中，wait会释放当前的monitor并阻塞当前线程，前提是已经获取到了该monitor</li>
+</ul>
+<ul>
+<li>notify将唤醒WaitSet当中的线程，但并不会释放锁，它仅将WaitSet中的线程标记为Runnable状态，为了避免WaitSet当中的线程互相等待产生死锁，一般使用notifyAll</li>
+</ul>
+<p><br><br><strong>本篇完</strong></p>
 ]]></content>
       
         <categories>
