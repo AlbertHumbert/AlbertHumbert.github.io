@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 02, 2019" />
-        <meta property="article:modified_time" content="1月 02, 2019" />
+        <meta property="article:modified_time" content="1月 07, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入Java并发 1 基础",
     "url": "https://alberthumbert.github.io/2019/01/02/ConcurBase/index.html",
     "datePublished": "1月 02, 2019",
-    "dateModified": "1月 02, 2019",
+    "dateModified": "1月 07, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程映射"><span class="post-toc-number">2.</span> <span class="post-toc-text">线程映射</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#线程模型"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">线程模型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#hotspot"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">hotspot</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#本地线程导致的平台相关性"><span class="post-toc-number">3.</span> <span class="post-toc-text">本地线程导致的平台相关性</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程映射"><span class="post-toc-number">2.</span> <span class="post-toc-text">线程映射</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#线程模型"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">线程模型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#hotspot"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">hotspot</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#本地线程导致的平台相关性"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">本地线程导致的平台相关性</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -663,7 +663,7 @@ _thread_blocked：由于某些原因（正在获取锁，等待条件被满足�
 <li>绿色线程就是完全在用户空间实现的线程系统，程序里面的线程不会真正映射到操作系统的线程，而是由语言运行平台自身来调度，这种线程相对容易实现平台一致性</li>
 </ul>
 <ul>
-<li>本地线程即 native thread，使用操作系统原生的线程，这种线程的特性基于操作系统本身，但平台差异一般来说对用户是透明的</li>
+<li>本地线程即 native thread，使用操作系统原生的线程，这种线程的特性基于操作系统本身，但平台差异一般来说对用户是透明的，对这些线程的支持，可以是多处理器，也可以是单处理器的时间片机制，或者多处理器的时间片机制，虽然通常来说会对应到posix thread，但posix并没有太严格和详细规定的语义，有些系统的posix thread也不一定就符合posix thread标准，jvm负责处理这些平台不一致性</li>
 </ul>
 <p><br></p>
 <h4 id="hotspot"><a href="#hotspot" class="headerlink" title="hotspot"></a>hotspot</h4><ul>
@@ -685,14 +685,12 @@ _thread_blocked：由于某些原因（正在获取锁，等待条件被满足�
 <pre><code>pthread_t tid;
     int ret = pthread_create(&amp;tid, &amp;attr, (void* (*)(void*)) java_start, thread);
 </code></pre><p><br></p>
-<h3 id="本地线程导致的平台相关性"><a href="#本地线程导致的平台相关性" class="headerlink" title="本地线程导致的平台相关性"></a>本地线程导致的平台相关性</h3><ul>
+<h4 id="本地线程导致的平台相关性"><a href="#本地线程导致的平台相关性" class="headerlink" title="本地线程导致的平台相关性"></a>本地线程导致的平台相关性</h4><ul>
 <li>java 中为线程设置了10个优先级，实际操作系统就不一定了，在 windows上是 7 个，linux上的进程优先级则较为复杂，要么是 -20到19的nice值，要么是0到99的实时优先级，另外有些操作系统会动态改变优先级，因此java线程中的优先级在不同系统甚至同一系统上表现都可能不一致</li>
 </ul>
 <ul>
 <li>同样的，不同系统的调度机制不一致直接导致在同硬件配备的不同系统并发性能也可能相差很大</li>
 </ul>
-<p><br></p>
-<p><strong>本篇完</strong></p>
 
     
 
@@ -818,7 +816,7 @@ _thread_blocked：由于某些原因（正在获取锁，等待条件被满足�
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

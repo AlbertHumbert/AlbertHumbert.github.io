@@ -12,7 +12,7 @@
     
     <title>
         
-            深入Java并发 2 原子 可见 有序 | 
+            深入Java并发 3 原子 可见 有序 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入Java并发 2 原子 可见 有序 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入Java并发 3 原子 可见 有序 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="1月 02, 2019" />
-        <meta property="article:modified_time" content="1月 03, 2019" />
+        <meta property="article:modified_time" content="1月 07, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入Java并发 2 原子 可见 有序 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入Java并发 3 原子 可见 有序 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入Java并发 2 原子 可见 有序",
+    "headline": "深入Java并发 3 原子 可见 有序",
     "url": "https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html",
     "datePublished": "1月 02, 2019",
-    "dateModified": "1月 03, 2019",
+    "dateModified": "1月 07, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入Java并发 2 原子 可见 有序
+                深入Java并发 3 原子 可见 有序
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入Java并发 2 原子 可见 有序&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入Java并发 3 原子 可见 有序&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入Java并发 2 原子 可见 有序&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入Java并发 3 原子 可见 有序&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&title=深入Java并发 2 原子 可见 有序" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&title=深入Java并发 3 原子 可见 有序" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入Java并发 2 原子 可见 有序&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入Java并发 3 原子 可见 有序&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&text=深入Java并发 2 原子 可见 有序" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/index.html&text=深入Java并发 3 原子 可见 有序" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -527,7 +527,9 @@
 </ul>
 <p><br></p>
 <h3 id="jmm"><a href="#jmm" class="headerlink" title="jmm"></a>jmm</h3><ul>
-<li>jmm，java内存模型是<a href="https://www.jcp.org/en/jsr/detail?id=133" target="_blank" rel="external">jsr133</a>中提出的主要是为了解决不同平台上的并发一致性，有些人会把寄存器，堆栈，方法区，常量池也混进来讲，这些是java虚拟规范里的东西（主要是包括在运行时数据区里面），虽然字面上是看是没什么错，但这样很容易混淆问题的中心，jmm是java语言规范里的东西，并不在同一个层次上</li>
+<li><p>jmm，java内存模型是<a href="https://www.jcp.org/en/jsr/detail?id=133" target="_blank" rel="external">jsr133</a>中提出的主要是为了解决不同平台上的并发一致性，有些人会把寄存器，堆栈，方法区，常量池也混进来讲，这些是java虚拟规范里的东西（主要是包括在运行时数据区里面），虽然字面上是看是没什么错，但这样很容易混淆问题的中心，jmm是java语言规范里的东西，并不在同一个层次上，更关注的是行为表现，本文参考<br>JLS se 8，虽然没有往后看，不过应该不会有什么差别</p>
+</li>
+<li></li>
 </ul>
 <p><br></p>
 <h4 id="jmm-amp-8-种原子操作"><a href="#jmm-amp-8-种原子操作" class="headerlink" title="jmm &amp; 8 种原子操作"></a>jmm &amp; 8 种原子操作</h4><ul>
@@ -668,7 +670,7 @@ assign:把一个从执行引擎接收到的值赋给工作内存中的变量，�
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
