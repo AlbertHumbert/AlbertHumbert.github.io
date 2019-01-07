@@ -3,6 +3,153 @@
   
     
     <entry>
+      <title><![CDATA[深入Java并发 3 原子 可见 有序]]></title>
+      <url>/2019/01/07/ConcurVisibilityOrder/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/12/11/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
+<p><strong>重提无数遍</strong></p>
+<p><br></p>
+<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><p><br></p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>原子性，即不可分割，其中一个含义是对一个线程对共享变量的读写不会被其他线程看到其执行的中间部分，另一个含义是对共享变量的操作是不可以交错的</li>
+</ul>
+<p><br></p>
+<h4 id="long-amp-double"><a href="#long-amp-double" class="headerlink" title="long &amp; double"></a>long &amp; double</h4><ul>
+<li>在java语言规范中，对long和double以外基本类型变量的单次读写都是原子性的</li>
+</ul>
+<ul>
+<li>对long和double，根据虚拟机规范，在JSR-133之前的规范中，读和写都分成了两个32位的操作，从JSR-133规范开始读操作也都具有原子性，不过实现JVM时可以自由选择是否把读写long和double作为原子操作，包括64位虚拟机，只不过一般都支持，而32位就不一定，比如32位的hotspot，在32位上如果要保证原子性需要使用volatile关键字，<a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html#jls-17.7" target="_blank" rel="external">详见 JLS</a></li>
+</ul>
+<pre><code>和之前深入操作系统系列中提到的一样，32位架构基本上都能提供对一个字节读写的原子性
+但是64位数据则不一定（不过arm对双字有相应的LDREXD和STREXD来直接保证独占性）
+</code></pre><ul>
+<li>我们通常说 volatile 关键字不能保证原子性，吊诡的是volatile就用来保证了long和double的原子性，原因是我们一般认为简单的读写操作都是原子性的，所以 volatile 关键字不能保证原子性指的是更加复杂的操作的原子性，比如自增和自减，是不能保证的，而简单类型的读写不过用不用volatile都有jmm保证</li>
+</ul>
+<ul>
+<li>volatile 保证long和double的原子性的实现，在 hotspot 中而对于加了虚拟机会特别处理被volatile修饰的变量时会特殊对待long和double（似乎并不是一个lock前缀就能搞定的事情，不然就没有必要特别处理了？），在<a href="https://gvsmirnov.ru/blog/tech/2014/02/10/jmm-under-the-hood.html" target="_blank" rel="external">这篇文章</a>中有提及，但没有细讲，只说是Dark Magics，具体是什么骚操作我也没有搞明白，有需要的可以去阅读 c1 的<a href="http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/e087a2088970/src/share/vm/c1/c1_LIRGenerator.cpp" target="_blank" rel="external">源码</a>，我就不研究了</li>
+</ul>
+<p><br></p>
+<h3 id="处理器的内存模型"><a href="#处理器的内存模型" class="headerlink" title="处理器的内存模型"></a>处理器的内存模型</h3><ul>
+<li>特定的处理器存在特定的内存模型，这是一种非常底层的内存模型，主要分为强内存模型和弱内存模型，现代处理器一般倾向于使用弱内存模型</li>
+</ul>
+<ul>
+<li>强内存模型，所有处理器读到的同一内存地址的数据都是一致的，使用者不需要做特别的操作就能保证内存的一致性</li>
+</ul>
+<ul>
+<li>弱内存模型，需要调用一些机制来保证处理器读写的数据一致性，如限制编译器重排序，将当前处理器缓存的数据刷入主存，或则将当前处理器缓存置为无效。内存屏障通常在lock和unlock指令发生时自动执行，程序员不需要知道太多内存屏障的细节</li>
+</ul>
+<p><br></p>
+<h3 id="jmm"><a href="#jmm" class="headerlink" title="jmm"></a>jmm</h3><ul>
+<li>jmm，java内存模型是<a href="https://www.jcp.org/en/jsr/detail?id=133" target="_blank" rel="external">jsr133</a>中提出的主要是为了解决不同平台上的并发一致性，有些人会把寄存器，堆栈，方法区，常量池也混进来讲，这些是java虚拟规范里的东西（主要是包括在运行时数据区里面），虽然字面上是看是没什么错，但这样很容易混淆问题的中心，jmm是java语言规范里的东西，并不在同一个层次上，更关注的是行为表现</li>
+</ul>
+<ul>
+<li>JMM的目的是提供一个在多种存储架构都能提供一致性语义的内存模型，包括线程间如何通过主存相互通信，一个程序中变量之间的相互影响，在真实的计算机中，变量在主存中或者寄存器中的读写访问细节。这里的存储架构主要指的是cpu和多层缓存，缓存的特点以及带来的问题写在后面，主要需要知道JMM将寄存器，缓存等细节抽象为本地内存</li>
+</ul>
+<p><br></p>
+<h4 id="8-种原子操作"><a href="#8-种原子操作" class="headerlink" title="8 种原子操作"></a>8 种原子操作</h4><ul>
+<li>jmm中定义了 8 种内存交互的操作，虚拟机必须保证其原子性，注意这里的原子操作都是一种概念抽象，并不是真的有指令叫做assign，use等等，只是jvm在设计到这些对应的操作时会予以保证</li>
+</ul>
+<pre><code>lock:锁主存的变量，将一个变量标识为被一个线程独占状态
+
+unclock:释放主存的变量，将一个变量从独占状态释放出来，释放后的变量才可以被其他线程锁定
+
+read:读主存的变量，把一个变量的值从主内存传输到工作内存中
+
+load:把read操作从主内存中得到的变量值放入工作内存的变量的副本中
+
+store:把工作内存中的一个变量的值传递给主存，以便随后的write操作
+
+write:写主存的变量，store的值写到主内存中
+
+use:把工作内存中的一个变量的值传给执行引擎，每当虚拟机遇到一个使用到变量的指令时都会使用该指令
+
+assign:把一个从执行引擎接收到的值赋给工作内存中的变量，每当虚拟机遇到一个给变量赋值的指令时，都要使用该操作
+</code></pre><ul>
+<li>这些操作还需要遵循一些基本规则</li>
+</ul>
+<pre><code>1、不允许read和load、store和write操作之一单独出现，以上两个操作必须按顺序执行，但没有保证必须连续执行，
+  也就是说，read与load之间、store与write之间是可插入其他指令的
+
+2、不允许一个线程丢弃它的最近的assign操作，即变量在工作内存中改变了之后必须把该变化同步回主内存
+
+3、不允许一个线程无原因地（没有发生过任何assign操作）把数据从线程的工作内存同步回主内存中
+
+4、一个新的变量只能从主内存中“诞生”，不允许在工作内存中直接使用一个未被初始化（load或assign）的变量，
+  换句话说就是对一个变量实施use和store操作之前，必须先执行过了assign和load操作
+
+5、一个变量在同一个时刻只允许一条线程对其执行lock操作，但lock操作可以被同一个条线程重复执行多次，
+  多次执行lock后，只有执行相同次数的unlock操作，变量才会被解锁
+
+6、如果对一个变量执行lock操作，将会清空工作内存中此变量的值，
+  在执行引擎使用这个变量前，需要重新执行load或assign操作初始化变量的值。
+
+7、如果一个变量实现没有被lock操作锁定，则不允许对它执行unlock操作，
+  也不允许去unlock一个被其他线程锁定的变量。
+
+8、对一个变量执行unlock操作之前，必须先把此变量同步回主内存（执行store和write操作）
+</code></pre><p><br></p>
+<h4 id="指令重排序"><a href="#指令重排序" class="headerlink" title="指令重排序"></a>指令重排序</h4><ul>
+<li>指令重排序是一种重要优化而不是一件坏事，但JSR-133之前的旧jmm大多数情况下是不允许指令重排序的，为了克服这个缺点，JSR-133强化了as-if-serial语义，使程序员可以观察不到重排序的影响</li>
+</ul>
+<ul>
+<li>指令重排序（reordering）是指编译器，jit，指令集并行处理，缓存等因素为了优化程序的执行效率，可以自由的改变指令的实际执行顺序，从而出现实际指令执行顺序与程序员在代码中编写的顺序不一致的情况</li>
+</ul>
+<p><br></p>
+<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><ul>
+<li>hotspot中内存屏障实现在os_cpu的orderAccess当中，具体可以用作内存屏障的指令与架构相关，Doug Lea给出了各体系上的<a href="http://g.oswego.edu/dl/jmm/cookbook.html" target="_blank" rel="external">内存屏障指令</a>，在x86</li>
+</ul>
+<pre><code>///hotspot/src/os_cpu/linux_x86/vm/orderAccess_linux_x86.inline.hpp
+// Implementation of class OrderAccess.
+
+inline void OrderAccess::loadload()   { acquire(); }
+inline void OrderAccess::storestore() { release(); }
+inline void OrderAccess::loadstore()  { acquire(); }
+inline void OrderAccess::storeload()  { fence(); }
+
+inline void OrderAccess::acquire() {
+  volatile intptr_t local_dummy;
+#ifdef AMD64
+  __asm__ volatile (&quot;movq 0(%%rsp), %0&quot; : &quot;=r&quot; (local_dummy) : : &quot;memory&quot;);
+#else
+  __asm__ volatile (&quot;movl 0(%%esp),%0&quot; : &quot;=r&quot; (local_dummy) : : &quot;memory&quot;);
+#endif // AMD64
+}
+
+inline void OrderAccess::release() {
+  // Avoid hitting the same cache-line from
+  // different threads.
+  volatile jint local_dummy = 0;
+}
+
+inline void OrderAccess::fence() {
+  if (os::is_MP()) {
+    // always use locked addl since mfence is sometimes expensive
+#ifdef AMD64
+    __asm__ volatile (&quot;lock; addl $0,0(%%rsp)&quot; : : : &quot;cc&quot;, &quot;memory&quot;);
+#else
+    __asm__ volatile (&quot;lock; addl $0,0(%%esp)&quot; : : : &quot;cc&quot;, &quot;memory&quot;);
+#endif
+  }
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入Java并发 2 monitor]]></title>
       <url>/2019/01/07/concurMonitor/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -267,70 +414,6 @@ INT 0x13, AH = 0x43 -- write hard disk in LBA mode
       <url>/2019/01/03/AOSInit/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[深入Java并发 3 原子 可见 有序]]></title>
-      <url>/2019/01/02/ConcurVisibilityOrder/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><a href="https://tocreate.app/2018/12/11/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
-<p><strong>重提无数遍</strong></p>
-<p><br></p>
-<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><p><br></p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
-<li>原子性，即不可分割，其中一个含义是对一个线程对共享变量的读写不会被其他线程看到其执行的中间部分，另一个含义是对共享变量的操作是不可以交错的</li>
-</ul>
-<p><br></p>
-<h4 id="long-amp-double"><a href="#long-amp-double" class="headerlink" title="long &amp; double"></a>long &amp; double</h4><ul>
-<li>在java语言规范中，对long和double以外基本类型变量的单次读写都是原子性的</li>
-</ul>
-<ul>
-<li>对long和double，根据虚拟机规范，在JSR-133之前的规范中，读和写都分成了两个32位的操作，从JSR-133规范开始读操作也都具有原子性，不过实现JVM时可以自由选择是否把读写long和double作为原子操作，包括64位虚拟机，只不过一般都支持，而32位就不一定，比如32位的hotspot，在32位上如果要保证原子性需要使用volatile关键字，<a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html#jls-17.7" target="_blank" rel="external">详见 JLS</a></li>
-</ul>
-<pre><code>和之前深入操作系统系列中提到的一样，32位架构基本上都能提供对一个字节读写的原子性
-但是64位数据则不一定（不过arm对双字有相应的LDREXD和STREXD来直接保证独占性）
-</code></pre><ul>
-<li>我们通常说 volatile 关键字不能保证原子性，吊诡的是volatile就用来保证了long和double的原子性，原因是我们一般认为简单的读写操作都是原子性的，所以 volatile 关键字不能保证原子性指的是更加复杂的操作的原子性，比如自增和自减，是不能保证的，而简单类型的读写不过用不用volatile都有jmm保证</li>
-</ul>
-<ul>
-<li>volatile 保证long和double的原子性的实现，在 hotspot 中而对于加了虚拟机会特别处理被volatile修饰的变量时会特殊对待long和double（似乎并不是一个lock前缀就能搞定的事情，不然就没有必要特别处理了？），在<a href="https://gvsmirnov.ru/blog/tech/2014/02/10/jmm-under-the-hood.html" target="_blank" rel="external">这篇文章</a>中有提及，但没有细讲，只说是Dark Magics，具体是什么骚操作我也没有搞明白，有需要的可以去阅读 c1 的<a href="http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/e087a2088970/src/share/vm/c1/c1_LIRGenerator.cpp" target="_blank" rel="external">源码</a>，我就不研究了</li>
-</ul>
-<p><br></p>
-<h3 id="jmm"><a href="#jmm" class="headerlink" title="jmm"></a>jmm</h3><ul>
-<li><p>jmm，java内存模型是<a href="https://www.jcp.org/en/jsr/detail?id=133" target="_blank" rel="external">jsr133</a>中提出的主要是为了解决不同平台上的并发一致性，有些人会把寄存器，堆栈，方法区，常量池也混进来讲，这些是java虚拟规范里的东西（主要是包括在运行时数据区里面），虽然字面上是看是没什么错，但这样很容易混淆问题的中心，jmm是java语言规范里的东西，并不在同一个层次上，更关注的是行为表现，本文参考<br>JLS se 8，虽然没有往后看，不过应该不会有什么差别</p>
-</li>
-<li></li>
-</ul>
-<p><br></p>
-<h4 id="jmm-amp-8-种原子操作"><a href="#jmm-amp-8-种原子操作" class="headerlink" title="jmm &amp; 8 种原子操作"></a>jmm &amp; 8 种原子操作</h4><ul>
-<li>jmm中定义了 8 种内存交互的操作，虚拟机必须保证其原子性</li>
-</ul>
-<pre><code>lock:锁主存的变量，将一个变量标识为被一个线程独占状态
-unclock:释放主存的变量，将一个变量从独占状态释放出来，释放后的变量才可以被其他线程锁定
-read:读主存的变量，把一个变量的值从主内存传输到工作内存中
-load:把read操作从主内存中得到的变量值放入工作内存的变量的副本中
-store:把工作内存中的一个变量的值传递给主存，以便随后的write操作
-write:写主存的变量，store的值写到主内存中
-use:把工作内存中的一个变量的值传给执行引擎，每当虚拟机遇到一个使用到变量的指令时都会使用该指令
-assign:把一个从执行引擎接收到的值赋给工作内存中的变量，每当虚拟机遇到一个给变量赋值的指令时，都要使用该操作
-</code></pre><p><br></p>
-<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><pre><code>http://g.oswego.edu/dl/jmm/cookbook.html
-</code></pre>]]></content>
       
         <categories>
             

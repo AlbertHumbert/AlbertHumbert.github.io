@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-07T13:00:43.576Z</updated>
+  <updated>2019-01-07T15:57:06.544Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入Java并发 3 原子 可见 有序</title>
+    <link href="https://alberthumbert.github.io/2019/01/07/ConcurVisibilityOrder/"/>
+    <id>https://alberthumbert.github.io/2019/01/07/ConcurVisibilityOrder/</id>
+    <published>2019-01-07T15:43:37.000Z</published>
+    <updated>2019-01-07T15:57:06.544Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入Java并发 2 monitor</title>
@@ -61,26 +81,6 @@
     <id>https://alberthumbert.github.io/2019/01/03/AOSInit/</id>
     <published>2019-01-03T13:35:14.000Z</published>
     <updated>2019-01-03T16:07:57.974Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入Java并发 3 原子 可见 有序</title>
-    <link href="https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/"/>
-    <id>https://alberthumbert.github.io/2019/01/02/ConcurVisibilityOrder/</id>
-    <published>2019-01-02T15:43:37.000Z</published>
-    <updated>2019-01-07T09:23:23.503Z</updated>
     
     <summary type="html">
     
