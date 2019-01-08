@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 07, 2019" />
-        <meta property="article:modified_time" content="1月 07, 2019" />
+        <meta property="article:modified_time" content="1月 09, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入Java并发 3 原子 可见 有序",
     "url": "https://alberthumbert.github.io/2019/01/07/ConcurVisibilityOrder/index.html",
     "datePublished": "1月 07, 2019",
-    "dateModified": "1月 07, 2019",
+    "dateModified": "1月 09, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原子性"><span class="post-toc-number">1.</span> <span class="post-toc-text">原子性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#long-amp-double"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">long & double</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#处理器的内存模型"><span class="post-toc-number">2.</span> <span class="post-toc-text">处理器的内存模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jmm"><span class="post-toc-number">3.</span> <span class="post-toc-text">jmm</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#8-种原子操作"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">8 种原子操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#指令重排序"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">指令重排序</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#内存屏障"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">内存屏障</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原子性"><span class="post-toc-number">1.</span> <span class="post-toc-text">原子性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#long-amp-double"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">long & double</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#处理器的内存模型"><span class="post-toc-number">2.</span> <span class="post-toc-text">处理器的内存模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jmm"><span class="post-toc-number">3.</span> <span class="post-toc-text">jmm</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#8-种原子操作"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">8 种原子操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#重排序"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">重排序</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#禁止重排序"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">禁止重排序</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#内存屏障"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">内存屏障</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实现"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">实现</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -562,6 +562,11 @@ use:把工作内存中的一个变量的值传给执行引擎，每当虚拟机�
 
 assign:把一个从执行引擎接收到的值赋给工作内存中的变量，每当虚拟机遇到一个给变量赋值的指令时，都要使用该操作
 </code></pre><ul>
+<li>关于 load/store 和 read/write 简单一点的理解就是</li>
+</ul>
+<pre><code>read把变量从内存读入CPU缓存，write反之
+load是把变量从CPU缓存读入栈中，store反之
+</code></pre><ul>
 <li>这些操作还需要遵循一些基本规则</li>
 </ul>
 <pre><code>1、不允许read和load、store和write操作之一单独出现，以上两个操作必须按顺序执行，但没有保证必须连续执行，
@@ -585,15 +590,219 @@ assign:把一个从执行引擎接收到的值赋给工作内存中的变量，�
 
 8、对一个变量执行unlock操作之前，必须先把此变量同步回主内存（执行store和write操作）
 </code></pre><p><br></p>
-<h4 id="指令重排序"><a href="#指令重排序" class="headerlink" title="指令重排序"></a>指令重排序</h4><ul>
-<li>指令重排序是一种重要优化而不是一件坏事，但JSR-133之前的旧jmm大多数情况下是不允许指令重排序的，为了克服这个缺点，JSR-133强化了as-if-serial语义，使程序员可以观察不到重排序的影响</li>
+<h4 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h4><ul>
+<li>重排序是一种重要优化而不是一件坏事，但JSR-133之前的旧jmm大多数情况下是不允许重排序的，为了克服这个缺点，JSR-133强化了as-if-serial语义，使程序员可以观察不到重排序的影响</li>
 </ul>
 <ul>
-<li>指令重排序（reordering）是指编译器，jit，指令集并行处理，缓存等因素为了优化程序的执行效率，可以自由的改变指令的实际执行顺序，从而出现实际指令执行顺序与程序员在代码中编写的顺序不一致的情况</li>
+<li>重排序（reordering）是指编译器，jit，指令集并行处理，缓存等因素为了优化程序的执行效率，可以自由的改变指令的实际执行顺序，从而出现实际指令执行顺序与程序员在代码中编写的顺序不一致的情况</li>
+</ul>
+<ul>
+<li>其中指令集并行处理主要是为了时cpu中的部件能够不中断的被使用而产生的，指令的执行一般包括取指（IF)、译码（ID)、执行（EX)、回写（WR)，在并行化处理的时候，一条指令进入下一个步骤之后之前的步骤使用的硬件不会暂停下来等待，而是可以继续为另一条指令服务，现代CISC和RISC处理器都具有这样的特性，特别是微处理器尤为看重这一点</li>
 </ul>
 <p><br></p>
+<h4 id="禁止重排序"><a href="#禁止重排序" class="headerlink" title="禁止重排序"></a>禁止重排序</h4><ul>
+<li>JMM模型表现出来的禁止重排序的情况主要有下面几种</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>允许重排序</th>
+<th>第二个操作</th>
+<th>第二个操作</th>
+<th>第二个操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一个操作</td>
+<td>Normal Load / Normal Store</td>
+<td>Volatile load / MonitorEnter</td>
+<td>Volatile store / MonitorExit</td>
+</tr>
+<tr>
+<td>Normal Load / Normal Store</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Volatile load / MonitorEnter</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Volatile store / MonitorExit</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Normal Load：对非volatile字段的读取，getfield，getstatic和array load；
+
+Normal Store：对非volatile字段的存储，putfield，putstatic和array store；
+
+Volatile load：对多线程环境的volatile变量的读取，getfield，getstatic；
+
+Volatile store：对多线程环境的volatile变量的存储，putfield，putstatic；
+
+MonitorEnters: 用于多线程环境的锁对象，见上一篇
+
+MonitorExits: 用于多线程环境的锁对象，见上一篇
+</code></pre><ul>
+<li>并不是所有类型的重排序都会出现，一些架构的处理器本身会禁止某种类型的重排序（如下），</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Load-Load</th>
+<th>Load-Store</th>
+<th>Store-Store</th>
+<th>Store-Load</th>
+<th>数据依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sparc-TSO</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>x86</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>ia64</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>PowerPC</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
 <h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><ul>
-<li>hotspot中内存屏障实现在os_cpu的orderAccess当中，具体可以用作内存屏障的指令与架构相关，Doug Lea给出了各体系上的<a href="http://g.oswego.edu/dl/jmm/cookbook.html" target="_blank" rel="external">内存屏障指令</a>，在x86</li>
+<li>几乎所有的处理器至少支持一种粗粒度的屏障指令，通常被称为“栅栏（Fence）”，它保证在栅栏前初始化的load和store指令，能够严格有序的在栅栏后的load和store指令之前执行。但这几乎都是最耗时的操作之一（与原子指令差不多，甚至更消耗资源），所以大部分处理器支持更细粒度的屏障指令，按load和store的组合可以分为四类</li>
+</ul>
+<pre><code>LoadLoad 屏障
+序列：Load1,Loadload,Load2
+确保Load1所要读入的数据能够在被Load2和后续的load指令访问前读入
+通常能执行预加载指令或/和支持乱序处理的处理器中需要显式声Loadload屏障
+因为在这些处理器中正在等待的加载指令能够绕过正在等待存储的指令
+对于总是能保证处理顺序的处理器上，设置该屏障相当于无操作
+
+StoreStore 屏障
+序列：Store1，StoreStore，Store2
+确保Store1的数据在Store2以及后续Store指令操作相关数据之前对其它处理器可见（例如向主存刷新数据）
+如果处理器不能保证从写缓冲和缓存向其它处理器和主存中按顺序刷新数据，那么它需要使用这个屏障。
+
+LoadStore 屏障
+序列： Load1; LoadStore; Store2
+确保Load1的数据在Store2和后续Store指令被刷新之前读取
+在等待Store指令可以越过loads指令的乱序处理器上需要使用LoadStore屏障
+
+StoreLoad 屏障
+序列: Store1; StoreLoad; Load2
+确保Store1的数据在被Load2和后续的Load指令读取之前对其他处理器可见
+StoreLoad屏障可以防止一个后续的load指令不正确的使用了Store1的数据，而不是另一个处理器在相同内存位置写入一个新数据
+所以为了在屏障前读取同样内存位置存过的数据必须使用一个StoreLoad屏障将存储指令和后续的加载指令分开
+Storeload屏障在几乎所有的现代多处理器中都需要使用，但通常它的开销也是最昂贵的
+它们昂贵的部分原因是它们必须关闭通常的略过缓存直接从写缓冲区读取数据的机制
+这可能通过让一个缓冲区进行充分刷新（flush）,以及其他延迟的方式来实现。
+</code></pre><ul>
+<li>各种情况下需要的屏障如下（Volatiles和Monitors分开）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>第一操作/ 第二操作</th>
+<th>Normal Load</th>
+<th>Normal Store</th>
+<th>Volatile Load</th>
+<th>Volatile Store</th>
+<th>MonitorEnter</th>
+<th>MonitorExit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal Load</td>
+<td></td>
+<td></td>
+<td></td>
+<td>LoadStore</td>
+<td></td>
+<td>LoadStore</td>
+</tr>
+<tr>
+<td>Normal Store</td>
+<td></td>
+<td></td>
+<td></td>
+<td>StoreStore</td>
+<td></td>
+<td>StoreExit</td>
+</tr>
+<tr>
+<td>Volatile Load</td>
+<td>LoadLoad</td>
+<td>LoadStore</td>
+<td>LoadLoad</td>
+<td>LoadStore</td>
+<td>LoadEnter</td>
+<td>LoadExit</td>
+</tr>
+<tr>
+<td>Volatile Store</td>
+<td></td>
+<td></td>
+<td>StoreLoad</td>
+<td>StoreStore</td>
+<td>StoreEnter</td>
+<td>StoreExit</td>
+</tr>
+<tr>
+<td>MonitorEnter</td>
+<td>EnterLoad</td>
+<td>EnterStore</td>
+<td>EnterLoad</td>
+<td>EnterStore</td>
+<td>EnterEnter</td>
+<td>EnterExit</td>
+</tr>
+<tr>
+<td>MonitorExit</td>
+<td></td>
+<td></td>
+<td>ExitLoad</td>
+<td>ExitStore</td>
+<td>ExitEnter</td>
+<td>ExitExit</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><ul>
+<li>hotspot中内存屏障实现在os_cpu的orderAccess当中，具体可以用作内存屏障的指令与架构相关，Doug Lea给出了各体系上的<a href="http://g.oswego.edu/dl/jmm/cookbook.html" target="_blank" rel="external">内存屏障指令</a>，在x86上可以参考orderAccess_linux_x86，x86 上只允许Store-Load重排序，因此只实现了storeload屏障，手段是lock前缀</li>
 </ul>
 <pre><code>///hotspot/src/os_cpu/linux_x86/vm/orderAccess_linux_x86.inline.hpp
 // Implementation of class OrderAccess.
