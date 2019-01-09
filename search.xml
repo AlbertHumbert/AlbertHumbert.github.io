@@ -407,10 +407,10 @@ inline void OrderAccess::fence() {
 </ul>
 <p><br></p>
 <h3 id="缓存一致性"><a href="#缓存一致性" class="headerlink" title="缓存一致性"></a>缓存一致性</h3><ul>
-<li><p>在多处理器环境下，缓存一致性用于保证内存中的数据副本可以存在于多个缓存中，但各处理器仍可以读取到正确的数据** </p>
-</li>
-<li><p>在intel cpu中缓存一致性一般使用lock前缀实现，lock前缀引发的机制可以分为两种，要么锁总线，要么使用MESI协议锁内存区域</p>
-</li>
+<li>在多处理器环境下，缓存一致性用于保证内存中的数据副本可以存在于多个缓存中，但各处理器仍可以读取到正确的数据，在java当中使用Volatile保证一致性</li>
+</ul>
+<ul>
+<li>在intel cpu中缓存一致性一般使用lock前缀实现，lock前缀引发的机制可以分为两种，要么锁总线，要么使用MESI协议锁内存区域</li>
 </ul>
 <p><br></p>
 <h4 id="锁总线"><a href="#锁总线" class="headerlink" title="锁总线"></a>锁总线</h4><ul>
