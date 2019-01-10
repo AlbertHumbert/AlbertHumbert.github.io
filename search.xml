@@ -252,6 +252,8 @@ Storeload屏障在几乎所有的现代多处理器中都需要使用，但通�
 </tr>
 </tbody>
 </table>
+<p>‘</p>
+<p><br></p>
 <ul>
 <li>数据依赖禁止重排序：在一些处理器中有时可以忽略loadload和loadstore屏障，前提是load和store对前一个load指令具有数据依赖性，数据依赖性一般来说发生在两种情况之下，间接取值和条件控制</li>
 </ul>
@@ -259,9 +261,11 @@ Storeload屏障在几乎所有的现代多处理器中都需要使用，但通�
 Load x;Load x.field 
 //条件控制
 Load x;if(predicate(x))Load or Store y 
-</code></pre><ul>
+</code></pre><p><br></p>
+<ul>
 <li>原子语义覆盖：MonitorEnter和MonitorExit原本可以分别对应load和store，所以需要使用LoadLoad和StoreStore进行保障，但有些架构上面的MonitorEnter，MonitorExit的加锁和解锁本身使用的cas(x86的lock cmpxchg，arm的LL/SC)已经至少能够提供LoadLoad和StoreStore屏障相同的语义，这种情况下其后的LoadLoad和StoreStore就显得多余，因此对于这两个指令采取特殊对待，在Load和Store指令以外再额外添加Enter和Exit指令，那么就又多出几种情况（EnterLoad，EnterStore ..），对于前面提到的还有原子语义覆盖的架构，由于EnterLoad，StoreExit和ExitEnter本身是和MonitorEnter/MonitorExit同时出现的，所以它们是无意义的，实现为无操作</li>
 </ul>
+<p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fz193cj3a4j30la0ycq7h.jpg" alt=""></p>
 <p><br></p>
 <ul>
 <li>最终我们得到的内存屏障表如下</li>
