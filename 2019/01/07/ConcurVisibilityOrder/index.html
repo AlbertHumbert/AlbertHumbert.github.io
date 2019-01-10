@@ -515,15 +515,15 @@
 <li>在java语言规范中，对long和double以外基本类型变量的单次读写都是原子性的</li>
 </ul>
 <ul>
-<li>对long和double，根据虚拟机规范，在JSR-133之前的规范中，读和写都分成了两个32位的操作，从JSR-133规范开始读操作也都具有原子性，不过实现JVM时可以自由选择是否把读写long和double作为原子操作，包括64位虚拟机，只不过一般都支持，而32位就不一定，比如32位的hotspot，在32位上如果要保证原子性需要使用volatile关键字，<a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html#jls-17.7" target="_blank" rel="external">详见 JLS</a></li>
+<li>对long和double，根据虚拟机规范，在JSR-133之前的规范中，读和写都分成了两个32位的操作，从JSR-133规范开始读操作也都具有原子性，实现JVM时可以自由选择是否把读写long和double作为原子操作，包括64位虚拟机，只不过一般都支持，而32位就不一定，比如32位的hotspot，在32位上保证long和double的原子性需要使用volatile关键字，<a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html#jls-17.7" target="_blank" rel="external">详见 JLS</a></li>
 </ul>
 <pre><code>和之前深入操作系统系列中提到的一样，32位架构基本上都能提供对一个字节读写的原子性
 但是64位数据则不一定（不过arm对双字有相应的LDREXD和STREXD来直接保证独占性）
 </code></pre><ul>
-<li>我们通常说 volatile 关键字不能保证原子性，吊诡的是volatile就用来保证了long和double的原子性，原因是我们一般认为简单的读写操作都是原子性的，所以 volatile 关键字不能保证原子性指的是更加复杂的操作的原子性，比如自增和自减，是不能保证的，而简单类型的读写不过用不用volatile都有jmm保证</li>
+<li>我们通常说 volatile 关键字不能保证原子性，吊诡的是volatile就用来保证了long和double的原子性，原因是我们一般认为简单的读写操作都是原子性的，所以 volatile 关键字不能保证原子性指的是更加复杂的操作的原子性，比如自增和自减，是不能保证的，而简单类型的读写用不用volatile都有jmm保证</li>
 </ul>
 <ul>
-<li>volatile 保证long和double的原子性的实现，在 hotspot 中而对于加了虚拟机会特别处理被volatile修饰的变量时会特殊对待long和double（似乎并不是一个lock前缀就能搞定的事情，不然就没有必要特别处理了？），在<a href="https://gvsmirnov.ru/blog/tech/2014/02/10/jmm-under-the-hood.html" target="_blank" rel="external">这篇文章</a>中有提及，但没有细讲，只说是Dark Magics，具体是什么骚操作我也没有搞明白，有需要的可以去阅读 c1 的<a href="http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/e087a2088970/src/share/vm/c1/c1_LIRGenerator.cpp" target="_blank" rel="external">源码</a>，我就不研究了</li>
+<li>volatile 保证long和double的原子性的实现，在 hotspot 中虚拟机处理被volatile修饰的变量时会特殊对待long和double（似乎并不是一个lock前缀就能搞定的事情，不然就没有必要特别处理了？），在<a href="https://gvsmirnov.ru/blog/tech/2014/02/10/jmm-under-the-hood.html" target="_blank" rel="external">这篇文章</a>中有提及，但没有细讲，只说是Dark Magics，具体是什么骚操作我也没有搞明白，有需要的可以去阅读 c1 的<a href="http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/e087a2088970/src/share/vm/c1/c1_LIRGenerator.cpp" target="_blank" rel="external">源码</a>，我就不研究了</li>
 </ul>
 <p><br></p>
 <h3 id="处理器的内存模型"><a href="#处理器的内存模型" class="headerlink" title="处理器的内存模型"></a>处理器的内存模型</h3><ul>
@@ -533,11 +533,11 @@
 <li>强内存模型，所有处理器读到的同一内存地址的数据都是一致的，使用者不需要做特别的操作就能保证内存的一致性</li>
 </ul>
 <ul>
-<li>弱内存模型，需要调用一些机制来保证处理器读写的数据一致性，如限制编译器重排序，将当前处理器缓存的数据刷入主存，或则将当前处理器缓存置为无效。内存屏障通常在lock和unlock指令发生时自动执行，程序员不需要知道太多内存屏障的细节</li>
+<li>弱内存模型，需要调用一些机制来保证处理器读写的数据一致性，如限制编译器重排序，将当前处理器缓存的数据刷入主存，或则将当前处理器缓存置为无效。内存屏障通常在lock和unlock指令发生时自动执行，java程序员不需要知道太多内存屏障的细节</li>
 </ul>
 <p><br></p>
 <h3 id="happens-before"><a href="#happens-before" class="headerlink" title="happens before"></a>happens before</h3><ul>
-<li>如果一个动作在另一个动作之前发生，那么第一个动作对第二个动作就是可视的，并且在第二动作之前发生，这里强调的是执行的顺序，只要执行结果符合这个模型，重排序也是允许的，jmm中符合该原则的情况包括如下</li>
+<li>如果一个动作在另一个动作之前发生，那么第一个动作对第二个动作就是可视的，并且在第二动作之前发生，这里强调的是执行的顺序，只要执行结果符合这个模型，重排序也是允许的，jmm中一定符合该原则的情况包括如下</li>
 </ul>
 <ul>
 <li>监视器上的解锁动作在每个后续在该监视器上的锁定操作之前发生</li>
@@ -559,7 +559,7 @@
 <li>jmm，java内存模型是<a href="https://www.jcp.org/en/jsr/detail?id=133" target="_blank" rel="external">jsr133</a>中提出的主要是为了解决不同平台上的并发一致性，有些人会把寄存器，堆栈，方法区，常量池也混进来讲，这些是java虚拟规范里的东西（主要是包括在运行时数据区里面），虽然字面上是看是没什么错，但这样很容易混淆问题的中心，jmm是java语言规范里的东西，并不在同一个层次上，更关注的是行为表现</li>
 </ul>
 <ul>
-<li>JMM的目的是提供一个在多种存储架构都能提供一致性语义的内存模型，包括线程间如何通过主存相互通信，一个程序中变量之间的相互影响，在真实的计算机中，变量在主存中或者寄存器中的读写访问细节。这里的存储架构主要指的是cpu和多层缓存，缓存的特点以及带来的问题写在后面，主要需要知道JMM将寄存器，缓存等细节抽象为本地内存</li>
+<li>JMM的目的是提供一个在多种存储架构都能提供一致性语义的内存模型，包括线程间如何通过主存相互通信，一个程序中变量之间的相互影响，在真实的计算机中，变量在主存中或者寄存器中的读写访问细节。这里的存储架构主要指的是cpu和多级缓存，缓存的特点以及带来的问题写在后面，主要需要知道JMM将寄存器，缓存等细节抽象为本地内存</li>
 </ul>
 <p><br></p>
 <h4 id="8-种原子操作"><a href="#8-种原子操作" class="headerlink" title="8 种原子操作"></a>8 种原子操作</h4><ul>
@@ -616,11 +616,11 @@ load是把变量从CPU缓存读入栈中，store反之
 <li>重排序（reordering）是指编译器，jit，指令集并行处理，缓存等因素为了优化程序的执行效率，可以自由的改变指令的实际执行顺序，从而出现实际指令执行顺序与程序员在代码中编写的顺序不一致的情况</li>
 </ul>
 <ul>
-<li>其中指令集并行处理主要是为了时cpu中的部件能够不中断的被使用而产生的，指令的执行一般包括取指（IF)、译码（ID)、执行（EX)、回写（WR)，在并行化处理的时候，一条指令进入下一个步骤之后之前的步骤使用的硬件不会暂停下来等待，而是可以继续为另一条指令服务，现代CISC和RISC处理器都具有这样的特性，特别是微处理器尤为看重这一点</li>
+<li>其中指令集并行处理主要是为了时cpu中的部件能够不中断的被使用而产生的，指令的执行一般包括取指（IF)、译码（ID)、执行（EX)、回写（WR)，在并行化处理的时候，一条指令进入下一个步骤（如ID）之后之前的步骤（如IF）使用的硬件不会暂停下来等待，而是可以继续为另一条指令服务，现代CISC和RISC处理器都具有这样的特性，特别是微处理器尤为看重这一点</li>
 </ul>
 <p><br></p>
 <h4 id="禁止重排序"><a href="#禁止重排序" class="headerlink" title="禁止重排序"></a>禁止重排序</h4><ul>
-<li>JMM模型表现出来的禁止重排序的情况主要有下面几种</li>
+<li>重排序会带来一些问题，特别是一些本来就允许乱序执行的cpu，JVM帮java程序员解决这些麻烦，JMM模型表现出来的禁止重排序的情况主要有下面几种</li>
 </ul>
 <table>
 <thead>
@@ -749,15 +749,16 @@ Storeload屏障在几乎所有的现代多处理器中都需要使用，但通�
 </tbody>
 </table>
 <ul>
-<li>数据依赖静止重排序：在一些处理器中有时可以忽略loadload和loadstore屏障，前提是load和store对前一个load指令具有数据依赖性，数据依赖性一般来说发生在两种情况之下，间接取值和条件控制</li>
+<li>数据依赖禁止重排序：在一些处理器中有时可以忽略loadload和loadstore屏障，前提是load和store对前一个load指令具有数据依赖性，数据依赖性一般来说发生在两种情况之下，间接取值和条件控制</li>
 </ul>
 <pre><code>//间接取值
 Load x;Load x.field 
 //条件控制
 Load x;if(predicate(x))Load or Store y 
 </code></pre><ul>
-<li>原子语义覆盖：MonitorEnter和MonitorExit原本可以分别对应load和store，但有些架构上面的MonitorEnter，MonitorExit的加锁和解锁本身使用的cas(x86的lock cmpxchg，arm的LL/SC)已经至少能够提供LoadLoad和StoreStore屏障相同的语义，这种情况下其后的LoadLoad和StoreStore就显得多余，因此对于这两个指令采取特殊对待，除了Load和Store指令以外再额外添加Enter和Exit指令，那么就又多出几种情况（EnterLoad，EnterStore ..），对于前面提到的架构，由于EnterLoad，StoreExit和ExitEnter本身是和MonitorEnter/MonitorExit同时出现的，所以它们的是无意义的，实现为无操作</li>
+<li>原子语义覆盖：MonitorEnter和MonitorExit原本可以分别对应load和store，所以需要使用LoadLoad和StoreStore进行保障，但有些架构上面的MonitorEnter，MonitorExit的加锁和解锁本身使用的cas(x86的lock cmpxchg，arm的LL/SC)已经至少能够提供LoadLoad和StoreStore屏障相同的语义，这种情况下其后的LoadLoad和StoreStore就显得多余，因此对于这两个指令采取特殊对待，在Load和Store指令以外再额外添加Enter和Exit指令，那么就又多出几种情况（EnterLoad，EnterStore ..），对于前面提到的还有原子语义覆盖的架构，由于EnterLoad，StoreExit和ExitEnter本身是和MonitorEnter/MonitorExit同时出现的，所以它们是无意义的，实现为无操作</li>
 </ul>
+<p><br></p>
 <ul>
 <li>最终我们得到的内存屏障表如下</li>
 </ul>
@@ -832,7 +833,7 @@ Load x;if(predicate(x))Load or Store y
 </table>
 <p><br></p>
 <h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><ul>
-<li>hotspot中内存屏障实现在os_cpu的orderAccess当中，具体可以用作内存屏障的指令与架构相关，在x86上可以参考orderAccess_linux_x86，x86 上只允许Store-Load重排序，因此只实现了storeload屏障，手段是lock前缀</li>
+<li>hotspot中内存屏障实现在os_cpu的orderAccess当中，具体可以用作内存屏障的指令与架构相关，在x86上可以参考orderAccess_linux_x86，x86 上只允许Store-Load重排序，因此只实现了storeload屏障，手段是lock前缀，lock前缀的特性写在后面</li>
 </ul>
 <pre><code>///hotspot/src/os_cpu/linux_x86/vm/orderAccess_linux_x86.inline.hpp
 // Implementation of class OrderAccess.
@@ -872,7 +873,7 @@ inline void OrderAccess::fence() {
 </ul>
 <p><img src="http://wx2.sinaimg.cn/mw690/007vHOvngy1fz0e0o1er6j31aj0u0akq.jpg" alt=""></p>
 <p><br></p>
-<h3 id="内存体系"><a href="#内存体系" class="headerlink" title="内存体系"></a>内存体系</h3><p><strong>可以参考这篇<a href="http://ifeve.com/cpu-cache-flushing-fallacy-cn/" target="_blank" rel="external">文章</a>中Sandy Bridge的讲解，这里做一些摘录</strong></p>
+<h3 id="内存体系"><a href="#内存体系" class="headerlink" title="内存体系"></a>内存体系</h3><p><strong>可以参考这篇<a href="http://ifeve.com/cpu-cache-flushing-fallacy-cn/" target="_blank" rel="external">文章</a>中Sandy Bridge架构的讲解，这里做一些摘录</strong></p>
 <p><br></p>
 <h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4><ul>
 <li>寄存器：在每个核心上，有160个用于整数和144个用于浮点的寄存器单元。访问这些寄存器只需要一个时钟周期，这构成了对执行核心来说最快的内存。编译器会将本地变量和函数参数分配到这些寄存器上。当使用超线程技术（ hyperthreading ）时，这些寄存器可以在超线程协同下共享。</li>
@@ -899,7 +900,7 @@ inline void OrderAccess::fence() {
 </ul>
 <p><br></p>
 <h4 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h4><ul>
-<li>主内存：在缓存完全没命中的情况下，DRAM通道到每个槽的延迟平均为65ns。具体延迟多少取决于很多因素，比如，下一次对同一缓存 行中数据的访问将极大降低延迟，而当队列化效果和内存刷新周期冲突时将显著增加延迟。每个槽使用4个内存通道聚合起来增加吞吐量，并通过在独立内存通道上流水线化（ pipelining ）将隐藏这种延迟。</li>
+<li>主内存：在缓存完全没命中的情况下，DRAM通道到每个槽的延迟平均为65ns。具体延迟多少取决于很多因素，比如，下一次对同一缓存行中数据的访问将极大降低延迟，而当队列化效果和内存刷新周期冲突时将显著增加延迟。每个槽使用4个内存通道聚合起来增加吞吐量，并通过在独立内存通道上流水线化（ pipelining ）将隐藏这种延迟。</li>
 </ul>
 <p><br></p>
 <h3 id="缓存一致性"><a href="#缓存一致性" class="headerlink" title="缓存一致性"></a>缓存一致性</h3><ul>
@@ -927,7 +928,7 @@ inline void OrderAccess::fence() {
 <li>x86架构的每个缓存块的大小为64 bytes，称为缓存行（ cache-line）。其它种类的处理器的缓存行大小可能不同。更大的缓存行容量降低延迟，但是需要更大的带宽</li>
 </ul>
 <ul>
-<li>MESI 是指4中状态的首字母。每个Cache line有4个状态，可用2个bit表示，它们分别是：</li>
+<li>MESI 是指4中状态的首字母。每个缓存行有4个状态，可用2个字节表示，它们分别是：</li>
 </ul>
 <table>
 <thead>
@@ -940,22 +941,22 @@ inline void OrderAccess::fence() {
 <tbody>
 <tr>
 <td>M 修改 (Modified)</td>
-<td>该Cache line有效，数据被修改了，和内存中的数据不一致，数据只存在于本Cache中</td>
+<td>该缓存行有效，数据被修改了，和内存中的数据不一致，数据只存在于本Cache中</td>
 <td>缓存行必须时刻监听所有试图读该缓存行相对就主存的操作，这种操作必须在缓存将该缓存行写回主存并将状态变成S（共享）状态之前被延迟执行</td>
 </tr>
 <tr>
 <td>E 独享、互斥 (Exclusive)</td>
-<td>该Cache line有效，数据和内存中的数据一致，数据只存在于本Cache中</td>
+<td>该缓存行有效，数据和内存中的数据一致，数据只存在于本Cache中</td>
 <td>缓存行也必须监听其它缓存读主存中该缓存行的操作，一旦有这种操作，该缓存行需要变成S（共享）状态</td>
 </tr>
 <tr>
 <td>S 共享 (Shared)</td>
-<td>该Cache line有效，数据和内存中的数据一致，数据存在于很多Cache中</td>
+<td>该缓存行有效，数据和内存中的数据一致，数据存在于很多Cache中</td>
 <td>缓存行也必须监听其它缓存使该缓存行无效或者独享该缓存行的请求，并将该缓存行变成无效（Invalid）</td>
 </tr>
 <tr>
 <td>I 无效 (Invalid)</td>
-<td>该Cache line无效</td>
+<td>该缓存行无效</td>
 <td>无</td>
 </tr>
 </tbody>
@@ -964,6 +965,9 @@ inline void OrderAccess::fence() {
 但是该缓存却不会将该缓存行升迁为E状态，
 这是因为其它缓存不会广播他们作废掉该缓存行的通知以及缓存并没有记录缓存行的copy的数量
 </code></pre><ul>
+<li>MESI要求cpu间协同工作，关键在于一个处理器写缓存时可以让另一个cpu的缓存无效，缓存写入内存后还可以进行数据同步</li>
+</ul>
+<ul>
 <li>例，假设有三个CPU A、B、C，对应三个缓存分别是cache a、b、 c。在主内存中定义了x的引用值为0</li>
 </ul>
 <pre><code>读取缓存：
