@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-10T01:53:23.211Z</updated>
+  <updated>2019-01-11T04:58:36.728Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android 虚拟机系列</title>
+    <link href="https://alberthumbert.github.io/2019/01/11/avm/"/>
+    <id>https://alberthumbert.github.io/2019/01/11/avm/</id>
+    <published>2019-01-11T04:08:56.000Z</published>
+    <updated>2019-01-11T04:58:36.728Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android 系统启动流程</title>
+    <link href="https://alberthumbert.github.io/2019/01/10/AOSInit/"/>
+    <id>https://alberthumbert.github.io/2019/01/10/AOSInit/</id>
+    <published>2019-01-10T13:35:14.000Z</published>
+    <updated>2019-01-11T17:03:18.847Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>深入Java并发 3 原子 可见 有序</title>
@@ -61,26 +101,6 @@
     <id>https://alberthumbert.github.io/2019/01/03/OSBiosBootLoader/</id>
     <published>2019-01-03T14:08:15.000Z</published>
     <updated>2019-01-06T14:07:36.967Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android 系统启动流程</title>
-    <link href="https://alberthumbert.github.io/2019/01/03/AOSInit/"/>
-    <id>https://alberthumbert.github.io/2019/01/03/AOSInit/</id>
-    <published>2019-01-03T13:35:14.000Z</published>
-    <updated>2019-01-10T01:25:13.570Z</updated>
     
     <summary type="html">
     
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2018/11/08/OSGdtCreate/</id>
     <published>2018-11-08T08:31:13.000Z</published>
     <updated>2018-11-09T14:36:30.589Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入计算机网络系列 4 - 数据链路层</title>
-    <link href="https://alberthumbert.github.io/2018/11/07/NetEthernet/"/>
-    <id>https://alberthumbert.github.io/2018/11/07/NetEthernet/</id>
-    <published>2018-11-07T03:40:52.000Z</published>
-    <updated>2018-11-12T16:06:48.681Z</updated>
     
     <summary type="html">
     
