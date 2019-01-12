@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BootLoader"><span class="post-toc-number">1.</span> <span class="post-toc-text">BootLoader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#init进程"><span class="post-toc-number">2.</span> <span class="post-toc-text">init进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zygote进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">Zygote进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#init-rc"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">init.rc</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AppRuntime"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">AppRuntime</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#abi"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">abi</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动虚拟机"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">启动虚拟机</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建Socket"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">创建Socket</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动SystemServer"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">启动SystemServer</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SystemServer进程"><span class="post-toc-number">4.</span> <span class="post-toc-text">SystemServer进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动Binder"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">启动Binder</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建SystemServiceManager"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">创建SystemServiceManager</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动系统服务"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">启动系统服务</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Launcher进程"><span class="post-toc-number">5.</span> <span class="post-toc-text">Launcher进程</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BootLoader"><span class="post-toc-number">1.</span> <span class="post-toc-text">BootLoader</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#init进程"><span class="post-toc-number">2.</span> <span class="post-toc-text">init进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zygote进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">Zygote进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#init-rc"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">init.rc</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#abi"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">abi</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动虚拟机"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">启动虚拟机</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建Socket"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">创建Socket</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SystemServer进程"><span class="post-toc-number">4.</span> <span class="post-toc-text">SystemServer进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#初始化"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">初始化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动Binder"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">启动Binder</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动服务"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">启动服务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#注册服务"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">注册服务</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AMS"><span class="post-toc-number">5.</span> <span class="post-toc-text">AMS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#launcher启动"><span class="post-toc-number">5.0.1.</span> <span class="post-toc-text">launcher启动</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#应用进程启动"><span class="post-toc-number">5.0.2.</span> <span class="post-toc-text">应用进程启动</span></a></li></ol></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -505,16 +505,16 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">本文为Android 系统相关系列的一部分</a></p>
 <p><br></p>
-<h3 id="BootLoader"><a href="#BootLoader" class="headerlink" title="BootLoader"></a>BootLoader</h3><p><strong>CPU加电之后会执行rom中的BootLoader（uboot）引导linux内核，内核完成基本初始化工作之后执行的第一个进程就是init进程</strong></p>
+<h3 id="BootLoader"><a href="#BootLoader" class="headerlink" title="BootLoader"></a>BootLoader</h3><p><strong>CPU加电之后会执行rom中的BootLoader（uboot）引导linux内核，关于BootLoader，可以参考操作系统系列中的<a href="https://tocreate.app/2019/01/03/OSBiosBootLoader/" target="_blank" rel="external">引导内核</a>一篇</strong></p>
 <p><br></p>
-<h3 id="init进程"><a href="#init进程" class="headerlink" title="init进程"></a>init进程</h3><p><strong>关于BootLoader，可以参考操作系统系列中的<a href="https://tocreate.app/2019/01/03/OSBiosBootLoader/" target="_blank" rel="external">引导内核</a>一篇，关于init进程，<a href="https://tocreate.app/2018/12/02/OSProcess/" target="_blank" rel="external">进程与线程</a>一篇之前没写完，最近会补一下</strong></p>
+<h3 id="init进程"><a href="#init进程" class="headerlink" title="init进程"></a>init进程</h3><p><strong>关于init进程，<a href="https://tocreate.app/2018/12/02/OSProcess/" target="_blank" rel="external">进程与线程</a>一篇之前没写完，最近会补一下</strong></p>
 <p><br></p>
 <h3 id="Zygote进程"><a href="#Zygote进程" class="headerlink" title="Zygote进程"></a>Zygote进程</h3><p><br></p>
 <h4 id="init-rc"><a href="#init-rc" class="headerlink" title="init.rc"></a>init.rc</h4><ul>
 <li>init.rc是一种使用特殊语法的脚本文件，init进程从中解析和读取参数以及命令，将它们实现，init.rc 使用安卓初始化脚本语言（Android Init Language）编写，初始化脚本语言包括了4种基本的类型声明：行为，命令, 服务和选项</li>
 </ul>
 <ul>
-<li>Actions，命名的命令序列。每个action都有一个触发器trigger，触发器决定了行为什么时候执行。当一个符合Action触发条件的事件发生了，这个行为会加入到待执行队列</li>
+<li>Action，命名的命令序列。每个action都有一个触发器trigger，触发器决定了行为什么时候执行。当一个符合Action触发条件的事件发生了，这个行为会加入到待执行队列</li>
 </ul>
 <pre><code>on &lt;trigger&gt;
 
@@ -525,7 +525,7 @@
   &lt;command&gt;
     ...
 </code></pre><ul>
-<li>Services，后台的程序，这个程序在init进程中被启动，如果退出了可以由系统重新启动（可选择）</li>
+<li>Service，后台的程序，这个程序在init进程中被启动，如果退出了可以由系统重新启动（可选择）</li>
 </ul>
 <pre><code>service &lt;name&gt; &lt;pathname&gt; [&lt;argument&gt; ]*
 
@@ -534,7 +534,7 @@
   &lt;option&gt;
    ...
 </code></pre><ul>
-<li>Triggers，一个用于匹配某种事件类型的字符串，它将使对于的行为执行。Options，服务的修订项，他们决定了一个服务什么时候执行以及是如何去执行</li>
+<li>Trigger，一个用于匹配某种事件类型的字符串，它将使对于的Action执行。Option，服务的修订项，他们决定了一个服务什么时候执行以及是如何去执行</li>
 </ul>
 <ul>
 <li>android 8.0中对zygote的初始化配置从init.rc独立出来，根据体系命名为init.zygoteXX.rc，其中init.zygote64.rc如下，主要的作用是让init创建zygote，进程的路径为/system/bin/app_process64，classname为main，同时在zygote启动过程中，要在其内部创建一个名为zygote的socket</li>
@@ -560,8 +560,7 @@
     class_start main
     class_start late_start
 </code></pre><p><br></p>
-<h4 id="AppRuntime"><a href="#AppRuntime" class="headerlink" title="AppRuntime"></a>AppRuntime</h4><p><br></p>
-<h5 id="abi"><a href="#abi" class="headerlink" title="abi"></a>abi</h5><ul>
+<h4 id="abi"><a href="#abi" class="headerlink" title="abi"></a>abi</h4><ul>
 <li>5.0以后,Android支持64位程序, 因此zygote也就有多种初始化脚本，可以在配置中选择其中一种，对于纯32模式和纯64位模式，只会启动一个zygote进程，如果兼容两种模式，则会创建两个zygote，则根据哪种模式为主模式，分为两种情况</li>
 </ul>
 <pre><code>init.zygote32.rc(对应app_process32)
@@ -574,14 +573,328 @@ init.zygote64_32.rc(app_process64为主模式，app_process32为次模式)
 <pre><code># getprop ro.product.cpu.abilist
 arm64-v8a,armeabi-v7a,armeabi
 </code></pre><p><br></p>
-<h4 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h4><p><br></p>
-<h4 id="创建Socket"><a href="#创建Socket" class="headerlink" title="创建Socket"></a>创建Socket</h4><p><br></p>
-<h4 id="启动SystemServer"><a href="#启动SystemServer" class="headerlink" title="启动SystemServer"></a>启动SystemServer</h4><p><br></p>
+<h4 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h4><ul>
+<li>在app_process，也就是zygote中，进行了虚拟机的启动，调用了AndroidRuntime（art）的start方法，然后为虚拟机注册jni方法，并通过jni调用ZygoteInit类的main方法，由此Zygote进入java层，在java层中进行初始化</li>
+</ul>
+<pre><code>/*
+ * Start the Android runtime.  This involves starting the virtual machine
+ * and calling the &quot;static void main(String[] args)&quot; method in the class
+ * named by &quot;className&quot;.
+ *
+ * Passes the main function two arguments, the class name and the specified
+ * options string.
+ */
+void AndroidRuntime::start(const char* className, const Vector&lt;String8&gt;&amp; options, bool zygote)
+{
+
+    ...
+    /* start the virtual machine */
+    JniInvocation jni_invocation;
+    jni_invocation.Init(NULL);
+    JNIEnv* env;
+    if (startVm(&amp;mJavaVM, &amp;env, zygote) != 0) {
+        return;
+    }
+    onVmCreated(env);
+
+    /*
+     * Register android functions.
+     */
+    if (startReg(env) &lt; 0) {
+        ALOGE(&quot;Unable to register all android natives\n&quot;);
+        return;
+    }
+
+    /*
+     * We want to call main() with a String array with arguments in it.
+     * At present we have two arguments, the class name and an option string.
+     * Create an array to hold them.
+     */
+    jclass stringClass;
+    jobjectArray strArray;
+    jstring classNameStr;
+
+    stringClass = env-&gt;FindClass(&quot;java/lang/String&quot;);
+    assert(stringClass != NULL);
+    strArray = env-&gt;NewObjectArray(options.size() + 1, stringClass, NULL);
+    assert(strArray != NULL);
+    classNameStr = env-&gt;NewStringUTF(className);
+    assert(classNameStr != NULL);
+    env-&gt;SetObjectArrayElement(strArray, 0, classNameStr);
+
+    for (size_t i = 0; i &lt; options.size(); ++i) {
+        jstring optionsStr = env-&gt;NewStringUTF(options.itemAt(i).string());
+        assert(optionsStr != NULL);
+        env-&gt;SetObjectArrayElement(strArray, i + 1, optionsStr);
+    }
+
+    /*
+     * Start VM.  This thread becomes the main thread of the VM, and will
+     * not return until the VM exits.
+     */
+    char* slashClassName = toSlashClassName(className);
+    jclass startClass = env-&gt;FindClass(slashClassName);
+    if (startClass == NULL) {
+        ALOGE(&quot;JavaVM unable to locate class &apos;%s&apos;\n&quot;, slashClassName);
+        /* keep going */
+    } else {
+        jmethodID startMeth = env-&gt;GetStaticMethodID(startClass, &quot;main&quot;,
+            &quot;([Ljava/lang/String;)V&quot;);
+        if (startMeth == NULL) {
+            ALOGE(&quot;JavaVM unable to find main() in &apos;%s&apos;\n&quot;, className);
+            /* keep going */
+        } else {
+            env-&gt;CallStaticVoidMethod(startClass, startMeth, strArray);
+
+#if 0
+            if (env-&gt;ExceptionCheck())
+                threadExitUncaughtException(env);
+#endif
+        }
+    }
+    ...
+}
+</code></pre><p><br></p>
+<h4 id="创建Socket"><a href="#创建Socket" class="headerlink" title="创建Socket"></a>创建Socket</h4><ul>
+<li>zygote使用c/s模式，由AMS发送孵化请求，zygote接受到请求之后就进行fork，ZygoteInit的main方法主要流程是，创建LocalServerSocket，预加载类和资源，启动SystemServer，等待AMS请求</li>
+</ul>
+<pre><code>public static void main(String argv[]) {
+        ...
+        try {
+            // Report Zygote start time to tron unless it is a runtime restart
+            if (!&quot;1&quot;.equals(SystemProperties.get(&quot;sys.boot_completed&quot;))) {
+                MetricsLogger.histogram(null, &quot;boot_zygote_init&quot;,
+                        (int) SystemClock.elapsedRealtime());
+            }
+
+            String bootTimeTag = Process.is64Bit() ? &quot;Zygote64Timing&quot; : &quot;Zygote32Timing&quot;;
+            BootTimingsTraceLog bootTimingsTraceLog = new BootTimingsTraceLog(bootTimeTag,
+                    Trace.TRACE_TAG_DALVIK);
+            bootTimingsTraceLog.traceBegin(&quot;ZygoteInit&quot;);
+            RuntimeInit.enableDdms();
+            // Start profiling the zygote initialization.
+            SamplingProfilerIntegration.start();
+
+            boolean startSystemServer = false;
+            String socketName = &quot;zygote&quot;;
+            String abiList = null;
+            boolean enableLazyPreload = false;
+            for (int i = 1; i &lt; argv.length; i++) {
+                if (&quot;start-system-server&quot;.equals(argv[i])) {
+                    startSystemServer = true;
+                } else if (&quot;--enable-lazy-preload&quot;.equals(argv[i])) {
+                    enableLazyPreload = true;
+                } else if (argv[i].startsWith(ABI_LIST_ARG)) {
+                    abiList = argv[i].substring(ABI_LIST_ARG.length());
+                } else if (argv[i].startsWith(SOCKET_NAME_ARG)) {
+                    socketName = argv[i].substring(SOCKET_NAME_ARG.length());
+                } else {
+                    throw new RuntimeException(&quot;Unknown command line argument: &quot; + argv[i]);
+                }
+            }
+
+            if (abiList == null) {
+                throw new RuntimeException(&quot;No ABI list supplied.&quot;);
+            }
+
+            zygoteServer.registerServerSocket(socketName);
+            // In some configurations, we avoid preloading resources and classes eagerly.
+            // In such cases, we will preload things prior to our first fork.
+            if (!enableLazyPreload) {
+                bootTimingsTraceLog.traceBegin(&quot;ZygotePreload&quot;);
+                EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_START,
+                    SystemClock.uptimeMillis());
+                preload(bootTimingsTraceLog);
+                EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_END,
+                    SystemClock.uptimeMillis());
+                bootTimingsTraceLog.traceEnd(); // ZygotePreload
+            } else {
+                Zygote.resetNicePriority();
+            }
+
+            // Finish profiling the zygote initialization.
+            SamplingProfilerIntegration.writeZygoteSnapshot();
+
+            // Do an initial gc to clean up after startup
+            bootTimingsTraceLog.traceBegin(&quot;PostZygoteInitGC&quot;);
+            gcAndFinalize();
+            bootTimingsTraceLog.traceEnd(); // PostZygoteInitGC
+
+            bootTimingsTraceLog.traceEnd(); // ZygoteInit
+            // Disable tracing so that forked processes do not inherit stale tracing tags from
+            // Zygote.
+            Trace.setTracingEnabled(false);
+
+            // Zygote process unmounts root storage spaces.
+            Zygote.nativeUnmountStorageOnInit();
+
+            // Set seccomp policy
+            Seccomp.setPolicy();
+
+            ZygoteHooks.stopZygoteNoThreadCreation();
+
+            if (startSystemServer) {
+                startSystemServer(abiList, socketName, zygoteServer);
+            }
+
+            Log.i(TAG, &quot;Accepting command socket connections&quot;);
+            zygoteServer.runSelectLoop(abiList);
+
+            zygoteServer.closeServerSocket();
+        } catch (Zygote.MethodAndArgsCaller caller) {
+            caller.run();
+        } catch (Throwable ex) {
+            Log.e(TAG, &quot;System zygote died with exception&quot;, ex);
+            zygoteServer.closeServerSocket();
+            throw ex;
+        }
+    }
+</code></pre><ul>
+<li>在linux中常用的ipc机制为，管道(pipe)，消息队列(message queue)，信号(signal)，信号量(Semaphore)，共享内存(share memory),套接字(socket)，在Android系统内部常用的ipc机制为 binder，匿名共享内存(ashmem)，LocalSocket。LocalSocket本身也不是一种原始的机制，它是Android中对Linux Socket的封装，能够bind到一个本地的文件描述符(fd)而不是某个IP地址和端口号，在系统内部大量使用</li>
+</ul>
+<pre><code>socket adbd stream 660 system system
+    socket vold stream 0660 root mount
+    socket netd stream 0660 root system
+    socket dnsproxyd stream 0660 root inet
+    socket mdns stream 0660 root system
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    socket zygote stream 660 root system
+    socket installd stream 600 system system
+    socket racoon stream 600 system system
+    socket mtpd stream 600 system system
+    socket dumpstate stream 0660 shell log
+    socket mdnsd stream 0660 mdnsr inet
+</code></pre><p><br></p>
 <h3 id="SystemServer进程"><a href="#SystemServer进程" class="headerlink" title="SystemServer进程"></a>SystemServer进程</h3><p><br></p>
-<h4 id="启动Binder"><a href="#启动Binder" class="headerlink" title="启动Binder"></a>启动Binder</h4><p><br></p>
-<h4 id="创建SystemServiceManager"><a href="#创建SystemServiceManager" class="headerlink" title="创建SystemServiceManager"></a>创建SystemServiceManager</h4><p><br></p>
-<h4 id="启动系统服务"><a href="#启动系统服务" class="headerlink" title="启动系统服务"></a>启动系统服务</h4><p><br></p>
-<h3 id="Launcher进程"><a href="#Launcher进程" class="headerlink" title="Launcher进程"></a>Launcher进程</h3>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><ul>
+<li>SystemServer是zygote进程fork出来的第一个进程，主要用于创建系统服务</li>
+</ul>
+<pre><code>    /* Request to fork the system server process */
+    pid = Zygote.forkSystemServer(
+            parsedArgs.uid, parsedArgs.gid,
+            parsedArgs.gids,
+            parsedArgs.debugFlags,
+            null,
+            parsedArgs.permittedCapabilities,
+            parsedArgs.effectiveCapabilities);
+} catch (IllegalArgumentException ex) {
+    throw new RuntimeException(ex);
+}
+
+/* For child process */
+if (pid == 0) {
+    if (hasSecondZygote(abiList)) {
+        waitForSecondaryZygote(socketName);
+    }
+
+    zygoteServer.closeServerSocket();
+    handleSystemServerProcess(parsedArgs);
+}
+</code></pre><ul>
+<li>因为SystemServer复制了zygote的进程空间，因此需要做一些清理工作，主要是关闭之前开启的socket，之后会调用nativeZygoteInit在native层完成初始化工作，然后的RuntimeInit.applicationInit方法会找到SystemServer类的main方法并通过异常的方式将该Method对象抛出来，这个异常会在ZygoteInit的main方法中接受并取出方法进行反射调用，这样做可以清理之前初始化工作堆栈帧，使SystemServer的main方法更像进程入口</li>
+</ul>
+<pre><code>public static final void zygoteInit(int targetSdkVersion, String[] argv,
+        ClassLoader classLoader) throws Zygote.MethodAndArgsCaller {
+    if (RuntimeInit.DEBUG) {
+        Slog.d(RuntimeInit.TAG, &quot;RuntimeInit: Starting application from zygote&quot;);
+    }
+
+    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ZygoteInit&quot;);
+    RuntimeInit.redirectLogStreams();
+
+    RuntimeInit.commonInit();
+    ZygoteInit.nativeZygoteInit();
+    RuntimeInit.applicationInit(targetSdkVersion, argv, classLoader); //此处抛出异常
+}
+</code></pre><p><br></p>
+<h4 id="启动Binder"><a href="#启动Binder" class="headerlink" title="启动Binder"></a>启动Binder</h4><ul>
+<li>SystemServer的nativeZygoteInit最终会初始化一个binder连接池，用于与其他进程进行通信</li>
+</ul>
+<pre><code>virtual void onZygoteInit()
+  {
+      sp&lt;ProcessState&gt; proc = ProcessState::self();
+      ALOGV(&quot;App process: starting thread pool.\n&quot;);
+      proc-&gt;startThreadPool();
+  }
+</code></pre><p><br></p>
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><ul>
+<li>SystemServer的java层，也就是SystemServer类，main方法执行run，主要流程为，初始化looper，加载so库（libandroid_servers.so，系统服务组件），创建context，启动系统服务</li>
+</ul>
+<ul>
+<li>SystemServiceManager负责对系统服务进行创建，启动，生命周期管理</li>
+</ul>
+<ul>
+<li>系统服务，android把服务分为3类，引导服务，核心服务，其他服务，引导服务包括Installers，DisplayManagerService等需要最先启动的服务，核心服务包括BatteryService，WebViewUpdateService等重要的服务，其他服务则是非紧要或不需要立即启动的服务，注意所有这些服务都创建在 SystemServer进程的线程当中，和我们平时业务中创建的服务不一样，我们平时在manifest中指定了进程的service，会通过socket发送给zygote来开启新进程</li>
+</ul>
+<pre><code>    public static void main(String[] args) {
+        new SystemServer().run();
+    }
+
+    private void run() {
+        try {
+            ...
+            Looper.prepareMainLooper();
+
+            // Initialize native services.
+            System.loadLibrary(&quot;android_servers&quot;);
+
+            // Check whether we failed to shut down last time we tried.
+            // This call may not return.
+            performPendingShutdown();
+
+            // Initialize the system context.
+            createSystemContext();
+
+            // Create the system service manager.
+            mSystemServiceManager = new SystemServiceManager(mSystemContext);
+            mSystemServiceManager.setRuntimeRestarted(mRuntimeRestart);
+            LocalServices.addService(SystemServiceManager.class, mSystemServiceManager);
+            // Prepare the thread pool for init tasks that can be parallelized
+            SystemServerInitThreadPool.get();
+        } finally {
+            traceEnd();  // InitBeforeStartServices
+        }
+
+        // Start services.
+        try {
+            traceBeginAndSlog(&quot;StartServices&quot;);
+            startBootstrapServices();
+            startCoreServices();
+            startOtherServices();
+            SystemServerInitThreadPool.shutdown();
+        } catch (Throwable ex) {
+            throw ex;
+        } finally {
+            traceEnd();
+        }
+}
+</code></pre><p><br></p>
+<h4 id="注册服务"><a href="#注册服务" class="headerlink" title="注册服务"></a>注册服务</h4><ul>
+<li>SystemServiceManager虽然负责对service的生命周期管理，但是对于这些公用的service，不管是系统创建的，还是我们<a href="https://my.oschina.net/u/262208/blog/379584" target="_blank" rel="external">添加的service</a>，都需要一种机制进行获取，这个时候就涉及binder通信，这个时候使用的是另一个类叫ServiceManager，这个类的主要方法有addService（），getService（），listServices（），主要职责是控制用户访问服务，控制服务是否可以使用这一接口（通过注册时的检查权限），管理Service</li>
+</ul>
+<ul>
+<li>如PackageManagerService的main方法，就将自己添加到ServiceManager当中</li>
+</ul>
+<pre><code>public static PackageManagerService main(Context context, Installer installer,
+          boolean factoryTest, boolean onlyCore) {
+      // Self-check for initial settings.
+      PackageManagerServiceCompilerMapping.checkProperties();
+
+      PackageManagerService m = new PackageManagerService(context, installer,
+              factoryTest, onlyCore);
+      m.enableSystemUserPackages();
+      ServiceManager.addService(&quot;package&quot;, m);
+      return m;
+  }
+</code></pre><p><br></p>
+<h3 id="AMS"><a href="#AMS" class="headerlink" title="AMS"></a>AMS</h3><p><br></p>
+<h5 id="launcher启动"><a href="#launcher启动" class="headerlink" title="launcher启动"></a>launcher启动</h5><ul>
+<li>ActivityManagerService是在SystemServer中的startOtherServices中创建的，它的systemReady方法中创建了launcher</li>
+</ul>
+<p><br></p>
+<h5 id="应用进程启动"><a href="#应用进程启动" class="headerlink" title="应用进程启动"></a>应用进程启动</h5><p><br><br><strong>未完待续</strong></p>
+
     
 
     
