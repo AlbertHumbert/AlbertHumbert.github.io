@@ -3,6 +3,28 @@
   
     
     <entry>
+      <title><![CDATA[深入Java并发 4 锁]]></title>
+      <url>/2019/01/12/ConcurLock/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android 虚拟机系列]]></title>
       <url>/2019/01/11/avm/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -318,7 +340,7 @@ if (pid == 0) {
     handleSystemServerProcess(parsedArgs);
 }
 </code></pre><ul>
-<li>因为SystemServer复制了zygote的进程空间，因此需要做一些清理工作，主要是关闭之前开启的socket，之后会调用nativeZygoteInit在native层完成初始化工作，然后的RuntimeInit.applicationInit方法会找到SystemServer类的main方法并通过异常的方式将该Method对象抛出来，这个异常会在ZygoteInit的main方法中接受并取出方法进行反射调用，这样做可以清理之前初始化工作堆栈帧，使SystemServer的main方法更像进程入口</li>
+<li>因为SystemServer复制了zygote的进程空间，因此需要做一些清理工作，主要是关闭之前开启的socket，之后会调用nativeZygoteInit在native层完成初始化工作，然后的RuntimeInit.applicationInit方法会通过传入的全限定名（这里是SystemServer类的main方法）找到main方法并通过异常的方式将该Method对象抛出来，这个异常会在ZygoteInit的main方法中接受并取出方法进行反射调用，这样做可以清理之前初始化工作堆栈帧，使SystemServer的main方法更像进程入口</li>
 </ul>
 <pre><code>public static final void zygoteInit(int targetSdkVersion, String[] argv,
         ClassLoader classLoader) throws Zygote.MethodAndArgsCaller {
@@ -415,11 +437,176 @@ if (pid == 0) {
   }
 </code></pre><p><br></p>
 <h3 id="AMS"><a href="#AMS" class="headerlink" title="AMS"></a>AMS</h3><p><br></p>
-<h5 id="launcher启动"><a href="#launcher启动" class="headerlink" title="launcher启动"></a>launcher启动</h5><ul>
-<li>ActivityManagerService是在SystemServer中的startOtherServices中创建的，它的systemReady方法中创建了launcher</li>
+<h5 id="应用进程启动"><a href="#应用进程启动" class="headerlink" title="应用进程启动"></a>应用进程启动</h5><ul>
+<li>SystemServiceManager中创建的ActivityManagerService用来统一接受启动组件的请求，如果组件所在的应用的进程不存在就会使用LocalSocket来向zygote请求创建新的应用进程，同时它还负责创建binder池，主要流程为一下几步</li>
 </ul>
-<p><br></p>
-<h5 id="应用进程启动"><a href="#应用进程启动" class="headerlink" title="应用进程启动"></a>应用进程启动</h5><p><br><br><strong>未完待续</strong></p>
+<ul>
+<li>设置 uid 和 gid，uid和gid相关内容可以看这篇<a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">文章</a>，简单来说（只讨论单用户的android机），系统会为每个应用赋予一个uid，如果多个应用没有在manifest中指定相同的uid的话，uid就是唯一的，应用独占一个进程，否则他们共享uid，并且运行在同一进程，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户）</li>
+</ul>
+<pre><code>private final void startProcessLocked(ProcessRecord app, String hostingType,String hostingNameStr, String abiOverride, String entryPoint, String[] entryPointArgs) {
+       //...
+        try {
+            try {
+                final int userId = UserHandle.getUserId(app.uid);
+                AppGlobals.getPackageManager().checkPackageStartable(app.info.packageName, userId);
+            } catch (RemoteException e) {
+                throw e.rethrowAsRuntimeException();
+            }
+
+            int uid = app.uid;
+            int[] gids = null;
+            int mountExternal = Zygote.MOUNT_EXTERNAL_NONE;
+            if (!app.isolated) {
+                int[] permGids = null;
+                try {
+                    checkTime(startTime, &quot;startProcess: getting gids from package manager&quot;);
+                    final IPackageManager pm = AppGlobals.getPackageManager();
+                    permGids = pm.getPackageGids(app.info.packageName,
+                            MATCH_DEBUG_TRIAGED_MISSING, app.userId);
+                    StorageManagerInternal storageManagerInternal = LocalServices.getService(
+                            StorageManagerInternal.class);
+                    mountExternal = storageManagerInternal.getExternalStorageMountMode(uid,
+                            app.info.packageName);
+                } catch (RemoteException e) {
+                    throw e.rethrowAsRuntimeException();
+                }
+
+                /*
+                 * Add shared application and profile GIDs so applications can share some
+                 * resources like shared libraries and access user-wide resources
+                 */
+                if (ArrayUtils.isEmpty(permGids)) {
+                    gids = new int[3];
+                } else {
+                    gids = new int[permGids.length + 3];
+                    System.arraycopy(permGids, 0, gids, 3, permGids.length);
+                }
+                gids[0] = UserHandle.getSharedAppGid(UserHandle.getAppId(uid));
+                gids[1] = UserHandle.getCacheAppGid(UserHandle.getAppId(uid));
+                gids[2] = UserHandle.getUserGid(UserHandle.getUserId(uid));
+            }
+     //...
+            if (entryPoint == null) entryPoint = &quot;android.app.ActivityThread&quot;;
+            Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;Start proc: &quot; +
+                    app.processName);
+            checkTime(startTime, &quot;startProcess: asking zygote to start proc&quot;);
+            ProcessStartResult startResult;
+            if (hostingType.equals(&quot;webview_service&quot;)) {
+                startResult = startWebView(entryPoint,
+                        app.processName, uid, uid, gids, debugFlags, mountExternal,
+                        app.info.targetSdkVersion, seInfo, requiredAbi, instructionSet,
+                        app.info.dataDir, null, entryPointArgs);
+            } else {
+                startResult = Process.start(entryPoint,
+                        app.processName, uid, uid, gids, debugFlags, mountExternal,
+                        app.info.targetSdkVersion, seInfo, requiredAbi, instructionSet,
+                        app.info.dataDir, invokeWith, entryPointArgs);
+            }
+    //...
+    }
+</code></pre><ul>
+<li>Process.start方法最终调用到ZygoteProcess的openZygoteSocketIfNeeded方法，在这里将会建立socket连接，之前说到zygote可能同时存在两个，所以这里会先尝试链接主模式的zygote，查看是否匹配，否则链接辅模式的zygote，这里是否匹配的标准是根据ZygoteState返回的abi是否支持传入的abi，前者是从ro.product.cpu.abilist64，ro.product.cpu.abilist32这两个属性得来的，后者在前面abi一节已经提过了</li>
+</ul>
+<pre><code>private ZygoteState openZygoteSocketIfNeeded(String abi) throws ZygoteStartFailedEx {
+      Preconditions.checkState(Thread.holdsLock(mLock), &quot;ZygoteProcess lock not held&quot;);
+
+      if (primaryZygoteState == null || primaryZygoteState.isClosed()) {
+          try {
+              primaryZygoteState = ZygoteState.connect(mSocket);
+          } catch (IOException ioe) {
+              throw new ZygoteStartFailedEx(&quot;Error connecting to primary zygote&quot;, ioe);
+          }
+      }
+
+      if (primaryZygoteState.matches(abi)) {
+          return primaryZygoteState;
+      }
+
+      // The primary zygote didn&apos;t match. Try the secondary.
+      if (secondaryZygoteState == null || secondaryZygoteState.isClosed()) {
+          try {
+              secondaryZygoteState = ZygoteState.connect(mSecondarySocket);
+          } catch (IOException ioe) {
+              throw new ZygoteStartFailedEx(&quot;Error connecting to secondary zygote&quot;, ioe);
+          }
+      }
+
+      if (secondaryZygoteState.matches(abi)) {
+          return secondaryZygoteState;
+      }
+
+      throw new ZygoteStartFailedEx(&quot;Unsupported zygote ABI: &quot; + abi);
+  }
+</code></pre><ul>
+<li>ZygoteServer中执行了runSelectLoop进行循环监听，具体执行其中一个请求的方法是ZygoteConnection的runOnce方法，关键的一步在于Zygote.forkAndSpecialize，使用fork来创建一个进程</li>
+</ul>
+<pre><code>boolean runOnce(ZygoteServer zygoteServer) throws Zygote.MethodAndArgsCaller {
+
+    String args[];
+    Arguments parsedArgs = null;
+    FileDescriptor[] descriptors;
+
+    try {
+        args = readArgumentList();
+        descriptors = mSocket.getAncillaryFileDescriptors();
+    } catch (IOException ex) {
+        Log.w(TAG, &quot;IOException on command socket &quot; + ex.getMessage());
+        closeSocket();
+        return true;
+    }
+
+    if (args == null) {
+        // EOF reached.
+        closeSocket();
+        return true;
+    }
+
+   //...
+
+    try {
+        parsedArgs = new Arguments(args);
+
+       //...
+        pid = Zygote.forkAndSpecialize(parsedArgs.uid, parsedArgs.gid, parsedArgs.gids,
+                parsedArgs.debugFlags, rlimits, parsedArgs.mountExternal, parsedArgs.seInfo,
+                parsedArgs.niceName, fdsToClose, fdsToIgnore, parsedArgs.instructionSet,
+                parsedArgs.appDataDir);
+    } catch (ErrnoException ex) {
+        logAndPrintError(newStderr, &quot;Exception creating pipe&quot;, ex);
+    } catch (IllegalArgumentException ex) {
+        logAndPrintError(newStderr, &quot;Invalid zygote arguments&quot;, ex);
+    } catch (ZygoteSecurityException ex) {
+        logAndPrintError(newStderr,
+                &quot;Zygote security policy prevents request: &quot;, ex);
+    }
+
+    try {
+        if (pid == 0) {
+            // in child
+            zygoteServer.closeServerSocket();
+            IoUtils.closeQuietly(serverPipeFd);
+            serverPipeFd = null;
+            handleChildProc(parsedArgs, descriptors, childPipeFd, newStderr);
+
+            // should never get here, the child is expected to either
+            // throw Zygote.MethodAndArgsCaller or exec().
+            return true;
+        } else {
+            // in parent...pid of &lt; 0 means failure
+            IoUtils.closeQuietly(childPipeFd);
+            childPipeFd = null;
+            return handleParentProc(pid, descriptors, serverPipeFd, parsedArgs);
+        }
+    } finally {
+        IoUtils.closeQuietly(childPipeFd);
+        IoUtils.closeQuietly(serverPipeFd);
+    }
+}
+</code></pre><ul>
+<li>上面最后的handleParentProc会调用ZygoteInit的zygoteInit，这之后的流程就和SystemServer的启动流程一致了，同样会创建binder池，查找main方法，区别只在传入的参数不同，我们需要关注的是传入的main方法签名，这个情况下是ActivityThread的main方法，找到它后同样是抛出异常由ZygoteInit的main捕获并调用，这样进程就创建完毕并且进入ActivityThread管理主线程了</li>
+</ul>
+<p><br><br><strong>系统的启动流程就到这里，之后的文章继续组件的启动流程</strong></p>
+<p><br><br><strong>本篇完</strong></p>
 ]]></content>
       
         <categories>
@@ -994,7 +1181,7 @@ CPU A同步CPU B的x,将cache a和同步后cache b中的x设置为S状态（共�
 <ul>
 <li>锁代码块，synchronized (xxx){} 的形式，将编译为以下字节码，线程执行到monitorenter指令会去获取对应的monitor，每一个monitor维护一个计数器，空闲时为0，当一个线程获得monitor时计数器自增，解锁时自减，其他线程获取时则导致阻塞直到计数器从新为0</li>
 </ul>
-<pre><code>    monitorenter
+<pre><code>monitorenter
 ...
 monitorexit
 </code></pre><ul>
