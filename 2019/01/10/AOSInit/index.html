@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 10, 2019" />
-        <meta property="article:modified_time" content="1月 14, 2019" />
+        <meta property="article:modified_time" content="1月 15, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 系统系列 Android 系统启动流程",
     "url": "https://alberthumbert.github.io/2019/01/10/AOSInit/index.html",
     "datePublished": "1月 10, 2019",
-    "dateModified": "1月 14, 2019",
+    "dateModified": "1月 15, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -890,7 +890,7 @@ if (pid == 0) {
 </code></pre><p><br></p>
 <h3 id="AMS"><a href="#AMS" class="headerlink" title="AMS"></a>AMS</h3><p><br></p>
 <h5 id="应用进程启动"><a href="#应用进程启动" class="headerlink" title="应用进程启动"></a>应用进程启动</h5><ul>
-<li>SystemServiceManager中创建的ActivityManagerService用来统一接受启动组件的请求，如果组件所在的应用的进程不存在就会使用LocalSocket来向zygote请求创建新的应用进程，同时它还负责创建binder池，主要流程为一下几步</li>
+<li>SystemServiceManager中创建的ActivityManagerService用来统一接受启动组件的请求，如果组件所在的应用的进程不存在就会使用LocalSocket来向zygote请求创建新的应用进程，同时它还负责创建binder池，主要流程为以下几步</li>
 </ul>
 <ul>
 <li>设置 uid 和 gid，uid和gid相关内容可以看这篇<a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">文章</a>，简单来说（只讨论单用户的android机），系统会为每个应用赋予一个uid，如果多个应用没有在manifest中指定相同的uid的话，uid就是唯一的，应用独占一个进程，否则他们共享uid，并且运行在同一进程，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户）</li>

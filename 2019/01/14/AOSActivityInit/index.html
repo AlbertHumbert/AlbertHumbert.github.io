@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#根Activity"><span class="post-toc-number">1.</span> <span class="post-toc-text">根Activity</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Launcher请求过程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Launcher请求过程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS请求Zygote过程"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">AMS请求Zygote过程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS请求ApplicationThread过程"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">AMS请求ApplicationThread过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通Activity"><span class="post-toc-number">2.</span> <span class="post-toc-text">普通Activity</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#根Activity"><span class="post-toc-number">1.</span> <span class="post-toc-text">根Activity</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Launcher请求过程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Launcher请求过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#构造intent"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">构造intent</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Instrumentation"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">Instrumentation</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS请求Zygote过程"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">AMS请求Zygote过程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS请求ApplicationThread过程"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">AMS请求ApplicationThread过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通Activity"><span class="post-toc-number">2.</span> <span class="post-toc-text">普通Activity</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -520,8 +520,69 @@
 <li>当应用进程创建完毕之后AMS会向应用进程当中的ApplicationThread请求创建根Activity，ApplicationThread，ApplicationThread最终通过ActivityThread创建Activity，并且调用preformCreate方法，这个方法会调用我们熟悉的onCreate方法</li>
 </ul>
 <p><br></p>
-<h4 id="Launcher请求过程"><a href="#Launcher请求过程" class="headerlink" title="Launcher请求过程"></a>Launcher请求过程</h4><ul>
+<h4 id="Launcher请求过程"><a href="#Launcher请求过程" class="headerlink" title="Launcher请求过程"></a>Launcher请求过程</h4><p><br></p>
+<h5 id="构造intent"><a href="#构造intent" class="headerlink" title="构造intent"></a>构造intent</h5><ul>
 <li>该过程由Launcher向AMS发送启动根Activity请求</li>
+</ul>
+<ul>
+<li>当用户点击应用图标时，Launcher将构造intent，并调用startActivity方法，该intent的启动模式为newTask,因此它会在新的任务栈中启动</li>
+</ul>
+<pre><code>public boolean startActivitySafely(View v, Intent intent, ItemInfo item) {
+
+//…
+    // Prepare intent
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    if (v != null) {
+        intent.setSourceBounds(getViewBounds(v));
+    }
+    try {
+        if (Utilities.ATLEAST_MARSHMALLOW
+                &amp;&amp; (item instanceof ShortcutInfo)
+                &amp;&amp; (item.itemType == Favorites.ITEM_TYPE_SHORTCUT
+                 || item.itemType == Favorites.ITEM_TYPE_DEEP_SHORTCUT)
+                &amp;&amp; !((ShortcutInfo) item).isPromise()) {
+            // Shortcuts need some special checks due to legacy reasons.
+            startShortcutIntentSafely(intent, optsBundle, item);
+        } else if (user == null || user.equals(Process.myUserHandle())) {
+            // Could be launching some bookkeeping activity
+            startActivity(intent, optsBundle);
+        } else {
+            LauncherAppsCompat.getInstance(this).startActivityForProfile(
+                    intent.getComponent(), user, intent.getSourceBounds(), optsBundle);
+        }
+        return true;
+    } catch (ActivityNotFoundException|SecurityException e) {
+        Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
+        Log.e(TAG, &quot;Unable to launch. tag=&quot; + item + &quot; intent=&quot; + intent, e);
+    }
+    return false;
+}
+</code></pre><p><br></p>
+<h5 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a>Instrumentation</h5><ul>
+<li>Instrumentation类会在应用的任何代码执行前被实列化,用来监控系统与应用的交互。Instrumentation另一个重要作用是提供Android组件自动化测试，可在以应用的AndroidManifest.xml中\<instrumentation\>标签来注册一个Instrumentation的实现，<a href="http://www.cnblogs.com/keke-xiaoxiami/p/4307571.html" target="_blank" rel="external">详见</a></instrumentation\></li>
+</ul>
+<ul>
+<li>startActivity方法会调用Instrumentation的execStartActivity方法</li>
+</ul>
+<pre><code>public ActivityResult execStartActivity(Context who, IBinder contextThread, IBinder token, Activity target,Intent intent, int requestCode, Bundle options) {
+
+    //…
+    try {
+        intent.migrateExtraStreamToClipData();
+        intent.prepareToLeaveProcess(who);
+        int result = ActivityManager.getService()
+            .startActivity(whoThread, who.getBasePackageName(), intent,
+                    intent.resolveTypeIfNeeded(who.getContentResolver()),
+                    token, target != null ? target.mEmbeddedID : null,
+                    requestCode, 0, null, options);
+        checkStartActivityResult(result, intent);
+    } catch (RemoteException e) {
+        throw new RuntimeException(&quot;Failure from system&quot;, e);
+    }
+    return null;
+}
+</code></pre><ul>
+<li>execStartActivity会调用到ActivityManager的getService方法来获取AMS的代理对象并调用startActivity方法。这个代理对象也是从ServiceManager中的getService中获取的，这里不是很重要，因此略过</li>
 </ul>
 <p><br></p>
 <h4 id="AMS请求Zygote过程"><a href="#AMS请求Zygote过程" class="headerlink" title="AMS请求Zygote过程"></a>AMS请求Zygote过程</h4><p><br><br><strong>见上篇</strong></p>

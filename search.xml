@@ -48,8 +48,69 @@
 <li>当应用进程创建完毕之后AMS会向应用进程当中的ApplicationThread请求创建根Activity，ApplicationThread，ApplicationThread最终通过ActivityThread创建Activity，并且调用preformCreate方法，这个方法会调用我们熟悉的onCreate方法</li>
 </ul>
 <p><br></p>
-<h4 id="Launcher请求过程"><a href="#Launcher请求过程" class="headerlink" title="Launcher请求过程"></a>Launcher请求过程</h4><ul>
+<h4 id="Launcher请求过程"><a href="#Launcher请求过程" class="headerlink" title="Launcher请求过程"></a>Launcher请求过程</h4><p><br></p>
+<h5 id="构造intent"><a href="#构造intent" class="headerlink" title="构造intent"></a>构造intent</h5><ul>
 <li>该过程由Launcher向AMS发送启动根Activity请求</li>
+</ul>
+<ul>
+<li>当用户点击应用图标时，Launcher将构造intent，并调用startActivity方法，该intent的启动模式为newTask,因此它会在新的任务栈中启动</li>
+</ul>
+<pre><code>public boolean startActivitySafely(View v, Intent intent, ItemInfo item) {
+
+//…
+    // Prepare intent
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    if (v != null) {
+        intent.setSourceBounds(getViewBounds(v));
+    }
+    try {
+        if (Utilities.ATLEAST_MARSHMALLOW
+                &amp;&amp; (item instanceof ShortcutInfo)
+                &amp;&amp; (item.itemType == Favorites.ITEM_TYPE_SHORTCUT
+                 || item.itemType == Favorites.ITEM_TYPE_DEEP_SHORTCUT)
+                &amp;&amp; !((ShortcutInfo) item).isPromise()) {
+            // Shortcuts need some special checks due to legacy reasons.
+            startShortcutIntentSafely(intent, optsBundle, item);
+        } else if (user == null || user.equals(Process.myUserHandle())) {
+            // Could be launching some bookkeeping activity
+            startActivity(intent, optsBundle);
+        } else {
+            LauncherAppsCompat.getInstance(this).startActivityForProfile(
+                    intent.getComponent(), user, intent.getSourceBounds(), optsBundle);
+        }
+        return true;
+    } catch (ActivityNotFoundException|SecurityException e) {
+        Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
+        Log.e(TAG, &quot;Unable to launch. tag=&quot; + item + &quot; intent=&quot; + intent, e);
+    }
+    return false;
+}
+</code></pre><p><br></p>
+<h5 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a>Instrumentation</h5><ul>
+<li>Instrumentation类会在应用的任何代码执行前被实列化,用来监控系统与应用的交互。Instrumentation另一个重要作用是提供Android组件自动化测试，可在以应用的AndroidManifest.xml中\<instrumentation\>标签来注册一个Instrumentation的实现，<a href="http://www.cnblogs.com/keke-xiaoxiami/p/4307571.html" target="_blank" rel="external">详见</a></instrumentation\></li>
+</ul>
+<ul>
+<li>startActivity方法会调用Instrumentation的execStartActivity方法</li>
+</ul>
+<pre><code>public ActivityResult execStartActivity(Context who, IBinder contextThread, IBinder token, Activity target,Intent intent, int requestCode, Bundle options) {
+
+    //…
+    try {
+        intent.migrateExtraStreamToClipData();
+        intent.prepareToLeaveProcess(who);
+        int result = ActivityManager.getService()
+            .startActivity(whoThread, who.getBasePackageName(), intent,
+                    intent.resolveTypeIfNeeded(who.getContentResolver()),
+                    token, target != null ? target.mEmbeddedID : null,
+                    requestCode, 0, null, options);
+        checkStartActivityResult(result, intent);
+    } catch (RemoteException e) {
+        throw new RuntimeException(&quot;Failure from system&quot;, e);
+    }
+    return null;
+}
+</code></pre><ul>
+<li>execStartActivity会调用到ActivityManager的getService方法来获取AMS的代理对象并调用startActivity方法。这个代理对象也是从ServiceManager中的getService中获取的，这里不是很重要，因此略过</li>
 </ul>
 <p><br></p>
 <h4 id="AMS请求Zygote过程"><a href="#AMS请求Zygote过程" class="headerlink" title="AMS请求Zygote过程"></a>AMS请求Zygote过程</h4><p><br><br><strong>见上篇</strong></p>
@@ -514,7 +575,7 @@ if (pid == 0) {
 </code></pre><p><br></p>
 <h3 id="AMS"><a href="#AMS" class="headerlink" title="AMS"></a>AMS</h3><p><br></p>
 <h5 id="应用进程启动"><a href="#应用进程启动" class="headerlink" title="应用进程启动"></a>应用进程启动</h5><ul>
-<li>SystemServiceManager中创建的ActivityManagerService用来统一接受启动组件的请求，如果组件所在的应用的进程不存在就会使用LocalSocket来向zygote请求创建新的应用进程，同时它还负责创建binder池，主要流程为一下几步</li>
+<li>SystemServiceManager中创建的ActivityManagerService用来统一接受启动组件的请求，如果组件所在的应用的进程不存在就会使用LocalSocket来向zygote请求创建新的应用进程，同时它还负责创建binder池，主要流程为以下几步</li>
 </ul>
 <ul>
 <li>设置 uid 和 gid，uid和gid相关内容可以看这篇<a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">文章</a>，简单来说（只讨论单用户的android机），系统会为每个应用赋予一个uid，如果多个应用没有在manifest中指定相同的uid的话，uid就是唯一的，应用独占一个进程，否则他们共享uid，并且运行在同一进程，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户）</li>
