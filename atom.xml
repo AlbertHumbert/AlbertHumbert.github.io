@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-14T07:13:22.106Z</updated>
+  <updated>2019-01-15T02:45:40.245Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Android 系统系列 组件启动流程</title>
-    <link href="https://alberthumbert.github.io/2019/01/14/AOSComponentInit/"/>
-    <id>https://alberthumbert.github.io/2019/01/14/AOSComponentInit/</id>
+    <title>深入JVM系列 9 - 运行时数据区</title>
+    <link href="https://alberthumbert.github.io/2019/01/15/JVMRuntime/"/>
+    <id>https://alberthumbert.github.io/2019/01/15/JVMRuntime/</id>
+    <published>2019-01-15T02:44:14.000Z</published>
+    <updated>2019-01-15T02:45:40.245Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android 系统系列 Activity启动流程</title>
+    <link href="https://alberthumbert.github.io/2019/01/14/AOSActivityInit/"/>
+    <id>https://alberthumbert.github.io/2019/01/14/AOSActivityInit/</id>
     <published>2019-01-14T07:12:42.000Z</published>
-    <updated>2019-01-14T07:13:22.106Z</updated>
+    <updated>2019-01-15T03:16:02.451Z</updated>
     
     <summary type="html">
     
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2018/11/17/SpringDeploy/</id>
     <published>2018-11-17T15:44:21.000Z</published>
     <updated>2018-11-17T17:20:37.554Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入计算机网络  2 - IP 和 IPv4</title>
-    <link href="https://alberthumbert.github.io/2018/11/10/NetIPv4/"/>
-    <id>https://alberthumbert.github.io/2018/11/10/NetIPv4/</id>
-    <published>2018-11-10T15:13:18.000Z</published>
-    <updated>2018-11-10T17:03:17.609Z</updated>
     
     <summary type="html">
     
