@@ -310,13 +310,10 @@
 <p><br></p>
 <h4 id="AMS处理请求"><a href="#AMS处理请求" class="headerlink" title="AMS处理请求"></a>AMS处理请求</h4><p><strong>这部分可能和上文创建应用进程有重复的地方，不过上篇只是大致讲了请求zygote的过程，这部分关注Activity和栈</strong></p>
 <ul>
-<li>AMS的startActivity方法，他会调用startActivityAsUser，这个方法判断进程是否被隔离</li>
+<li>AMS的startActivity方法，他会调用startActivityAsUser，这个方法判断进程是否被隔离，关于进程隔离可以看<a href="https://tocreate.app/2019/01/16/AndroidID/" target="_blank" rel="external">这篇</a></li>
 </ul>
 <ul>
-<li>的startActivityMayWait方法，ActivityStarter是7.0里的一个架构优化，负责Activity的启动，它会收集所有的逻辑，来决定如何将intent和flag转换为Activity</li>
-</ul>
-<ul>
-<li>startActivityMayWait方法会调用startActivity方法，调用之前会先判断请求</li>
+<li>startActivity会调用ActivityStarter的startActivityMayWait方法，ActivityStarter是7.0里的一个架构优化，负责Activity的启动，它会收集所有的逻辑，来决定如何将intent和flag转换为Activity</li>
 </ul>
 <p><br></p>
 <h4 id="AMS请求ApplicationThread过程"><a href="#AMS请求ApplicationThread过程" class="headerlink" title="AMS请求ApplicationThread过程"></a>AMS请求ApplicationThread过程</h4><ul>
