@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-16T05:52:05.215Z</updated>
+  <updated>2019-01-16T09:14:21.910Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android - 系统中的各种id</title>
+    <link href="https://alberthumbert.github.io/2019/01/16/AndroidID/"/>
+    <id>https://alberthumbert.github.io/2019/01/16/AndroidID/</id>
+    <published>2019-01-16T08:07:37.000Z</published>
+    <updated>2019-01-16T09:14:21.910Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区</title>
     <link href="https://alberthumbert.github.io/2019/01/15/JVMRuntime/"/>
     <id>https://alberthumbert.github.io/2019/01/15/JVMRuntime/</id>
     <published>2019-01-15T02:44:14.000Z</published>
-    <updated>2019-01-16T05:52:05.215Z</updated>
+    <updated>2019-01-16T05:59:50.150Z</updated>
     
     <summary type="html">
     
@@ -40,7 +60,7 @@
     <link href="https://alberthumbert.github.io/2019/01/14/AOSActivityInit/"/>
     <id>https://alberthumbert.github.io/2019/01/14/AOSActivityInit/</id>
     <published>2019-01-14T07:12:42.000Z</published>
-    <updated>2019-01-15T05:25:31.279Z</updated>
+    <updated>2019-01-16T09:12:47.139Z</updated>
     
     <summary type="html">
     
@@ -100,7 +120,7 @@
     <link href="https://alberthumbert.github.io/2019/01/10/AOSInit/"/>
     <id>https://alberthumbert.github.io/2019/01/10/AOSInit/</id>
     <published>2019-01-10T13:35:14.000Z</published>
-    <updated>2019-01-15T05:26:38.996Z</updated>
+    <updated>2019-01-16T07:27:47.934Z</updated>
     
     <summary type="html">
     
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2018/11/26/JVMObjectMemo/</id>
     <published>2018-11-26T14:31:17.000Z</published>
     <updated>2018-11-29T14:46:14.011Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Boot 部署</title>
-    <link href="https://alberthumbert.github.io/2018/11/17/SpringDeploy/"/>
-    <id>https://alberthumbert.github.io/2018/11/17/SpringDeploy/</id>
-    <published>2018-11-17T15:44:21.000Z</published>
-    <updated>2018-11-17T17:20:37.554Z</updated>
     
     <summary type="html">
     

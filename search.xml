@@ -3,6 +3,69 @@
   
     
     <entry>
+      <title><![CDATA[Android - 系统中的各种id]]></title>
+      <url>/2019/01/16/AndroidID/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>看系统源码的时候遇到了 uid gid userId appId，当时不是很了解这些id的作用，这里记录一下</strong></p>
+<p><strong><a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">参考</a></strong></p>
+<p><br></p>
+<h3 id="Linux-UID-GID"><a href="#Linux-UID-GID" class="headerlink" title="Linux UID GID"></a>Linux UID GID</h3><ul>
+<li>Android中的安全机制同样基于linux，Linux中使用ID来标识用户，每个登录的用户都会取得两个ID，UID和GID，Linux利用它们进行权限判断，每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理，Linux系统中的用户(UID)分为3类，即普通用户、root用户、系统用户</li>
+</ul>
+<ul>
+<li>普通用户（uid 500-60000）是指所有使用Linux系统的真实用户，这类用户可以使用用户名及密码登录系统。一般来说普通用户只能在其家目录、系统临时目录或其他经过授权的目录中操作，以及操作属于该用户的文件。通常普通用户的UID大于500，因为在添加普通用户时，系统默认用户ID从500开始编号</li>
+</ul>
+<ul>
+<li>root用户（ID 0），也被称为超级用户，root账户拥有对系统的完全控制权：可以修改、删除任何文件，运行任何命令</li>
+</ul>
+<ul>
+<li>系统用户（UID 1-499）也叫伪用户，与系统和程序服务相关，因为并不是真实的使用者，所以叫伪用户，如bin、daemon、shutdown、halt等，任何Linux系统都默认有这些伪用户；mail、ftp、sshd等，与Linux系统的进程相关</li>
+</ul>
+<p><br></p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p><br></p>
+<h4 id="uid"><a href="#uid" class="headerlink" title="uid"></a>uid</h4><ul>
+<li>在 Android 上，一个用户 UID 标示一个应用程序。应用程序在安装时被分配用户 UID，应用程序在设备上的存续期间内，用户 UID 保持不变。uid由userid和appid共同组成</li>
+</ul>
+<ul>
+<li>在多用户的情况下，每个用户对应一个userid，同一用户启动的应用userid都是一致的</li>
+</ul>
+<ul>
+<li>appid，每个应用都有一个appid，appid是由PackageManagerService在安装应用时分配的，同一应用的多个进程一般都拥有相同appid，只是pid不一样，appId的范围一定在10000到19999 </li>
+</ul>
+<p><br></p>
+<h4 id="gid"><a href="#gid" class="headerlink" title="gid"></a>gid</h4><ul>
+<li>对于普通的应用程序，GID即等于UID，值得一提的是，gid和权限组是相映射的，一个权限一般会属于一个gid，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户）</li>
+</ul>
+<p><br></p>
+<h4 id="进程隔离"><a href="#进程隔离" class="headerlink" title="进程隔离"></a>进程隔离</h4><ul>
+<li>隔离进程是4.1之后加入的安全机制，一般用于对系统有风险的代码，我们很少会用到</li>
+</ul>
+<ul>
+<li>每个appID会属于某个用户组。同属于一个用户组的appid有些权限是共享的，在manifest中加入android:isolatedProcess=”true”参数，可以使service运行与应用userid不同的新进程当中，这样这个service就不会获取到当前应用的权限，并且也不允许启动Activity</li>
+</ul>
+<ul>
+<li>系统判断一个进程是否为的条件为Process.FIRST_ISOLATED_UID &amp;&amp; appId \&lt;= Process.LAST_ISOLATED_UID，这些常量一般是编译时定好的</li>
+</ul>
+<p><br><br><strong>本篇完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入JVM系列 9 - hotspot 7 & 8 运行时数据区]]></title>
       <url>/2019/01/15/JVMRuntime/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -11,7 +74,7 @@
 <p><a href="https://tocreate.app/2019/01/02/JVMHotspotRuntime/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>本文讲解实现部分的内容为hotspot 7 中的运行时数据区，这部分和hotspot 6也是比较贴近的，最后会记录hotspot8中的变化，主要是metaspace带来的一些改动</strong></p>
 <p><br></p>
-<h3 id="虚拟机规范"><a href="#虚拟机规范" class="headerlink" title="虚拟机规范"></a>虚拟机规范</h3><p><strong>以下内容来自java虚拟机规范 java se 8*</strong> </p>
+<h3 id="虚拟机规范"><a href="#虚拟机规范" class="headerlink" title="虚拟机规范"></a>虚拟机规范</h3><p><strong>以下内容来自java虚拟机规范 se 8</strong></p>
 <p><br></p>
 <h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p><strong>灵魂画图</strong></p>
 <pre><code>堆 heap
@@ -245,7 +308,16 @@
 <li>execStartActivity会调用到ActivityManager的getService方法来获取AMS的代理对象并调用startActivity方法。这个代理对象也是从ServiceManager中的getService中获取的，这里不是很重要，因此略过</li>
 </ul>
 <p><br></p>
-<h4 id="AMS请求Zygote过程"><a href="#AMS请求Zygote过程" class="headerlink" title="AMS请求Zygote过程"></a>AMS请求Zygote过程</h4><p><br><br><strong>见上篇</strong></p>
+<h4 id="AMS处理请求"><a href="#AMS处理请求" class="headerlink" title="AMS处理请求"></a>AMS处理请求</h4><p><strong>这部分可能和上文创建应用进程有重复的地方，不过上篇只是大致讲了请求zygote的过程，这部分关注Activity和栈</strong></p>
+<ul>
+<li>AMS的startActivity方法，他会调用startActivityAsUser，这个方法判断进程是否被隔离</li>
+</ul>
+<ul>
+<li>的startActivityMayWait方法，ActivityStarter是7.0里的一个架构优化，负责Activity的启动，它会收集所有的逻辑，来决定如何将intent和flag转换为Activity</li>
+</ul>
+<ul>
+<li>startActivityMayWait方法会调用startActivity方法，调用之前会先判断请求</li>
+</ul>
 <p><br></p>
 <h4 id="AMS请求ApplicationThread过程"><a href="#AMS请求ApplicationThread过程" class="headerlink" title="AMS请求ApplicationThread过程"></a>AMS请求ApplicationThread过程</h4><ul>
 <li>该过程由AMS向ApplicationThread发送启动根Activity请求</li>

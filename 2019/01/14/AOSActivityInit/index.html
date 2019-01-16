@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 14, 2019" />
-        <meta property="article:modified_time" content="1月 15, 2019" />
+        <meta property="article:modified_time" content="1月 16, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 系统系列 Activity启动流程",
     "url": "https://alberthumbert.github.io/2019/01/14/AOSActivityInit/index.html",
     "datePublished": "1月 14, 2019",
-    "dateModified": "1月 15, 2019",
+    "dateModified": "1月 16, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#根Activity"><span class="post-toc-number">1.</span> <span class="post-toc-text">根Activity</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Launcher请求过程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Launcher请求过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#构造intent"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">构造intent</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Instrumentation"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">Instrumentation</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS请求Zygote过程"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">AMS请求Zygote过程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS请求ApplicationThread过程"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">AMS请求ApplicationThread过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通Activity"><span class="post-toc-number">2.</span> <span class="post-toc-text">普通Activity</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#根Activity"><span class="post-toc-number">1.</span> <span class="post-toc-text">根Activity</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Launcher请求过程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Launcher请求过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#构造intent"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">构造intent</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Instrumentation"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">Instrumentation</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS处理请求"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">AMS处理请求</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AMS请求ApplicationThread过程"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">AMS请求ApplicationThread过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通Activity"><span class="post-toc-number">2.</span> <span class="post-toc-text">普通Activity</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -585,7 +585,16 @@
 <li>execStartActivity会调用到ActivityManager的getService方法来获取AMS的代理对象并调用startActivity方法。这个代理对象也是从ServiceManager中的getService中获取的，这里不是很重要，因此略过</li>
 </ul>
 <p><br></p>
-<h4 id="AMS请求Zygote过程"><a href="#AMS请求Zygote过程" class="headerlink" title="AMS请求Zygote过程"></a>AMS请求Zygote过程</h4><p><br><br><strong>见上篇</strong></p>
+<h4 id="AMS处理请求"><a href="#AMS处理请求" class="headerlink" title="AMS处理请求"></a>AMS处理请求</h4><p><strong>这部分可能和上文创建应用进程有重复的地方，不过上篇只是大致讲了请求zygote的过程，这部分关注Activity和栈</strong></p>
+<ul>
+<li>AMS的startActivity方法，他会调用startActivityAsUser，这个方法判断进程是否被隔离</li>
+</ul>
+<ul>
+<li>的startActivityMayWait方法，ActivityStarter是7.0里的一个架构优化，负责Activity的启动，它会收集所有的逻辑，来决定如何将intent和flag转换为Activity</li>
+</ul>
+<ul>
+<li>startActivityMayWait方法会调用startActivity方法，调用之前会先判断请求</li>
+</ul>
 <p><br></p>
 <h4 id="AMS请求ApplicationThread过程"><a href="#AMS请求ApplicationThread过程" class="headerlink" title="AMS请求ApplicationThread过程"></a>AMS请求ApplicationThread过程</h4><ul>
 <li>该过程由AMS向ApplicationThread发送启动根Activity请求</li>
@@ -719,7 +728,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
