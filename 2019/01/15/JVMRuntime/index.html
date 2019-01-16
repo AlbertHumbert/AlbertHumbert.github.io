@@ -12,7 +12,7 @@
     
     <title>
         
-            深入JVM系列 9 - 运行时数据区 | 
+            深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入JVM系列 9 - 运行时数据区 | Albert&#39;s Blog">
+    <meta property="og:title" content="深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="1月 15, 2019" />
-        <meta property="article:modified_time" content="1月 15, 2019" />
+        <meta property="article:modified_time" content="1月 16, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入JVM系列 9 - 运行时数据区 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入JVM系列 9 - 运行时数据区",
+    "headline": "深入JVM系列 9 - hotspot 7 & 8 运行时数据区",
     "url": "https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html",
     "datePublished": "1月 15, 2019",
-    "dateModified": "1月 15, 2019",
+    "dateModified": "1月 16, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#虚拟机规范"><span class="post-toc-number">1.</span> <span class="post-toc-text">虚拟机规范</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#概览"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">概览</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#PC寄存器"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">PC寄存器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#java堆"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">java堆</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#运行时常量池"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">运行时常量池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#本地方法栈"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">本地方法栈</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#虚拟机栈"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">虚拟机栈</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#栈"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">栈</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#栈帧"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">栈帧</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#局部变量表"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">局部变量表</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#操作数栈"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">操作数栈</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#动态链接"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">动态链接</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hotspot7-实现"><span class="post-toc-number">2.</span> <span class="post-toc-text">hotspot7 实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hotspot8-变迁"><span class="post-toc-number">3.</span> <span class="post-toc-text">hotspot8 变迁</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入JVM系列 9 - 运行时数据区
+                深入JVM系列 9 - hotspot 7 & 8 运行时数据区
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 9 - 运行时数据区&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 9 - 运行时数据区&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&title=深入JVM系列 9 - 运行时数据区" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&title=深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 9 - 运行时数据区&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&text=深入JVM系列 9 - 运行时数据区" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/15/JVMRuntime/index.html&text=深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -505,7 +505,139 @@
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2019/01/02/JVMHotspotRuntime/" target="_blank" rel="external">可能需要阅读前文</a></p>
+<p><strong>本文讲解实现部分的内容为hotspot 7 中的运行时数据区，这部分和hotspot 6也是比较贴近的，最后会记录hotspot8中的变化，主要是metaspace带来的一些改动</strong></p>
+<p><br></p>
+<h3 id="虚拟机规范"><a href="#虚拟机规范" class="headerlink" title="虚拟机规范"></a>虚拟机规范</h3><p><strong>以下内容来自java虚拟机规范 java se 8*</strong> </p>
+<p><br></p>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p><strong>灵魂画图</strong></p>
+<pre><code>堆 heap
+--------------------------------
+|                                |
+|  新生代 youngGen                |
+|   ------------------------     |
+|  |   eden     | from | to |    |
+|   ------------------------     | 
+|                                |
+|  老年代 oldgen                  |
+|   -------------------------    |
+|  |          oldgen         |   |
+|   -------------------------    |
+--------------------------------
 
+本地内存 native memory
+--------------------------------------
+|                                    |
+|      线程1     线程2   ...  线程n    |
+|    --------                        |
+|   |   pc   |    ...                |
+|    --------                        |
+|       栈                           |
+|    --------                        |
+|   |   帧1  |                       |
+|    --------                        |
+|   |   ...  |                       |          
+|    --------                        |
+|   |   帧n  |                       |
+|    --------                        |
+|                                    |
+--------------------------------------
+
+
+方法区 method area
+ ----------------------------------
+|        class1           classN    |
+|    --------------                 |
+|   | 运行时常量池 |                  |
+|    --------------                 |
+|    --------------                 |  
+|   |     字段     |                 |
+|    --------------         ...     |
+|    --------------                 |
+|   |     方法     |                 |
+|    --------------                 |
+|    --------------                 |
+|   |     代码     |                 |
+|    --------------                 |
+ -----------------------------------
+</code></pre><p><br> </p>
+<h4 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h4><ul>
+<li>java虚拟机支持多条线程同时执行，每一条java线程都有自己的pc寄存器，在任意时刻，一条java线程只会执行一个方法的代码，称为当前方法，对于非native方法，pc寄存器保存正在执行的字节码指令地址，如果方法是native的，那么pc寄存器的值为undefined，pc寄存器至少能保存一个returnAddress类型的数据或一个平台相关的本地指针的值</li>
+</ul>
+<p><br> </p>
+<h4 id="java堆"><a href="#java堆" class="headerlink" title="java堆"></a>java堆</h4><ul>
+<li>java堆是供各个线程共享的运行时内存区域，也共所有类实例和数组对象分配内存区域</li>
+</ul>
+<ul>
+<li>java堆在虚拟机启动时被创建，它存储了被垃圾收集器管理的各种对象，堆空间可以是固定的也可以是动态扩展和收缩的，内存也不要求是连续的</li>
+</ul>
+<p><br> </p>
+<h4 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h4><ul>
+<li>运行时常量池是每个class文件中的一个类或者接口的常量池表的运行时表现形式，类似于传统语言中的符号表，但数据范围更加广泛</li>
+</ul>
+<ul>
+<li>每个运行时常量池都在java虚拟机的方法区中分配，在类和接口加载时创建</li>
+</ul>
+<p><br> </p>
+<h4 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h4><ul>
+<li>本地方法栈，使用传统的栈支持native方法或使用其他语言支持指令集解释器时可以使用本地方法栈，本地方法栈不是必须的，如果本身不依赖传统栈，那么就不需要实现它，如果支持本地方法栈，一般在线程创建时按线程分配</li>
+</ul>
+<p><br> </p>
+<h4 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h4><p><br> </p>
+<h5 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h5><ul>
+<li>每一个线程都有自己私有的虚拟机栈，它与线程同时创建，用于存储栈帧，栈帧可以在堆中分配</li>
+</ul>
+<ul>
+<li>虚拟机规范允许栈设置为固定大小或动态增长或收缩</li>
+</ul>
+<p><br> </p>
+<h5 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h5><ul>
+<li>栈帧用来存储数据和部分过程结果的数据结构，同时用来处理动态链接，方法返回值和异常分配</li>
+</ul>
+<ul>
+<li>栈帧由局部变量表，操作数栈，当前方法所属类的运行时常量池的引用构成，还允许携带实现相关的一些信息</li>
+</ul>
+<ul>
+<li>栈帧随方法的调用创建，随方法的结束而销毁（无论正常还是异常结束），本地变量表和操作数栈的容量在编译时确定，并且同code属性保存及提供给栈帧使用，栈帧整体的大小则取决于实现，如果当前方法调用了其他方法，或者当前方法结束，这个方法的栈帧都不在是当前栈帧，方法返回时虚拟机将丢弃当前栈帧，使用前一个栈帧作为当前栈帧</li>
+</ul>
+<p><br> </p>
+<h5 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h5><ul>
+<li>每个栈帧内部包含一组称为局部变量表的变量列表。栈帧中的局部变量表的长度由编译时确定，并且存储于类或或接口的二进制表示之中，即通过方法的code属性保存及提供给栈帧使用</li>
+</ul>
+<ul>
+<li>一个局部变量可以保存一个类型为boolean，byte，char，short，int，float，reference或returnAddress的数据，两个局部变量可以保存为一个类型为long或double的数据，首个局部变量的索引值为0，局部变量的索引值是整数，大小等于0，且小于局部变量表的长度</li>
+</ul>
+<ul>
+<li>long和double类型的数据占用两个连续的局部变量，采用两个局部変量中较小的索引值来定位。將一个double类型的值存储在索引值为n的局部変量中，实际上的意思是索引值カn和n+1的兩个局部变量都用来存储这个值，索引值为n+1的局部変量是无法直接获取的，但可能会被写入，这种操作將会导致局部变量n的内容失效。n不一定需要是偶数，也不要求所有long和double采用64位对齐的方式连续存储</li>
+</ul>
+<ul>
+<li>虚拟机使用局部变量表来完成方法调用时的参数传递。当调用静态的方法时，参数会一次传递到局部变量表中从0开始的连续位置上，当调用实例方法时，第0个参数为this，后续的其他参数将会传递到局部变量表中从1开始的位置</li>
+</ul>
+<p><br> </p>
+<h4 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h4><ul>
+<li>操作数栈上的每个位置都可以保存一个java虚拟机定义的任意数据类型，包括long和double，在任何时刻，操作数栈都有一个确定的栈深度，long和double栈两个单位的深度，其他数据类型占用一个深度</li>
+</ul>
+<ul>
+<li>每个栈帧内部都包含一个称为操作数栈的先进后出栈，栈帧中操作数栈的最大深度由编译期决定，并且通过code属性保存及提供给栈帧使用，在上下文明确不会产生误解的前提下，当前栈帧的操作数栈直接称为操作数栈</li>
+</ul>
+<ul>
+<li>栈帧在刚创建时，操作数栈是空的，java虚拟机提供一些字节码指令来从局部变量表或对象实例中复制常量或变量值到操作数栈中，从操作数栈中取走数据，操作数据以及把数据结果重新入栈。在调用方法时，操作数栈也用来准备调用方法的参数以及接受方法返回的结果</li>
+</ul>
+<ul>
+<li>例如，iadd字节码指令的作用是将两个int类型的数值相加，它要求在执行iadd指令时，两个int类型数值从操作栈中出栈，相加求和，然后将求和的结果重新入栈，在操作数栈中，一项运算由多个子运算嵌套进行，一个子运算的结果可以被其他外围运算所使用</li>
+</ul>
+<ul>
+<li>操作数栈中的数据必须正常操作，例如，不可以入栈连个int类型的数据，然后当做long类型去操作，有一小部分指令可以无视数据类型当做裸类型来操作，但他们不可以修改数据，也不可以拆散数据，这些操作的正确性由class文件的校验过程来保证</li>
+</ul>
+<p><br></p>
+<h4 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h4><ul>
+<li>每个栈帧内部都包含一个指向当前方法所在类的运行常量池的引用，以便对当前方法的代码实现动态链接，在class文件里面，一个方法若要调用其他方法，或者访问成员变量，则需要通过符号引用来表示，动态链接的作用就是将这些符号引用转换为对实际方法的直接引用。类加载的过程中将要解析未被解析的符号引用，并将对变量的访问转换为在运行时在存储结构中的正确偏移量</li>
+</ul>
+<ul>
+<li>对其他类的方法和变量进行了晚期绑定，所以即使那些类发生了变化，也不会影响调用它们的方法</li>
+</ul>
+<p><br></p>
+<h3 id="hotspot7-实现"><a href="#hotspot7-实现" class="headerlink" title="hotspot7 实现"></a>hotspot7 实现</h3><p><br></p>
+<h3 id="hotspot8-变迁"><a href="#hotspot8-变迁" class="headerlink" title="hotspot8 变迁"></a>hotspot8 变迁</h3>
     
 
     

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-15T02:45:40.245Z</updated>
+  <updated>2019-01-16T05:52:05.215Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>深入JVM系列 9 - 运行时数据区</title>
+    <title>深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区</title>
     <link href="https://alberthumbert.github.io/2019/01/15/JVMRuntime/"/>
     <id>https://alberthumbert.github.io/2019/01/15/JVMRuntime/</id>
     <published>2019-01-15T02:44:14.000Z</published>
-    <updated>2019-01-15T02:45:40.245Z</updated>
+    <updated>2019-01-16T05:52:05.215Z</updated>
     
     <summary type="html">
     
@@ -280,7 +280,7 @@
     <link href="https://alberthumbert.github.io/2018/12/02/OSProcess/"/>
     <id>https://alberthumbert.github.io/2018/12/02/OSProcess/</id>
     <published>2018-12-02T14:01:34.000Z</published>
-    <updated>2019-01-02T15:25:44.149Z</updated>
+    <updated>2019-01-16T03:37:46.962Z</updated>
     
     <summary type="html">
     
@@ -360,7 +360,7 @@
     <link href="https://alberthumbert.github.io/2018/11/29/JVMClassStatic/"/>
     <id>https://alberthumbert.github.io/2018/11/29/JVMClassStatic/</id>
     <published>2018-11-29T09:46:42.000Z</published>
-    <updated>2018-12-05T13:09:53.521Z</updated>
+    <updated>2019-01-15T06:33:10.127Z</updated>
     
     <summary type="html">
     

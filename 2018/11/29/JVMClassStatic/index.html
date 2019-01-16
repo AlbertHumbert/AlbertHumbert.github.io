@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="11月 29, 2018" />
-        <meta property="article:modified_time" content="12月 05, 2018" />
+        <meta property="article:modified_time" content="1月 15, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入JVM系列 6 - Class对象与静态变量的存储",
     "url": "https://alberthumbert.github.io/2018/11/29/JVMClassStatic/index.html",
     "datePublished": "11月 29, 2018",
-    "dateModified": "12月 05, 2018",
+    "dateModified": "1月 15, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -508,9 +508,9 @@
 <p><strong>这部分太长了，和上篇拆开来</strong></p>
 <p><br></p>
 <h3 id="反射-amp-mirror"><a href="#反射-amp-mirror" class="headerlink" title="反射 &amp; mirror"></a>反射 &amp; mirror</h3><ul>
-<li>R大在这篇<a href="http://rednaxelafx.iteye.com/blog/730461" target="_blank" rel="external">文章</a>和这篇<a href="http://rednaxelafx.iteye.com/blog/1847971" target="_blank" rel="external">文章</a>里提到了mirror,原话差不多是这样,HotSpot并不把instanceKlass暴露给Java，而会另外创建对应的java.lang.Class对象，将instanceKlass包装了一层来暴露给Java层使用，并将后者称为前者的镜像，InstanceKlass和java_mirror互相持有，obj.getClass()，在HotSpot VM里实际上经过了两层间接引用才能找到最终的Class对象</li>
+<li>R大在这篇<a href="http://rednaxelafx.iteye.com/blog/730461" target="_blank" rel="external">文章</a>和这篇<a href="http://rednaxelafx.iteye.com/blog/1847971" target="_blank" rel="external">文章</a>里提到了mirror,原话差不多是这样,HotSpot并不把instanceKlass暴露给Java，而会另外创建对应的java.lang.Class对象，将instanceKlass包装了一层来暴露给Java层使用，并将后者称为前者的镜像，InstanceKlass和java_mirror互相持有，obj.getClass()，在HotSpot VM里实际上经过了两层间接引用才能找到最终的Class对象，反射最终调用的jni方法也会通过as_klass函数将java_mirror转换为instanceKlass</li>
 </ul>
-<pre><code>obj-&gt;_klass-&gt;_java_mirror  
+<pre><code>obj-\&gt;\_klass-\&gt;\_java\_mirror  
 </code></pre><ul>
 <li>关于 mirror ，我现在也只了解了一些表面的东西，这篇<a href="chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://bracha.org/mirrors.pdf" target="_blank" rel="external">论文</a>专门描述了这种设计，不过看得我云里雾里的</li>
 </ul>
@@ -536,19 +536,19 @@ class instanceMirrorKlass: public instanceKlass {
 
 }
 
-class Klass : public Klass_vtbl {
+class Klass : public Klass\_vtbl {
 
 //...
 
 // java/lang/Class instance mirroring this class
-  oop       _java_mirror;
+  oop       \_java\_mirror;
 }
 </code></pre><ul>
 <li>instanceMirrorKlass很容易和hotspot中的java_lang_Class类搞混,实际上后者只提供了一些java层的java.lang.Class类的访问接口，在设置或查询信息时用到</li>
 </ul>
 <pre><code>// Interface to java.lang.Class objects
 
-class java_lang_Class : AllStatic {
+class java\_lang\_Class : AllStatic {
 </code></pre><p><br></p>
 <h4 id="对应"><a href="#对应" class="headerlink" title="对应"></a>对应</h4><ul>
 <li>当然这里指定的是hotspot中的实现，从java语言层面上来说是否使用mirror都是底层技术细节，不是规范里的内容，只是class类的一种实现而已，现在我们来验证一下java mirror是怎么对应到class类的</li>
@@ -557,13 +557,13 @@ class java_lang_Class : AllStatic {
 <li>既然是反射相关，那么当然从反射入手，关于反射我这里强推一篇<a href="https://www.jianshu.com/p/b6cb4c694951" target="_blank" rel="external">文章</a>，以反射为例将 klass opp 模型讲得很具体了(物理)，这里我就直接切入到后面了，我们平时调用的 getDeclaredMethod 会调用到 Reflection::new_method 函数,它会创建一个java.lang.reflect.Method对象</li>
 </ul>
 <pre><code>// Create a java.lang.reflect.Method object based on a method
- static oop new_method(methodHandle method, bool intern_name, bool for_constant_pool_access, TRAPS);
+ static oop new\_method(methodHandle method, bool intern\_name, bool for\_constant\_pool\_access, TRAPS);
 </code></pre><ul>
 <li>而在创建的过程中会调用 set_parameter_types 函数返回设置parameterTypes属性，它则调用get_parameter_types获取objArrayHandle对象，如果参数声明是类，那么它内部包含了java mirror</li>
 </ul>
-<pre><code>objArrayHandle Reflection::get_parameter_types(methodHandle method, int parameter_count, oop* return_type, TRAPS) {
+<pre><code>objArrayHandle Reflection::get\_parameter\_types(methodHandle method, int parameter\_count, oop\* return\_type, TRAPS) {
 //...
- while (!ss.at_return_type()) {
+ while (!ss.at\_return\_type()) {
     oop mirror = get_mirror_from_signature(method, &amp;ss, CHECK_(objArrayHandle()));
     mirrors-&gt;obj_at_put(index++, mirror);
     ss.next();
@@ -571,7 +571,7 @@ class java_lang_Class : AllStatic {
 //...
 }
 
-oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
+oop get\_mirror\_from\_signature(methodHandle method, SignatureStream\* ss, TRAPS) {
 //...
 
     case T_OBJECT:
@@ -604,13 +604,13 @@ oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
 <li>hotspot 6 当中的 klass 不管是普通的 instanceklass 还是其子类 instanceMirrorklass(java mirror，java.lang.class)、instanceRefKlass(softRefenrence,weakRefenrence..) 都存放在 PermGen(对应概念上的方法区)中, 而静态变量存放在instanceklass的末尾</li>
 </ul>
 <pre><code>//src/share/vm/oops/klass.cpp 
-klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
+klassOop Klass::base\_create\_klass\_oop(KlassHandle&amp; klass, int size,
                                       const Klass_vtbl&amp; vtbl, TRAPS) {
-  size = align_object_size(size);
+  size = align\_object\_size(size);
 // allocate and initialize vtable
 // 在PermGen中分配
-  Klass*   kl = (Klass*) vtbl.allocate_permanent(klass, size, CHECK_NULL);
-  klassOop k  = kl-&gt;as_klassOop();
+  Klass\*   kl = (Klass\*) vtbl.allocate\_permanent(klass, size, CHECK\_NULL);
+  klassOop k  = kl-\&gt;as\_klassOop();
 </code></pre><ul>
 <li>jdk 6 中 instanceKlass 内存布局如下，末尾为 static 变量</li>
 </ul>
@@ -622,7 +622,7 @@ klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
 //    [instance size              ] Klass
 //    [java mirror                ] Klass
 //    [super                      ] Klass
-//    [access_flags               ] Klass
+//    [access\_flags               ] Klass
 //    [name                       ] Klass
 //    [first subklass             ] Klass
 //    [next sibling               ] Klass
@@ -631,7 +631,7 @@ klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
 //    [local interfaces           ]
 //    [transitive interfaces      ]
 //    [number of implementors     ]
-//    [implementors               ] klassOop[2]
+//    [implementors               ] klassOop[2][7]
 //    [fields                     ]
 //    [constants                  ]
 //    [class loader               ]
@@ -649,18 +649,21 @@ klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
 //    [initializing thread        ]
 //    [Java vtable length         ]
 //    [oop map cache (stack maps) ]
-//    [EMBEDDED Java vtable             ] size in words = vtable_len
-//    [EMBEDDED static oop fields       ] size in words = static_oop_fields_size
-//    [         static non-oop fields   ] size in words = static_field_size - static_oop_fields_size
-//    [EMBEDDED nonstatic oop-map blocks] size in words = nonstatic_oop_map_size
+//    [EMBEDDED Java vtable             ] size in words = vtable\_len
+//    [EMBEDDED static oop fields       ] size in words = static\_oop\_fields\_size
+//    [         static non-oop fields   ] size in words = static\_field\_size - static\_oop\_fields\_size
+//    [EMBEDDED nonstatic oop-map blocks] size in words = nonstatic\_oop\_map\_size
 </code></pre><p><br></p>
 <h4 id="jdk-7"><a href="#jdk-7" class="headerlink" title="jdk 7"></a>jdk 7</h4><ul>
 <li>hotspot 7 中 java_mirror 的实例在堆中创建，静态变量存放在 java_mirror 当中，初始化静态变量时，核心都是调用xxx field_put函数，将变量存放在指定偏移量处</li>
 </ul>
+<ul>
+<li>静态变量迁移到 java_mirror当中的原因是为了移除永久区做准备，具体可以看 oracle 的 <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=7017732" target="_blank" rel="external">issue</a></li>
+</ul>
 <pre><code>//初始化静态变量
 //src/share/vm/classfile/javaClasses.cpp
-static void initialize_static_field(fieldDescriptor* fd, TRAPS) {
-  Handle mirror (THREAD, fd-&gt;field_holder()-&gt;java_mirror());
+static void initialize\_static\_field(fieldDescriptor\* fd, TRAPS) {
+  Handle mirror (THREAD, fd-\&gt;field\_holder()-\&gt;java\_mirror());
 //...
     switch (t) {
       case T_BYTE:
@@ -700,13 +703,13 @@ static void initialize_static_field(fieldDescriptor* fd, TRAPS) {
 </code></pre><ul>
 <li>instanceMirrorKlass 的创建如下，JavaObjectsInPerm 写死是 false，common_mem_allocate_init 上一篇分析过了，在堆中分配内存</li>
 </ul>
-<pre><code>//创建java_mirror，调用过程由上到下
-/java_lang_Class::create_mirror
-//instanceMirrorKlass::allocate_instance
-//CollectedHeap::Class_obj_allocate
+<pre><code>//创建java\_mirror，调用过程由上到下
+/java\_lang\_Class::create\_mirror
+//instanceMirrorKlass::allocate\_instance
+//CollectedHeap::Class\_obj\_allocate
 
-oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle real_klass, TRAPS) {
-  HeapWord* obj;
+oop CollectedHeap::Class\_obj\_allocate(KlassHandle klass, int size, KlassHandle real\_klass, TRAPS) {
+  HeapWord\* obj;
 //默认为false
   if (JavaObjectsInPerm) {
     obj = common_permanent_mem_allocate_init(size, CHECK_NULL);
@@ -716,10 +719,10 @@ oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle r
   }
 </code></pre><p><br></p>
 <h4 id="Jdk-8"><a href="#Jdk-8" class="headerlink" title="Jdk 8"></a>Jdk 8</h4><ul>
-<li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响</li>
+<li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响，依然放在堆当中</li>
 </ul>
 <ul>
-<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是不判断JavaObjectsInPerm了,klass也放在了元空间当中，这里不再赘述</li>
+<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是java_mirror的创建不再判断JavaObjectsInPerm了，直接调用common_mem_allocate_init，而klass则放在元空间当中，这里不再赘述</li>
 </ul>
 <p><strong>本篇完</strong></p>
 

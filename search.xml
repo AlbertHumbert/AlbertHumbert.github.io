@@ -3,13 +3,145 @@
   
     
     <entry>
-      <title><![CDATA[深入JVM系列 9 - 运行时数据区]]></title>
+      <title><![CDATA[深入JVM系列 9 - hotspot 7 & 8 运行时数据区]]></title>
       <url>/2019/01/15/JVMRuntime/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2019/01/02/JVMHotspotRuntime/" target="_blank" rel="external">可能需要阅读前文</a></p>
-]]></content>
+<p><strong>本文讲解实现部分的内容为hotspot 7 中的运行时数据区，这部分和hotspot 6也是比较贴近的，最后会记录hotspot8中的变化，主要是metaspace带来的一些改动</strong></p>
+<p><br></p>
+<h3 id="虚拟机规范"><a href="#虚拟机规范" class="headerlink" title="虚拟机规范"></a>虚拟机规范</h3><p><strong>以下内容来自java虚拟机规范 java se 8*</strong> </p>
+<p><br></p>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p><strong>灵魂画图</strong></p>
+<pre><code>堆 heap
+--------------------------------
+|                                |
+|  新生代 youngGen                |
+|   ------------------------     |
+|  |   eden     | from | to |    |
+|   ------------------------     | 
+|                                |
+|  老年代 oldgen                  |
+|   -------------------------    |
+|  |          oldgen         |   |
+|   -------------------------    |
+--------------------------------
+
+本地内存 native memory
+--------------------------------------
+|                                    |
+|      线程1     线程2   ...  线程n    |
+|    --------                        |
+|   |   pc   |    ...                |
+|    --------                        |
+|       栈                           |
+|    --------                        |
+|   |   帧1  |                       |
+|    --------                        |
+|   |   ...  |                       |          
+|    --------                        |
+|   |   帧n  |                       |
+|    --------                        |
+|                                    |
+--------------------------------------
+
+
+方法区 method area
+ ----------------------------------
+|        class1           classN    |
+|    --------------                 |
+|   | 运行时常量池 |                  |
+|    --------------                 |
+|    --------------                 |  
+|   |     字段     |                 |
+|    --------------         ...     |
+|    --------------                 |
+|   |     方法     |                 |
+|    --------------                 |
+|    --------------                 |
+|   |     代码     |                 |
+|    --------------                 |
+ -----------------------------------
+</code></pre><p><br> </p>
+<h4 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h4><ul>
+<li>java虚拟机支持多条线程同时执行，每一条java线程都有自己的pc寄存器，在任意时刻，一条java线程只会执行一个方法的代码，称为当前方法，对于非native方法，pc寄存器保存正在执行的字节码指令地址，如果方法是native的，那么pc寄存器的值为undefined，pc寄存器至少能保存一个returnAddress类型的数据或一个平台相关的本地指针的值</li>
+</ul>
+<p><br> </p>
+<h4 id="java堆"><a href="#java堆" class="headerlink" title="java堆"></a>java堆</h4><ul>
+<li>java堆是供各个线程共享的运行时内存区域，也共所有类实例和数组对象分配内存区域</li>
+</ul>
+<ul>
+<li>java堆在虚拟机启动时被创建，它存储了被垃圾收集器管理的各种对象，堆空间可以是固定的也可以是动态扩展和收缩的，内存也不要求是连续的</li>
+</ul>
+<p><br> </p>
+<h4 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h4><ul>
+<li>运行时常量池是每个class文件中的一个类或者接口的常量池表的运行时表现形式，类似于传统语言中的符号表，但数据范围更加广泛</li>
+</ul>
+<ul>
+<li>每个运行时常量池都在java虚拟机的方法区中分配，在类和接口加载时创建</li>
+</ul>
+<p><br> </p>
+<h4 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h4><ul>
+<li>本地方法栈，使用传统的栈支持native方法或使用其他语言支持指令集解释器时可以使用本地方法栈，本地方法栈不是必须的，如果本身不依赖传统栈，那么就不需要实现它，如果支持本地方法栈，一般在线程创建时按线程分配</li>
+</ul>
+<p><br> </p>
+<h4 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h4><p><br> </p>
+<h5 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h5><ul>
+<li>每一个线程都有自己私有的虚拟机栈，它与线程同时创建，用于存储栈帧，栈帧可以在堆中分配</li>
+</ul>
+<ul>
+<li>虚拟机规范允许栈设置为固定大小或动态增长或收缩</li>
+</ul>
+<p><br> </p>
+<h5 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h5><ul>
+<li>栈帧用来存储数据和部分过程结果的数据结构，同时用来处理动态链接，方法返回值和异常分配</li>
+</ul>
+<ul>
+<li>栈帧由局部变量表，操作数栈，当前方法所属类的运行时常量池的引用构成，还允许携带实现相关的一些信息</li>
+</ul>
+<ul>
+<li>栈帧随方法的调用创建，随方法的结束而销毁（无论正常还是异常结束），本地变量表和操作数栈的容量在编译时确定，并且同code属性保存及提供给栈帧使用，栈帧整体的大小则取决于实现，如果当前方法调用了其他方法，或者当前方法结束，这个方法的栈帧都不在是当前栈帧，方法返回时虚拟机将丢弃当前栈帧，使用前一个栈帧作为当前栈帧</li>
+</ul>
+<p><br> </p>
+<h5 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h5><ul>
+<li>每个栈帧内部包含一组称为局部变量表的变量列表。栈帧中的局部变量表的长度由编译时确定，并且存储于类或或接口的二进制表示之中，即通过方法的code属性保存及提供给栈帧使用</li>
+</ul>
+<ul>
+<li>一个局部变量可以保存一个类型为boolean，byte，char，short，int，float，reference或returnAddress的数据，两个局部变量可以保存为一个类型为long或double的数据，首个局部变量的索引值为0，局部变量的索引值是整数，大小等于0，且小于局部变量表的长度</li>
+</ul>
+<ul>
+<li>long和double类型的数据占用两个连续的局部变量，采用两个局部変量中较小的索引值来定位。將一个double类型的值存储在索引值为n的局部変量中，实际上的意思是索引值カn和n+1的兩个局部变量都用来存储这个值，索引值为n+1的局部変量是无法直接获取的，但可能会被写入，这种操作將会导致局部变量n的内容失效。n不一定需要是偶数，也不要求所有long和double采用64位对齐的方式连续存储</li>
+</ul>
+<ul>
+<li>虚拟机使用局部变量表来完成方法调用时的参数传递。当调用静态的方法时，参数会一次传递到局部变量表中从0开始的连续位置上，当调用实例方法时，第0个参数为this，后续的其他参数将会传递到局部变量表中从1开始的位置</li>
+</ul>
+<p><br> </p>
+<h4 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h4><ul>
+<li>操作数栈上的每个位置都可以保存一个java虚拟机定义的任意数据类型，包括long和double，在任何时刻，操作数栈都有一个确定的栈深度，long和double栈两个单位的深度，其他数据类型占用一个深度</li>
+</ul>
+<ul>
+<li>每个栈帧内部都包含一个称为操作数栈的先进后出栈，栈帧中操作数栈的最大深度由编译期决定，并且通过code属性保存及提供给栈帧使用，在上下文明确不会产生误解的前提下，当前栈帧的操作数栈直接称为操作数栈</li>
+</ul>
+<ul>
+<li>栈帧在刚创建时，操作数栈是空的，java虚拟机提供一些字节码指令来从局部变量表或对象实例中复制常量或变量值到操作数栈中，从操作数栈中取走数据，操作数据以及把数据结果重新入栈。在调用方法时，操作数栈也用来准备调用方法的参数以及接受方法返回的结果</li>
+</ul>
+<ul>
+<li>例如，iadd字节码指令的作用是将两个int类型的数值相加，它要求在执行iadd指令时，两个int类型数值从操作栈中出栈，相加求和，然后将求和的结果重新入栈，在操作数栈中，一项运算由多个子运算嵌套进行，一个子运算的结果可以被其他外围运算所使用</li>
+</ul>
+<ul>
+<li>操作数栈中的数据必须正常操作，例如，不可以入栈连个int类型的数据，然后当做long类型去操作，有一小部分指令可以无视数据类型当做裸类型来操作，但他们不可以修改数据，也不可以拆散数据，这些操作的正确性由class文件的校验过程来保证</li>
+</ul>
+<p><br></p>
+<h4 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h4><ul>
+<li>每个栈帧内部都包含一个指向当前方法所在类的运行常量池的引用，以便对当前方法的代码实现动态链接，在class文件里面，一个方法若要调用其他方法，或者访问成员变量，则需要通过符号引用来表示，动态链接的作用就是将这些符号引用转换为对实际方法的直接引用。类加载的过程中将要解析未被解析的符号引用，并将对变量的访问转换为在运行时在存储结构中的正确偏移量</li>
+</ul>
+<ul>
+<li>对其他类的方法和变量进行了晚期绑定，所以即使那些类发生了变化，也不会影响调用它们的方法</li>
+</ul>
+<p><br></p>
+<h3 id="hotspot7-实现"><a href="#hotspot7-实现" class="headerlink" title="hotspot7 实现"></a>hotspot7 实现</h3><p><br></p>
+<h3 id="hotspot8-变迁"><a href="#hotspot8-变迁" class="headerlink" title="hotspot8 变迁"></a>hotspot8 变迁</h3>]]></content>
       
         <categories>
             
@@ -2254,13 +2386,114 @@ do{
 <li>linux采用两种不同的优先级，一种是上面的nice，一种是实时优先级，范围从 0 到 99，这个值越高则优先级越高。由于任何实时进程优先级都高于普通进程，因此这两种优先级可以互不相交地工作</li>
 </ul>
 <p><br></p>
-<h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><p><br></p>
+<h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><ul>
+<li>为了实现进程模型，操作系统维持一张表格（数组，队列 ..），即进程表，每个进程占用一个表项（称为进程控制块，即pcb），pcb内部通常包含它的程序计数器，栈指针，内存分配状况，打开文件状况，统计和调度信息，定时器和其他信息，以及进程由运行态到就绪切换时所必须保存的其他信息，进程随后能够被再次启动，就像从未被中断过一样</li>
+</ul>
+<ul>
+<li>pcb通常可以根据模块进行分类，设计良好的内核中个模块负责维护它们各自所需要的那些域</li>
+</ul>
+<ul>
+<li>minix当中部分域如下</li>
+</ul>
+<p><img src="http://wx2.sinaimg.cn/mw690/007vHOvngy1fz89sgfp7sj30uy0l6ahc.jpg" alt=""></p>
+<ul>
+<li>linu的进程控制块（进程描述符）如下</li>
+</ul>
+<pre><code>调度数据成员 
+(1) volatile long states; 
+(2) unsigned long flags; 
+(3) long priority; 
+(4) unsigned long rt_priority; 
+(5) long counter; 
+(6) unsigned long policy;
+信号处理 
+(1) unsigned long signal; 
+(2) unsigned long blocked; 
+(3) struct signal_struct *sig;
+进程队列指针 
+(1) struct task_struct *next_task，*prev_task; 
+(2) struct task_struct *next_run，*prev_run; 
+(3) struct task_struct *p_opptr，*p_pptr;和struct task_struct *p_cptr，*p_ysptr，*p_osptr;
+
+进程标识 
+(1) unsigned short uid，gid; 
+(2) int groups[NGROUPS]; 
+(3) unsigned short euid，egid; 
+(4) unsigned short fsuid，fsgid; 
+(5) unsigned short suid，sgid; 
+(6) int pid，pgrp，session; 
+(7) int leader;
+
+时间数据成员 
+(1) unsigned long timeout; 
+(2) unsigned long it_real_value，it_real_iner; 
+(3) struct timer_list real_timer; 
+(4) unsigned long it_virt_value，it_virt_incr; 
+(5) unsigned long it_prof_value，it_prof_incr; 
+(6) long utime，stime，cutime，cstime，start_time;
+
+信号量数据成员 
+(1) struct sem_undo *semundo; 
+(2) struct sem_queue *semsleeping;
+
+进程上下文环境 
+(1) struct desc_struct *ldt; 
+(2) struct thread_struct tss; 
+(3) unsigned long saved_kernel_stack; 
+(4) unsigned long kernel_stack_page;
+
+文件系统数据成员 
+(1) struct fs_struct *fs; 
+(2) struct files_struct *files; 
+(3) int link_count;
+
+内存数据成员 
+(1) struct mm_struct *mm;
+
+页面管理 
+(1) int swappable:1; 
+(2) unsigned long swap_address; 
+(3) unsigned long min_flt，maj_flt; 
+(4) unsigned long nswap; 
+(5) unsigned long cmin_flt，cmaj_flt，cnswap; 
+(6) unsigned long old_maj_flt，dec_flt; 
+(7) unsigned long swap_cnt;
+
+支持对称多处理器方式(SMP)时的数据成员 
+(1) int processor; 
+(2) int last_processor; 
+(3) int lock_depth;
+
+其它数据成员 
+(1) unsigned short used_math; 
+(2) char comm[16]; 
+(3) struct rlimit rlim[RLIM_NLIMITS]; 
+(4) int errno; 
+(5) long debugreg[8]; 
+(6) struct exec_domain *exec_domain; 
+(7) unsigned long personality; 
+(8) struct linux_binfmt *binfmt; 
+(9) int exit_code，exit_signal; 
+(10) int dumpable:1; 
+(11) int did_exec:1; 
+(12) int tty_old_pgrp; 
+(13) struct tty_struct *tty; 
+(14) struct wait_queue *wait_chldexit;
+
+进程队列的全局变量 
+(1) current; 
+(2) struct task_struct init_task; 
+(3) struct task_struct *task[NR_TASKS]; 
+(4) unsigned long volatile jiffies; 
+(5) int need_resched; 
+(6) unsigned long intr_count;
+</code></pre><p><br></p>
 <h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
 <h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
 <h4 id="linux-与-init"><a href="#linux-与-init" class="headerlink" title="linux 与 init"></a>linux 与 init</h4><p><br></p>
 <h4 id="xv6-与-userinit"><a href="#xv6-与-userinit" class="headerlink" title="xv6 与 userinit"></a>xv6 与 userinit</h4><p><br></p>
-<h4 id="Android-zygote-与-内核-init"><a href="#Android-zygote-与-内核-init" class="headerlink" title="Android zygote 与 内核 init"></a>Android zygote 与 内核 init</h4><ul>
-<li>严格来说，这部分内容不应该放在这里，但是，顺便了解一下</li>
+<h4 id="Android-zygote-与-初始化"><a href="#Android-zygote-与-初始化" class="headerlink" title="Android zygote 与 初始化"></a>Android zygote 与 初始化</h4><ul>
+<li>写在另一系列，<a href="https://tocreate.app/2019/01/10/AOSInit/" target="_blank" rel="external">详见</a></li>
 </ul>
 ]]></content>
       
@@ -2861,9 +3094,9 @@ INTR中断
 <p><strong>这部分太长了，和上篇拆开来</strong></p>
 <p><br></p>
 <h3 id="反射-amp-mirror"><a href="#反射-amp-mirror" class="headerlink" title="反射 &amp; mirror"></a>反射 &amp; mirror</h3><ul>
-<li>R大在这篇<a href="http://rednaxelafx.iteye.com/blog/730461" target="_blank" rel="external">文章</a>和这篇<a href="http://rednaxelafx.iteye.com/blog/1847971" target="_blank" rel="external">文章</a>里提到了mirror,原话差不多是这样,HotSpot并不把instanceKlass暴露给Java，而会另外创建对应的java.lang.Class对象，将instanceKlass包装了一层来暴露给Java层使用，并将后者称为前者的镜像，InstanceKlass和java_mirror互相持有，obj.getClass()，在HotSpot VM里实际上经过了两层间接引用才能找到最终的Class对象</li>
+<li>R大在这篇<a href="http://rednaxelafx.iteye.com/blog/730461" target="_blank" rel="external">文章</a>和这篇<a href="http://rednaxelafx.iteye.com/blog/1847971" target="_blank" rel="external">文章</a>里提到了mirror,原话差不多是这样,HotSpot并不把instanceKlass暴露给Java，而会另外创建对应的java.lang.Class对象，将instanceKlass包装了一层来暴露给Java层使用，并将后者称为前者的镜像，InstanceKlass和java_mirror互相持有，obj.getClass()，在HotSpot VM里实际上经过了两层间接引用才能找到最终的Class对象，反射最终调用的jni方法也会通过as_klass函数将java_mirror转换为instanceKlass</li>
 </ul>
-<pre><code>obj-&gt;_klass-&gt;_java_mirror  
+<pre><code>obj-\&gt;\_klass-\&gt;\_java\_mirror  
 </code></pre><ul>
 <li>关于 mirror ，我现在也只了解了一些表面的东西，这篇<a href="chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://bracha.org/mirrors.pdf" target="_blank" rel="external">论文</a>专门描述了这种设计，不过看得我云里雾里的</li>
 </ul>
@@ -2889,19 +3122,19 @@ class instanceMirrorKlass: public instanceKlass {
 
 }
 
-class Klass : public Klass_vtbl {
+class Klass : public Klass\_vtbl {
 
 //...
 
 // java/lang/Class instance mirroring this class
-  oop       _java_mirror;
+  oop       \_java\_mirror;
 }
 </code></pre><ul>
 <li>instanceMirrorKlass很容易和hotspot中的java_lang_Class类搞混,实际上后者只提供了一些java层的java.lang.Class类的访问接口，在设置或查询信息时用到</li>
 </ul>
 <pre><code>// Interface to java.lang.Class objects
 
-class java_lang_Class : AllStatic {
+class java\_lang\_Class : AllStatic {
 </code></pre><p><br></p>
 <h4 id="对应"><a href="#对应" class="headerlink" title="对应"></a>对应</h4><ul>
 <li>当然这里指定的是hotspot中的实现，从java语言层面上来说是否使用mirror都是底层技术细节，不是规范里的内容，只是class类的一种实现而已，现在我们来验证一下java mirror是怎么对应到class类的</li>
@@ -2910,13 +3143,13 @@ class java_lang_Class : AllStatic {
 <li>既然是反射相关，那么当然从反射入手，关于反射我这里强推一篇<a href="https://www.jianshu.com/p/b6cb4c694951" target="_blank" rel="external">文章</a>，以反射为例将 klass opp 模型讲得很具体了(物理)，这里我就直接切入到后面了，我们平时调用的 getDeclaredMethod 会调用到 Reflection::new_method 函数,它会创建一个java.lang.reflect.Method对象</li>
 </ul>
 <pre><code>// Create a java.lang.reflect.Method object based on a method
- static oop new_method(methodHandle method, bool intern_name, bool for_constant_pool_access, TRAPS);
+ static oop new\_method(methodHandle method, bool intern\_name, bool for\_constant\_pool\_access, TRAPS);
 </code></pre><ul>
 <li>而在创建的过程中会调用 set_parameter_types 函数返回设置parameterTypes属性，它则调用get_parameter_types获取objArrayHandle对象，如果参数声明是类，那么它内部包含了java mirror</li>
 </ul>
-<pre><code>objArrayHandle Reflection::get_parameter_types(methodHandle method, int parameter_count, oop* return_type, TRAPS) {
+<pre><code>objArrayHandle Reflection::get\_parameter\_types(methodHandle method, int parameter\_count, oop\* return\_type, TRAPS) {
 //...
- while (!ss.at_return_type()) {
+ while (!ss.at\_return\_type()) {
     oop mirror = get_mirror_from_signature(method, &amp;ss, CHECK_(objArrayHandle()));
     mirrors-&gt;obj_at_put(index++, mirror);
     ss.next();
@@ -2924,7 +3157,7 @@ class java_lang_Class : AllStatic {
 //...
 }
 
-oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
+oop get\_mirror\_from\_signature(methodHandle method, SignatureStream\* ss, TRAPS) {
 //...
 
     case T_OBJECT:
@@ -2957,13 +3190,13 @@ oop get_mirror_from_signature(methodHandle method, SignatureStream* ss, TRAPS) {
 <li>hotspot 6 当中的 klass 不管是普通的 instanceklass 还是其子类 instanceMirrorklass(java mirror，java.lang.class)、instanceRefKlass(softRefenrence,weakRefenrence..) 都存放在 PermGen(对应概念上的方法区)中, 而静态变量存放在instanceklass的末尾</li>
 </ul>
 <pre><code>//src/share/vm/oops/klass.cpp 
-klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
+klassOop Klass::base\_create\_klass\_oop(KlassHandle&amp; klass, int size,
                                       const Klass_vtbl&amp; vtbl, TRAPS) {
-  size = align_object_size(size);
+  size = align\_object\_size(size);
 // allocate and initialize vtable
 // 在PermGen中分配
-  Klass*   kl = (Klass*) vtbl.allocate_permanent(klass, size, CHECK_NULL);
-  klassOop k  = kl-&gt;as_klassOop();
+  Klass\*   kl = (Klass\*) vtbl.allocate\_permanent(klass, size, CHECK\_NULL);
+  klassOop k  = kl-\&gt;as\_klassOop();
 </code></pre><ul>
 <li>jdk 6 中 instanceKlass 内存布局如下，末尾为 static 变量</li>
 </ul>
@@ -2975,7 +3208,7 @@ klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
 //    [instance size              ] Klass
 //    [java mirror                ] Klass
 //    [super                      ] Klass
-//    [access_flags               ] Klass
+//    [access\_flags               ] Klass
 //    [name                       ] Klass
 //    [first subklass             ] Klass
 //    [next sibling               ] Klass
@@ -2984,7 +3217,7 @@ klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
 //    [local interfaces           ]
 //    [transitive interfaces      ]
 //    [number of implementors     ]
-//    [implementors               ] klassOop[2]
+//    [implementors               ] klassOop[2][7]
 //    [fields                     ]
 //    [constants                  ]
 //    [class loader               ]
@@ -3002,18 +3235,21 @@ klassOop Klass::base_create_klass_oop(KlassHandle&amp; klass, int size,
 //    [initializing thread        ]
 //    [Java vtable length         ]
 //    [oop map cache (stack maps) ]
-//    [EMBEDDED Java vtable             ] size in words = vtable_len
-//    [EMBEDDED static oop fields       ] size in words = static_oop_fields_size
-//    [         static non-oop fields   ] size in words = static_field_size - static_oop_fields_size
-//    [EMBEDDED nonstatic oop-map blocks] size in words = nonstatic_oop_map_size
+//    [EMBEDDED Java vtable             ] size in words = vtable\_len
+//    [EMBEDDED static oop fields       ] size in words = static\_oop\_fields\_size
+//    [         static non-oop fields   ] size in words = static\_field\_size - static\_oop\_fields\_size
+//    [EMBEDDED nonstatic oop-map blocks] size in words = nonstatic\_oop\_map\_size
 </code></pre><p><br></p>
 <h4 id="jdk-7"><a href="#jdk-7" class="headerlink" title="jdk 7"></a>jdk 7</h4><ul>
 <li>hotspot 7 中 java_mirror 的实例在堆中创建，静态变量存放在 java_mirror 当中，初始化静态变量时，核心都是调用xxx field_put函数，将变量存放在指定偏移量处</li>
 </ul>
+<ul>
+<li>静态变量迁移到 java_mirror当中的原因是为了移除永久区做准备，具体可以看 oracle 的 <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=7017732" target="_blank" rel="external">issue</a></li>
+</ul>
 <pre><code>//初始化静态变量
 //src/share/vm/classfile/javaClasses.cpp
-static void initialize_static_field(fieldDescriptor* fd, TRAPS) {
-  Handle mirror (THREAD, fd-&gt;field_holder()-&gt;java_mirror());
+static void initialize\_static\_field(fieldDescriptor\* fd, TRAPS) {
+  Handle mirror (THREAD, fd-\&gt;field\_holder()-\&gt;java\_mirror());
 //...
     switch (t) {
       case T_BYTE:
@@ -3053,13 +3289,13 @@ static void initialize_static_field(fieldDescriptor* fd, TRAPS) {
 </code></pre><ul>
 <li>instanceMirrorKlass 的创建如下，JavaObjectsInPerm 写死是 false，common_mem_allocate_init 上一篇分析过了，在堆中分配内存</li>
 </ul>
-<pre><code>//创建java_mirror，调用过程由上到下
-/java_lang_Class::create_mirror
-//instanceMirrorKlass::allocate_instance
-//CollectedHeap::Class_obj_allocate
+<pre><code>//创建java\_mirror，调用过程由上到下
+/java\_lang\_Class::create\_mirror
+//instanceMirrorKlass::allocate\_instance
+//CollectedHeap::Class\_obj\_allocate
 
-oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle real_klass, TRAPS) {
-  HeapWord* obj;
+oop CollectedHeap::Class\_obj\_allocate(KlassHandle klass, int size, KlassHandle real\_klass, TRAPS) {
+  HeapWord\* obj;
 //默认为false
   if (JavaObjectsInPerm) {
     obj = common_permanent_mem_allocate_init(size, CHECK_NULL);
@@ -3069,10 +3305,10 @@ oop CollectedHeap::Class_obj_allocate(KlassHandle klass, int size, KlassHandle r
   }
 </code></pre><p><br></p>
 <h4 id="Jdk-8"><a href="#Jdk-8" class="headerlink" title="Jdk 8"></a>Jdk 8</h4><ul>
-<li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响</li>
+<li>hotspot 8 移除了 PermGen，而使用 MetaSpace(元空间，不受堆管理器管理)，但是 java_mirror 并不受影响，依然放在堆当中</li>
 </ul>
 <ul>
-<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是不判断JavaObjectsInPerm了,klass也放在了元空间当中，这里不再赘述</li>
+<li>静态变量大体上保留 7 中的做法，还在java_mirror当中，只是java_mirror的创建不再判断JavaObjectsInPerm了，直接调用common_mem_allocate_init，而klass则放在元空间当中，这里不再赘述</li>
 </ul>
 <p><strong>本篇完</strong></p>
 ]]></content>
