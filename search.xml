@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[Android 系统系列 Binder源码解析]]></title>
+      <url>/2019/01/18/AOSBinder/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">本文为Android 系统相关系列的一部分</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android 系统系列 Activity启动流程]]></title>
       <url>/2019/01/18/AOSActivityInit/</url>
       <content type="html"><![CDATA[<p>-</p>
