@@ -626,71 +626,8 @@ private class H extends Handler {
     </entry>
     
     <entry>
-      <title><![CDATA[Android - 系统中的各种id]]></title>
-      <url>/2019/01/16/AndroidID/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><strong>看系统源码的时候遇到了 uid gid userId appId，当时不是很了解这些id的作用，这里记录一下</strong></p>
-<p><strong><a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">参考</a></strong></p>
-<p><br></p>
-<h3 id="Linux-UID-GID"><a href="#Linux-UID-GID" class="headerlink" title="Linux UID GID"></a>Linux UID GID</h3><ul>
-<li>Android中的安全机制同样基于linux，Linux中使用ID来标识用户，每个登录的用户都会取得两个ID，UID和GID，Linux利用它们进行权限判断，每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理，Linux系统中的用户(UID)分为3类，即普通用户、root用户、系统用户</li>
-</ul>
-<ul>
-<li>普通用户（uid 500-60000）是指所有使用Linux系统的真实用户，这类用户可以使用用户名及密码登录系统。一般来说普通用户只能在其家目录、系统临时目录或其他经过授权的目录中操作，以及操作属于该用户的文件。通常普通用户的UID大于500，因为在添加普通用户时，系统默认用户ID从500开始编号</li>
-</ul>
-<ul>
-<li>root用户（ID 0），也被称为超级用户，root账户拥有对系统的完全控制权：可以修改、删除任何文件，运行任何命令</li>
-</ul>
-<ul>
-<li>系统用户（UID 1-499）也叫伪用户，与系统和程序服务相关，因为并不是真实的使用者，所以叫伪用户，如bin、daemon、shutdown、halt等，任何Linux系统都默认有这些伪用户；mail、ftp、sshd等，与Linux系统的进程相关</li>
-</ul>
-<p><br></p>
-<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p><br></p>
-<h4 id="uid"><a href="#uid" class="headerlink" title="uid"></a>uid</h4><ul>
-<li>在 Android 上，一个用户 UID 标示一个应用程序。应用程序在安装时被分配用户 UID，应用程序在设备上的存续期间内，用户 UID 保持不变。uid由userid和appid共同组成</li>
-</ul>
-<ul>
-<li>在多用户的情况下，每个用户对应一个userid，同一用户启动的应用userid都是一致的</li>
-</ul>
-<ul>
-<li>appid，每个应用都有一个appid，appid是由PackageManagerService在安装应用时分配的，同一应用的多个进程一般都拥有相同appid，只是pid不一样，appId的范围一定在10000到19999 </li>
-</ul>
-<p><br></p>
-<h4 id="gid"><a href="#gid" class="headerlink" title="gid"></a>gid</h4><ul>
-<li>对于普通的应用程序，GID即等于UID，值得一提的是，gid和权限组是相映射的，一个权限一般会属于一个gid，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户）</li>
-</ul>
-<p><br></p>
-<h4 id="进程隔离"><a href="#进程隔离" class="headerlink" title="进程隔离"></a>进程隔离</h4><ul>
-<li>隔离进程是4.1之后加入的安全机制，一般用于对系统有风险的代码，我们很少会用到</li>
-</ul>
-<ul>
-<li>每个appID会属于某个用户组。同属于一个用户组的appid有些权限是共享的，在manifest中加入android:isolatedProcess=”true”参数，可以使service运行与应用userid不同的新进程当中，这样这个service就不会获取到当前应用的权限，并且也不允许启动Activity</li>
-</ul>
-<ul>
-<li>系统判断一个进程是否为的条件为Process.FIRST_ISOLATED_UID &amp;&amp; appId \&lt;= Process.LAST_ISOLATED_UID，这些常量一般是编译时定好的</li>
-</ul>
-<p><br><br><strong>本篇完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[深入JVM系列 9 - hotspot 7 & 8 运行时数据区]]></title>
-      <url>/2019/01/15/JVMRuntime/</url>
+      <url>/2019/01/18/JVMRuntime/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
@@ -718,14 +655,14 @@ private class H extends Handler {
 --------------------------------------
 |                                    |
 |      线程1     线程2   ...  线程n    |
-|    --------                     |
+|    --------                        |
 |   |   pc   |    ...                |
-|    --------                       |
-|       栈                         |
-|    --------                       |
-|   |   帧1  |                    |
-|    --------                      |
-|   |   ...  |                      |          
+|    --------                        |
+|       栈                           |
+|    --------                        |
+|   |   帧1  |                       |
+|    --------                        |
+|   |   ...  |                       |          
 |    --------                        |
 |   |   帧n  |                       |
 |    --------                        |
@@ -738,16 +675,16 @@ private class H extends Handler {
 |        class1           classN    |
 |    --------------                 |
 |   | 运行时常量池 |                  |
-|    --------------              |
-|    --------------              |  
-|   |     字段     |              |
-|    --------------      ...     |
-|    --------------              |
-|   |     方法     |              |
-|    --------------              |
-|    --------------              |
-|   |     代码     |              |
-|    --------------              |
+|    --------------                 |
+|    --------------                 |  
+|   |     字段     |                 |
+|    --------------      ...        |
+|    --------------                 |
+|   |     方法     |                 |
+|    --------------                 |
+|    --------------                 |
+|   |     代码     |                 |
+|    --------------                 |
  -----------------------------------
 </code></pre><p><br> </p>
 <h4 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h4><ul>
@@ -755,10 +692,20 @@ private class H extends Handler {
 </ul>
 <p><br> </p>
 <h4 id="java堆"><a href="#java堆" class="headerlink" title="java堆"></a>java堆</h4><ul>
-<li>java堆是供各个线程共享的运行时内存区域，也共所有类实例和数组对象分配内存区域</li>
+<li>java堆是供各个线程共享的运行时内存区域，也供所有类实例和数组对象分配内存区域</li>
 </ul>
 <ul>
 <li>java堆在虚拟机启动时被创建，它存储了被垃圾收集器管理的各种对象，堆空间可以是固定的也可以是动态扩展和收缩的，内存也不要求是连续的</li>
+</ul>
+<p><br> </p>
+<h4 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h4><ul>
+<li>它存储了每一个类的结构信息，如运行时常量池，字段，方法数据，构造函数和普通方法的字节码内容，还包含一些在类，实例，接口初始化时用到的特殊方法</li>
+</ul>
+<ul>
+<li>方法区是供各个线程共享的运行时内存区域。方法区与传统语言中的编译代码存储区，或操作系统的正文段作用类似。方法区在虚拟机启动时创建，虽然是堆的逻辑组成部分，但简单的虚拟机可以选择在这个区域不实现垃圾收集与压缩。java 8 版本的虚拟机规范也不限定方法区的内存位置和编译代码的管理策略。</li>
+</ul>
+<ul>
+<li>方法区空间可以是固定的也可以是动态扩展和收缩的，内存也不要求是连续的</li>
 </ul>
 <p><br> </p>
 <h4 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h4><ul>
@@ -826,10 +773,108 @@ private class H extends Handler {
 <li>对其他类的方法和变量进行了晚期绑定，所以即使那些类发生了变化，也不会影响调用它们的方法</li>
 </ul>
 <p><br></p>
-<h3 id="hotspot-实现"><a href="#hotspot-实现" class="headerlink" title="hotspot 实现"></a>hotspot 实现</h3><p><br></p>
+<h3 id="hotspot-实现"><a href="#hotspot-实现" class="headerlink" title="hotspot 实现"></a>hotspot 实现</h3><p><strong>虚拟机按用途将内存区域分为堆和非堆</strong></p>
+<p><br></p>
 <h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p><br></p>
-<h4 id="栈-1"><a href="#栈-1" class="headerlink" title="栈"></a>栈</h4><p><br></p>
+<h5 id="分代"><a href="#分代" class="headerlink" title="分代"></a>分代</h5><ul>
+<li>由于堆用于对象的分配，按对象年龄又再一步划分为新生代和老年代区域，注意虽然permGen属于分代范畴，但它位于非堆空间</li>
+</ul>
+<ul>
+<li>分代基于jvm中大量对象死得快，少量对象死得慢的观点，对于不同的最新，采取不同的收集策略，分配不同的内存空间分别存储不同年龄的对象，对象可以分为三代</li>
+</ul>
+<pre><code>youngGen: 位于堆，包括 Eden 和 From/To Survivor 区
+oldGen：   位于堆
+permGen:  位于非堆
+</code></pre><p><br></p>
+<h5 id="堆的实现"><a href="#堆的实现" class="headerlink" title="堆的实现"></a>堆的实现</h5><ul>
+<li>hotspot中使用什么样的堆实际是由使用什么样的垃圾收集策略决定的，直接使用的堆实现有三种 ParallelScavengeHeap，GenCollectedHeap，G1CollectedHeap，继承关系如下</li>
+</ul>
+<pre><code>              CollectedHeap
+     --------------|-------------
+     |                           |
+ParallelScavengeHeap        SharedHeap
+                              ———|———
+                             |       |
+                  GenCollectedHeap  G1CollectedHeap
+</code></pre><ul>
+<li>所谓使用什么样的策略，体现到实践中就是设什么参数启动什么gc收集器，体现到代码中就是使用什么policy，堆相关的代码实现在hotspot的内存管理模块 memory，参数上，UseParallelGC 对应 ParallelScavengeHeap，UseG1GC 对应G1CollectedHeap, G1CollectorPolicy，默认为 GenCollectedHeap，GenCollectedHeap对应的policy如下</li>
+</ul>
+<pre><code>默认：MarkSweepPolicy
+UseSerialGC: MarkSweepPolicy
+UseConcMarkSweepGC &amp; UseAdaptiveSizePolicy : ASConcurrentMarkSweepPolicy
+UseConcMarkSweepGC: ConcurrentMarkSweepPolicy
+</code></pre><p><br></p>
+<h4 id="非堆"><a href="#非堆" class="headerlink" title="非堆"></a>非堆</h4><ul>
+<li>非堆：包括方法区和code cache</li>
+</ul>
+<pre><code>注意，永久代和方法区是两个不同的概念
+分代是属于gc范畴的概念，并且是基于hotspot的设计思想
+方法区属于jvm设计规范的内容，方法区是否在堆中这点依赖于实现，至少hotpot就没有这么做
+</code></pre><p><br></p>
 <h3 id="hotspot8-变迁"><a href="#hotspot8-变迁" class="headerlink" title="hotspot8 变迁"></a>hotspot8 变迁</h3>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android - 系统中的各种id]]></title>
+      <url>/2019/01/16/AndroidID/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>看系统源码的时候遇到了 uid gid userId appId，当时不是很了解这些id的作用，这里记录一下</strong></p>
+<p><strong><a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">参考</a></strong></p>
+<p><br></p>
+<h3 id="Linux-UID-GID"><a href="#Linux-UID-GID" class="headerlink" title="Linux UID GID"></a>Linux UID GID</h3><ul>
+<li>Android中的安全机制同样基于linux，Linux中使用ID来标识用户，每个登录的用户都会取得两个ID，UID和GID，Linux利用它们进行权限判断，每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理，Linux系统中的用户(UID)分为3类，即普通用户、root用户、系统用户</li>
+</ul>
+<ul>
+<li>普通用户（uid 500-60000）是指所有使用Linux系统的真实用户，这类用户可以使用用户名及密码登录系统。一般来说普通用户只能在其家目录、系统临时目录或其他经过授权的目录中操作，以及操作属于该用户的文件。通常普通用户的UID大于500，因为在添加普通用户时，系统默认用户ID从500开始编号</li>
+</ul>
+<ul>
+<li>root用户（ID 0），也被称为超级用户，root账户拥有对系统的完全控制权：可以修改、删除任何文件，运行任何命令</li>
+</ul>
+<ul>
+<li>系统用户（UID 1-499）也叫伪用户，与系统和程序服务相关，因为并不是真实的使用者，所以叫伪用户，如bin、daemon、shutdown、halt等，任何Linux系统都默认有这些伪用户；mail、ftp、sshd等，与Linux系统的进程相关</li>
+</ul>
+<p><br></p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p><br></p>
+<h4 id="uid"><a href="#uid" class="headerlink" title="uid"></a>uid</h4><ul>
+<li>在 Android 上，一个用户 UID 标示一个应用程序。应用程序在安装时被分配用户 UID，应用程序在设备上的存续期间内，用户 UID 保持不变。uid由userid和appid共同组成</li>
+</ul>
+<ul>
+<li>在多用户的情况下，每个用户对应一个userid，同一用户启动的应用userid都是一致的</li>
+</ul>
+<ul>
+<li>appid，每个应用都有一个appid，appid是由PackageManagerService在安装应用时分配的，同一应用的多个进程一般都拥有相同appid，只是pid不一样，appId的范围一定在10000到19999 </li>
+</ul>
+<p><br></p>
+<h4 id="gid"><a href="#gid" class="headerlink" title="gid"></a>gid</h4><ul>
+<li>对于普通的应用程序，GID即等于UID，值得一提的是，gid和权限组是相映射的，一个权限一般会属于一个gid，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户）</li>
+</ul>
+<p><br></p>
+<h4 id="进程隔离"><a href="#进程隔离" class="headerlink" title="进程隔离"></a>进程隔离</h4><ul>
+<li>隔离进程是4.1之后加入的安全机制，一般用于对系统有风险的代码，我们很少会用到</li>
+</ul>
+<ul>
+<li>每个appID会属于某个用户组。同属于一个用户组的appid有些权限是共享的，在manifest中加入android:isolatedProcess=”true”参数，可以使service运行与应用userid不同的新进程当中，这样这个service就不会获取到当前应用的权限，并且也不允许启动Activity</li>
+</ul>
+<ul>
+<li>系统判断一个进程是否为的条件为Process.FIRST_ISOLATED_UID &amp;&amp; appId \&lt;= Process.LAST_ISOLATED_UID，这些常量一般是编译时定好的</li>
+</ul>
+<p><br><br><strong>本篇完</strong></p>
+]]></content>
       
         <categories>
             

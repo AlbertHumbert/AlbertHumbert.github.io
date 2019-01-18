@@ -56,11 +56,11 @@
   </entry>
   
   <entry>
-    <title>Android - 系统中的各种id</title>
-    <link href="https://alberthumbert.github.io/2019/01/16/AndroidID/"/>
-    <id>https://alberthumbert.github.io/2019/01/16/AndroidID/</id>
-    <published>2019-01-16T08:07:37.000Z</published>
-    <updated>2019-01-16T09:14:21.910Z</updated>
+    <title>深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区</title>
+    <link href="https://alberthumbert.github.io/2019/01/18/JVMRuntime/"/>
+    <id>https://alberthumbert.github.io/2019/01/18/JVMRuntime/</id>
+    <published>2019-01-18T02:44:14.000Z</published>
+    <updated>2019-01-18T16:16:42.307Z</updated>
     
     <summary type="html">
     
@@ -76,11 +76,11 @@
   </entry>
   
   <entry>
-    <title>深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区</title>
-    <link href="https://alberthumbert.github.io/2019/01/15/JVMRuntime/"/>
-    <id>https://alberthumbert.github.io/2019/01/15/JVMRuntime/</id>
-    <published>2019-01-15T02:44:14.000Z</published>
-    <updated>2019-01-18T03:43:31.421Z</updated>
+    <title>Android - 系统中的各种id</title>
+    <link href="https://alberthumbert.github.io/2019/01/16/AndroidID/"/>
+    <id>https://alberthumbert.github.io/2019/01/16/AndroidID/</id>
+    <published>2019-01-16T08:07:37.000Z</published>
+    <updated>2019-01-16T09:14:21.910Z</updated>
     
     <summary type="html">
     
