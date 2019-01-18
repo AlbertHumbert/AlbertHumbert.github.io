@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-16T09:14:21.910Z</updated>
+  <updated>2019-01-18T08:08:21.589Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android 系统系列 Activity启动流程</title>
+    <link href="https://alberthumbert.github.io/2019/01/18/AOSActivityInit/"/>
+    <id>https://alberthumbert.github.io/2019/01/18/AOSActivityInit/</id>
+    <published>2019-01-18T07:12:42.000Z</published>
+    <updated>2019-01-18T08:08:21.589Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Android - 系统中的各种id</title>
@@ -40,27 +60,7 @@
     <link href="https://alberthumbert.github.io/2019/01/15/JVMRuntime/"/>
     <id>https://alberthumbert.github.io/2019/01/15/JVMRuntime/</id>
     <published>2019-01-15T02:44:14.000Z</published>
-    <updated>2019-01-16T05:59:50.150Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android 系统系列 Activity启动流程</title>
-    <link href="https://alberthumbert.github.io/2019/01/14/AOSActivityInit/"/>
-    <id>https://alberthumbert.github.io/2019/01/14/AOSActivityInit/</id>
-    <published>2019-01-14T07:12:42.000Z</published>
-    <updated>2019-01-16T09:16:31.124Z</updated>
+    <updated>2019-01-18T03:43:31.421Z</updated>
     
     <summary type="html">
     

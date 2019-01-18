@@ -3,6 +3,606 @@
   
     
     <entry>
+      <title><![CDATA[Android 系统系列 Activity启动流程]]></title>
+      <url>/2019/01/18/AOSActivityInit/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">本文为Android 系统相关系列的一部分</a></p>
+<p><strong>Activity的启动流程分为两种，一种是根Activity，这是应用启动的第一个Activity，一般即为LauncherActivity，另一种为普通的Activity，本文只讲解根Activity的启动流程，基本上会覆盖到普通Activity的流程的重要的部分，因此就不单独再讲的普通Activity的了</strong></p>
+<p><strong>本文参考</strong><br><strong>《Android 进阶解密》</strong><br><strong>《Android 系统源码情景分析》</strong><br><strong><a href="https://blog.csdn.net/yao_zhanlie/article/details/80771316" target="_blank" rel="external">Activity启动流程解析-基于安卓8.0系统源码</a></strong></p>
+<p><br></p>
+<h4 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h4><ul>
+<li>由于Zygote，Launcher，AMS，ActivityThread运行在四个不同的进程当中，因此启动Activity的过程涉及的binder通信较为复杂</li>
+</ul>
+<ul>
+<li>当用户点击Launcher界面的应用图标，Launcher进程会向SystemServer进程中的AMS发送创建根Activity的请求</li>
+</ul>
+<ul>
+<li>AMS判断Activity的进程还未创建那么就会向Zygote进程请求创建想要的进程，因为这里讨论的是根Activity，那么这个进程当然就是没有创建的，这个过程上一篇已经过了一遍了</li>
+</ul>
+<ul>
+<li>当应用进程创建完毕之后AMS会向应用进程当中的ApplicationThread请求创建根Activity，ApplicationThread，ApplicationThread最终通过ActivityThread创建Activity，并且调用preformCreate方法，这个方法会调用我们熟悉的onCreate方法</li>
+</ul>
+<p><br></p>
+<h4 id="Launcher请求过程"><a href="#Launcher请求过程" class="headerlink" title="Launcher请求过程"></a>Launcher请求过程</h4><p><br></p>
+<h5 id="构造intent"><a href="#构造intent" class="headerlink" title="构造intent"></a>构造intent</h5><ul>
+<li>该过程由Launcher向AMS发送启动根Activity请求</li>
+</ul>
+<ul>
+<li>当用户点击应用图标时，Launcher将构造intent，并调用startActivity方法，该intent的启动模式为newTask,因此它会在新的任务栈中启动</li>
+</ul>
+<pre><code>public boolean startActivitySafely(View v, Intent intent, ItemInfo item) {
+
+//…
+    // Prepare intent
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    if (v != null) {
+        intent.setSourceBounds(getViewBounds(v));
+    }
+    try {
+        if (Utilities.ATLEAST_MARSHMALLOW
+                &amp;&amp; (item instanceof ShortcutInfo)
+                &amp;&amp; (item.itemType == Favorites.ITEM_TYPE_SHORTCUT
+                 || item.itemType == Favorites.ITEM_TYPE_DEEP_SHORTCUT)
+                &amp;&amp; !((ShortcutInfo) item).isPromise()) {
+            // Shortcuts need some special checks due to legacy reasons.
+            startShortcutIntentSafely(intent, optsBundle, item);
+        } else if (user == null || user.equals(Process.myUserHandle())) {
+            // Could be launching some bookkeeping activity
+            startActivity(intent, optsBundle);
+        } else {
+            LauncherAppsCompat.getInstance(this).startActivityForProfile(
+                    intent.getComponent(), user, intent.getSourceBounds(), optsBundle);
+        }
+        return true;
+    } catch (ActivityNotFoundException|SecurityException e) {
+        Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
+        Log.e(TAG, &quot;Unable to launch. tag=&quot; + item + &quot; intent=&quot; + intent, e);
+    }
+    return false;
+}
+</code></pre><p><br></p>
+<h5 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a>Instrumentation</h5><ul>
+<li>Instrumentation类会在应用的任何代码执行前被实列化,用来监控系统与应用的交互。Instrumentation另一个重要作用是提供Android组件自动化测试，可在以应用的AndroidManifest.xml中\<instrumentation\>标签来注册一个Instrumentation的实现，<a href="http://www.cnblogs.com/keke-xiaoxiami/p/4307571.html" target="_blank" rel="external">详见</a></instrumentation\></li>
+</ul>
+<ul>
+<li>startActivity方法会调用Instrumentation的execStartActivity方法</li>
+</ul>
+<pre><code>public ActivityResult execStartActivity(Context who, IBinder contextThread, IBinder token, Activity target,Intent intent, int requestCode, Bundle options) {
+
+    //…
+    try {
+        intent.migrateExtraStreamToClipData();
+        intent.prepareToLeaveProcess(who);
+        int result = ActivityManager.getService()
+            .startActivity(whoThread, who.getBasePackageName(), intent,
+                    intent.resolveTypeIfNeeded(who.getContentResolver()),
+                    token, target != null ? target.mEmbeddedID : null,
+                    requestCode, 0, null, options);
+        checkStartActivityResult(result, intent);
+    } catch (RemoteException e) {
+        throw new RuntimeException(&quot;Failure from system&quot;, e);
+    }
+    return null;
+}
+</code></pre><ul>
+<li>execStartActivity会调用到ActivityManager的getService方法来获取AMS的代理对象并调用startActivity方法。这个代理对象也是从ServiceManager中的getService中获取的，这里不是很重要，因此略过</li>
+</ul>
+<p><br></p>
+<h4 id="AMS处理请求"><a href="#AMS处理请求" class="headerlink" title="AMS处理请求"></a>AMS处理请求</h4><p><strong>这部分可能和上文创建应用进程有重复的地方，不过上篇只是大致讲了请求zygote的过程，这部分关注Activity和栈</strong></p>
+<ul>
+<li>AMS的startActivity方法，他会调用startActivityAsUser，这个方法判断进程是否被隔离，关于进程隔离可以看<a href="https://tocreate.app/2019/01/16/AndroidID/" target="_blank" rel="external">这篇</a>，在handleIncomingUser方法中还会检查用户权限</li>
+</ul>
+<pre><code>@Override
+public final int startActivityAsUser(IApplicationThread caller, String callingPackage,
+        Intent intent, String resolvedType, IBinder resultTo, String resultWho, int requestCode,
+        int startFlags, ProfilerInfo profilerInfo, Bundle bOptions, int userId) {
+    enforceNotIsolatedCaller(&quot;startActivity&quot;);
+    userId = mUserController.handleIncomingUser(Binder.getCallingPid(), Binder.getCallingUid(),
+            userId, false, ALLOW_FULL_ONLY, &quot;startActivity&quot;, null);
+    // TODO: Switch to user app stacks here.
+    return mActivityStarter.startActivityMayWait(caller, -1, callingPackage, intent,
+            resolvedType, null, null, resultTo, resultWho, requestCode, startFlags,
+            profilerInfo, null, null, bOptions, false, userId, null, null,
+            &quot;startActivityAsUser&quot;);
+}
+</code></pre><ul>
+<li>startActivity会调用ActivityStarter的startActivityMayWait方法，ActivityStarter是7.0里的一个架构优化，负责Activity的启动，它会收集所有的逻辑，来决定如何将intent和flag转换为Activity，这里的业务逻辑比较复杂，不过我们不用太关心这部分内容，只要知道startActivityMayWait收集完这些信息之后会调用到startActivity方法</li>
+</ul>
+<ul>
+<li>startActivity当中我们需要注意的是，这个方法有一个类型为ApplicationThread类型的caller，这个ApplicationThread正是launcher(或者其他启动者)进程的ApplicationThread，通过这个caller，可以获取一个ProcessRecord实例，这个实例描述了一个应用程序的进程，然后这个方法里创建了一个ActivityRecord实例，用来描述将要启动的Activity，把收集到的Activity信息都塞进去</li>
+</ul>
+<pre><code>    private int startActivity(IApplicationThread caller, Intent intent, Intent ephemeralIntent,
+            String resolvedType, ActivityInfo aInfo, ResolveInfo rInfo,
+            IVoiceInteractionSession voiceSession, IVoiceInteractor voiceInteractor,
+            IBinder resultTo, String resultWho, int requestCode, int callingPid, int callingUid,
+            String callingPackage, int realCallingPid, int realCallingUid, int startFlags,
+            ActivityOptions options, boolean ignoreTargetSecurity, boolean componentSpecified,
+            ActivityRecord[] outActivity, ActivityStackSupervisor.ActivityContainer container,
+            TaskRecord inTask) {
+        int err = ActivityManager.START_SUCCESS;
+        // Pull the optional Ephemeral Installer-only bundle out of the options early.
+        final Bundle verificationBundle
+                = options != null ? options.popAppVerificationBundle() : null;
+
+        ProcessRecord callerApp = null;
+        if (caller != null) {
+            callerApp = mService.getRecordForAppLocked(caller);
+            if (callerApp != null) {
+                callingPid = callerApp.pid;
+                callingUid = callerApp.info.uid;
+            } else {
+                Slog.w(TAG, &quot;Unable to find app for caller &quot; + caller
+                        + &quot; (pid=&quot; + callingPid + &quot;) when starting: &quot;
+                        + intent.toString());
+                err = ActivityManager.START_PERMISSION_DENIED;
+            }
+        }
+
+//...
+        ActivityRecord r = new ActivityRecord(mService, callerApp, callingPid, callingUid,
+                callingPackage, intent, resolvedType, aInfo, mService.getGlobalConfiguration(),
+                resultRecord, resultWho, requestCode, componentSpecified, voiceSession != null,
+                mSupervisor, container, options, sourceRecord);
+        if (outActivity != null) {
+            outActivity[0] = r;
+        }
+
+//…
+
+        doPendingActivityLaunchesLocked(false);
+
+        return startActivity(r, sourceRecord, voiceSession, voiceInteractor, startFlags, true,
+                options, inTask, outActivity);
+    }
+</code></pre><ul>
+<li>startActivity会调用到startActivityUnchecked，这个方法主要负责管理任务栈，由于是启动根Activity，这里因此mLaunchFlags就会包含FLAG_ACTIVITY_NEW_TASK，所以接下来会创建一个TaskRecord实例，该实例用来描述一个Activity任务栈，也就是说这里创建了一个新的任务栈，复合我们的预期</li>
+</ul>
+<pre><code>    private int startActivityUnchecked(final ActivityRecord r, ActivityRecord sourceRecord,
+            IVoiceInteractionSession voiceSession, IVoiceInteractor voiceInteractor,
+            int startFlags, boolean doResume, ActivityOptions options, TaskRecord inTask,
+            ActivityRecord[] outActivity) {
+
+//…
+        if (mStartActivity.resultTo == null &amp;&amp; mInTask == null &amp;&amp; !mAddingToTask
+                &amp;&amp; (mLaunchFlags &amp; FLAG_ACTIVITY_NEW_TASK) != 0) {
+            newTask = true;
+            result = setTaskFromReuseOrCreateNewTask(
+                    taskToAffiliate, preferredLaunchStackId, topStack);
+        } else if (mSourceRecord != null) {
+            result = setTaskFromSourceRecord();
+        } else if (mInTask != null) {
+            result = setTaskFromInTask();
+        } else {
+            // This not being started from an existing activity, and not part of a new task...
+            // just put it in the top task, though these days this case should never happen.
+            setTaskToCurrentTopOrCreateNewTask();
+        }
+//…
+        if (mDoResume) {
+            final ActivityRecord topTaskActivity =
+                    mStartActivity.getTask().topRunningActivityLocked();
+            if (!mTargetStack.isFocusable()
+                    || (topTaskActivity != null &amp;&amp; topTaskActivity.mTaskOverlay
+                    &amp;&amp; mStartActivity != topTaskActivity)) {
+                if (mTargetStack.isFocusable() &amp;&amp; !mSupervisor.isFocusedStack(mTargetStack)) {
+                    mTargetStack.moveToFront(&quot;startActivityUnchecked&quot;);
+                }
+                mSupervisor.resumeFocusedStackTopActivityLocked(mTargetStack, mStartActivity,
+                        mOptions);
+            }
+        } else {
+            mTargetStack.addRecentActivityLocked(mStartActivity);
+        }
+    //…
+    }
+</code></pre><ul>
+<li>之后调用到ActivityStackSupervisor，这个类是专门用来处理系统中所有任务栈的逻辑的，系统中可以同时存在着多个活跃进程，多个不同进程的任务栈之间如何跳转，在这个类里面进行处理，它内部调用ActivityStack，ActivityStack则单独管理一个任务栈的逻辑，我们需要关注的是最后ActivityStackSupervisor的startSpecificActivityLocked将被调用</li>
+</ul>
+<ul>
+<li>startSpecificActivityLocked中根Activity和普通Activity的流程才有了较大的分支，它会调用ActivityManagerService的getProcessRecordLocked来获取需要启动的Activity的进程，对于根Activity，一般得到null，对于普通的Activity，如果进程存活将得到ProcessRecord实例。拿不到进程的情况下，就会调用startProcessLocked来启动一个进程，否则直接调用realStartActivityLocked</li>
+</ul>
+<pre><code>void startSpecificActivityLocked(ActivityRecord r,
+        boolean andResume, boolean checkConfig) {
+    // Is this activity&apos;s application already running?
+    ProcessRecord app = mService.getProcessRecordLocked(r.processName,
+            r.info.applicationInfo.uid, true);
+
+    r.getStack().setLaunchTime(r);
+
+    if (app != null &amp;&amp; app.thread != null) {
+        try {
+            if ((r.info.flags&amp;ActivityInfo.FLAG_MULTIPROCESS) == 0
+                    || !&quot;android&quot;.equals(r.info.packageName)) {
+                // Don&apos;t add this if it is a platform component that is marked
+                // to run in multiple processes, because this is actually
+                // part of the framework so doesn&apos;t make sense to track as a
+                // separate apk in the process.
+                app.addPackage(r.info.packageName, r.info.applicationInfo.versionCode,
+                        mService.mProcessStats);
+            }
+            realStartActivityLocked(r, app, andResume, checkConfig);
+            return;
+        } catch (RemoteException e) {
+            Slog.w(TAG, &quot;Exception when starting activity &quot;
+                    + r.intent.getComponent().flattenToShortString(), e);
+        }
+
+        // If a dead object exception was thrown -- fall through to
+        // restart the application.
+    }
+
+    mService.startProcessLocked(r.processName, r.info.applicationInfo, true, 0,
+            &quot;activity&quot;, r.intent.getComponent(), false, false, true);
+}
+</code></pre><ul>
+<li>创建应用进程的部分上一篇已经讲过了，Zygote监听socket，AMS请求被接受时Zygote就会fork并找到ActivityThread的main方法并执行，所以我们接下来只要看ActivityThread的main方法就好了</li>
+</ul>
+<pre><code>public static void main(String[] args) {
+    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ActivityThreadMain&quot;);
+
+    // CloseGuard defaults to true and can be quite spammy.  We
+    // disable it here, but selectively enable it later (via
+    // StrictMode) on debug builds, but using DropBox, not logs.
+    CloseGuard.setEnabled(false);
+
+    Environment.initForCurrentUser();
+
+    // Set the reporter for event logging in libcore
+    EventLogger.setReporter(new EventLoggingReporter());
+
+    // Make sure TrustedCertificateStore looks in the right place for CA certificates
+    final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());
+    TrustedCertificateStore.setDefaultUserDirectory(configDir);
+
+    Process.setArgV0(&quot;&lt;pre-initialized&gt;&quot;);
+    // TODO: 18-6-20 主线程的looper
+    Looper.prepareMainLooper();
+    //创建ActivityThread之后调用attach
+    ActivityThread thread = new ActivityThread();
+    thread.attach(false);
+
+    if (sMainThreadHandler == null) {
+        sMainThreadHandler = thread.getHandler();
+    }
+
+    if (false) {
+        Looper.myLooper().setMessageLogging(new
+                LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));
+    }
+
+    // End of event ActivityThreadMain.
+    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);
+    Looper.loop();
+
+    throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);
+</code></pre><ul>
+<li>main方法创建完ActivityThread的实例后调用它的attach方法将其交回给AMS管理</li>
+</ul>
+<pre><code>private void attach(boolean system) {
+        //...
+            final IActivityManager mgr = ActivityManager.getService();
+            try {
+                mgr.attachApplication(mAppThread);
+            } catch (RemoteException ex) {
+                throw ex.rethrowFromSystemServer();
+            }
+        //...
+    }
+</code></pre><ul>
+<li>AMS接受带ActivityThread之后，最终回到ActivityStackSupervisor的realStartActivityLocked，这里就回到普通Activity启动的过程了，注意网上很多人阅读源码参考的是刘望舒的进阶解密中根Activity启动的内容，但书中的流程直接是走getProcessRecordLocked得到进程后调用realStartActivityLocked方法的过程</li>
+</ul>
+<pre><code>boolean attachApplicationLocked(ProcessRecord app) throws RemoteException {
+        final String processName = app.processName;
+        boolean didSomething = false;
+        for (int displayNdx = mActivityDisplays.size() - 1; displayNdx &gt;= 0; --displayNdx) {
+            ArrayList&lt;ActivityStack&gt; stacks = mActivityDisplays.valueAt(displayNdx).mStacks;
+            for (int stackNdx = stacks.size() - 1; stackNdx &gt;= 0; --stackNdx) {
+                final ActivityStack stack = stacks.get(stackNdx);
+                if (!isFocusedStack(stack)) {
+                    continue;
+                }
+                stack.getAllRunningVisibleActivitiesLocked(mTmpActivityList);
+                final ActivityRecord top = stack.topRunningActivityLocked();
+                final int size = mTmpActivityList.size();
+                for (int i = 0; i &lt; size; i++) {
+                    final ActivityRecord activity = mTmpActivityList.get(i);
+                    if (activity.app == null &amp;&amp; app.uid == activity.info.applicationInfo.uid
+                            &amp;&amp; processName.equals(activity.processName)) {
+                        try {
+                            if (realStartActivityLocked(activity, app,
+                                    top == activity /* andResume */, true /* checkConfig */)) {
+                                didSomething = true;
+                            }
+                        } catch (RemoteException e) {
+                            Slog.w(TAG, &quot;Exception in new application when starting activity &quot;
+                                    + top.intent.getComponent().flattenToShortString(), e);
+                            throw e;
+                        }
+                    }
+                }
+            }
+        }
+        if (!didSomething) {
+            ensureActivitiesVisibleLocked(null, 0, !PRESERVE_WINDOWS);
+        }
+        return didSomething;
+    }
+</code></pre><p><br></p>
+<h4 id="ActivityThread处理请求"><a href="#ActivityThread处理请求" class="headerlink" title="ActivityThread处理请求"></a>ActivityThread处理请求</h4><ul>
+<li>该过程由AMS向ApplicationThread发送启动根Activity请求，我们先来看上面的realStartActivityLocked做了什么,它会调用app.thread.scheduleLaunchActivity，app即是ProcessRecord对象，thread则是ApplicationThread对象，ApplicationThread是ActivityThread的内部类</li>
+</ul>
+<pre><code>final boolean realStartActivityLocked(ActivityRecord r, ProcessRecord app,
+        boolean andResume, boolean checkConfig) throws RemoteException {
+
+    //...
+            logIfTransactionTooLarge(r.intent, r.icicle);
+            app.thread.scheduleLaunchActivity(new Intent(r.intent), r.appToken,
+                    System.identityHashCode(r), r.info,
+                    // TODO: Have this take the merged configuration instead of separate global
+                    // and override configs.
+                    mergedConfiguration.getGlobalConfiguration(),
+                    mergedConfiguration.getOverrideConfiguration(), r.compat,
+                    r.launchedFromPackage, task.voiceInteractor, app.repProcState, r.icicle,
+                    r.persistentState, results, newIntents, !andResume,
+                    mService.isNextTransitionForward(), profilerInfo);
+            //...
+        } catch (RemoteException e) {
+            if (r.launchFailed) {
+                // This is the second time we failed -- finish activity
+                // and give up.
+                Slog.e(TAG, &quot;Second failure launching &quot;
+                        + r.intent.getComponent().flattenToShortString()
+                        + &quot;, giving up&quot;, e);
+                mService.appDiedLocked(app);
+                stack.requestFinishActivityLocked(r.appToken, Activity.RESULT_CANCELED, null,
+                        &quot;2nd-crash&quot;, false);
+                return false;
+            }
+
+            //...
+    return true;
+}
+</code></pre><ul>
+<li>scheduleLaunchActivity后通信机制就变成了handler，使用的handler实现类为ActivityThread的内部类 H （没错，就是这个骚命名）</li>
+</ul>
+<pre><code>        @Override
+        public final void scheduleLaunchActivity(Intent intent, IBinder token, int ident,
+                ActivityInfo info, Configuration curConfig, Configuration overrideConfig,
+                CompatibilityInfo compatInfo, String referrer, IVoiceInteractor voiceInteractor,
+                int procState, Bundle state, PersistableBundle persistentState,
+                List&lt;ResultInfo&gt; pendingResults, List&lt;ReferrerIntent&gt; pendingNewIntents,
+                boolean notResumed, boolean isForward, ProfilerInfo profilerInfo) {
+
+            updateProcessState(procState, false);
+
+            ActivityClientRecord r = new ActivityClientRecord();
+
+            r.token = token;
+            r.ident = ident;
+            r.intent = intent;
+            r.referrer = referrer;
+            r.voiceInteractor = voiceInteractor;
+            r.activityInfo = info;
+            r.compatInfo = compatInfo;
+            r.state = state;
+            r.persistentState = persistentState;
+
+            r.pendingResults = pendingResults;
+            r.pendingIntents = pendingNewIntents;
+
+            r.startsNotResumed = notResumed;
+            r.isForward = isForward;
+
+            r.profilerInfo = profilerInfo;
+
+            r.overrideConfig = overrideConfig;
+            updatePendingConfiguration(curConfig);
+
+            sendMessage(H.LAUNCH_ACTIVITY, r);
+        }
+
+    private void sendMessage(int what, Object obj, int arg1, int arg2, boolean async) {
+        if (DEBUG_MESSAGES) Slog.v(
+            TAG, &quot;SCHEDULE &quot; + what + &quot; &quot; + mH.codeToString(what)
+            + &quot;: &quot; + arg1 + &quot; / &quot; + obj);
+        Message msg = Message.obtain();
+        msg.what = what;
+        msg.obj = obj;
+        msg.arg1 = arg1;
+        msg.arg2 = arg2;
+        if (async) {
+            msg.setAsynchronous(true);
+        }
+        mH.sendMessage(msg);
+    }
+
+private class H extends Handler {
+//...
+        case LAUNCH_ACTIVITY: {
+                    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;activityStart&quot;);
+                    final ActivityClientRecord r = (ActivityClientRecord) msg.obj;
+
+                    r.packageInfo = getPackageInfoNoCheck(
+                            r.activityInfo.applicationInfo, r.compatInfo);
+                    handleLaunchActivity(r, null, &quot;LAUNCH_ACTIVITY&quot;);
+                    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);
+                } break;
+//...
+}
+</code></pre><ul>
+<li>处理启动消息的方法是 handleLaunchActivity，这方法主要作用是通过performLaunchActivity启动Activity，然后将其状态设置为Resume</li>
+</ul>
+<pre><code>private void handleLaunchActivity(ActivityClientRecord r, Intent customIntent, String reason) {
+    // If we are getting ready to gc after going to the background, well
+    // we are back active so skip it.
+    unscheduleGcIdler();
+    mSomeActivitiesChanged = true;
+
+    if (r.profilerInfo != null) {
+        mProfiler.setProfiler(r.profilerInfo);
+        mProfiler.startProfiling();
+    }
+
+    // Make sure we are running with the most recent config.
+    handleConfigurationChanged(null, null);
+
+    if (localLOGV) Slog.v(
+        TAG, &quot;Handling launch of &quot; + r);
+
+    // Initialize before creating the activity
+    WindowManagerGlobal.initialize();
+
+    Activity a = performLaunchActivity(r, customIntent);
+
+    if (a != null) {
+        r.createdConfig = new Configuration(mConfiguration);
+        reportSizeConfigurations(r);
+        Bundle oldState = r.state;
+        handleResumeActivity(r.token, false, r.isForward,
+                !r.activity.mFinished &amp;&amp; !r.startsNotResumed, r.lastProcessedSeq, reason);
+
+        if (!r.activity.mFinished &amp;&amp; r.startsNotResumed) {
+            // The activity manager actually wants this one to start out paused, because it
+            // needs to be visible but isn&apos;t in the foreground. We accomplish this by going
+            // through the normal startup (because activities expect to go through onResume()
+            // the first time they run, before their window is displayed), and then pausing it.
+            // However, in this case we do -not- need to do the full pause cycle (of freezing
+            // and such) because the activity manager assumes it can just retain the current
+            // state it has.
+            performPauseActivityIfNeeded(r, reason);
+
+            // We need to keep around the original state, in case we need to be created again.
+            // But we only do this for pre-Honeycomb apps, which always save their state when
+            // pausing, so we can not have them save their state when restarting from a paused
+            // state. For HC and later, we want to (and can) let the state be saved as the
+            // normal part of stopping the activity.
+            if (r.isPreHoneycomb()) {
+                r.state = oldState;
+            }
+        }
+    } else {
+        // If there was an error, for any reason, tell the activity manager to stop us.
+        try {
+            ActivityManager.getService()
+                .finishActivity(r.token, Activity.RESULT_CANCELED, null,
+                        Activity.DONT_FINISH_TASK_WITH_ACTIVITY);
+        } catch (RemoteException ex) {
+            throw ex.rethrowFromSystemServer();
+        }
+    }
+}
+</code></pre><ul>
+<li>performLaunchActivity则负责获取ActivityInfo类，这个类中可以的到Activity中的theme，launchmode等信息，以及Apk文件描述类LoadedApk的实例，然后是创建appContext，使用classloader来创建通过类名创建Activity对象，然后在创建Application，之后初始化Activity的过程中会创建window对象并与Activity进行关联，然后调用Instrumentation的callActivityOncreate方法来启动Activity，最终由Activity的perform来调用它的onCreate，这样就达到我们熟悉的运行环境了</li>
+</ul>
+<pre><code>private Activity performLaunchActivity(ActivityClientRecord r, Intent customIntent) {
+        ActivityInfo aInfo = r.activityInfo;
+        if (r.packageInfo == null) {
+            r.packageInfo = getPackageInfo(aInfo.applicationInfo, r.compatInfo,
+                    Context.CONTEXT_INCLUDE_CODE);
+        }
+        ComponentName component = r.intent.getComponent();
+        if (component == null) {
+            component = r.intent.resolveActivity(
+                mInitialApplication.getPackageManager());
+            r.intent.setComponent(component);
+        }
+        if (r.activityInfo.targetActivity != null) {
+            component = new ComponentName(r.activityInfo.packageName,
+                    r.activityInfo.targetActivity);
+        }
+        ContextImpl appContext = createBaseContextForActivity(r);
+        Activity activity = null;
+        try {
+            java.lang.ClassLoader cl = appContext.getClassLoader();
+            activity = mInstrumentation.newActivity(
+                    cl, component.getClassName(), r.intent);
+            StrictMode.incrementExpectedActivityCount(activity.getClass());
+            r.intent.setExtrasClassLoader(cl);
+            r.intent.prepareToEnterProcess();
+            if (r.state != null) {
+                r.state.setClassLoader(cl);
+            }
+        } catch (Exception e) {
+          //...
+             }
+        }
+        try {
+            Application app = r.packageInfo.makeApplication(false, mInstrumentation);
+//...
+            if (activity != null) {
+                CharSequence title = r.activityInfo.loadLabel(appContext.getPackageManager());
+                Configuration config = new Configuration(mCompatConfiguration);
+                if (r.overrideConfig != null) {
+                    config.updateFrom(r.overrideConfig);
+                }
+                if (DEBUG_CONFIGURATION) Slog.v(TAG, &quot;Launching activity &quot;
+                        + r.activityInfo.name + &quot; with config &quot; + config);
+                Window window = null;
+                if (r.mPendingRemoveWindow != null &amp;&amp; r.mPreserveWindow) {
+                    window = r.mPendingRemoveWindow;
+                    r.mPendingRemoveWindow = null;
+                    r.mPendingRemoveWindowManager = null;
+                }
+                appContext.setOuterContext(activity);
+                activity.attach(appContext, this, getInstrumentation(), r.token,
+                        r.ident, app, r.intent, r.activityInfo, title, r.parent,
+                        r.embeddedID, r.lastNonConfigurationInstances, config,
+                        r.referrer, r.voiceInteractor, window, r.configCallback);
+
+                if (customIntent != null) {
+                    activity.mIntent = customIntent;
+                }
+                r.lastNonConfigurationInstances = null;
+                checkAndBlockForNetworkAccess();
+                activity.mStartedActivity = false;
+                int theme = r.activityInfo.getThemeResource();
+                if (theme != 0) {
+                    activity.setTheme(theme);
+                }
+                activity.mCalled = false;
+                if (r.isPersistable()) {
+                    mInstrumentation.callActivityOnCreate(activity, r.state, r.persistentState);
+                } else {
+                    mInstrumentation.callActivityOnCreate(activity, r.state);
+                }
+//...
+            }
+            r.paused = true;
+
+            mActivities.put(r.token, r);
+        } catch (SuperNotCalledException e) {
+            throw e;
+
+        } catch (Exception e) {
+      //...
+        }
+        return activity;
+    }
+</code></pre><ul>
+<li>到这里整个根Activity的启动流程就结束了，根Activity涉及的跨进程主要包括</li>
+</ul>
+<pre><code>根Activity：Launcher---&gt;System Server---&gt;APP---&gt;System Server---&gt;APP
+普通Activity：APP--- &gt;System Server---&gt;APP
+</code></pre><p><br><br><strong>本篇完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android - 系统中的各种id]]></title>
       <url>/2019/01/16/AndroidID/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -95,14 +695,14 @@
 --------------------------------------
 |                                    |
 |      线程1     线程2   ...  线程n    |
-|    --------                        |
+|    --------                     |
 |   |   pc   |    ...                |
-|    --------                        |
-|       栈                           |
-|    --------                        |
-|   |   帧1  |                       |
-|    --------                        |
-|   |   ...  |                       |          
+|    --------                       |
+|       栈                         |
+|    --------                       |
+|   |   帧1  |                    |
+|    --------                      |
+|   |   ...  |                      |          
 |    --------                        |
 |   |   帧n  |                       |
 |    --------                        |
@@ -115,16 +715,16 @@
 |        class1           classN    |
 |    --------------                 |
 |   | 运行时常量池 |                  |
-|    --------------                 |
-|    --------------                 |  
-|   |     字段     |                 |
-|    --------------         ...     |
-|    --------------                 |
-|   |     方法     |                 |
-|    --------------                 |
-|    --------------                 |
-|   |     代码     |                 |
-|    --------------                 |
+|    --------------              |
+|    --------------              |  
+|   |     字段     |              |
+|    --------------      ...     |
+|    --------------              |
+|   |     方法     |              |
+|    --------------              |
+|    --------------              |
+|   |     代码     |              |
+|    --------------              |
  -----------------------------------
 </code></pre><p><br> </p>
 <h4 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h4><ul>
@@ -203,127 +803,10 @@
 <li>对其他类的方法和变量进行了晚期绑定，所以即使那些类发生了变化，也不会影响调用它们的方法</li>
 </ul>
 <p><br></p>
-<h3 id="hotspot7-实现"><a href="#hotspot7-实现" class="headerlink" title="hotspot7 实现"></a>hotspot7 实现</h3><p><br></p>
+<h3 id="hotspot-实现"><a href="#hotspot-实现" class="headerlink" title="hotspot 实现"></a>hotspot 实现</h3><p><br></p>
+<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p><br></p>
+<h4 id="栈-1"><a href="#栈-1" class="headerlink" title="栈"></a>栈</h4><p><br></p>
 <h3 id="hotspot8-变迁"><a href="#hotspot8-变迁" class="headerlink" title="hotspot8 变迁"></a>hotspot8 变迁</h3>]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Android 系统系列 Activity启动流程]]></title>
-      <url>/2019/01/14/AOSActivityInit/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">本文为Android 系统相关系列的一部分</a></p>
-<p><strong>Activity的启动流程分为两种，一种是根Activity，这是应用启动的第一个Activity，一般即为LauncherActivity，另一种为普通的Activity</strong></p>
-<p><br></p>
-<h3 id="根Activity"><a href="#根Activity" class="headerlink" title="根Activity"></a>根Activity</h3><p><br></p>
-<h4 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h4><ul>
-<li>由于Zygote，Launcher，AMS，ActivityThread运行在四个不同的进程当中，因此启动Activity的过程涉及的binder通信较为复杂</li>
-</ul>
-<ul>
-<li>当用户点击Launcher界面的应用图标，Launcher进程会向SystemServer进程中的AMS发送创建根Activity的请求</li>
-</ul>
-<ul>
-<li>AMS判断Activity的进程还未创建那么就会向Zygote进程请求创建想要的进程，因为这里讨论的是根Activity，那么这个进程当然就是没有创建的，这个过程上一篇已经过了一遍了</li>
-</ul>
-<ul>
-<li>当应用进程创建完毕之后AMS会向应用进程当中的ApplicationThread请求创建根Activity，ApplicationThread，ApplicationThread最终通过ActivityThread创建Activity，并且调用preformCreate方法，这个方法会调用我们熟悉的onCreate方法</li>
-</ul>
-<p><br></p>
-<h4 id="Launcher请求过程"><a href="#Launcher请求过程" class="headerlink" title="Launcher请求过程"></a>Launcher请求过程</h4><p><br></p>
-<h5 id="构造intent"><a href="#构造intent" class="headerlink" title="构造intent"></a>构造intent</h5><ul>
-<li>该过程由Launcher向AMS发送启动根Activity请求</li>
-</ul>
-<ul>
-<li>当用户点击应用图标时，Launcher将构造intent，并调用startActivity方法，该intent的启动模式为newTask,因此它会在新的任务栈中启动</li>
-</ul>
-<pre><code>public boolean startActivitySafely(View v, Intent intent, ItemInfo item) {
-
-//…
-    // Prepare intent
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    if (v != null) {
-        intent.setSourceBounds(getViewBounds(v));
-    }
-    try {
-        if (Utilities.ATLEAST_MARSHMALLOW
-                &amp;&amp; (item instanceof ShortcutInfo)
-                &amp;&amp; (item.itemType == Favorites.ITEM_TYPE_SHORTCUT
-                 || item.itemType == Favorites.ITEM_TYPE_DEEP_SHORTCUT)
-                &amp;&amp; !((ShortcutInfo) item).isPromise()) {
-            // Shortcuts need some special checks due to legacy reasons.
-            startShortcutIntentSafely(intent, optsBundle, item);
-        } else if (user == null || user.equals(Process.myUserHandle())) {
-            // Could be launching some bookkeeping activity
-            startActivity(intent, optsBundle);
-        } else {
-            LauncherAppsCompat.getInstance(this).startActivityForProfile(
-                    intent.getComponent(), user, intent.getSourceBounds(), optsBundle);
-        }
-        return true;
-    } catch (ActivityNotFoundException|SecurityException e) {
-        Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
-        Log.e(TAG, &quot;Unable to launch. tag=&quot; + item + &quot; intent=&quot; + intent, e);
-    }
-    return false;
-}
-</code></pre><p><br></p>
-<h5 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a>Instrumentation</h5><ul>
-<li>Instrumentation类会在应用的任何代码执行前被实列化,用来监控系统与应用的交互。Instrumentation另一个重要作用是提供Android组件自动化测试，可在以应用的AndroidManifest.xml中\<instrumentation\>标签来注册一个Instrumentation的实现，<a href="http://www.cnblogs.com/keke-xiaoxiami/p/4307571.html" target="_blank" rel="external">详见</a></instrumentation\></li>
-</ul>
-<ul>
-<li>startActivity方法会调用Instrumentation的execStartActivity方法</li>
-</ul>
-<pre><code>public ActivityResult execStartActivity(Context who, IBinder contextThread, IBinder token, Activity target,Intent intent, int requestCode, Bundle options) {
-
-    //…
-    try {
-        intent.migrateExtraStreamToClipData();
-        intent.prepareToLeaveProcess(who);
-        int result = ActivityManager.getService()
-            .startActivity(whoThread, who.getBasePackageName(), intent,
-                    intent.resolveTypeIfNeeded(who.getContentResolver()),
-                    token, target != null ? target.mEmbeddedID : null,
-                    requestCode, 0, null, options);
-        checkStartActivityResult(result, intent);
-    } catch (RemoteException e) {
-        throw new RuntimeException(&quot;Failure from system&quot;, e);
-    }
-    return null;
-}
-</code></pre><ul>
-<li>execStartActivity会调用到ActivityManager的getService方法来获取AMS的代理对象并调用startActivity方法。这个代理对象也是从ServiceManager中的getService中获取的，这里不是很重要，因此略过</li>
-</ul>
-<p><br></p>
-<h4 id="AMS处理请求"><a href="#AMS处理请求" class="headerlink" title="AMS处理请求"></a>AMS处理请求</h4><p><strong>这部分可能和上文创建应用进程有重复的地方，不过上篇只是大致讲了请求zygote的过程，这部分关注Activity和栈</strong></p>
-<ul>
-<li>AMS的startActivity方法，他会调用startActivityAsUser，这个方法判断进程是否被隔离，关于进程隔离可以看<a href="https://tocreate.app/2019/01/16/AndroidID/" target="_blank" rel="external">这篇</a></li>
-</ul>
-<ul>
-<li>startActivity会调用ActivityStarter的startActivityMayWait方法，ActivityStarter是7.0里的一个架构优化，负责Activity的启动，它会收集所有的逻辑，来决定如何将intent和flag转换为Activity</li>
-</ul>
-<p><br></p>
-<h4 id="AMS请求ApplicationThread过程"><a href="#AMS请求ApplicationThread过程" class="headerlink" title="AMS请求ApplicationThread过程"></a>AMS请求ApplicationThread过程</h4><ul>
-<li>该过程由AMS向ApplicationThread发送启动根Activity请求</li>
-</ul>
-<p><br></p>
-<h3 id="普通Activity"><a href="#普通Activity" class="headerlink" title="普通Activity"></a>普通Activity</h3><ul>
-<li>普通Activity的启动只涉及两个进程，AMS所在进程（SystemServer），应用所在进程，也就是说流程跟根Activity创建的后半部分是大体一致的</li>
-</ul>
-]]></content>
       
         <categories>
             
