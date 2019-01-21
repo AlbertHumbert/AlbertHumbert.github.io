@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-18T08:32:28.149Z</updated>
+  <updated>2019-01-21T07:34:16.873Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android 系统系列 Service启动流程</title>
+    <link href="https://alberthumbert.github.io/2019/01/21/AOSServiceInit/"/>
+    <id>https://alberthumbert.github.io/2019/01/21/AOSServiceInit/</id>
+    <published>2019-01-21T04:57:34.000Z</published>
+    <updated>2019-01-21T07:34:16.873Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android 系统系列 Binder源码解析</title>
     <link href="https://alberthumbert.github.io/2019/01/18/AOSBinder/"/>
     <id>https://alberthumbert.github.io/2019/01/18/AOSBinder/</id>
     <published>2019-01-18T08:31:40.000Z</published>
-    <updated>2019-01-18T08:32:28.149Z</updated>
+    <updated>2019-01-21T04:58:05.843Z</updated>
     
     <summary type="html">
     
@@ -40,7 +60,7 @@
     <link href="https://alberthumbert.github.io/2019/01/18/AOSActivityInit/"/>
     <id>https://alberthumbert.github.io/2019/01/18/AOSActivityInit/</id>
     <published>2019-01-18T07:12:42.000Z</published>
-    <updated>2019-01-18T08:08:21.589Z</updated>
+    <updated>2019-01-21T05:51:32.005Z</updated>
     
     <summary type="html">
     
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2018/11/29/OSInterrupts/</id>
     <published>2018-11-29T10:03:10.000Z</published>
     <updated>2018-12-08T15:33:48.420Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入JVM系列 6 - Class对象与静态变量的存储</title>
-    <link href="https://alberthumbert.github.io/2018/11/29/JVMClassStatic/"/>
-    <id>https://alberthumbert.github.io/2018/11/29/JVMClassStatic/</id>
-    <published>2018-11-29T09:46:42.000Z</published>
-    <updated>2019-01-15T06:33:10.127Z</updated>
     
     <summary type="html">
     

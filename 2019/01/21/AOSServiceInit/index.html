@@ -12,7 +12,7 @@
     
     <title>
         
-            深入操作系统 9 - 进程与线程 | 
+            Android 系统系列 Service启动流程 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入操作系统 9 - 进程与线程 | Albert&#39;s Blog">
+    <meta property="og:title" content="Android 系统系列 Service启动流程 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="12月 02, 2018" />
-        <meta property="article:modified_time" content="1月 16, 2019" />
+        <meta property="article:published_time" content="1月 21, 2019" />
+        <meta property="article:modified_time" content="1月 21, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入操作系统 9 - 进程与线程 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Android 系统系列 Service启动流程 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2018/12/02/OSProcess/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入操作系统 9 - 进程与线程",
-    "url": "https://alberthumbert.github.io/2018/12/02/OSProcess/index.html",
-    "datePublished": "12月 02, 2018",
-    "dateModified": "1月 16, 2019",
+    "headline": "Android 系统系列 Service启动流程",
+    "url": "https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html",
+    "datePublished": "1月 21, 2019",
+    "dateModified": "1月 21, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#程序流类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">程序流类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程和线程的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">进程和线程的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内核线程-amp-用户线程-amp-轻量进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">内核线程 & 用户线程 & 轻量进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LinuxThread-amp-NPTL"><span class="post-toc-number">4.</span> <span class="post-toc-text">LinuxThread & NPTL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优先级"><span class="post-toc-number">5.</span> <span class="post-toc-text">优先级</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PCB"><span class="post-toc-number">6.</span> <span class="post-toc-text">PCB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建和运行"><span class="post-toc-number">7.</span> <span class="post-toc-text">创建和运行</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一个进程"><span class="post-toc-number">8.</span> <span class="post-toc-text">第一个进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#linux-与-init"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">linux 与 init</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xv6-与-userinit"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">xv6 与 userinit</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-zygote-与-初始化"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">Android zygote 与 初始化</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#startService-启动"><span class="post-toc-number">1.</span> <span class="post-toc-text">startService 启动</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#bindService-绑定"><span class="post-toc-number">2.</span> <span class="post-toc-text">bindService 绑定</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入操作系统 9 - 进程与线程
+                Android 系统系列 Service启动流程
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>12月 02, 2018</span>
+        <span>1月 21, 2019</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入操作系统 9 - 进程与线程&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 系统系列 Service启动流程&url=https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入操作系统 9 - 进程与线程&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 系统系列 Service启动流程&url=https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&title=深入操作系统 9 - 进程与线程" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html&title=Android 系统系列 Service启动流程" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入操作系统 9 - 进程与线程&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 系统系列 Service启动流程&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/12/02/OSProcess/index.html&text=深入操作系统 9 - 进程与线程" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/21/AOSServiceInit/index.html&text=Android 系统系列 Service启动流程" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,189 +503,257 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
-<p><a href="https://tocreate.app/2018/12/02/OSSysCall/" target="_blank" rel="external">可能需要阅读前文</a></p>
-<p><strong>这篇无图字多，看起来会有点恐怖</strong></p>
+<p><a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">本文为Android 系统相关系列的一部分</a></p>
+<p><strong>使用service的方法要么是startService要么是bindService，要么混合使用，这里分别讲解两个方法的流程</strong></p>
 <p><br></p>
-<h3 id="程序流类型"><a href="#程序流类型" class="headerlink" title="程序流类型"></a>程序流类型</h3><p><strong>在os的发展历程当中与调度相关的概念有任务，作业，进程，线程，这些模型可能全部或部分存在于某一个实际的操作系统上，并且往往相互交叉</strong></p>
-<ul>
-<li>任务是最抽象的，指由软件完成的一个活动，它显然是一个依赖于语境才能推测其含义的概念，本质上可以是作业，进程，或线程，如在linux中，它只是进程的别名，而在uC/OS-II中，它是线程</li>
+<h4 id="startService-启动"><a href="#startService-启动" class="headerlink" title="startService 启动"></a>startService 启动</h4><ul>
+<li>我们平时调用的startService方法，来自ContextWrapper，它是Activity和Service的父类，android中的Context是包装模式的一个实例，这里不讲解设计模式，还是直接看代码，该方法中使用的mBase，在上一篇中讲到是ContextImpl的实例</li>
 </ul>
-<ul>
-<li>作业，早期使用作业这个概念的时候，进程的概念还没有出现，作业往往被用在批处理操作系统当中，当时程序以作业的形式脱机输入到磁带（或别的什么低效存储介质），操作系统做的只是将作业调入内存一个一个地执行，从这个角度来说，如今实时操作系统的时代已经不存在作业这个概念了，不过在linux中，作业这个词被用来形容由一个或多个命令组成的整体,类似于脚本，<a href="https://www.cnblogs.com/echobfy/p/3851497.html" target="_blank" rel="external">详见</a></li>
-</ul>
-<ul>
-<li>进程，最早叫顺序进程，是多道程序设计中发展出来的概念，进程是运行中的程序与相关资源的统称，在概念上拥有自己的虚拟cpu，是正在执行代码的实时结果，再具体地说，进程不但包含代码段，全局变量的数据段，还包含打开的文件句柄，挂起的信号，内核内部数据，处理器状态（程序计数器、寄存器的当前值），一个或多个具有内存映射的内存地址空间，一个或多个线程等等，现代内核的调度单位一般是线程，对于那些直接使用进程来实现线程的操作系统，如linux，调度单位也可以说是进程</li>
-</ul>
-<ul>
-<li>线程是在进程中活动的对象，是进程的一个执行流，也是内核的调度对象，每个线程都拥有一个独立的程序计数器，进程栈，和一组进程寄存器，线程的出现是为了更加高效地利用多处理器的性能和简化异步事件的处理</li>
-</ul>
-<p><br></p>
-<h3 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h3><p><strong>一般只讨论进程和线程的区别，现代程序员不关心作业</strong></p>
-<ul>
-<li>进程是资源分配的基本单位，线程是处理机调度的基本单位</li>
-</ul>
-<ul>
-<li>进程有独立的内存空间，线程则共享进程中的资源，使用相同的地址空间，因此CPU创建和切换一个线程的花费远比进程要小很多</li>
-</ul>
-<ul>
-<li>进程下的线程共享内存空间，线程间通信基本不需要什么特别的机制，而进程之间的通信需要IPC</li>
-</ul>
-<ul>
-<li>进程和线程都存在同步问题，只不过进程主要处理资源的同步</li>
-</ul>
-<p><br></p>
-<h3 id="内核线程-amp-用户线程-amp-轻量进程"><a href="#内核线程-amp-用户线程-amp-轻量进程" class="headerlink" title="内核线程 &amp; 用户线程 &amp; 轻量进程"></a>内核线程 &amp; 用户线程 &amp; 轻量进程</h3><p><strong>网络上很多关于linux线程的文章在这部分都有错误，这里更正一下</strong></p>
-<ul>
-<li>通常的进程，无论是系统进程还是用户进程，进程的创建、撤消，I/O 操作，都是利用系统调用而进入内核，再由内核中的相应处理程序予以完成的，进程的切换同样是在内核的支持下实现的</li>
-</ul>
-<ul>
-<li>内核线程：准确的说是内核支持线程，同样是在内核支持下运行的，即无论是用户进程中的线程，还是系统进程中的线程，创建、撤消和切换等也是依靠内核，在内核空间实现。在内核空间还为每一个内核支持线程设置一个线程控制块，内核根据该控制块而感知某线程的存在，并加以控制</li>
-</ul>
-<ul>
-<li>用户线程：准确的说是用户级线程，与内核无关的，仅存在于用户空间中，创建、撤消、同步、通信等功能，都无须利用系统调用。切换的规则简单，切换速度快。线程的任务控制块都是设置在用户空间，所执行的操作也无须内核帮助，因而内核完全不知道用户级线程的存在</li>
-</ul>
-<ul>
-<li>轻量进程：轻量进程（LWP）是一种特殊的用户线程，每一个进程可拥有多个 LWP，每个 LWP 都有自己的数据结构(如 TCB)，其中包括线程标识符、优先级、状态，另外还有栈和局部存储区等，它们也可以共享进程所拥有的资源，一个用户级线程运行时，只要将它连接到一个 LWP 上，此时它便具有了内核支持线程的所有属性，用户级线程数量可能很大，为了节省系统开销，可把 LWP 做成一个缓冲池。用户进程中任一用户线程可以连接到池中任一个 LWP，连接根据用户线程和内核线程的映射数量关系可以有三种不同的实现模型:一对一、多对一和多对多</li>
-</ul>
-<ul>
-<li>那么Linux的线程属于哪一种呢？答案是它是一种特殊的轻量进程，linux中使用一对一模型的LWP，linux上的pthread的实现在glibc中，在2.4以前使用的是的linuxThreads，在2.4以后使用的是NPTL，不管是哪一种，都是直接使用进程实现线程，使用的是同样的系统调用(clone，最终调用fork)和结构体(task_struct)，只不过同一进程下创建的线程公用进程的内存空间（准确的说只是部分，用户栈和内核栈不同），内核只看得见进程，一个进程就对应了一个线程，从这个角度来说，linux的线程就是内核线程，之所以成为轻量进程是因为他对于普通的进程来说权重较轻。使用这种手段的原因是实现者认为linux的进程以及很轻量了，不用在去实现一个更加轻量的东西(线程)</li>
-</ul>
-<p><br></p>
-<h3 id="LinuxThread-amp-NPTL"><a href="#LinuxThread-amp-NPTL" class="headerlink" title="LinuxThread &amp; NPTL"></a>LinuxThread &amp; NPTL</h3><p><strong>linux上线程的两种实现，简单对比一下差异</strong></p>
-<ul>
-<li>PID，LinuxThreads拥有独立的PID，这是不符合posix标准的。NPTL则在原来的进程管理结构新增了一个TGIP的字段，当一个线程的TGID等于PID时，这个线程就是线程组长，其PID也就是这个线程组的进程号，线程组内所有线程的TGID字段都指向线程组长的PID，由于使用getpid返回的都是TGID字段，所以线程返回的就是相同的PID字段，而不是线程各自的PID</li>
-</ul>
-<ul>
-<li>创建，同样是使用clone()系统调用，不过新的clone()调用的flag参数新增了一个标志位CLONE_THREAD，表示创建一个线程，内核内部初始管理结构时把TGID指向调用者的PID</li>
-</ul>
-<ul>
-<li>同步，NPTL提供的线程同步互斥机制都建立在futex上，快速用户空间系统锁。因为进程内的所有线程都使用了相同的内存空间，所以这个锁可以保存在用户空间。这样对这个锁的操作不需要每次都切换到内核态</li>
-</ul>
-<ul>
-<li>信号，LinuxThreads在进程调度、信号处理、IO等方面享有与普通进程一样的能力，NPTL中同一个进程内的线程都属于该进程，所以信号处理跟POSIX标准完全统一</li>
-</ul>
-<ul>
-<li>管理，LinuxThreads中专门为每一个进程构造了一个管理线程，负责处理线程相关的管理工作。当进程第一次调用pthread_create()创建一个线程的时候就会创建并启动管理线程,由管理线程再来创建用户请求的线程，如果管理线程被杀死将会造成僵尸线程，同时管理线程在高并发环境下本身也是一个开销，NTPL中线程创建与结束的管理都由内核负责，不存在管理线程</li>
-</ul>
-<p><br></p>
-<h3 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h3><ul>
-<li><a href="https://en.wikipedia.org/wiki/Nice_(Unix)" target="_blank" rel="external">nice</a> 是unix和类unix中标准化的概念，一个进程的nice值可以通过同名的nice函数设置它，范围是 -20到19，越低的nice值有越高的优先级，但不同的系统在nice值的使用上并不一致，os x中nice代表分配给进程的时间片的绝对值，在linux中则代表时间片的比例</li>
-</ul>
-<ul>
-<li>linux采用两种不同的优先级，一种是上面的nice，一种是实时优先级，范围从 0 到 99，这个值越高则优先级越高。由于任何实时进程优先级都高于普通进程，因此这两种优先级可以互不相交地工作</li>
-</ul>
-<p><br></p>
-<h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><ul>
-<li>为了实现进程模型，操作系统维持一张表格（数组，队列 ..），即进程表，每个进程占用一个表项（称为进程控制块，即pcb），pcb内部通常包含它的程序计数器，栈指针，内存分配状况，打开文件状况，统计和调度信息，定时器和其他信息，以及进程由运行态到就绪切换时所必须保存的其他信息，进程随后能够被再次启动，就像从未被中断过一样</li>
-</ul>
-<ul>
-<li>pcb通常可以根据模块进行分类，设计良好的内核中个模块负责维护它们各自所需要的那些域</li>
-</ul>
-<ul>
-<li>minix当中部分域如下</li>
-</ul>
-<p><img src="http://wx2.sinaimg.cn/mw690/007vHOvngy1fz89sgfp7sj30uy0l6ahc.jpg" alt=""></p>
-<ul>
-<li>linu的进程控制块（进程描述符）如下</li>
-</ul>
-<pre><code>调度数据成员 
-(1) volatile long states; 
-(2) unsigned long flags; 
-(3) long priority; 
-(4) unsigned long rt_priority; 
-(5) long counter; 
-(6) unsigned long policy;
-信号处理 
-(1) unsigned long signal; 
-(2) unsigned long blocked; 
-(3) struct signal_struct *sig;
-进程队列指针 
-(1) struct task_struct *next_task，*prev_task; 
-(2) struct task_struct *next_run，*prev_run; 
-(3) struct task_struct *p_opptr，*p_pptr;和struct task_struct *p_cptr，*p_ysptr，*p_osptr;
+<pre><code>public class ContextWrapper extends Context{
 
-进程标识 
-(1) unsigned short uid，gid; 
-(2) int groups[NGROUPS]; 
-(3) unsigned short euid，egid; 
-(4) unsigned short fsuid，fsgid; 
-(5) unsigned short suid，sgid; 
-(6) int pid，pgrp，session; 
-(7) int leader;
+Context mBase;
 
-时间数据成员 
-(1) unsigned long timeout; 
-(2) unsigned long it_real_value，it_real_iner; 
-(3) struct timer_list real_timer; 
-(4) unsigned long it_virt_value，it_virt_incr; 
-(5) unsigned long it_prof_value，it_prof_incr; 
-(6) long utime，stime，cutime，cstime，start_time;
+//...
+@Override
+    public ComponentName startService(Intent service) {
+        return mBase.startService(service);
+    }
+//...
+}
+</code></pre><ul>
+<li>这里ActivityManager.getService()获取到的是AMS的代理类IActivityManager，因此这里会调用到AMS的startService方法</li>
+</ul>
+<pre><code>/frameworks/base/core/java/android/app/ContextImpl.java
+    @Override
+    public ComponentName startService(Intent service) {
+        warnIfCallingFromSystemProcess();
+        return startServiceCommon(service, false, mUser);
+    }
 
-信号量数据成员 
-(1) struct sem_undo *semundo; 
-(2) struct sem_queue *semsleeping;
+private ComponentName startServiceCommon(Intent service, boolean requireForeground,
+            UserHandle user) {
+        try {
+            validateServiceIntent(service);
+            service.prepareToLeaveProcess(this);
+            ComponentName cn = ActivityManager.getService().startService(
+                mMainThread.getApplicationThread(), service, service.resolveTypeIfNeeded(
+                            getContentResolver()), requireForeground,
+                            getOpPackageName(), user.getIdentifier());
 
-进程上下文环境 
-(1) struct desc_struct *ldt; 
-(2) struct thread_struct tss; 
-(3) unsigned long saved_kernel_stack; 
-(4) unsigned long kernel_stack_page;
+//...           
+          return cn;
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+</code></pre><ul>
+<li>AMS的startService方法调用的是ActiveServices类的startServiceLocked方法，后者负责查找service的描述类ServiceRecord并启动service，ServiceRecord的作用和之前看到的ActivityRecord，TaskRecord，ProcessRecord类是类似的</li>
+</ul>
+<pre><code>@Override
+public ComponentName startService(IApplicationThread caller, Intent service,
+        String resolvedType, boolean requireForeground, String callingPackage, int userId)
+        throws TransactionTooLargeException {
 
-文件系统数据成员 
-(1) struct fs_struct *fs; 
-(2) struct files_struct *files; 
-(3) int link_count;
+    //…
+    synchronized(this) {
+        final int callingPid = Binder.getCallingPid();
+        final int callingUid = Binder.getCallingUid();
+        final long origId = Binder.clearCallingIdentity();
+        ComponentName res;
+        try {
+            res = mServices.startServiceLocked(caller, service,
+                    resolvedType, callingPid, callingUid,
+                    requireForeground, callingPackage, userId);
+        } finally {
+            Binder.restoreCallingIdentity(origId);
+        }
+        return res;
+    }
+}
+</code></pre><ul>
+<li>startServiceLocked的流程大致是，先从缓存中查找serviceRecord，这里的缓存是一个类型为ServiceMap的稀疏数组，数组的键为userId，ServiceMap则是一个handler，内部持有存放serviceRecord的ArrayMap，如果在缓存中找不到service，则会通过PackageManagerService去获取对应的参数，然后封装为serviceRecord。查找到service后会调用到bringUpServiceLocked</li>
+</ul>
+<pre><code>  final SparseArray&lt;ServiceMap&gt; mServiceMap = new SparseArray&lt;&gt;();
 
-内存数据成员 
-(1) struct mm_struct *mm;
+ServiceRecord getServiceByNameLocked(ComponentName name, int callingUser) {
 
-页面管理 
-(1) int swappable:1; 
-(2) unsigned long swap_address; 
-(3) unsigned long min_flt，maj_flt; 
-(4) unsigned long nswap; 
-(5) unsigned long cmin_flt，cmaj_flt，cnswap; 
-(6) unsigned long old_maj_flt，dec_flt; 
-(7) unsigned long swap_cnt;
+        //…
 
-支持对称多处理器方式(SMP)时的数据成员 
-(1) int processor; 
-(2) int last_processor; 
-(3) int lock_depth;
+        ServiceLookupResult res =
+            retrieveServiceLocked(service, resolvedType, callingPackage,
+                    callingPid, callingUid, userId, true, callerFg, false);
+        if (res == null) {
+            return null;
+        }
+        if (res.record == null) {
+            return new ComponentName(&quot;!&quot;, res.permission != null
+                    ? res.permission : &quot;private to package&quot;);
+        }
 
-其它数据成员 
-(1) unsigned short used_math; 
-(2) char comm[16]; 
-(3) struct rlimit rlim[RLIM_NLIMITS]; 
-(4) int errno; 
-(5) long debugreg[8]; 
-(6) struct exec_domain *exec_domain; 
-(7) unsigned long personality; 
-(8) struct linux_binfmt *binfmt; 
-(9) int exit_code，exit_signal; 
-(10) int dumpable:1; 
-(11) int did_exec:1; 
-(12) int tty_old_pgrp; 
-(13) struct tty_struct *tty; 
-(14) struct wait_queue *wait_chldexit;
+        ServiceRecord r = res.record;
+        //…
+   ComponentName cmp = startServiceInnerLocked(smap, service, r, callerFg, addToStarting);
+        return cmp;
+    }
+</code></pre><ul>
+<li>bringUpServiceLocked方法会查找service需要运行在的进程，这里和启动Activity过程的startSpecificActivityLocked方法类似，获取进程的方法是AMS的getProcessRecordLocked，如果需要的进程不存在则会调用AMS.startProcessLocked来创建进程，方法的参数则简单地从serviceRecord中获取，service的进程可以使用android:process来指定</li>
+</ul>
+<pre><code>private String bringUpServiceLocked(ServiceRecord r, int intentFlags, boolean execInFg,
+          boolean whileRestarting, boolean permissionsReviewRequired)
+          throws TransactionTooLargeException {
 
-进程队列的全局变量 
-(1) current; 
-(2) struct task_struct init_task; 
-(3) struct task_struct *task[NR_TASKS]; 
-(4) unsigned long volatile jiffies; 
-(5) int need_resched; 
-(6) unsigned long intr_count;
+      //...
+      final String procName = r.processName;
+      String hostingType = &quot;service&quot;;
+      ProcessRecord app;
+
+      if (!isolated) {
+          app = mAm.getProcessRecordLocked(procName, r.appInfo.uid, false);
+          if (DEBUG_MU) Slog.v(TAG_MU, &quot;bringUpServiceLocked: appInfo.uid=&quot; + r.appInfo.uid
+                      + &quot; app=&quot; + app);
+          if (app != null &amp;&amp; app.thread != null) {
+              try {
+                  app.addPackage(r.appInfo.packageName, r.appInfo.versionCode, mAm.mProcessStats);
+                  realStartServiceLocked(r, app, execInFg);
+                  return null;
+              } catch (TransactionTooLargeException e) {
+                  throw e;
+              } catch (RemoteException e) {
+                  Slog.w(TAG, &quot;Exception when starting service &quot; + r.shortName, e);
+              }
+
+              // If a dead object exception was thrown -- fall through to
+              // restart the application.
+          }
+      } else {
+          app = r.isolatedProc;
+          if (WebViewZygote.isMultiprocessEnabled()
+                  &amp;&amp; r.serviceInfo.packageName.equals(WebViewZygote.getPackageName())) {
+              hostingType = &quot;webview_service&quot;;
+          }
+      }
+
+      // Not running -- get it started, and enqueue this service record
+      // to be executed when the app comes up.
+      if (app == null &amp;&amp; !permissionsReviewRequired) {
+          if ((app=mAm.startProcessLocked(procName, r.appInfo, true, intentFlags,
+                  hostingType, r.name, false, isolated, false)) == null) {
+              String msg = &quot;Unable to launch app &quot;
+                      + r.appInfo.packageName + &quot;/&quot;
+                      + r.appInfo.uid + &quot; for service &quot;
+                      + r.intent.getIntent() + &quot;: process is bad&quot;;
+              Slog.w(TAG, msg);
+              bringDownServiceLocked(r);
+              return msg;
+          }
+          if (isolated) {
+              r.isolatedProc = app;
+          }
+      }
+
+  //…
+      return null;
+  }
+</code></pre><ul>
+<li>由于应用进程创建的流程已经讲解过了，这里只考虑应用进程存在的情况，不管在哪个进程启动什么activity或service都需要跨进程，因为AMS运行在system server进程当中，这里直接调用的是realStartServiceLocked方法，它会调用app.thread的scheduleCreateService方法，上一篇讲过这个app.thread就是IApplicationThread，那么现在就进到应用进程了</li>
+</ul>
+<pre><code>private final void realStartServiceLocked(ServiceRecord r, ProcessRecord app, boolean execInFg) throws RemoteException {
+    //…
+    try {
+    //…
+        app.forceProcessStateUpTo(ActivityManager.PROCESS_STATE_SERVICE);
+        app.thread.scheduleCreateService(r, r.serviceInfo,
+                mAm.compatibilityInfoForPackageLocked(r.serviceInfo.applicationInfo),
+                app.repProcState);
+        r.postNotification();
+        created = true;
+    } catch (DeadObjectException e) {
+        Slog.w(TAG, &quot;Application dead when creating service &quot; + r);
+        mAm.appDiedLocked(app);
+        throw e;
+    } finally {
+    //…           
+    }
+
+    if (r.whitelistManager) {
+        app.whitelistManager = true;
+    }
+
+    requestServiceBindingsLocked(r, execInFg);
+
+    updateServiceClientActivitiesLocked(app, null, true);
+
+    if (r.startRequested &amp;&amp; r.callStart &amp;&amp; r.pendingStarts.size() == 0) {
+        r.pendingStarts.add(new ServiceRecord.StartItem(r, false, r.makeNextStartId(),
+                null, null, 0));
+    }
+
+    sendServiceArgsLocked(r, execInFg, true);
+
+    if (r.delayed) {
+        if (DEBUG_DELAYED_STARTS) Slog.v(TAG_SERVICE, &quot;REM FR DELAY LIST (new proc): &quot; + r);
+        getServiceMapLocked(r.userId).mDelayedStartList.remove(r);
+        r.delayed = false;
+    }
+
+    if (r.delayedStop) {
+        r.delayedStop = false;
+        if (r.startRequested) {
+            if (DEBUG_DELAYED_STARTS) Slog.v(TAG_SERVICE,
+                    &quot;Applying delayed stop (from start): &quot; + r);
+            stopServiceLocked(r);
+        }
+    }
+}
+</code></pre><ul>
+<li>ActivityThread中的handler处理消息的部分没有什么特别的地方，我们直接看处理创建service的请求的方法handleCreateService，这里和Activity的创建也有很多类似的地方，主要流程是，获取loadedApk，使用classloader创建service，创建ContextImpl并绑定到service的mbase成员，调用service的onCreate方法，将service放入ActivityThread的成员mServices中，到这里startservice的流程就结束了</li>
+</ul>
+<pre><code>private void handleCreateService(CreateServiceData data) {
+    // If we are getting ready to gc after going to the background, well
+    // we are back active so skip it.
+    unscheduleGcIdler();
+
+    LoadedApk packageInfo = getPackageInfoNoCheck(
+            data.info.applicationInfo, data.compatInfo);
+    Service service = null;
+    try {
+        java.lang.ClassLoader cl = packageInfo.getClassLoader();
+        service = (Service) cl.loadClass(data.info.name).newInstance();
+    } catch (Exception e) {
+        if (!mInstrumentation.onException(service, e)) {
+            throw new RuntimeException(
+                &quot;Unable to instantiate service &quot; + data.info.name
+                + &quot;: &quot; + e.toString(), e);
+        }
+    }
+
+    try {
+        if (localLOGV) Slog.v(TAG, &quot;Creating service &quot; + data.info.name);
+
+        ContextImpl context = ContextImpl.createAppContext(this, packageInfo);
+        context.setOuterContext(service);
+
+        Application app = packageInfo.makeApplication(false, mInstrumentation);
+        service.attach(context, this, data.info.name, data.token, app,
+                ActivityManager.getService());
+        service.onCreate();
+        mServices.put(data.token, service);
+        try {
+            ActivityManager.getService().serviceDoneExecuting(
+                    data.token, SERVICE_DONE_EXECUTING_ANON, 0, 0);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    } catch (Exception e) {
+        if (!mInstrumentation.onException(service, e)) {
+            throw new RuntimeException(
+                &quot;Unable to create service &quot; + data.info.name
+                + &quot;: &quot; + e.toString(), e);
+        }
+    }
+}
 </code></pre><p><br></p>
-<h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
-<h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
-<h4 id="linux-与-init"><a href="#linux-与-init" class="headerlink" title="linux 与 init"></a>linux 与 init</h4><p><br></p>
-<h4 id="xv6-与-userinit"><a href="#xv6-与-userinit" class="headerlink" title="xv6 与 userinit"></a>xv6 与 userinit</h4><p><br></p>
-<h4 id="Android-zygote-与-初始化"><a href="#Android-zygote-与-初始化" class="headerlink" title="Android zygote 与 初始化"></a>Android zygote 与 初始化</h4><ul>
-<li>写在另一系列，<a href="https://tocreate.app/2019/01/10/AOSInit/" target="_blank" rel="external">详见</a></li>
-</ul>
-
+<h4 id="bindService-绑定"><a href="#bindService-绑定" class="headerlink" title="bindService 绑定"></a>bindService 绑定</h4>
     
 
     
@@ -704,21 +772,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/12/10/OSsynchro/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/12/02/OSSysCall/" id="post_nav-older" class="next-content">
+        <a href="/2019/01/18/AOSBinder/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

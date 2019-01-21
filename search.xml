@@ -3,6 +3,278 @@
   
     
     <entry>
+      <title><![CDATA[Android 系统系列 Service启动流程]]></title>
+      <url>/2019/01/21/AOSServiceInit/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">本文为Android 系统相关系列的一部分</a></p>
+<p><strong>使用service的方法要么是startService要么是bindService，要么混合使用，这里分别讲解两个方法的流程</strong></p>
+<p><br></p>
+<h4 id="startService-启动"><a href="#startService-启动" class="headerlink" title="startService 启动"></a>startService 启动</h4><ul>
+<li>我们平时调用的startService方法，来自ContextWrapper，它是Activity和Service的父类，android中的Context是包装模式的一个实例，这里不讲解设计模式，还是直接看代码，该方法中使用的mBase，在上一篇中讲到是ContextImpl的实例</li>
+</ul>
+<pre><code>public class ContextWrapper extends Context{
+
+Context mBase;
+
+//...
+@Override
+    public ComponentName startService(Intent service) {
+        return mBase.startService(service);
+    }
+//...
+}
+</code></pre><ul>
+<li>这里ActivityManager.getService()获取到的是AMS的代理类IActivityManager，因此这里会调用到AMS的startService方法</li>
+</ul>
+<pre><code>/frameworks/base/core/java/android/app/ContextImpl.java
+    @Override
+    public ComponentName startService(Intent service) {
+        warnIfCallingFromSystemProcess();
+        return startServiceCommon(service, false, mUser);
+    }
+
+private ComponentName startServiceCommon(Intent service, boolean requireForeground,
+            UserHandle user) {
+        try {
+            validateServiceIntent(service);
+            service.prepareToLeaveProcess(this);
+            ComponentName cn = ActivityManager.getService().startService(
+                mMainThread.getApplicationThread(), service, service.resolveTypeIfNeeded(
+                            getContentResolver()), requireForeground,
+                            getOpPackageName(), user.getIdentifier());
+
+//...           
+          return cn;
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+</code></pre><ul>
+<li>AMS的startService方法调用的是ActiveServices类的startServiceLocked方法，后者负责查找service的描述类ServiceRecord并启动service，ServiceRecord的作用和之前看到的ActivityRecord，TaskRecord，ProcessRecord类是类似的</li>
+</ul>
+<pre><code>@Override
+public ComponentName startService(IApplicationThread caller, Intent service,
+        String resolvedType, boolean requireForeground, String callingPackage, int userId)
+        throws TransactionTooLargeException {
+
+    //…
+    synchronized(this) {
+        final int callingPid = Binder.getCallingPid();
+        final int callingUid = Binder.getCallingUid();
+        final long origId = Binder.clearCallingIdentity();
+        ComponentName res;
+        try {
+            res = mServices.startServiceLocked(caller, service,
+                    resolvedType, callingPid, callingUid,
+                    requireForeground, callingPackage, userId);
+        } finally {
+            Binder.restoreCallingIdentity(origId);
+        }
+        return res;
+    }
+}
+</code></pre><ul>
+<li>startServiceLocked的流程大致是，先从缓存中查找serviceRecord，这里的缓存是一个类型为ServiceMap的稀疏数组，数组的键为userId，ServiceMap则是一个handler，内部持有存放serviceRecord的ArrayMap，如果在缓存中找不到service，则会通过PackageManagerService去获取对应的参数，然后封装为serviceRecord。查找到service后会调用到bringUpServiceLocked</li>
+</ul>
+<pre><code>  final SparseArray&lt;ServiceMap&gt; mServiceMap = new SparseArray&lt;&gt;();
+
+ServiceRecord getServiceByNameLocked(ComponentName name, int callingUser) {
+
+        //…
+
+        ServiceLookupResult res =
+            retrieveServiceLocked(service, resolvedType, callingPackage,
+                    callingPid, callingUid, userId, true, callerFg, false);
+        if (res == null) {
+            return null;
+        }
+        if (res.record == null) {
+            return new ComponentName(&quot;!&quot;, res.permission != null
+                    ? res.permission : &quot;private to package&quot;);
+        }
+
+        ServiceRecord r = res.record;
+        //…
+   ComponentName cmp = startServiceInnerLocked(smap, service, r, callerFg, addToStarting);
+        return cmp;
+    }
+</code></pre><ul>
+<li>bringUpServiceLocked方法会查找service需要运行在的进程，这里和启动Activity过程的startSpecificActivityLocked方法类似，获取进程的方法是AMS的getProcessRecordLocked，如果需要的进程不存在则会调用AMS.startProcessLocked来创建进程，方法的参数则简单地从serviceRecord中获取，service的进程可以使用android:process来指定</li>
+</ul>
+<pre><code>private String bringUpServiceLocked(ServiceRecord r, int intentFlags, boolean execInFg,
+          boolean whileRestarting, boolean permissionsReviewRequired)
+          throws TransactionTooLargeException {
+
+      //...
+      final String procName = r.processName;
+      String hostingType = &quot;service&quot;;
+      ProcessRecord app;
+
+      if (!isolated) {
+          app = mAm.getProcessRecordLocked(procName, r.appInfo.uid, false);
+          if (DEBUG_MU) Slog.v(TAG_MU, &quot;bringUpServiceLocked: appInfo.uid=&quot; + r.appInfo.uid
+                      + &quot; app=&quot; + app);
+          if (app != null &amp;&amp; app.thread != null) {
+              try {
+                  app.addPackage(r.appInfo.packageName, r.appInfo.versionCode, mAm.mProcessStats);
+                  realStartServiceLocked(r, app, execInFg);
+                  return null;
+              } catch (TransactionTooLargeException e) {
+                  throw e;
+              } catch (RemoteException e) {
+                  Slog.w(TAG, &quot;Exception when starting service &quot; + r.shortName, e);
+              }
+
+              // If a dead object exception was thrown -- fall through to
+              // restart the application.
+          }
+      } else {
+          app = r.isolatedProc;
+          if (WebViewZygote.isMultiprocessEnabled()
+                  &amp;&amp; r.serviceInfo.packageName.equals(WebViewZygote.getPackageName())) {
+              hostingType = &quot;webview_service&quot;;
+          }
+      }
+
+      // Not running -- get it started, and enqueue this service record
+      // to be executed when the app comes up.
+      if (app == null &amp;&amp; !permissionsReviewRequired) {
+          if ((app=mAm.startProcessLocked(procName, r.appInfo, true, intentFlags,
+                  hostingType, r.name, false, isolated, false)) == null) {
+              String msg = &quot;Unable to launch app &quot;
+                      + r.appInfo.packageName + &quot;/&quot;
+                      + r.appInfo.uid + &quot; for service &quot;
+                      + r.intent.getIntent() + &quot;: process is bad&quot;;
+              Slog.w(TAG, msg);
+              bringDownServiceLocked(r);
+              return msg;
+          }
+          if (isolated) {
+              r.isolatedProc = app;
+          }
+      }
+
+  //…
+      return null;
+  }
+</code></pre><ul>
+<li>由于应用进程创建的流程已经讲解过了，这里只考虑应用进程存在的情况，不管在哪个进程启动什么activity或service都需要跨进程，因为AMS运行在system server进程当中，这里直接调用的是realStartServiceLocked方法，它会调用app.thread的scheduleCreateService方法，上一篇讲过这个app.thread就是IApplicationThread，那么现在就进到应用进程了</li>
+</ul>
+<pre><code>private final void realStartServiceLocked(ServiceRecord r, ProcessRecord app, boolean execInFg) throws RemoteException {
+    //…
+    try {
+    //…
+        app.forceProcessStateUpTo(ActivityManager.PROCESS_STATE_SERVICE);
+        app.thread.scheduleCreateService(r, r.serviceInfo,
+                mAm.compatibilityInfoForPackageLocked(r.serviceInfo.applicationInfo),
+                app.repProcState);
+        r.postNotification();
+        created = true;
+    } catch (DeadObjectException e) {
+        Slog.w(TAG, &quot;Application dead when creating service &quot; + r);
+        mAm.appDiedLocked(app);
+        throw e;
+    } finally {
+    //…           
+    }
+
+    if (r.whitelistManager) {
+        app.whitelistManager = true;
+    }
+
+    requestServiceBindingsLocked(r, execInFg);
+
+    updateServiceClientActivitiesLocked(app, null, true);
+
+    if (r.startRequested &amp;&amp; r.callStart &amp;&amp; r.pendingStarts.size() == 0) {
+        r.pendingStarts.add(new ServiceRecord.StartItem(r, false, r.makeNextStartId(),
+                null, null, 0));
+    }
+
+    sendServiceArgsLocked(r, execInFg, true);
+
+    if (r.delayed) {
+        if (DEBUG_DELAYED_STARTS) Slog.v(TAG_SERVICE, &quot;REM FR DELAY LIST (new proc): &quot; + r);
+        getServiceMapLocked(r.userId).mDelayedStartList.remove(r);
+        r.delayed = false;
+    }
+
+    if (r.delayedStop) {
+        r.delayedStop = false;
+        if (r.startRequested) {
+            if (DEBUG_DELAYED_STARTS) Slog.v(TAG_SERVICE,
+                    &quot;Applying delayed stop (from start): &quot; + r);
+            stopServiceLocked(r);
+        }
+    }
+}
+</code></pre><ul>
+<li>ActivityThread中的handler处理消息的部分没有什么特别的地方，我们直接看处理创建service的请求的方法handleCreateService，这里和Activity的创建也有很多类似的地方，主要流程是，获取loadedApk，使用classloader创建service，创建ContextImpl并绑定到service的mbase成员，调用service的onCreate方法，将service放入ActivityThread的成员mServices中，到这里startservice的流程就结束了</li>
+</ul>
+<pre><code>private void handleCreateService(CreateServiceData data) {
+    // If we are getting ready to gc after going to the background, well
+    // we are back active so skip it.
+    unscheduleGcIdler();
+
+    LoadedApk packageInfo = getPackageInfoNoCheck(
+            data.info.applicationInfo, data.compatInfo);
+    Service service = null;
+    try {
+        java.lang.ClassLoader cl = packageInfo.getClassLoader();
+        service = (Service) cl.loadClass(data.info.name).newInstance();
+    } catch (Exception e) {
+        if (!mInstrumentation.onException(service, e)) {
+            throw new RuntimeException(
+                &quot;Unable to instantiate service &quot; + data.info.name
+                + &quot;: &quot; + e.toString(), e);
+        }
+    }
+
+    try {
+        if (localLOGV) Slog.v(TAG, &quot;Creating service &quot; + data.info.name);
+
+        ContextImpl context = ContextImpl.createAppContext(this, packageInfo);
+        context.setOuterContext(service);
+
+        Application app = packageInfo.makeApplication(false, mInstrumentation);
+        service.attach(context, this, data.info.name, data.token, app,
+                ActivityManager.getService());
+        service.onCreate();
+        mServices.put(data.token, service);
+        try {
+            ActivityManager.getService().serviceDoneExecuting(
+                    data.token, SERVICE_DONE_EXECUTING_ANON, 0, 0);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    } catch (Exception e) {
+        if (!mInstrumentation.onException(service, e)) {
+            throw new RuntimeException(
+                &quot;Unable to create service &quot; + data.info.name
+                + &quot;: &quot; + e.toString(), e);
+        }
+    }
+}
+</code></pre><p><br></p>
+<h4 id="bindService-绑定"><a href="#bindService-绑定" class="headerlink" title="bindService 绑定"></a>bindService 绑定</h4>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android 系统系列 Binder源码解析]]></title>
       <url>/2019/01/18/AOSBinder/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -516,7 +788,7 @@ private class H extends Handler {
     }
 }
 </code></pre><ul>
-<li>performLaunchActivity则负责获取ActivityInfo类，这个类中可以的到Activity中的theme，launchmode等信息，以及Apk文件描述类LoadedApk的实例，然后是创建appContext，使用classloader来创建通过类名创建Activity对象，然后在创建Application，之后初始化Activity的过程中会创建window对象并与Activity进行关联，然后调用Instrumentation的callActivityOncreate方法来启动Activity，最终由Activity的perform来调用它的onCreate，这样就达到我们熟悉的运行环境了</li>
+<li>performLaunchActivity则负责获取ActivityInfo类，这个类中可以的到Activity中的theme，launchmode等信息以及Apk文件描述类LoadedApk的实例，然后是创建appContext，Activity, Application, 注意appContext的类型为ContextImpl，是Context的实现类，之后调用了Activity的attach方法绑定到Activity当中，这个就是我们在ContextWrapper(Activity父类)中看到的mBase成员变量，Activit实例的创建是使用classloader实现的，之后初始化Activity的过程中会创建window对象并与Activity进行关联，然后调用Instrumentation的callActivityOncreate方法来启动Activity，最终由Activity的perform来调用它的onCreate，这样就达到我们熟悉的运行环境了</li>
 </ul>
 <pre><code>private Activity performLaunchActivity(ActivityClientRecord r, Intent customIntent) {
         ActivityInfo aInfo = r.activityInfo;
