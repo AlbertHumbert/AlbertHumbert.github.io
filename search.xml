@@ -332,10 +332,7 @@ private static void handleCallback(Message message) {
     message.callback.run();
 }
 </code></pre><p><br></p>
-<h3 id="MessageQueue"><a href="#MessageQueue" class="headerlink" title="MessageQueue"></a>MessageQueue</h3><ul>
-<li>MessageQueue故名思议，消息队列，其节点数据结构为message,其比较重要的成员有 what，arg1，arg2，obj，replyTo，flags，when，data，target，callback，next</li>
-</ul>
-<pre><code>/**
+<h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><pre><code>/**
  *
  * Defines a message containing a description and arbitrary data object that can be
  * sent to a {@link Handler}.  This object contains two extra int fields and an
@@ -419,6 +416,112 @@ public final class Message implements Parcelable {
     /*package*/ Runnable callback;
 
     /*package*/ Message next;
+</code></pre><ul>
+<li>MessageQueue故名思议，消息队列，其节点数据结构为message。message比较重要的成员有 what，arg1，arg2，obj，data, target, callback，when，next，flags，replyTo，前面的，有用过handler的都知道是什么，说下最后三个</li>
+</ul>
+<pre><code>next: 下个节点的message，所以可以说MessageQueue其实是个单向链表
+
+replyTo：客户端的Messager，在Messager机制中用到
+
+flags: message状态的标志位，目前只有下面两种标记
+
+FLAG_IN_USE：正在使用，刚创建或获取的Message都是未使用的，一旦提交给handler，直到被重新分配(obtain)或者可回收前都算使用中
+
+FLAG_ASYNCHRONOUS：是否为异步消息，可以联系前面的内容理解
+</code></pre><ul>
+<li>创建Message，要么直接new，要么调用obtain，Message中缓存了一个静态的链表，称为消息池sPool，实际上是个栈，每次都从表头摘下一个节点回收复用，sPool为空，才new一个Message</li>
+</ul>
+<pre><code>/**
+ * Return a new Message instance from the global pool. Allows us to
+ * avoid allocating new objects in many cases.
+ */
+public static Message obtain() {
+    synchronized (sPoolSync) {
+        if (sPool != null) {
+            Message m = sPool;
+            sPool = m.next;
+            m.next = null;
+            m.flags = 0; // clear in-use flag
+            sPoolSize--;
+            return m;
+        }
+    }
+    return new Message();
+}
+</code></pre><ul>
+<li>回收Message，检查Message是否在使用，否则放入表头(栈顶)</li>
+</ul>
+<pre><code>/**
+ * Return a Message instance to the global pool.
+ * &lt;p&gt;
+ * You MUST NOT touch the Message after calling this function because it has
+ * effectively been freed.  It is an error to recycle a message that is currently
+ * enqueued or that is in the process of being delivered to a Handler.
+ * &lt;/p&gt;
+ */
+public void recycle() {
+    if (isInUse()) {
+        if (gCheckRecycle) {
+            throw new IllegalStateException(&quot;This message cannot be recycled because it &quot;
+                    + &quot;is still in use.&quot;);
+        }
+        return;
+    }
+    recycleUnchecked();
+}
+
+/**
+ * Recycles a Message that may be in-use.
+ * Used internally by the MessageQueue and Looper when disposing of queued Messages.
+ */
+void recycleUnchecked() {
+    // Mark the message as in use while it remains in the recycled object pool.
+    // Clear out all other details.
+    flags = FLAG_IN_USE;
+    what = 0;
+    arg1 = 0;
+    arg2 = 0;
+    obj = null;
+    replyTo = null;
+    sendingUid = -1;
+    when = 0;
+    target = null;
+    callback = null;
+    data = null;
+
+    synchronized (sPoolSync) {
+        if (sPoolSize &lt; MAX_POOL_SIZE) {
+            next = sPool;
+            sPool = this;
+            sPoolSize++;
+        }
+    }
+}
+</code></pre><p><br></p>
+<h3 id="MessageQueue"><a href="#MessageQueue" class="headerlink" title="MessageQueue"></a>MessageQueue</h3><ul>
+<li>MessageQueue的成员，我们只需要关注两个. mMessages，队列，一个单纯的Message对象，mIdleHandlers，闲置handler</li>
+</ul>
+<pre><code>Message mMessages;
+private final ArrayList&lt;IdleHandler&gt; mIdleHandlers = new ArrayList&lt;IdleHandler&gt;();
+</code></pre><ul>
+<li>闲置handler，闲置不是什么都不干的意思，而是当MessageQueue里的消息都被处理完之后用来接收MessageQueue的这个idle状态的，idleHandler有一个queueIdle方法需要重写，在mMessages被looper掏空时调用，这种特殊的handler可以实现一些很酷的事情，比如，ActivityThread中的GC和非前台Activity的生命周期管理，分别由ActivityThread的GcIdler和Idler实现，这里我不分析源码，只给结论</li>
+</ul>
+<pre><code>1.GC:
+AMS会在某些情况下将会调用scheduleAppGcsLocked，这个方法将会可能会引发ActivityThread进行两种场景的gc
+一种是低内存，一种是进程运行在后台
+低内存时会回调进程中的Activity的onLowMemory，然后gc
+运行在后台时则相对没有那么严重，这个时候就使用到idleHandler，MessageQueue闲置后再gc
+注意基于ActivityThread中的GCWatcher机制，ActivityThread能感知到gc
+不管哪种gc，ActivityThread都能在gc的同时选择释放一些Activity
+
+2.非前台Activity的生命周期管理：
+这里指的是
+对pause的Activity进行stop或destroy
+对Finishing的Activity进行destroy
+例如前者，我们知道启动Activity时目标Activity的resume总是先于前一个Activity的stop
+ActivitThread当resume完指定的Activity后也会进入idle状态，
+因此这时就可以通过idleHanler去调用AMS的activityIdle方法，
+activityIdle会对整个系统进行检查，大多数stop和destroy操作都由这里引发
 </code></pre><ul>
 <li></li>
 </ul>
