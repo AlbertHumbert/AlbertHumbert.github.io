@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-23T09:22:52.740Z</updated>
+  <updated>2019-01-23T10:29:14.695Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>计算机网络系列 6 - Http</title>
+    <link href="https://alberthumbert.github.io/2019/01/23/NetHttp/"/>
+    <id>https://alberthumbert.github.io/2019/01/23/NetHttp/</id>
+    <published>2019-01-23T10:29:00.000Z</published>
+    <updated>2019-01-23T10:29:14.695Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机网络系列 5 - Tcp</title>
+    <link href="https://alberthumbert.github.io/2019/01/23/NetTcp/"/>
+    <id>https://alberthumbert.github.io/2019/01/23/NetTcp/</id>
+    <published>2019-01-23T10:26:26.000Z</published>
+    <updated>2019-01-23T10:27:21.100Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Android 系统系列 Looper &amp; handler 机制</title>
@@ -361,46 +401,6 @@
     <id>https://alberthumbert.github.io/2018/12/02/OSProcess/</id>
     <published>2018-12-02T14:01:34.000Z</published>
     <updated>2019-01-16T03:37:46.962Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 8 - 系统调用</title>
-    <link href="https://alberthumbert.github.io/2018/12/02/OSSysCall/"/>
-    <id>https://alberthumbert.github.io/2018/12/02/OSSysCall/</id>
-    <published>2018-12-02T08:53:14.000Z</published>
-    <updated>2018-12-04T15:30:13.719Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入JVM系列 7 - 类的加载</title>
-    <link href="https://alberthumbert.github.io/2018/11/29/JVMLoadLink/"/>
-    <id>https://alberthumbert.github.io/2018/11/29/JVMLoadLink/</id>
-    <published>2018-11-29T15:31:30.000Z</published>
-    <updated>2018-12-05T15:38:36.245Z</updated>
     
     <summary type="html">
     

@@ -3,6 +3,48 @@
   
     
     <entry>
+      <title><![CDATA[计算机网络系列 6 - Http]]></title>
+      <url>/2019/01/23/NetHttp/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[计算机网络系列 5 - Tcp]]></title>
+      <url>/2019/01/23/NetTcp/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android 系统系列 Looper & handler 机制]]></title>
       <url>/2019/01/21/AOSHandler/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -5305,7 +5347,7 @@ if (op.prologue_succeeded()) {
     </entry>
     
     <entry>
-      <title><![CDATA[深入计算机网络  2 - IP 和 IPv4]]></title>
+      <title><![CDATA[计算机网络  2 - IP 和 IPv4]]></title>
       <url>/2018/11/10/NetIPv4/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -5378,9 +5420,9 @@ ip地址 = 网络号 +（子网号+主机号）
 </code></pre><ul>
 <li>子网掩码有路由器和注解使用，以确定一个ip地址的网络/子网部分的结束和主机部分的开始，方法是和IP地址进行按位与，结果是ip地址所属子网号</li>
 </ul>
-<pre><code>地址：10000000 00100000 00000001 00001110  -&gt; 128.32.1.14
-掩码：11111111 11111111 11111111 00000000  -&gt; 255.255.255.0
-结果：10000000 00100000 00000001 00000000  -&gt; 128.32.1.0
+<pre><code>地址：10000000 00100000 00000001 00001110  -\&gt; 128.32.1.14
+掩码：11111111 11111111 11111111 00000000  -\&gt; 255.255.255.0
+结果：10000000 00100000 00000001 00000000  -\&gt; 128.32.1.0
 </code></pre><p><br></p>
 <h4 id="可变长子网掩码-VLSM"><a href="#可变长子网掩码-VLSM" class="headerlink" title="可变长子网掩码 VLSM"></a>可变长子网掩码 VLSM</h4><ul>
 <li>VLAM 支持每个站点的不同部分使用不同长度的子网掩码，这样每个子网可以支持不同数量的主机</li>
@@ -5395,9 +5437,9 @@ ip地址 = 网络号 +（子网号+主机号）
 <h4 id="广播地址"><a href="#广播地址" class="headerlink" title="广播地址"></a>广播地址</h4><ul>
 <li>子网中主机部分全为1的ip地址，编程上可以子网中的ip地址与按位取反后的掩码进行按位或的方法获取</li>
 </ul>
-<pre><code>地址：10000000 00100000 00000001 00001110  -&gt; 128.32.1.14
-掩码：00000000 00000000 00000000 11111111 -&gt; 255.255.255.0
-结果：10000000 00100000 00000001 11111111  -&gt; 128.32.1.255
+<pre><code>地址：10000000 00100000 00000001 00001110  -\&gt; 128.32.1.14
+掩码：00000000 00000000 00000000 11111111 -\&gt; 255.255.255.0
+结果：10000000 00100000 00000001 11111111  -\&gt; 128.32.1.255
 </code></pre><ul>
 <li>理论上，这种地址可以通过internet路由到目标子网，再作为一组广播数据报发给子网中的所有主机，这种数据报叫定向广播</li>
 </ul>
@@ -5431,10 +5473,10 @@ ip地址 = 网络号 +（子网号+主机号）
 172.18.133.0/24
 
 二进制:
-129 -&gt; 10000001
-130 -&gt; 10000010
-132 -&gt; 10000100
-133 -&gt; 10000101
+129 -\&gt; 10000001
+130 -\&gt; 10000010
+132 -\&gt; 10000100
+133 -\&gt; 10000101
 
 划归相同位:
 172.18.128.0/21
@@ -5784,7 +5826,7 @@ jmp spin
     </entry>
     
     <entry>
-      <title><![CDATA[深入计算机网络系列 4 - 数据链路层]]></title>
+      <title><![CDATA[计算机网络系列 4 - 数据链路层]]></title>
       <url>/2018/11/07/NetEthernet/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -7630,7 +7672,7 @@ http {
     </entry>
     
     <entry>
-      <title><![CDATA[深入计算机网络  1 - 模型 & 互连]]></title>
+      <title><![CDATA[计算机网络  1 - 模型 & 互连]]></title>
       <url>/2018/10/30/NetLayer/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
@@ -10485,7 +10527,7 @@ $ make
     </entry>
     
     <entry>
-      <title><![CDATA[深入计算机网络 系列]]></title>
+      <title><![CDATA[计算机网络 系列]]></title>
       <url>/2018/09/05/net-0/</url>
       <content type="html"><![CDATA[<ul>
 <li>假装深入</li>
