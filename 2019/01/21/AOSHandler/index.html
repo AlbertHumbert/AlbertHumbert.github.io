@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Event-Loop"><span class="post-toc-number">1.</span> <span class="post-toc-text">Event Loop</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概览"><span class="post-toc-number">2.</span> <span class="post-toc-text">概览</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程"><span class="post-toc-number">3.</span> <span class="post-toc-text">线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Looper"><span class="post-toc-number">4.</span> <span class="post-toc-text">Looper</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Handler"><span class="post-toc-number">5.</span> <span class="post-toc-text">Handler</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Message"><span class="post-toc-number">6.</span> <span class="post-toc-text">Message</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MessageQueue"><span class="post-toc-number">7.</span> <span class="post-toc-text">MessageQueue</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Event-Loop"><span class="post-toc-number">1.</span> <span class="post-toc-text">Event Loop</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概览"><span class="post-toc-number">2.</span> <span class="post-toc-text">概览</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程"><span class="post-toc-number">3.</span> <span class="post-toc-text">线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Looper"><span class="post-toc-number">4.</span> <span class="post-toc-text">Looper</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Handler"><span class="post-toc-number">5.</span> <span class="post-toc-text">Handler</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Message"><span class="post-toc-number">6.</span> <span class="post-toc-text">Message</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MessageQueue"><span class="post-toc-number">7.</span> <span class="post-toc-text">MessageQueue</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IdleHandler"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">IdleHandler</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#enqueueMessage"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">enqueueMessage</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#next"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">next</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#native"><span class="post-toc-number">8.</span> <span class="post-toc-text">native</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Linux-pipe-epoll"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">Linux pipe/epoll</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Looper-amp-MessageQueue"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">Looper & MessageQueue</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -755,7 +755,7 @@ public static void loop() {
 <li>Handler用来发送和处理事件，由于Handler创建时绑定了looper，也就绑定了MessageQueue，因此handler可以往looper对应的线程的消息队列发送事件，这些事件被该线程的looper处理，因此事件处理的时机和发送时所在的线程无关，所以事件总是在执行loop方法的线程里处理</li>
 </ul>
 <ul>
-<li>Handler的构造参数有三个，looper，指定looper也就指定的消息处理的线程，callBack，这个callBack的回调方法也叫handleMessage，它会在handler的handleMessage之前执行并且可以根据返回值来实现消息拦截，async，这个名字其实不是很贴切，它和后面提到的同步屏障(SyncBarrier)有关，具体作用就是，设置为true时，可以在消息队列中加入同步屏障，在同步屏障之后的消息，如果是同步的话，不会被取出处理，如果是异步的话则能正常取出，系统只打算用这个机制来优化UI绘制，所以设置同步屏障的方法都是@hide的，因此只能通过反射调用</li>
+<li>Handler的构造参数有三个，looper，指定looper也就指定的消息处理的线程，callBack，这个callBack的回调方法也叫handleMessage，它会在handler的handleMessage之前执行并且可以根据返回值来实现消息拦截，async，这个名字其实不是很贴切，它和后面提到的同步屏障(SyncBarrier)有关，具体作用就是，设置为true时，可以在消息队列中加入同步屏障，在同步屏障之后的消息，如果是同步的话，不会被取出处理，如果是异步的话则能正常取出，具体实现可以看后面的MessageQueue部分，系统只打算用这个机制来优化UI绘制，所以设置同步屏障的方法都是@hide的，因此只能通过反射调用，这篇<a href="https://blog.csdn.net/cdecde111/article/details/54670136" target="_blank" rel="external">文章</a>中结合了handlerThread来实现预加载，不过老实说预加载其实和handler没什么关系，基本只要有一套缓存和通知机制就可以实现了，如果使用rx，建议通过BehaviorSubject实现</li>
 </ul>
 <pre><code>public Handler(Looper looper, Callback callback, boolean async) {
         mLooper = looper;
@@ -994,20 +994,22 @@ void recycleUnchecked() {
     }
 }
 </code></pre><p><br></p>
-<h3 id="MessageQueue"><a href="#MessageQueue" class="headerlink" title="MessageQueue"></a>MessageQueue</h3><ul>
+<h3 id="MessageQueue"><a href="#MessageQueue" class="headerlink" title="MessageQueue"></a>MessageQueue</h3><p><br></p>
+<h4 id="IdleHandler"><a href="#IdleHandler" class="headerlink" title="IdleHandler"></a>IdleHandler</h4><ul>
 <li>MessageQueue的成员，我们只需要关注两个. mMessages，队列，一个单纯的Message对象，mIdleHandlers，闲置handler</li>
 </ul>
 <pre><code>Message mMessages;
 private final ArrayList&lt;IdleHandler&gt; mIdleHandlers = new ArrayList&lt;IdleHandler&gt;();
 </code></pre><ul>
-<li>闲置handler，闲置不是什么都不干的意思，而是当MessageQueue里的消息都被处理完之后用来接收MessageQueue的这个idle状态的，idleHandler有一个queueIdle方法需要重写，在mMessages被looper掏空时调用，这种特殊的handler可以实现一些很酷的事情，比如，ActivityThread中的GC和非前台Activity的生命周期管理，分别由ActivityThread的GcIdler和Idler实现，这里我不分析源码，只给结论</li>
+<li>闲置handler，闲置不是什么都不干的意思，而是当MessageQueue里的消息都被处理完之后用来接收MessageQueue的这个idle状态的，idleHandler有一个queueIdle方法需要重写，在mMessages被looper掏空或者第一个消息指定的处理时间还没到达时调用，这种特殊的handler可以实现一些很酷的事情，比如，ActivityThread中的GC和非前台Activity的生命周期管理，分别由ActivityThread的GcIdler和Idler实现，这里我不分析源码，只给结论，有兴趣的可以自己去看</li>
 </ul>
 <pre><code>1.GC:
 AMS会在某些情况下将会调用scheduleAppGcsLocked，这个方法将会可能会引发ActivityThread进行两种场景的gc
 一种是低内存，一种是进程运行在后台
 低内存时会回调进程中的Activity的onLowMemory，然后gc
-运行在后台时则相对没有那么严重，这个时候就使用到idleHandler，MessageQueue闲置后再gc
-注意基于ActivityThread中的GCWatcher机制，ActivityThread能感知到gc
+运行在后台时相对没有那么严重，这个时候就使用到idleHandler，MessageQueue闲置后再gc
+注意这里的gc指的都是手动调用runtime.gc()
+基于ActivityThread中的GCWatcher机制，ActivityThread能感知到gc
 不管哪种gc，ActivityThread都能在gc的同时选择释放一些Activity
 
 2.非前台Activity的生命周期管理：
@@ -1019,9 +1021,269 @@ ActivitThread当resume完指定的Activity后也会进入idle状态，
 因此这时就可以通过idleHanler去调用AMS的activityIdle方法，
 activityIdle会对整个系统进行检查，大多数stop和destroy操作都由这里引发
 </code></pre><ul>
-<li></li>
+<li>idleHandler在业务上也有作用，比如glide中用来在idle的时机清除已经被回收的弱引用，另外我们也可以使用它来在界面绘制完成(注意这个时机晚于onResume)之后做一些操作，比如这篇<a href="https://blog.csdn.net/tencent_bugly/article/details/78395717" target="_blank" rel="external">文章</a>中将复杂的界面设置放在绘制完成之后，这样可以先把简单的部分先显示给用户，而不会因为一部分的界面原因导致整个界面长时间处于空白状态</li>
 </ul>
-<p><br><br><strong>未完待续</strong></p>
+<ul>
+<li>接下来正式看MessageQueue的方法，需要关注的有enqueueMessage，插入消息，next，获取消息，quit，退出</li>
+</ul>
+<p><br></p>
+<h4 id="enqueueMessage"><a href="#enqueueMessage" class="headerlink" title="enqueueMessage"></a>enqueueMessage</h4><ul>
+<li>enqueueMessage，插入消息，插入有两种情况，插入队头，对应情况为队列为空或消息的目标时间最早，反之则插入队中</li>
+</ul>
+<ul>
+<li>插入后队列当然已经被更新了，但执行next的线程目前可能处于阻塞状态无法处理消息。导致阻塞的原因有两种，进入idle状态（无消息，或所有消息处理时机未到），或者队头为SyncBarrier并且后面全是同步消息。因为在阻塞前设置的唤醒机制所能做的有限，所以要么设置需要被外界主动唤醒，要么设置为在达到目前队列里第一个可处理的消息的处理时机自动唤醒</li>
+</ul>
+<ul>
+<li>因此enqueueMessage还要负责唤醒next的线程，总的来说有两种情况需要唤醒，一是插入队头，因为需要直接处理这个新来的消息或者更新唤醒实际并重新阻塞，二是插入队头为SyncBarrier的队中，且这个消息比SyncBarrier后的所有异步消息处理时机都要早(队头不是SyncBarrier不需要唤醒是因为还轮不到这个消息，只要不是队头，随便插都行)，注意这些判断条件不是在enqueueMessage里全部做完的</li>
+</ul>
+<pre><code>boolean enqueueMessage(Message msg, long when) {
+    if (msg.target == null) {
+        throw new IllegalArgumentException(&quot;Message must have a target.&quot;);
+    }
+    if (msg.isInUse()) {
+        throw new IllegalStateException(msg + &quot; This message is already in use.&quot;);
+    }
+
+    synchronized (this) {
+        if (mQuitting) {
+            IllegalStateException e = new IllegalStateException(
+                    msg.target + &quot; sending message to a Handler on a dead thread&quot;);
+            Log.w(TAG, e.getMessage(), e);
+            msg.recycle();
+            return false;
+        }
+
+        msg.markInUse();
+        msg.when = when;
+        Message p = mMessages;
+        boolean needWake;
+        if (p == null || when == 0 || when &lt; p.when) {
+            // New head, wake up the event queue if blocked.
+            msg.next = p;
+            mMessages = msg;
+            needWake = mBlocked;
+        } else {
+            // Inserted within the middle of the queue.  Usually we don&apos;t have to wake
+            // up the event queue unless there is a barrier at the head of the queue
+            // and the message is the earliest asynchronous message in the queue.
+            needWake = mBlocked &amp;&amp; p.target == null &amp;&amp; msg.isAsynchronous();
+            Message prev;
+            for (;;) {
+                prev = p;
+                p = p.next;
+                if (p == null || when &lt; p.when) {
+                    break;
+                }
+                if (needWake &amp;&amp; p.isAsynchronous()) {
+                    needWake = false;
+                }
+            }
+            msg.next = p; // invariant: p == prev.next
+            prev.next = msg;
+        }
+
+        // We can assume mPtr != 0 because mQuitting is false.
+        if (needWake) {
+            nativeWake(mPtr);
+        }
+    }
+    return true;
+}
+</code></pre><p><br></p>
+<h4 id="next"><a href="#next" class="headerlink" title="next"></a>next</h4><ul>
+<li>next，由looper调用的，这个方法的作用不是单纯的把消息从队列头里拿出来，整体效果应该是，待到第一个可处理的消息的处理时机返回这个消息，这两者差别是非常大的，可以自行体会一下</li>
+</ul>
+<ul>
+<li>这个效果可以分为两个组成部分，一个是查找第一个可处理的消息，另一个是阻塞到这个消息的处理时机，我们分开来看，因为源码比较直观我就不分析了，只记录要点</li>
+</ul>
+<pre><code>Message next() {
+    // Return here if the message loop has already quit and been disposed.
+    // This can happen if the application tries to restart a looper after quit
+    // which is not supported.
+    final long ptr = mPtr;
+    if (ptr == 0) {
+        return null;
+    }
+
+    int pendingIdleHandlerCount = -1; // -1 only during first iteration
+    int nextPollTimeoutMillis = 0;
+    for (;;) {
+        if (nextPollTimeoutMillis != 0) {
+            Binder.flushPendingCommands();
+        }
+
+        nativePollOnce(ptr, nextPollTimeoutMillis);
+
+        synchronized (this) {
+            // Try to retrieve the next message.  Return if found.
+            final long now = SystemClock.uptimeMillis();
+            Message prevMsg = null;
+            Message msg = mMessages;
+            if (msg != null &amp;&amp; msg.target == null) {
+                // Stalled by a barrier.  Find the next asynchronous message in the queue.
+                do {
+                    prevMsg = msg;
+                    msg = msg.next;
+                } while (msg != null &amp;&amp; !msg.isAsynchronous());
+            }
+            if (msg != null) {
+                if (now &lt; msg.when) {
+                    // Next message is not ready.  Set a timeout to wake up when it is ready.
+                    nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);
+                } else {
+                    // Got a message.
+                    mBlocked = false;
+                    if (prevMsg != null) {
+                        prevMsg.next = msg.next;
+                    } else {
+                        mMessages = msg.next;
+                    }
+                    msg.next = null;
+                    if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);
+                    msg.markInUse();
+                    return msg;
+                }
+            } else {
+                // No more messages.
+                nextPollTimeoutMillis = -1;
+            }
+
+            // Process the quit message now that all pending messages have been handled.
+            if (mQuitting) {
+                dispose();
+                return null;
+            }
+
+            // If first time idle, then get the number of idlers to run.
+            // Idle handles only run if the queue is empty or if the first message
+            // in the queue (possibly a barrier) is due to be handled in the future.
+            if (pendingIdleHandlerCount &lt; 0
+                    &amp;&amp; (mMessages == null || now &lt; mMessages.when)) {
+                pendingIdleHandlerCount = mIdleHandlers.size();
+            }
+            if (pendingIdleHandlerCount &lt;= 0) {
+                // No idle handlers to run.  Loop and wait some more.
+                mBlocked = true;
+                continue;
+            }
+
+            if (mPendingIdleHandlers == null) {
+                mPendingIdleHandlers = new IdleHandler[Math.max(pendingIdleHandlerCount, 4)];
+            }
+            mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);
+        }
+
+        // Run the idle handlers.
+        // We only ever reach this code block during the first iteration.
+        for (int i = 0; i &lt; pendingIdleHandlerCount; i++) {
+            final IdleHandler idler = mPendingIdleHandlers[i];
+            mPendingIdleHandlers[i] = null; // release the reference to the handler
+
+            boolean keep = false;
+            try {
+                keep = idler.queueIdle();
+            } catch (Throwable t) {
+                Log.wtf(TAG, &quot;IdleHandler threw exception&quot;, t);
+            }
+
+            if (!keep) {
+                synchronized (this) {
+                    mIdleHandlers.remove(idler);
+                }
+            }
+        }
+
+        // Reset the idle handler count to 0 so we do not run them again.
+        pendingIdleHandlerCount = 0;
+
+        // While calling an idle handler, a new message could have been delivered
+        // so go back and look again for a pending message without waiting.
+        nextPollTimeoutMillis = 0;
+    }
+}
+</code></pre><ul>
+<li>可处理的消息指消息队列没有被退出时，SyncBarrier前的消息或SyncBarrier后的异步消息，SyncBarrier在实现上只是一个target为null的消息，消息本来就是按处理时机从前往后排的，如果MessageQueue被退出了，返回null，否则按条件取排在最前面的即可,</li>
+</ul>
+<ul>
+<li>处理时机，则是使用nativePollOnce的native方法这个方法由两个参数，一个是MessageQueue的指针，一个是阻塞的时间，阻塞时间为-1时只能由外界唤醒，next方法如果能拿到可以的消息就基于SystemClock.uptimeMillis()计算还差多少时间来设置这个参数，如果拿不到那就设为-1, 等enqueueMessage去唤醒它</li>
+</ul>
+<ul>
+<li>注意IdleHandler的调用也是在next方法里实现的，因为拿得到消息的话就可以直接return的，所以循环体的最后即处于idle状态，idle状态处理完后进入下一次迭代</li>
+</ul>
+<pre><code>    // If first time idle, then get the number of idlers to run.
+    // Idle handles only run if the queue is empty or if the first message
+    // in the queue (possibly a barrier) is due to be handled in the future.
+    if (pendingIdleHandlerCount &lt; 0
+            &amp;&amp; (mMessages == null || now &lt; mMessages.when)) {
+        pendingIdleHandlerCount = mIdleHandlers.size();
+    }
+    if (pendingIdleHandlerCount &lt;= 0) {
+        // No idle handlers to run.  Loop and wait some more.
+        mBlocked = true;
+        continue;
+    }
+
+    if (mPendingIdleHandlers == null) {
+        mPendingIdleHandlers = new IdleHandler[Math.max(pendingIdleHandlerCount, 4)];
+    }
+    mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);
+}
+
+// Run the idle handlers.
+// We only ever reach this code block during the first iteration.
+for (int i = 0; i &lt; pendingIdleHandlerCount; i++) {
+    final IdleHandler idler = mPendingIdleHandlers[i];
+    mPendingIdleHandlers[i] = null; // release the reference to the handler
+
+    boolean keep = false;
+    try {
+        keep = idler.queueIdle();
+    } catch (Throwable t) {
+        Log.wtf(TAG, &quot;IdleHandler threw exception&quot;, t);
+    }
+
+    if (!keep) {
+        synchronized (this) {
+            mIdleHandlers.remove(idler);
+        }
+    }
+}
+</code></pre><ul>
+<li>quit, 这个方法设置一个mQuitting标志位，然后移除消息(参数safe为true时移除未处理的，否则移除全部)，然后唤醒next，这个时候next继续执行的话将会返回null，looper接受到这个null就知道要退出循环了</li>
+</ul>
+<pre><code>void quit(boolean safe) {
+    if (!mQuitAllowed) {
+        throw new IllegalStateException(&quot;Main thread not allowed to quit.&quot;);
+    }
+
+    synchronized (this) {
+        if (mQuitting) {
+            return;
+        }
+        mQuitting = true;
+
+        if (safe) {
+            removeAllFutureMessagesLocked();
+        } else {
+            removeAllMessagesLocked();
+        }
+
+        // We can assume mPtr != 0 because mQuitting was previously false.
+        nativeWake(mPtr);
+    }
+}
+</code></pre><p><br></p>
+<h3 id="native"><a href="#native" class="headerlink" title="native"></a>native</h3><p><br></p>
+<h4 id="Linux-pipe-epoll"><a href="#Linux-pipe-epoll" class="headerlink" title="Linux pipe/epoll"></a>Linux pipe/epoll</h4><ul>
+<li>主要涉及 pipe poll epoll</li>
+</ul>
+<p><br></p>
+<h4 id="Looper-amp-MessageQueue"><a href="#Looper-amp-MessageQueue" class="headerlink" title="Looper &amp; MessageQueue"></a>Looper &amp; MessageQueue</h4><ul>
+<li>我们主要关注这两个文件</li>
+</ul>
+<pre><code>/system/core/libutils/Looper.cpp
+/frameworks/base/core/jni/android_os_MessageQueue.cpp
+</code></pre><p><br><br><strong>未完待续</strong></p>
 
     
 
