@@ -10,7 +10,7 @@
 <p><br></p>
 <h3 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h3><p><br></p>
 <h4 id="运输层服务"><a href="#运输层服务" class="headerlink" title="运输层服务"></a>运输层服务</h4><ul>
-<li>传输层提供两种协议，tcp和udp，udp提供不可靠无连接的服务，tcp提供可靠面向连接的服务</li>
+<li>传输层提供两种协议，tcp和udp，udp提供不可靠无连接的服务，tcp提供可靠面向连接的服务（其实还有一个stcp，不过不在本文讨论范围）</li>
 </ul>
 <ul>
 <li>提供程到进程之间的逻辑通信，运输层在端系统而不是在路由器上实现，由于ip为不可靠服务（不确保交付和顺序），将ip扩展为两个端系统进程之间的这种交付服务称为多路复用与多路分解</li>
@@ -86,9 +86,46 @@ Symantec pcAnywhere 主控端扫描被控端时使用的端口号：5632/udp
 
 MS SQL Server使用的端口号：5000/tcp
 </code></pre><p><br></p>
-<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><ul>
-<li>自顶向下上面说udp用两元组来确定一个socket，tcp用四元组来确定一个socket，元组的元素相同就共用一个socket，这个究竟是协议规定的还是操作系统的通常实现，以及单进程和多进程是否都是这样，我表示很怀疑，因为只有python的socket会讲udp二元组这个概念(这本书新版用的就是python)，但暂时也没能找到出处，有兴趣的可以打印一下fd(注意这个方法无法确认多进程的情况)</li>
+<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p><br></p>
+<h5 id="定向"><a href="#定向" class="headerlink" title="定向"></a>定向</h5><ul>
+<li>自顶向下上面说udp用两元组来确定一个socket，tcp用四元组来确定一个socket，报文段指定的元组的元素相同就会通过相同的套接字定向到相同的目的进程</li>
 </ul>
+<ul>
+<li>这个说法有点绕，而且不是很恰当，因为本质上不管多少元组，最多都只能定位到socket，操作系统保证同时建立(accept，Socket)创建socket时不会产生重复的socket，进程持有socket的描述符socketfd，因此可以监听到这些报文段，由于fd是共享资源，假如一个进程创建socket后fork了一个或多个子进程，那么哪个进程能拿到报文段取决于谁先读取数据，并且多个进程都可以往同一socket写数据，当然这种情况不常见，因为通常只有tcp链接中的监听socketfd(由Socket函数产生)才设计成在各个进程间共享，而它指向的socket是不用来传输数据的，只不过这种问题确实有可能发生</li>
+</ul>
+<p><br></p>
+<h5 id="五元组"><a href="#五元组" class="headerlink" title="五元组"></a>五元组</h5><ul>
+<li>在计算机网络中，五元组可以唯一确定一个会话，一个会话只会对应一对socket(源，目的)，五元组具体指的是下面这五个</li>
+</ul>
+<pre><code>src_ip, 源ip
+src_port，源端口
+dest_ip，目的ip
+dest_port，目的端口
+protocol_type，协议类型
+</code></pre><ul>
+<li>知道这个有什么用呢，有的，我们可以推导一个会话能否成立，比如说，不同的协议能否运行在相同的端口呢，答案是可以的，<a href="https://www.jianshu.com/p/df9e55e94f95" target="_blank" rel="external">详见</a>，其他元组也是这样，都是很普通的情况了</li>
+</ul>
+<ul>
+<li>在进一步知道协议的情况下，比如tcp和udp，我们通常就使用四元组了，因为上面的 protocol_type 是已知的了（SOCK_STREAM，或者SOCK_DGRAM）</li>
+</ul>
+<p><br></p>
+<h5 id="二元组-amp-四元组"><a href="#二元组-amp-四元组" class="headerlink" title="二元组 &amp; 四元组"></a>二元组 &amp; 四元组</h5><ul>
+<li>细心的人会发现不管TCP还是UDP的首部一般都只有五元组中的源端口和目的端口，实际上程序接受一个UPD或TCP消息时，IP首部和udp，tcp首部都已经被剥掉，但五元组就是由这些首部共同构成的，不管什么时候都可以通过操作系统的接口获取，<a href="https://blog.csdn.net/iicup/article/details/41041215?utm_source=blogxgwz3" target="_blank" rel="external">例子</a></li>
+</ul>
+<ul>
+<li>那么为什么说TCP的套接字是四元组而UDP套接字却是二元组呢，这里讲的其实是套接字的定向，先看TCP的情况，由于TCP是面向连接的传输服务，而一个连接自然就包含了一个四元组，因此建立一个链接就需要创建一个socket，也就是accept函数每次返回的是一个新的socket的描述符，需要四元组才能定向到这个socket</li>
+</ul>
+<p><br><br><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fzi7px6exej30u00vzgs7.jpg" alt=""></p>
+<ul>
+<li>再看UDP的情况，UDP是无连接的，更关键的是它是不可靠的，源ip和源端口无关紧要，因此UDP的socket是可以复用的，也就是说目的ip和端口一致的报文段全都发往一个socket就行了</li>
+</ul>
+<p><br><br><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fzi7qar0kuj30z00rsdwn.jpg" alt=""></p>
+<ul>
+<li>最后看端口复用的情况，端口复用概念只存在于TCP的情况(毕竟udp一直都是复用的)，我们知道通常Socket里一个端口一个程序只能bind一次，多次bind一个端口，就叫做端口复用，我们可以使用setsockopt来设置端口复用，但端口复用本身是有限制的，它只是通知内核，如果端口被占用且TCP状态位于 TIME_WAIT ，就重用端口，否则将bind时将一直返回Error，这是由于socket本身只含有四元组，如果有同一时刻同一协议绑定相同端口，那么请求到来时就无法匹配到唯一的socket，这也导致了端口复用的应用上有一定难度，具体可以看，<a href="https://www.cnblogs.com/kex1n/p/7437290.html" target="_blank" rel="external">这里</a></li>
+</ul>
+<pre><code>setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const voidvoid *)&amp;opt, sizeof(opt));
+</code></pre><p><br></p>
+<h3 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h3><p><br><br><strong>未完待续</strong></p>
 ]]></content>
       
         <categories>
