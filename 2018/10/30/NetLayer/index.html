@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 30, 2018" />
-        <meta property="article:modified_time" content="1月 23, 2019" />
+        <meta property="article:modified_time" content="1月 24, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "计算机网络  1 - 模型 & 互连",
     "url": "https://alberthumbert.github.io/2018/10/30/NetLayer/index.html",
     "datePublished": "10月 30, 2018",
-    "dateModified": "1月 23, 2019",
+    "dateModified": "1月 24, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -540,18 +540,21 @@
 <li>链路层（辅助），用于网络层到基于多接入链路层网络的链路层的地址映射的非正式的层</li>
 </ul>
 <p><br></p>
-<h4 id="五层体系结构"><a href="#五层体系结构" class="headerlink" title="五层体系结构"></a>五层体系结构</h4><p><strong>五层协议只是OSI和TCP/IP的综合，实际应用还是TCP/IP的四层结构</strong></p>
+<h4 id="五层体系结构"><a href="#五层体系结构" class="headerlink" title="五层体系结构"></a>五层体系结构</h4><p><strong>五层协议只是OSI和TCP/IP的综合，实际应用还是TCP/IP的四层结构，高度抽象化后各层的作用如下</strong></p>
 <ul>
-<li><p>应用层</p>
-</li>
-<li><p>运输层</p>
-</li>
-<li><p>网络层</p>
-</li>
-<li><p>数据链路层</p>
-</li>
-<li><p>物理层</p>
-</li>
+<li>应用层，负责定义应用进程间通信和交互的规则，传输单位为报文</li>
+</ul>
+<ul>
+<li>运输层，负责进程到进程之间的逻辑通信，其中，TCP提供面向链接，差错控制，流量控制，拥塞控制，UDP只提供无连接服务。传输单位为报文段（报文段和用户数据报）</li>
+</ul>
+<ul>
+<li>网络层，负责主机到主机之间的通信服务，包括了IP协议和一些路由选择协议，定义了段系统和路由器应该处理ip协议中的各字段，传输单位为数据报</li>
+</ul>
+<ul>
+<li>数据链路层，负责点到点之间的通信服务，提供封装成帧，透明传输，差错检测的相邻结点的数据链路传输，传输单位为帧</li>
+</ul>
+<ul>
+<li>物理层，将帧中的数据以比特为单位从一个结点移动到下一个结点，并且进一步与链路的物理结构相关，如分别定义关于双绞线，光纤，同轴电缆的传输协议</li>
 </ul>
 <p><br></p>
 <h3 id="应用模型"><a href="#应用模型" class="headerlink" title="应用模型"></a>应用模型</h3><ul>
@@ -724,7 +727,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">17</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

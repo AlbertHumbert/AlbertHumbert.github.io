@@ -3,7 +3,111 @@
   
     
     <entry>
-      <title><![CDATA[计算机网络系列 6 - Http]]></title>
+      <title><![CDATA[计算机网络系列 5 - 运输层 & UDP]]></title>
+      <url>/2019/01/24/NetUdp/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h3><p><br></p>
+<h4 id="运输层服务"><a href="#运输层服务" class="headerlink" title="运输层服务"></a>运输层服务</h4><ul>
+<li>传输层提供两种协议，tcp和udp，udp提供不可靠无连接的服务，tcp提供可靠面向连接的服务</li>
+</ul>
+<ul>
+<li>提供程到进程之间的逻辑通信，运输层在端系统而不是在路由器上实现，由于ip为不可靠服务（不确保交付和顺序），将ip扩展为两个端系统进程之间的这种交付服务称为多路复用与多路分解</li>
+</ul>
+<ul>
+<li>简单来说，运输层提供最低限度的服务包括，进程间的数据交付，差错检查，这两种也是udp提供的全部服务，而tcp还提供可靠数据传输（正确，有序）和拥塞控制</li>
+</ul>
+<p><br></p>
+<h4 id="多路分解复用-amp-端口号"><a href="#多路分解复用-amp-端口号" class="headerlink" title="多路分解复用 &amp; 端口号"></a>多路分解复用 &amp; 端口号</h4><ul>
+<li>运输层的数据实际上并不是直接交付给进程的，而是交付给对应的套接字，根据报文段中的首部信息将其定向到目标套接字就是多路分解</li>
+</ul>
+<ul>
+<li>相对的，为数据加上这些首部信息，然后投递到网络层就称为多路复用</li>
+</ul>
+<ul>
+<li>需要的字段包括源端口号，目的端口号和其他一些字段，端口号为两个字节，0到1023为受限端口号，1024到49151为注册端口号，49152到65535为动态端口或者私人端口，受限端口和注册端口可以在IANA的这个<a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml" target="_blank" rel="external">网站</a>查看，redhat旧版的<a href="http://cert.sjtu.edu.cn/doc/linux/ch-ports.html" target="_blank" rel="external">安全手册</a>也有提供常见的端口号，看一下下面这些就够了</li>
+</ul>
+<pre><code>HTTP协议代理服务器常用端口号：80/8080/3128/8081/9098
+
+SOCKS代理协议服务器常用端口号：1080
+
+FTP（文件传输）协议代理服务器常用端口号：20（控制端口）/tcp、21（数据传输端口）/tcp
+
+Telnet（远程登录）协议代理服务器常用端口号：23/tcp
+
+DNS（域名解析服务）默认端口号：53/udp
+
+HTTP服务器，默认端口号：80/tcp
+
+POP3 （邮局协议版本3）使用的端口号：110/tcp
+
+HTTPS（securely transferring web pages）服务器，默认端口号：443/tcp
+
+TFTP（Trivial File Transfer Protocol），默认端口号：69/udp
+
+SSH（安全登录）、SCP（文件传输）、端口号重定向，默认的端口号：22/tcp
+
+SMTP （Simple Mail Transfer Protocol），默认端口号：25/tcp
+
+POP3 Post Office Protocol（E-mail），默认端口号：110/tcp
+
+Webshpere应用程序默认端口号：9080
+
+webshpere管理工具，默认端口号：9090
+
+JBOSS，默认端口号：8080
+
+TOMCAT，默认端口号：8080
+
+WIN2003远程登录，默认端口号：3389
+
+Symantec AV/Filter for MSE,默认端口号：8081
+
+MSN Messenger的文件传输功能所使用的端口号：1863/tcp
+
+Oracle 数据库默认的端口号：1521/tcp
+
+ORACLE EMCTL，默认的端口号为1158
+
+Oracle XDB（XML 数据库），默认的端口号为8080
+
+Oracle XDB FTP服务，默认的端口号为2100
+
+MS SQL SERVER数据库server，默认的端口号为1433/tcp
+
+MS SQL SERVER数据库monitor，默认的端口号为1434/tcp
+
+Microsoft RDP 微软远程桌面使用的端口号：1863/tcp
+
+Symantec pcAnywhere 远程控制数据传输时使用的端口号：5631/tcp
+
+Symantec pcAnywhere 主控端扫描被控端时使用的端口号：5632/udp
+
+MS SQL Server使用的端口号：5000/tcp
+</code></pre><p><br></p>
+<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><ul>
+<li>自顶向下上面说udp用两元组来确定一个socket，tcp用四元组来确定一个socket，元组的元素相同就共用一个socket，这个究竟是协议规定的还是系统的通常实现，以及单进程和多进程是否都是这样，我表示很怀疑，但暂时也没能找到出处，有兴趣的可以打印一下fd(注意这个方法无法确认多进程的情况)</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[计算机网络系列 6 - HTTP]]></title>
       <url>/2019/01/23/NetHttp/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>]]></content>
@@ -24,10 +128,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[计算机网络系列 5 - Tcp]]></title>
+      <title><![CDATA[计算机网络系列 6 - TCP]]></title>
       <url>/2019/01/23/NetTcp/</url>
       <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>]]></content>
+<a id="more"></a>
+]]></content>
       
         <categories>
             
@@ -7713,18 +7818,21 @@ http {
 <li>链路层（辅助），用于网络层到基于多接入链路层网络的链路层的地址映射的非正式的层</li>
 </ul>
 <p><br></p>
-<h4 id="五层体系结构"><a href="#五层体系结构" class="headerlink" title="五层体系结构"></a>五层体系结构</h4><p><strong>五层协议只是OSI和TCP/IP的综合，实际应用还是TCP/IP的四层结构</strong></p>
+<h4 id="五层体系结构"><a href="#五层体系结构" class="headerlink" title="五层体系结构"></a>五层体系结构</h4><p><strong>五层协议只是OSI和TCP/IP的综合，实际应用还是TCP/IP的四层结构，高度抽象化后各层的作用如下</strong></p>
 <ul>
-<li><p>应用层</p>
-</li>
-<li><p>运输层</p>
-</li>
-<li><p>网络层</p>
-</li>
-<li><p>数据链路层</p>
-</li>
-<li><p>物理层</p>
-</li>
+<li>应用层，负责定义应用进程间通信和交互的规则，传输单位为报文</li>
+</ul>
+<ul>
+<li>运输层，负责进程到进程之间的逻辑通信，其中，TCP提供面向链接，差错控制，流量控制，拥塞控制，UDP只提供无连接服务。传输单位为报文段（报文段和用户数据报）</li>
+</ul>
+<ul>
+<li>网络层，负责主机到主机之间的通信服务，包括了IP协议和一些路由选择协议，定义了段系统和路由器应该处理ip协议中的各字段，传输单位为数据报</li>
+</ul>
+<ul>
+<li>数据链路层，负责点到点之间的通信服务，提供封装成帧，透明传输，差错检测的相邻结点的数据链路传输，传输单位为帧</li>
+</ul>
+<ul>
+<li>物理层，将帧中的数据以比特为单位从一个结点移动到下一个结点，并且进一步与链路的物理结构相关，如分别定义关于双绞线，光纤，同轴电缆的传输协议</li>
 </ul>
 <p><br></p>
 <h3 id="应用模型"><a href="#应用模型" class="headerlink" title="应用模型"></a>应用模型</h3><ul>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-23T10:29:14.695Z</updated>
+  <updated>2019-01-24T11:25:27.866Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>计算机网络系列 6 - Http</title>
-    <link href="https://alberthumbert.github.io/2019/01/23/NetHttp/"/>
-    <id>https://alberthumbert.github.io/2019/01/23/NetHttp/</id>
-    <published>2019-01-23T10:29:00.000Z</published>
-    <updated>2019-01-23T10:29:14.695Z</updated>
+    <title>计算机网络系列 5 - 运输层 &amp; UDP</title>
+    <link href="https://alberthumbert.github.io/2019/01/24/NetUdp/"/>
+    <id>https://alberthumbert.github.io/2019/01/24/NetUdp/</id>
+    <published>2019-01-24T07:51:35.000Z</published>
+    <updated>2019-01-24T11:25:27.866Z</updated>
     
     <summary type="html">
     
@@ -36,11 +36,31 @@
   </entry>
   
   <entry>
-    <title>计算机网络系列 5 - Tcp</title>
+    <title>计算机网络系列 6 - HTTP</title>
+    <link href="https://alberthumbert.github.io/2019/01/23/NetHttp/"/>
+    <id>https://alberthumbert.github.io/2019/01/23/NetHttp/</id>
+    <published>2019-01-23T10:29:00.000Z</published>
+    <updated>2019-01-24T07:52:27.456Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机网络系列 6 - TCP</title>
     <link href="https://alberthumbert.github.io/2019/01/23/NetTcp/"/>
     <id>https://alberthumbert.github.io/2019/01/23/NetTcp/</id>
     <published>2019-01-23T10:26:26.000Z</published>
-    <updated>2019-01-23T10:27:21.100Z</updated>
+    <updated>2019-01-24T08:20:08.344Z</updated>
     
     <summary type="html">
     
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2018/12/10/OSsynchro/</id>
     <published>2018-12-10T14:56:38.000Z</published>
     <updated>2019-01-03T09:38:53.931Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 9 - 进程与线程</title>
-    <link href="https://alberthumbert.github.io/2018/12/02/OSProcess/"/>
-    <id>https://alberthumbert.github.io/2018/12/02/OSProcess/</id>
-    <published>2018-12-02T14:01:34.000Z</published>
-    <updated>2019-01-16T03:37:46.962Z</updated>
     
     <summary type="html">
     
