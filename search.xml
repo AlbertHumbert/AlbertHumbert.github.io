@@ -165,12 +165,24 @@ DNS(域名解析协议，通常使用udp)
 </ul>
 <p><br></p>
 <h5 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h5><ul>
-<li>udp的校验和并不是使用原本的数据报直接计算得出的，而是使用伪首部，这是因为udp要实现端到端的差错检测，而udp首部本身只有端口信息，伪首部本身不会被发送，只是计算时才使用</li>
+<li>udp的校验和并不是使用原本的数据报直接计算得出的，而是需要加上伪首部，这是因为udp要实现端到端的差错检测，而udp首部本身只有端口信息，伪首部本身不会被发送，只是计算时才使用，另外伪首部中包含有长度字段，这在udp中是冗余的，只是tcp中需要这个字段</li>
 </ul>
 <ul>
-<li>伪首部结构如下</li>
+<li>ipv4首部结构如下</li>
 </ul>
-<p><br><br><strong>未完待续</strong></p>
+<p><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fzizqombk8j30h10foq38.jpg" alt=""></p>
+<ul>
+<li>ipv6伪首部结构如下</li>
+</ul>
+<p><img src="http://wx4.sinaimg.cn/mw690/007vHOvngy1fzj0c5h9uij30h6094wek.jpg" alt=""></p>
+<ul>
+<li>计算方法是</li>
+</ul>
+<pre><code>1 将校验和字段置0
+2 将每个16位的按位相加，如第17、18位出现的进位，将其值与第1，2位相加
+3 再将所得的结果取反码，最后得到的结果即为UDP校验和
+</code></pre><p><br></p>
+<h4 id="IP隧道"><a href="#IP隧道" class="headerlink" title="IP隧道"></a>IP隧道</h4><p><br><br><strong>未完待续</strong></p>
 ]]></content>
       
         <categories>
