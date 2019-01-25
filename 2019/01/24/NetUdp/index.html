@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运输层"><span class="post-toc-number">1.</span> <span class="post-toc-text">运输层</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#运输层服务"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">运输层服务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#多路分解复用-amp-端口号"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多路分解复用 & 端口号</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#元组"><span class="post-toc-number">2.</span> <span class="post-toc-text">元组</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#定向"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">定向</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#五元组"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">五元组</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#二元组-amp-四元组"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">二元组 & 四元组</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#UDP协议"><span class="post-toc-number">3.</span> <span class="post-toc-text">UDP协议</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运输层"><span class="post-toc-number">1.</span> <span class="post-toc-text">运输层</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#运输层服务"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">运输层服务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#多路分解复用-amp-端口号"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多路分解复用 & 端口号</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#元组"><span class="post-toc-number">2.</span> <span class="post-toc-text">元组</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#定向"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">定向</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#五元组"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">五元组</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#二元组-amp-四元组"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">二元组 & 四元组</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#UDP协议"><span class="post-toc-number">3.</span> <span class="post-toc-text">UDP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用领域"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">适用领域</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#报文结构"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">报文结构</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#校验和"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">校验和</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#校验出错"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">校验出错</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#计算"><span class="post-toc-number">3.3.2.</span> <span class="post-toc-text">计算</span></a></li></ol></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -605,15 +605,16 @@ protocol_type，协议类型
 <li>在进一步知道协议的情况下，比如tcp和udp，我们通常就使用四元组了，因为上面的 protocol_type 是已知的了（SOCK_STREAM，或者SOCK_DGRAM）</li>
 </ul>
 <p><br></p>
-<h5 id="二元组-amp-四元组"><a href="#二元组-amp-四元组" class="headerlink" title="二元组 &amp; 四元组"></a>二元组 &amp; 四元组</h5><ul>
-<li>细心的人会发现不管TCP还是UDP的首部一般都只有五元组中的源端口和目的端口，实际上程序接受一个UPD或TCP消息时，IP首部和udp，tcp首部都已经被剥掉，但五元组就是由这些首部共同构成的，不管什么时候都可以通过操作系统的接口获取，<a href="https://blog.csdn.net/iicup/article/details/41041215?utm_source=blogxgwz3" target="_blank" rel="external">例子</a></li>
+<h5 id="二元组-amp-四元组"><a href="#二元组-amp-四元组" class="headerlink" title="二元组 &amp; 四元组"></a>二元组 &amp; 四元组</h5><p><strong>这一节的图片来自《unix网络编程》</strong></p>
+<ul>
+<li>细心的人会发现不管TCP还是UDP的首部一般都只有五元组中的源端口和目的端口，实际上程序接受一个UPD或TCP消息时，IP首部和udp，tcp首部都已经被剥掉，但五元组就是由这些首部共同构成的，不管什么时候都可以通过操作系统的接口获取(如果确实有)，<a href="https://blog.csdn.net/iicup/article/details/41041215?utm_source=blogxgwz3" target="_blank" rel="external">例子</a></li>
 </ul>
 <ul>
 <li>那么为什么说TCP的套接字是四元组而UDP套接字却是二元组呢，这里讲的其实是套接字的定向，先看TCP的情况，由于TCP是面向连接的传输服务，而一个连接自然就包含了一个四元组，因此建立一个链接就需要创建一个socket，也就是accept函数每次返回的是一个新的socket的描述符，需要四元组才能定向到这个socket</li>
 </ul>
 <p><br><br><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fzi7px6exej30u00vzgs7.jpg" alt=""></p>
 <ul>
-<li>再看UDP的情况，UDP是无连接的，更关键的是它是不可靠的，源ip和源端口无关紧要，因此UDP的socket是可以复用的，也就是说目的ip和端口一致的报文段全都发往一个socket就行了</li>
+<li>再看UDP的情况，UDP是无连接的，更关键的是它是不可靠的，源ip和源端口无关紧要(同时udp协议中源端口号是可选的，可设置为0)，因此UDP的socket是可以复用的，也就是说目的ip和端口一致的报文段全都发往一个socket就行了，这个时候我们同样可以同过recvfrom获取到源地址</li>
 </ul>
 <p><br><br><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fzi7qar0kuj30z00rsdwn.jpg" alt=""></p>
 <ul>
@@ -621,7 +622,51 @@ protocol_type，协议类型
 </ul>
 <pre><code>setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const voidvoid *)&amp;opt, sizeof(opt));
 </code></pre><p><br></p>
-<h3 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h3><p><br><br><strong>未完待续</strong></p>
+<h3 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h3><p><br></p>
+<h4 id="适用领域"><a href="#适用领域" class="headerlink" title="适用领域"></a>适用领域</h4><ul>
+<li>udp不提供向tcp那么完善的服务，但这也是udp的优点，它更加灵活低耗，应用采用udp的原因可能如下</li>
+</ul>
+<pre><code>可以更精细地控制什么时候发送数据，避免tcp中的拥塞控制和确认机制导致不必要的延迟和重传，保证实时应用的最小发送速率
+
+无需建立连接，不会引入建立连接的时延
+
+端系统开销小，无连接也就不需要维护连接状态，如缓存，拥塞控制参数，确认号等
+
+分组首部开销小，udp首部只有8字节的开销，tcp则为20字节
+</code></pre><ul>
+<li>使用udp的例子如下，有一个误区是实时流媒体都用udp，比如什么直播用的都是udp，或者由于web基于http所以视频播放都是基于tcp，实际上流视频不可能是那么简单的事情，硬要说的话，目前主流的web直播使用的是http-flv(基于http，自热也就基于tcp)，或则是http-flv + rtmp(同样基于tcp)，并且向http-flv靠拢是趋势，移动端上也是rtmp比较多，详细可以看<a href="https://www.zhihu.com/question/24034147" target="_blank" rel="external">这里</a>，或<a href="https://blog.csdn.net/xiaojun111111/article/details/79805344" target="_blank" rel="external">这里</a></li>
+</ul>
+<pre><code>NFS(网络文件系统协议)
+SNMP(简单网络管理协议)
+RIP(路由选择协议)
+DNS(域名解析协议，通常使用udp)
+</code></pre><p><br></p>
+<h4 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h4><p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fziwdregvoj30cm09xjri.jpg" alt=""></p>
+<ul>
+<li>端口号是协议间独立的，因为ip协议中的协议字段或ipv6中的下一个首部字段可以用于协议间的隔离，源端口号是可选的，如果发送方不提供端口号，那么设置为0</li>
+</ul>
+<ul>
+<li>长度是总长度，包括头部和数据部分，同时这个字段也是冗余的，因为通过ip和ipv6的数据报都可以简单计算出这个长度</li>
+</ul>
+<ul>
+<li>校验和是端到端的，是包含了ip头部中的源ip和目的ip的udp伪头部计算得来的</li>
+</ul>
+<p><br></p>
+<h4 id="校验和"><a href="#校验和" class="headerlink" title="校验和"></a>校验和</h4><p><br></p>
+<h5 id="校验出错"><a href="#校验出错" class="headerlink" title="校验出错"></a>校验出错</h5><ul>
+<li>先说一下校验出错时会发生什么，当一个数据报被检验出错时，端系统只是将其直接抛弃，这里就涉及到分片的问题，由长度字段可以算出udp的mtu在64k左右，但ethernet的mtu为1500，那么假如udp数据报的长度超过1500，就会导致分片，这个某个数据报发生任何差错都会无法重组，端系统会丢弃所有的分片，所以一般来说状态不好的端系统应该将数据长度限制在1464(去掉头部)以内</li>
+</ul>
+<ul>
+<li>ipv4的情况下校验和是可选的，ipv6则是强制的，但由于校验和计算是规定默认启用的，所以我们通常认为udp的差错控制是受保证的，如果校验和为0则认为不启用校验，如果计算出来的校验和正好为0，为避免歧义，将设置为全1(0xFFFF)_ </li>
+</ul>
+<p><br></p>
+<h5 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h5><ul>
+<li>udp的校验和并不是使用原本的数据报直接计算得出的，而是使用伪首部，这是因为udp要实现端到端的差错检测，而udp首部本身只有端口信息，伪首部本身不会被发送，只是计算时才使用</li>
+</ul>
+<ul>
+<li>伪首部结构如下</li>
+</ul>
+<p><br><br><strong>未完待续</strong></p>
 
     
 
