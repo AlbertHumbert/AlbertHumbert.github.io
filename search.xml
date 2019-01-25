@@ -1203,7 +1203,7 @@ ServiceRecord getServiceByNameLocked(ComponentName name, int callingUser) {
       return null;
   }
 </code></pre><ul>
-<li>由于应用进程创建的流程已经讲解过了，这里只考虑应用进程存在的情况，不管在哪个进程启动什么activity或service都需要跨进程，因为AMS运行在system server进程当中，这里直接调用的是realStartServiceLocked方法，它会调用app.thread的scheduleCreateService方法，上一篇讲过这个app.thread就是IApplicationThread，那么现在就进到应用进程了</li>
+<li>由于应用进程创建的流程已经讲解过了，这里只考虑应用进程存在的情况，不管在哪个进程启动什么activity或service都需要跨进程，因为AMS运行在system server进程当中，这里直接调用的是realStartServiceLocked方法，它会调用app.thread的scheduleCreateService方法，上一篇讲过这个app.thread就是为IApplicationThread的binder对象，那么现在就进到应用进程了</li>
 </ul>
 <pre><code>private final void realStartServiceLocked(ServiceRecord r, ProcessRecord app, boolean execInFg) throws RemoteException {
     //…
@@ -1301,7 +1301,163 @@ ServiceRecord getServiceByNameLocked(ComponentName name, int callingUser) {
     }
 }
 </code></pre><p><br></p>
-<h4 id="bindService-绑定"><a href="#bindService-绑定" class="headerlink" title="bindService 绑定"></a>bindService 绑定</h4>]]></content>
+<h4 id="bindService-绑定"><a href="#bindService-绑定" class="headerlink" title="bindService 绑定"></a>bindService 绑定</h4><ul>
+<li>我们调用的bindService同样由ContextWrapper实现，同样由contextImpl实现</li>
+</ul>
+<pre><code>@Override
+public boolean bindService(Intent service, ServiceConnection conn,
+        int flags) {
+    return mBase.bindService(service, conn, flags);
+}
+
+@Override
+public boolean bindService(Intent service, ServiceConnection conn,
+        int flags) {
+    warnIfCallingFromSystemProcess();
+    return bindServiceCommon(service, conn, flags, mMainThread.getHandler(),
+            Process.myUserHandle());
+}
+</code></pre><ul>
+<li>这里的bindServiceCommon主要是通过LoadedApk对象的getServiceDispatcher方法来获取一个binder对象，之前的源码解析中AMS和ActivityThread的通信主要是依赖IApplicationThread，但这里还多了一个IServiceConnection，实现类为ServiceDispatcher.InnerConnection(方法名不是很直观，getServiceDispatcher返回这个对象)，它主要封装了ServiceConnection对象，用来在AMS中跨进程调用onServiceConnected。获取完binder对象之后通过ActivityManager获取到AMS并调用bindService，和startService是一个模式了</li>
+</ul>
+<pre><code>    private boolean bindServiceCommon(Intent service, ServiceConnection conn, int flags, Handler
+            handler, UserHandle user) {
+        // Keep this in sync with DevicePolicyManager.bindDeviceAdminServiceAsUser.
+        IServiceConnection sd;
+        if (conn == null) {
+            throw new IllegalArgumentException(&quot;connection is null&quot;);
+        }
+        if (mPackageInfo != null) {
+            sd = mPackageInfo.getServiceDispatcher(conn, getOuterContext(), handler, flags);
+        } else {
+            throw new RuntimeException(&quot;Not supported in system context&quot;);
+        }
+        validateServiceIntent(service);
+        try {
+//...
+            int res = ActivityManager.getService().bindService(
+                mMainThread.getApplicationThread(), getActivityToken(), service,
+                service.resolveTypeIfNeeded(getContentResolver()),
+                sd, flags, getOpPackageName(), user.getIdentifier());
+            if (res &lt; 0) {
+                throw new SecurityException(
+                        &quot;Not allowed to bind to service &quot; + service);
+            }
+            return res != 0;
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+</code></pre><ul>
+<li>AMS的bindService方法比较简单，只是进行了异常判断然后调用了ActiveService的bindServiceLocked，说一下文件描述符这点，这里不允许向AMS传递fd是因为多进程共享fd时容易导致fd leaks，因为binder是可以传递文件描述符的，binder多进程共享fd实质上是由parcel去管理fd，接受未知的fd是毫无必要的，容易导致太多文件未关闭而抛出异常(一个进程一般最多只能用于1024个fd)</li>
+</ul>
+<pre><code>public int bindService(IApplicationThread caller, IBinder token, Intent service,
+        String resolvedType, IServiceConnection connection, int flags, String callingPackage,
+        int userId) throws TransactionTooLargeException {
+    enforceNotIsolatedCaller(&quot;bindService&quot;);
+
+    // Refuse possible leaked file descriptors
+    if (service != null &amp;&amp; service.hasFileDescriptors() == true) {
+        throw new IllegalArgumentException(&quot;File descriptors passed in Intent&quot;);
+    }
+
+    if (callingPackage == null) {
+        throw new IllegalArgumentException(&quot;callingPackage cannot be null&quot;);
+    }
+
+    synchronized(this) {
+        return mServices.bindServiceLocked(caller, token, service,
+                resolvedType, connection, flags, callingPackage, userId);
+    }
+}
+</code></pre><ul>
+<li>bindServiceLocked如下</li>
+</ul>
+<pre><code>int bindServiceLocked(IApplicationThread caller, IBinder token, Intent service,
+    try {
+      //…
+        AppBindRecord b = s.retrieveAppBindingLocked(service, callerApp);
+        ConnectionRecord c = new ConnectionRecord(b, activity, connection, flags, clientLabel, clientIntent);
+        IBinder binder = connection.asBinder();
+        ArrayList&lt;ConnectionRecord&gt; clist = s.connections.get(binder);
+        if (clist == null) {
+            clist = new ArrayList&lt;ConnectionRecord&gt;();
+            s.connections.put(binder, clist);
+        }
+        clist.add(c);
+        b.connections.add(c);
+        if (activity != null) {
+            if (activity.connections == null) {
+                activity.connections = new HashSet&lt;ConnectionRecord&gt;();
+            }
+            activity.connections.add(c);
+        }
+        b.client.connections.add(c);
+        if ((c.flags&amp;Context.BIND_ABOVE_CLIENT) != 0) {
+            b.client.hasAboveClient = true;
+        }
+        if ((c.flags&amp;Context.BIND_ALLOW_WHITELIST_MANAGEMENT) != 0) {
+            s.whitelistManager = true;
+        }
+        if (s.app != null) {
+            updateServiceClientActivitiesLocked(s.app, c, true);
+        }
+        clist = mServiceConnections.get(binder);
+        if (clist == null) {
+            clist = new ArrayList&lt;ConnectionRecord&gt;();
+            mServiceConnections.put(binder, clist);
+        }
+        clist.add(c);
+
+        if ((flags&amp;Context.BIND_AUTO_CREATE) != 0) {
+            s.lastActivity = SystemClock.uptimeMillis();
+            if (bringUpServiceLocked(s, service.getFlags(), callerFg, false,
+                    permissionsReviewRequired) != null) {
+                return 0;
+            }
+        }
+        if (s.app != null) {
+            if ((flags&amp;Context.BIND_TREAT_LIKE_ACTIVITY) != 0) {
+                s.app.treatLikeActivity = true;
+            }
+            if (s.whitelistManager) {
+                s.app.whitelistManager = true;
+            }
+            // This could have made the service more important.
+            mAm.updateLruProcessLocked(s.app, s.app.hasClientActivities
+                    || s.app.treatLikeActivity, b.client);
+            mAm.updateOomAdjLocked(s.app, true);
+        }
+
+        if (s.app != null &amp;&amp; b.intent.received) {
+            // Service is already running, so we can immediately
+            // publish the connection.
+            try {
+                c.conn.connected(s.name, b.intent.binder, false);
+            } catch (Exception e) {
+                Slog.w(TAG, &quot;Failure sending service &quot; + s.shortName
+                        + &quot; to connection &quot; + c.conn.asBinder()
+                        + &quot; (in &quot; + c.binding.client.processName + &quot;)&quot;, e);
+            }
+
+            // If this is the first app connected back to this binding,
+            // and the service had previously asked to be told when
+            // rebound, then do so.
+            if (b.intent.apps.size() == 1 &amp;&amp; b.intent.doRebind) {
+                requestServiceBindingLocked(s, b.intent, callerFg, true);
+            }
+        } else if (!b.intent.requested) {
+            requestServiceBindingLocked(s, b.intent, callerFg, false);
+        }
+        getServiceMapLocked(s.userId).ensureNotStartingBackgroundLocked(s);
+
+    } finally {
+        Binder.restoreCallingIdentity(origId);
+    }
+    return 1;
+}
+</code></pre><p><br><br><strong>未完待续</strong></p>
+]]></content>
       
         <categories>
             
@@ -1669,7 +1825,7 @@ public final int startActivityAsUser(IApplicationThread caller, String callingPa
     }
 </code></pre><p><br></p>
 <h4 id="ActivityThread处理请求"><a href="#ActivityThread处理请求" class="headerlink" title="ActivityThread处理请求"></a>ActivityThread处理请求</h4><ul>
-<li>该过程由AMS向ApplicationThread发送启动根Activity请求，我们先来看上面的realStartActivityLocked做了什么,它会调用app.thread.scheduleLaunchActivity，app即是ProcessRecord对象，thread则是ApplicationThread对象，ApplicationThread是ActivityThread的内部类</li>
+<li>该过程由AMS向ApplicationThread发送启动根Activity请求，我们先来看上面的realStartActivityLocked做了什么,它会调用app.thread.scheduleLaunchActivity，app即是ProcessRecord对象，thread则是ApplicationThread对象，ApplicationThread是ActivityThread的内部类，是一个binder对象，因此这里就进到了应用进程</li>
 </ul>
 <pre><code>final boolean realStartActivityLocked(ActivityRecord r, ProcessRecord app,
         boolean andResume, boolean checkConfig) throws RemoteException {
