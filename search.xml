@@ -3,6 +3,72 @@
   
     
     <entry>
+      <title><![CDATA[计算机网络系列 6 - TCP]]></title>
+      <url>/2019/01/26/NetTcp/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><strong>TCP提供一种面向连接的、可靠的字节流服务，包含如下组成要输</strong></p>
+<ul>
+<li>字节流服务，指数据在应用层看来是没有消息边界的，发送端可以多次写入不同大小的数据，接受方也可以多次读入不同大小的数据，读写次数及读写量不需要一致。tcp不会解读字节流里的内容，但它需要把字节流打散为ip可以携带的分组(也就是我们说的包)，每个分组对应一个序列号，该序列号是数据在整个字节流的偏移量</li>
+</ul>
+<ul>
+<li>校验和，tcp包含一个强制校验和来检测比特差错，与udp一样使用端到端的伪首部和函数来计算，被检出差错的包会被丢弃，不发生确认</li>
+</ul>
+<ul>
+<li>确认(ack) ，tcp会发送一个确认来表示收到了正确的数据，一般而言这个确认不是接受到报文段就立即发送的，因为tcp使用的ack字段是累加的，它代表共接收到多少字节，这样的设计可以减少发送报文的时间，并且使一个ack丢失时，后续的ack可以用来确认前面的报文段</li>
+</ul>
+<ul>
+<li>超时重传，tcp为每个滑动窗口设置一个重传计时器，在ack到达时更新，如果有一个确认没有被按时收到，那么报文段就会被重传</li>
+</ul>
+<ul>
+<li>全双工，数据可以向两个方向流动，两个方向相互独立，因此tcp需要为每个方向的数据都建立序列号。一个方向的报文段也用来承载相反反向数据的ack，同样是为了减少发送报文的时间</li>
+</ul>
+<p><br></p>
+<h3 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h3><p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fzkf0tfh8yj30r60f674s.jpg" alt=""></p>
+<ul>
+<li>CWR，拥塞窗口减（发送方降低发送速率）</li>
+</ul>
+<ul>
+<li>ECE，ECN回显（发送方接受到了一个更早的拥塞通告）</li>
+</ul>
+<ul>
+<li>URG，紧急（紧急指针字段有效，很少用）</li>
+</ul>
+<ul>
+<li>ACK，确认（确认好字段有效，建立连接后一般都启用）</li>
+</ul>
+<ul>
+<li>PSH，推送（接收方尽快给应用程序传送这个数据，没有被可靠的实现或使用）</li>
+</ul>
+<ul>
+<li>RST，重置连接（连接取消，经常是因为错误）</li>
+</ul>
+<ul>
+<li>SYN，用于初始化一个连接的同步序号</li>
+</ul>
+<ul>
+<li>FIN，发送方已经结束向对方发送数据</li>
+</ul>
+<p><br><br><strong>本篇未完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[计算机网络系列 5 - 运输层 & UDP]]></title>
       <url>/2019/01/24/NetUdp/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -181,8 +247,7 @@ DNS(域名解析协议，通常使用udp)
 <pre><code>1 将校验和字段置0
 2 将每个16位的按位相加，如第17、18位出现的进位，将其值与第1，2位相加
 3 再将所得的结果取反码，最后得到的结果即为UDP校验和
-</code></pre><p><br></p>
-<h4 id="IP隧道"><a href="#IP隧道" class="headerlink" title="IP隧道"></a>IP隧道</h4><p><br><br><strong>未完待续</strong></p>
+</code></pre><p><br><br><strong>本篇完</strong></p>
 ]]></content>
       
         <categories>
@@ -205,28 +270,6 @@ DNS(域名解析协议，通常使用udp)
       <url>/2019/01/23/NetHttp/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[计算机网络系列 6 - TCP]]></title>
-      <url>/2019/01/23/NetTcp/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-]]></content>
       
         <categories>
             
