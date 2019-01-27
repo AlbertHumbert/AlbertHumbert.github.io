@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 18, 2019" />
-        <meta property="article:modified_time" content="1月 25, 2019" />
+        <meta property="article:modified_time" content="1月 28, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 系统系列 Activity启动流程",
     "url": "https://alberthumbert.github.io/2019/01/18/AOSActivityInit/index.html",
     "datePublished": "1月 18, 2019",
-    "dateModified": "1月 25, 2019",
+    "dateModified": "1月 28, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -773,7 +773,7 @@ public final int startActivityAsUser(IApplicationThread caller, String callingPa
 
     throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);
 </code></pre><ul>
-<li>main方法创建完ActivityThread的实例后调用它的attach方法将其交回给AMS管理</li>
+<li>main方法创建完ActivityThread的实例后调用它的attach方法将其交回给AMS管理，这个流程上篇已经分析过了</li>
 </ul>
 <pre><code>private void attach(boolean system) {
         //...

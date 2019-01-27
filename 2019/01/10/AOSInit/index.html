@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 10, 2019" />
-        <meta property="article:modified_time" content="1月 16, 2019" />
+        <meta property="article:modified_time" content="1月 28, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 系统系列 Android 系统启动流程",
     "url": "https://alberthumbert.github.io/2019/01/10/AOSInit/index.html",
     "datePublished": "1月 10, 2019",
-    "dateModified": "1月 16, 2019",
+    "dateModified": "1月 28, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -527,7 +527,7 @@
 </code></pre><ul>
 <li>Service，后台的程序，这个程序在init进程中被启动，如果退出了可以由系统重新启动（可选择）</li>
 </ul>
-<pre><code>service &lt;name&gt; &lt;pathname&gt; [&lt;argument&gt; ]*
+<pre><code>service &lt;name&gt; &lt;pathname&gt; [&lt;argument&gt; ]\*
 
   &lt;option&gt;
 
@@ -539,7 +539,7 @@
 <ul>
 <li>android 8.0中对zygote的初始化配置从init.rc独立出来，根据体系命名为init.zygoteXX.rc，其中init.zygote64.rc如下，主要的作用是让init创建zygote，进程的路径为/system/bin/app_process64，classname为main，同时在zygote启动过程中，要在其内部创建一个名为zygote的socket</li>
 </ul>
-<pre><code>service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server
+<pre><code>service zygote /system/bin/app\_process64 -Xzygote /system/bin --zygote --start-system-server
     class main
     priority -20
     user root
@@ -563,10 +563,10 @@
 <h4 id="abi"><a href="#abi" class="headerlink" title="abi"></a>abi</h4><ul>
 <li>5.0以后,Android支持64位程序, 因此zygote也就有多种初始化脚本，可以在配置中选择其中一种，对于纯32模式和纯64位模式，只会启动一个zygote进程，如果兼容两种模式，则会创建两个zygote，则根据哪种模式为主模式，分为两种情况</li>
 </ul>
-<pre><code>init.zygote32.rc(对应app_process32)
-init.zygote64.rc(对应app_process64)
-init.zygote32_64.rc(app_process32为主模式，app_process64为次模式)
-init.zygote64_32.rc(app_process64为主模式，app_process32为次模式)
+<pre><code>init.zygote32.rc(对应app\_process32)
+init.zygote64.rc(对应app\_process64)
+init.zygote32\_64.rc(app\_process32为主模式，app\_process64为次模式)
+init.zygote64\_32.rc(app\_process64为主模式，app\_process32为次模式)
 </code></pre><ul>
 <li>对于一个apk运行在32位还是在64位上，是由所使用的abi决定的，具体来说PackageManagerService会根据应用使用的native库进行判断，如果apk中的native库中含有64位的abi（如arm64-v8a）则选择64位的，否则若有32位的abi（如armeabi-v7a），选择32位的，若没有使用so，则以系统support的第一个abi，通常来说64位abi在前，当启动应用时会首先查看主模式的zygote是否支持该abi，否则在次模式中查看是否支持</li>
 </ul>
@@ -576,15 +576,15 @@ arm64-v8a,armeabi-v7a,armeabi
 <h4 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h4><ul>
 <li>在app_process，也就是zygote中，进行了虚拟机的启动，调用了AndroidRuntime（art）的start方法，然后为虚拟机注册jni方法，并通过jni调用ZygoteInit类的main方法，由此Zygote进入java层，在java层中进行初始化</li>
 </ul>
-<pre><code>/*
+<pre><code>/\*
  * Start the Android runtime.  This involves starting the virtual machine
  * and calling the &quot;static void main(String[] args)&quot; method in the class
  * named by &quot;className&quot;.
- *
+ \*
  * Passes the main function two arguments, the class name and the specified
  * options string.
- */
-void AndroidRuntime::start(const char* className, const Vector&lt;String8&gt;&amp; options, bool zygote)
+ \*/
+void AndroidRuntime::start(const char\* className, const Vector&lt;String8&gt;&amp; options, bool zygote)
 {
 
     ...
@@ -646,10 +646,10 @@ void AndroidRuntime::start(const char* className, const Vector&lt;String8&gt;&am
         } else {
             env-&gt;CallStaticVoidMethod(startClass, startMeth, strArray);
 
-#if 0
+# if 0
             if (env-&gt;ExceptionCheck())
                 threadExitUncaughtException(env);
-#endif
+# endif
         }
     }
     ...
@@ -890,10 +890,7 @@ if (pid == 0) {
 </code></pre><p><br></p>
 <h3 id="AMS"><a href="#AMS" class="headerlink" title="AMS"></a>AMS</h3><p><br></p>
 <h5 id="应用进程启动"><a href="#应用进程启动" class="headerlink" title="应用进程启动"></a>应用进程启动</h5><ul>
-<li>SystemServiceManager中创建的ActivityManagerService用来统一接受启动组件的请求，如果组件所在的应用的进程不存在就会使用LocalSocket来向zygote请求创建新的应用进程，同时它还负责创建binder池，主要流程为以下几步</li>
-</ul>
-<ul>
-<li>设置 uid 和 gid，uid和gid相关内容可以看这篇<a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">文章</a>，简单来说（只讨论单用户的android机），系统会为每个应用赋予一个uid，如果多个应用没有在manifest中指定相同的uid的话，uid就是唯一的，应用独占一个进程，否则他们共享uid，并且运行在同一进程，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户）</li>
+<li>SystemServiceManager中创建的ActivityManagerService的用来统一接受启动组件的请求，如果组件所在的应用的进程不存在就会使用LocalSocket来向zygote请求创建新的应用进程，同时它还负责创建binder池，AMS中创建应用进程时都是调用startProcessLocked，其主要流程为以下几步</li>
 </ul>
 <pre><code>private final void startProcessLocked(ProcessRecord app, String hostingType,String hostingNameStr, String abiOverride, String entryPoint, String[] entryPointArgs) {
        //...
@@ -957,7 +954,16 @@ if (pid == 0) {
     //...
     }
 </code></pre><ul>
-<li>Process.start方法最终调用到ZygoteProcess的openZygoteSocketIfNeeded方法，在这里将会建立socket连接，之前说到zygote可能同时存在两个，所以这里会先尝试链接主模式的zygote，查看是否匹配，否则链接辅模式的zygote，这里是否匹配的标准是根据ZygoteState返回的abi是否支持传入的abi，前者是从ro.product.cpu.abilist64，ro.product.cpu.abilist32这两个属性得来的，后者在前面abi一节已经提过了</li>
+<li>首先是设置 uid 和 gid(代码在上面)，uid和gid相关内容可以看这篇<a href="https://blog.csdn.net/vshuang/article/details/43639211" target="_blank" rel="external">文章</a>，简单来说（只讨论单用户的android机），系统会为每个应用赋予一个uid，如果多个应用没有在manifest中指定相同的uid的话，uid就是唯一的，应用独占一个进程，否则他们共享uid，并且运行在同一进程，android中将权限分组，系统的每个权限都属于某个组，如果申请了一个组的一个权限，同时也会获取组中的其他权限（不过在8.0当中依然需要申请，只不过系统还是自动授权，不经过用户），设置完id后调用的是Process.start方法</li>
+</ul>
+<ul>
+<li>Process.start方法最终调用到ZygoteProcess的startViaZygote方法，前面还有一些参数解析的过程我们不需要关心，我们关注的是openZygoteSocketIfNeeded和zygoteSendArgsAndGetResult这两个方法，前者用于建立socket连接，后者用于向zygote发送创建进程的请求</li>
+</ul>
+<pre><code>synchronized(mLock) {
+        return zygoteSendArgsAndGetResult(openZygoteSocketIfNeeded(abi), argsForZygote);
+    }
+</code></pre><ul>
+<li>openZygoteSocketIfNeeded方法，建立socket连接，之前说到zygote可能同时存在两个，所以这里会先尝试链接主模式的zygote，查看是否匹配，否则链接辅模式的zygote，这里是否匹配的标准是根据ZygoteState返回的abi是否支持传入的abi，前者是从ro.product.cpu.abilist64，ro.product.cpu.abilist32这两个属性得来的，后者在前面abi一节已经提过了</li>
 </ul>
 <pre><code>private ZygoteState openZygoteSocketIfNeeded(String abi) throws ZygoteStartFailedEx {
       Preconditions.checkState(Thread.holdsLock(mLock), &quot;ZygoteProcess lock not held&quot;);
@@ -990,7 +996,73 @@ if (pid == 0) {
       throw new ZygoteStartFailedEx(&quot;Unsupported zygote ABI: &quot; + abi);
   }
 </code></pre><ul>
-<li>ZygoteServer中执行了runSelectLoop进行循环监听，具体执行其中一个请求的方法是ZygoteConnection的runOnce方法，关键的一步在于Zygote.forkAndSpecialize，使用fork来创建一个进程</li>
+<li>zygoteSendArgsAndGetResult，这里发送了创建进程的请求，创建成功之后会写回进程的pid，这里的读是阻塞的，因此会等到SystemServer进程处理完请求，要么fork成功，要么fork失败</li>
+</ul>
+<pre><code>/**
+ * Sends an argument list to the zygote process, which starts a new child
+ * and returns the child&apos;s pid. Please note: the present implementation
+ * replaces newlines in the argument list with spaces.
+ *
+ * @throws ZygoteStartFailedEx if process start failed for any reason
+ */
+@GuardedBy(&quot;mLock&quot;)
+private static Process.ProcessStartResult zygoteSendArgsAndGetResult(
+        ZygoteState zygoteState, ArrayList&lt;String&gt; args)
+        throws ZygoteStartFailedEx {
+    try {
+        // Throw early if any of the arguments are malformed. This means we can
+        // avoid writing a partial response to the zygote.
+        int sz = args.size();
+        for (int i = 0; i &lt; sz; i++) {
+            if (args.get(i).indexOf(&apos;\n&apos;) &gt;= 0) {
+                throw new ZygoteStartFailedEx(&quot;embedded newlines not allowed&quot;);
+            }
+        }
+
+        /**
+         * See com.android.internal.os.SystemZygoteInit.readArgumentList()
+         * Presently the wire format to the zygote process is:
+         * a) a count of arguments (argc, in essence)
+         * b) a number of newline-separated argument strings equal to count
+         *
+         * After the zygote process reads these it will write the pid of
+         * the child or -1 on failure, followed by boolean to
+         * indicate whether a wrapper process was used.
+         */
+        final BufferedWriter writer = zygoteState.writer;
+        final DataInputStream inputStream = zygoteState.inputStream;
+
+        writer.write(Integer.toString(args.size()));
+        writer.newLine();
+
+        for (int i = 0; i &lt; sz; i++) {
+            String arg = args.get(i);
+            writer.write(arg);
+            writer.newLine();
+        }
+
+        writer.flush();
+
+        // Should there be a timeout on this?
+        Process.ProcessStartResult result = new Process.ProcessStartResult();
+
+        // Always read the entire result from the input stream to avoid leaving
+        // bytes in the stream for future process starts to accidentally stumble
+        // upon.
+        result.pid = inputStream.readInt();
+        result.usingWrapper = inputStream.readBoolean();
+
+        if (result.pid &lt; 0) {
+            throw new ZygoteStartFailedEx(&quot;fork() failed&quot;);
+        }
+        return result;
+    } catch (IOException ex) {
+        zygoteState.close();
+        throw new ZygoteStartFailedEx(ex);
+    }
+}
+</code></pre><ul>
+<li>ZygoteServer中执行了runSelectLoop进行循环监听，刚刚发送的请求就在这里处理，具体执行其中一个请求的方法是ZygoteConnection的runOnce方法，关键的一步在于Zygote.forkAndSpecialize，使用fork来创建一个进程</li>
 </ul>
 <pre><code>boolean runOnce(ZygoteServer zygoteServer) throws Zygote.MethodAndArgsCaller {
 
@@ -1055,9 +1127,172 @@ if (pid == 0) {
     }
 }
 </code></pre><ul>
-<li>上面最后的handleParentProc会调用ZygoteInit的zygoteInit，这之后的流程就和SystemServer的启动流程一致了，同样会创建binder池，查找main方法，区别只在传入的参数不同，我们需要关注的是传入的main方法签名，这个情况下是ActivityThread的main方法，找到它后同样是抛出异常由ZygoteInit的main捕获并调用，这样进程就创建完毕并且进入ActivityThread管理主线程了</li>
+<li>上面最后的handleChildProc会调用ZygoteInit的zygoteInit，这之后的流程就和SystemServer的启动流程一致了，同样会创建binder池，查找main方法，区别只在传入的参数不同，我们需要关注的是传入的main方法签名，这个情况下是ActivityThread的main方法，找到它后同样是抛出异常由ZygoteInit的main捕获并调用，这样进程就创建完毕并且进入ActivityThread管理主线程了， Process.setArgV0(“\<pre-initialized\>“) 设置进程名，Looper.prepareMainLooper创建looper，new ActivityThread() 导致其成员变量的handler(就是mH)也被创建， thread.attach(false)将进程绑定到AMS，最后调用Looper.loop这样就把主线程的Looper创建好了，之后我们的生命周期方法都是在mH处理消息时调用的，并且attach导致AMS发送的一些消息可以开始处理了(在这之前他们只是入队列而得不到处理)</pre-initialized\></li>
 </ul>
-<p><br><br><strong>系统的启动流程就到这里，之后的文章继续组件的启动流程</strong></p>
+<pre><code>public static void main(String[] args) {
+    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ActivityThreadMain&quot;);
+    SamplingProfilerIntegration.start();
+
+    // CloseGuard defaults to true and can be quite spammy.  We
+    // disable it here, but selectively enable it later (via
+    // StrictMode) on debug builds, but using DropBox, not logs.
+    CloseGuard.setEnabled(false);
+
+    Environment.initForCurrentUser();
+
+    // Set the reporter for event logging in libcore
+    EventLogger.setReporter(new EventLoggingReporter());
+
+    // Make sure TrustedCertificateStore looks in the right place for CA certificates
+    final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());
+    TrustedCertificateStore.setDefaultUserDirectory(configDir);
+
+    Process.setArgV0(&quot;&lt;pre-initialized&gt;&quot;);
+
+    Looper.prepareMainLooper();
+
+    ActivityThread thread = new ActivityThread();
+    thread.attach(false);
+
+    if (sMainThreadHandler == null) {
+        sMainThreadHandler = thread.getHandler();
+    }
+
+    if (false) {
+        Looper.myLooper().setMessageLogging(new
+                LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));
+    }
+
+    // End of event ActivityThreadMain.
+    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);
+    Looper.loop();
+
+    throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);
+}
+</code></pre><ul>
+<li>ActivityThread的attach方法调用的是AMS的attachApplication方法它有调用attachApplicationLocked方法，这个方法比较长我们拆开来看</li>
+</ul>
+<pre><code>@Override
+public final void attachApplication(IApplicationThread thread) {
+    synchronized (this) {
+        int callingPid = Binder.getCallingPid();
+        final long origId = Binder.clearCallingIdentity();
+        attachApplicationLocked(thread, callingPid);
+        Binder.restoreCallingIdentity(origId);
+    }
+}
+</code></pre><ul>
+<li>attachApplication首先会查找ProcessRecord并将其ApplicationThread以及package信息绑定起来，这样的结果是ProcessRecord可以真正代表一个以创建的应用进程</li>
+</ul>
+<pre><code>private final boolean attachApplicationLocked(IApplicationThread thread,
+        int pid) {
+
+    // Find the application record that is being attached...  either via
+    // the pid if we are running in multiple processes, or just pull the
+    // next app record if we are emulating process with anonymous threads.
+    ProcessRecord app;
+    long startTime = SystemClock.uptimeMillis();
+    if (pid != MY_PID &amp;&amp; pid &gt;= 0) {
+        synchronized (mPidsSelfLocked) {
+            app = mPidsSelfLocked.get(pid);
+        }
+    } else {
+        app = null;
+    }
+
+    //…
+
+    app.makeActive(thread, mProcessStats);
+    app.curAdj = app.setAdj = app.verifiedAdj = ProcessList.INVALID_ADJ;
+    app.curSchedGroup = app.setSchedGroup = ProcessList.SCHED_GROUP_DEFAULT;
+    app.forcingToImportant = null;
+    updateProcessForegroundLocked(app, false, false);
+    app.hasShownUi = false;
+    app.debugging = false;
+    app.cached = false;
+    app.killedByAm = false;
+    app.killed = false;
+
+
+    // We carefully use the same state that PackageManager uses for
+    // filtering, since we use this flag to decide if we need to install
+    // providers when user is unlocked later
+    app.unlocked = StorageManager.isUserKeyUnlocked(app.userId);
+</code></pre><ul>
+<li>关联provider，调用generateApplicationProvidersLocked来创建所有的provider，这也就说明了provider其实会在Application的onCreate之前被创建，我们可以利用provider在Library中来做一些初始化操作，具体可以参考Activity中Lifecycle的实现</li>
+</ul>
+<pre><code>List&lt;ProviderInfo&gt; providers = normalMode ? generateApplicationProvidersLocked(app) : null;
+
+if (providers != null &amp;&amp; checkAppInLaunchingProvidersLocked(app)) {
+    Message msg = mHandler.obtainMessage(CONTENT_PROVIDER_PUBLISH_TIMEOUT_MSG);
+    msg.obj = app;
+    mHandler.sendMessageDelayed(msg, CONTENT_PROVIDER_PUBLISH_TIMEOUT);
+}
+
+checkTime(startTime, &quot;attachApplicationLocked: before bindApplication&quot;);
+</code></pre><ul>
+<li>之后调回ActivityThread.bindApplication，这个方法我们之后再看，因为这里的ActivityThread的Looper还没有启动，所以不会带来什么影响</li>
+</ul>
+<pre><code>thread.bindApplication(processName, appInfo, providers,
+                    app.instr.mClass,
+                    profilerInfo, app.instr.mArguments,
+                    app.instr.mWatcher,
+                    app.instr.mUiAutomationConnection, testMode,
+                    mBinderTransactionTrackingEnabled, enableTrackAllocation,
+                    isRestrictedBackupMode || !normalMode, app.persistent,
+                    new Configuration(getGlobalConfiguration()), app.compat,
+                    getCommonServicesLocked(app.isolated),
+                    mCoreSettingsObserver.getCoreSettingsLocked(),
+                    buildSerial);
+</code></pre><ul>
+<li>关联ActivityStackSupervisor，调用其attachApplicationLocked，ActivityStackSupervisor用来管理Activity的任务栈，当我们使用startActivity时可能应用进程还没有初始化，所以会先创建应用进程，将Activity的创建延迟到这里执行，我们在Activity的启动中去讨论这些内容</li>
+</ul>
+<pre><code>if (normalMode) {
+        try {
+            if (mStackSupervisor.attachApplicationLocked(app)) {
+                didSomething = true;
+            }
+        } catch (Exception e) {
+            Slog.wtf(TAG, &quot;Exception thrown launching activities in &quot; + app, e);
+            badApp = true;
+        }
+    }
+</code></pre><ul>
+<li>关联service，和上面一样，当我们使用startService或bindService时应用进程可能没有创建，这里负责启动这些service，并视情况调用其onStartCommand或onBind，我们在Service的启动中去讨论这些内容</li>
+</ul>
+<pre><code>if (!badApp) {
+      try {
+          didSomething |= mServices.attachApplicationLocked(app, processName);
+          checkTime(startTime, &quot;attachApplicationLocked: after mServices.attachApplicationLocked&quot;);
+      } catch (Exception e) {
+          Slog.wtf(TAG, &quot;Exception thrown starting services in &quot; + app, e);
+          badApp = true;
+      }
+  }
+</code></pre><ul>
+<li>现在回到ActivityThread的bindApplication方法，发送一个BIND_APPLICATION消息，当Main方法调用了Looper的loop方法后，该消息最终由handleBindApplication处理，这个方法很长，我们关注的是它创建了Application对象，并且使用callApplicationOnCreate调用了Application的onCreate方法，到这里我们的应用进程就创建完毕了</li>
+</ul>
+<pre><code>private void handleBindApplication(AppBindData data) {
+
+ try {
+
+            Application app = data.info.makeApplication(data.restrictedBackupMode, null);
+            mInitialApplication = app;
+
+
+            try {
+                mInstrumentation.onCreate(data.instrumentationArgs);
+            }
+            catch (Exception e) {
+            }
+            try {
+                mInstrumentation.callApplicationOnCreate(app);
+            } catch (Exception e) {            }
+        } finally {
+            StrictMode.setThreadPolicy(savedPolicy);
+        }
+ }
+</code></pre><p><br><br><strong>系统的启动流程就到这里，之后的文章继续组件的启动流程</strong></p>
 <p><br><br><strong>本篇完</strong></p>
 
     

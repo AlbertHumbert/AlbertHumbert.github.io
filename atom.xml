@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-27T03:32:53.595Z</updated>
+  <updated>2019-01-27T17:28:46.368Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android 系统系列 Service启动流程</title>
+    <link href="https://alberthumbert.github.io/2019/01/28/AOSServiceInit/"/>
+    <id>https://alberthumbert.github.io/2019/01/28/AOSServiceInit/</id>
+    <published>2019-01-28T04:57:34.000Z</published>
+    <updated>2019-01-27T17:28:46.368Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>计算机网络系列 6 - 防火墙 &amp; NAT</title>
@@ -116,26 +136,6 @@
   </entry>
   
   <entry>
-    <title>Android 系统系列 Service启动流程</title>
-    <link href="https://alberthumbert.github.io/2019/01/21/AOSServiceInit/"/>
-    <id>https://alberthumbert.github.io/2019/01/21/AOSServiceInit/</id>
-    <published>2019-01-21T04:57:34.000Z</published>
-    <updated>2019-01-25T16:36:12.666Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Android 系统系列 Binder源码解析</title>
     <link href="https://alberthumbert.github.io/2019/01/18/AOSBinder/"/>
     <id>https://alberthumbert.github.io/2019/01/18/AOSBinder/</id>
@@ -160,7 +160,7 @@
     <link href="https://alberthumbert.github.io/2019/01/18/AOSActivityInit/"/>
     <id>https://alberthumbert.github.io/2019/01/18/AOSActivityInit/</id>
     <published>2019-01-18T07:12:42.000Z</published>
-    <updated>2019-01-25T14:46:48.001Z</updated>
+    <updated>2019-01-27T16:40:25.087Z</updated>
     
     <summary type="html">
     
@@ -260,7 +260,7 @@
     <link href="https://alberthumbert.github.io/2019/01/10/AOSInit/"/>
     <id>https://alberthumbert.github.io/2019/01/10/AOSInit/</id>
     <published>2019-01-10T13:35:14.000Z</published>
-    <updated>2019-01-16T07:27:47.934Z</updated>
+    <updated>2019-01-27T16:42:19.339Z</updated>
     
     <summary type="html">
     
