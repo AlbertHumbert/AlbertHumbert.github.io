@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[计算机网络系列 6 - 防火墙 & NAT]]></title>
+      <url>/2019/01/27/NetGateWayNAT/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[计算机网络系列 6 - TCP]]></title>
       <url>/2019/01/26/NetTcp/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -266,7 +287,7 @@ DNS(域名解析协议，通常使用udp)
     </entry>
     
     <entry>
-      <title><![CDATA[计算机网络系列 6 - HTTP]]></title>
+      <title><![CDATA[计算机网络系列 7 - HTTP]]></title>
       <url>/2019/01/23/NetHttp/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>]]></content>

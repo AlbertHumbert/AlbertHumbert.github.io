@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-01-26T15:52:55.819Z</updated>
+  <updated>2019-01-27T02:09:05.323Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>计算机网络系列 6 - 防火墙 &amp; NAT</title>
+    <link href="https://alberthumbert.github.io/2019/01/27/NetGateWayNAT/"/>
+    <id>https://alberthumbert.github.io/2019/01/27/NetGateWayNAT/</id>
+    <published>2019-01-27T02:08:15.000Z</published>
+    <updated>2019-01-27T02:09:05.323Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>计算机网络系列 6 - TCP</title>
@@ -56,11 +76,11 @@
   </entry>
   
   <entry>
-    <title>计算机网络系列 6 - HTTP</title>
+    <title>计算机网络系列 7 - HTTP</title>
     <link href="https://alberthumbert.github.io/2019/01/23/NetHttp/"/>
     <id>https://alberthumbert.github.io/2019/01/23/NetHttp/</id>
     <published>2019-01-23T10:29:00.000Z</published>
-    <updated>2019-01-24T07:52:27.456Z</updated>
+    <updated>2019-01-27T02:08:47.869Z</updated>
     
     <summary type="html">
     
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2018/12/11/concurrent/</id>
     <published>2018-12-11T14:30:00.000Z</published>
     <updated>2018-12-11T14:46:11.984Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 10 - Linux内核同步</title>
-    <link href="https://alberthumbert.github.io/2018/12/10/OSsynchro/"/>
-    <id>https://alberthumbert.github.io/2018/12/10/OSsynchro/</id>
-    <published>2018-12-10T14:56:38.000Z</published>
-    <updated>2019-01-03T09:38:53.931Z</updated>
     
     <summary type="html">
     
