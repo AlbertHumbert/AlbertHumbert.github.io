@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#防火墙"><span class="post-toc-number">1.</span> <span class="post-toc-text">防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#包过滤防火墙"><span class="post-toc-number">2.</span> <span class="post-toc-text">包过滤防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代理防火墙"><span class="post-toc-number">3.</span> <span class="post-toc-text">代理防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAT"><span class="post-toc-number">4.</span> <span class="post-toc-text">NAT</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -503,6 +503,45 @@
     
         <p>-</p>
 <a id="more"></a>
+<p><br></p>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><ul>
+<li>早期因特网发展时很少有人关心安全问题，如今要确保所有端系统中的问题都被修复已经非常困难，因此确保端系统免受攻击的焦点转为利用防火墙来过滤部分流量以限制流量流向端系统</li>
+</ul>
+<ul>
+<li>防火墙分为两类，包过滤防火墙和代理防火墙</li>
+</ul>
+<p><br></p>
+<h3 id="包过滤防火墙"><a href="#包过滤防火墙" class="headerlink" title="包过滤防火墙"></a>包过滤防火墙</h3><ul>
+<li>包过滤防火墙是一种路由器，能够过滤（丢弃）一些数据包，通常检查的范围如下，有些防火墙是无状态的，只是单独处理每一个包，有状态的防火墙可以关联已经到来或即将到来的数据报来推断流或数据报的信息，并且能够处理ip分片</li>
+</ul>
+<pre><code>源地址
+目的地址
+目的设备的端口号(请求类型)
+该数据包所属的协议(TCP、UDP等等)
+数据包的传输方向，向外传到因特网或向内传给局域网
+数据库中既定数据包的署名
+</code></pre><ul>
+<li>通常包过滤防火墙的配置如下，其中DMZ称为非军事区，DMZ子网和内网均能访问外网，外网和内网均能访问DMZ子网，但DMZ子网和外网都不能访问内网，这样在隔离内外网的情况下，内网依然可以利用DMZ提供一些对外服务，包过滤防火墙通过访问控制表ACL实现这些要求</li>
+</ul>
+<pre><code>| DMZ | -----------|       |
+                   | 包过滤 |---------| 外网 |
+                   | 防火墙 |
+| 内网 |  --------- |       |
+</code></pre><p><br></p>
+<h3 id="代理防火墙"><a href="#代理防火墙" class="headerlink" title="代理防火墙"></a>代理防火墙</h3><ul>
+<li>代理防火墙通常不是真正的路由器，没有ip转发的功能，而是运行应用层网关的主机，它在应用层中继两个连接的特点类型的流量，因此客户端通常只需要一定配置来连接防火墙，而不是实际连接到运行防火墙的物理终端</li>
+</ul>
+<ul>
+<li>常见的代理防火墙如：http代理防火墙(也叫web代理)用来提供web缓存，进行过滤过滤，或防止被过滤(如隧道代理)。SOCKS代理，可以用于web及以外的功能，如udp传输，ipv6寻址等</li>
+</ul>
+<pre><code>                     | 代理   |
+| 客户端 |----------- | 防火墙 |---------| 外网 |
+                     |       |
+</code></pre><p><br></p>
+<h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><ul>
+<li>NAT本质是一种允许在互联网的不同地方重复使用相同ip地址集的机制</li>
+</ul>
+
     
 
     
