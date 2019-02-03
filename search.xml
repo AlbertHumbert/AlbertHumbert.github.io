@@ -903,6 +903,86 @@ final class AppBindRecord {
 </ul>
 <p><br></p>
 <h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><strong>从这里开始才是tcp机制的重点</strong></p>
+<ul>
+<li>一个tcp连接的标识由一个四元组构成，包括两个ip地址和两个端口号，每个连接对应一对端点(或套接字)，当四元组完全重复时，端系统将禁止建立链接并返回一个错误</li>
+</ul>
+<ul>
+<li>一个tcp连接分为3个阶段：启动、传输、退出</li>
+</ul>
+<p><img src="http://wx2.sinaimg.cn/mw690/007vHOvngy1fztan4y7ucj30fs0i5jsk.jpg" alt=""></p>
+<p><br></p>
+<h4 id="连接打开"><a href="#连接打开" class="headerlink" title="连接打开"></a>连接打开</h4><ul>
+<li>建立连接需要完成以下步骤，一共包括三个报文段，因此也称为三次握手，这里将连接的主动建立方称为客户端，被动建立方称为服务器，这种方式属于常见的情况，还有一种服务器和客户端同时建立连接的情况</li>
+</ul>
+<ol>
+<li>客户端发送syn报文段，该报文段syn位置位，包含需要连接的端口号，seq数值为初始序列号isn，</li>
+<li>服务器发送syn + ack报文段，该报文段syn位和ack位置位，ack数值为isn + 1 ，seq数值为另一isn，因此syn报文段如果丢失，客户端也可以知道需要重传，该报文段表示服务器收到了请求</li>
+<li>客户端发送ack报文段，该报文段 ack 位置位，ack数值和seq数值为 各自方向上的isn +1，该报文段表示客户端收到了服务器的回应</li>
+</ol>
+<p><br></p>
+<h4 id="连接关闭"><a href="#连接关闭" class="headerlink" title="连接关闭"></a>连接关闭</h4><ul>
+<li>关闭连接需要完成以下步骤，一共包括四个报文段，因此也称为四次挥手，通常来说关闭连接的发起方也是客户端，不过web服务器在作出相应之后也可能发起一个关闭操作</li>
+</ul>
+<ol>
+<li>主动关闭方发送fin + ack报文段，ack数值和seq数值取决于前面数据传输的情况，这里假设分别为L和K</li>
+<li>被动关闭方发送ack报文段，ack数值为K+1，seq数值为L，表示已经接受到了关闭请求</li>
+<li>被动关闭方发送fin + ack报文段，ack数值为L，seq数值为K+1，表示被动方也决定关闭相反方向的连接</li>
+<li>主动关闭方发送ACK报文段，ack数值为L+1，seq数值为K，同样表示收到了对方的关闭请求，注意上述的两个fin报文段，如果没有收到响应的ack报文段，则就会重新传输</li>
+</ol>
+<p><br></p>
+<h4 id="连接半关闭"><a href="#连接半关闭" class="headerlink" title="连接半关闭"></a>连接半关闭</h4><ul>
+<li>值得注意的是上述的两个fin报文段，代表各自方向的关闭请求，如果没有收到响应的ack报文段，则就会重新发送fin报文段，但并不是两个传输方向都必须发送关闭请求，可以选择仅仅关闭传输的其中一个方向，这种状况被称为半关闭，对于关闭哪个方向，协议上也不做限制</li>
+</ul>
+<pre><code>int shutdown(int sockfd,int how);
+
+SHUT_RD（0）：关闭sockfd上的读功能，此选项将不允许sockfd进行读操作。不允许接受
+
+SHUT_WR（1）：关闭sockfd的写功能，此选项将不允许sockfd进行写操作。不允许发送
+
+SHUT_RDWR（2）：关闭sockfd的读写功能。不允许发送和接受(和 close() 一样)
+
+int close(int fd);
+
+关闭读写，它将防止套接字上更多的数据的读写
+任何在另一端读写套接字的企图都将返回错误
+</code></pre><ul>
+<li>socket中半关闭的api对应的是shutdown(fd,1), 在操作系统的支持下shutdown本质上接受两个连接上的控制，普通关闭的方式为close(fd)，它的效果和 shutdown(fd,2) 一样，连接半关闭需要两个报文段，两个方向上的半关闭就相当于普通的关闭，只是在它们之间仍允许一个方向发送数据，注意某个方向的连接半关闭时，依然会发送ack报文段进行确认，只是该报文段不再携带数据</li>
+</ul>
+<ol>
+<li>主动关闭方发送fin + ack报文段，ack数值和seq数值取决于前面数据传输的情况，这里假设分别为L和K</li>
+<li>被动关闭方发送ack报文段，ack数值为K+1，seq数值为L，表示已经接受到了关闭请求</li>
+<li>被动关闭放仍可以发送数据报文段，但主动关闭方只能发送ack报文段</li>
+</ol>
+<p><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fztav6f70hj30fs0fkmxw.jpg" alt=""></p>
+<p><br></p>
+<h4 id="同时打开与关闭"><a href="#同时打开与关闭" class="headerlink" title="同时打开与关闭"></a>同时打开与关闭</h4><ul>
+<li>这种情况下双方必须都知道对方用于通信的ip和端口号，同时打开与关闭都需要四个报文段，并且报文段的发送接受一般是交叉进行的</li>
+</ul>
+<ul>
+<li>同时关闭连接和正常关闭连接基本没有区别，但同时开启连接时双方都需要发送一个syn和一个syn+ack报文段，用于发送请求和确认请求</li>
+</ul>
+<p><br></p>
+<h4 id="序列号"><a href="#序列号" class="headerlink" title="序列号"></a>序列号</h4><ul>
+<li>序列号用于解决报文接受顺序混乱的问题，在发送syn报文之前，都双方需要确定一个初始序列号</li>
+</ul>
+<ul>
+<li><p>初始序列号需要设计得难以预测，因为当攻击者使用伪装成用户，使用用户的ip时，如果可以推测出初始序列号，那么即使攻击者实际上收不到syn+ack报文段，也可以通过初始序列号发送正确的ack报文建立连接，并且发送数据</p>
+</li>
+<li><p>一般初始序列号的随机机制建立在时钟之上，Linux上为对每个连接为时钟设置由散列函数得出的偏移量</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="TCP选项"><a href="#TCP选项" class="headerlink" title="TCP选项"></a>TCP选项</h3><ul>
+<li>tcp选项是由IANA维护的，每一个选项的头一个字节为种类，部分类型的选项长度是固定的，另外则是可变的，常见的tcp选项如下</li>
+</ul>
+<ol>
+<li>最大段大小</li>
+<li>选择确认</li>
+<li>窗口缩放</li>
+<li>时间戳</li>
+<li>用户超时</li>
+<li>认证</li>
+</ol>
 <p><br></p>
 <h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p><br></p>
 <h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p><br><br><strong>本篇未完</strong></p>
