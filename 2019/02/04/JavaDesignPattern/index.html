@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="2月 04, 2019" />
-        <meta property="article:modified_time" content="2月 04, 2019" />
+        <meta property="article:modified_time" content="2月 06, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "设计模式汇总",
     "url": "https://alberthumbert.github.io/2019/02/04/JavaDesignPattern/index.html",
     "datePublished": "2月 04, 2019",
-    "dateModified": "2月 04, 2019",
+    "dateModified": "2月 06, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单例模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">单例模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#类型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">类型</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单例模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">单例模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#双重锁"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">双重锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#饿汉式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">饿汉式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#静态内部类式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">静态内部类式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#枚举式"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">枚举式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工厂模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">工厂模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简单工厂式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">简单工厂式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#工厂方法式"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">工厂方法式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#抽象工厂式"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">抽象工厂式</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -512,7 +512,7 @@
 <li>场景： 需要避免可复用的对象重复创建 </li>
 </ul>
 <p><br></p>
-<h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><ul>
+<h4 id="双重锁"><a href="#双重锁" class="headerlink" title="双重锁"></a>双重锁</h4><ul>
 <li>双重锁，double check，volatile是为了避免重排序(见并发一章)，因为分配内存，调用构造函数，将对象指向该内存，可能因为重排序导致第三步先与第二部执行使其他线程看到不完整的对象，从而抛出异常，synchronized因为有可能初始化未完毕多个线程都观察到对象引用为空</li>
 </ul>
 <pre><code>public class Single {
@@ -530,7 +530,8 @@
         return INSTANCE;
     }
 }
-</code></pre><ul>
+</code></pre><p><br></p>
+<h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><ul>
 <li>饿汉式，基于classloader机制，在需要单例的类被访问时初始化</li>
 </ul>
 <pre><code>public class Single {
@@ -554,7 +555,8 @@ public class Single {
         return INSTANCE;
     }
 }
-</code></pre><ul>
+</code></pre><p><br></p>
+<h4 id="静态内部类式"><a href="#静态内部类式" class="headerlink" title="静态内部类式"></a>静态内部类式</h4><ul>
 <li>静态内部类模式，同样基于classloader机制，但是在Holder被访问时才会初始化</li>
 </ul>
 <pre><code>public class Single {
@@ -573,13 +575,42 @@ public class Single {
         }
     }
 }
-</code></pre><ul>
+</code></pre><p><br></p>
+<h4 id="枚举式"><a href="#枚举式" class="headerlink" title="枚举式"></a>枚举式</h4><ul>
 <li>枚举，对非延迟加载来说是最好的模式，可以避免多线程同步问题，以及防止反序列化重新创建新的对象</li>
 </ul>
 <pre><code>public enum Single {
     instance;
 }
-</code></pre>
+</code></pre><p><br></p>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p><br></p>
+<h4 id="简单工厂式"><a href="#简单工厂式" class="headerlink" title="简单工厂式"></a>简单工厂式</h4><ul>
+<li>建立一个工厂类，一个产品接口，在工厂类的静态方法中对产品实现类进行实例创建</li>
+</ul>
+<ul>
+<li>在工厂类的方法中处理创建对象的细节，创建的产品如需改变，只需修改工厂类</li>
+</ul>
+<ul>
+<li>需要修改工厂类的方法。在运行期改变创建行为上存在一定局限性</li>
+</ul>
+<p><br></p>
+<h4 id="工厂方法式"><a href="#工厂方法式" class="headerlink" title="工厂方法式"></a>工厂方法式</h4><ul>
+<li>建立一个工厂接口，一个产品接口，每一个工厂实现类对应一个产品实现类，由工厂实现类决定要如何实例化产品实现类</li>
+</ul>
+<ul>
+<li>消费者和产品实现类隔离</li>
+</ul>
+<p><br></p>
+<h4 id="抽象工厂式"><a href="#抽象工厂式" class="headerlink" title="抽象工厂式"></a>抽象工厂式</h4><ul>
+<li>一般来说在工厂模式的基础上，有多个产品接口就属于抽象工厂模式，这个时候工厂的接口通常设计为可以创建多个产品，每个工厂实现类代表一个产品族，不同产品族使用的产品实现类可以不同</li>
+</ul>
+<ul>
+<li>场景中需要有多个产品族时，添加新的产品族或产品实现类会很简单</li>
+</ul>
+<ul>
+<li>添加新类型的产品(产品接口)时，需要修改工厂接口以及其所有实现类</li>
+</ul>
+
     
 
     
