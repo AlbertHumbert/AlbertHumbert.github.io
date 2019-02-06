@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单例模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">单例模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#双重锁"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">双重锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#饿汉式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">饿汉式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#静态内部类式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">静态内部类式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#枚举式"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">枚举式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工厂模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">工厂模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简单工厂式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">简单工厂式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#工厂方法式"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">工厂方法式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#抽象工厂式"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">抽象工厂式</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单例模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">单例模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#双重锁"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">双重锁</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#饿汉式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">饿汉式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#静态内部类式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">静态内部类式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#枚举式"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">枚举式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工厂模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">工厂模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简单工厂式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">简单工厂式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#工厂方法式"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">工厂方法式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#抽象工厂式"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">抽象工厂式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#建造者模式"><span class="post-toc-number">3.</span> <span class="post-toc-text">建造者模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模板方法模式"><span class="post-toc-number">4.</span> <span class="post-toc-text">模板方法模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原型模式"><span class="post-toc-number">5.</span> <span class="post-toc-text">原型模式</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -609,6 +609,47 @@ public class Single {
 </ul>
 <ul>
 <li>添加新类型的产品(产品接口)时，需要修改工厂接口以及其所有实现类</li>
+</ul>
+<p><br></p>
+<h3 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h3><ul>
+<li>包括产品类Product和建造者类Builder，建造者类用于设置和组装产品类实例的各个模块，业务复杂的情况下还可能需要专门的导演类Director来指定各个模块的顺序，或者为Product和Builder抽取接口</li>
+</ul>
+<ul>
+<li>场景：实例的相关的方法需要一定的调用顺序来使用，多个部件都可以装配到一个对象中，产品类非常复杂，都可以使用这种模式</li>
+</ul>
+<p><br></p>
+<h3 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h3><ul>
+<li>实现算法框架的过程中，将一些步骤延迟到子类中。包括基本方法，由子类实现的抽象方法，模板方法，调用抽象方法和实现部分算法的具体方法，为了防止恶意的操作，一般模板方法都加上final关键字，不允许被覆写</li>
+</ul>
+<ul>
+<li>优点：使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤</li>
+</ul>
+<ul>
+<li>场景：多个子类有公有的方法，并且逻辑基本相同时</li>
+</ul>
+<p><br></p>
+<h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><ul>
+<li>通过拷贝原型创建新的对象，而不是使用构造方法，原型模式实际上就是实现Cloneable接口，重写clone()方法</li>
+</ul>
+<pre><code>... implements Cloneable {
+
+...
+
+   public Object clone() {
+      Object clone = null;
+      try {
+         clone = super.clone();
+      } catch (CloneNotSupportedException e) {
+         e.printStackTrace();
+      }
+      return clone;
+   }
+}
+</code></pre><ul>
+<li>优点：高效，不需要使用构造方法</li>
+</ul>
+<ul>
+<li>场景：对象初始化流程较长，反复创建相同对象，相关方法有访问权限限制</li>
 </ul>
 
     

@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 26, 2019" />
-        <meta property="article:modified_time" content="2月 03, 2019" />
+        <meta property="article:modified_time" content="2月 06, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "计算机网络系列 6 - TCP",
     "url": "https://alberthumbert.github.io/2019/01/26/NetTcp/index.html",
     "datePublished": "1月 26, 2019",
-    "dateModified": "2月 03, 2019",
+    "dateModified": "2月 06, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -648,12 +648,11 @@ int close(int fd);
 <li>tcp选项是由IANA维护的，每一个选项的头一个字节为种类，部分类型的选项长度是固定的，另外则是可变的，常见的tcp选项如下</li>
 </ul>
 <ol>
-<li>最大段大小</li>
-<li>选择确认</li>
-<li>窗口缩放</li>
-<li>时间戳</li>
-<li>用户超时</li>
-<li>认证</li>
+<li>最大段大小MSS，允许对方发送的最大报文段，只记录数据字段，不包括tcp与ip头部，建立连接时每一方都需要使用该选项来说明允许的大小，否则默认为536字节，因为任何主机都只是需要能处理576字节(需要去掉最小头部)</li>
+<li>选择确认SACK，由于窗口滑动机制容易产生空洞，于是使用选择确认机制来通知发送方已接收到的数据块序列范围(SACK块)，SACK选项可以携带多个SACK块</li>
+<li>窗口放大WSCALE，用来将tcp窗口大小从16位扩展到32位</li>
+<li>时间戳TSPOT，用来发送2个4字节的时间戳，接收方可以利用这些时间戳计算往返时间，计算往返时间主要用于设置超时重传时间</li>
+<li>用户超时UTO，用来指明发送者在确认对方收到数据之前愿意等待ACK确认的时间</li>
 </ol>
 <p><br></p>
 <h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p><br></p>

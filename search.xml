@@ -179,6 +179,47 @@ public class Single {
 <ul>
 <li>添加新类型的产品(产品接口)时，需要修改工厂接口以及其所有实现类</li>
 </ul>
+<p><br></p>
+<h3 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h3><ul>
+<li>包括产品类Product和建造者类Builder，建造者类用于设置和组装产品类实例的各个模块，业务复杂的情况下还可能需要专门的导演类Director来指定各个模块的顺序，或者为Product和Builder抽取接口</li>
+</ul>
+<ul>
+<li>场景：实例的相关的方法需要一定的调用顺序来使用，多个部件都可以装配到一个对象中，产品类非常复杂，都可以使用这种模式</li>
+</ul>
+<p><br></p>
+<h3 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h3><ul>
+<li>实现算法框架的过程中，将一些步骤延迟到子类中。包括基本方法，由子类实现的抽象方法，模板方法，调用抽象方法和实现部分算法的具体方法，为了防止恶意的操作，一般模板方法都加上final关键字，不允许被覆写</li>
+</ul>
+<ul>
+<li>优点：使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤</li>
+</ul>
+<ul>
+<li>场景：多个子类有公有的方法，并且逻辑基本相同时</li>
+</ul>
+<p><br></p>
+<h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><ul>
+<li>通过拷贝原型创建新的对象，而不是使用构造方法，原型模式实际上就是实现Cloneable接口，重写clone()方法</li>
+</ul>
+<pre><code>... implements Cloneable {
+
+...
+
+   public Object clone() {
+      Object clone = null;
+      try {
+         clone = super.clone();
+      } catch (CloneNotSupportedException e) {
+         e.printStackTrace();
+      }
+      return clone;
+   }
+}
+</code></pre><ul>
+<li>优点：高效，不需要使用构造方法</li>
+</ul>
+<ul>
+<li>场景：对象初始化流程较长，反复创建相同对象，相关方法有访问权限限制</li>
+</ul>
 ]]></content>
       
         <categories>
@@ -1170,12 +1211,11 @@ int close(int fd);
 <li>tcp选项是由IANA维护的，每一个选项的头一个字节为种类，部分类型的选项长度是固定的，另外则是可变的，常见的tcp选项如下</li>
 </ul>
 <ol>
-<li>最大段大小</li>
-<li>选择确认</li>
-<li>窗口缩放</li>
-<li>时间戳</li>
-<li>用户超时</li>
-<li>认证</li>
+<li>最大段大小MSS，允许对方发送的最大报文段，只记录数据字段，不包括tcp与ip头部，建立连接时每一方都需要使用该选项来说明允许的大小，否则默认为536字节，因为任何主机都只是需要能处理576字节(需要去掉最小头部)</li>
+<li>选择确认SACK，由于窗口滑动机制容易产生空洞，于是使用选择确认机制来通知发送方已接收到的数据块序列范围(SACK块)，SACK选项可以携带多个SACK块</li>
+<li>窗口放大WSCALE，用来将tcp窗口大小从16位扩展到32位</li>
+<li>时间戳TSPOT，用来发送2个4字节的时间戳，接收方可以利用这些时间戳计算往返时间，计算往返时间主要用于设置超时重传时间</li>
+<li>用户超时UTO，用来指明发送者在确认对方收到数据之前愿意等待ACK确认的时间</li>
 </ol>
 <p><br></p>
 <h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p><br></p>
