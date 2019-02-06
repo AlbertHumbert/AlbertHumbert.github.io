@@ -50,7 +50,41 @@
 <li>UTF-16 编码，英文字符 2，汉字字符 3到4</li>
 <li>UTF-32 编码，4</li>
 </ul>
-]]></content>
+<p><br></p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
+* often you will deal with Drawable as the type of resource retrieved for
+* drawing things to the screen; the Drawable class provides a generic API for
+* dealing with an underlying visual resource that may take a variety of forms.
+* Unlike a {@link android.view.View}, a Drawable does not have any facility to
+* receive events or otherwise interact with the user.
+
+...
+
+Though usually not visible to the application, Drawables may take a variety of forms:
+1. Bitmap: the simplest Drawable, a PNG or JPEG image.
+2. Nine Patch: an extension to the PNG format allows it to specify information about how to stretch it and place things inside of it.
+3. Shape: contains simple drawing commands instead of a raw bitmap, allowing it to resize better in some cases.
+4. Layers: a compound drawable, which draws multiple underlying drawables on top of each other.
+5. States: a compound drawable that selects one of a set of drawables based on its state.
+6. Levels: a compound drawable that selects one of a set of drawables based on its level.
+7. Scale : a compound drawable with a single child drawable, whose overall size is modified based on the current level.
+</code></pre><ul>
+<li>Drawable是一个抽象的可绘制类，它用来表示可以画在canvas上的东西，主要提供了一个可绘制的区域bound属性以及一个draw方法，不同的派生类通过重载draw函数的实现而产生不同的绘制结果。view在绘制drawable时就是调用drawable的draw方法，而drawable又各自调用canvas的draw方法，bitmap用于在view上显示时同样需要封装为drawable，setImageBitmap其实就是将bitmap封装为bitmapDrawable的过程，常用的drawable见<a href="https://www.jianshu.com/p/578125001dc2" target="_blank" rel="external">这里</a></li>
+</ul>
+<pre><code>ColorDrawable
+BitmapDrawable
+NinePatchDrawable
+ScaleDrawable
+RotateDrawable
+GradientDrawable
+TransitionDrawable
+AnimationDrawable
+InsetDrawable
+ClipDrawable
+LayerDrawable
+LevelListDrawable
+StateListDrawable
+</code></pre>]]></content>
       
         <categories>
             
@@ -1218,7 +1252,23 @@ int close(int fd);
 <li>用户超时UTO，用来指明发送者在确认对方收到数据之前愿意等待ACK确认的时间</li>
 </ol>
 <p><br></p>
-<h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p><br></p>
+<h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><ul>
+<li>tcp采用基于计时器的重传策略，每次重传使用二进制指数退避，即等待重传的时间为上一次间隔的一倍，我们把一个间隔称为RTO，RTO需要通过RTT来确定，tcp还使用两个阈值来决定是否继续重传同一个报文段，R1为重传次数，至少为3次，R2为所用时间，至少为100秒</li>
+</ul>
+<ul>
+<li>RTT：RTO不能大于RTT，避免数据报还未到达就重发，RTT的确定需要采集RTT样本，通常可以使用发送报文段和收到确认报文的时间间隔，并采用一定的算法得出比较合理的统计数值，这里不深入研究。每一个连接的rtt都独立估算，并且重传时钟会会对任何占用序列号的在传数据计时</li>
+</ul>
+<ul>
+<li>计时：一旦得到了估计的RTT，就可以设置RTO了，在记录报文段的序列号之后，tcp为报文段设置一个定时器，当收到该报文的ack，则将这个定时器取消，每一个新的数据报都需要一个新的计时器</li>
+</ul>
+<ul>
+<li>超时：若在一个RTO之内没有收到ack，那么就触发超时重传，超时重传还会导致tcp降低发送速率，一种方法是基于拥塞控制减小发送窗口的大小，另一种方法是增大RTO，即二进制指数退避</li>
+</ul>
+<p><br></p>
+<h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><ul>
+<li></li>
+</ul>
+<p><br></p>
 <h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       

@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#报文结构"><span class="post-toc-number">2.</span> <span class="post-toc-text">报文结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#连接管理"><span class="post-toc-number">3.</span> <span class="post-toc-text">连接管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#连接打开"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">连接打开</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#连接关闭"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">连接关闭</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#连接半关闭"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">连接半关闭</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#同时打开与关闭"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">同时打开与关闭</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#序列号"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">序列号</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TCP选项"><span class="post-toc-number">4.</span> <span class="post-toc-text">TCP选项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#超时重传"><span class="post-toc-number">5.</span> <span class="post-toc-text">超时重传</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#窗口管理"><span class="post-toc-number">6.</span> <span class="post-toc-text">窗口管理</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#报文结构"><span class="post-toc-number">2.</span> <span class="post-toc-text">报文结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#连接管理"><span class="post-toc-number">3.</span> <span class="post-toc-text">连接管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#连接打开"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">连接打开</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#连接关闭"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">连接关闭</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#连接半关闭"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">连接半关闭</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#同时打开与关闭"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">同时打开与关闭</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#序列号"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">序列号</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TCP选项"><span class="post-toc-number">4.</span> <span class="post-toc-text">TCP选项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#超时重传"><span class="post-toc-number">5.</span> <span class="post-toc-text">超时重传</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#快速重传"><span class="post-toc-number">6.</span> <span class="post-toc-text">快速重传</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#窗口管理"><span class="post-toc-number">7.</span> <span class="post-toc-text">窗口管理</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -655,7 +655,23 @@ int close(int fd);
 <li>用户超时UTO，用来指明发送者在确认对方收到数据之前愿意等待ACK确认的时间</li>
 </ol>
 <p><br></p>
-<h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p><br></p>
+<h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><ul>
+<li>tcp采用基于计时器的重传策略，每次重传使用二进制指数退避，即等待重传的时间为上一次间隔的一倍，我们把一个间隔称为RTO，RTO需要通过RTT来确定，tcp还使用两个阈值来决定是否继续重传同一个报文段，R1为重传次数，至少为3次，R2为所用时间，至少为100秒</li>
+</ul>
+<ul>
+<li>RTT：RTO不能大于RTT，避免数据报还未到达就重发，RTT的确定需要采集RTT样本，通常可以使用发送报文段和收到确认报文的时间间隔，并采用一定的算法得出比较合理的统计数值，这里不深入研究。每一个连接的rtt都独立估算，并且重传时钟会会对任何占用序列号的在传数据计时</li>
+</ul>
+<ul>
+<li>计时：一旦得到了估计的RTT，就可以设置RTO了，在记录报文段的序列号之后，tcp为报文段设置一个定时器，当收到该报文的ack，则将这个定时器取消，每一个新的数据报都需要一个新的计时器</li>
+</ul>
+<ul>
+<li>超时：若在一个RTO之内没有收到ack，那么就触发超时重传，超时重传还会导致tcp降低发送速率，一种方法是基于拥塞控制减小发送窗口的大小，另一种方法是增大RTO，即二进制指数退避</li>
+</ul>
+<p><br></p>
+<h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><ul>
+<li></li>
+</ul>
+<p><br></p>
 <h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p><br><br><strong>本篇未完</strong></p>
 
     

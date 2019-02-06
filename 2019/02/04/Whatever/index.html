@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="2月 04, 2019" />
-        <meta property="article:modified_time" content="2月 05, 2019" />
+        <meta property="article:modified_time" content="2月 06, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "面试题汇总",
     "url": "https://alberthumbert.github.io/2019/02/04/Whatever/index.html",
     "datePublished": "2月 04, 2019",
-    "dateModified": "2月 05, 2019",
+    "dateModified": "2月 06, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#c"><span class="post-toc-number">1.</span> <span class="post-toc-text">c</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#各基本类型占用字节数"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">各基本类型占用字节数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#struct-union-占用字节数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">struct union 占用字节数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#java"><span class="post-toc-number">2.</span> <span class="post-toc-text">java</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#各基本类型占用字节数-1"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">各基本类型占用字节数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符占用字节数"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">字符占用字节数</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#c"><span class="post-toc-number">1.</span> <span class="post-toc-text">c</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#各基本类型占用字节数"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">各基本类型占用字节数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#struct-union-占用字节数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">struct union 占用字节数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#java"><span class="post-toc-number">2.</span> <span class="post-toc-text">java</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#各基本类型占用字节数-1"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">各基本类型占用字节数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符占用字节数"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">字符占用字节数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Android"><span class="post-toc-number">3.</span> <span class="post-toc-text">Android</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#bitmap-和-drawable-的区别"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">bitmap 和 drawable 的区别</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -546,7 +546,41 @@
 <li>UTF-16 编码，英文字符 2，汉字字符 3到4</li>
 <li>UTF-32 编码，4</li>
 </ul>
+<p><br></p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
+* often you will deal with Drawable as the type of resource retrieved for
+* drawing things to the screen; the Drawable class provides a generic API for
+* dealing with an underlying visual resource that may take a variety of forms.
+* Unlike a {@link android.view.View}, a Drawable does not have any facility to
+* receive events or otherwise interact with the user.
 
+...
+
+Though usually not visible to the application, Drawables may take a variety of forms:
+1. Bitmap: the simplest Drawable, a PNG or JPEG image.
+2. Nine Patch: an extension to the PNG format allows it to specify information about how to stretch it and place things inside of it.
+3. Shape: contains simple drawing commands instead of a raw bitmap, allowing it to resize better in some cases.
+4. Layers: a compound drawable, which draws multiple underlying drawables on top of each other.
+5. States: a compound drawable that selects one of a set of drawables based on its state.
+6. Levels: a compound drawable that selects one of a set of drawables based on its level.
+7. Scale : a compound drawable with a single child drawable, whose overall size is modified based on the current level.
+</code></pre><ul>
+<li>Drawable是一个抽象的可绘制类，它用来表示可以画在canvas上的东西，主要提供了一个可绘制的区域bound属性以及一个draw方法，不同的派生类通过重载draw函数的实现而产生不同的绘制结果。view在绘制drawable时就是调用drawable的draw方法，而drawable又各自调用canvas的draw方法，bitmap用于在view上显示时同样需要封装为drawable，setImageBitmap其实就是将bitmap封装为bitmapDrawable的过程，常用的drawable见<a href="https://www.jianshu.com/p/578125001dc2" target="_blank" rel="external">这里</a></li>
+</ul>
+<pre><code>ColorDrawable
+BitmapDrawable
+NinePatchDrawable
+ScaleDrawable
+RotateDrawable
+GradientDrawable
+TransitionDrawable
+AnimationDrawable
+InsetDrawable
+ClipDrawable
+LayerDrawable
+LevelListDrawable
+StateListDrawable
+</code></pre>
     
 
     
