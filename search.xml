@@ -1153,7 +1153,7 @@ final class AppBindRecord {
 <li>PSH，推送（接收方尽快给应用程序传送这个数据，没有被可靠的实现或使用）</li>
 </ul>
 <ul>
-<li>RST，重置连接（连接取消，经常是因为错误）</li>
+<li>RST，重置连接（连接取消，回到listen，经常是因为错误）</li>
 </ul>
 <ul>
 <li>FIN，发送方已经结束向对方发送数据</li>
@@ -1188,6 +1188,16 @@ final class AppBindRecord {
 <li>服务器发送syn + ack报文段，该报文段syn位和ack位置位，ack数值为isn + 1 ，seq数值为另一isn，因此syn报文段如果丢失，客户端也可以知道需要重传，该报文段表示服务器收到了请求</li>
 <li>客户端发送ack报文段，该报文段 ack 位置位，ack数值和seq数值为 各自方向上的isn +1，该报文段表示客户端收到了服务器的回应</li>
 </ol>
+<p><br></p>
+<h4 id="序列号"><a href="#序列号" class="headerlink" title="序列号"></a>序列号</h4><ul>
+<li>序列号用于解决报文接受顺序混乱的问题，在发送syn报文之前，都双方需要确定一个初始序列号</li>
+</ul>
+<ul>
+<li><p>初始序列号需要设计得难以预测，因为当攻击者使用伪装成用户，使用用户的ip时，如果可以推测出初始序列号，那么即使攻击者实际上收不到syn+ack报文段，也可以通过初始序列号发送正确的ack报文建立连接，并且发送数据</p>
+</li>
+<li><p>一般初始序列号的随机机制建立在时钟之上，Linux上为对每个连接为时钟设置由散列函数得出的偏移量</p>
+</li>
+</ul>
 <p><br></p>
 <h4 id="连接关闭"><a href="#连接关闭" class="headerlink" title="连接关闭"></a>连接关闭</h4><ul>
 <li>关闭连接需要完成以下步骤，一共包括四个报文段，因此也称为四次挥手，通常来说关闭连接的发起方也是客户端，不过web服务器在作出相应之后也可能发起一个关闭操作</li>
@@ -1231,14 +1241,24 @@ int close(int fd);
 <li>同时关闭连接和正常关闭连接基本没有区别，但同时开启连接时双方都需要发送一个syn和一个syn+ack报文段，用于发送请求和确认请求</li>
 </ul>
 <p><br></p>
-<h4 id="序列号"><a href="#序列号" class="headerlink" title="序列号"></a>序列号</h4><ul>
-<li>序列号用于解决报文接受顺序混乱的问题，在发送syn报文之前，都双方需要确定一个初始序列号</li>
+<h4 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h4><ul>
+<li>tcp的11个状态转换情况如下，这11个状态名称来自*nix和win上面的nestat命令的输出名称，下面只讲解一些比较重要的点</li>
+</ul>
+<p><img src="http://wx1.sinaimg.cn/mw690/987832a0gy1g00itnztknj20oi0jm0vi.jpg" alt=""></p>
+<ul>
+<li>SYN_RCVD返回LISTEN状态只有在SYN_RCVD是在LISTEN状态转换来的才是正确的，它的作用是让SYN_RCVD状态中的客户端接受到重置报文后返回LISTEN状态等待另一个连接请求</li>
 </ul>
 <ul>
-<li><p>初始序列号需要设计得难以预测，因为当攻击者使用伪装成用户，使用用户的ip时，如果可以推测出初始序列号，那么即使攻击者实际上收不到syn+ack报文段，也可以通过初始序列号发送正确的ack报文建立连接，并且发送数据</p>
-</li>
-<li><p>一般初始序列号的随机机制建立在时钟之上，Linux上为对每个连接为时钟设置由散列函数得出的偏移量</p>
-</li>
+<li>TIME_WAIT状态，也称为2MSL状态，首先调用close()发起主动关闭的一方，在发送最后一个ack之后会进入time_wait的状态，保持2MSL时间(最大段生存期)之后才会正式关闭连接，需要TIME_WAIT的原因有两个，一个是为实现连接的可靠释放，因为最后一个ack可能丢失，这时被动关闭方会超时重发fin报文段同时使这个ack能重新发送，第二个原因是使旧的数据包在网络因过期而消失，这时为了避免之后使用相同四元组时建立的新连接接受到上一次连接的旧数据。在高并发的业务场景下可能会出现产生了大量TIME_WAIT的socket的问题，服务器可以使用SO_REUSEADDR来重用TIME_WAIT状态下的端口，或者更加合理的设置2MSL时间</li>
+</ul>
+<ul>
+<li>CLOSE_WAIT状态，当被动关闭方接受到FIN报文段时，在端系统未调用close之前都处于这种情况，正常情况下一般是还有数据没发送完，或者还没到关闭的时机，非正常情况则是程序员遗漏了close操作(多进程需要特别注意close，因为不同与shutdown，close受socket引用计数的影响)，这时往往会导致大量处于该状态的socket，最好是排查程序，另外还可以设置超时</li>
+</ul>
+<ul>
+<li>FIN_WAIT2状态，当主动关闭方发送完FIN报文段后，如果接受到的不是fin+ack，而是ack报文段时会进入该状态，因为还需要一个fin报文段才可以关闭连接，正常情况是在使用半关闭通信，KeepAlive ，或者发送方还没有发送完数据，非正常情况下则是客户端设计不合理，也可以使用超时来解决，这个超时不是协议规定的，但大部分系统都有实现，<a href="https://www.2cto.com/shouce/ApacheManual/misc/fin_wait_2.html" target="_blank" rel="external">详见</a></li>
+</ul>
+<ul>
+<li>RST报文段，tcp首部的rst位置位时即为重置报文段(socket上为SO_LINGER字段)，一般来说都是连接不正确导致的，比如对没有被监听的端口发送了连接请求，一般是客户端设错了本地端口，upd的情况是会导致一个不可达的icmp报文段，tcp则是使用rst报文段来完成相同的工作。RST可以用来强制释放一个连接，因为fin报文段需要在排队数据都发送完后才会被发送，但rst则会抛弃所有排队数据，fin被称为有序释放，rst被称为终止释放，终止释放有时被用于通信一端以外断开导致的半连接状态，当该段重启并再次连接时需要用RST回应旧连接的报文段，表示它对这些数据一无所知。rst对部分处在time_wait状态的接受端也适用，这时候将产生一个时间等待错误TWA，直接关闭连接，有些端系统在time_wait时不对RST做出任何反应</li>
 </ul>
 <p><br></p>
 <h3 id="TCP选项"><a href="#TCP选项" class="headerlink" title="TCP选项"></a>TCP选项</h3><ul>
@@ -1266,10 +1286,12 @@ int close(int fd);
 </ul>
 <p><br></p>
 <h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><ul>
-<li></li>
+<li>接收方当收到失序的分组时，即收到序列号大于期待值的分组时，会发送冗余ack，当发送端接受到一定数量(dupthresh一般为3)的冗余ack就会引发快速重传，冗余ack通常也包括sack选项，用于表示有多少个空缺，导致失序分组的原因一般有两个，分组丢失或延迟到达，因为不能确定是哪一种情况，所以才需要设置dupthresh。快速重传也会触发拥塞控制机制</li>
 </ul>
 <p><br></p>
-<h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p><br><br><strong>本篇未完</strong></p>
+<h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p><br></p>
+<h4 id="延迟确认"><a href="#延迟确认" class="headerlink" title="延迟确认"></a>延迟确认</h4><p><br></p>
+<h4 id="nagle算法"><a href="#nagle算法" class="headerlink" title="nagle算法"></a>nagle算法</h4><p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       
         <categories>
@@ -1376,7 +1398,7 @@ MS SQL Server使用的端口号：5000/tcp
 <li>自顶向下上面说udp用两元组来确定一个socket，tcp用四元组来确定一个socket，报文段指定的元组的元素相同就会通过相同的套接字定向到相同的目的进程</li>
 </ul>
 <ul>
-<li>这个说法有点绕，而且不是很恰当，因为本质上不管多少元组，最多都只能定位到socket，操作系统保证同时建立(accept，Socket)创建socket时不会产生重复的socket，进程持有socket的描述符socketfd，因此可以监听到这些报文段，由于fd是共享资源，假如一个进程创建socket后fork了一个或多个子进程，那么哪个进程能拿到报文段取决于谁先读取数据，并且多个进程都可以往同一socket写数据，当然这种情况不常见，因为通常只有tcp链接中的监听socketfd(由Socket函数产生)才设计成在各个进程间共享，而它指向的socket是不用来传输数据的，只不过这种问题确实有可能发生</li>
+<li>这个说法有点绕，而且不是很恰当，因为本质上不管多少元组，最多都只能定位到socket，操作系统保证同时建立(accept，Socket)创建socket时不会产生重复的socket，进程持有socket的描述符socketfd，因此可以监听到这些报文段，由于fd是共享资源，假如一个进程创建socket后fork了一个或多个子进程，那么哪个进程能拿到报文段取决于谁先读取数据，并且多个进程都可以往同一socket写数据，当然这种情况不常见，因为通常只有tcp链接中的监听socketfd(由Socket函数产生)才设计成在各个进程间共享，而它指向的socket是不用来传输数据的，只不过这种问题确实有可能发生，而且不只是读写，我们还要关注关闭socket的情况，socketfd是具有引用计数的，一个进程调用close只会让引用计数减一，只有减到0才会进行关闭，而调用shutdown则会不管计数直接关闭，因此不当使用close可能会引发大量的close_wait的socket导致端系统崩溃的问题</li>
 </ul>
 <p><br></p>
 <h5 id="五元组"><a href="#五元组" class="headerlink" title="五元组"></a>五元组</h5><ul>

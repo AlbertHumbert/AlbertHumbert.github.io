@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 24, 2019" />
-        <meta property="article:modified_time" content="1月 26, 2019" />
+        <meta property="article:modified_time" content="2月 10, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "计算机网络系列 5 - 运输层 & UDP",
     "url": "https://alberthumbert.github.io/2019/01/24/NetUdp/index.html",
     "datePublished": "1月 24, 2019",
-    "dateModified": "1月 26, 2019",
+    "dateModified": "2月 10, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -587,7 +587,7 @@ MS SQL Server使用的端口号：5000/tcp
 <li>自顶向下上面说udp用两元组来确定一个socket，tcp用四元组来确定一个socket，报文段指定的元组的元素相同就会通过相同的套接字定向到相同的目的进程</li>
 </ul>
 <ul>
-<li>这个说法有点绕，而且不是很恰当，因为本质上不管多少元组，最多都只能定位到socket，操作系统保证同时建立(accept，Socket)创建socket时不会产生重复的socket，进程持有socket的描述符socketfd，因此可以监听到这些报文段，由于fd是共享资源，假如一个进程创建socket后fork了一个或多个子进程，那么哪个进程能拿到报文段取决于谁先读取数据，并且多个进程都可以往同一socket写数据，当然这种情况不常见，因为通常只有tcp链接中的监听socketfd(由Socket函数产生)才设计成在各个进程间共享，而它指向的socket是不用来传输数据的，只不过这种问题确实有可能发生</li>
+<li>这个说法有点绕，而且不是很恰当，因为本质上不管多少元组，最多都只能定位到socket，操作系统保证同时建立(accept，Socket)创建socket时不会产生重复的socket，进程持有socket的描述符socketfd，因此可以监听到这些报文段，由于fd是共享资源，假如一个进程创建socket后fork了一个或多个子进程，那么哪个进程能拿到报文段取决于谁先读取数据，并且多个进程都可以往同一socket写数据，当然这种情况不常见，因为通常只有tcp链接中的监听socketfd(由Socket函数产生)才设计成在各个进程间共享，而它指向的socket是不用来传输数据的，只不过这种问题确实有可能发生，而且不只是读写，我们还要关注关闭socket的情况，socketfd是具有引用计数的，一个进程调用close只会让引用计数减一，只有减到0才会进行关闭，而调用shutdown则会不管计数直接关闭，因此不当使用close可能会引发大量的close_wait的socket导致端系统崩溃的问题</li>
 </ul>
 <p><br></p>
 <h5 id="五元组"><a href="#五元组" class="headerlink" title="五元组"></a>五元组</h5><ul>
