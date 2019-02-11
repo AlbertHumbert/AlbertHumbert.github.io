@@ -76,11 +76,11 @@
   </entry>
   
   <entry>
-    <title>计算机网络系列 6 - 防火墙 &amp; NAT</title>
-    <link href="https://alberthumbert.github.io/2019/01/27/NetGateWayNAT/"/>
-    <id>https://alberthumbert.github.io/2019/01/27/NetGateWayNAT/</id>
-    <published>2019-01-27T02:08:15.000Z</published>
-    <updated>2019-01-27T03:32:53.595Z</updated>
+    <title>计算机网络系列 8 - HTTP</title>
+    <link href="https://alberthumbert.github.io/2019/01/27/NetHttp/"/>
+    <id>https://alberthumbert.github.io/2019/01/27/NetHttp/</id>
+    <published>2019-01-27T10:29:00.000Z</published>
+    <updated>2019-02-11T13:38:00.565Z</updated>
     
     <summary type="html">
     
@@ -96,11 +96,11 @@
   </entry>
   
   <entry>
-    <title>计算机网络系列 6 - TCP</title>
+    <title>计算机网络系列 7 - TCP</title>
     <link href="https://alberthumbert.github.io/2019/01/26/NetTcp/"/>
     <id>https://alberthumbert.github.io/2019/01/26/NetTcp/</id>
     <published>2019-01-26T10:26:26.000Z</published>
-    <updated>2019-02-10T19:13:12.604Z</updated>
+    <updated>2019-02-11T13:37:53.002Z</updated>
     
     <summary type="html">
     
@@ -116,11 +116,11 @@
   </entry>
   
   <entry>
-    <title>计算机网络系列 5 - 运输层 &amp; UDP</title>
+    <title>计算机网络系列 6 - 运输层 &amp; UDP</title>
     <link href="https://alberthumbert.github.io/2019/01/24/NetUdp/"/>
     <id>https://alberthumbert.github.io/2019/01/24/NetUdp/</id>
     <published>2019-01-24T07:51:35.000Z</published>
-    <updated>2019-02-09T16:50:18.016Z</updated>
+    <updated>2019-02-11T13:37:44.016Z</updated>
     
     <summary type="html">
     
@@ -136,11 +136,11 @@
   </entry>
   
   <entry>
-    <title>计算机网络系列 7 - HTTP</title>
-    <link href="https://alberthumbert.github.io/2019/01/23/NetHttp/"/>
-    <id>https://alberthumbert.github.io/2019/01/23/NetHttp/</id>
-    <published>2019-01-23T10:29:00.000Z</published>
-    <updated>2019-01-27T02:08:47.869Z</updated>
+    <title>计算机网络系列 5 - 防火墙 &amp; NAT</title>
+    <link href="https://alberthumbert.github.io/2019/01/24/NetGateWayNAT/"/>
+    <id>https://alberthumbert.github.io/2019/01/24/NetGateWayNAT/</id>
+    <published>2019-01-24T02:08:15.000Z</published>
+    <updated>2019-02-11T13:38:31.979Z</updated>
     
     <summary type="html">
     
