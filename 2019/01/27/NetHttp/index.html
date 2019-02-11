@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 27, 2019" />
-        <meta property="article:modified_time" content="2月 11, 2019" />
+        <meta property="article:modified_time" content="2月 12, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "计算机网络系列 8 - HTTP",
     "url": "https://alberthumbert.github.io/2019/01/27/NetHttp/index.html",
     "datePublished": "1月 27, 2019",
-    "dateModified": "2月 11, 2019",
+    "dateModified": "2月 12, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#URL"><span class="post-toc-number">1.</span> <span class="post-toc-text">URL</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#URI，URL-UR"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">URI，URL  UR</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#URL语法"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">URL语法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#URL字符"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">URL字符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符限制"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">字符限制</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方案"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">方案</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#URL"><span class="post-toc-number">1.</span> <span class="post-toc-text">URL</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#URI，URL-UR"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">URI，URL  UR</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#URL语法"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">URL语法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#URL字符"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">URL字符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符限制"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">字符限制</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方案"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#报文"><span class="post-toc-number">2.</span> <span class="post-toc-text">报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#报文组成"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">报文组成</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#状态码"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">状态码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#首部"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">首部</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#连接管理"><span class="post-toc-number">3.</span> <span class="post-toc-text">连接管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#持久连接"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">持久连接</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#管道化连接"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">管道化连接</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -690,6 +690,173 @@
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<h3 id="报文"><a href="#报文" class="headerlink" title="报文"></a>报文</h3><p><br></p>
+<h4 id="报文组成"><a href="#报文组成" class="headerlink" title="报文组成"></a>报文组成</h4><ul>
+<li>http报文由三部分组成，起始行startline，首部header，主体body(可选)，报文可以分为两种，请求报文request和响应报文response，结构上只在起始行有区别</li>
+</ul>
+<pre><code>请求报文格式
+&lt;method&gt;&lt;request-url&gt;&lt;version&gt;
+&lt;headers&gt;
+&lt;entity-body&gt;
+
+响应报文格式:
+&lt;version&gt;&lt;status&gt;&lt;reason-phrase&gt;
+&lt;headers&gt;
+&lt;entity-body&gt;
+</code></pre><ul>
+<li>起始行startline：请求行，请求报文的起始行，包含方法，请求url。响应行，响应报文的起始行，包含http版本，状态码，原因短语</li>
+</ul>
+<ul>
+<li>方法method：客户端希望服务器对资源执行的动作，为单独动词，比如 GET，POST，DELETE，见下文</li>
+</ul>
+<ul>
+<li>请求URL：见上文</li>
+</ul>
+<ul>
+<li>版本version：http版本，格式如 http/\<major\>.\<min\>，主次版本号都是整数，版本号用于互相了解对方的能力和报文格式</min\></major\></li>
+</ul>
+<ul>
+<li>状态码status-code: 用于描述请求过程中发生的状况，其中第一位用于描述类别，如成功，出错等</li>
+</ul>
+<ul>
+<li>原因短语reason-phrase：状态码的可读版本，只对人类有意义</li>
+</ul>
+<ul>
+<li>首部header: 可以有零个或多个首部，由名：值组成，首部是由一个crlf结束的</li>
+</ul>
+<ul>
+<li>主体body：包含由任意数据组成的数据块，并不是所有报文都有这个结构</li>
+</ul>
+<p><br></p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
+<li>方法用来告知服务器要做什么，http规范中定义了一组常用的请求方法如下，其中只有post和put规定了需要包含一定的主体，并不是所有的服务器都实现了这些方法，服务器也可以扩展实现自己的请求方法，这些方法称为扩展方法</li>
+</ul>
+<pre><code>GET: 从服务器获取一份文稿
+HEAD：从服务器获取文档的首部
+POST：向服务器发送需要处理的数据
+PUT：请求将主体部分存储在服务器上
+TRACE：对可能经过代理服务器传送到服务器上的报文进行追踪
+OPTIONS：决定可以在服务器上执行哪些方法
+DELETE：从服务器上删除一份文档
+</code></pre><p><br></p>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><ul>
+<li>状态码用来告诉客户端发送了什么事，状态码会跟随可读的原因短语，一般来说为3位数，分类如下</li>
+</ul>
+<pre><code>100-199 信息提示
+200-299 成功
+300-399 重定向
+400-499 客户端错误
+500-599 服务器错误
+</code></pre><ul>
+<li>常见的状态码及其对应的原因短语如下</li>
+</ul>
+<pre><code>200 OK                        客户端请求成功
+400 Bad Request               客户端请求有语法错误，不能被服务器所理解
+401 Unauthorized              请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 
+403 Forbidden                 服务器收到请求，但是拒绝提供服务
+404 Not Found                 请求资源不存在，eg：输入了错误的URL
+500 Internal Server Error     服务器发生不可预期的错误
+503 Server Unavailable        服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+</code></pre><p><br></p>
+<h4 id="首部"><a href="#首部" class="headerlink" title="首部"></a>首部</h4><ul>
+<li>首部用于添加附加信息，一般只是一些名值对列表，首部可以分为以下几类</li>
+</ul>
+<pre><code>通用首部：出现在两类报文中
+请求首部
+响应首部
+实体首部：描述主体的长度和内容，或资源自身
+扩展首部：规范中没有定义的新首部
+</code></pre><ul>
+<li>常见请求首部</li>
+</ul>
+<pre><code>Host: 标名请求主机器名，可为IP也可为域名，http1.1后强制使用
+用此请求信息，可在服务端做WEB虚拟机，实现一机多WEB服务
+
+Content-Length:响应体的数据字节大小
+
+Accept-Encoding:可接受的文本压缩算法，如： gzip, deflate
+
+Accept-Language:支持语言，客户端浏览器的设置，如：zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3
+User- Agent:浏览器信息，如：Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0
+
+Cookie:服务器或客户端在上次设置的COOKIE，包括作用域名，过期时间，键与值
+大部分WEB服务器都会在第一次访问时在响应头上加Set-Cookie，
+指某些网站为了辨别用户身份、进行session跟踪而储存在用户本地终端上的数据（通常经过加密）如：BAIDUID=49415814CDBBB4CE65EC50EE4BB65E9A:FG=1; expires=Wed, 07-Nov-42 07:03:34 GMT; path=/; domain=.baidu.com
+
+Referer:从一个连接打开一个新页面，新页面的请求一般会加此信息，标名是从哪里跳过来的
+有的页面的打开历史链就可被挖掘出来，有利于分析用户行为与CPS分成
+
+Content-Type:响应的数据类型：text/html;charset=gbk
+</code></pre><ul>
+<li>常见响应首部</li>
+</ul>
+<pre><code>Content-Type：响应的数据类型：text/html;charset=gbk
+
+Content-Length：响应的数据体大小
+
+Content-Encoding：如果为文本、HTML信息，则使用的编码方式
+
+Date：当前服务器日期
+
+Server：服务器名
+
+Set- Cookie：第一次访问或服务设置COOKIE时，响应头里会有此信息，
+如BAIDUID=49415814CDBBB4CE65EC50EE4BB65E9A:FG=1; expires=Wed, 07-Nov-42 07:03:34 GMT; path=/; domain=.baidu.com
+</code></pre><ul>
+<li>Cache-Control , Expires分别为控制缓存的响应头和请求头，如果都出现在响应头里，按Cache-Controler计算，Cache-Controler有如下取值，Expires在Http1.1以上版本与Max-Age一样，用来控制缓存的失效日期</li>
+</ul>
+<pre><code>Public:当前系统任何登录的用户都可使用
+Private:当前系统登录的此用户进行缓存
+no-cache:不做缓存
+max-age:缓存指定秒数，如Cache-control: max-age=5
+表示当访问此网页后的5秒内再次访问不会去服务器
+</code></pre><p><br></p>
+<h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><br></p>
+<h4 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h4><ul>
+<li>web客户端经常会打开同一个站点的连接，这种现象称为连接本地性，因此http允许事务结束之后tcp连接依然保持在打开状态，以便为未来的http请求重用现在的连接，直到其中一端决定将其关闭为止，这样可以避开tcp的慢启动，保持打开状态的连接称为持久连接，持久连接有两种类型 1.0的keep-alive和1.1的persistent，非持久连接会在一个事务结束后被关闭</li>
+</ul>
+<ul>
+<li>实现keep-alive连接的客户端可以通过包含Connection:keep-alive首部请求将一条连接保持在打开状态，如果服务器愿意这么做，就在响应中包含相同的首部，否则客户端就将连接关闭，本质上keep-alive只是一种请求，连接两端可以在任意时刻关闭的keep-alive连接，并限制keep-alive连接处理事务的数量，可以使用keep-alive首部中用逗号分隔的选项来调节其行为，如下</li>
+</ul>
+<pre><code>timeout：表示服务器希望将连接保持在活跃状态的时间，并不是一个承诺值
+
+max：表示服务器还希望为多少个事务保持连接的活跃状态，并不是一个承诺值
+
+其他：支持任意未经处理的属性，用于测试调试
+</code></pre><ul>
+<li>keep-alive具有如下限制</li>
+</ul>
+<pre><code>不是默认使用，客户端必须发生Connection：keep-alive首部来激活
+如果没有响应返回这个首部，激活将失败
+
+实体部分必须有正确的content-length，否则无法检测一条报文的结束和另一报文的开始
+
+代理和网关必须执行Connection首部的规则，即删除connection首部
+</code></pre><ul>
+<li>实现persistent的客户端默认情况下是激活持久连接的，在事务处理结束之后要关闭连接，必须使用Connection:close首部，否则连接一直打开</li>
+</ul>
+<ul>
+<li>persistent也有限制如下</li>
+</ul>
+<pre><code>content-length必须正确，或者使用分块传输编码方式
+
+每个持久连接都只适用于一跳传输，也就是代理必须分别管理两端的持久连接
+
+不管Connection取什么值，两端都可以在任意时刻关闭连接，虽然这样做并不好
+</code></pre><p><br></p>
+<h4 id="管道化连接"><a href="#管道化连接" class="headerlink" title="管道化连接"></a>管道化连接</h4><ul>
+<li>1.1在持久连接的基础上可以使用请求管道，在响应到达之前将更多的请求放入队列，当第一条请求通过网络流向另一端的服务器时，下一条请求也可以发送，而不是等待响应</li>
+</ul>
+<ul>
+<li>管道化连接具有如下限制</li>
+</ul>
+<pre><code>如果http客户端无法确认连接是持久的，就不能使用管道
+
+http客户端必须做好连接被关闭的准备，发送所有未完成的管道化请求
+
+http客户端不可以用管道发送有副作用的请求，比如post，因为出错时管道化会阻碍客户端了解错误的是哪些请求
+</code></pre><p><br><br><strong>本篇完</strong></p>
 
     
 
