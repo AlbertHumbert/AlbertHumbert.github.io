@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 24, 2019" />
-        <meta property="article:modified_time" content="2月 11, 2019" />
+        <meta property="article:modified_time" content="2月 13, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "计算机网络系列 5 - 防火墙 & NAT",
     "url": "https://alberthumbert.github.io/2019/01/24/NetGateWayNAT/index.html",
     "datePublished": "1月 24, 2019",
-    "dateModified": "2月 11, 2019",
+    "dateModified": "2月 13, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#防火墙"><span class="post-toc-number">1.</span> <span class="post-toc-text">防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#包过滤防火墙"><span class="post-toc-number">2.</span> <span class="post-toc-text">包过滤防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代理防火墙"><span class="post-toc-number">3.</span> <span class="post-toc-text">代理防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAT"><span class="post-toc-number">4.</span> <span class="post-toc-text">NAT</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#防火墙"><span class="post-toc-number">1.</span> <span class="post-toc-text">防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#包过滤防火墙"><span class="post-toc-number">2.</span> <span class="post-toc-text">包过滤防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代理防火墙"><span class="post-toc-number">3.</span> <span class="post-toc-text">代理防火墙</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAT"><span class="post-toc-number">4.</span> <span class="post-toc-text">NAT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAT-amp-TCP-amp-UDP"><span class="post-toc-number">5.</span> <span class="post-toc-text">NAT & TCP & UDP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAT穿越"><span class="post-toc-number">6.</span> <span class="post-toc-text">NAT穿越</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -539,8 +539,35 @@
                      |       |
 </code></pre><p><br></p>
 <h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><ul>
-<li>NAT本质是一种允许在互联网的不同地方重复使用相同ip地址集的机制</li>
+<li>NAT本质是一种允许在互联网的不同地方重复使用相同ip地址集的机制(设置了NAT之后网络可以被分为公网和私网两部分)，用于解决ip地址资源枯竭和问题和提高路由可扩展性，由于NAT本质是临时方案，因此这两个问题最终是被ipv6和cidr解决的(见前几篇)。NAT具有一些缺点，因为互联网上的设备无法直接访问私有地址的主机，连接双向的数据报都需要通过相同的NAT，NAT和互联网协议的基本宗旨相违背，它需要跟踪多个状态，因此操作会贯穿多个协议层，NAT面对的最重要的问题是分片的ip数据报中可能没有端口号，这导致NAT一般不能正确处理分片的情况，另一个问题是两个NAT系统中的内部主机如何通讯的问题，可以通过NAT穿越来解决。NAT的使用目前依然非常广泛，基本上被所有家用低端路由器支持</li>
 </ul>
+<ul>
+<li>NAT的工作原理就是重写通过路由器的数据报的识别信息，包括两个方向的ip地址和端口号，传出的数据报的源ip地址会变为NAT路由器面向Internet的网络接口地址而不是原始主机的接口地址，从互联网上的主机来看，数据报来自于具有全局路由ip的NAT路由器，而不是NAT内部的私有地址主机，大多数NAT路由器还同时执行转换和包过滤，包过滤的标准取决于NAT的动态状态</li>
+</ul>
+<ul>
+<li>传统的NAT包括：基本NAT和NAPT。基本NAT只执行IP地址的重写，本质上就是将私有地址改写为公共地址，该公共地址一般来自ips提供的地址池或公有地址访问，地址范围必须大于或等于希望同时访问Internet的主机数量，这种类型的NAT较少使用。NATP则使用传输层标识符（tcp和udp端口号，icmp查询标识符）来确定一个特点的数据包到底和NAT内部的哪台私有主机关联，这使得大量的内部主机可以同时访问互联网，但需要的公有地址往往只需一个，因此为了避免冲突有时需要重写端口号，我们说的NAT通常包含传统的NAT和NAPT</li>
+</ul>
+<ul>
+<li>地址池：原则上NAT内部可以使用任何ip地址，只是如果在私有范围内使用公共地址，可能导致公共范围的共用地址无法访问，因此一般使用10.0.0.0/8,172.16.0.0/12,192.168.0.0/16，NAT实现了一定的安全策略，几乎允许所有传出及其返回的流量通过，但几乎阻断所有传入的连接请求，这样可以抑制ip地址的“探测”攻击，对外隐藏内部的地址数量和配置</li>
+</ul>
+<p><br></p>
+<h3 id="NAT-amp-TCP-amp-UDP"><a href="#NAT-amp-TCP-amp-UDP" class="headerlink" title="NAT &amp; TCP &amp; UDP"></a>NAT &amp; TCP &amp; UDP</h3><ul>
+<li>tcp相关的内容在后面几篇，当NAT收到一个向外的syn报文段时，会将源ip地址修改为NAT路由器的外部接口的ip地址，并创建一个会话状态来记录连接，该状态至少包含一个端口号和一个源IP地址，这样NAT可以通过端口号来映射ip地址，在数据包出入NAT路由器时修改这些ip地址</li>
+</ul>
+<ul>
+<li>会话状态会在如下几个情况下被删除，双方交换fin报文段(正常关闭)，状态会在流量很少或收到rst报文段(非正常关闭)，NAT还会在传出一个syn报文段使设置连接计时器，如果ack未按时到达，状态会被删除，若ack按时到达则开启一个超长的会话计时器，当超时时会向内部节点发送探测报文，如果收到探测报文的ack就重置计时器，表示连接还处于激活状态，如果ack超时则删除会话状态</li>
+</ul>
+<ul>
+<li>NAT在处理udp时需要处理的问题和tcp大多数是一样的，但udp缺少连接建立和清除的过程，没有syn fin等标志位，因此NAT使用一个映射计时器来清除NAT的状态</li>
+</ul>
+<p><br></p>
+<h3 id="NAT穿越"><a href="#NAT穿越" class="headerlink" title="NAT穿越"></a>NAT穿越</h3><ul>
+<li>NAT穿越一般是指使用一个服务器作为多个NAT系统的中继来实现客户端之间的通信，因为NAT不允许为建立连接的外部请求，因此任一方都无法直接向对方建立请求，利用服务器建立连接的过程称为打洞，大致流程为两个客户端通过向外连接来访问服务器，这样就建立了两个NAT映射，服务器可以在客户端之间交换它们的外部寻址信息，一旦知道这个信息，客户端就可以进行直接连接</li>
+</ul>
+<ul>
+<li>具体的打洞流程如UNSAF和STUN之后如果有时间会进行补充</li>
+</ul>
+<p><br><br><strong>本篇完</strong></p>
 
     
 
