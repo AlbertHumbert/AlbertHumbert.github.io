@@ -2857,8 +2857,21 @@ for (int i = 0; i &lt; pendingIdleHandlerCount; i++) {
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/androidSource/" target="_blank" rel="external">本文为Android 系统相关系列的一部分</a></p>
+<ul>
+<li>想要深入理解Binder机制，推荐按顺序阅读下面三篇文章，然后挑着阅读老罗的源码分析</li>
+</ul>
+<ul>
+<li><a href="https://blog.csdn.net/freekiteyu/article/details/70082302" target="_blank" rel="external">Android Binder 进程间通讯机制</a></li>
+</ul>
+<ul>
+<li><a href="https://www.cnblogs.com/qingchen1984/p/5212755.html" target="_blank" rel="external">Android Binder 机制原理</a></li>
+</ul>
+<ul>
+<li><a href="https://www.jianshu.com/p/adaa1a39a274" target="_blank" rel="external">Android Binder 面试题</a></li>
+</ul>
 <p><img src="http://wx2.sinaimg.cn/mw690/007vHOvngy1fzti7na4lrj30k20ak3yl.jpg" alt=""></p>
-]]></content>
+<p><br></p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3>]]></content>
       
         <categories>
             
