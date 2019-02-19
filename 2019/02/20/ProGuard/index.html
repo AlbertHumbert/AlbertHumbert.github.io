@@ -12,7 +12,7 @@
     
     <title>
         
-            深入JVM系列 2 - gdb 调试 HotSpot | 
+            Android 混淆 总结 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入JVM系列 2 - gdb 调试 HotSpot | Albert&#39;s Blog">
+    <meta property="og:title" content="Android 混淆 总结 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="10月 17, 2018" />
-        <meta property="article:modified_time" content="10月 19, 2018" />
+        <meta property="article:published_time" content="2月 20, 2019" />
+        <meta property="article:modified_time" content="2月 20, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入JVM系列 2 - gdb 调试 HotSpot | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Android 混淆 总结 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2019/02/20/ProGuard/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入JVM系列 2 - gdb 调试 HotSpot",
-    "url": "https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html",
-    "datePublished": "10月 17, 2018",
-    "dateModified": "10月 19, 2018",
+    "headline": "Android 混淆 总结",
+    "url": "https://alberthumbert.github.io/2019/02/20/ProGuard/index.html",
+    "datePublished": "2月 20, 2019",
+    "dateModified": "2月 20, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-gdb"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 gdb</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动-HotSpot"><span class="post-toc-number">2.</span> <span class="post-toc-text">启动 HotSpot</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-gdb"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用 gdb</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">启动</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#浏览"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">浏览</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#断点"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">断点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#变量"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#执行"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">执行</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作用"><span class="post-toc-number">1.</span> <span class="post-toc-text">作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作原理"><span class="post-toc-number">2.</span> <span class="post-toc-text">工作原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#禁止混淆"><span class="post-toc-number">3.</span> <span class="post-toc-text">禁止混淆</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引入"><span class="post-toc-number">4.</span> <span class="post-toc-text">引入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#规则"><span class="post-toc-number">5.</span> <span class="post-toc-text">规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#资源混淆"><span class="post-toc-number">6.</span> <span class="post-toc-text">资源混淆</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入JVM系列 2 - gdb 调试 HotSpot
+                Android 混淆 总结
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>10月 17, 2018</span>
+        <span>2月 20, 2019</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 2 - gdb 调试 HotSpot&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 混淆 总结&url=https://alberthumbert.github.io/2019/02/20/ProGuard/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 2 - gdb 调试 HotSpot&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 混淆 总结&url=https://alberthumbert.github.io/2019/02/20/ProGuard/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2019/02/20/ProGuard/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2019/02/20/ProGuard/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&title=深入JVM系列 2 - gdb 调试 HotSpot" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/02/20/ProGuard/index.html&title=Android 混淆 总结" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 2 - gdb 调试 HotSpot&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 混淆 总结&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/02/20/ProGuard/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2018/10/17/JVMUseGdb/index.html&text=深入JVM系列 2 - gdb 调试 HotSpot" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/02/20/ProGuard/index.html&text=Android 混淆 总结" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,96 +503,105 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
-<p><a href="https://tocreate.app/2018/09/26/JVMCompileOpenJdk7/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><br></p>
-<h3 id="安装-gdb"><a href="#安装-gdb" class="headerlink" title="安装 gdb"></a>安装 gdb</h3><ul>
-<li>Linux自带gdb，mac上安装<a href="https://blog.csdn.net/qq_34290780/article/details/79898696?utm_source=blogxgwz7" target="_blank" rel="external">看这里</a></li>
-</ul>
-<p><br></p>
-<h3 id="启动-HotSpot"><a href="#启动-HotSpot" class="headerlink" title="启动 HotSpot"></a>启动 HotSpot</h3><ul>
-<li>可以参考这个路径找到启动脚本，注意必须为 debug 版本，否则可能无法调试</li>
-</ul>
-<pre><code>/Users/alberthumbert/jdk7u-dev/build/macosx-x86\_64-debug/hotspot/outputdir/bsd\_amd64\_compiler2/jvmg
-</code></pre><ul>
-<li>在 env.sh 中将 JavaPath 改为编译出来的版本</li>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li>简单来说混淆就是移除无用代码，进行简短的重命名，并做一些优化。由shrink、optimize、obfuscate和preveirfy四个步骤组成，每个步骤都是可选的</li>
 </ul>
 <ul>
-<li>使用如下命令可以启动虚拟机，其中 Test 为我们编译出来的 class 文件</li>
+<li>压缩(Shrink)：检测并移除代码中无用的类、字段、方法和特性（Attribute）</li>
 </ul>
-<pre><code>./hotspot -gdb -classpath /Users/alberthumbert/jdk7u-dev/build/macosx-x86\_64/hotspot/outputdir/bsd\_amd64\_compiler2/product Test
-</code></pre><p><br></p>
-<h3 id="使用-gdb"><a href="#使用-gdb" class="headerlink" title="使用 gdb"></a>使用 gdb</h3><p><strong>gdb虽然没有可视化的调试程序直观，但提供了足够丰富的命令</strong></p>
+<ul>
+<li>优化(Optimize)：对字节码进行优化，提高运行效率</li>
+</ul>
+<ul>
+<li>混淆(Obfuscate)：使用a，b，c，d这样简短而无意义的名称对类，字段和方法进行重命名</li>
+</ul>
+<ul>
+<li>预检(Preveirfy)：对处理后的代码进行预检，确保加载的class文件是可执行的</li>
+</ul>
 <p><br></p>
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><ul>
-<li>调试程序,注意文件必须是可执行文件而且是可以调试的，如果使用 gcc 编译 那么编译时带上 -g 参数即可</li>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
+<li>ProGuard使用Entry Point来寻找需要混淆和丢弃的代码，它本身是在ProGuard过程中不会被处理的类或方法</li>
 </ul>
-<pre><code>gdb &lt;file&gt;
-run
+<ul>
+<li>在压缩的步骤中，ProGuard从EntryPoint开始递归遍历，对于没有被使用的类和成员，将在压缩阶段丢弃</li>
+</ul>
+<ul>
+<li>在优化的步骤中，ProGuard将部分非EntryPoint的类和方法会被设置为private、static或final，不使用的参数会被移除</li>
+</ul>
+<ul>
+<li>在混淆的步骤中，ProGuard对非EntryPoint的类和方法进行重命名</li>
+</ul>
+<p><br></p>
+<h3 id="禁止混淆"><a href="#禁止混淆" class="headerlink" title="禁止混淆"></a>禁止混淆</h3><ul>
+<li>反射用到的类</li>
+</ul>
+<ul>
+<li>在AndroidManifest中配置的类，比如四大组件</li>
+</ul>
+<ul>
+<li>WebView中JavaScript调用的方法</li>
+</ul>
+<ul>
+<li>Layout文件引用到的自定义View</li>
+</ul>
+<ul>
+<li>一些引入的第三方库</li>
+</ul>
+<p><br></p>
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><ul>
+<li>在gradle的buildTypes闭包中添加如下代码</li>
+</ul>
+<pre><code>android {
+    ...
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+    }
+}
 </code></pre><p><br></p>
-<h4 id="浏览"><a href="#浏览" class="headerlink" title="浏览"></a>浏览</h4><ul>
-<li>查看代码</li>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p><strong>详见<a href="https://blog.csdn.net/lihenair/article/details/78591443" target="_blank" rel="external">这里</a></strong></p>
+<ul>
+<li>-keep，不压缩，不混淆</li>
 </ul>
-<pre><code># 显示 10 行
-list
-
-# 显示第 5 到 10 行
-list 5,10
-
-# 显示某个文件的第 5 到 10 行
-list &lt;file&gt;:5,10
+<ul>
+<li>-keepattributes {name}，保护给定的属性不被混淆</li>
+</ul>
+<pre><code>-keepattributes *Annotation*
 </code></pre><ul>
-<li>查找代码</li>
+<li>dontwarn {name}，不要警告指定库中找不到的引用。混淆在默认检查每个库的引用是否正确，有些第三方库里面会有用不到的类，有些没有正确引用，所以需要对第三方库取消警告 否则会报错</li>
 </ul>
-<pre><code># 查找关键字
-search &lt;word&gt;
+<ul>
+<li>keepnames，压缩类及成员，但不混淆，未使用的代码将被移除</li>
+</ul>
+<ul>
+<li>keepclassmembers，保护类的成员不被压缩和混淆，如果类未被使用，则删除类。如果类被使用，保留并重命名该类。类里的成员维持不变，仍然是之前的名字</li>
+</ul>
+<ul>
+<li>keepclassmembernames，移除未使用的类，剩下的类被重命名，类中未使用的成员将被移除，剩余的成员保留原来的名称</li>
+</ul>
+<ul>
+<li>keepclasseswithmembers，与keep作用一致。区别是它只适用于拥有类规范中所有成员的类</li>
+</ul>
+<ul>
+<li>keepclasseswithmembernames，与keepnames一致。区别是它只适用于拥有类规范中所有成员的类</li>
+</ul>
+<ul>
+<li>@Keep注解，保持使用keep注解的元素</li>
+</ul>
+<pre><code># 手动启用support keep注解
+# http://tools.android.com/tech-docs/support-annotations
+-dontskipnonpubliclibraryclassmembers
+-printconfiguration
+-keep,allowobfuscation @interface android.support.annotation.Keep
 
-# 向前查找
-reverse-search
-</code></pre><p><br></p>
-<h4 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h4><ul>
-<li>设置断点</li>
-</ul>
-<pre><code># 按行号设置断点
-break &lt;number&gt;
-
-# 按函数名设置断点
-break &lt;fun&gt;
-
-# 按条件表达式设置断点
-break7 if &lt;state&gt;
-</code></pre><ul>
-<li>查看断点</li>
-</ul>
-<pre><code>info breakpoints
-</code></pre><ul>
-<li>删除断点</li>
-</ul>
-<pre><code>&apos;Deleted breakpoint 1
-</code></pre><p><br></p>
-<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><ul>
-<li>打印变量 </li>
-</ul>
-<pre><code>print &lt;var&gt;
-</code></pre><ul>
-<li>查看变量或表达式类型</li>
-</ul>
-<pre><code>whatis &lt;var&gt;
-</code></pre><ul>
-<li>赋值</li>
-</ul>
-<pre><code>set variable &lt;var&gt; = &lt;value&gt;
-</code></pre><p><br></p>
-<h4 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h4><ul>
-<li>单行执行</li>
-</ul>
-<pre><code>next
-</code></pre><ul>
-<li>进入函数</li>
-</ul>
-<pre><code>step
-</code></pre><p><strong>本篇完</strong></p>
-
+-keep @android.support.annotation.Keep class \*
+-keepclassmembers class \* {
+    @android.support.annotation.Keep *;
+}
+</code></pre><h3 id="资源混淆"><a href="#资源混淆" class="headerlink" title="资源混淆"></a>资源混淆</h3>
     
 
     
@@ -611,21 +620,13 @@ break7 if &lt;state&gt;
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/10/17/JVMOopKlass/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/10/15/OSBaseLib/" id="post_nav-older" class="next-content">
+        <a href="/2019/02/12/NetHttps/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

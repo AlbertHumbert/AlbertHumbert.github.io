@@ -3,6 +3,126 @@
   
     
     <entry>
+      <title><![CDATA[Android 混淆 总结]]></title>
+      <url>/2019/02/20/ProGuard/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li>简单来说混淆就是移除无用代码，进行简短的重命名，并做一些优化。由shrink、optimize、obfuscate和preveirfy四个步骤组成，每个步骤都是可选的</li>
+</ul>
+<ul>
+<li>压缩(Shrink)：检测并移除代码中无用的类、字段、方法和特性（Attribute）</li>
+</ul>
+<ul>
+<li>优化(Optimize)：对字节码进行优化，提高运行效率</li>
+</ul>
+<ul>
+<li>混淆(Obfuscate)：使用a，b，c，d这样简短而无意义的名称对类，字段和方法进行重命名</li>
+</ul>
+<ul>
+<li>预检(Preveirfy)：对处理后的代码进行预检，确保加载的class文件是可执行的</li>
+</ul>
+<p><br></p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
+<li>ProGuard使用Entry Point来寻找需要混淆和丢弃的代码，它本身是在ProGuard过程中不会被处理的类或方法</li>
+</ul>
+<ul>
+<li>在压缩的步骤中，ProGuard从EntryPoint开始递归遍历，对于没有被使用的类和成员，将在压缩阶段丢弃</li>
+</ul>
+<ul>
+<li>在优化的步骤中，ProGuard将部分非EntryPoint的类和方法会被设置为private、static或final，不使用的参数会被移除</li>
+</ul>
+<ul>
+<li>在混淆的步骤中，ProGuard对非EntryPoint的类和方法进行重命名</li>
+</ul>
+<p><br></p>
+<h3 id="禁止混淆"><a href="#禁止混淆" class="headerlink" title="禁止混淆"></a>禁止混淆</h3><ul>
+<li>反射用到的类</li>
+</ul>
+<ul>
+<li>在AndroidManifest中配置的类，比如四大组件</li>
+</ul>
+<ul>
+<li>WebView中JavaScript调用的方法</li>
+</ul>
+<ul>
+<li>Layout文件引用到的自定义View</li>
+</ul>
+<ul>
+<li>一些引入的第三方库</li>
+</ul>
+<p><br></p>
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><ul>
+<li>在gradle的buildTypes闭包中添加如下代码</li>
+</ul>
+<pre><code>android {
+    ...
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+    }
+}
+</code></pre><p><br></p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p><strong>详见<a href="https://blog.csdn.net/lihenair/article/details/78591443" target="_blank" rel="external">这里</a></strong></p>
+<ul>
+<li>-keep，不压缩，不混淆</li>
+</ul>
+<ul>
+<li>-keepattributes {name}，保护给定的属性不被混淆</li>
+</ul>
+<pre><code>-keepattributes *Annotation*
+</code></pre><ul>
+<li>dontwarn {name}，不要警告指定库中找不到的引用。混淆在默认检查每个库的引用是否正确，有些第三方库里面会有用不到的类，有些没有正确引用，所以需要对第三方库取消警告 否则会报错</li>
+</ul>
+<ul>
+<li>keepnames，压缩类及成员，但不混淆，未使用的代码将被移除</li>
+</ul>
+<ul>
+<li>keepclassmembers，保护类的成员不被压缩和混淆，如果类未被使用，则删除类。如果类被使用，保留并重命名该类。类里的成员维持不变，仍然是之前的名字</li>
+</ul>
+<ul>
+<li>keepclassmembernames，移除未使用的类，剩下的类被重命名，类中未使用的成员将被移除，剩余的成员保留原来的名称</li>
+</ul>
+<ul>
+<li>keepclasseswithmembers，与keep作用一致。区别是它只适用于拥有类规范中所有成员的类</li>
+</ul>
+<ul>
+<li>keepclasseswithmembernames，与keepnames一致。区别是它只适用于拥有类规范中所有成员的类</li>
+</ul>
+<ul>
+<li>@Keep注解，保持使用keep注解的元素</li>
+</ul>
+<pre><code># 手动启用support keep注解
+# http://tools.android.com/tech-docs/support-annotations
+-dontskipnonpubliclibraryclassmembers
+-printconfiguration
+-keep,allowobfuscation @interface android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class \*
+-keepclassmembers class \* {
+    @android.support.annotation.Keep *;
+}
+</code></pre><h3 id="资源混淆"><a href="#资源混淆" class="headerlink" title="资源混淆"></a>资源混淆</h3>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[计算机网络系列 9 - HTTPs]]></title>
       <url>/2019/02/12/NetHttps/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -150,6 +270,19 @@ StateListDrawable
 </ul>
 <ul>
 <li>singleInstance：会启动一个新的任务栈来管理Activity实例，并且该实力在整个系统中只有一个。无论从哪个任务栈中启动该Activity，都会是该Activity所在的任务栈转移到前台，从而使Activity显示。主要作用是为了在不同程序中共享一个Activity实例</li>
+</ul>
+<h4 id="混淆的功能"><a href="#混淆的功能" class="headerlink" title="混淆的功能"></a>混淆的功能</h4><ul>
+<li><p>压缩，检查并移除代码中无用的类</p>
+</li>
+<li><p>优化，对字节码的优化，提高效率  </p>
+</li>
+<li><p>混淆，混淆定义的名称，避免反编译  </p>
+</li>
+<li><p>预检测，在java平台对处理后的代码再次进行检测</p>
+</li>
+</ul>
+<h4 id="为什么使用代码混淆"><a href="#为什么使用代码混淆" class="headerlink" title="为什么使用代码混淆"></a>为什么使用代码混淆</h4><ul>
+<li>java的源代码会被编译成字节码文件，存储在.class文件中，由于跨平台的需要，java的字节码中包含了很多源代码信息，诸如变量名、方法名等等。并且通过这些名称来访问变量和方法，这些变量很多是无意义的，但是又很容易反编译成java源代码，为了防止这种现象，我们就需要通过proguard来对java的字节码进行混淆</li>
 </ul>
 ]]></content>
       
@@ -401,6 +534,16 @@ public class Single {
 </ul>
 <ul>
 <li>场景：有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定</li>
+</ul>
+<p><br></p>
+<h3 id="15-命令模式"><a href="#15-命令模式" class="headerlink" title="15 命令模式"></a>15 命令模式</h3><ul>
+<li>请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令</li>
+</ul>
+<ul>
+<li>Receive 接收者角色，Command 命令角色，Invoker 调用者角色</li>
+</ul>
+<ul>
+<li>场景：本身不是一种很特殊或专门的设计模式，认为是命令的地方就可以采用命令模式</li>
 </ul>
 ]]></content>
       
