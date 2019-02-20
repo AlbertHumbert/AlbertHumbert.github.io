@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[UIL源码解析]]></title>
+      <url>/2019/02/20/UILSourceCode/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p>* </p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android 混淆 总结]]></title>
       <url>/2019/02/20/ProGuard/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -238,6 +261,39 @@
 </ul>
 <ul>
 <li>onSaveInstanceState()只有在activity销毁重建的时候onRestoreInstanceState()才会调用，所以和onSaveInstanceState不一定成对出现，onRestoreInstanceState()会在onStart()和onResume()之间执行</li>
+</ul>
+<h4 id="Fragment生命周期"><a href="#Fragment生命周期" class="headerlink" title="Fragment生命周期"></a>Fragment生命周期</h4><ul>
+<li>onAttach()->onCreate()-> onCreateView()->onActivityCreated()->onStart()->onResume()->onPause()->onStop()->onDestroyView()->onDestroy()->onDetach()</li>
+</ul>
+<ul>
+<li>onAttach()：当Fragment与Activity发生关联时，该方法被调用</li>
+</ul>
+<ul>
+<li><p>onCreateView()：当Fragment创建视图时调用</p>
+</li>
+<li><p>onActivityCreated()：执行该方法时，与Fragment绑定的Activity的onCreate方法已经执行完成并返回，在该方法内可以进行与Activity交互的UI操作</p>
+</li>
+</ul>
+<ul>
+<li>onDestroyView，销毁与Fragment有关的视图，但未与Activity解除绑定，依然可以通过onCreateView方法重新创建视图</li>
+</ul>
+<ul>
+<li>onDetach()：当Fragment和Activity解除关联时调用</li>
+</ul>
+<h4 id="Service生命周期"><a href="#Service生命周期" class="headerlink" title="Service生命周期"></a>Service生命周期</h4><ul>
+<li>onCreate（）：服务第一次被创建时调用</li>
+</ul>
+<ul>
+<li>onStartComand（）：服务启动时调用</li>
+</ul>
+<ul>
+<li>onBind（）：服务被绑定时调用</li>
+</ul>
+<ul>
+<li>onUnBind（）：服务被解绑时调用</li>
+</ul>
+<ul>
+<li>onDestroy（）：服务停止时调用</li>
 </ul>
 <h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
 * often you will deal with Drawable as the type of resource retrieved for
