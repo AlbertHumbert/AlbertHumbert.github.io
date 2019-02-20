@@ -519,6 +519,54 @@ public class Single {
 <li>Component为统一接口，也是装饰类和被装饰类的基本类型。ConcreteComponent为具体实现类，也是被装饰类，是个具有一些功能的完整的类。Decorator是装饰类，实现了Component接口的同时还在内部维护了一个ConcreteComponent的实例，通常采用默认实现。ConcreteDecorator是具体的装饰产品类，每一种装饰产品都具有特定的装饰效果。</li>
 </ul>
 <p><br></p>
+<h3 id="13-代理模式"><a href="#13-代理模式" class="headerlink" title="13 代理模式"></a>13 代理模式</h3><ul>
+<li>静态代理和包装模式的实现是一致的 </li>
+</ul>
+<ul>
+<li>Subject为统一接口，也是代理类和被代理类的基本类型。RealSubject为具体实现类，也是被装饰类。Proxy是代理类，实现了Subject接口的同时还在内部维护了一个RealSubject的实例，控制外界对被RealSubject的访问，普通代理的情况下RealSubject是客户端传入的，强制代理的情况下，客户端只能创造代理对象，RealSubject由Proxy自行创建，RealSubject对外界不可知</li>
+</ul>
+<ul>
+<li>动态代理的关键步骤如下，其中Proxy是反射包提供的api，newProxyInstance用于动态创建一个代理类和代理类的实例，ProxyHandler为InvocationHandler的实例，需要自己实现，其invoke方法中可以获取方法对了真实method和参数args，代理对象中的方法都会交由该方法来处理，需要在这里面通过反射调用真实方法</li>
+</ul>
+<pre><code>RealSubject real = new RealSubject();
+Subject proxySubject = (Subject) Proxy.newProxyInstance(
+        Subject.class.getClassLoader()
+        , new Class[]{Subject.class}
+        , new ProxyHandler(real));
+proxySubject.doSomething();
+</code></pre><ul>
+<li>jdk生成的代理对象类型为jdkproxy.$Proxy0(数字由先后决定)并实现了subject接口，父类为java.lang.reflect.Proxy，$Proxy0持有InvocationHandler对象，InvocationHandler对象持有realsubject对象，$Proxy0会在静态初始化域中通过反射获取到Method对象，在自动生成的方法直接调用invocationHandler对象的invoke方法，invoke则是实现了代理的业务逻辑，调用了realsubject相应的方法。JDK Proxy会把hashCode()、equals()、toString()这三个非接口方法转发给InvocationHandler，其余的Object方法则不会转发</li>
+</ul>
+<pre><code>// JDK代理类具体实现
+public final class $Proxy0 extends Proxy implements Subject
+{
+  private static Method m1;
+  private static Method m2;
+  private static Method m3;
+  private static Method m0;
+  ...
+    try
+    {
+      m1 = Class.forName(&quot;java.lang.Object&quot;).getMethod(&quot;equals&quot;, new Class[] { Class.forName(&quot;java.lang.Object&quot;) });
+      ...
+    }
+  ...
+  public $Proxy0(InvocationHandler invocationhandler)
+  {
+    super(invocationhandler);
+  }
+  ...
+  @Override
+  public final String doXX(String str){
+    ...
+    return super.h.invoke(this, m3, new Object[] {str});
+  }
+  ...
+}
+</code></pre><ul>
+<li>另外一种实现动态代理的方式为CGLIB，CGLIB通过基于ASM的字节码生成库来生成代理类，它使用的是继承的方式，即代理类为被代理类的子类，对象的所有非final方法都会被交给MethodInterceptor（类似InvocationHandler）来处理，通过子类的invokeSuper方法可以调用被代理类即父类的方法。对于从Object中继承的方法，CGLIB代理也会进行代理，如hashCode()、equals()、toString()等，但是getClass()、wait()等方法不会，因为它是final方法，CGLIB无法代理</li>
+</ul>
+<p><br></p>
 <h3 id="13-外观模式"><a href="#13-外观模式" class="headerlink" title="13 外观模式"></a>13 外观模式</h3><ul>
 <li>外观模式（Facade Pattern）隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口</li>
 </ul>
