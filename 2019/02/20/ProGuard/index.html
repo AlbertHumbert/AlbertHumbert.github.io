@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="2月 20, 2019" />
-        <meta property="article:modified_time" content="2月 20, 2019" />
+        <meta property="article:modified_time" content="2月 21, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 混淆 总结",
     "url": "https://alberthumbert.github.io/2019/02/20/ProGuard/index.html",
     "datePublished": "2月 20, 2019",
-    "dateModified": "2月 20, 2019",
+    "dateModified": "2月 21, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作用"><span class="post-toc-number">1.</span> <span class="post-toc-text">作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作原理"><span class="post-toc-number">2.</span> <span class="post-toc-text">工作原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#禁止混淆"><span class="post-toc-number">3.</span> <span class="post-toc-text">禁止混淆</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引入"><span class="post-toc-number">4.</span> <span class="post-toc-text">引入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#规则"><span class="post-toc-number">5.</span> <span class="post-toc-text">规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#资源混淆"><span class="post-toc-number">6.</span> <span class="post-toc-text">资源混淆</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作用"><span class="post-toc-number">1.</span> <span class="post-toc-text">作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作原理"><span class="post-toc-number">2.</span> <span class="post-toc-text">工作原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#禁止混淆"><span class="post-toc-number">3.</span> <span class="post-toc-text">禁止混淆</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引入"><span class="post-toc-number">4.</span> <span class="post-toc-text">引入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#规则"><span class="post-toc-number">5.</span> <span class="post-toc-text">规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#资源混淆"><span class="post-toc-number">6.</span> <span class="post-toc-text">资源混淆</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#资源加载原理"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">资源加载原理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AndResGuard"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">AndResGuard</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -601,7 +601,103 @@
 -keepclassmembers class \* {
     @android.support.annotation.Keep *;
 }
-</code></pre><h3 id="资源混淆"><a href="#资源混淆" class="headerlink" title="资源混淆"></a>资源混淆</h3>
+</code></pre><p><br></p>
+<h3 id="资源混淆"><a href="#资源混淆" class="headerlink" title="资源混淆"></a>资源混淆</h3><p><br></p>
+<h4 id="资源加载原理"><a href="#资源加载原理" class="headerlink" title="资源加载原理"></a>资源加载原理</h4><ul>
+<li>AAPT（Android Asset Packaging Tool），位于SDK的tools/目录下，可以通过它查看查看、创建、更新压缩文件(如 .zip文件，.jar文件, .apk文件), 也可以把资源编译为二进制文件，并生成resources.arsc，在打包过程中会使用AAPT对APK中用到的资源进行打包，主要流程如下</li>
+</ul>
+<pre><code>把assets和res/raw目录下的所有资源进行打包
+（根据不同文件后缀选择压缩或不压缩）
+而res/目录下的其他资源进行编译或者其他处理后才进行打包
+（根据不同文件后缀后缀进行不同处理，例如.xml会编译成二进制文件，.png文件会进行优化）
+
+对assets之外的所有资源赋予一个ID常量，生成资源索引表resources.arsc
+
+编译AndroidManifest.xml成二进制的XML文件
+
+生成结果保存在一个*.ap_文件，并把各个资源ID常量定义在一个R.java中
+</code></pre><ul>
+<li>Android资源管理框架实际是由AssetManager和Resources两个类来实现的，AssetManager类根据文件名来查找资源，Resources类根据ID来查找资源，Resources查找到对应文件名之后会交给AssetManager处理</li>
+</ul>
+<p><br></p>
+<h4 id="AndResGuard"><a href="#AndResGuard" class="headerlink" title="AndResGuard"></a>AndResGuard</h4><p><strong>来自<a href="https://www.jianshu.com/p/fe988af9c663" target="_blank" rel="external">这篇</a></strong></p>
+<ul>
+<li>AndResGuard通过修改resources.arsc文件，从而可以混淆安卓的资源文件路径，andresGuard在原生的buildApk步骤之后，使用产生的apk作为输入文件，对其进行混淆压缩，产出一个新的apk</li>
+</ul>
+<ul>
+<li>默认andResGuard会混淆所有资源文件，而白名单使用正则表达式指定了不被混淆的资源文件，配置参考如下</li>
+</ul>
+<pre><code>apply plugin: &apos;AndResGuard&apos;
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath &apos;com.android.tools.build:gradle:2.2.3&apos;
+        classpath &apos;com.tencent.mm:AndResGuard-gradle-plugin:1.1.16&apos;
+    }
+}
+
+andResGuard {
+    // mappingFile = file(&quot;./resource_mapping.txt&quot;)
+    mappingFile = null
+    use7zip = true
+    useSign = true
+    // it will keep the origin path of your resources when it&apos;s true
+    keepRoot = false
+    whiteList = [
+            // your icon
+            &quot;R.drawable.icon&quot;,
+            // for fabric
+            &quot;R.string.com.crashlytics.*&quot;,
+            // for umeng update
+            &quot;R.string.umeng*&quot;,
+            &quot;R.string.UM*&quot;,
+            &quot;R.string.tb_*&quot;,
+            &quot;R.string.rc_*&quot;,
+            &quot;R.layout.umeng*&quot;,
+            &quot;R.layout.tb_*&quot;,
+            &quot;R.layout.rc_*&quot;,
+            &quot;R.drawable.umeng*&quot;,
+            &quot;R.drawable.tb_*&quot;,
+            &quot;R.drawable.rc_*&quot;,
+            &quot;R.drawable.u1*&quot;,
+            &quot;R.drawable.u2*&quot;,
+            &quot;R.anim.umeng*&quot;,
+            &quot;R.color.umeng*&quot;,
+            &quot;R.color.tb_*&quot;,
+            &quot;R.color.rc_*&quot;,
+            &quot;R.style.*UM*&quot;,
+            &quot;R.style.umeng*&quot;,
+            &quot;R.style.rc_*&quot;,
+            &quot;R.id.umeng*&quot;,
+            &quot;R.id.rc_*&quot;,
+            // umeng share for sina
+            &quot;R.drawable.sina*&quot;,
+            // for google-services.json
+            &quot;R.string.google_app_id&quot;,
+            &quot;R.string.gcm_defaultSenderId&quot;,
+            &quot;R.string.default_web_client_id&quot;,
+            &quot;R.string.ga_trackingId&quot;,
+            &quot;R.string.firebase_database_url&quot;,
+            &quot;R.string.google_api_key&quot;,
+            &quot;R.string.google_crash_reporting_api_key&quot;,
+            &quot;R.dimen.rc_*&quot;
+    ]
+    compressFilePattern = [
+            &quot;*.png&quot;,
+            &quot;*.jpg&quot;,
+            &quot;*.jpeg&quot;,
+            &quot;*.gif&quot;,
+            &quot;resources.arsc&quot;
+    ]
+    sevenzip {
+        artifact = &apos;com.tencent.mm:SevenZip:1.1.16&apos;
+    }
+}
+</code></pre><p><br><br><strong>本篇完</strong></p>
+
     
 
     

@@ -601,10 +601,10 @@
 <li>onAttach()：当Fragment与Activity发生关联时，该方法被调用</li>
 </ul>
 <ul>
-<li><p>onCreateView()：当Fragment创建视图时调用</p>
-</li>
-<li><p>onActivityCreated()：执行该方法时，与Fragment绑定的Activity的onCreate方法已经执行完成并返回，在该方法内可以进行与Activity交互的UI操作</p>
-</li>
+<li>onCreateView()：当Fragment创建视图时调用</li>
+</ul>
+<ul>
+<li>onActivityCreated()：执行该方法时，与Fragment绑定的Activity的onCreate方法已经执行完成并返回，在该方法内可以进行与Activity交互的UI操作</li>
 </ul>
 <ul>
 <li>onDestroyView，销毁与Fragment有关的视图，但未与Activity解除绑定，依然可以通过onCreateView方法重新创建视图</li>
@@ -632,6 +632,9 @@
 </ul>
 <ul>
 <li>隐式启动，Intent 能够匹配目标组件的 IntentFilter 中所设置的过滤信息，需要同时匹配 action，category，data</li>
+</ul>
+<ul>
+<li>隐式方式启动一个Activity的时候，可以判断看有没有Activity能够匹配Intent，PackageManager 或者 Intent 的 resolveActivity() 方法，以及PackageManager 的 queryIntentActivities() 方法</li>
 </ul>
 <h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
 * often you will deal with Drawable as the type of resource retrieved for
