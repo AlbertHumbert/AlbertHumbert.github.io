@@ -3,6 +3,28 @@
   
     
     <entry>
+      <title><![CDATA[Android 系统系列 进程优先级]]></title>
+      <url>/2019/02/20/AOSProcessPrio/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[UIL源码解析]]></title>
       <url>/2019/02/20/UILSourceCode/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -639,14 +661,14 @@ public final class $Proxy0 extends Proxy implements Subject
 <li>另外一种实现动态代理的方式为CGLIB，CGLIB通过基于ASM的字节码生成库来生成代理类，它使用的是继承的方式，即代理类为被代理类的子类，对象的所有非final方法都会被交给MethodInterceptor（类似InvocationHandler）来处理，通过子类的invokeSuper方法可以调用被代理类即父类的方法。对于从Object中继承的方法，CGLIB代理也会进行代理，如hashCode()、equals()、toString()等，但是getClass()、wait()等方法不会，因为它是final方法，CGLIB无法代理</li>
 </ul>
 <p><br></p>
-<h3 id="13-外观模式"><a href="#13-外观模式" class="headerlink" title="13 外观模式"></a>13 外观模式</h3><ul>
+<h3 id="14-外观模式"><a href="#14-外观模式" class="headerlink" title="14 外观模式"></a>14 外观模式</h3><ul>
 <li>外观模式（Facade Pattern）隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口</li>
 </ul>
 <ul>
 <li>Facade，它熟悉子系统的功能。内部根据客户角色的需求预定了几种功能的组合，实现了子系统的功能。它对客户角色和Facade时未知的。它内部可以有系统内的相互交互，也可以由供外界调用的接口</li>
 </ul>
 <p><br></p>
-<h3 id="14-责任链模式"><a href="#14-责任链模式" class="headerlink" title="14 责任链模式"></a>14 责任链模式</h3><ul>
+<h3 id="15-责任链模式"><a href="#15-责任链模式" class="headerlink" title="15 责任链模式"></a>15 责任链模式</h3><ul>
 <li>使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有对象处理它为止</li>
 </ul>
 <ul>
@@ -656,7 +678,7 @@ public final class $Proxy0 extends Proxy implements Subject
 <li>场景：有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定</li>
 </ul>
 <p><br></p>
-<h3 id="15-命令模式"><a href="#15-命令模式" class="headerlink" title="15 命令模式"></a>15 命令模式</h3><ul>
+<h3 id="16-命令模式"><a href="#16-命令模式" class="headerlink" title="16 命令模式"></a>16 命令模式</h3><ul>
 <li>请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令</li>
 </ul>
 <ul>
@@ -665,7 +687,21 @@ public final class $Proxy0 extends Proxy implements Subject
 <ul>
 <li>场景：本身不是一种很特殊或专门的设计模式，认为是命令的地方就可以采用命令模式</li>
 </ul>
-]]></content>
+<p><br></p>
+<h3 id="17-解释器模式"><a href="#17-解释器模式" class="headerlink" title="17 解释器模式"></a>17 解释器模式</h3><ul>
+<li>给定一门语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子</li>
+</ul>
+<ul>
+<li>AbstractExpression，抽象解释器。TerminalExpression，终结符表达式，实现与文法中的元素相关联的解释操作，通常一个解释器模式中只有一个终结符表达式，但有多个实例，对应不同的终结符。NonterminalExpression，非终结符表达式，文法中的每条规则对应于一个非终结表达式，非终结符表达式根据逻辑的复杂程度而增加，原则上每个文法规则都对应一个非终结符表达式。Context，环境角色。</li>
+</ul>
+<ul>
+<li>场景：重复发生的问题可以使用解释器模式，一个简单语法需要解释的场景</li>
+</ul>
+<ul>
+<li>缺点：尽量不要在重要的模块中使用解释器模式，否则维护会是一个很大的问题，在项目中可以使用shell、JRuby、Groovy等脚本语言来代替解释器模式，弥补Java编译型语言的不足</li>
+</ul>
+<p><br></p>
+<h3 id="18-迭代器模式"><a href="#18-迭代器模式" class="headerlink" title="18 迭代器模式"></a>18 迭代器模式</h3>]]></content>
       
         <categories>
             
