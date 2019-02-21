@@ -317,6 +317,12 @@
 <ul>
 <li>onDestroy（）：服务停止时调用</li>
 </ul>
+<h4 id="启动其他应用的Activity"><a href="#启动其他应用的Activity" class="headerlink" title="启动其他应用的Activity"></a>启动其他应用的Activity</h4><ul>
+<li>显示启动，确的指定被启动的对象的组件信息，包括包名和类名</li>
+</ul>
+<ul>
+<li>隐式启动，Intent 能够匹配目标组件的 IntentFilter 中所设置的过滤信息，需要同时匹配 action，category，data</li>
+</ul>
 <h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
 * often you will deal with Drawable as the type of resource retrieved for
 * drawing things to the screen; the Drawable class provides a generic API for
