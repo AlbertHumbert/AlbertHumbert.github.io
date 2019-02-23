@@ -12,7 +12,7 @@
     
     <title>
         
-            UIL解析 | 
+            UniversalImageLoader 详解 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="UIL解析 | Albert&#39;s Blog">
+    <meta property="og:title" content="UniversalImageLoader 详解 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="2月 20, 2019" />
-        <meta property="article:modified_time" content="2月 23, 2019" />
+        <meta property="article:modified_time" content="2月 24, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="UIL解析 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="UniversalImageLoader 详解 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "UIL解析",
+    "headline": "UniversalImageLoader 详解",
     "url": "https://alberthumbert.github.io/2019/02/20/UILAN/index.html",
     "datePublished": "2月 20, 2019",
-    "dateModified": "2月 23, 2019",
+    "dateModified": "2月 24, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ImageLoaderConfiguration"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">ImageLoaderConfiguration</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DisplayImageOptions"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">DisplayImageOptions</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要模块"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">主要模块</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">主要流程</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ImageLoaderConfiguration"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">ImageLoaderConfiguration</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DisplayImageOptions"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">DisplayImageOptions</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要模块"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">主要模块</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#加载实现"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">加载实现</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#缓存实现"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">缓存实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#DiskCache"><span class="post-toc-number">3.4.1.</span> <span class="post-toc-text">DiskCache</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#MemoryCache"><span class="post-toc-number">3.4.2.</span> <span class="post-toc-text">MemoryCache</span></a></li></ol></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                UIL解析
+                UniversalImageLoader 详解
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=UIL解析&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=UniversalImageLoader 详解&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=UIL解析&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=UniversalImageLoader 详解&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&title=UIL解析" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&title=UniversalImageLoader 详解" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=UIL解析&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=UniversalImageLoader 详解&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&text=UIL解析" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/02/20/UILAN/index.html&text=UniversalImageLoader 详解" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -677,7 +677,7 @@ BitmapProcessor包含一个Bitmap process(Bitmap bitmap)方法，在缓存前处
 <pre><code>设置handler
 </code></pre><p><br></p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
-<li>uil中加载图片的方法分为三类，displayImage，参数中包含ImageView或ImageAware这样的图片直接接受者，loadImage，参数不包含直接接受者但包含回调接口，loadImageSync，同步，直接返回bitmap</li>
+<li>uil中加载图片的方法分为三类，displayImage，参数中包含ImageView或ImageAware这样的图片直接接受者，loadImage，参数不包含直接接受者，但包含回调接口，也就是只负责加载不负责显示，loadImageSync，同步，直接返回bitmap</li>
 </ul>
 <ul>
 <li>涉及到的参数主要包括</li>
@@ -719,6 +719,297 @@ ImageLoaderEngine：任务分发器，负责分发各类task给具体的线程�
 5.MemoryCache 内存缓存
 6.BitmapProcessor 后处理（有内存缓存，从这里开始）
 7.BitmapDisplayer 显示图片
+</code></pre><p><br></p>
+<h4 id="加载实现"><a href="#加载实现" class="headerlink" title="加载实现"></a>加载实现</h4><ul>
+<li>加载方法包括loadImageSync，loadImage和displayImage，loadImageSync通过loadImage实现，loadImage通过displayImage来实现，只不过前两者使用的imageAware对象为NonViewAware类实例，它的相关显示方法为空实现</li>
+</ul>
+<pre><code>public void loadImage(String uri, ImageSize targetImageSize, DisplayImageOptions options,
+        ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
+    checkConfiguration();
+    if (targetImageSize == null) {
+        targetImageSize = configuration.getMaxImageSize();
+    }
+    if (options == null) {
+        options = configuration.defaultDisplayImageOptions;
+    }
+
+    NonViewAware imageAware = new NonViewAware(uri, targetImageSize, ViewScaleType.CROP);
+    displayImage(uri, imageAware, options, listener, progressListener);
+}
+</code></pre><ul>
+<li>核心方法displayImage实现如下</li>
+</ul>
+<pre><code>public void displayImage(String uri, ImageAware imageAware, DisplayImageOptions options,ImageSize targetSize, ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
+
+    //1.检查配置和回调
+    checkConfiguration();
+    if (imageAware == null) {
+        throw new IllegalArgumentException(ERROR_WRONG_ARGUMENTS);
+    }
+    if (listener == null) {
+        listener = defaultListener;
+    }
+    if (options == null) {
+        options = configuration.defaultDisplayImageOptions;
+    }
+
+    //2. uri判空，为空则选择性显示占位图，这个过程中加载和完成的回调会被调用
+    if (TextUtils.isEmpty(uri)) {
+        engine.cancelDisplayTaskFor(imageAware);
+        listener.onLoadingStarted(uri, imageAware.getWrappedView());
+        if (options.shouldShowImageForEmptyUri()) {
+            imageAware.setImageDrawable(options.getImageForEmptyUri(configuration.resources));
+        } else {
+            imageAware.setImageDrawable(null);
+        }
+        listener.onLoadingComplete(uri, imageAware.getWrappedView(), null);
+        return;
+    }
+
+    //3.获取显示目标的大小
+    if (targetSize == null) {
+        targetSize = ImageSizeUtils.defineTargetSizeForView(imageAware, configuration.getMaxImageSize());
+    }
+    //4.根据uri生成内存缓存的key
+    String memoryCacheKey = MemoryCacheUtils.generateKey(uri, targetSize);
+
+    //5.将imageAware的id和key的键值对放入缓存
+    engine.prepareDisplayTaskFor(imageAware, memoryCacheKey);
+
+    //6.调用开始加载回调
+    listener.onLoadingStarted(uri, imageAware.getWrappedView());
+
+    //7.从内存缓存获取bitmap，获取成功开始后处理
+    Bitmap bmp = configuration.memoryCache.get(memoryCacheKey);
+    if (bmp != null &amp;&amp; !bmp.isRecycled()) {
+        L.d(LOG_LOAD_IMAGE_FROM_MEMORY_CACHE, memoryCacheKey);
+
+        //使用ProcessAndDisplayImageTask，同步则直接调用run，否则提交线程池
+        if (options.shouldPostProcess()) {
+            ImageLoadingInfo imageLoadingInfo = new ImageLoadingInfo(uri, imageAware, targetSize, memoryCacheKey,
+                    options, listener, progressListener, engine.getLockForUri(uri));
+            ProcessAndDisplayImageTask displayTask = new ProcessAndDisplayImageTask(engine, bmp, imageLoadingInfo,
+                    defineHandler(options));
+            if (options.isSyncLoading()) {
+                displayTask.run();
+            } else {
+                engine.submit(displayTask);
+            }
+
+        //不需要后处理直接调用Displayer显示，默认实现是直接setBitmap
+        } else {
+            options.getDisplayer().display(bmp, imageAware, LoadedFrom.MEMORY_CACHE);
+            listener.onLoadingComplete(uri, imageAware.getWrappedView(), bmp);
+        }
+
+    //8.内存没有，从磁盘或网络获取，使用LoadAndDisplayImageTask，同步则直接调用run，否则提交线程池
+    } else {
+        if (options.shouldShowImageOnLoading()) {
+            imageAware.setImageDrawable(options.getImageOnLoading(configuration.resources));
+        } else if (options.isResetViewBeforeLoading()) {
+            imageAware.setImageDrawable(null);
+        }
+
+        ImageLoadingInfo imageLoadingInfo = new ImageLoadingInfo(uri, imageAware, targetSize, memoryCacheKey,
+                options, listener, progressListener, engine.getLockForUri(uri));
+        LoadAndDisplayImageTask displayTask = new LoadAndDisplayImageTask(engine, imageLoadingInfo,
+                defineHandler(options));
+        if (options.isSyncLoading()) {
+            displayTask.run();
+        } else {
+            engine.submit(displayTask);
+        }
+    }
+}
+</code></pre><ul>
+<li>ProcessAndDisplayImageTask的run方法，先调用BitmapProcessor处理，然后使用DisplayBitmapTask投递runnable到handler</li>
+</ul>
+<pre><code>@Override
+public void run() {
+    L.d(LOG_POSTPROCESS_IMAGE, imageLoadingInfo.memoryCacheKey);
+
+    BitmapProcessor processor = imageLoadingInfo.options.getPostProcessor();
+    Bitmap processedBitmap = processor.process(bitmap);
+    DisplayBitmapTask displayBitmapTask = new DisplayBitmapTask(processedBitmap, imageLoadingInfo, engine,
+            LoadedFrom.MEMORY_CACHE);
+    LoadAndDisplayImageTask.runTask(displayBitmapTask, imageLoadingInfo.options.isSyncLoading(), handler, engine);
+}
+</code></pre><ul>
+<li>LoadAndDisplayImageTask的run方法，在次从内存缓存中去读取 bitmap 对象，若 bitmap 对象不存在，则调用 tryLoadBitmap() 从磁盘或网络获取 bitmap 对象，获取成功后若在 DisplayImageOptions.Builder 中设置了 cacheInMemory(true), 同时将 bitmap 对象缓存到内存中，最后新建DisplayBitmapTask使用handler显示图片</li>
+</ul>
+<pre><code>@Override
+public void run() {
+    if (waitIfPaused()) return;
+    if (delayIfNeed()) return;
+
+    ReentrantLock loadFromUriLock = imageLoadingInfo.loadFromUriLock;
+    L.d(LOG_START_DISPLAY_IMAGE_TASK, memoryCacheKey);
+    if (loadFromUriLock.isLocked()) {
+        L.d(LOG_WAITING_FOR_IMAGE_LOADED, memoryCacheKey);
+    }
+
+    loadFromUriLock.lock();
+    Bitmap bmp;
+    try {
+        checkTaskNotActual();
+
+        bmp = configuration.memoryCache.get(memoryCacheKey);
+        if (bmp == null || bmp.isRecycled()) {
+            bmp = tryLoadBitmap();
+            if (bmp == null) return; // listener callback already was fired
+
+            checkTaskNotActual();
+            checkTaskInterrupted();
+
+            if (options.shouldPreProcess()) {
+                L.d(LOG_PREPROCESS_IMAGE, memoryCacheKey);
+                bmp = options.getPreProcessor().process(bmp);
+                if (bmp == null) {
+                    L.e(ERROR_PRE_PROCESSOR_NULL, memoryCacheKey);
+                }
+            }
+
+            if (bmp != null &amp;&amp; options.isCacheInMemory()) {
+                L.d(LOG_CACHE_IMAGE_IN_MEMORY, memoryCacheKey);
+                configuration.memoryCache.put(memoryCacheKey, bmp);
+            }
+        } else {
+            loadedFrom = LoadedFrom.MEMORY_CACHE;
+            L.d(LOG_GET_IMAGE_FROM_MEMORY_CACHE_AFTER_WAITING, memoryCacheKey);
+        }
+
+        if (bmp != null &amp;&amp; options.shouldPostProcess()) {
+            L.d(LOG_POSTPROCESS_IMAGE, memoryCacheKey);
+            bmp = options.getPostProcessor().process(bmp);
+            if (bmp == null) {
+                L.e(ERROR_POST_PROCESSOR_NULL, memoryCacheKey);
+            }
+        }
+        checkTaskNotActual();
+        checkTaskInterrupted();
+    } catch (TaskCancelledException e) {
+        fireCancelEvent();
+        return;
+    } finally {
+        loadFromUriLock.unlock();
+    }
+
+    DisplayBitmapTask displayBitmapTask = new DisplayBitmapTask(bmp, imageLoadingInfo, engine, loadedFrom);
+    runTask(displayBitmapTask, syncLoading, handler, engine);
+}
+</code></pre><ul>
+<li>tryLoadBitmap，如果磁盘中存在文件，则decodeImage解码为bitmap，否则使用tryCacheImageOnDisk从网络获取并保存到磁盘，这里的ImageDownloader分几种，正常的，网络状况不好的，无网络的，正常情况下使用BaseImageDownloader，基于HttpURLConnection实现，后两者这都是包装了BaseImageDownloader，其中SlowNetworkDownloader主要特性是使用的InputStream重写了skip方法，NetworkDeniedImageDownloader则是在获取流时抛出IllegalStateException，因为网络不可用</li>
+</ul>
+<pre><code>private Bitmap tryLoadBitmap() throws TaskCancelledException {
+    Bitmap bitmap = null;
+    try {
+        File imageFile = configuration.diskCache.get(uri);
+        if (imageFile != null &amp;&amp; imageFile.exists() &amp;&amp; imageFile.length() &gt; 0) {
+            L.d(LOG_LOAD_IMAGE_FROM_DISK_CACHE, memoryCacheKey);
+            loadedFrom = LoadedFrom.DISC_CACHE;
+
+            checkTaskNotActual();
+            bitmap = decodeImage(Scheme.FILE.wrap(imageFile.getAbsolutePath()));
+        }
+        if (bitmap == null || bitmap.getWidth() &lt;= 0 || bitmap.getHeight() &lt;= 0) {
+            L.d(LOG_LOAD_IMAGE_FROM_NETWORK, memoryCacheKey);
+            loadedFrom = LoadedFrom.NETWORK;
+
+            String imageUriForDecoding = uri;
+            if (options.isCacheOnDisk() &amp;&amp; tryCacheImageOnDisk()) {
+                imageFile = configuration.diskCache.get(uri);
+                if (imageFile != null) {
+                    imageUriForDecoding = Scheme.FILE.wrap(imageFile.getAbsolutePath());
+                }
+            }
+
+            checkTaskNotActual();
+            bitmap = decodeImage(imageUriForDecoding);
+
+            if (bitmap == null || bitmap.getWidth() &lt;= 0 || bitmap.getHeight() &lt;= 0) {
+                fireFailEvent(FailType.DECODING_ERROR, null);
+            }
+        }
+    } catch (IllegalStateException e) {
+        fireFailEvent(FailType.NETWORK_DENIED, null);
+    } catch (TaskCancelledException e) {
+        throw e;
+    } catch (IOException e) {
+        L.e(e);
+        fireFailEvent(FailType.IO_ERROR, e);
+    } catch (OutOfMemoryError e) {
+        L.e(e);
+        fireFailEvent(FailType.OUT_OF_MEMORY, e);
+    } catch (Throwable e) {
+        L.e(e);
+        fireFailEvent(FailType.UNKNOWN, e);
+    }
+    return bitmap;
+}
+
+private ImageDownloader getDownloader() {
+    ImageDownloader d;
+    if (engine.isNetworkDenied()) {
+        d = networkDeniedDownloader;
+    } else if (engine.isSlowNetwork()) {
+        d = slowNetworkDownloader;
+    } else {
+        d = downloader;
+    }
+    return d;
+}
+</code></pre><ul>
+<li>注意BaseImageDownloader实现上不止负责网络图片的获取，具体获取什么图片由Uri决定，只不过它都封装为stream</li>
+</ul>
+<pre><code>public class BaseImageDownloader implements ImageDownloader {
+    @Override
+    public InputStream getStream(String imageUri, Object extra) throws IOException {
+        switch (Scheme.ofUri(imageUri)) {
+            case HTTP:
+            case HTTPS:
+                return getStreamFromNetwork(imageUri, extra);
+            case FILE:
+                return getStreamFromFile(imageUri, extra);
+            case CONTENT:
+                return getStreamFromContent(imageUri, extra);
+            case ASSETS:
+                return getStreamFromAssets(imageUri, extra);
+            case DRAWABLE:
+                return getStreamFromDrawable(imageUri, extra);
+            case UNKNOWN:
+            default:
+                return getStreamFromOtherSource(imageUri, extra);
+        }
+    }
+}
+</code></pre><p><br></p>
+<h4 id="缓存实现"><a href="#缓存实现" class="headerlink" title="缓存实现"></a>缓存实现</h4><p><br></p>
+<h5 id="DiskCache"><a href="#DiskCache" class="headerlink" title="DiskCache"></a>DiskCache</h5><p><strong><a href="https://blog.csdn.net/mcc_19920603/article/details/50600690" target="_blank" rel="external">参考</a></strong></p>
+<ul>
+<li>DiskCache的实现分三种 LimitedAgeDiskCache，UnlimitedDiskCache，LruDiskCache，它们都继承自BaseDiskCache</li>
+</ul>
+<ul>
+<li>LimitedAgeDiskCache，限制了缓存对象最长存活周期的磁盘缓存。在 get() 时判断如果缓存对象存活时间已经超过设置的最长时间，则删除。在 save() 时保存当存时间作为对象的创建时间</li>
+</ul>
+<ul>
+<li>UnlimitedDiskCache，不限制缓存时间，没有添加新特性，只是使用了更准确的类名</li>
+</ul>
+<ul>
+<li>LruDiskCache限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素。内部依赖JakeWharton(但是没有任何署名)实现的DiskLruCache，限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素。通过缓存目录下名为journal的文件记录缓存的所有操作，并在缓存open时读取journal的文件内容存储到LinkedHashMap\<string, entry\=""> lruEntries中，后面get(String key)获取缓存内容时，会先从lruEntries中得到图片文件名返回文件。LRU 的实现跟上面内存缓存类似，lruEntries为new LinkedHashMap\<string, entry\="">(0, 0.75f, true)，LinkedHashMap 第三个参数表示是否需要根据访问顺序(accessOrder)排序，true 表示根据accessOrder排序，最近访问的跟最新加入的一样放到最后面，false 表示根据插入顺序排序。这里为 true 且缓存满时trimToSize()函数始终删除第一个元素，即始终删除最近最少访问的文件。</string,></string,></li>
+</ul>
+<p><br></p>
+<h5 id="MemoryCache"><a href="#MemoryCache" class="headerlink" title="MemoryCache"></a>MemoryCache</h5><ul>
+<li>实现有9种</li>
+</ul>
+<pre><code>WeakMemoryCache
+LimitedMemoryCache
+LargestLimitedMemoryCache
+UsingFreqLimitedMemoryCache
+LRULimitedMemoryCache
+FIFOLimitedMemoryCache
+LruMemoryCache
+LimitedAgeMemoryCache
+FuzzyKeyMemoryCache
 </code></pre><p><br><br><strong>本篇未完</strong></p>
 
     
