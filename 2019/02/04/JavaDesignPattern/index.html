@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="2月 04, 2019" />
-        <meta property="article:modified_time" content="2月 21, 2019" />
+        <meta property="article:modified_time" content="2月 22, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "设计模式汇总",
     "url": "https://alberthumbert.github.io/2019/02/04/JavaDesignPattern/index.html",
     "datePublished": "2月 04, 2019",
-    "dateModified": "2月 21, 2019",
+    "dateModified": "2月 22, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -665,7 +665,16 @@ public class Single {
 </ul>
 <p><br></p>
 <h3 id="6-组合模式"><a href="#6-组合模式" class="headerlink" title="6 组合模式"></a>6 组合模式</h3><ul>
-<li>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。需要建立Component（抽象构件），为叶子构件和容器构件对象声明接口，定义了访问及管理它的子构件的方法。 Leaf（叶子构件），它在组合结构中表示叶子节点对象，叶子节点没有子节点，Composite（容器构件）：它在组合结构中表示容器节点对象，容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点，它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法。</li>
+<li>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</li>
+</ul>
+<ul>
+<li>Component（抽象构件），为叶子构件和容器构件对象声明接口，定义了访问及管理它的子构件的方法</li>
+</ul>
+<ul>
+<li>Leaf（叶子构件），它在组合结构中表示叶子节点对象，叶子节点没有子节点</li>
+</ul>
+<ul>
+<li>Composite（容器构件）：它在组合结构中表示容器节点对象，容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点，它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法</li>
 </ul>
 <ul>
 <li>场景：维护和展示部分-整体关系的场景，如树形菜单、文件和文件夹管理。树形结构。</li>
@@ -696,10 +705,19 @@ public class Single {
 </ul>
 <p><br></p>
 <h3 id="10-桥接模式"><a href="#10-桥接模式" class="headerlink" title="10 桥接模式"></a>10 桥接模式</h3><ul>
-<li><p>把抽象(Abstraction)与行为实现(Implementation)分离开来，从而可以保持各部分的独立性以及应对他们的功能扩展</p>
-</li>
-<li><p>Abstraction，抽象化角色，定义出该角色的行为，保存一个对实现化角色的引用，因此该角色一般是抽象类。Implementor，实现化角色，它是接口或者抽象类，定义角色必需的行为和属性。RefinedAbstraction，修正抽象化角色，通过继承持有实现化角色对抽象化角色进行修正。ConcreteImplementor，具体实现化角色，它实现接口或抽象类定义的方法和属性。</p>
-</li>
+<li>把抽象(Abstraction)与行为实现(Implementation)分离开来，从而可以保持各部分的独立性以及应对他们的功能扩展</li>
+</ul>
+<ul>
+<li>Abstraction，抽象化角色，定义出该角色的行为，保存一个对实现化角色的引用，因此该角色一般是抽象类</li>
+</ul>
+<ul>
+<li>Implementor，实现化角色，它是接口或者抽象类，定义角色必需的行为和属性。</li>
+</ul>
+<ul>
+<li>RefinedAbstraction，修正抽象化角色，通过继承持有实现化角色对抽象化角色进行修正。</li>
+</ul>
+<ul>
+<li>ConcreteImplementor，具体实现化角色，它实现接口或抽象类定义的方法和属性。</li>
 </ul>
 <ul>
 <li>桥接模式和策略模式的主要区别是，桥接模式中的abstraction和策略模式中的context不同，abstraction一般为抽象类，只负责持有实现着，并且定义基本的方法，因为桥接模式关注的是抽象和实现两方的可变性。策略模式中的strategy类一般都是无状态的，因为它只用来实现一个算法过程，而桥接模式中的Implementor就没有这种特性。</li>
@@ -707,13 +725,22 @@ public class Single {
 <p><br></p>
 <h3 id="11-过滤器模式"><a href="#11-过滤器模式" class="headerlink" title="11 过滤器模式"></a>11 过滤器模式</h3><ul>
 <li>过滤器模式（Filter Pattern）或标准模式（Criteria Pattern）是一种设计模式，这种模式允许开发人员使用不同的标准来过滤一组对象，通过逻辑运算以解耦的方式把它们连接起来</li>
-<li><br><h3 id="12-包装模式"><a href="#12-包装模式" class="headerlink" title="12 包装模式"></a>12 包装模式</h3></li>
 </ul>
-<ul>
+<p><br></p>
+<h3 id="12-包装模式"><a href="#12-包装模式" class="headerlink" title="12 包装模式"></a>12 包装模式</h3><ul>
 <li>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。</li>
 </ul>
 <ul>
-<li>Component为统一接口，也是装饰类和被装饰类的基本类型。ConcreteComponent为具体实现类，也是被装饰类，是个具有一些功能的完整的类。Decorator是装饰类，实现了Component接口的同时还在内部维护了一个ConcreteComponent的实例，通常采用默认实现。ConcreteDecorator是具体的装饰产品类，每一种装饰产品都具有特定的装饰效果。</li>
+<li>Component为统一接口，也是装饰类和被装饰类的基本类型</li>
+</ul>
+<ul>
+<li>ConcreteComponent为具体实现类，也是被装饰类，是个具有一些功能的完整的类</li>
+</ul>
+<ul>
+<li>Decorator是装饰类，实现了Component接口的同时还在内部维护了一个ConcreteComponent的实例，通常采用默认实现</li>
+</ul>
+<ul>
+<li>ConcreteDecorator是具体的装饰产品类，每一种装饰产品都具有特定的装饰效果</li>
 </ul>
 <p><br></p>
 <h3 id="13-代理模式"><a href="#13-代理模式" class="headerlink" title="13 代理模式"></a>13 代理模式</h3><ul>
@@ -785,26 +812,48 @@ public final class $Proxy0 extends Proxy implements Subject
 <li>请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令</li>
 </ul>
 <ul>
-<li>Receive 接收者角色，Command 命令角色，Invoker 调用者角色</li>
-</ul>
-<ul>
-<li>场景：本身不是一种很特殊或专门的设计模式，认为是命令的地方就可以采用命令模式</li>
+<li><p>Receive 接收者角色，Command 命令角色，Invoker 调用者角色</p>
+</li>
+<li><p>场景：本身不是一种很特殊或专门的设计模式，认为是命令的地方就可以采用命令模式</p>
+</li>
 </ul>
 <p><br></p>
 <h3 id="17-解释器模式"><a href="#17-解释器模式" class="headerlink" title="17 解释器模式"></a>17 解释器模式</h3><ul>
-<li>给定一门语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子</li>
-</ul>
-<ul>
-<li>AbstractExpression，抽象解释器。TerminalExpression，终结符表达式，实现与文法中的元素相关联的解释操作，通常一个解释器模式中只有一个终结符表达式，但有多个实例，对应不同的终结符。NonterminalExpression，非终结符表达式，文法中的每条规则对应于一个非终结表达式，非终结符表达式根据逻辑的复杂程度而增加，原则上每个文法规则都对应一个非终结符表达式。Context，环境角色。</li>
-</ul>
-<ul>
-<li>场景：重复发生的问题可以使用解释器模式，一个简单语法需要解释的场景</li>
+<li><p>给定一门语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子</p>
+</li>
+<li><p>AbstractExpression，抽象解释器。TerminalExpression，终结符表达式，实现与文法中的元素相关联的解释操作，通常一个解释器模式中只有一个终结符表达式，但有多个实例，对应不同的终结符</p>
+</li>
+<li><p>NonterminalExpression，非终结符表达式，文法中的每条规则对应于一个非终结表达式，非终结符表达式根据逻辑的复杂程度而增加，原则上每个文法规则都对应一个非终结符表达式</p>
+</li>
+<li><p>Context，环境角色</p>
+</li>
+<li><p>场景：重复发生的问题可以使用解释器模式，一个简单语法需要解释的场景</p>
+</li>
 </ul>
 <ul>
 <li>缺点：尽量不要在重要的模块中使用解释器模式，否则维护会是一个很大的问题，在项目中可以使用shell、JRuby、Groovy等脚本语言来代替解释器模式，弥补Java编译型语言的不足</li>
 </ul>
 <p><br></p>
-<h3 id="18-迭代器模式"><a href="#18-迭代器模式" class="headerlink" title="18 迭代器模式"></a>18 迭代器模式</h3>
+<h3 id="18-迭代器模式"><a href="#18-迭代器模式" class="headerlink" title="18 迭代器模式"></a>18 迭代器模式</h3><ul>
+<li>它提供一种方法访问一个容器对象中各个元素，而又不需暴露该对象的内部细节</li>
+</ul>
+<ul>
+<li>Iterator抽象迭代器，负责定义访问和遍历元素的接口，有固定的3个方法：first()获得第一个元素，next()访问下一个元素，hasNext()是否已经访问到底部</li>
+</ul>
+<ul>
+<li>ConcreteIterator具体迭代器，具体迭代器角色要实现迭代器接口，完成容器元素的遍历。</li>
+</ul>
+<ul>
+<li>Aggregate抽象容器，容器角色负责提供创建具体迭代器角色的接口，必然提供一个类似createIterator()这样的方法，在Java中一般是iterator()方法</li>
+</ul>
+<ul>
+<li>ConcreteAggregate具体容器，具体容器实现容器接口定义的方法，创建出容纳迭代器的对象</li>
+</ul>
+<ul>
+<li>场景：访问一个聚合对象的内容而无须暴露它的内部表示。需要为聚合对象提供多种遍历方式。为遍历不同的聚合结构提供一个统一的接口</li>
+</ul>
+<p><br><br><strong>本篇未完</strong></p>
+
     
 
     
@@ -929,7 +978,7 @@ public final class $Proxy0 extends Proxy implements Subject
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         

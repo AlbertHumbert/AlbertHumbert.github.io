@@ -3,6 +3,28 @@
   
     
     <entry>
+      <title><![CDATA[RecycleView工作机制]]></title>
+      <url>/2019/02/22/RecycleViewAnalysis/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android 系统系列 进程优先级 & 保活]]></title>
       <url>/2019/02/20/AOSProcessPrio/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -159,16 +181,16 @@
 </tbody>
 </table>
 <p><br></p>
-<h3 id="进程保活"><a href="#进程保活" class="headerlink" title="进程保活"></a>进程保活</h3><ul>
+<h3 id="进程保活"><a href="#进程保活" class="headerlink" title="进程保活"></a>进程保活</h3><h4 id="前台service"><a href="#前台service" class="headerlink" title="前台service"></a>前台service</h4><ul>
 <li>开启前台Service，即Notification，如果不想让通知被显示出来，一般可以使用这两种手段</li>
 </ul>
 <pre><code>API &lt; 18，启动前台Service时直接传入new Notification()
 
 API &gt;= 18，同时启动两个id相同的前台Service，然后再将后启动的Service做stop处理
-</code></pre><ul>
+</code></pre><h4 id="双进程"><a href="#双进程" class="headerlink" title="双进程"></a>双进程</h4><ul>
 <li>双进程保护，使用一个业务进程和一个守护进程，在双方的onStartCommand中绑定另一个进程，在onServiceDisconnected中同时对另一个进程使用startService和bindService。这样可以时其中一个服务即将被销毁被另一个进程拉起</li>
 </ul>
-<ul>
+<h4 id="JobService"><a href="#JobService" class="headerlink" title="JobService"></a>JobService</h4><ul>
 <li>使用JobService来实现应用退出后重启Service，即用JobService来轮询检查service是否被杀死，如果被杀死则重新启动，可以通过ActivityManager 的getRunningServices来判断service是否存活</li>
 </ul>
 <pre><code>/**
@@ -231,10 +253,10 @@ public class JobWakeUpService extends JobService{
         return isWork;
     }
 }
-</code></pre><ul>
+</code></pre><h4 id="开机广播"><a href="#开机广播" class="headerlink" title="开机广播"></a>开机广播</h4><ul>
 <li>使用广播保证Service在开机后自动启动，注册BOOT_COMPLETED事件的广播，在onReceive方法中启动service</li>
 </ul>
-<ul>
+<h4 id="WakeLock"><a href="#WakeLock" class="headerlink" title="WakeLock"></a>WakeLock</h4><ul>
 <li>使用WakeLock，当手机灭屏状态下保持一段时间后，系统会进入休眠，一些后台运行的任务就可能得不到正常执行，应用只要申请了WakeLock，那么在释放WakeLock之前，系统不会进入休眠，即使在灭屏的状态下，应用要执行的任务依旧不会被系统打断</li>
 </ul>
 <pre><code>owerManager pm = (PowerManager)mContext.getSystemService(
@@ -246,7 +268,7 @@ PowerManager.WakeLock wl = pm.newWakeLock(
 wl.acquire();//为了保证任务不被系统休眠打断，申请WakeLock
 // 开始我们的任务
 wl.release();//任务结束后释放，如果不写该句。则可以用wl.acquire(timeout)的方式把释放的工作交给系统。
-</code></pre><ul>
+</code></pre><h4 id="1像素-Activity"><a href="#1像素-Activity" class="headerlink" title="1像素 Activity"></a>1像素 Activity</h4><ul>
 <li>1像素Activity进程保活，其整个逻辑就是注册监听屏幕的广播，在手机屏幕黑屏时，启动一个1像素的Activity，在亮屏时关闭该Activity，该Activity需要是透明的</li>
 </ul>
 <pre><code>/**
@@ -269,13 +291,13 @@ public class OnePixelReceiver extends BroadcastReceiver {
         }
     }
 }
-</code></pre><ul>
+</code></pre><h4 id="账号同步"><a href="#账号同步" class="headerlink" title="账号同步"></a>账号同步</h4><ul>
 <li>账号同步，android系统里有一个账户系统，设置一个自己的账户，android会定期唤醒账户更新服务，我们可以自己设定同步的事件间隔。同步数据时会把已退出或完全结束的APP再次拉活起来，且发起更新的是系统，不会受到任何限制。缺点是用户会在系统设置的账户列表里面看到一个不认识的账户；同步的时间间隔是有限制，最短1分钟；某些手机比如note3需要手动设置账户；必须联网。账号同步的使用 <a href="https://blog.csdn.net/lyz_zyx/article/details/73571927" target="_blank" rel="external">详见</a></li>
 </ul>
-<ul>
+<h4 id="native"><a href="#native" class="headerlink" title="native"></a>native</h4><ul>
 <li>native保活，<a href="https://blog.csdn.net/xixinmu/article/details/78993463" target="_blank" rel="external">详见</a></li>
 </ul>
-<ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
 <li>还有一些参考价值不大的方法，比如android:persistent=“true”(需要系统签名)，或STATR_STICK，意义不大</li>
 </ul>
 <p><br><br><strong>本篇完</strong></p>
@@ -563,7 +585,7 @@ andResGuard {
 <a id="more"></a>
 <p><strong>这里只放一些杂七杂八不好分类的问题，比较重要的问题一般不会在这里</strong></p>
 <p><br></p>
-<h3 id="c"><a href="#c" class="headerlink" title="c"></a>c</h3><h4 id="各基本类型占用字节数"><a href="#各基本类型占用字节数" class="headerlink" title="各基本类型占用字节数"></a>各基本类型占用字节数</h4><ul>
+<h2 id="c"><a href="#c" class="headerlink" title="c"></a>c</h2><h4 id="各基本类型占用字节数"><a href="#各基本类型占用字节数" class="headerlink" title="各基本类型占用字节数"></a>各基本类型占用字节数</h4><ul>
 <li>只记录32位和64位</li>
 <li>char 1</li>
 <li>short 2</li>
@@ -587,7 +609,7 @@ andResGuard {
 2.空间要大到足够容纳最“宽”的成员，包括数组
 3.结构体总大小为结构体所有成员大小的整数倍 
 </code></pre><p><br></p>
-<h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><h4 id="各基本类型占用字节数-1"><a href="#各基本类型占用字节数-1" class="headerlink" title="各基本类型占用字节数"></a>各基本类型占用字节数</h4><ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><h4 id="各基本类型占用字节数-1"><a href="#各基本类型占用字节数-1" class="headerlink" title="各基本类型占用字节数"></a>各基本类型占用字节数</h4><ul>
 <li>byte 1  </li>
 <li>boolean 1   </li>
 <li>char 2                </li>
@@ -620,9 +642,15 @@ andResGuard {
 <ul>
 <li>枚举类占用的内存就是所有生成的内部类及其对象占用的运行时内存，它相对于使用@XXdef定义的常量，开销还是相当大的</li>
 </ul>
-<p><br></p>
-<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><h4 id="Activity生命周期"><a href="#Activity生命周期" class="headerlink" title="Activity生命周期"></a>Activity生命周期</h4><p><img src="https://images2015.cnblogs.com/blog/675009/201607/675009-20160713164151842-1620929141.png" alt=""></p>
+<h4 id="自动装箱"><a href="#自动装箱" class="headerlink" title="自动装箱"></a>自动装箱</h4><p><strong>详见<a href="https://www.cnblogs.com/wang-yaz/p/8516151.html" target="_blank" rel="external">这里</a></strong></p>
 <ul>
+<li>装箱就是自动将基本数据类型转换为包装器类型；拆箱就是自动将包装器类型转换为基本数据类型，这些是编译器为我们做的，本质就是在编译成class文件时自动调用包装类的valueOf()方法和XXValue()方法，如intValue</li>
+</ul>
+<ul>
+<li>有的面试官可能喜欢问一些吊轨问题，对于整型的自动装箱需要特别注意，整型的包装类（Integer、Short、Byte、Character、Long）的valueOf方法的实现了缓存机制（1.8中为XXXCache的静态内部类，如IntegerCache），在静态初始化块中创建了绝对值在128以内的所有包装对象，需要时直接获取，对于大于该范围的数值，则每次都创建一个新对象。对于浮点类型，则没有使用缓存，所有情况下都创建新对象。另外XXXValue()方法的实现是很简单的，直接返回包装对象维护的value域</li>
+</ul>
+<p><br></p>
+<h2 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h2><h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><h4 id="Activity生命周期"><a href="#Activity生命周期" class="headerlink" title="Activity生命周期"></a>Activity生命周期</h4><ul>
 <li>onCreate()表示Activity正在创建，常做初始化工作，如初始化界面资源、初始化数据，setContentView，findViewById通常在onCreate中被调用</li>
 </ul>
 <ul>
@@ -685,6 +713,31 @@ andResGuard {
 <ul>
 <li>onDestroy（）：服务停止时调用</li>
 </ul>
+<h4 id="service的两种启动方式"><a href="#service的两种启动方式" class="headerlink" title="service的两种启动方式"></a>service的两种启动方式</h4><ul>
+<li>startService()方法可以启动一个Service，并回调服务中的onStartCommand()。如果服务还没创建，那么回调onCreate()->onStartCommand()。服务会一直保持运行状态，直到stopService()或stopSelf()方法被调用，并回调onDestroy()。无论调用多少次startService()方法，只需调用一次stopService()或stopSelf()方法</li>
+</ul>
+<ul>
+<li>bindService()可以绑定一个Service，并回调onBind()方法。如果该服务还没创建，回调的顺序是onCreate()->onBind()。调用方可以获取到onBind()方法里返回的IBinder实例，实现和服务进行通信。服务会一直保持运行状态，直到所有客户端都调用了unbindService()方法，或则所有客户端都已经被销毁，服务才会调用onUnBind()->onDestroy()</li>
+</ul>
+<ul>
+<li>混合使用两种方式时onDestroy需要在unbindService和stopService都被调用后才会执行onDestroy</li>
+</ul>
+<h4 id="常见的系统service"><a href="#常见的系统service" class="headerlink" title="常见的系统service"></a>常见的系统service</h4><p><strong><a href="https://www.cnblogs.com/PengLee/p/4092712.html" target="_blank" rel="external">详见</a></strong></p>
+<ul>
+<li>ConnectivityManager，网络管理服务</li>
+</ul>
+<ul>
+<li>AudioManager，音频管理服务</li>
+</ul>
+<ul>
+<li>AlarmManager，全局定时器</li>
+</ul>
+<ul>
+<li>NotificationManager，通知服务</li>
+</ul>
+<ul>
+<li>SensorManager，传感服务</li>
+</ul>
 <h4 id="启动其他应用的Activity"><a href="#启动其他应用的Activity" class="headerlink" title="启动其他应用的Activity"></a>启动其他应用的Activity</h4><ul>
 <li>显示启动，确的指定被启动的对象的组件信息，包括包名和类名</li>
 </ul>
@@ -694,7 +747,85 @@ andResGuard {
 <ul>
 <li>隐式方式启动一个Activity的时候，可以判断看有没有Activity能够匹配Intent，PackageManager 或者 Intent 的 resolveActivity() 方法，以及PackageManager 的 queryIntentActivities() 方法</li>
 </ul>
-<h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
+<h4 id="避免配置改变时Activity重建"><a href="#避免配置改变时Activity重建" class="headerlink" title="避免配置改变时Activity重建"></a>避免配置改变时Activity重建</h4><ul>
+<li>manifest中设置configChanges=”orientation|keyboardHidden|screenSize”</li>
+</ul>
+<h4 id="四种启动模式"><a href="#四种启动模式" class="headerlink" title="四种启动模式"></a>四种启动模式</h4><ul>
+<li>standard：每次启动一个Activity就会创建一个新的实例，大部分情况下，都应该使用这种模式</li>
+</ul>
+<ul>
+<li>singleTop：如果在任务的栈顶正好存在该Activity的实例，就重用该实例，否则就会创建新的实例并放入栈顶，当它不需要创建新的Activity对象时，它会调用onNewIntent()方法</li>
+</ul>
+<ul>
+<li>singleTask：如果要激活的Activity在任务栈中存在该实例，则不需要创建，只需要把此Activity放入栈顶，并把该Activity以上的Activity实例都pop(弹出销毁)；这个模式可以用来退出整个应用</li>
+</ul>
+<ul>
+<li>singleInstance：会启动一个新的任务栈来管理Activity实例，并且该实力在整个系统中只有一个。无论从哪个任务栈中启动该Activity，都会是该Activity所在的任务栈转移到前台，从而使Activity显示。主要作用是为了在不同程序中共享一个Activity实例</li>
+</ul>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><h4 id="Android系统的进程优先级"><a href="#Android系统的进程优先级" class="headerlink" title="Android系统的进程优先级"></a>Android系统的进程优先级</h4><ul>
+<li>前台进程 ：处于前台正在与用户进行交互的Activity，或者在前台绑定的Service</li>
+</ul>
+<ul>
+<li>可见进程 ：可见但不可交互的Activity</li>
+</ul>
+<ul>
+<li>服务进程 ：包含非前台service</li>
+</ul>
+<ul>
+<li>后台进程 ：只包含不可见Activity</li>
+</ul>
+<ul>
+<li>空进程 ：用于缓存，可被随时收回</li>
+</ul>
+<h4 id="进程的回收策略"><a href="#进程的回收策略" class="headerlink" title="进程的回收策略"></a>进程的回收策略</h4><ul>
+<li>Low memory killer机制：系统定时进行检查，通过基于OOM_ADJ的比较复杂的评分机制，对进程进行打分，然后将分数高的进程杀死并释放内存</li>
+</ul>
+<h4 id="进程保活策略"><a href="#进程保活策略" class="headerlink" title="进程保活策略"></a>进程保活策略</h4><ul>
+<li>1.前台service 2.双进程 3.一像素 4.jobService 6.WakeLock 7.开机广播 8.账号同步 9.native 10.其他(persistent, STATR_STICK，意义不大)</li>
+</ul>
+<h4 id="ANR原理-及-解决手段"><a href="#ANR原理-及-解决手段" class="headerlink" title="ANR原理 及 解决手段"></a>ANR原理 及 解决手段</h4><ul>
+<li>Application Not Responding，也就是应用程序无响应，包含以下四种</li>
+</ul>
+<pre><code>InputDispatching Timeout：5秒内无法响应屏幕触摸事件或键盘输入事件
+
+BroadcastQueue Timeout ：在执行前台广播（BroadcastReceiver）的onReceive()函数时10秒没有处理完成，后台为60秒
+
+Service Timeout ：前台服务20秒内，后台服务在200秒内没有执行完毕
+
+ContentProvider Timeout ：ContentProvider的publish在10s内没进行完
+</code></pre><ul>
+<li>常见的直接原因有一下几种，</li>
+</ul>
+<pre><code>I/O阻塞
+网络阻塞；
+onReceiver执行时间超过10s;
+多线程死锁
+</code></pre><ul>
+<li>ANR原理：android中使用handler机制进行事件的调度，这种情况下如果一个线程阻塞了，因为无法对自己进监控，那么这个线程本身无能为力，所以需要另一个线程进行监控，ActivityThread所在的线程（主线程）的监控线程就是AMS线程，AMS在调用组件的回调方法时如果需要计时会使用sendMessageAtTime来发送一个延迟消息，ActivityThread在执行完方法时，会反过来让AMS取消这个消息，如果在规定时间内这个消息没有取消那么就可以判断是ANR了，详见<a href="https://www.jianshu.com/p/388166988cef" target="_blank" rel="external">这里</a></li>
+</ul>
+<ul>
+<li>WatchDog原理：这个机制本身和ANR无直接关联，但是可以拓展来讲。由于ActivityThread的监控线程本身是AMS线程，那么为了保证ANR机制，同样也要保证AMS线程不发生死锁，AMS线程的监控线程就是同在SystemServer中的WatchDog线程，这个WatchDog类直接继承自Thread类，它使用HandlerChecker来判断Handler绑定的线程是否死锁，这里的handler不一定是AMS的，SystemServer中很多线程被它监控，HandlerChecker调用MessageQueue的isPolling时返回true，则说明MessageQueue正在工作，没有死锁，如果返回false则说明正在处理消息，这个时候HandlerChecker就设置一个标记，投递一个用来取消标记的Runnable，在这个Runnable在取消标记前会使用synchronized关键字尝试获取AMS的锁，如果30秒后检测到这个标记没能清除，则会输出log，超时60秒则会重启，<a href="https://www.jianshu.com/p/5c18c4e8c826" target="_blank" rel="external">详见</a></li>
+</ul>
+<ul>
+<li>分析定位：</li>
+</ul>
+<pre><code>1.直接使用log，ActivityManager作为tag来过滤
+2.使用/data/anr/traces.txt文件
+3.使用Android Profiler的Record功能查看方法耗时
+</code></pre><h4 id="混淆的功能"><a href="#混淆的功能" class="headerlink" title="混淆的功能"></a>混淆的功能</h4><ul>
+<li><p>压缩，检查并移除代码中无用的类</p>
+</li>
+<li><p>优化，对字节码的优化，提高效率  </p>
+</li>
+<li><p>混淆，混淆定义的名称，避免反编译  </p>
+</li>
+<li><p>预检测，在java平台对处理后的代码再次进行检测</p>
+</li>
+</ul>
+<h4 id="为什么使用代码混淆"><a href="#为什么使用代码混淆" class="headerlink" title="为什么使用代码混淆"></a>为什么使用代码混淆</h4><ul>
+<li>java的源代码会被编译成字节码文件，存储在.class文件中，由于跨平台的需要，java的字节码中包含了很多源代码信息，诸如变量名、方法名等等。并且通过这些名称来访问变量和方法，这些变量很多是无意义的，但是又很容易反编译成java源代码，为了防止这种现象，我们就需要通过proguard来对java的字节码进行混淆</li>
+</ul>
+<h3 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h3><h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
 * often you will deal with Drawable as the type of resource retrieved for
 * drawing things to the screen; the Drawable class provides a generic API for
 * dealing with an underlying visual resource that may take a variety of forms.
@@ -727,55 +858,7 @@ ClipDrawable
 LayerDrawable
 LevelListDrawable
 StateListDrawable
-</code></pre><h4 id="避免配置改变时Activity重建"><a href="#避免配置改变时Activity重建" class="headerlink" title="避免配置改变时Activity重建"></a>避免配置改变时Activity重建</h4><ul>
-<li>manifest中设置configChanges=”orientation|keyboardHidden|screenSize”</li>
-</ul>
-<h4 id="四种启动模式"><a href="#四种启动模式" class="headerlink" title="四种启动模式"></a>四种启动模式</h4><ul>
-<li>standard：每次启动一个Activity就会创建一个新的实例，大部分情况下，都应该使用这种模式</li>
-</ul>
-<ul>
-<li>singleTop：如果在任务的栈顶正好存在该Activity的实例，就重用该实例，否则就会创建新的实例并放入栈顶，当它不需要创建新的Activity对象时，它会调用onNewIntent()方法</li>
-</ul>
-<ul>
-<li>singleTask：如果要激活的Activity在任务栈中存在该实例，则不需要创建，只需要把此Activity放入栈顶，并把该Activity以上的Activity实例都pop(弹出销毁)；这个模式可以用来退出整个应用</li>
-</ul>
-<ul>
-<li>singleInstance：会启动一个新的任务栈来管理Activity实例，并且该实力在整个系统中只有一个。无论从哪个任务栈中启动该Activity，都会是该Activity所在的任务栈转移到前台，从而使Activity显示。主要作用是为了在不同程序中共享一个Activity实例</li>
-</ul>
-<h4 id="Android系统的进程优先级"><a href="#Android系统的进程优先级" class="headerlink" title="Android系统的进程优先级"></a>Android系统的进程优先级</h4><ul>
-<li>前台进程 ：处于前台正在与用户进行交互的Activity，或者在前台绑定的Service</li>
-</ul>
-<ul>
-<li>可见进程 ：可见但不可交互的Activity</li>
-</ul>
-<ul>
-<li>服务进程 ：包含非前台service</li>
-</ul>
-<ul>
-<li>后台进程 ：只包含不可见Activity</li>
-</ul>
-<ul>
-<li>空进程 ：用于缓存，可被随时收回</li>
-</ul>
-<h4 id="进程的回收策略"><a href="#进程的回收策略" class="headerlink" title="进程的回收策略"></a>进程的回收策略</h4><ul>
-<li>Low memory killer机制：系统定时进行检查，通过基于OOM_ADJ的比较复杂的评分机制，对进程进行打分，然后将分数高的进程杀死并释放内存</li>
-</ul>
-<h4 id="进程保活策略"><a href="#进程保活策略" class="headerlink" title="进程保活策略"></a>进程保活策略</h4><ul>
-<li>1.前台service 2.双进程 3.一像素 4.jobService 6.WakeLock 7.开机广播 8.账号同步 9.native 10.其他(persistent, STATR_STICK，意义不大)</li>
-</ul>
-<h4 id="混淆的功能"><a href="#混淆的功能" class="headerlink" title="混淆的功能"></a>混淆的功能</h4><ul>
-<li><p>压缩，检查并移除代码中无用的类</p>
-</li>
-<li><p>优化，对字节码的优化，提高效率  </p>
-</li>
-<li><p>混淆，混淆定义的名称，避免反编译  </p>
-</li>
-<li><p>预检测，在java平台对处理后的代码再次进行检测</p>
-</li>
-</ul>
-<h4 id="为什么使用代码混淆"><a href="#为什么使用代码混淆" class="headerlink" title="为什么使用代码混淆"></a>为什么使用代码混淆</h4><ul>
-<li>java的源代码会被编译成字节码文件，存储在.class文件中，由于跨平台的需要，java的字节码中包含了很多源代码信息，诸如变量名、方法名等等。并且通过这些名称来访问变量和方法，这些变量很多是无意义的，但是又很容易反编译成java源代码，为了防止这种现象，我们就需要通过proguard来对java的字节码进行混淆</li>
-</ul>
+</code></pre><p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       
         <categories>
@@ -960,7 +1043,16 @@ public class Single {
 </ul>
 <p><br></p>
 <h3 id="6-组合模式"><a href="#6-组合模式" class="headerlink" title="6 组合模式"></a>6 组合模式</h3><ul>
-<li>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。需要建立Component（抽象构件），为叶子构件和容器构件对象声明接口，定义了访问及管理它的子构件的方法。 Leaf（叶子构件），它在组合结构中表示叶子节点对象，叶子节点没有子节点，Composite（容器构件）：它在组合结构中表示容器节点对象，容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点，它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法。</li>
+<li>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</li>
+</ul>
+<ul>
+<li>Component（抽象构件），为叶子构件和容器构件对象声明接口，定义了访问及管理它的子构件的方法</li>
+</ul>
+<ul>
+<li>Leaf（叶子构件），它在组合结构中表示叶子节点对象，叶子节点没有子节点</li>
+</ul>
+<ul>
+<li>Composite（容器构件）：它在组合结构中表示容器节点对象，容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点，它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法</li>
 </ul>
 <ul>
 <li>场景：维护和展示部分-整体关系的场景，如树形菜单、文件和文件夹管理。树形结构。</li>
@@ -991,10 +1083,19 @@ public class Single {
 </ul>
 <p><br></p>
 <h3 id="10-桥接模式"><a href="#10-桥接模式" class="headerlink" title="10 桥接模式"></a>10 桥接模式</h3><ul>
-<li><p>把抽象(Abstraction)与行为实现(Implementation)分离开来，从而可以保持各部分的独立性以及应对他们的功能扩展</p>
-</li>
-<li><p>Abstraction，抽象化角色，定义出该角色的行为，保存一个对实现化角色的引用，因此该角色一般是抽象类。Implementor，实现化角色，它是接口或者抽象类，定义角色必需的行为和属性。RefinedAbstraction，修正抽象化角色，通过继承持有实现化角色对抽象化角色进行修正。ConcreteImplementor，具体实现化角色，它实现接口或抽象类定义的方法和属性。</p>
-</li>
+<li>把抽象(Abstraction)与行为实现(Implementation)分离开来，从而可以保持各部分的独立性以及应对他们的功能扩展</li>
+</ul>
+<ul>
+<li>Abstraction，抽象化角色，定义出该角色的行为，保存一个对实现化角色的引用，因此该角色一般是抽象类</li>
+</ul>
+<ul>
+<li>Implementor，实现化角色，它是接口或者抽象类，定义角色必需的行为和属性。</li>
+</ul>
+<ul>
+<li>RefinedAbstraction，修正抽象化角色，通过继承持有实现化角色对抽象化角色进行修正。</li>
+</ul>
+<ul>
+<li>ConcreteImplementor，具体实现化角色，它实现接口或抽象类定义的方法和属性。</li>
 </ul>
 <ul>
 <li>桥接模式和策略模式的主要区别是，桥接模式中的abstraction和策略模式中的context不同，abstraction一般为抽象类，只负责持有实现着，并且定义基本的方法，因为桥接模式关注的是抽象和实现两方的可变性。策略模式中的strategy类一般都是无状态的，因为它只用来实现一个算法过程，而桥接模式中的Implementor就没有这种特性。</li>
@@ -1002,13 +1103,22 @@ public class Single {
 <p><br></p>
 <h3 id="11-过滤器模式"><a href="#11-过滤器模式" class="headerlink" title="11 过滤器模式"></a>11 过滤器模式</h3><ul>
 <li>过滤器模式（Filter Pattern）或标准模式（Criteria Pattern）是一种设计模式，这种模式允许开发人员使用不同的标准来过滤一组对象，通过逻辑运算以解耦的方式把它们连接起来</li>
-<li><br><h3 id="12-包装模式"><a href="#12-包装模式" class="headerlink" title="12 包装模式"></a>12 包装模式</h3></li>
 </ul>
-<ul>
+<p><br></p>
+<h3 id="12-包装模式"><a href="#12-包装模式" class="headerlink" title="12 包装模式"></a>12 包装模式</h3><ul>
 <li>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。</li>
 </ul>
 <ul>
-<li>Component为统一接口，也是装饰类和被装饰类的基本类型。ConcreteComponent为具体实现类，也是被装饰类，是个具有一些功能的完整的类。Decorator是装饰类，实现了Component接口的同时还在内部维护了一个ConcreteComponent的实例，通常采用默认实现。ConcreteDecorator是具体的装饰产品类，每一种装饰产品都具有特定的装饰效果。</li>
+<li>Component为统一接口，也是装饰类和被装饰类的基本类型</li>
+</ul>
+<ul>
+<li>ConcreteComponent为具体实现类，也是被装饰类，是个具有一些功能的完整的类</li>
+</ul>
+<ul>
+<li>Decorator是装饰类，实现了Component接口的同时还在内部维护了一个ConcreteComponent的实例，通常采用默认实现</li>
+</ul>
+<ul>
+<li>ConcreteDecorator是具体的装饰产品类，每一种装饰产品都具有特定的装饰效果</li>
 </ul>
 <p><br></p>
 <h3 id="13-代理模式"><a href="#13-代理模式" class="headerlink" title="13 代理模式"></a>13 代理模式</h3><ul>
@@ -1080,26 +1190,48 @@ public final class $Proxy0 extends Proxy implements Subject
 <li>请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令</li>
 </ul>
 <ul>
-<li>Receive 接收者角色，Command 命令角色，Invoker 调用者角色</li>
-</ul>
-<ul>
-<li>场景：本身不是一种很特殊或专门的设计模式，认为是命令的地方就可以采用命令模式</li>
+<li><p>Receive 接收者角色，Command 命令角色，Invoker 调用者角色</p>
+</li>
+<li><p>场景：本身不是一种很特殊或专门的设计模式，认为是命令的地方就可以采用命令模式</p>
+</li>
 </ul>
 <p><br></p>
 <h3 id="17-解释器模式"><a href="#17-解释器模式" class="headerlink" title="17 解释器模式"></a>17 解释器模式</h3><ul>
-<li>给定一门语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子</li>
-</ul>
-<ul>
-<li>AbstractExpression，抽象解释器。TerminalExpression，终结符表达式，实现与文法中的元素相关联的解释操作，通常一个解释器模式中只有一个终结符表达式，但有多个实例，对应不同的终结符。NonterminalExpression，非终结符表达式，文法中的每条规则对应于一个非终结表达式，非终结符表达式根据逻辑的复杂程度而增加，原则上每个文法规则都对应一个非终结符表达式。Context，环境角色。</li>
-</ul>
-<ul>
-<li>场景：重复发生的问题可以使用解释器模式，一个简单语法需要解释的场景</li>
+<li><p>给定一门语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子</p>
+</li>
+<li><p>AbstractExpression，抽象解释器。TerminalExpression，终结符表达式，实现与文法中的元素相关联的解释操作，通常一个解释器模式中只有一个终结符表达式，但有多个实例，对应不同的终结符</p>
+</li>
+<li><p>NonterminalExpression，非终结符表达式，文法中的每条规则对应于一个非终结表达式，非终结符表达式根据逻辑的复杂程度而增加，原则上每个文法规则都对应一个非终结符表达式</p>
+</li>
+<li><p>Context，环境角色</p>
+</li>
+<li><p>场景：重复发生的问题可以使用解释器模式，一个简单语法需要解释的场景</p>
+</li>
 </ul>
 <ul>
 <li>缺点：尽量不要在重要的模块中使用解释器模式，否则维护会是一个很大的问题，在项目中可以使用shell、JRuby、Groovy等脚本语言来代替解释器模式，弥补Java编译型语言的不足</li>
 </ul>
 <p><br></p>
-<h3 id="18-迭代器模式"><a href="#18-迭代器模式" class="headerlink" title="18 迭代器模式"></a>18 迭代器模式</h3>]]></content>
+<h3 id="18-迭代器模式"><a href="#18-迭代器模式" class="headerlink" title="18 迭代器模式"></a>18 迭代器模式</h3><ul>
+<li>它提供一种方法访问一个容器对象中各个元素，而又不需暴露该对象的内部细节</li>
+</ul>
+<ul>
+<li>Iterator抽象迭代器，负责定义访问和遍历元素的接口，有固定的3个方法：first()获得第一个元素，next()访问下一个元素，hasNext()是否已经访问到底部</li>
+</ul>
+<ul>
+<li>ConcreteIterator具体迭代器，具体迭代器角色要实现迭代器接口，完成容器元素的遍历。</li>
+</ul>
+<ul>
+<li>Aggregate抽象容器，容器角色负责提供创建具体迭代器角色的接口，必然提供一个类似createIterator()这样的方法，在Java中一般是iterator()方法</li>
+</ul>
+<ul>
+<li>ConcreteAggregate具体容器，具体容器实现容器接口定义的方法，创建出容纳迭代器的对象</li>
+</ul>
+<ul>
+<li>场景：访问一个聚合对象的内容而无须暴露它的内部表示。需要为聚合对象提供多种遍历方式。为遍历不同的聚合结构提供一个统一的接口</li>
+</ul>
+<p><br><br><strong>本篇未完</strong></p>
+]]></content>
       
         <categories>
             

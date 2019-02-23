@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="2月 20, 2019" />
-        <meta property="article:modified_time" content="2月 21, 2019" />
+        <meta property="article:modified_time" content="2月 22, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "Android 系统系列 进程优先级 & 保活",
     "url": "https://alberthumbert.github.io/2019/02/20/AOSProcessPrio/index.html",
     "datePublished": "2月 20, 2019",
-    "dateModified": "2月 21, 2019",
+    "dateModified": "2月 22, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优先级类别"><span class="post-toc-number">1.</span> <span class="post-toc-text">优先级类别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#系统中的优先级"><span class="post-toc-number">2.</span> <span class="post-toc-text">系统中的优先级</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程保活"><span class="post-toc-number">3.</span> <span class="post-toc-text">进程保活</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优先级类别"><span class="post-toc-number">1.</span> <span class="post-toc-text">优先级类别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#系统中的优先级"><span class="post-toc-number">2.</span> <span class="post-toc-text">系统中的优先级</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进程保活"><span class="post-toc-number">3.</span> <span class="post-toc-text">进程保活</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#前台service"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">前台service</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#双进程"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">双进程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#JobService"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">JobService</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#开机广播"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">开机广播</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#WakeLock"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">WakeLock</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1像素-Activity"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">1像素 Activity</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#账号同步"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">账号同步</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#native"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">native</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#其他"><span class="post-toc-number">3.9.</span> <span class="post-toc-text">其他</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -655,16 +655,16 @@
 </tbody>
 </table>
 <p><br></p>
-<h3 id="进程保活"><a href="#进程保活" class="headerlink" title="进程保活"></a>进程保活</h3><ul>
+<h3 id="进程保活"><a href="#进程保活" class="headerlink" title="进程保活"></a>进程保活</h3><h4 id="前台service"><a href="#前台service" class="headerlink" title="前台service"></a>前台service</h4><ul>
 <li>开启前台Service，即Notification，如果不想让通知被显示出来，一般可以使用这两种手段</li>
 </ul>
 <pre><code>API &lt; 18，启动前台Service时直接传入new Notification()
 
 API &gt;= 18，同时启动两个id相同的前台Service，然后再将后启动的Service做stop处理
-</code></pre><ul>
+</code></pre><h4 id="双进程"><a href="#双进程" class="headerlink" title="双进程"></a>双进程</h4><ul>
 <li>双进程保护，使用一个业务进程和一个守护进程，在双方的onStartCommand中绑定另一个进程，在onServiceDisconnected中同时对另一个进程使用startService和bindService。这样可以时其中一个服务即将被销毁被另一个进程拉起</li>
 </ul>
-<ul>
+<h4 id="JobService"><a href="#JobService" class="headerlink" title="JobService"></a>JobService</h4><ul>
 <li>使用JobService来实现应用退出后重启Service，即用JobService来轮询检查service是否被杀死，如果被杀死则重新启动，可以通过ActivityManager 的getRunningServices来判断service是否存活</li>
 </ul>
 <pre><code>/**
@@ -727,10 +727,10 @@ public class JobWakeUpService extends JobService{
         return isWork;
     }
 }
-</code></pre><ul>
+</code></pre><h4 id="开机广播"><a href="#开机广播" class="headerlink" title="开机广播"></a>开机广播</h4><ul>
 <li>使用广播保证Service在开机后自动启动，注册BOOT_COMPLETED事件的广播，在onReceive方法中启动service</li>
 </ul>
-<ul>
+<h4 id="WakeLock"><a href="#WakeLock" class="headerlink" title="WakeLock"></a>WakeLock</h4><ul>
 <li>使用WakeLock，当手机灭屏状态下保持一段时间后，系统会进入休眠，一些后台运行的任务就可能得不到正常执行，应用只要申请了WakeLock，那么在释放WakeLock之前，系统不会进入休眠，即使在灭屏的状态下，应用要执行的任务依旧不会被系统打断</li>
 </ul>
 <pre><code>owerManager pm = (PowerManager)mContext.getSystemService(
@@ -742,7 +742,7 @@ PowerManager.WakeLock wl = pm.newWakeLock(
 wl.acquire();//为了保证任务不被系统休眠打断，申请WakeLock
 // 开始我们的任务
 wl.release();//任务结束后释放，如果不写该句。则可以用wl.acquire(timeout)的方式把释放的工作交给系统。
-</code></pre><ul>
+</code></pre><h4 id="1像素-Activity"><a href="#1像素-Activity" class="headerlink" title="1像素 Activity"></a>1像素 Activity</h4><ul>
 <li>1像素Activity进程保活，其整个逻辑就是注册监听屏幕的广播，在手机屏幕黑屏时，启动一个1像素的Activity，在亮屏时关闭该Activity，该Activity需要是透明的</li>
 </ul>
 <pre><code>/**
@@ -765,13 +765,13 @@ public class OnePixelReceiver extends BroadcastReceiver {
         }
     }
 }
-</code></pre><ul>
+</code></pre><h4 id="账号同步"><a href="#账号同步" class="headerlink" title="账号同步"></a>账号同步</h4><ul>
 <li>账号同步，android系统里有一个账户系统，设置一个自己的账户，android会定期唤醒账户更新服务，我们可以自己设定同步的事件间隔。同步数据时会把已退出或完全结束的APP再次拉活起来，且发起更新的是系统，不会受到任何限制。缺点是用户会在系统设置的账户列表里面看到一个不认识的账户；同步的时间间隔是有限制，最短1分钟；某些手机比如note3需要手动设置账户；必须联网。账号同步的使用 <a href="https://blog.csdn.net/lyz_zyx/article/details/73571927" target="_blank" rel="external">详见</a></li>
 </ul>
-<ul>
+<h4 id="native"><a href="#native" class="headerlink" title="native"></a>native</h4><ul>
 <li>native保活，<a href="https://blog.csdn.net/xixinmu/article/details/78993463" target="_blank" rel="external">详见</a></li>
 </ul>
-<ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
 <li>还有一些参考价值不大的方法，比如android:persistent=“true”(需要系统签名)，或STATR_STICK，意义不大</li>
 </ul>
 <p><br><br><strong>本篇完</strong></p>
@@ -793,6 +793,14 @@ public class OnePixelReceiver extends BroadcastReceiver {
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2019/02/22/RecycleViewAnalysis/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -892,7 +900,7 @@ public class OnePixelReceiver extends BroadcastReceiver {
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
