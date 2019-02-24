@@ -1445,7 +1445,7 @@ StateListDrawable
 <li>从java的角度：可以通过jstack拿到该应用程序死锁的线程转储文件来分析，在Android中可以使用trace.txt文件</li>
 </ul>
 <p><br></p>
-<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><h3 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h3><ul>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><h3 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h3><ul>
 <li>单一职责原则: 一个类只负责一个功能领域中的相应职责，或者可以定义为：就一个类而言，应该只有一个引起它变化的原因</li>
 </ul>
 <ul>
@@ -1463,7 +1463,7 @@ StateListDrawable
 <ul>
 <li>迪米特法则:一个软件实体应当尽可能少地与其他实体发生相互作用</li>
 </ul>
-<h4 id="常见设计模式"><a href="#常见设计模式" class="headerlink" title="常见设计模式"></a>常见设计模式</h4><ul>
+<h3 id="常见设计模式"><a href="#常见设计模式" class="headerlink" title="常见设计模式"></a>常见设计模式</h3><ul>
 <li>都在<a href="https://tocreate.app/2019/02/04/JavaDesignPattern/" target="_blank" rel="external">这</a>了</li>
 </ul>
 <p><br><br><strong>本篇未完</strong></p>
