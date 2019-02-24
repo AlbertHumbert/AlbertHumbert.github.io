@@ -1090,6 +1090,7 @@ andResGuard {
       <url>/2019/02/04/Whatever/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
+<p><strong>贴了链接的问题，只是摘要，可能直接看会看不大懂，建议先浏览一下原文</strong></p>
 <p><br></p>
 <h2 id="c"><a href="#c" class="headerlink" title="c"></a>c</h2><h4 id="各基本类型占用字节数"><a href="#各基本类型占用字节数" class="headerlink" title="各基本类型占用字节数"></a>各基本类型占用字节数</h4><ul>
 <li>只记录32位和64位</li>
