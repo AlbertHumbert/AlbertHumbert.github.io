@@ -1353,7 +1353,30 @@ onReceiver执行时间超过10s;
 <h4 id="为什么使用代码混淆"><a href="#为什么使用代码混淆" class="headerlink" title="为什么使用代码混淆"></a>为什么使用代码混淆</h4><ul>
 <li>java的源代码会被编译成字节码文件，存储在.class文件中，由于跨平台的需要，java的字节码中包含了很多源代码信息，诸如变量名、方法名等等。并且通过这些名称来访问变量和方法，这些变量很多是无意义的，但是又很容易反编译成java源代码，为了防止这种现象，我们就需要通过proguard来对java的字节码进行混淆</li>
 </ul>
-<h3 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h3><h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
+<h3 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h3><h4 id="DP-DPI-PX"><a href="#DP-DPI-PX" class="headerlink" title="DP DPI PX"></a>DP DPI PX</h4><ul>
+<li>dpi，dots per inch, 每英寸包含像素个数，可以通过mContext.getResources().getDisplayMetrics()获得，dpi根据范围可以归类为下面几种</li>
+</ul>
+<pre><code> 0 dpi ~ 120dpi ldpi
+120dpi ~ 160dpi mdpi
+160dpi ~ 240dpi hdpi
+240dpi ~ 320dpi xhdpi
+320dpi ~ 480dpi xxhdpi
+480dpi ~ 640dpi xxxhdpi
+</code></pre><ul>
+<li>dp，dip，设备独立像素，根据不同的dpi范围，每个单位对应不同的像素个数，大小跟像素是无关的，就是说dp能够让同一数值在不同的分辨率展示出大致相同的尺寸大小，也就是看起来差不多一样大</li>
+</ul>
+<pre><code>ldpi   1dp=0.75px 
+mdpi   1dp=1.0px 
+hdpi   1dp=1.5px 
+xhdpi  1dp=2.0px 
+xxhdpi 1dp=3px 
+</code></pre><ul>
+<li>资源id来去引用图片时，Android会使用一些规则来去帮我们匹配最适合的图片。比如我的手机屏幕密度为xxhdpi，那么就在drawable-xxhdpi中寻找，如果最佳文件夹下没有这张图时，会优先去更高密度的文件夹寻找，如果所有更高密度的都没有就在drawable-nodpi文件夹找这张图，如果还没有，那么就依次去更低密度的文件夹下面找</li>
+</ul>
+<ul>
+<li>当系统被迫在更高或更低的dpi文件夹中寻找图片时，会相应缩小或放大图片，以适应本机的屏幕，这样一般会使显示效果更好，如果资源放错文件夹可能会导致图片模糊</li>
+</ul>
+<h4 id="bitmap-和-drawable-的区别"><a href="#bitmap-和-drawable-的区别" class="headerlink" title="bitmap 和 drawable 的区别"></a>bitmap 和 drawable 的区别</h4><pre><code>* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most
 * often you will deal with Drawable as the type of resource retrieved for
 * drawing things to the screen; the Drawable class provides a generic API for
 * dealing with an underlying visual resource that may take a variety of forms.
@@ -1408,6 +1431,25 @@ StateListDrawable
 银行家算法
 </code></pre><ul>
 <li>从java的角度：可以通过jstack拿到该应用程序死锁的线程转储文件来分析，在Android中可以使用trace.txt文件</li>
+</ul>
+<p><br></p>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><h3 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h3><ul>
+<li>单一职责原则: 一个类只负责一个功能领域中的相应职责，或者可以定义为：就一个类而言，应该只有一个引起它变化的原因</li>
+</ul>
+<ul>
+<li>开闭原则:一个软件实体应当对扩展开放，对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展</li>
+</ul>
+<ul>
+<li>里氏替换原则:所有引用基类（父类）的地方必须能透明地使用其子类的对象</li>
+</ul>
+<ul>
+<li>依赖倒置原则:抽象不应该依赖于细节，细节应当依赖于抽象。换言之，要针对接口编程，而不是针对实现编程。</li>
+</ul>
+<ul>
+<li>接口隔离原则:使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口</li>
+</ul>
+<ul>
+<li>迪米特法则:一个软件实体应当尽可能少地与其他实体发生相互作用</li>
 </ul>
 <p><br><br><strong>本篇未完</strong></p>
 ]]></content>
