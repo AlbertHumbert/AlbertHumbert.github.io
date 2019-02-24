@@ -1290,7 +1290,8 @@ andResGuard {
 <ul>
 <li>singleInstance：会启动一个新的任务栈来管理Activity实例，并且该实力在整个系统中只有一个。无论从哪个任务栈中启动该Activity，都会是该Activity所在的任务栈转移到前台，从而使Activity显示。主要作用是为了在不同程序中共享一个Activity实例</li>
 </ul>
-<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><h4 id="Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？"><a href="#Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？" class="headerlink" title="Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？"></a>Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？</h4><ul>
+<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><h4 id="Handler原理，Message如何存储在MessageQueen"><a href="#Handler原理，Message如何存储在MessageQueen" class="headerlink" title="Handler原理，Message如何存储在MessageQueen"></a>Handler原理，Message如何存储在MessageQueen</h4><p><strong><a href="https://tocreate.app/2019/01/21/AOSHandler/" target="_blank" rel="external">详见</a></strong></p>
+<ul>
 <li>Handler用于发送和处理消息(Message)和Runnable对象，使用Handler机制的线程都有一个消息队列(MessageQueue)，当Handler被创建时，它会通过ThreadLocal与当前线程的Looper绑定，Looper是真正执行消息循环的对象，负责维护一个MessageQueue且基于该MessageQueue 发送/取出处理 Message 和 Runnable给handler消费，MessageQueen的实现是一个链表，节点为Message对象</li>
 </ul>
 <h4 id="loop怎么做到不影响app"><a href="#loop怎么做到不影响app" class="headerlink" title="loop怎么做到不影响app"></a>loop怎么做到不影响app</h4><ul>
@@ -1302,7 +1303,21 @@ andResGuard {
 <ul>
 <li>可以的话使劲吹到这里。消息阻塞的实现是 Linux pipe/epoll，Linux的io接口，是为处理大批量句柄而作了改进的poll，公认为Linux2.6下性能最好的多路I/O就绪通知方法。<a href="https://blog.csdn.net/libaineu2004/article/details/70197825" target="_blank" rel="external">详见</a></li>
 </ul>
-<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><h4 id="Android系统的进程优先级"><a href="#Android系统的进程优先级" class="headerlink" title="Android系统的进程优先级"></a>Android系统的进程优先级</h4><ul>
+<h4 id="子线程实现Handler"><a href="#子线程实现Handler" class="headerlink" title="子线程实现Handler"></a>子线程实现Handler</h4><ul>
+<li><p>Looper.prepare，new handler，Looper.loop</p>
+</li>
+<li><p>实现时注意避免内存泄漏</p>
+</li>
+</ul>
+<h4 id="handler内存泄漏原因和解决"><a href="#handler内存泄漏原因和解决" class="headerlink" title="handler内存泄漏原因和解决"></a>handler内存泄漏原因和解决</h4><ul>
+<li>内部类或匿名内部类的方式创建Handler时，Handler对象会隐式地持有一个外部类对象的引用，在耗时任务时由于通过handler来处理回调，常常直接或间接导致Activity不能回收</li>
+</ul>
+<ul>
+<li>解决方法</li>
+</ul>
+<pre><code>将Handler声明为静态内部类
+Handler中添加对外部Activity的弱引用
+</code></pre><h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><h4 id="Android系统的进程优先级"><a href="#Android系统的进程优先级" class="headerlink" title="Android系统的进程优先级"></a>Android系统的进程优先级</h4><ul>
 <li>前台进程 ：处于前台正在与用户进行交互的Activity，或者在前台绑定的Service</li>
 </ul>
 <ul>
