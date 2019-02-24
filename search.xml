@@ -1290,6 +1290,18 @@ andResGuard {
 <ul>
 <li>singleInstance：会启动一个新的任务栈来管理Activity实例，并且该实力在整个系统中只有一个。无论从哪个任务栈中启动该Activity，都会是该Activity所在的任务栈转移到前台，从而使Activity显示。主要作用是为了在不同程序中共享一个Activity实例</li>
 </ul>
+<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><h4 id="Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？"><a href="#Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？" class="headerlink" title="Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？"></a>Handler原理？子线程如何实现Handler，Message如何存储在MessageQueen？</h4><ul>
+<li>Handler用于发送和处理消息(Message)和Runnable对象，使用Handler机制的线程都有一个消息队列(MessageQueue)，当Handler被创建时，它会通过ThreadLocal与当前线程的Looper绑定，Looper是真正执行消息循环的对象，负责维护一个MessageQueue且基于该MessageQueue 发送/取出处理 Message 和 Runnable给handler消费，MessageQueen的实现是一个链表，节点为Message对象</li>
+</ul>
+<h4 id="loop怎么做到不影响app"><a href="#loop怎么做到不影响app" class="headerlink" title="loop怎么做到不影响app"></a>loop怎么做到不影响app</h4><ul>
+<li>loop方法会不停调用next方法，这个方法的作用不是单纯的把消息从队列头里拿出来，整体效果应该是，待到第一个可处理的消息的处理时机返回这个消息，也就是说该方法会导致阻塞，使线程休眠，next简单来说两个效果，一个是查找第一个可处理的消息，另一个是阻塞到这个消息的处理时机</li>
+</ul>
+<ul>
+<li>next实现上是使用名为nativePollOnce的native方法，这个方法有两个参数，一个是MessageQueue的指针，一个是阻塞的时间，阻塞时间为-1时只能由外界唤醒。Looper调用next方法如果能得到消息就用SystemClock.uptimeMillis()计算需要阻塞多久，如果拿不到那就设为-1, 等enqueueMessage方法把新消息入队列时判断如果需要唤醒就调用nativeWake唤醒它</li>
+</ul>
+<ul>
+<li>可以的话使劲吹到这里。消息阻塞的实现是 Linux pipe/epoll，Linux的io接口，是为处理大批量句柄而作了改进的poll，公认为Linux2.6下性能最好的多路I/O就绪通知方法。<a href="https://blog.csdn.net/libaineu2004/article/details/70197825" target="_blank" rel="external">详见</a></li>
+</ul>
 <h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><h4 id="Android系统的进程优先级"><a href="#Android系统的进程优先级" class="headerlink" title="Android系统的进程优先级"></a>Android系统的进程优先级</h4><ul>
 <li>前台进程 ：处于前台正在与用户进行交互的Activity，或者在前台绑定的Service</li>
 </ul>
@@ -1450,6 +1462,9 @@ StateListDrawable
 </ul>
 <ul>
 <li>迪米特法则:一个软件实体应当尽可能少地与其他实体发生相互作用</li>
+</ul>
+<h4 id="常见设计模式"><a href="#常见设计模式" class="headerlink" title="常见设计模式"></a>常见设计模式</h4><ul>
+<li>都在<a href="https://tocreate.app/2019/02/04/JavaDesignPattern/" target="_blank" rel="external">这</a>了</li>
 </ul>
 <p><br><br><strong>本篇未完</strong></p>
 ]]></content>
