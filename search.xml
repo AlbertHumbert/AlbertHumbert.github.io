@@ -803,7 +803,7 @@ private ImageDownloader getDownloader() {
     }
 }
 </code></pre><p><br></p>
-<h4 id="缓存实现"><a href="#缓存实现" class="headerlink" title="缓存实现"></a>缓存实现</h4><p><br></p>
+<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p><br></p>
 <h5 id="DiskCache"><a href="#DiskCache" class="headerlink" title="DiskCache"></a>DiskCache</h5><p><strong><a href="https://blog.csdn.net/mcc_19920603/article/details/50600690" target="_blank" rel="external">参考</a></strong></p>
 <ul>
 <li>DiskCache的实现分三种 LimitedAgeDiskCache，UnlimitedDiskCache，LruDiskCache，它们都继承自BaseDiskCache</li>
@@ -819,10 +819,9 @@ private ImageDownloader getDownloader() {
 </ul>
 <p><br></p>
 <h5 id="MemoryCache"><a href="#MemoryCache" class="headerlink" title="MemoryCache"></a>MemoryCache</h5><ul>
-<li>实现有9种</li>
+<li>实现有8种</li>
 </ul>
 <pre><code>WeakMemoryCache
-LimitedMemoryCache
 LargestLimitedMemoryCache
 UsingFreqLimitedMemoryCache
 LRULimitedMemoryCache
@@ -830,7 +829,32 @@ FIFOLimitedMemoryCache
 LruMemoryCache
 LimitedAgeMemoryCache
 FuzzyKeyMemoryCache
-</code></pre><p><br><br><strong>本篇未完</strong></p>
+</code></pre><ul>
+<li>WeakMemoryCache，以WeakReference\<bitmap\>做为缓存 value 的内存缓存，实现了BaseMemoryCache。实现了BaseMemoryCache的createReference(Bitmap value)函数，直接返回一个new WeakReference\<bitmap\>(value)做为缓存value</bitmap\></bitmap\></li>
+</ul>
+<ul>
+<li>LruMemoryCache，限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素，实现了MemoryCache。LRU(Least Recently Used) 为最近最少使用算法。以new LinkedHashMap\<string, bitmap\="">(0, 0.75f, true)作为缓存池</string,></li>
+</ul>
+<ul>
+<li>FuzzyKeyMemoryCache，可以将某些原本不同的 key 看做相等，在 put 时删除这些相等的 key。使用包装模式，为MemoryCache添加了一个特性。在 put() 时利用Comparator遍历判断判断如果 key 在缓存中已有，则删除之前的元素</li>
+</ul>
+<ul>
+<li>LimitedMemoryCache，限制总字节大小的内存缓存，继承自BaseMemoryCache的抽象类。会在 put() 函数中判断总体大小是否超出了上限，是则循环删除缓存对象直到小于上限。删除顺序由抽象函数removeNext决定，getSize表示每个bitmap大小，包括四个实现类</li>
+</ul>
+<pre><code>FIFOLimitedMemoryCache: 限制总字节大小，缓存满时优先删除先进入的元素
+
+LRULimitedMemoryCache:  限制总字节大小，缓存满时优先删除最近最少使用的元素
+通过new LinkedHashMap&lt;String, Bitmap&gt;(10, 1.1f, true)作为缓存池
+LinkedHashMap 第三个参数表示是否需要根据访问顺序(accessOrder)排序
+true 表示根据accessOrder排序，最近访问的跟最新加入的一样放到最后面
+false 表示根据插入顺序排
+
+LargestLimitedMemoryCache：限制总字节大小，会在缓存满时优先删除 size 最大的元素
+实现了LimitedMemoryCache缓存removeNext()函数，总是返回当前缓存中 size 最大的元素
+
+UsingFreqLimitedMemoryCache：限制总字节大小，会在缓存满时优先删除使用次数最少的元素
+实现了LimitedMemoryCache缓存removeNext()函数，总是返回当前缓存中使用次数最少的元素。
+</code></pre><p><br><br><strong>本篇完，另外看到一篇比较使用的零碎问题整理，<a href="https://www.jianshu.com/p/53d267d782f9" target="_blank" rel="external">详见</a></strong></p>
 ]]></content>
       
         <categories>
