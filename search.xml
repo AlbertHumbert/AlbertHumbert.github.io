@@ -1386,7 +1386,30 @@ ClipDrawable
 LayerDrawable
 LevelListDrawable
 StateListDrawable
-</code></pre><p><br><br><strong>本篇未完</strong></p>
+</code></pre><p><br></p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="死锁是什么，怎么产生，如何避免"><a href="#死锁是什么，怎么产生，如何避免" class="headerlink" title="死锁是什么，怎么产生，如何避免"></a>死锁是什么，怎么产生，如何避免</h3><ul>
+<li><p>定义：A.S Tanenbaum的定义为：如果一个进程集合中的每一个进程都在等待只能由本集合中的其他进程才能引发的事件，那么该进程的死锁的。</p>
+</li>
+<li><p>产生条件：</p>
+</li>
+</ul>
+<pre><code>1.互斥：资源被一个进程占用时，其他进程不能使用
+2.请求和保持：资源请求者在请求其他资源时可以继续占用原有资源
+3.不可抢占：资源请求者不能强制从占有者中夺取资源，只能等待其主动释放
+4.环路等待：系统中必然有一条或两条以上的进程组成等待关系的环路
+</code></pre><ul>
+<li>产生原因：（1）竞争系统资源 （2）进程的推进顺序不当。在java的情况中可能是一个线程持有锁L1并且申请获得锁L2，另一个线程T2持有锁L2并且申请获得锁L1，不过实际情况会更复杂，往往涉及多个线程、及相应的同步块</li>
+</ul>
+<ul>
+<li>避免死锁，从操作系统的角度：</li>
+</ul>
+<pre><code>资源有序分配法：给每种资源编号，进程获取资源时需按编号递增获取递减释放
+
+银行家算法
+</code></pre><ul>
+<li>从java的角度：可以通过jstack拿到该应用程序死锁的线程转储文件来分析，在Android中可以使用trace.txt文件</li>
+</ul>
+<p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       
         <categories>
