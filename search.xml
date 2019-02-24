@@ -1335,7 +1335,8 @@ Handler中添加对外部Activity的弱引用
 <h4 id="进程的回收策略"><a href="#进程的回收策略" class="headerlink" title="进程的回收策略"></a>进程的回收策略</h4><ul>
 <li>Low memory killer机制：系统定时进行检查，通过基于OOM_ADJ的比较复杂的评分机制，对进程进行打分，然后将分数高的进程杀死并释放内存</li>
 </ul>
-<h4 id="进程保活策略"><a href="#进程保活策略" class="headerlink" title="进程保活策略"></a>进程保活策略</h4><ul>
+<h4 id="进程保活策略"><a href="#进程保活策略" class="headerlink" title="进程保活策略"></a>进程保活策略</h4><p><strong><a href="https://tocreate.app/2019/02/20/AOSProcessPrio/" target="_blank" rel="external">详见</a></strong></p>
+<ul>
 <li>1.前台service 2.双进程 3.一像素 4.jobService 6.WakeLock 7.开机广播 8.账号同步 9.native 10.其他(persistent, STATR_STICK，意义不大)</li>
 </ul>
 <h4 id="ANR原理-及-解决手段"><a href="#ANR原理-及-解决手段" class="headerlink" title="ANR原理 及 解决手段"></a>ANR原理 及 解决手段</h4><ul>
