@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="12月 02, 2018" />
-        <meta property="article:modified_time" content="12月 04, 2018" />
+        <meta property="article:modified_time" content="3月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 8 - 系统调用",
     "url": "https://alberthumbert.github.io/2018/12/02/OSSysCall/index.html",
     "datePublished": "12月 02, 2018",
-    "dateModified": "12月 04, 2018",
+    "dateModified": "3月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -503,7 +503,7 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2019/03/02/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/11/29/OSInterrupts/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>个人觉得系统调用大部分的内容已经被中断的知识覆盖了，剩下的东西都是编程细节，所以不做深入</strong></p>
 <p><br></p>
@@ -522,20 +522,20 @@
 <h5 id="minix"><a href="#minix" class="headerlink" title="minix"></a>minix</h5><ul>
 <li>minix的系统调用使用的软中断指令为 int 33，但这个中断号在 minix 是给 ipc（进程间通信）使用的，本质上来说 minix 的系统调用就是 ipc 的一种实际用途，只是将需要执行的任务以消息的形式发往指定的进程，因此在内核中其实只存在用于进程通信的系统调用，微内核非常喜欢这种能复用就复用的设计</li>
 </ul>
-<pre><code> /* Now check if the call is known and try to perform the request. The only
+<pre><code> /\* Now check if the call is known and try to perform the request. The only
    * system calls that exist in MINIX are sending and receiving messages.
    *   - SENDREC: combines SEND and RECEIVE in a single system call
    *   - SEND:    sender blocks until its message has been delivered
    *   - RECEIVE: receiver blocks until an acceptable message has arrived
    *   - NOTIFY:  asynchronous call; deliver notification or mark pending
    *   - SENDA:   list of asynchronous send requests
-   */
-  switch(call_nr) {
-      case SENDREC:
-      case SEND:            
-      case RECEIVE:            
-      case NOTIFY:
-      case SENDNB:
+   \*/
+  switch(call\_nr) {
+    case SENDREC:
+    case SEND:          
+    case RECEIVE:           
+    case NOTIFY:
+    case SENDNB:
 //...
 </code></pre><ul>
 <li>minix 上系统调用的实现，见<a href="https://www.cnblogs.com/Ricezhang/articles/MINIX.html" target="_blank" rel="external">文章</a></li>
@@ -551,30 +551,30 @@
 <ul>
 <li>linux 的系统调用则复杂一点调用使用的软中断指令为 int 80h，unistd_32.h 中定义了 300 多个系统调用</li>
 </ul>
-<pre><code>//linux-2.6/arch/sh/include/uapi/asm/unistd_32.h
+<pre><code>//linux-2.6/arch/sh/include/uapi/asm/unistd\_32.h
 //...
-#define __NR_userfaultfd    377
-#define __NR_membarrier        378
-#define __NR_mlock2        379
-#define __NR_copy_file_range    380
-#define __NR_preadv2        381
-#define __NR_pwritev2        382
+# define \_\_NR\_userfaultfd    377
+# define \_\_NR\_membarrier     378
+# define \_\_NR\_mlock2     379
+# define \_\_NR\_copy\_file\_range    380
+# define \_\_NR\_preadv2        381
+# define \_\_NR\_pwritev2       382
 
-#define NR_syscalls 383
+# define NR\_syscalls 383
 </code></pre><ul>
 <li>这些系统调用号需要添加的一个系统调用表当中</li>
 </ul>
-<pre><code># linux-2.6/arch/alpha/kernel/systbls.S    
+<pre><code># linux-2.6/arch/alpha/kernel/systbls.S
 .data
     .align 3
     .globl sys_call_table
-sys_call_table:
-    .quad alpha_ni_syscall            /* 0 */
+sys\_call\_table:
+    .quad alpha_ni_syscall          /* 0 */
     .quad sys_exit
     .quad alpha_fork
     .quad sys_read
     .quad sys_write
-    .quad alpha_ni_syscall            /* 5 */
+    .quad alpha_ni_syscall          /* 5 */
 # ...
 </code></pre><ul>
 <li>中断处理程序会根据系统调用号在系统调用表中查找系统调用函数，然后执行</li>
@@ -592,119 +592,119 @@ sys_call_table:
 <ul>
 <li>ANSI C 头文件</li>
 </ul>
-<pre><code>&lt;assert.h&gt;      Contains the assert macro, used to assist with detecting logical errors and other types of bug in debugging versions of a program.
-&lt;complex.h&gt; C99 A set of functions for manipulating complex numbers.
-&lt;ctype.h&gt;       Defines set of functions used to classify characters by their types or to convert between upper and lower case in a way that is independent of the used character set (typically ASCII or one of its extensions, although implementations utilizing EBCDIC are also known).
-&lt;errno.h&gt;       For testing error codes reported by library functions.
-&lt;fenv.h&gt;    C99 Defines a set of functions for controlling floating-point environment.
-&lt;float.h&gt;       Defines macro constants specifying the implementation-specific properties of the floating-point library.
-&lt;inttypes.h&gt;    C99 Defines exact width integer types.
-&lt;iso646.h&gt;  NA1 Defines several macros that implement alternative ways to express several standard tokens. For programming in ISO 646 variant character sets.
-&lt;limits.h&gt;      Defines macro constants specifying the implementation-specific properties of the integer types.
-&lt;locale.h&gt;      Defines localization functions.
-&lt;math.h&gt;        Defines common mathematical functions.
-&lt;setjmp.h&gt;      Declares the macros setjmp and longjmp, which are used for non-local exits.
-&lt;signal.h&gt;      Defines signal handling functions.
-&lt;stdalign.h&gt;    C11 For querying and specifying the alignment of objects.
-&lt;stdarg.h&gt;      For accessing a varying number of arguments passed to functions.
-&lt;stdatomic.h&gt;   C11 For atomic operations on data shared between threads.
-&lt;stdbool.h&gt; C99 Defines a boolean data type.
-&lt;stddef.h&gt;      Defines several useful types and macros.
-&lt;stdint.h&gt;  C99 Defines exact width integer types.
-&lt;stdio.h&gt;       Defines core input and output functions
-&lt;stdlib.h&gt;      Defines numeric conversion functions, pseudo-random numbers generation functions, memory allocation, process control functions
-&lt;stdnoreturn.h&gt; C11 For specifying non-returning functions.
-&lt;string.h&gt;      Defines string handling functions.
-&lt;tgmath.h&gt;  C99 Defines type-generic mathematical functions.
-&lt;threads.h&gt; C11 Defines functions for managing multiple Threads as well as mutexes and condition variables.
-&lt;time.h&gt;        Defines date and time handling functions
-&lt;uchar.h&gt;   C11 Types and functions for manipulating Unicode characters.
-&lt;wchar.h&gt;   NA1 Defines wide string handling functions.
-&lt;wctype.h&gt;  NA1 Defines set of functions used to classify wide characters by their types or to convert between upper and lower case
+<pre><code>\&lt;assert.h\&gt;      Contains the assert macro, used to assist with detecting logical errors and other types of bug in debugging versions of a program.
+\&lt;complex.h\&gt; C99 A set of functions for manipulating complex numbers.
+\&lt;ctype.h\&gt;       Defines set of functions used to classify characters by their types or to convert between upper and lower case in a way that is independent of the used character set (typically ASCII or one of its extensions, although implementations utilizing EBCDIC are also known).
+\&lt;errno.h\&gt;       For testing error codes reported by library functions.
+\&lt;fenv.h\&gt;    C99 Defines a set of functions for controlling floating-point environment.
+\&lt;float.h\&gt;       Defines macro constants specifying the implementation-specific properties of the floating-point library.
+\&lt;inttypes.h\&gt;    C99 Defines exact width integer types.
+\&lt;iso646.h\&gt;  NA1 Defines several macros that implement alternative ways to express several standard tokens. For programming in ISO 646 variant character sets.
+\&lt;limits.h\&gt;      Defines macro constants specifying the implementation-specific properties of the integer types.
+\&lt;locale.h\&gt;      Defines localization functions.
+\&lt;math.h\&gt;        Defines common mathematical functions.
+\&lt;setjmp.h\&gt;      Declares the macros setjmp and longjmp, which are used for non-local exits.
+\&lt;signal.h\&gt;      Defines signal handling functions.
+\&lt;stdalign.h\&gt;    C11 For querying and specifying the alignment of objects.
+\&lt;stdarg.h\&gt;      For accessing a varying number of arguments passed to functions.
+\&lt;stdatomic.h\&gt;   C11 For atomic operations on data shared between threads.
+\&lt;stdbool.h\&gt; C99 Defines a boolean data type.
+\&lt;stddef.h\&gt;      Defines several useful types and macros.
+\&lt;stdint.h\&gt;  C99 Defines exact width integer types.
+\&lt;stdio.h\&gt;       Defines core input and output functions
+\&lt;stdlib.h\&gt;      Defines numeric conversion functions, pseudo-random numbers generation functions, memory allocation, process control functions
+\&lt;stdnoreturn.h\&gt; C11 For specifying non-returning functions.
+\&lt;string.h\&gt;      Defines string handling functions.
+\&lt;tgmath.h\&gt;  C99 Defines type-generic mathematical functions.
+\&lt;threads.h\&gt; C11 Defines functions for managing multiple Threads as well as mutexes and condition variables.
+\&lt;time.h\&gt;        Defines date and time handling functions
+\&lt;uchar.h\&gt;   C11 Types and functions for manipulating Unicode characters.
+\&lt;wchar.h\&gt;   NA1 Defines wide string handling functions.
+\&lt;wctype.h\&gt;  NA1 Defines set of functions used to classify wide characters by their types or to convert between upper and lower case
 </code></pre><ul>
 <li>posix 头文件（不包括ANSI C部分）</li>
 </ul>
-<pre><code>&lt;aio.h&gt; Asynchronous input and output   Issue 5
-&lt;arpa/inet.h&gt;   Functions for manipulating numeric IP addresses (part of Berkeley sockets)  Issue 6
-&lt;assert.h&gt;  Verify assumptions   ??
-&lt;complex.h&gt; Complex Arithmetic, see C mathematical functions     ??
-&lt;cpio.h&gt;    Magic numbers for the cpio archive format   Issue 3
-&lt;dirent.h&gt;  Allows the opening and listing of directories   Issue 2
-&lt;dlfcn.h&gt;   Dynamic linking Issue 5
-&lt;errno.h&gt;   Retrieving Error Number  ??
-&lt;fcntl.h&gt;   File opening, locking and other operations  Issue 1
-&lt;fenv.h&gt;    Floating-Point Environment (FPE), see C mathematical functions   ??
-&lt;float.h&gt;   Floating-point types, see C data types   ??
-&lt;fmtmsg.h&gt;  Message display structures  Issue 4
-&lt;fnmatch.h&gt; Filename matching   Issue 4
-&lt;ftw.h&gt; File tree traversal Issue 1
-&lt;glob.h&gt;    Pathname &quot;globbing&quot; (pattern-matching)  Issue 4
-&lt;grp.h&gt; User group information and control  Issue 1
-&lt;iconv.h&gt;   Codeset conversion facility Issue 4
-&lt;inttypes.h&gt;    Fixed sized integer types, see C data types  ??
-&lt;iso646.h&gt;  Alternative spellings, see C alternative tokens  ??
-&lt;langinfo.h&gt;    Language information constants – builds on C localization functions Issue 2
-&lt;libgen.h&gt;  Pathname manipulation   Issue 4
-&lt;limits.h&gt;  Implementation-defined constants, see C data types   ??
-&lt;locale.h&gt;  Category macros, see C localization functions    ??
-&lt;math.h&gt;    Mathematical declarations, see C mathematical functions  ??
-&lt;monetary.h&gt;    String formatting of monetary units Issue 4
-&lt;mqueue.h&gt;  Message queue   Issue 5
-&lt;ndbm.h&gt;    NDBM database operations    Issue 4
-&lt;net/if.h&gt;  Listing of local network interfaces Issue 6
-&lt;netdb.h&gt;   Translating protocol and host names into numeric addresses (part of Berkeley sockets)   Issue 6
-&lt;netinet/in.h&gt;  Defines Internet protocol and address family (part of Berkeley sockets) Issue 6
-&lt;netinet/tcp.h&gt; Additional TCP control options (part of Berkeley sockets)   Issue 6
-&lt;nl_types.h&gt;    Localization message catalog functions  Issue 2
-&lt;poll.h&gt;    Asynchronous file descriptor multiplexing   Issue 4
-&lt;pthread.h&gt; Defines an API for creating and manipulating POSIX threads  Issue 5
-&lt;pwd.h&gt; passwd (user information) access and control    Issue 1
-&lt;regex.h&gt;   Regular expression matching Issue 4
-&lt;sched.h&gt;   Execution scheduling    Issue 5
-&lt;search.h&gt;  Search tables   Issue 1
-&lt;semaphore.h&gt;   POSIX semaphores    Issue 5
-&lt;setjmp.h&gt;  Stack environment declarations   ??
-&lt;signal.h&gt;  Signals, see C signal handling   ??
-&lt;spawn.h&gt;   Process spawning    Issue 6
-&lt;stdarg.h&gt;  Handle Variable Argument List    ??
-&lt;stdbool.h&gt; Boolean type and values, see C data types    ??
-&lt;stddef.h&gt;  Standard type definitions, see C data types  ??
-&lt;stdint.h&gt;  Integer types, see C data types  ??
-&lt;stdio.h&gt;   Standard buffered input/output, see C file input/output  ??
-&lt;stdlib.h&gt;  Standard library definitions, see C standard library     ??
-&lt;string.h&gt;  Several String Operations, see C string handling     ??
-&lt;strings.h&gt; Case-insensitive string comparisons Issue 4
-&lt;stropts.h&gt; Stream manipulation, including ioctl    Issue 4
-&lt;sys/ipc.h&gt; Inter-process communication (IPC)   Issue 2
-&lt;sys/mman.h&gt;    Memory management, including POSIX shared memory and memory mapped files    Issue 4
-&lt;sys/msg.h&gt; POSIX message queues    Issue 2
-&lt;sys/resource.h&gt;    Resource usage, priorities, and limiting    Issue 4
-&lt;sys/select.h&gt;  Synchronous I/O multiplexing    Issue 6
-&lt;sys/sem.h&gt; XSI (SysV style) semaphores Issue 2
-&lt;sys/shm.h&gt; XSI (SysV style) shared memory  Issue 2
-&lt;sys/socket.h&gt;  Main Berkley sockets header Issue 6
-&lt;sys/stat.h&gt;    File information (stat et al.)  Issue 1
-&lt;sys/statvfs.h&gt; File System information Issue 4
-&lt;sys/time.h&gt;    Time and date functions and structures  Issue 4
-&lt;sys/times.h&gt;   File access and modification times  Issue 1
-&lt;sys/types.h&gt;   Various data types used elsewhere   Issue 1
-&lt;sys/uio.h&gt; Vectored I/O operations Issue 4
-&lt;sys/un.h&gt;  Unix domain sockets Issue 6
-&lt;sys/utsname.h&gt; Operating system information, including uname   Issue 1
-&lt;sys/wait.h&gt;    Status of terminated child processes (see wait) Issue 3
-&lt;syslog.h&gt;  System error logging    Issue 4
-&lt;tar.h&gt; Magic numbers for the tar archive format    Issue 3
-&lt;termios.h&gt; Allows terminal I/O interfaces  Issue 3
-&lt;tgmath.h&gt;  Type-Generic Macros, see C mathematical functions    ??
-&lt;time.h&gt;    Type-Generic Macros, see C date and time functions   ??
-&lt;trace.h&gt;   Tracing of runtime behavior (DEPRECATED)    Issue 6
-&lt;ulimit.h&gt;  Resource limiting (DEPRECATED in favor of &lt;sys/resource.h&gt;) Issue 1
-&lt;unistd.h&gt;  Various essential POSIX functions and constants Issue 1
-&lt;utime.h&gt;   inode access and modification times Issue 3
-&lt;utmpx.h&gt;   User accounting database functions  Issue 4
-&lt;wchar.h&gt;   Wide-Character Handling, see C string handling   ??
-&lt;wctype.h&gt;  Wide-Character Classification and Mapping Utilities, see C character classification  ??
-&lt;wordexp.h&gt; Word-expansion like the shell would perform
+<pre><code>\&lt;aio.h\&gt; Asynchronous input and output   Issue 5
+\&lt;arpa/inet.h\&gt;   Functions for manipulating numeric IP addresses (part of Berkeley sockets)  Issue 6
+\&lt;assert.h\&gt;  Verify assumptions   ??
+\&lt;complex.h\&gt; Complex Arithmetic, see C mathematical functions     ??
+\&lt;cpio.h\&gt;    Magic numbers for the cpio archive format   Issue 3
+\&lt;dirent.h\&gt;  Allows the opening and listing of directories   Issue 2
+\&lt;dlfcn.h\&gt;   Dynamic linking Issue 5
+\&lt;errno.h\&gt;   Retrieving Error Number  ??
+\&lt;fcntl.h\&gt;   File opening, locking and other operations  Issue 1
+\&lt;fenv.h\&gt;    Floating-Point Environment (FPE), see C mathematical functions   ??
+\&lt;float.h\&gt;   Floating-point types, see C data types   ??
+\&lt;fmtmsg.h\&gt;  Message display structures  Issue 4
+\&lt;fnmatch.h\&gt; Filename matching   Issue 4
+\&lt;ftw.h\&gt; File tree traversal Issue 1
+\&lt;glob.h\&gt;    Pathname &quot;globbing&quot; (pattern-matching)  Issue 4
+\&lt;grp.h\&gt; User group information and control  Issue 1
+\&lt;iconv.h\&gt;   Codeset conversion facility Issue 4
+\&lt;inttypes.h\&gt;    Fixed sized integer types, see C data types  ??
+\&lt;iso646.h\&gt;  Alternative spellings, see C alternative tokens  ??
+\&lt;langinfo.h\&gt;    Language information constants – builds on C localization functions Issue 2
+\&lt;libgen.h\&gt;  Pathname manipulation   Issue 4
+\&lt;limits.h\&gt;  Implementation-defined constants, see C data types   ??
+\&lt;locale.h\&gt;  Category macros, see C localization functions    ??
+\&lt;math.h\&gt;    Mathematical declarations, see C mathematical functions  ??
+\&lt;monetary.h\&gt;    String formatting of monetary units Issue 4
+\&lt;mqueue.h\&gt;  Message queue   Issue 5
+\&lt;ndbm.h\&gt;    NDBM database operations    Issue 4
+\&lt;net/if.h\&gt;  Listing of local network interfaces Issue 6
+\&lt;netdb.h\&gt;   Translating protocol and host names into numeric addresses (part of Berkeley sockets)   Issue 6
+\&lt;netinet/in.h\&gt;  Defines Internet protocol and address family (part of Berkeley sockets) Issue 6
+\&lt;netinet/tcp.h\&gt; Additional TCP control options (part of Berkeley sockets)   Issue 6
+\&lt;nl\_types.h\&gt;    Localization message catalog functions  Issue 2
+\&lt;poll.h\&gt;    Asynchronous file descriptor multiplexing   Issue 4
+\&lt;pthread.h\&gt; Defines an API for creating and manipulating POSIX threads  Issue 5
+\&lt;pwd.h\&gt; passwd (user information) access and control    Issue 1
+\&lt;regex.h\&gt;   Regular expression matching Issue 4
+\&lt;sched.h\&gt;   Execution scheduling    Issue 5
+\&lt;search.h\&gt;  Search tables   Issue 1
+\&lt;semaphore.h\&gt;   POSIX semaphores    Issue 5
+\&lt;setjmp.h\&gt;  Stack environment declarations   ??
+\&lt;signal.h\&gt;  Signals, see C signal handling   ??
+\&lt;spawn.h\&gt;   Process spawning    Issue 6
+\&lt;stdarg.h\&gt;  Handle Variable Argument List    ??
+\&lt;stdbool.h\&gt; Boolean type and values, see C data types    ??
+\&lt;stddef.h\&gt;  Standard type definitions, see C data types  ??
+\&lt;stdint.h\&gt;  Integer types, see C data types  ??
+\&lt;stdio.h\&gt;   Standard buffered input/output, see C file input/output  ??
+\&lt;stdlib.h\&gt;  Standard library definitions, see C standard library     ??
+\&lt;string.h\&gt;  Several String Operations, see C string handling     ??
+\&lt;strings.h\&gt; Case-insensitive string comparisons Issue 4
+\&lt;stropts.h\&gt; Stream manipulation, including ioctl    Issue 4
+\&lt;sys/ipc.h\&gt; Inter-process communication (IPC)   Issue 2
+\&lt;sys/mman.h\&gt;    Memory management, including POSIX shared memory and memory mapped files    Issue 4
+\&lt;sys/msg.h\&gt; POSIX message queues    Issue 2
+\&lt;sys/resource.h\&gt;    Resource usage, priorities, and limiting    Issue 4
+\&lt;sys/select.h\&gt;  Synchronous I/O multiplexing    Issue 6
+\&lt;sys/sem.h\&gt; XSI (SysV style) semaphores Issue 2
+\&lt;sys/shm.h\&gt; XSI (SysV style) shared memory  Issue 2
+\&lt;sys/socket.h\&gt;  Main Berkley sockets header Issue 6
+\&lt;sys/stat.h\&gt;    File information (stat et al.)  Issue 1
+\&lt;sys/statvfs.h\&gt; File System information Issue 4
+\&lt;sys/time.h\&gt;    Time and date functions and structures  Issue 4
+\&lt;sys/times.h\&gt;   File access and modification times  Issue 1
+\&lt;sys/types.h\&gt;   Various data types used elsewhere   Issue 1
+\&lt;sys/uio.h\&gt; Vectored I/O operations Issue 4
+\&lt;sys/un.h\&gt;  Unix domain sockets Issue 6
+\&lt;sys/utsname.h\&gt; Operating system information, including uname   Issue 1
+\&lt;sys/wait.h\&gt;    Status of terminated child processes (see wait) Issue 3
+\&lt;syslog.h\&gt;  System error logging    Issue 4
+\&lt;tar.h\&gt; Magic numbers for the tar archive format    Issue 3
+\&lt;termios.h\&gt; Allows terminal I/O interfaces  Issue 3
+\&lt;tgmath.h\&gt;  Type-Generic Macros, see C mathematical functions    ??
+\&lt;time.h\&gt;    Type-Generic Macros, see C date and time functions   ??
+\&lt;trace.h\&gt;   Tracing of runtime behavior (DEPRECATED)    Issue 6
+\&lt;ulimit.h\&gt;  Resource limiting (DEPRECATED in favor of \&lt;sys/resource.h\&gt;) Issue 1
+\&lt;unistd.h\&gt;  Various essential POSIX functions and constants Issue 1
+\&lt;utime.h\&gt;   inode access and modification times Issue 3
+\&lt;utmpx.h\&gt;   User accounting database functions  Issue 4
+\&lt;wchar.h\&gt;   Wide-Character Handling, see C string handling   ??
+\&lt;wctype.h\&gt;  Wide-Character Classification and Mapping Utilities, see C character classification  ??
+\&lt;wordexp.h\&gt; Word-expansion like the shell would perform
 </code></pre><p><strong>本篇完</strong></p>
 
     
@@ -725,7 +725,7 @@ sys_call_table:
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/12/02/OSProcess/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/12/02/OperatingSystem/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -831,7 +831,7 @@ sys_call_table:
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         

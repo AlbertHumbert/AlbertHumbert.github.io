@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="11月 08, 2018" />
-        <meta property="article:modified_time" content="11月 09, 2018" />
+        <meta property="article:modified_time" content="3月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 6 - 构建 GDT & 进入保护模式",
     "url": "https://alberthumbert.github.io/2018/11/08/OSGdtCreate/index.html",
     "datePublished": "11月 08, 2018",
-    "dateModified": "11月 09, 2018",
+    "dateModified": "3月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -503,7 +503,7 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2019/03/02/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/31/OSGdt/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>本文中的所有代码可以在 <a href="https://github.com/AlbertHumbert/Chaos" target="_blank" rel="external">https://github.com/AlbertHumbert/Chaos</a> 获取</strong><br><strong>对应 commit版本为 7faf1e9cbd8026f57cc207100b481708c2b74d65</strong></p>
 <p><strong>本文源码使用是 GAS 汇编，涉及较多intel cpu的特性</strong></p>
@@ -516,7 +516,7 @@
 <li>程序: 实模式只能运行 16 位代码，保护模式可以运行 32 位代码</li>
 </ul>
 <ul>
-<li>寻址能力: 实模式，80286 最高为 1mb，保护模式，允许使用 4g 内存 </li>
+<li>寻址能力: 实模式，80286 最高为 1mb，保护模式，允许使用 4g 内存</li>
 </ul>
 <ul>
 <li>寻址模式：实模式，20位基地址（16位左移4位），16位偏移，保护模式，选择符16位，32位段内偏移</li>
@@ -540,22 +540,22 @@
 <h5 id="构建描述符"><a href="#构建描述符" class="headerlink" title="构建描述符"></a>构建描述符</h5><ul>
 <li>进入保护模式的前提是必须要有一个 gdt（不然保护模式的寻址模式怎么发挥作用呢），下面这些宏简化了描述符的定义操作，描述符的结构之前的文章已经讲过了</li>
 </ul>
-<pre><code>/* Application segment type bits */
-#define STA_X       0x8     // Executable segment
-#define STA_E       0x4     // Expand down (non-executable segments)
-#define STA_C       0x4     // Conforming code segment (executable only)
-#define STA_W       0x2     // Writeable (non-executable segments)
-#define STA_R       0x2     // Readable (executable segments)
-#define STA_A       0x1     // Accessed
+<pre><code>/\* Application segment type bits \*/
+# define STA\_X       0x8     // Executable segment
+# define STA\_E       0x4     // Expand down (non-executable segments)
+# define STA\_C       0x4     // Conforming code segment (executable only)
+# define STA\_W       0x2     // Writeable (non-executable segments)
+# define STA\_R       0x2     // Readable (executable segments)
+# define STA\_A       0x1     // Accessed
 
-#define SEG_ASM(type,base,lim)                              \
-.word (((lim) &gt;&gt; 12) &amp; 0xffff), ((base) &amp; 0xffff);          \
-.byte (((base) &gt;&gt; 16) &amp; 0xff), (0x90 | (type)),             \
-(0xC0 | (((lim) &gt;&gt; 28) &amp; 0xf)), (((base) &gt;&gt; 24) &amp; 0xff)
+# define SEG\_ASM(type,base,lim)                              \\
+.word (((lim) \&gt;\&gt; 12) &amp; 0xffff), ((base) &amp; 0xffff);          \\
+.byte (((base) \&gt;\&gt; 16) &amp; 0xff), (0x90 | (type)),             \\
+(0xC0 | (((lim) \&gt;\&gt; 28) &amp; 0xf)), (((base) \&gt;\&gt; 24) &amp; 0xff)
 
-/* Normal segment */
-#define SEG_NULLASM                                         \
-.word 0, 0;                                                 \
+/\* Normal segment \*/
+# define SEG\_NULLASM                                         \\
+.word 0, 0;                                                 \\
 .byte 0, 0, 0, 0
 </code></pre><ul>
 <li>根据 intel 的规范，第一个描述符必须是  Null Segment ，也就是全 0 ，没有为什么，接下来是代码段和数据段，代码段是可读可执行的, 数据段是可写的</li>
@@ -563,9 +563,9 @@
 <pre><code># Bootstrap GDT
 .p2align 2                                          # force 4 byte alignment
 gdt:
-SEG_NULLASM                                     # null seg
-SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)           # code seg for bootloader and kernel
-SEG_ASM(STA_W, 0x0, 0xffffffff)                 # data seg for bootloader and kernel
+SEG\_NULLASM                                     # null seg
+SEG\_ASM(STA\_X|STA\_R, 0x0, 0xffffffff)           # code seg for bootloader and kernel
+SEG\_ASM(STA\_W, 0x0, 0xffffffff)                 # data seg for bootloader and kernel
 </code></pre><ul>
 <li>接下来是构造 GDTR （回顾上文），它由 gdt 大小和基地址构成 </li>
 </ul>
@@ -578,10 +578,10 @@ SEG_ASM(STA_W, 0x0, 0xffffffff)                 # data seg for bootloader and ke
 </ul>
 <pre><code>.code16
 .section .text
-.globl _start
-.type _start, @function
+.globl \_start
+.type \_start, @function
 .code16
-_start:
+\_start:
 
 cli                                             # Disable interrupts
 </code></pre><p><br></p>
@@ -604,15 +604,15 @@ movw %ax, %ss                                   # -&gt; Stack Segment
 <li>我们提到过保护模式是 80286 的产物，因此 A20 总线应该总是开启，由于 intel 选择使用 8042 键盘控制器来实现前面提到特殊的门结构，而此时键盘缓冲仍被占用，因此我们写入数据之前还要进行等待然后再写入数据</li>
 </ul>
 <pre><code># Enable A20:
-#  For backwards compatibility with the earliest PCs, physical
-#  address line 20 is tied low, so that addresses higher than
-#  1MB wrap around to zero by default. This code undoes this.
+# For backwards compatibility with the earliest PCs, physical
+# address line 20 is tied low, so that addresses higher than
+# 1MB wrap around to zero by default. This code undoes this.
 seta20.1:
 inb $0x64, %al                                  # Wait for not busy(8042 input buffer empty).
 testb $0x2, %al
 jnz seta20.1
 
-movb $0xd1, %al                                 # 0xd1 -&gt; port 0x64
+movb $0xd1, %al                                 # 0xd1 -\&gt; port 0x64
 outb %al, $0x64                                 # 0xd1 means: write data to 8042&apos;s P2 port
 
 seta20.2:
@@ -621,7 +621,7 @@ testb $0x2, %al
 jnz seta20.2
 
 
-movb $0xdf, %al                                 # 0xdf -&gt; port 0x60
+movb $0xdf, %al                                 # 0xdf -\&gt; port 0x60
 outb %al, $0x60                                 # 0xdf = 11011111, means set P2&apos;s A20 bit(the 1 bit) to 1
 </code></pre><p><br></p>
 <h4 id="lgdt-amp-设置-cr0-寄存器"><a href="#lgdt-amp-设置-cr0-寄存器" class="headerlink" title="lgdt &amp; 设置 cr0 寄存器"></a>lgdt &amp; 设置 cr0 寄存器</h4><ul>
@@ -636,7 +636,7 @@ outb %al, $0x60                                 # 0xdf = 11011111, means set P2&
 # effective memory map does not change during the switch.
 lgdt gdtdesc
 movl %cr0, %eax
-orl $CR0_PE_ON, %eax
+orl $CR0\_PE\_ON, %eax
 movl %eax, %cr0
 </code></pre><p><br></p>
 <h4 id="切换-32-位模式"><a href="#切换-32-位模式" class="headerlink" title="切换 32 位模式"></a>切换 32 位模式</h4><ul>
@@ -647,22 +647,22 @@ movl %eax, %cr0
 </ul>
 <pre><code># Jump to next instruction, but in 32-bit code segment.
 # Switches processor into 32-bit mode.
-ljmp $PROT_MODE_CSEG, $protcseg
+ljmp $PROT\_MODE\_CSEG, $protcseg
 .code32                                        # Assemble for 32-bit mode
 protcseg:
 # Set up the protected-mode data segment registers
-movw $PROT_MODE_DSEG, %ax                       # Our data segment selector
-movw %ax, %ds                                   # -&gt; DS: Data Segment
-movw %ax, %es                                   # -&gt; ES: Extra Segment
-movw %ax, %fs                                   # -&gt; FS
-movw %ax, %gs                                   # -&gt; GS
-movw %ax, %ss                                   # -&gt; SS: Stack Segment
+movw $PROT\_MODE\_DSEG, %ax                       # Our data segment selector
+movw %ax, %ds                                   # -\&gt; DS: Data Segment
+movw %ax, %es                                   # -\&gt; ES: Extra Segment
+movw %ax, %fs                                   # -\&gt; FS
+movw %ax, %gs                                   # -\&gt; GS
+movw %ax, %ss                                   # -\&gt; SS: Stack Segment
 
 # Set up the stack pointer and call into C. The stack region is from 0--start(0x7c00)
 movl $0x0, %ebp
-movl $_start, %esp
+movl $\_start, %esp
 
-call kernel_main
+call kernel\_main
 spin:
 jmp spin
 # If bootmain returns (it shouldn&apos;t), loop.
@@ -686,7 +686,7 @@ jmp spin
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/11/08/OperatingSystem/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/11/10/NetIPv4/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -792,7 +792,7 @@ jmp spin
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         

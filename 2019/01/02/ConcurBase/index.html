@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="1月 02, 2019" />
-        <meta property="article:modified_time" content="1月 07, 2019" />
+        <meta property="article:modified_time" content="3月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入Java并发 1 基础",
     "url": "https://alberthumbert.github.io/2019/01/02/ConcurBase/index.html",
     "datePublished": "1月 02, 2019",
-    "dateModified": "1月 07, 2019",
+    "dateModified": "3月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -503,7 +503,6 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/12/11/concurrent/" target="_blank" rel="external">本文为深入Java并发系列的一部分</a></p>
 <p><strong>网站的基本功能算是写完了，不过写着写着就不自觉给自己加需求了，大概还得摸一段时间</strong></p>
 <p><br></p>
 <h3 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h3><ul>
@@ -632,28 +631,28 @@ Terminated：终止，结束执行
 </code></pre><ul>
 <li>再深入的话，我们也可以参考 hotspot 中的线程状态</li>
 </ul>
-<pre><code>#in http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/2cd3690f644c/src/share/vm/utilities/globalDefinitions.hpp#l749
+<pre><code># in http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/2cd3690f644c/src/share/vm/utilities/globalDefinitions.hpp#l749
 enum JavaThreadState {
-  _thread_uninitialized     =  0, // should never happen (missing initialization)
-  _thread_new               =  2, // just starting up, i.e., in process of being initialized
-  _thread_new_trans         =  3, // corresponding transition state (not used, included for completness)
-  _thread_in_native         =  4, // running in native code
-  _thread_in_native_trans   =  5, // corresponding transition state
-  _thread_in_vm             =  6, // running in VM
-  _thread_in_vm_trans       =  7, // corresponding transition state
-  _thread_in_Java           =  8, // running in Java or in stub code
-  _thread_in_Java_trans     =  9, // corresponding transition state (not used, included for completness)
-  _thread_blocked           = 10, // blocked in vm
-  _thread_blocked_trans     = 11, // corresponding transition state
-  _thread_max_state         = 12  // maximum thread state+1 - used for statistics allocation
+  \_thread\_uninitialized     =  0, // should never happen (missing initialization)
+  \_thread\_new               =  2, // just starting up, i.e., in process of being initialized
+  \_thread\_new\_trans         =  3, // corresponding transition state (not used, included for completness)
+  \_thread\_in\_native         =  4, // running in native code
+  \_thread\_in\_native\_trans   =  5, // corresponding transition state
+  \_thread\_in\_vm             =  6, // running in VM
+  \_thread\_in\_vm\_trans       =  7, // corresponding transition state
+  \_thread\_in\_Java           =  8, // running in Java or in stub code
+  \_thread\_in\_Java\_trans     =  9, // corresponding transition state (not used, included for completness)
+  \_thread\_blocked           = 10, // blocked in vm
+  \_thread\_blocked\_trans     = 11, // corresponding transition state
+  \_thread\_max\_state         = 12  // maximum thread state+1 - used for statistics allocation
 };
 </code></pre><ul>
 <li>简化一下，从 hotspot的角度看，线程主要有下面四个状态，其他还有一些处于这些状态间的转换转态则不是很重要</li>
 </ul>
-<pre><code>_thread_new：线程正在初始化
-_thread_in_Java：线程正在执行Java代码
-_thread_in_vm：线程正在虚拟机内部执行
-_thread_blocked：由于某些原因（正在获取锁，等待条件被满足，休眠，执行阻塞的I/O操作等等）线程被阻塞了
+<pre><code>\_thread\_new：线程正在初始化
+\_thread\_in\_Java：线程正在执行Java代码
+\_thread\_in\_vm：线程正在虚拟机内部执行
+\_thread\_blocked：由于某些原因（正在获取锁，等待条件被满足，休眠，执行阻塞的I/O操作等等）线程被阻塞了
 </code></pre><p><br></p>
 <h3 id="线程映射"><a href="#线程映射" class="headerlink" title="线程映射"></a>线程映射</h3><p><br></p>
 <h4 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h4><ul>
@@ -667,7 +666,7 @@ _thread_blocked：由于某些原因（正在获取锁，等待条件被满足�
 </ul>
 <p><br></p>
 <h4 id="hotspot"><a href="#hotspot" class="headerlink" title="hotspot"></a>hotspot</h4><ul>
-<li>java.lang.Thread 实例表示一个Java层的线程        </li>
+<li>java.lang.Thread 实例表示一个Java层的线程</li>
 </ul>
 <ul>
 <li>虚拟机内部则用JavaThread表示一个java.lang.Thread实例。它包含了一些附加信息来追踪线程的状态。JavaThread持有一个与之相关联的java.lang.Thread对象（oop表示）的引用，java.lang.Thread对象也保存了对应的JavaThread（原生int类型表示）的引用。JavaThread同时也持有了相关联的OSThread实例的引用。</li>
@@ -678,11 +677,11 @@ _thread_blocked：由于某些原因（正在获取锁，等待条件被满足�
 <pre><code>|                  |              |           |
 |      java        |     vm       |     os    |
 |                  |              |           |
- java.lang.Thread &lt;-&gt; JavaThread -&gt;  OSThread
+ java.lang.Thread \&lt;-\&gt; JavaThread -\&gt;  OSThread
 </code></pre><ul>
 <li>在linux当中 Thread.start 方法最终会执行 os::create_thread 函数，在这个函数当中会调用 pthread_create，pthread 在深入操作系统系列中已经提及了，要么是早期的 LinuxThread，要么是 redhat 的 NTPL，重点是 pthread 在 linux 当中是1：1的线程模型，直接使用与当前进程共享内存空间的进程（注意是进程）也就是轻量级进程LWP实现</li>
 </ul>
-<pre><code>pthread_t tid;
+<pre><code>pthread\_t tid;
     int ret = pthread_create(&amp;tid, &amp;attr, (void* (*)(void*)) java_start, thread);
 </code></pre><p><br></p>
 <h4 id="本地线程导致的平台相关性"><a href="#本地线程导致的平台相关性" class="headerlink" title="本地线程导致的平台相关性"></a>本地线程导致的平台相关性</h4><ul>
@@ -816,7 +815,7 @@ _thread_blocked：由于某些原因（正在获取锁，等待条件被满足�
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         

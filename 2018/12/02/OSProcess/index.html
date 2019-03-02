@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="12月 02, 2018" />
-        <meta property="article:modified_time" content="1月 16, 2019" />
+        <meta property="article:modified_time" content="3月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 9 - 进程与线程",
     "url": "https://alberthumbert.github.io/2018/12/02/OSProcess/index.html",
     "datePublished": "12月 02, 2018",
-    "dateModified": "1月 16, 2019",
+    "dateModified": "3月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -503,7 +503,7 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/11/08/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2019/03/02/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/12/02/OSSysCall/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>这篇无图字多，看起来会有点恐怖</strong></p>
 <p><br></p>
@@ -593,17 +593,17 @@
 (1) volatile long states; 
 (2) unsigned long flags; 
 (3) long priority; 
-(4) unsigned long rt_priority; 
+(4) unsigned long rt\_priority; 
 (5) long counter; 
 (6) unsigned long policy;
 信号处理 
 (1) unsigned long signal; 
 (2) unsigned long blocked; 
-(3) struct signal_struct *sig;
+(3) struct signal\_struct \*sig;
 进程队列指针 
-(1) struct task_struct *next_task，*prev_task; 
-(2) struct task_struct *next_run，*prev_run; 
-(3) struct task_struct *p_opptr，*p_pptr;和struct task_struct *p_cptr，*p_ysptr，*p_osptr;
+(1) struct task\_struct *next\_task，*prev\_task; 
+(2) struct task\_struct *next\_run，*prev\_run; 
+(3) struct task\_struct *p\_opptr，*p\_pptr;和struct task\_struct *p\_cptr，*p\_ysptr，\*p\_osptr;
 
 进程标识 
 (1) unsigned short uid，gid; 
@@ -616,67 +616,67 @@
 
 时间数据成员 
 (1) unsigned long timeout; 
-(2) unsigned long it_real_value，it_real_iner; 
-(3) struct timer_list real_timer; 
-(4) unsigned long it_virt_value，it_virt_incr; 
-(5) unsigned long it_prof_value，it_prof_incr; 
-(6) long utime，stime，cutime，cstime，start_time;
+(2) unsigned long it\_real\_value，it\_real\_iner; 
+(3) struct timer\_list real\_timer; 
+(4) unsigned long it\_virt\_value，it\_virt\_incr; 
+(5) unsigned long it\_prof\_value，it\_prof\_incr; 
+(6) long utime，stime，cutime，cstime，start\_time;
 
 信号量数据成员 
-(1) struct sem_undo *semundo; 
-(2) struct sem_queue *semsleeping;
+(1) struct sem\_undo \*semundo; 
+(2) struct sem\_queue \*semsleeping;
 
 进程上下文环境 
-(1) struct desc_struct *ldt; 
-(2) struct thread_struct tss; 
-(3) unsigned long saved_kernel_stack; 
-(4) unsigned long kernel_stack_page;
+(1) struct desc\_struct \*ldt; 
+(2) struct thread\_struct tss; 
+(3) unsigned long saved\_kernel\_stack; 
+(4) unsigned long kernel\_stack\_page;
 
 文件系统数据成员 
-(1) struct fs_struct *fs; 
-(2) struct files_struct *files; 
-(3) int link_count;
+(1) struct fs\_struct \*fs; 
+(2) struct files\_struct \*files; 
+(3) int link\_count;
 
 内存数据成员 
-(1) struct mm_struct *mm;
+(1) struct mm\_struct \*mm;
 
 页面管理 
 (1) int swappable:1; 
-(2) unsigned long swap_address; 
-(3) unsigned long min_flt，maj_flt; 
+(2) unsigned long swap\_address; 
+(3) unsigned long min\_flt，maj\_flt; 
 (4) unsigned long nswap; 
-(5) unsigned long cmin_flt，cmaj_flt，cnswap; 
-(6) unsigned long old_maj_flt，dec_flt; 
-(7) unsigned long swap_cnt;
+(5) unsigned long cmin\_flt，cmaj\_flt，cnswap; 
+(6) unsigned long old\_maj\_flt，dec\_flt; 
+(7) unsigned long swap\_cnt;
 
 支持对称多处理器方式(SMP)时的数据成员 
 (1) int processor; 
-(2) int last_processor; 
-(3) int lock_depth;
+(2) int last\_processor; 
+(3) int lock\_depth;
 
 其它数据成员 
-(1) unsigned short used_math; 
+(1) unsigned short used\_math; 
 (2) char comm[16]; 
-(3) struct rlimit rlim[RLIM_NLIMITS]; 
+(3) struct rlimit rlim[RLIM\_NLIMITS]; 
 (4) int errno; 
 (5) long debugreg[8]; 
-(6) struct exec_domain *exec_domain; 
+(6) struct exec\_domain \*exec\_domain; 
 (7) unsigned long personality; 
-(8) struct linux_binfmt *binfmt; 
-(9) int exit_code，exit_signal; 
+(8) struct linux\_binfmt \*binfmt; 
+(9) int exit\_code，exit\_signal; 
 (10) int dumpable:1; 
-(11) int did_exec:1; 
-(12) int tty_old_pgrp; 
-(13) struct tty_struct *tty; 
-(14) struct wait_queue *wait_chldexit;
+(11) int did\_exec:1; 
+(12) int tty\_old\_pgrp; 
+(13) struct tty\_struct \*tty; 
+(14) struct wait\_queue \*wait\_chldexit;
 
 进程队列的全局变量 
 (1) current; 
-(2) struct task_struct init_task; 
-(3) struct task_struct *task[NR_TASKS]; 
+(2) struct task\_struct init\_task; 
+(3) struct task\_struct \*task[NR\_TASKS]; 
 (4) unsigned long volatile jiffies; 
-(5) int need_resched; 
-(6) unsigned long intr_count;
+(5) int need\_resched; 
+(6) unsigned long intr\_count;
 </code></pre><p><br></p>
 <h3 id="创建和运行"><a href="#创建和运行" class="headerlink" title="创建和运行"></a>创建和运行</h3><p><br></p>
 <h3 id="第一个进程"><a href="#第一个进程" class="headerlink" title="第一个进程"></a>第一个进程</h3><p><br></p>
@@ -718,7 +718,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2018/12/02/OSSysCall/" id="post_nav-older" class="next-content">
+        <a href="/2018/12/02/OperatingSystem/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -810,7 +810,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         

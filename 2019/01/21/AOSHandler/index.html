@@ -12,7 +12,7 @@
     
     <title>
         
-            Android 系统系列 Looper &amp; handler 机制 | 
+            Android 系统系列 Looper &amp; handler 机制 回顾 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Android 系统系列 Looper &amp; handler 机制 | Albert&#39;s Blog">
+    <meta property="og:title" content="Android 系统系列 Looper &amp; handler 机制 回顾 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="1月 21, 2019" />
-        <meta property="article:modified_time" content="1月 23, 2019" />
+        <meta property="article:modified_time" content="3月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Android 系统系列 Looper &amp; handler 机制 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Android 系统系列 Looper &amp; handler 机制 回顾 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "Android 系统系列 Looper & handler 机制",
+    "headline": "Android 系统系列 Looper & handler 机制 回顾",
     "url": "https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html",
     "datePublished": "1月 21, 2019",
-    "dateModified": "1月 23, 2019",
+    "dateModified": "3月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                Android 系统系列 Looper & handler 机制
+                Android 系统系列 Looper & handler 机制 回顾
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 系统系列 Looper &amp; handler 机制&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android 系统系列 Looper &amp; handler 机制 回顾&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 系统系列 Looper &amp; handler 机制&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android 系统系列 Looper &amp; handler 机制 回顾&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&title=Android 系统系列 Looper &amp; handler 机制" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&title=Android 系统系列 Looper &amp; handler 机制 回顾" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 系统系列 Looper &amp; handler 机制&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Android 系统系列 Looper &amp; handler 机制 回顾&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&text=Android 系统系列 Looper &amp; handler 机制" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/21/AOSHandler/index.html&text=Android 系统系列 Looper &amp; handler 机制 回顾" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -523,7 +523,7 @@
 <h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><ul>
 <li>我们看Handler的注释，从注释中总结出其要点是，Handler用于发送和处理消息(Message)和Runnable对象，使用Handler机制的线程都有一个消息队列(MessageQueue)，当Handler被创建时，它会与当前线程的MessageQueue绑定，并且基于该MessageQueue 发送/取出处理 Message 和 Runnable。这里里面没有提到，Looper是真正执行消息循环的对象，负责维护一个MessageQueue</li>
 </ul>
-<pre><code>/**
+<pre><code>/\*\*
  * A Handler allows you to send and process {@link Message} and Runnable
  * objects associated with a thread&apos;s {@link MessageQueue}.  Each Handler
  * instance is associated with a single thread and that thread&apos;s message
@@ -531,11 +531,11 @@
  * message queue of the thread that is creating it -- from that point on,
  * it will deliver messages and runnables to that message queue and execute
  * them as they come out of the message queue.
- * 
+ \* 
  * &lt;p&gt;There are two main uses for a Handler: (1) to schedule messages and
  * runnables to be executed as some point in the future; and (2) to enqueue
  * an action to be performed on a different thread than your own.
- * 
+ \* 
  * &lt;p&gt;Scheduling messages is accomplished with the
  * {@link #post}, {@link #postAtTime(Runnable, long)},
  * {@link #postDelayed}, {@link #sendEmptyMessage},
@@ -546,13 +546,13 @@
  * a {@link Message} object containing a bundle of data that will be
  * processed by the Handler&apos;s {@link #handleMessage} method (requiring that
  * you implement a subclass of Handler).
- * 
+ \* 
  * &lt;p&gt;When posting or sending to a Handler, you can either
  * allow the item to be processed as soon as the message queue is ready
  * to do so, or specify a delay before it gets processed or absolute time for
  * it to be processed.  The latter two allow you to implement timeouts,
  * ticks, and other timing-based behavior.
- * 
+ \* 
  * &lt;p&gt;When a
  * process is created for your application, its main thread is dedicated to
  * running a message queue that takes care of managing the top-level
@@ -562,7 +562,7 @@
  * the same &lt;em&gt;post&lt;/em&gt; or &lt;em&gt;sendMessage&lt;/em&gt; methods as before, but from
  * your new thread.  The given Runnable or Message will then be scheduled
  * in the Handler&apos;s message queue and processed when appropriate.
- */
+ \*/
 public class Handler {
 </code></pre><p><br></p>
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><ul>
@@ -708,10 +708,10 @@ public static void prepareMainLooper() {
 </code></pre><ul>
 <li>loop 方法，开启消息处理循环，由于底层使用epoll，所以不会引发很高的cpu占用率，退出条件是从消息队列MessageQueue中使用next获取的消息对象Message对象为null，next只会在Looper(quit方法被执行，这个方法会导致MessageQueue被标记为退出状态)被终止时返回null，如果能够获取掉消息对象,就会通过Message持有的handler对象(target)的dispatchMessage方法来分发消息</li>
 </ul>
-<pre><code>/**
+<pre><code>/\*\*
  * Run the message queue in this thread. Be sure to call
  * {@link #quit()} to end the loop.
- */
+ \*/
 public static void loop() {
     final Looper me = myLooper();
     if (me == null) {
@@ -921,9 +921,9 @@ replyTo：客户端的Messager，在Messager机制中用到
 
 flags: message状态的标志位，目前只有下面两种标记
 
-FLAG_IN_USE：正在使用，刚创建或获取的Message都是未使用的，一旦提交给handler，直到被重新分配(obtain)或者可回收前都算使用中
+FLAG\_IN\_USE：正在使用，刚创建或获取的Message都是未使用的，一旦提交给handler，直到被重新分配(obtain)或者可回收前都算使用中
 
-FLAG_ASYNCHRONOUS：是否为异步消息，可以联系前面的内容理解
+FLAG\_ASYNCHRONOUS：是否为异步消息，可以联系前面的内容理解
 </code></pre><ul>
 <li>创建Message，要么直接new，要么调用obtain，Message中缓存了一个静态的链表，称为消息池sPool，实际上是个栈，每次都从表头摘下一个节点回收复用，sPool为空，才new一个Message</li>
 </ul>
@@ -1282,7 +1282,7 @@ for (int i = 0; i &lt; pendingIdleHandlerCount; i++) {
 <li>我们主要关注这两个文件</li>
 </ul>
 <pre><code>/system/core/libutils/Looper.cpp
-/frameworks/base/core/jni/android_os_MessageQueue.cpp
+/frameworks/base/core/jni/android\_os\_MessageQueue.cpp
 </code></pre><p><br><br><strong>未完待续</strong></p>
 
     
@@ -1409,7 +1409,7 @@ for (int i = 0; i &lt; pendingIdleHandlerCount; i++) {
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         

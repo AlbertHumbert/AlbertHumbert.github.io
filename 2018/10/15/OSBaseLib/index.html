@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 15, 2018" />
-        <meta property="article:modified_time" content="10月 23, 2018" />
+        <meta property="article:modified_time" content="3月 02, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "深入操作系统 4 - 系统库函数",
     "url": "https://alberthumbert.github.io/2018/10/15/OSBaseLib/index.html",
     "datePublished": "10月 15, 2018",
-    "dateModified": "10月 23, 2018",
+    "dateModified": "3月 02, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -503,7 +503,7 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/21/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
+<p><a href="https://tocreate.app/2019/03/02/OperatingSystem/" target="_blank" rel="external">本文为深入操作系统系列的一部分</a></p>
 <p><a href="https://tocreate.app/2018/10/15/OSBootstrap/" target="_blank" rel="external">可能需要阅读前文</a></p>
 <p><strong>本文大概内容为在现有环境上搭建一个操作系统基础开发框架，包括基本的库函数，makefile等</strong></p>
 <p><strong>本文中的所有代码可以在 <a href="https://github.com/AlbertHumbert/Chaos" target="_blank" rel="external">https://github.com/AlbertHumbert/Chaos</a> 获取</strong><br><strong>对应 commit版本为 ce2e1e2b27806ebbb387ed3c1285204845fa800d</strong></p>
@@ -569,8 +569,8 @@
 <h4 id="stdio"><a href="#stdio" class="headerlink" title="stdio"></a>stdio</h4><ul>
 <li>purchar</li>
 </ul>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;kernel/tty.h&gt;
+<pre><code># include \&lt;stdio.h\&gt;
+# include \&lt;kernel/tty.h\&gt;
 
 int putchar(int ic){
     terminal_putchar((char)ic);
@@ -597,8 +597,8 @@ size\_t strlen(const char \* str){
 <ul>
 <li>kernel</li>
 </ul>
-<pre><code>DEFAULT_HOST!=../default-host.sh
-HOST?=DEFAULT_HOST
+<pre><code>DEFAULT\_HOST!=../default-host.sh
+HOST?=DEFAULT\_HOST
 HOSTARCH!=../target-triplet-to-arch.sh $(HOST)
 
 CFLAGS?=-O2 -g
@@ -608,12 +608,12 @@ LIBS?=
 
 DESTDIR?=
 PREFIX?=/usr/local
-EXEC_PREFIX?=$(PREFIX)
-BOOTDIR?=$(EXEC_PREFIX)/boot
+EXEC\_PREFIX?=$(PREFIX)
+BOOTDIR?=$(EXEC\_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
 CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
+CPPFLAGS:=$(CPPFLAGS) -D\_\_is\_kernel -Iinclude
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
 
@@ -621,30 +621,30 @@ ARCHDIR=arch/i386
 
 include $(ARCHDIR)/make.config
 
-CFLAGS:=$(CFLAGS) $(KERNEL_ARCH_CFLAGS)
-CPPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
-LDFLAGS:=$(LDFLAGS) $(KERNEL_ARCH_LDFLAGS)
-LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
+CFLAGS:=$(CFLAGS) $(KERNEL\_ARCH\_CFLAGS)
+CPPFLAGS:=$(CPPFLAGS) $(KERNEL\_ARCH\_CPPFLAGS)
+LDFLAGS:=$(LDFLAGS) $(KERNEL\_ARCH\_LDFLAGS)
+LIBS:=$(LIBS) $(KERNEL\_ARCH\_LIBS)
 
-KERNEL_OBJS=\
-$(KERNEL_ARCH_OBJS) \
-kernel/kernel.o \
+KERNEL\_OBJS=\\
+$(KERNEL\_ARCH\_OBJS) \\
+kernel/kernel.o \\
 
-OBJS=\
-$(ARCHDIR)/crti.o \
-$(ARCHDIR)/crtbegin.o \
-$(KERNEL_OBJS) \
-$(ARCHDIR)/crtend.o \
-$(ARCHDIR)/crtn.o \
+OBJS=\\
+$(ARCHDIR)/crti.o \\
+$(ARCHDIR)/crtbegin.o \\
+$(KERNEL\_OBJS) \\
+$(ARCHDIR)/crtend.o \\
+$(ARCHDIR)/crtn.o \\
 
-LINK_LIST=\
-$(LDFLAGS) \
-$(ARCHDIR)/crti.o \
-$(ARCHDIR)/crtbegin.o \
-$(KERNEL_OBJS) \
-$(LIBS) \
-$(ARCHDIR)/crtend.o \
-$(ARCHDIR)/crtn.o \
+LINK\_LIST=\\
+$(LDFLAGS) \\
+$(ARCHDIR)/crti.o \\
+$(ARCHDIR)/crtbegin.o \\
+$(KERNEL\_OBJS) \\
+$(LIBS) \\
+$(ARCHDIR)/crtend.o \\
+$(ARCHDIR)/crtn.o \\
 
 .PHONY: all clean install install-headers install-kernel
 .SUFFIXES: .o .c .S
@@ -683,8 +683,8 @@ install-kernel: chaos.kernel
 </code></pre><ul>
 <li>libc</li>
 </ul>
-<pre><code>DEFAULT_HOST!=../default-host.sh
-HOST?=DEFAULT_HOST
+<pre><code>DEFAULT\_HOST!=../default-host.sh
+HOST?=DEFAULT\_HOST
 
 HOSTARCH!=../target-triplet-to-arch.sh $(HOST)
 
@@ -695,12 +695,12 @@ LIBS?=
 
 DESTDIR?=
 PREFIX?=/usr/local
-EXEC_PREFIX?=$(PREFIX)
-BOOTDIR?=$(EXEC_PREFIX)/boot
+EXEC\_PREFIX?=$(PREFIX)
+BOOTDIR?=$(EXEC\_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
 CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
+CPPFLAGS:=$(CPPFLAGS) -D\_\_is\_kernel -Iinclude
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
 
@@ -708,34 +708,34 @@ ARCHDIR=arch/i386
 
 include $(ARCHDIR)/make.config
 
-CFLAGS:=$(CFLAGS) $(ARCH_CFLAGS)
-CPPFLAGS:=$(CPPFLAGS) $(ARCH_CPPFLAGS)
-LIBK_CFLAGS:=$(LIBK_CFLAGS) $(KERNEL_ARCH_CFLAGS)
-LIBK_CPPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
+CFLAGS:=$(CFLAGS) $(ARCH\_CFLAGS)
+CPPFLAGS:=$(CPPFLAGS) $(ARCH\_CPPFLAGS)
+LIBK\_CFLAGS:=$(LIBK\_CFLAGS) $(KERNEL\_ARCH\_CFLAGS)
+LIBK\_CPPFLAGS:=$(LIBK\_CPPFLAGS) $(KERNEL\_ARCH\_CPPFLAGS)
 
-FREEOBJS=\
-$(ARCH_FREEOBJS) \
-stdio/puts.o \
-string/strlen.o \
-stdio/printf.o \
-stdio/putchar.o \
-#stdlib/abort.o \
-#string/memcmp.o \
-#string/memcpy.o \
-#string/memmove.o \
-#string/memset.o \
+FREEOBJS=\\
+$(ARCH\_FREEOBJS) \\
+stdio/puts.o \\
+string/strlen.o \\
+stdio/printf.o \\
+stdio/putchar.o \\
+# stdlib/abort.o \\
+# string/memcmp.o \\
+# string/memcpy.o \\
+# string/memmove.o \\
+# string/memset.o \\
 
 
-HOSTEDOBJS=\
-$(ARCH_HOSTEDOBJS) \
+HOSTEDOBJS=\\
+$(ARCH\_HOSTEDOBJS) \\
 
-OBJS=\
-$(FREEOBJS) \
-$(HOSTEDOBJS) \
+OBJS=\\
+$(FREEOBJS) \\
+$(HOSTEDOBJS) \\
 
-LIBK_OBJS=$(FREEOBJS:.o=.libk.o)
+LIBK\_OBJS=$(FREEOBJS:.o=.libk.o)
 
-#BINARIES=libc.a libk.a # Not ready for libc yet.
+# BINARIES=libc.a libk.a # Not ready for libc yet.
 BINARIES=libk.a
 
 .PHONY: all clean install install-headers install-libs
@@ -746,7 +746,7 @@ all: $(BINARIES)
 libc.a: $(OBJS)
     $(AR) rcs $@ $(OBJS)
 
-libk.a: $(LIBK_OBJS)
+libk.a: $(LIBK\_OBJS)
     $(AR) rcs $@ $(LIBK_OBJS)
 
 .c.o:
@@ -777,20 +777,20 @@ install-libs: $(BINARIES)
     cp $(BINARIES) $(DESTDIR)$(LIBDIR)
 
 -include $(OBJS:.o=.d)
--include $(LIBK_OBJS:.o=.d)
+-include $(LIBK\_OBJS:.o=.d)
 </code></pre><ul>
 <li>该脚本用于输出我们的 gcc 版本</li>
 </ul>
-<pre><code>#!/bin/sh
+<pre><code># !/bin/sh
 echo i686-elf
 </code></pre><ul>
 <li>该脚本输出体系架构版本，ix86, 均输出为 1386</li>
 </ul>
-<pre><code>#!/bin/sh
+<pre><code># !/bin/sh
 if echo &quot;$1&quot; | grep -Eq &apos;i[[:digit:]]86-&apos;; then
   echo i386
 else
- echo &quot;$1&quot; | grep -Eo &apos;^[[:alnum:]_]*&apos;
+ echo &quot;$1&quot; | grep -Eo &apos;^[[:alnum:]\_]\*&apos;
 fi
 </code></pre>
     
@@ -917,7 +917,7 @@ fi
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">24</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">20</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         
