@@ -2766,7 +2766,7 @@ private class H extends Handler {
 <a id="more"></a>
 <p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
 <p><a href="https://tocreate.app/2019/01/02/JVMHotspotRuntime/" target="_blank" rel="external">可能需要阅读前文</a></p>
-<p><strong>本文讲解实现部分的内容为hotspot 7 中的运行时数据区，这部分和hotspot 6也是比较贴近的，最后会记录hotspot8中的变化，主要是metaspace带来的一些改动</strong></p>
+<p><strong>主要内容为7的spec中的运行时数据区，这部分和hotspot 6也是比较贴近的，最后会记录hotspot8中的变化，主要是metaspace带来的一些改动</strong></p>
 <p><br></p>
 <h3 id="虚拟机规范"><a href="#虚拟机规范" class="headerlink" title="虚拟机规范"></a>虚拟机规范</h3><p><strong>以下内容来自java虚拟机规范 se 8</strong></p>
 <p><br></p>
@@ -2945,7 +2945,24 @@ UseConcMarkSweepGC: ConcurrentMarkSweepPolicy
 分代是属于gc范畴的概念，并且是基于hotspot的设计思想
 方法区属于jvm设计规范的内容，方法区是否在堆中这点依赖于实现，至少hotpot就没有这么做
 </code></pre><p><br></p>
-<h3 id="hotspot8-变迁"><a href="#hotspot8-变迁" class="headerlink" title="hotspot8 变迁"></a>hotspot8 变迁</h3>]]></content>
+<h3 id="hotspot8-变迁"><a href="#hotspot8-变迁" class="headerlink" title="hotspot8 变迁"></a>hotspot8 变迁</h3><p><strong>下面是r大给出的数据结构迁移，原文链接找不到了，有空补上</strong></p>
+<ul>
+<li><p>JDK7</p>
+<p>  symbolOop (PermGen) -&gt; Symbol* (native\ heap 但不是Metaspace)<br>  interned String，包括interned String对象以及其背后的char[] (PermGen) -&gt; (普通Java heap)<br>  Java类的静态变量原本位于instanceKlass末尾 (PermGen) -&gt; java.lang.Class对象末尾 (普通Java heap）<br>  应对上一条，新增instanceMirrorKlass来描述java.lang.Class对象实例 </p>
+</li>
+</ul>
+<ul>
+<li>JDK8，从7移动到8的metaspace的结构，主要是与spec方法区相关的oop</li>
+</ul>
+<pre><code>受GC管理的非Java对象的基类跟Java对象一样是oopDesc -&gt; 非Java对象（元数据对象）的基类改为MetaspaceObj 
+klassOop -&gt; Klass* 
+xxxKlassKlass -&gt; 没了，不需要了 
+methodOop -&gt; Method* 
+methodDataOop -&gt; MethodData* 
+constMethodOop -&gt; ConstMethod* 
+constantPoolOop -&gt; ConstantPool* 
+constantPoolCacheOop -&gt; ConstantPoolCache* 
+</code></pre>]]></content>
       
         <categories>
             
