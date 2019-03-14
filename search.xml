@@ -1321,941 +1321,6 @@ final class AppBindRecord {
     </entry>
     
     <entry>
-      <title><![CDATA[计算机网络系列 8 - HTTP]]></title>
-      <url>/2019/01/27/NetHttp/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p><br></p>
-<h4 id="URI，URL-UR"><a href="#URI，URL-UR" class="headerlink" title="URI，URL  UR"></a>URI，URL  UR</h4><ul>
-<li>URI是一种更通用的资源标识符，URI主要包括URL和URN。URL通过描述资源的位置来标识资源。而URN通过名字来识别资源，与位置无关</li>
-</ul>
-<p><br></p>
-<h4 id="URL语法"><a href="#URL语法" class="headerlink" title="URL语法"></a>URL语法</h4><ul>
-<li>资源可以通过不同的方案进行访问，因此URL的语法会随着方案的不同而不同，大多数URL方案的语法都建立在由9个组件构成的通用格式上，注意几乎没有哪个URL包含了所有的组件，这些组件当中最重要的是方案scheme、主机host、路径path</li>
-</ul>
-<pre><code>&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;\\\\#&lt;frag&gt;
-</code></pre><ul>
-<li>通用组件如下</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>组件</th>
-<th style="text-align:center">描述</th>
-<th style="text-align:right">默认值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>方案</td>
-<td style="text-align:center">访问服务器以获取资源时要使用哪种协议</td>
-<td style="text-align:right">无</td>
-</tr>
-<tr>
-<td>用户</td>
-<td style="text-align:center">某些方案访问资源时需要的用户名</td>
-<td style="text-align:right">匿名</td>
-</tr>
-<tr>
-<td>密码</td>
-<td style="text-align:center">用户名后面可能包含的密码，中间由冒号分割</td>
-<td style="text-align:right">E-mail地址</td>
-</tr>
-<tr>
-<td>主机</td>
-<td style="text-align:center">资源宿主服务器的主机名或点分IP地址</td>
-<td style="text-align:right">无</td>
-</tr>
-<tr>
-<td>端口</td>
-<td style="text-align:center">资源宿主服务器正在监听的端口号。很多方案都有默认端口号（http的默认端口号为80）</td>
-<td style="text-align:right">每个方案特有</td>
-</tr>
-<tr>
-<td>路径</td>
-<td style="text-align:center">服务器上资源的本地名，有一个斜杠（/）将其与前面的URL组件分隔开。路径组件的语法是与服务器和方案有关的，URL路径可以分成若干段，每段都可以有其特有的组件</td>
-<td style="text-align:right">无</td>
-</tr>
-<tr>
-<td>参数</td>
-<td style="text-align:center">某些方案侯勇这个组件来指定输入参数，参数为名值对。URL中可以包含多个参数字段，它们互相之间以及与路径之间的其余部分之间用分号（;）分隔</td>
-<td style="text-align:right">无</td>
-</tr>
-<tr>
-<td>查询</td>
-<td style="text-align:center">某些方案会用这个组件传递参数以激活应用程序（数据库，公告板，搜索引擎等）。查询组件的内容没用通用哪个格式，用问号（?）将其与URL的其余部分分隔开来</td>
-<td style="text-align:right">无</td>
-</tr>
-<tr>
-<td>片段</td>
-<td style="text-align:center">一小片或者一部分资源的名字，引用对象时，不会将frag字段穿给服务器，这个字段是在客户端内部使用的，因此服务器会请求整个资源</td>
-<td style="text-align:right">无</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h4 id="URL字符"><a href="#URL字符" class="headerlink" title="URL字符"></a>URL字符</h4><ul>
-<li>URL只能使用一些相对较小的，通用的，安全字母表中的文字，因为安全传输意味着URL的传输不能丢失信息，有些协议，的协议会剥去一些特定的字符，比如传输电子邮件，设计者还希望URL可供人阅读，因此不可见字符不能在URL中使用</li>
-</ul>
-<ul>
-<li>有时URL确实需要包含通用的安全字母表之外的二进制数据或字符。因此需要将不安全的字符转义为安全字符，这种转义方法包含一个百分号（%）和后面两个表示ASCII码的十六进制</li>
-</ul>
-<p><br></p>
-<h4 id="字符限制"><a href="#字符限制" class="headerlink" title="字符限制"></a>字符限制</h4><ul>
-<li>在URL中有几个字符被保留起来，有着特殊的含义。有些字符不在定义的US-ASCII可打印字符中，有些字符会与某些因特网网关和协议产生混淆，因此不赞成使用</li>
-</ul>
-<ul>
-<li>客户端在向其他应用程序发送任意URL之前，最好把所有不安全或者受限的字符进行转换，常见的保留及受限的字符如下</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>保留/受限</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>%</td>
-<td>保留为编码字符的转移标志</td>
-</tr>
-<tr>
-<td>/</td>
-<td>保留作为路径组件中分隔路径段的定界符</td>
-</tr>
-<tr>
-<td>.</td>
-<td>保留在路径组件中使用</td>
-</tr>
-<tr>
-<td>..</td>
-<td>保留在路径组件中使用</td>
-</tr>
-<tr>
-<td>#</td>
-<td>保留作为分段定界符使用</td>
-</tr>
-<tr>
-<td>?</td>
-<td>保留作为查询字符串定界符使用</td>
-</tr>
-<tr>
-<td>;</td>
-<td>保留作为参数定界符使用</td>
-</tr>
-<tr>
-<td>:</td>
-<td>保留作为方案，用户/口令，以及主机/端口组件的定界符使用</td>
-</tr>
-<tr>
-<td>$,+</td>
-<td>保留</td>
-</tr>
-<tr>
-<td>@ &amp; =</td>
-<td>在某些方案的上下文中有特殊意义，保留</td>
-</tr>
-<tr>
-<td>{}  ^ [ ] ’</td>
-<td>由于各种传输Agent代理，比如网关的不安全处理，使用受限</td>
-</tr>
-<tr>
-<td>\&lt;> “</td>
-<td>不安全，这些字符在URL范围之外通常是有意义的，比如在文档中对URL自身进行定界，所以应该对其进行编码</td>
-</tr>
-<tr>
-<td>0x00-0x1f，0x7f</td>
-<td>受限，这些十六进制范围内的字符都在US-ASCII字符集的不可打印区间内</td>
-</tr>
-<tr>
-<td>>0x7F</td>
-<td>受限，十六进制值在此范围内的字符都不在US-ASCII字符集的7比特范围内</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h4 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h4><ul>
-<li>常见方案如下</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>方案</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>http</td>
-<td>超文本传输协议，除了没有用户名和密码之外，与通用的URL格式相符，如果省略了端口，就默认为80，基本格式 <a href="http://host:port/path?query#frag" target="_blank" rel="external">http://host:port/path?query#frag</a></td>
-</tr>
-<tr>
-<td>https</td>
-<td>方案https与http是一对，唯一区别在于方案https使用了网景的SSL，SSL为HTTP连接提供了端到端的加密机制，其语法与HTTP的语法相同，默认端口为443</td>
-</tr>
-<tr>
-<td>mailto</td>
-<td>Mailto URL指向的是E-Mail地址，由于E-mail的行为与其他方案都有所不同（它并不指向任何可以直接访问的对象），所以mailto URL的格式与标准URL的格式也有所不同，基本格式 mailto:addr-spec 如 mailto:joe@joes-hardware.com</td>
-</tr>
-<tr>
-<td>ftp</td>
-<td>文件传输URL可以用来从FTP服务器上下载或者向其上载文件，并获取FTP服务器上的目录结构内容的列表，基本格式 ftp:user:passwird@host:port/path;params</td>
-</tr>
-<tr>
-<td>file</td>
-<td>表示一台指定的主机上可以直接访问的文件，如果省略了主机名就默认为正在使用URL的本地主机，基本格式 file:host/path</td>
-</tr>
-<tr>
-<td>telnet</td>
-<td>用于访问交互式业务，它表示的不是对象自身，而是可通过telnet协议访问的交互式应用程序</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h3 id="报文"><a href="#报文" class="headerlink" title="报文"></a>报文</h3><p><br></p>
-<h4 id="报文组成"><a href="#报文组成" class="headerlink" title="报文组成"></a>报文组成</h4><ul>
-<li>http报文由三部分组成，起始行startline，首部header，主体body(可选)，报文可以分为两种，请求报文request和响应报文response，结构上只在起始行有区别</li>
-</ul>
-<pre><code>请求报文格式
-&lt;method&gt;&lt;request-url&gt;&lt;version&gt;
-&lt;headers&gt;
-&lt;entity-body&gt;
-
-响应报文格式:
-&lt;version&gt;&lt;status&gt;&lt;reason-phrase&gt;
-&lt;headers&gt;
-&lt;entity-body&gt;
-</code></pre><ul>
-<li>起始行startline：请求行，请求报文的起始行，包含方法，请求url。响应行，响应报文的起始行，包含http版本，状态码，原因短语</li>
-</ul>
-<ul>
-<li>方法method：客户端希望服务器对资源执行的动作，为单独动词，比如 GET，POST，DELETE，见下文</li>
-</ul>
-<ul>
-<li>请求URL：见上文</li>
-</ul>
-<ul>
-<li>版本version：http版本，格式如 http/\<major\>.\<min\>，主次版本号都是整数，版本号用于互相了解对方的能力和报文格式</min\></major\></li>
-</ul>
-<ul>
-<li>状态码status-code: 用于描述请求过程中发生的状况，其中第一位用于描述类别，如成功，出错等</li>
-</ul>
-<ul>
-<li>原因短语reason-phrase：状态码的可读版本，只对人类有意义</li>
-</ul>
-<ul>
-<li>首部header: 可以有零个或多个首部，由名：值组成，首部是由一个crlf结束的</li>
-</ul>
-<ul>
-<li>主体body：包含由任意数据组成的数据块，并不是所有报文都有这个结构</li>
-</ul>
-<p><br></p>
-<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
-<li>方法用来告知服务器要做什么，http规范中定义了一组常用的请求方法如下，其中只有post和put规定了需要包含一定的主体，并不是所有的服务器都实现了这些方法，服务器也可以扩展实现自己的请求方法，这些方法称为扩展方法</li>
-</ul>
-<pre><code>GET: 从服务器获取一份文稿
-HEAD：从服务器获取文档的首部
-POST：向服务器发送需要处理的数据
-PUT：请求将主体部分存储在服务器上
-TRACE：对可能经过代理服务器传送到服务器上的报文进行追踪
-OPTIONS：决定可以在服务器上执行哪些方法
-DELETE：从服务器上删除一份文档
-</code></pre><p><br></p>
-<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><ul>
-<li>状态码用来告诉客户端发送了什么事，状态码会跟随可读的原因短语，一般来说为3位数，分类如下</li>
-</ul>
-<pre><code>100-199 信息提示
-200-299 成功
-300-399 重定向
-400-499 客户端错误
-500-599 服务器错误
-</code></pre><ul>
-<li>常见的状态码及其对应的原因短语如下</li>
-</ul>
-<pre><code>200 OK                        客户端请求成功
-400 Bad Request               客户端请求有语法错误，不能被服务器所理解
-401 Unauthorized              请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 
-403 Forbidden                 服务器收到请求，但是拒绝提供服务
-404 Not Found                 请求资源不存在，eg：输入了错误的URL
-500 Internal Server Error     服务器发生不可预期的错误
-503 Server Unavailable        服务器当前不能处理客户端的请求，一段时间后可能恢复正常
-</code></pre><p><br></p>
-<h4 id="首部"><a href="#首部" class="headerlink" title="首部"></a>首部</h4><ul>
-<li>首部用于添加附加信息，一般只是一些名值对列表，首部可以分为以下几类</li>
-</ul>
-<pre><code>通用首部：出现在两类报文中
-请求首部
-响应首部
-实体首部：描述主体的长度和内容，或资源自身
-扩展首部：规范中没有定义的新首部
-</code></pre><ul>
-<li>常见请求首部</li>
-</ul>
-<pre><code>Host: 标名请求主机器名，可为IP也可为域名，http1.1后强制使用
-用此请求信息，可在服务端做WEB虚拟机，实现一机多WEB服务
-
-Content-Length:响应体的数据字节大小
-
-Accept-Encoding:可接受的文本压缩算法，如： gzip, deflate
-
-Accept-Language:支持语言，客户端浏览器的设置，如：zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3
-User- Agent:浏览器信息，如：Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0
-
-Cookie:服务器或客户端在上次设置的COOKIE，包括作用域名，过期时间，键与值
-大部分WEB服务器都会在第一次访问时在响应头上加Set-Cookie，
-指某些网站为了辨别用户身份、进行session跟踪而储存在用户本地终端上的数据（通常经过加密）如：BAIDUID=49415814CDBBB4CE65EC50EE4BB65E9A:FG=1; expires=Wed, 07-Nov-42 07:03:34 GMT; path=/; domain=.baidu.com
-
-Referer:从一个连接打开一个新页面，新页面的请求一般会加此信息，标名是从哪里跳过来的
-有的页面的打开历史链就可被挖掘出来，有利于分析用户行为与CPS分成
-
-Content-Type:响应的数据类型：text/html;charset=gbk
-</code></pre><ul>
-<li>常见响应首部</li>
-</ul>
-<pre><code>Content-Type：响应的数据类型：text/html;charset=gbk
-
-Content-Length：响应的数据体大小
-
-Content-Encoding：如果为文本、HTML信息，则使用的编码方式
-
-Date：当前服务器日期
-
-Server：服务器名
-
-Set- Cookie：第一次访问或服务设置COOKIE时，响应头里会有此信息，
-如BAIDUID=49415814CDBBB4CE65EC50EE4BB65E9A:FG=1; expires=Wed, 07-Nov-42 07:03:34 GMT; path=/; domain=.baidu.com
-</code></pre><ul>
-<li>Cache-Control , Expires分别为控制缓存的响应头和请求头，如果都出现在响应头里，按Cache-Controler计算，Cache-Controler有如下取值，Expires在Http1.1以上版本与Max-Age一样，用来控制缓存的失效日期</li>
-</ul>
-<pre><code>Public:当前系统任何登录的用户都可使用
-Private:当前系统登录的此用户进行缓存
-no-cache:不做缓存
-max-age:缓存指定秒数，如Cache-control: max-age=5
-表示当访问此网页后的5秒内再次访问不会去服务器
-</code></pre><p><br></p>
-<h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><br></p>
-<h4 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h4><ul>
-<li>web客户端经常会打开同一个站点的连接，这种现象称为连接本地性，因此http允许事务结束之后tcp连接依然保持在打开状态，以便为未来的http请求重用现在的连接，直到其中一端决定将其关闭为止，这样可以避开tcp的慢启动，保持打开状态的连接称为持久连接，持久连接有两种类型 1.0的keep-alive和1.1的persistent，非持久连接会在一个事务结束后被关闭</li>
-</ul>
-<ul>
-<li>实现keep-alive连接的客户端可以通过包含Connection:keep-alive首部请求将一条连接保持在打开状态，如果服务器愿意这么做，就在响应中包含相同的首部，否则客户端就将连接关闭，本质上keep-alive只是一种请求，连接两端可以在任意时刻关闭的keep-alive连接，并限制keep-alive连接处理事务的数量，可以使用keep-alive首部中用逗号分隔的选项来调节其行为，如下</li>
-</ul>
-<pre><code>timeout：表示服务器希望将连接保持在活跃状态的时间，并不是一个承诺值
-
-max：表示服务器还希望为多少个事务保持连接的活跃状态，并不是一个承诺值
-
-其他：支持任意未经处理的属性，用于测试调试
-</code></pre><ul>
-<li>keep-alive具有如下限制</li>
-</ul>
-<pre><code>不是默认使用，客户端必须发生Connection：keep-alive首部来激活
-如果没有响应返回这个首部，激活将失败
-
-实体部分必须有正确的content-length，否则无法检测一条报文的结束和另一报文的开始
-
-代理和网关必须执行Connection首部的规则，即删除connection首部
-</code></pre><ul>
-<li>实现persistent的客户端默认情况下是激活持久连接的，在事务处理结束之后要关闭连接，必须使用Connection:close首部，否则连接一直打开</li>
-</ul>
-<ul>
-<li>persistent也有限制如下</li>
-</ul>
-<pre><code>content-length必须正确，或者使用分块传输编码方式
-
-每个持久连接都只适用于一跳传输，也就是代理必须分别管理两端的持久连接
-
-不管Connection取什么值，两端都可以在任意时刻关闭连接，虽然这样做并不好
-</code></pre><p><br></p>
-<h4 id="管道化连接"><a href="#管道化连接" class="headerlink" title="管道化连接"></a>管道化连接</h4><ul>
-<li>1.1在持久连接的基础上可以使用请求管道，在响应到达之前将更多的请求放入队列，当第一条请求通过网络流向另一端的服务器时，下一条请求也可以发送，而不是等待响应</li>
-</ul>
-<ul>
-<li>管道化连接具有如下限制</li>
-</ul>
-<pre><code>如果http客户端无法确认连接是持久的，就不能使用管道
-
-http客户端必须做好连接被关闭的准备，发送所有未完成的管道化请求
-
-http客户端不可以用管道发送有副作用的请求，比如post，因为出错时管道化会阻碍客户端了解错误的是哪些请求
-</code></pre><p><br><br><strong>本篇完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[计算机网络系列 7 - TCP]]></title>
-      <url>/2019/01/26/NetTcp/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><strong>TCP提供一种面向连接的、可靠的字节流服务，包含如下组成要输</strong></p>
-<ul>
-<li>字节流服务，指数据在应用层看来是没有消息边界的，发送端可以多次写入不同大小的数据，接受方也可以多次读入不同大小的数据，读写次数及读写量不需要一致。tcp不会解读字节流里的内容，但它需要把字节流打散为ip可以携带的分组(也就是我们说的包)，每个分组对应一个序列号，该序列号是数据在整个字节流的偏移量</li>
-</ul>
-<ul>
-<li>校验和，tcp包含一个强制校验和来检测比特差错，与udp一样使用端到端的伪首部和函数来计算，被检出差错的包会被丢弃，不发生确认</li>
-</ul>
-<ul>
-<li>确认(ack) ，tcp会发送一个确认来表示收到了正确的数据，一般而言这个确认不是接受到报文段就立即发送的，因为tcp使用的ack字段是累加的，它代表共接收到多少字节，这样的设计可以减少发送报文的时间，并且使一个ack丢失时，后续的ack可以用来确认前面的报文段</li>
-</ul>
-<ul>
-<li>超时重传，tcp为每个滑动窗口设置一个重传计时器，在ack到达时更新，如果有一个确认没有被按时收到，那么报文段就会被重传</li>
-</ul>
-<ul>
-<li>全双工，数据可以向两个方向流动，两个方向相互独立，因此tcp需要为每个方向的数据都建立序列号。一个方向的报文段也用来承载相反方向数据的ack，同样是为了减少发送报文的时间</li>
-</ul>
-<p><br></p>
-<h3 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h3><p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fzkf0tfh8yj30r60f674s.jpg" alt=""></p>
-<ul>
-<li>端口号，作用与udp一致，tcp使四元组来对应一个socket</li>
-</ul>
-<ul>
-<li>序列号，标识了报文段中第一个字节在流中的偏移量，为32位无符号数，到达2^32-1后循环为0</li>
-</ul>
-<ul>
-<li>确认号，确认号实际上是期待接收的下一个序号，在ACK字段启用时才有效，通常在初始和结束以外的报文段中都有效，</li>
-</ul>
-<ul>
-<li>头部号，TCP头部通常是20字节长，带选项的话则可达60字节，因此头部长度是可变的</li>
-</ul>
-<ul>
-<li>窗口大小，用于tcp流量控制，这个窗口大小是字节数，窗口由ACK号指定的字节开始</li>
-</ul>
-<ul>
-<li>ACK，确认（确认号字段有效，建立连接后一般都启用），ACK不消耗序列号，不支持重传</li>
-</ul>
-<ul>
-<li>SYN，用于初始化一个连接的同步序号，建立一个新连接时，客户机向服务器发送的第一个报文段的SYN位字段被启用，序列号字段则为一个随机的初始序列号(ISN，随机是一种安全措施)，随后该方向的所有序列号的确然号都建立在这个ISN上面。SYN，FIN，以及应用字节都会消耗一个序列号(即数据的第一个字节序列号为ISN+1)，这意味着它们都支持重传</li>
-</ul>
-<ul>
-<li>CWR，拥塞窗口减（发送方降低发送速率）</li>
-</ul>
-<ul>
-<li>ECE，ECN回显（发送方接受到了一个更早的拥塞通告）</li>
-</ul>
-<ul>
-<li>URG，紧急（紧急指针字段有效，很少用）</li>
-</ul>
-<ul>
-<li>PSH，推送（接收方尽快给应用程序传送这个数据，没有被可靠的实现或使用）</li>
-</ul>
-<ul>
-<li>RST，重置连接（连接取消，回到listen，经常是因为错误）</li>
-</ul>
-<ul>
-<li>FIN，发送方已经结束向对方发送数据</li>
-</ul>
-<ul>
-<li>校验和，校验和覆盖了tcp头部和数据以及首部中的一些字段，是强制的，由发送方计算，接收方验证，使用的算法和ip，udp，icmp相同</li>
-</ul>
-<ul>
-<li>紧急指针，在URG字段启用时才有效，它是一个偏移量，加载序列号字段上面标识紧急数据的最后一个字节，作用是告诉接收方尽快接受这些数据</li>
-</ul>
-<ul>
-<li>选项字段，最常见的是最大段大小(MSS)，一般在每个端点发送的第一个报文段上指定，表示希望收到的报文段的最大值</li>
-</ul>
-<ul>
-<li>数据部分，数据部分本身也是可选的，连接建立，终止，确认时都有可能发送不带任何数据吧报文段</li>
-</ul>
-<p><br></p>
-<h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><strong>从这里开始才是tcp机制的重点</strong></p>
-<ul>
-<li>一个tcp连接的标识由一个四元组构成，包括两个ip地址和两个端口号，每个连接对应一对端点(或套接字)，当四元组完全重复时，端系统将禁止建立链接并返回一个错误</li>
-</ul>
-<ul>
-<li>一个tcp连接分为3个阶段：启动、传输、退出</li>
-</ul>
-<p><img src="http://wx2.sinaimg.cn/mw690/007vHOvngy1fztan4y7ucj30fs0i5jsk.jpg" alt=""></p>
-<p><br></p>
-<h4 id="连接打开"><a href="#连接打开" class="headerlink" title="连接打开"></a>连接打开</h4><ul>
-<li>建立连接需要完成以下步骤，一共包括三个报文段，因此也称为三次握手，这里将连接的主动建立方称为客户端，被动建立方称为服务器，这种方式属于常见的情况，还有一种服务器和客户端同时建立连接的情况</li>
-</ul>
-<ol>
-<li>客户端发送syn报文段，该报文段syn位置位，包含需要连接的端口号，seq数值为初始序列号isn，</li>
-<li>服务器发送syn + ack报文段，该报文段syn位和ack位置位，ack数值为isn + 1 ，seq数值为另一isn，因此syn报文段如果丢失，客户端也可以知道需要重传，该报文段表示服务器收到了请求</li>
-<li>客户端发送ack报文段，该报文段 ack 位置位，ack数值和seq数值为 各自方向上的isn +1，该报文段表示客户端收到了服务器的回应</li>
-</ol>
-<p><br></p>
-<h4 id="序列号"><a href="#序列号" class="headerlink" title="序列号"></a>序列号</h4><ul>
-<li>序列号用于解决报文接受顺序混乱的问题，在发送syn报文之前，都双方需要确定一个初始序列号</li>
-</ul>
-<ul>
-<li><p>初始序列号需要设计得难以预测，因为当攻击者使用伪装成用户，使用用户的ip时，如果可以推测出初始序列号，那么即使攻击者实际上收不到syn+ack报文段，也可以通过初始序列号发送正确的ack报文建立连接，并且发送数据</p>
-</li>
-<li><p>一般初始序列号的随机机制建立在时钟之上，Linux上为对每个连接为时钟设置由散列函数得出的偏移量</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="连接关闭"><a href="#连接关闭" class="headerlink" title="连接关闭"></a>连接关闭</h4><ul>
-<li>关闭连接需要完成以下步骤，一共包括四个报文段，因此也称为四次挥手，通常来说关闭连接的发起方也是客户端，不过web服务器在作出相应之后也可能发起一个关闭操作</li>
-</ul>
-<ol>
-<li>主动关闭方发送fin + ack报文段，ack数值和seq数值取决于前面数据传输的情况，这里假设分别为L和K</li>
-<li>被动关闭方发送ack报文段，ack数值为K+1，seq数值为L，表示已经接受到了关闭请求</li>
-<li>被动关闭方发送fin + ack报文段，ack数值为L，seq数值为K+1，表示被动方也决定关闭相反方向的连接</li>
-<li>主动关闭方发送ACK报文段，ack数值为L+1，seq数值为K，同样表示收到了对方的关闭请求，注意上述的两个fin报文段，如果没有收到响应的ack报文段，则就会重新传输</li>
-</ol>
-<p><br></p>
-<h4 id="连接半关闭"><a href="#连接半关闭" class="headerlink" title="连接半关闭"></a>连接半关闭</h4><ul>
-<li>值得注意的是上述的两个fin报文段，代表各自方向的关闭请求，如果没有收到响应的ack报文段，则就会重新发送fin报文段，但并不是两个传输方向都必须发送关闭请求，可以选择仅仅关闭传输的其中一个方向，这种状况被称为半关闭，对于关闭哪个方向，协议上也不做限制</li>
-</ul>
-<pre><code>int shutdown(int sockfd,int how);
-
-SHUT_RD（0）：关闭sockfd上的读功能，此选项将不允许sockfd进行读操作。不允许接受
-
-SHUT_WR（1）：关闭sockfd的写功能，此选项将不允许sockfd进行写操作。不允许发送
-
-SHUT_RDWR（2）：关闭sockfd的读写功能。不允许发送和接受(和 close() 一样)
-
-int close(int fd);
-
-关闭读写，它将防止套接字上更多的数据的读写
-任何在另一端读写套接字的企图都将返回错误
-</code></pre><ul>
-<li>socket中半关闭的api对应的是shutdown(fd,1), 在操作系统的支持下shutdown本质上接受两个连接上的控制，普通关闭的方式为close(fd)，它的效果和 shutdown(fd,2) 一样，连接半关闭需要两个报文段，两个方向上的半关闭就相当于普通的关闭，只是在它们之间仍允许一个方向发送数据，注意某个方向的连接半关闭时，依然会发送ack报文段进行确认，只是该报文段不再携带数据</li>
-</ul>
-<ol>
-<li>主动关闭方发送fin + ack报文段，ack数值和seq数值取决于前面数据传输的情况，这里假设分别为L和K</li>
-<li>被动关闭方发送ack报文段，ack数值为K+1，seq数值为L，表示已经接受到了关闭请求</li>
-<li>被动关闭放仍可以发送数据报文段，但主动关闭方只能发送ack报文段</li>
-</ol>
-<p><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fztav6f70hj30fs0fkmxw.jpg" alt=""></p>
-<p><br></p>
-<h4 id="同时打开与关闭"><a href="#同时打开与关闭" class="headerlink" title="同时打开与关闭"></a>同时打开与关闭</h4><ul>
-<li>这种情况下双方必须都知道对方用于通信的ip和端口号，同时打开与关闭都需要四个报文段，并且报文段的发送接受一般是交叉进行的</li>
-</ul>
-<ul>
-<li>同时关闭连接和正常关闭连接基本没有区别，但同时开启连接时双方都需要发送一个syn和一个syn+ack报文段，用于发送请求和确认请求</li>
-</ul>
-<p><br></p>
-<h4 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h4><ul>
-<li>tcp的11个状态转换情况如下，这11个状态名称来自*nix和win上面的nestat命令的输出名称，下面只讲解一些比较重要的点</li>
-</ul>
-<p><img src="http://wx1.sinaimg.cn/mw690/987832a0gy1g00itnztknj20oi0jm0vi.jpg" alt=""></p>
-<ul>
-<li>SYN_RCVD返回LISTEN状态只有在SYN_RCVD是在LISTEN状态转换来的才是正确的，它的作用是让SYN_RCVD状态中的客户端接受到重置报文后返回LISTEN状态等待另一个连接请求</li>
-</ul>
-<ul>
-<li>TIME_WAIT状态，也称为2MSL状态，首先调用close()发起主动关闭的一方，在发送最后一个ack之后会进入time_wait的状态，保持2MSL时间(最大段生存期)之后才会正式关闭连接，需要TIME_WAIT的原因有两个，一个是为实现连接的可靠释放，因为最后一个ack可能丢失，这时被动关闭方会超时重发fin报文段同时使这个ack能重新发送，第二个原因是使旧的数据包在网络因过期而消失，这时为了避免之后使用相同四元组时建立的新连接接受到上一次连接的旧数据。在高并发的业务场景下可能会出现产生了大量TIME_WAIT的socket的问题，服务器可以使用SO_REUSEADDR来重用TIME_WAIT状态下的端口，或者更加合理的设置2MSL时间</li>
-</ul>
-<ul>
-<li>CLOSE_WAIT状态，当被动关闭方接受到FIN报文段时，在端系统未调用close之前都处于这种情况，正常情况下一般是还有数据没发送完，或者还没到关闭的时机，非正常情况则是程序员遗漏了close操作(多进程需要特别注意close，因为不同与shutdown，close受socket引用计数的影响)，这时往往会导致大量处于该状态的socket，最好是排查程序，另外还可以设置超时</li>
-</ul>
-<ul>
-<li>FIN_WAIT2状态，当主动关闭方发送完FIN报文段后，如果接受到的不是fin+ack，而是ack报文段时会进入该状态，因为还需要一个fin报文段才可以关闭连接，正常情况是在使用半关闭通信，KeepAlive ，或者发送方还没有发送完数据，非正常情况下则是客户端设计不合理，也可以使用超时来解决，这个超时不是协议规定的，但大部分系统都有实现，<a href="https://www.2cto.com/shouce/ApacheManual/misc/fin_wait_2.html" target="_blank" rel="external">详见</a></li>
-</ul>
-<ul>
-<li>RST报文段，tcp首部的rst位置位时即为重置报文段(socket上为SO_LINGER字段)，一般来说都是连接不正确导致的，比如对没有被监听的端口发送了连接请求，一般是客户端设错了本地端口，upd的情况是会导致一个不可达的icmp报文段，tcp则是使用rst报文段来完成相同的工作。RST可以用来强制释放一个连接，因为fin报文段需要在排队数据都发送完后才会被发送，但rst则会抛弃所有排队数据，fin被称为有序释放，rst被称为终止释放，终止释放有时被用于通信一端以外断开导致的半连接状态，当该段重启并再次连接时需要用RST回应旧连接的报文段，表示它对这些数据一无所知。rst对部分处在time_wait状态的接受端也适用，这时候将产生一个时间等待错误TWA，直接关闭连接，有些端系统在time_wait时不对RST做出任何反应</li>
-</ul>
-<p><br></p>
-<h3 id="TCP选项"><a href="#TCP选项" class="headerlink" title="TCP选项"></a>TCP选项</h3><ul>
-<li>tcp选项是由IANA维护的，每一个选项的头一个字节为种类，部分类型的选项长度是固定的，另外则是可变的，常见的tcp选项如下</li>
-</ul>
-<ol>
-<li>最大段大小MSS，允许对方发送的最大报文段，只记录数据字段，不包括tcp与ip头部，建立连接时每一方都需要使用该选项来说明允许的大小，否则默认为536字节，因为任何主机都只是需要能处理576字节(需要去掉最小头部)</li>
-<li>选择确认SACK，由于窗口滑动机制容易产生空洞，于是使用选择确认机制来通知发送方已接收到的数据块序列范围(SACK块)，SACK选项可以携带多个SACK块</li>
-<li>窗口放大WSCALE，用来将tcp窗口大小从16位扩展到32位</li>
-<li>时间戳TSPOT，用来发送2个4字节的时间戳，接收方可以利用这些时间戳计算往返时间，计算往返时间主要用于设置超时重传时间</li>
-<li>用户超时UTO，用来指明发送者在确认对方收到数据之前愿意等待ACK确认的时间</li>
-</ol>
-<p><br></p>
-<h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><ul>
-<li>tcp采用基于计时器的重传策略，每次重传使用二进制指数退避，即等待重传的时间为上一次间隔的一倍，我们把一个间隔称为RTO，RTO需要通过RTT来确定，tcp还使用两个阈值来决定是否继续重传同一个报文段，R1为重传次数，至少为3次，R2为所用时间，至少为100秒</li>
-</ul>
-<ul>
-<li>RTT：RTO不能大于RTT，避免数据报还未到达就重发，RTT的确定需要采集RTT样本，通常可以使用发送报文段和收到确认报文的时间间隔，并采用一定的算法得出比较合理的统计数值，这里不深入研究。每一个连接的rtt都独立估算，并且重传时钟会会对任何占用序列号的在传数据计时</li>
-</ul>
-<ul>
-<li>计时：一旦得到了估计的RTT，就可以设置RTO了，在记录报文段的序列号之后，tcp为报文段设置一个定时器，当收到该报文的ack，则将这个定时器取消，每一个新的数据报都需要一个新的计时器</li>
-</ul>
-<ul>
-<li>超时：若在一个RTO之内没有收到ack，那么就触发超时重传，超时重传还会导致tcp降低发送速率，一种方法是基于拥塞控制减小发送窗口的大小，另一种方法是增大RTO，即二进制指数退避</li>
-</ul>
-<p><br></p>
-<h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><ul>
-<li>接收方当收到失序的分组时，即收到序列号大于期待值的分组时，会发送冗余ack，当发送端接受到一定数量(dupthresh一般为3)的冗余ack就会引发快速重传，冗余ack通常也包括sack选项，用于表示有多少个空缺，导致失序分组的原因一般有两个，分组丢失或延迟到达，因为不能确定是哪一种情况，所以才需要设置dupthresh。快速重传也会触发拥塞控制机制</li>
-</ul>
-<p><br></p>
-<h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p><br></p>
-<h4 id="nagle算法"><a href="#nagle算法" class="headerlink" title="nagle算法"></a>nagle算法</h4><ul>
-<li>nagle算法是指任意时刻，最多只能有一个未被确认的小段，也就是小于MSS而且还没有收到ack的数据块，尽量搜集普通的小数据包合并成大的数据包，对于大于mss，或含有fin，或设置了TCP_NODELAY，或超时，或当前没有未确认小段时，数据包都是直接发送的</li>
-</ul>
-<pre><code>（1）如果包长度达到MSS，则允许发送；
-（2）如果该包含有FIN，则允许发送；
-（3）设置了TCP_NODELAY选项，则允许发送；
-（4）未设置TCP_CORK选项时，若所有发出去的小数据包（包长度小于MSS）均被确认，则允许发送；
-（5）上述条件都未满足，但发生了超时（一般为200ms），则立即发送。
-</code></pre><ul>
-<li>TCP_NODELAY本质是禁用nagle算法，TCP_CORK则是使用比nagle更加强制性的算法，它没有一个未被确认的小段的限制，会尽量的将数据包合并为一个MSS</li>
-</ul>
-<p><br></p>
-<h4 id="延迟确认"><a href="#延迟确认" class="headerlink" title="延迟确认"></a>延迟确认</h4><ul>
-<li>tcp一般不对每个数据包都返回ack，而是将ack和需要传输的数据结合发送，以减少数据包的数量</li>
-</ul>
-<ul>
-<li>延迟确认在大数据包传输中大量使用，但在小数据包传输中和nagle等算法配合可能不太令人满意，因为服务端在等待客户端的延迟ack时可能由于nagle而不能发送更多数据包</li>
-</ul>
-<p><br></p>
-<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><ul>
-<li>每个tcp都是双向连接，连接的收发数据是通过一组窗口结构维护的，每个连接的两端都都维护一个发送窗口和一个接受窗口，窗口以字节为管理单位，提供窗口的大小是由接受端的ack中的窗口大小字段控制的</li>
-</ul>
-<ul>
-<li>提供窗口结构如下，窗口边界不能左移，因为ack号有累积性不能返回，当ack增大时窗口大小不变时为右滑，窗口也有可能减小，当大小为零时，称为零窗口</li>
-</ul>
-<p><img src="http://wx1.sinaimg.cn/mw690/987832a0gy1g01pdy84wyj20hn0bbt93.jpg" alt=""></p>
-<ul>
-<li>接受窗口结构如下，该窗口内的字节没有区分，只要序列号不再窗口范围当中，报文段都会被抛弃，使用sack选项时窗口范围内的任何序列号都可以接受确认，若不使用sack，则只有左边界的序列号可以接受确认，左边界的序列号被确认时会导致窗口右滑</li>
-</ul>
-<p><img src="http://wx2.sinaimg.cn/mw690/987832a0gy1g01q1n2ynvj20hn0aujrm.jpg" alt=""></p>
-<ul>
-<li>比较特殊的情况是零窗口，它可以有效阻止发送端继续发送数据，当接收端可以接受数据时需要发送一个窗口更新ack报文段，它通常不包含任何数据。为了避免该报文段丢失，发送端会使用一个持续计时器来间歇性的发送窗口探测报文段查询接收端，它包含一个字节的数据，因此避免丢失</li>
-</ul>
-<p><br></p>
-<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><ul>
-<li>并没有一种精确的方法可以知晓中间路由器的状况，tcp最常用的拥塞检测方法基于丢包，其他方法包括时延测量和显示拥塞通知，当检测当拥塞，tcp需要有效减缓tcp的发送</li>
-</ul>
-<ul>
-<li>tcp使用拥塞窗口cwnd来反应网络传输能力，它和接受端通知窗口awnd共同决定发送端窗口大小，不能大于两者中的较小值，由于cwnd不可能精确得到，因此一般使用慢启动来确定</li>
-</ul>
-<ul>
-<li>慢启动：慢启动一般在连接建立或检测到超时重传时使用，发送端长时间空闲时也可能使用，慢启动用于在启用拥塞避免之前逐步获取cwnd值，以及帮助tcp建立ack时钟。慢启动的初始值一般为1个SMSS(发送方最大段大小)，每接受到新序列号的ack，会以min(接收方新接受的数据量,SMSS)来增加cwnd值，当cwnd增加时，可发送数据包数量也会增加，因此初始值为1时，正常情况下cwnd会以1 2 4 8 .. 增长，因此理想状态下cwnd会以指数增长</li>
-</ul>
-<ul>
-<li>拥塞避免：为了避免慢启动中cwnd高速增长，tcp需要使用一种更加缓和的增长算法，它就是拥塞避免，公式如下，假设cwnd分k个包发送，数据接受完cwnd则增长了大约一个SMSS</li>
-</ul>
-<pre><code>cwnd=cwnd+SMSS*SMSS/cwnd 
-cwnd=cwnd+(1/k)*SMSS
-</code></pre><ul>
-<li>ssthresh：慢启动什么时候进入拥塞避免由慢启动阈值ssthresh确定，当cwnd值大于ssthresh时使用拥塞避免机制，ssthresh不是固定的，它会记录上次最好的窗口估计值，一般是从拥塞避免来的，当发送超时重传时，会导致ssthresh降低为大约cwnd值的一半，cwnd重新设置为1，重新进入慢启动过程，发生快速重传时则会把ssthresh设置为cwnd的一半，把cwnd再设置为ssthresh的值，重新进入拥塞避免阶段</li>
-</ul>
-<ul>
-<li>快速恢复：快速恢复建立在前面快速重传的情况下，TCP最后进入的不是拥塞避免阶段，而是快速恢复阶段，快速重传和快速恢复算法一般同时使用，但后者更加详细，也多一些步骤，快速恢复基于数据包守恒原则，只有当老数据包离开了网络后，才能向网络中发送一个新数据包，如果发送方收到一个重复的ack，那么就表明有一个数据包离开了网络</li>
-</ul>
-<pre><code>1.当收到3个重复ACK时，把ssthresh设置为cwnd的一半，把cwnd设置为ssthresh的值加3，然后重传丢失的报文段
-加3的原因是因为收到3个重复的ACK，表明有3个“老”的数据包离开了网络。 
-
-2.再收到重复的ACK时，拥塞窗口增加1。
-
-3.当收到新的数据包的ACK时，把cwnd设置为第一步中的ssthresh的值。
-原因是因为该不重复的好的ack表示失序问题已经解决
-该恢复过程已经结束，可以回到恢复之前的状态了，也即再次进入拥塞避免状态
-</code></pre><p><br><br><strong>本篇完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[计算机网络系列 6 - 运输层 & UDP]]></title>
-      <url>/2019/01/24/NetUdp/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h3 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h3><p><br></p>
-<h4 id="运输层服务"><a href="#运输层服务" class="headerlink" title="运输层服务"></a>运输层服务</h4><ul>
-<li>传输层提供两种协议，tcp和udp，udp提供不可靠无连接的服务，tcp提供可靠面向连接的服务（其实还有一个stcp，不过不在本文讨论范围）</li>
-</ul>
-<ul>
-<li>提供程到进程之间的逻辑通信，运输层在端系统而不是在路由器上实现，由于ip为不可靠服务（不确保交付和顺序），将ip扩展为两个端系统进程之间的这种交付服务称为多路复用与多路分解</li>
-</ul>
-<ul>
-<li>简单来说，运输层提供最低限度的服务包括，进程间的数据交付，差错检查，这两种也是udp提供的全部服务，而tcp还提供可靠数据传输（正确，有序）和拥塞控制</li>
-</ul>
-<p><br></p>
-<h4 id="多路分解复用-amp-端口号"><a href="#多路分解复用-amp-端口号" class="headerlink" title="多路分解复用 &amp; 端口号"></a>多路分解复用 &amp; 端口号</h4><ul>
-<li>运输层的数据实际上并不是直接交付给进程的，而是交付给对应的套接字，根据报文段中的首部信息将其定向到目标套接字就是多路分解</li>
-</ul>
-<ul>
-<li>相对的，为数据加上这些首部信息，然后投递到网络层就称为多路复用</li>
-</ul>
-<ul>
-<li>需要的字段包括源端口号，目的端口号和其他一些字段，端口号为两个字节，0到1023为受限端口号，1024到49151为注册端口号，49152到65535为动态端口或者私人端口，受限端口和注册端口可以在IANA的这个<a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml" target="_blank" rel="external">网站</a>查看，redhat旧版的<a href="http://cert.sjtu.edu.cn/doc/linux/ch-ports.html" target="_blank" rel="external">安全手册</a>也有提供常见的端口号，看一下下面这些就够了</li>
-</ul>
-<pre><code>HTTP协议代理服务器常用端口号：80/8080/3128/8081/9098
-
-SOCKS代理协议服务器常用端口号：1080
-
-FTP（文件传输）协议代理服务器常用端口号：20（控制端口）/tcp、21（数据传输端口）/tcp
-
-Telnet（远程登录）协议代理服务器常用端口号：23/tcp
-
-DNS（域名解析服务）默认端口号：53/udp
-
-HTTP服务器，默认端口号：80/tcp
-
-POP3 （邮局协议版本3）使用的端口号：110/tcp
-
-HTTPS（securely transferring web pages）服务器，默认端口号：443/tcp
-
-TFTP（Trivial File Transfer Protocol），默认端口号：69/udp
-
-SSH（安全登录）、SCP（文件传输）、端口号重定向，默认的端口号：22/tcp
-
-SMTP （Simple Mail Transfer Protocol），默认端口号：25/tcp
-
-POP3 Post Office Protocol（E-mail），默认端口号：110/tcp
-
-Webshpere应用程序默认端口号：9080
-
-webshpere管理工具，默认端口号：9090
-
-JBOSS，默认端口号：8080
-
-TOMCAT，默认端口号：8080
-
-WIN2003远程登录，默认端口号：3389
-
-Symantec AV/Filter for MSE,默认端口号：8081
-
-MSN Messenger的文件传输功能所使用的端口号：1863/tcp
-
-Oracle 数据库默认的端口号：1521/tcp
-
-ORACLE EMCTL，默认的端口号为1158
-
-Oracle XDB（XML 数据库），默认的端口号为8080
-
-Oracle XDB FTP服务，默认的端口号为2100
-
-MS SQL SERVER数据库server，默认的端口号为1433/tcp
-
-MS SQL SERVER数据库monitor，默认的端口号为1434/tcp
-
-Microsoft RDP 微软远程桌面使用的端口号：1863/tcp
-
-Symantec pcAnywhere 远程控制数据传输时使用的端口号：5631/tcp
-
-Symantec pcAnywhere 主控端扫描被控端时使用的端口号：5632/udp
-
-MS SQL Server使用的端口号：5000/tcp
-</code></pre><p><br></p>
-<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p><br></p>
-<h5 id="定向"><a href="#定向" class="headerlink" title="定向"></a>定向</h5><ul>
-<li>自顶向下上面说udp用两元组来确定一个socket，tcp用四元组来确定一个socket，报文段指定的元组的元素相同就会通过相同的套接字定向到相同的目的进程</li>
-</ul>
-<ul>
-<li>这个说法有点绕，而且不是很恰当，因为本质上不管多少元组，最多都只能定位到socket，操作系统保证同时建立(accept，Socket)创建socket时不会产生重复的socket，进程持有socket的描述符socketfd，因此可以监听到这些报文段，由于fd是共享资源，假如一个进程创建socket后fork了一个或多个子进程，那么哪个进程能拿到报文段取决于谁先读取数据，并且多个进程都可以往同一socket写数据，当然这种情况不常见，因为通常只有tcp链接中的监听socketfd(由Socket函数产生)才设计成在各个进程间共享，而它指向的socket是不用来传输数据的，只不过这种问题确实有可能发生，而且不只是读写，我们还要关注关闭socket的情况，socketfd是具有引用计数的，一个进程调用close只会让引用计数减一，只有减到0才会进行关闭，而调用shutdown则会不管计数直接关闭，因此不当使用close可能会引发大量的close_wait的socket导致端系统崩溃的问题</li>
-</ul>
-<p><br></p>
-<h5 id="五元组"><a href="#五元组" class="headerlink" title="五元组"></a>五元组</h5><ul>
-<li>在计算机网络中，五元组可以唯一确定一个会话，一个会话只会对应一对socket(源，目的)，五元组具体指的是下面这五个</li>
-</ul>
-<pre><code>src_ip, 源ip
-src_port，源端口
-dest_ip，目的ip
-dest_port，目的端口
-protocol_type，协议类型
-</code></pre><ul>
-<li>知道这个有什么用呢，有的，我们可以推导一个会话能否成立，比如说，不同的协议能否运行在相同的端口呢，答案是可以的，<a href="https://www.jianshu.com/p/df9e55e94f95" target="_blank" rel="external">详见</a>，其他元组也是这样，都是很普通的情况了</li>
-</ul>
-<ul>
-<li>在进一步知道协议的情况下，比如tcp和udp，我们通常就使用四元组了，因为上面的 protocol_type 是已知的了（SOCK_STREAM，或者SOCK_DGRAM）</li>
-</ul>
-<p><br></p>
-<h5 id="二元组-amp-四元组"><a href="#二元组-amp-四元组" class="headerlink" title="二元组 &amp; 四元组"></a>二元组 &amp; 四元组</h5><p><strong>这一节的图片来自《unix网络编程》</strong></p>
-<ul>
-<li>细心的人会发现不管TCP还是UDP的首部一般都只有五元组中的源端口和目的端口，实际上程序接受一个UPD或TCP消息时，IP首部和udp，tcp首部都已经被剥掉，但五元组就是由这些首部共同构成的，不管什么时候都可以通过操作系统的接口获取(如果确实有)，<a href="https://blog.csdn.net/iicup/article/details/41041215?utm_source=blogxgwz3" target="_blank" rel="external">例子</a></li>
-</ul>
-<ul>
-<li>那么为什么说TCP的套接字是四元组而UDP套接字却是二元组呢，这里讲的其实是套接字的定向，先看TCP的情况，由于TCP是面向连接的传输服务，而一个连接自然就包含了一个四元组，因此建立一个链接就需要创建一个socket，也就是accept函数每次返回的是一个新的socket的描述符，需要四元组才能定向到这个socket</li>
-</ul>
-<p><br><br><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fzi7px6exej30u00vzgs7.jpg" alt=""></p>
-<ul>
-<li>再看UDP的情况，UDP是无连接的，更关键的是它是不可靠的，源ip和源端口无关紧要(同时udp协议中源端口号是可选的，可设置为0)，因此UDP的socket是可以复用的，也就是说目的ip和端口一致的报文段全都发往一个socket就行了，这个时候我们同样可以同过recvfrom获取到源地址</li>
-</ul>
-<p><br><br><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fzi7qar0kuj30z00rsdwn.jpg" alt=""></p>
-<ul>
-<li>最后看端口复用的情况，端口复用概念只存在于TCP的情况(毕竟udp一直都是复用的)，我们知道通常Socket里一个端口一个程序只能bind一次，多次bind一个端口，就叫做端口复用，我们可以使用setsockopt来设置端口复用，但端口复用本身是有限制的，它只是通知内核，如果端口被占用且TCP状态位于 TIME_WAIT ，就重用端口，否则将bind时将一直返回Error，这是由于socket本身只含有四元组，如果有同一时刻同一协议绑定相同端口，那么请求到来时就无法匹配到唯一的socket，这也导致了端口复用的应用上有一定难度，具体可以看，<a href="https://www.cnblogs.com/kex1n/p/7437290.html" target="_blank" rel="external">这里</a></li>
-</ul>
-<pre><code>setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const voidvoid *)&amp;opt, sizeof(opt));
-</code></pre><p><br></p>
-<h3 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h3><p><br></p>
-<h4 id="适用领域"><a href="#适用领域" class="headerlink" title="适用领域"></a>适用领域</h4><ul>
-<li>udp不提供向tcp那么完善的服务，但这也是udp的优点，它更加灵活低耗，应用采用udp的原因可能如下</li>
-</ul>
-<pre><code>可以更精细地控制什么时候发送数据，避免tcp中的拥塞控制和确认机制导致不必要的延迟和重传，保证实时应用的最小发送速率
-
-无需建立连接，不会引入建立连接的时延
-
-端系统开销小，无连接也就不需要维护连接状态，如缓存，拥塞控制参数，确认号等
-
-分组首部开销小，udp首部只有8字节的开销，tcp则为20字节
-</code></pre><ul>
-<li>使用udp的例子如下，有一个误区是实时流媒体都用udp，比如什么直播用的都是udp，或者由于web基于http所以视频播放都是基于tcp，实际上流视频不可能是那么简单的事情，硬要说的话，目前主流的web直播使用的是http-flv(基于http，自热也就基于tcp)，或则是http-flv + rtmp(同样基于tcp)，并且向http-flv靠拢是趋势，移动端上也是rtmp比较多，详细可以看<a href="https://www.zhihu.com/question/24034147" target="_blank" rel="external">这里</a>，或<a href="https://blog.csdn.net/xiaojun111111/article/details/79805344" target="_blank" rel="external">这里</a></li>
-</ul>
-<pre><code>NFS(网络文件系统协议)
-SNMP(简单网络管理协议)
-RIP(路由选择协议)
-DNS(域名解析协议，通常使用udp)
-</code></pre><p><br></p>
-<h4 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h4><p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fziwdregvoj30cm09xjri.jpg" alt=""></p>
-<ul>
-<li>端口号是协议间独立的，因为ip协议中的协议字段或ipv6中的下一个首部字段可以用于协议间的隔离，源端口号是可选的，如果发送方不提供端口号，那么设置为0</li>
-</ul>
-<ul>
-<li>长度是总长度，包括头部和数据部分，同时这个字段也是冗余的，因为通过ip和ipv6的数据报都可以简单计算出这个长度</li>
-</ul>
-<ul>
-<li>校验和是端到端的，是包含了ip头部中的源ip和目的ip的udp伪头部计算得来的</li>
-</ul>
-<p><br></p>
-<h4 id="校验和"><a href="#校验和" class="headerlink" title="校验和"></a>校验和</h4><p><br></p>
-<h5 id="校验出错"><a href="#校验出错" class="headerlink" title="校验出错"></a>校验出错</h5><ul>
-<li>先说一下校验出错时会发生什么，当一个数据报被检验出错时，端系统只是将其直接抛弃，这里就涉及到分片的问题，由长度字段可以算出udp的mtu在64k左右，但ethernet的mtu为1500，那么假如udp数据报的长度超过1500，就会导致分片，这个某个数据报发生任何差错都会无法重组，端系统会丢弃所有的分片，所以一般来说状态不好的端系统应该将数据长度限制在1464(去掉头部)以内</li>
-</ul>
-<ul>
-<li>ipv4的情况下校验和是可选的，ipv6则是强制的，但由于校验和计算是规定默认启用的，所以我们通常认为udp的差错控制是受保证的，如果校验和为0则认为不启用校验，如果计算出来的校验和正好为0，为避免歧义，将设置为全1(0xFFFF)_ </li>
-</ul>
-<p><br></p>
-<h5 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h5><ul>
-<li>udp的校验和并不是使用原本的数据报直接计算得出的，而是需要加上伪首部，这是因为udp要实现端到端的差错检测，而udp首部本身只有端口信息，伪首部本身不会被发送，只是计算时才使用，另外伪首部中包含有长度字段，这在udp中是冗余的，只是tcp中需要这个字段</li>
-</ul>
-<ul>
-<li>ipv4首部结构如下</li>
-</ul>
-<p><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fzizqombk8j30h10foq38.jpg" alt=""></p>
-<ul>
-<li>ipv6伪首部结构如下</li>
-</ul>
-<p><img src="http://wx4.sinaimg.cn/mw690/007vHOvngy1fzj0c5h9uij30h6094wek.jpg" alt=""></p>
-<ul>
-<li>计算方法是</li>
-</ul>
-<pre><code>1 将校验和字段置0
-2 将每个16位的按位相加，如第17、18位出现的进位，将其值与第1，2位相加
-3 再将所得的结果取反码，最后得到的结果即为UDP校验和
-</code></pre><p><br><br><strong>本篇完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[计算机网络系列 5 - 防火墙 & NAT]]></title>
-      <url>/2019/01/24/NetGateWayNAT/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><br></p>
-<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><ul>
-<li>早期因特网发展时很少有人关心安全问题，如今要确保所有端系统中的问题都被修复已经非常困难，因此确保端系统免受攻击的焦点转为利用防火墙来过滤部分流量以限制流量流向端系统</li>
-</ul>
-<ul>
-<li>防火墙分为两类，包过滤防火墙和代理防火墙</li>
-</ul>
-<p><br></p>
-<h3 id="包过滤防火墙"><a href="#包过滤防火墙" class="headerlink" title="包过滤防火墙"></a>包过滤防火墙</h3><ul>
-<li>包过滤防火墙是一种路由器，能够过滤（丢弃）一些数据包，通常检查的范围如下，有些防火墙是无状态的，只是单独处理每一个包，有状态的防火墙可以关联已经到来或即将到来的数据报来推断流或数据报的信息，并且能够处理ip分片</li>
-</ul>
-<pre><code>源地址
-目的地址
-目的设备的端口号(请求类型)
-该数据包所属的协议(TCP、UDP等等)
-数据包的传输方向，向外传到因特网或向内传给局域网
-数据库中既定数据包的署名
-</code></pre><ul>
-<li>通常包过滤防火墙的配置如下，其中DMZ称为非军事区，DMZ子网和内网均能访问外网，外网和内网均能访问DMZ子网，但DMZ子网和外网都不能访问内网，这样在隔离内外网的情况下，内网依然可以利用DMZ提供一些对外服务，包过滤防火墙通过访问控制表ACL实现这些要求</li>
-</ul>
-<pre><code>| DMZ | -----------|       |
-                   | 包过滤 |---------| 外网 |
-                   | 防火墙 |
-| 内网 |  --------- |       |
-</code></pre><p><br></p>
-<h3 id="代理防火墙"><a href="#代理防火墙" class="headerlink" title="代理防火墙"></a>代理防火墙</h3><ul>
-<li>代理防火墙通常不是真正的路由器，没有ip转发的功能，而是运行应用层网关的主机，它在应用层中继两个连接的特点类型的流量，因此客户端通常只需要一定配置来连接防火墙，而不是实际连接到运行防火墙的物理终端</li>
-</ul>
-<ul>
-<li>常见的代理防火墙如：http代理防火墙(也叫web代理)用来提供web缓存，进行过滤过滤，或防止被过滤(如隧道代理)。SOCKS代理，可以用于web及以外的功能，如udp传输，ipv6寻址等</li>
-</ul>
-<pre><code>                     | 代理   |
-| 客户端 |----------- | 防火墙 |---------| 外网 |
-                     |       |
-</code></pre><p><br></p>
-<h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><ul>
-<li>NAT本质是一种允许在互联网的不同地方重复使用相同ip地址集的机制(设置了NAT之后网络可以被分为公网和私网两部分)，用于解决ip地址资源枯竭和问题和提高路由可扩展性，由于NAT本质是临时方案，因此这两个问题最终是被ipv6和cidr解决的(见前几篇)。NAT具有一些缺点，因为互联网上的设备无法直接访问私有地址的主机，连接双向的数据报都需要通过相同的NAT，NAT和互联网协议的基本宗旨相违背，它需要跟踪多个状态，因此操作会贯穿多个协议层，NAT面对的最重要的问题是分片的ip数据报中可能没有端口号，这导致NAT一般不能正确处理分片的情况，另一个问题是两个NAT系统中的内部主机如何通讯的问题，可以通过NAT穿越来解决。NAT的使用目前依然非常广泛，基本上被所有家用低端路由器支持</li>
-</ul>
-<ul>
-<li>NAT的工作原理就是重写通过路由器的数据报的识别信息，包括两个方向的ip地址和端口号，传出的数据报的源ip地址会变为NAT路由器面向Internet的网络接口地址而不是原始主机的接口地址，从互联网上的主机来看，数据报来自于具有全局路由ip的NAT路由器，而不是NAT内部的私有地址主机，大多数NAT路由器还同时执行转换和包过滤，包过滤的标准取决于NAT的动态状态</li>
-</ul>
-<ul>
-<li>传统的NAT包括：基本NAT和NAPT。基本NAT只执行IP地址的重写，本质上就是将私有地址改写为公共地址，该公共地址一般来自ips提供的地址池或公有地址访问，地址范围必须大于或等于希望同时访问Internet的主机数量，这种类型的NAT较少使用。NATP则使用传输层标识符（tcp和udp端口号，icmp查询标识符）来确定一个特点的数据包到底和NAT内部的哪台私有主机关联，这使得大量的内部主机可以同时访问互联网，但需要的公有地址往往只需一个，因此为了避免冲突有时需要重写端口号，我们说的NAT通常包含传统的NAT和NAPT</li>
-</ul>
-<ul>
-<li>地址池：原则上NAT内部可以使用任何ip地址，只是如果在私有范围内使用公共地址，可能导致公共范围的共用地址无法访问，因此一般使用10.0.0.0/8,172.16.0.0/12,192.168.0.0/16，NAT实现了一定的安全策略，几乎允许所有传出及其返回的流量通过，但几乎阻断所有传入的连接请求，这样可以抑制ip地址的“探测”攻击，对外隐藏内部的地址数量和配置</li>
-</ul>
-<p><br></p>
-<h3 id="NAT-amp-TCP-amp-UDP"><a href="#NAT-amp-TCP-amp-UDP" class="headerlink" title="NAT &amp; TCP &amp; UDP"></a>NAT &amp; TCP &amp; UDP</h3><ul>
-<li>tcp相关的内容在后面几篇，当NAT收到一个向外的syn报文段时，会将源ip地址修改为NAT路由器的外部接口的ip地址，并创建一个会话状态来记录连接，该状态至少包含一个端口号和一个源IP地址，这样NAT可以通过端口号来映射ip地址，在数据包出入NAT路由器时修改这些ip地址</li>
-</ul>
-<ul>
-<li>会话状态会在如下几个情况下被删除，双方交换fin报文段(正常关闭)，状态会在流量很少或收到rst报文段(非正常关闭)，NAT还会在传出一个syn报文段使设置连接计时器，如果ack未按时到达，状态会被删除，若ack按时到达则开启一个超长的会话计时器，当超时时会向内部节点发送探测报文，如果收到探测报文的ack就重置计时器，表示连接还处于激活状态，如果ack超时则删除会话状态</li>
-</ul>
-<ul>
-<li>NAT在处理udp时需要处理的问题和tcp大多数是一样的，但udp缺少连接建立和清除的过程，没有syn fin等标志位，因此NAT使用一个映射计时器来清除NAT的状态</li>
-</ul>
-<p><br></p>
-<h3 id="NAT穿越"><a href="#NAT穿越" class="headerlink" title="NAT穿越"></a>NAT穿越</h3><ul>
-<li>NAT穿越一般是指使用一个服务器作为多个NAT系统的中继来实现客户端之间的通信，因为NAT不允许为建立连接的外部请求，因此任一方都无法直接向对方建立请求，利用服务器建立连接的过程称为打洞，大致流程为两个客户端通过向外连接来访问服务器，这样就建立了两个NAT映射，服务器可以在客户端之间交换它们的外部寻址信息，一旦知道这个信息，客户端就可以进行直接连接</li>
-</ul>
-<ul>
-<li>具体的打洞流程如UNSAF和STUN之后如果有时间会进行补充</li>
-</ul>
-<p><br><br><strong>本篇完</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Android 系统系列 Looper & handler 机制 回顾]]></title>
       <url>/2019/01/21/AOSHandler/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -9151,6 +8216,854 @@ ip地址 = 网络号 +（子网号+主机号）
     </entry>
     
     <entry>
+      <title><![CDATA[计算机网络系列 8 - HTTP]]></title>
+      <url>/2018/11/10/NetHttp/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p><br></p>
+<h4 id="URI，URL-UR"><a href="#URI，URL-UR" class="headerlink" title="URI，URL  UR"></a>URI，URL  UR</h4><ul>
+<li>URI是一种更通用的资源标识符，URI主要包括URL和URN。URL通过描述资源的位置来标识资源。而URN通过名字来识别资源，与位置无关</li>
+</ul>
+<p><br></p>
+<h4 id="URL语法"><a href="#URL语法" class="headerlink" title="URL语法"></a>URL语法</h4><ul>
+<li>资源可以通过不同的方案进行访问，因此URL的语法会随着方案的不同而不同，大多数URL方案的语法都建立在由9个组件构成的通用格式上，注意几乎没有哪个URL包含了所有的组件，这些组件当中最重要的是方案scheme、主机host、路径path</li>
+</ul>
+<pre><code>&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;\\\\\\#&lt;frag&gt;
+</code></pre><ul>
+<li>通用组件如下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:right">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方案</td>
+<td style="text-align:center">访问服务器以获取资源时要使用哪种协议</td>
+<td style="text-align:right">无</td>
+</tr>
+<tr>
+<td>用户</td>
+<td style="text-align:center">某些方案访问资源时需要的用户名</td>
+<td style="text-align:right">匿名</td>
+</tr>
+<tr>
+<td>密码</td>
+<td style="text-align:center">用户名后面可能包含的密码，中间由冒号分割</td>
+<td style="text-align:right">E-mail地址</td>
+</tr>
+<tr>
+<td>主机</td>
+<td style="text-align:center">资源宿主服务器的主机名或点分IP地址</td>
+<td style="text-align:right">无</td>
+</tr>
+<tr>
+<td>端口</td>
+<td style="text-align:center">资源宿主服务器正在监听的端口号。很多方案都有默认端口号（http的默认端口号为80）</td>
+<td style="text-align:right">每个方案特有</td>
+</tr>
+<tr>
+<td>路径</td>
+<td style="text-align:center">服务器上资源的本地名，有一个斜杠（/）将其与前面的URL组件分隔开。路径组件的语法是与服务器和方案有关的，URL路径可以分成若干段，每段都可以有其特有的组件</td>
+<td style="text-align:right">无</td>
+</tr>
+<tr>
+<td>参数</td>
+<td style="text-align:center">某些方案侯勇这个组件来指定输入参数，参数为名值对。URL中可以包含多个参数字段，它们互相之间以及与路径之间的其余部分之间用分号（;）分隔</td>
+<td style="text-align:right">无</td>
+</tr>
+<tr>
+<td>查询</td>
+<td style="text-align:center">某些方案会用这个组件传递参数以激活应用程序（数据库，公告板，搜索引擎等）。查询组件的内容没用通用哪个格式，用问号（?）将其与URL的其余部分分隔开来</td>
+<td style="text-align:right">无</td>
+</tr>
+<tr>
+<td>片段</td>
+<td style="text-align:center">一小片或者一部分资源的名字，引用对象时，不会将frag字段穿给服务器，这个字段是在客户端内部使用的，因此服务器会请求整个资源</td>
+<td style="text-align:right">无</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="URL字符"><a href="#URL字符" class="headerlink" title="URL字符"></a>URL字符</h4><ul>
+<li>URL只能使用一些相对较小的，通用的，安全字母表中的文字，因为安全传输意味着URL的传输不能丢失信息，有些协议，的协议会剥去一些特定的字符，比如传输电子邮件，设计者还希望URL可供人阅读，因此不可见字符不能在URL中使用</li>
+</ul>
+<ul>
+<li>有时URL确实需要包含通用的安全字母表之外的二进制数据或字符。因此需要将不安全的字符转义为安全字符，这种转义方法包含一个百分号（%）和后面两个表示ASCII码的十六进制</li>
+</ul>
+<p><br></p>
+<h4 id="字符限制"><a href="#字符限制" class="headerlink" title="字符限制"></a>字符限制</h4><ul>
+<li>在URL中有几个字符被保留起来，有着特殊的含义。有些字符不在定义的US-ASCII可打印字符中，有些字符会与某些因特网网关和协议产生混淆，因此不赞成使用</li>
+</ul>
+<ul>
+<li>客户端在向其他应用程序发送任意URL之前，最好把所有不安全或者受限的字符进行转换，常见的保留及受限的字符如下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>保留/受限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%</td>
+<td>保留为编码字符的转移标志</td>
+</tr>
+<tr>
+<td>/</td>
+<td>保留作为路径组件中分隔路径段的定界符</td>
+</tr>
+<tr>
+<td>.</td>
+<td>保留在路径组件中使用</td>
+</tr>
+<tr>
+<td>..</td>
+<td>保留在路径组件中使用</td>
+</tr>
+<tr>
+<td>#</td>
+<td>保留作为分段定界符使用</td>
+</tr>
+<tr>
+<td>?</td>
+<td>保留作为查询字符串定界符使用</td>
+</tr>
+<tr>
+<td>;</td>
+<td>保留作为参数定界符使用</td>
+</tr>
+<tr>
+<td>:</td>
+<td>保留作为方案，用户/口令，以及主机/端口组件的定界符使用</td>
+</tr>
+<tr>
+<td>$,+</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>@ &amp; =</td>
+<td>在某些方案的上下文中有特殊意义，保留</td>
+</tr>
+<tr>
+<td>{}  ^ [ ] ’</td>
+<td>由于各种传输Agent代理，比如网关的不安全处理，使用受限</td>
+</tr>
+<tr>
+<td>\&lt;> “</td>
+<td>不安全，这些字符在URL范围之外通常是有意义的，比如在文档中对URL自身进行定界，所以应该对其进行编码</td>
+</tr>
+<tr>
+<td>0x00-0x1f，0x7f</td>
+<td>受限，这些十六进制范围内的字符都在US-ASCII字符集的不可打印区间内</td>
+</tr>
+<tr>
+<td>>0x7F</td>
+<td>受限，十六进制值在此范围内的字符都不在US-ASCII字符集的7比特范围内</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h4><ul>
+<li>常见方案如下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http</td>
+<td>超文本传输协议，除了没有用户名和密码之外，与通用的URL格式相符，如果省略了端口，就默认为80，基本格式 <a href="http://host:port/path?query#frag" target="_blank" rel="external">http://host:port/path?query#frag</a></td>
+</tr>
+<tr>
+<td>https</td>
+<td>方案https与http是一对，唯一区别在于方案https使用了网景的SSL，SSL为HTTP连接提供了端到端的加密机制，其语法与HTTP的语法相同，默认端口为443</td>
+</tr>
+<tr>
+<td>mailto</td>
+<td>Mailto URL指向的是E-Mail地址，由于E-mail的行为与其他方案都有所不同（它并不指向任何可以直接访问的对象），所以mailto URL的格式与标准URL的格式也有所不同，基本格式 mailto:addr-spec 如 mailto:joe@joes-hardware.com</td>
+</tr>
+<tr>
+<td>ftp</td>
+<td>文件传输URL可以用来从FTP服务器上下载或者向其上载文件，并获取FTP服务器上的目录结构内容的列表，基本格式 ftp:user:passwird@host:port/path;params</td>
+</tr>
+<tr>
+<td>file</td>
+<td>表示一台指定的主机上可以直接访问的文件，如果省略了主机名就默认为正在使用URL的本地主机，基本格式 file:host/path</td>
+</tr>
+<tr>
+<td>telnet</td>
+<td>用于访问交互式业务，它表示的不是对象自身，而是可通过telnet协议访问的交互式应用程序</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="报文"><a href="#报文" class="headerlink" title="报文"></a>报文</h3><p><br></p>
+<h4 id="报文组成"><a href="#报文组成" class="headerlink" title="报文组成"></a>报文组成</h4><ul>
+<li>http报文由三部分组成，起始行startline，首部header，主体body(可选)，报文可以分为两种，请求报文request和响应报文response，结构上只在起始行有区别</li>
+</ul>
+<pre><code>请求报文格式
+&lt;method&gt;&lt;request-url&gt;&lt;version&gt;
+&lt;headers&gt;
+&lt;entity-body&gt;
+
+响应报文格式:
+&lt;version&gt;&lt;status&gt;&lt;reason-phrase&gt;
+&lt;headers&gt;
+&lt;entity-body&gt;
+</code></pre><ul>
+<li>起始行startline：请求行，请求报文的起始行，包含方法，请求url。响应行，响应报文的起始行，包含http版本，状态码，原因短语</li>
+</ul>
+<ul>
+<li>方法method：客户端希望服务器对资源执行的动作，为单独动词，比如 GET，POST，DELETE，见下文</li>
+</ul>
+<ul>
+<li>请求URL：见上文</li>
+</ul>
+<ul>
+<li>版本version：http版本，格式如 http/\<major\>.\<min\>，主次版本号都是整数，版本号用于互相了解对方的能力和报文格式</min\></major\></li>
+</ul>
+<ul>
+<li>状态码status-code: 用于描述请求过程中发生的状况，其中第一位用于描述类别，如成功，出错等</li>
+</ul>
+<ul>
+<li>原因短语reason-phrase：状态码的可读版本，只对人类有意义</li>
+</ul>
+<ul>
+<li>首部header: 可以有零个或多个首部，由名：值组成，首部是由一个crlf结束的</li>
+</ul>
+<ul>
+<li>主体body：包含由任意数据组成的数据块，并不是所有报文都有这个结构</li>
+</ul>
+<p><br></p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
+<li>方法用来告知服务器要做什么，http规范中定义了一组常用的请求方法如下，其中只有post和put规定了需要包含一定的主体，并不是所有的服务器都实现了这些方法，服务器也可以扩展实现自己的请求方法，这些方法称为扩展方法</li>
+</ul>
+<pre><code>GET: 从服务器获取一份文稿
+HEAD：从服务器获取文档的首部
+POST：向服务器发送需要处理的数据
+PUT：请求将主体部分存储在服务器上
+TRACE：对可能经过代理服务器传送到服务器上的报文进行追踪
+OPTIONS：决定可以在服务器上执行哪些方法
+DELETE：从服务器上删除一份文档
+</code></pre><p><br></p>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><ul>
+<li>状态码用来告诉客户端发送了什么事，状态码会跟随可读的原因短语，一般来说为3位数，分类如下</li>
+</ul>
+<pre><code>100-199 信息提示
+200-299 成功
+300-399 重定向
+400-499 客户端错误
+500-599 服务器错误
+</code></pre><ul>
+<li>常见的状态码及其对应的原因短语如下</li>
+</ul>
+<pre><code>200 OK                        客户端请求成功
+400 Bad Request               客户端请求有语法错误，不能被服务器所理解
+401 Unauthorized              请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 
+403 Forbidden                 服务器收到请求，但是拒绝提供服务
+404 Not Found                 请求资源不存在，eg：输入了错误的URL
+500 Internal Server Error     服务器发生不可预期的错误
+503 Server Unavailable        服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+</code></pre><p><br></p>
+<h4 id="首部"><a href="#首部" class="headerlink" title="首部"></a>首部</h4><ul>
+<li>首部用于添加附加信息，一般只是一些名值对列表，首部可以分为以下几类</li>
+</ul>
+<pre><code>通用首部：出现在两类报文中
+请求首部
+响应首部
+实体首部：描述主体的长度和内容，或资源自身
+扩展首部：规范中没有定义的新首部
+</code></pre><ul>
+<li>常见请求首部</li>
+</ul>
+<pre><code>Host: 标名请求主机器名，可为IP也可为域名，http1.1后强制使用
+用此请求信息，可在服务端做WEB虚拟机，实现一机多WEB服务
+
+Content-Length:响应体的数据字节大小
+
+Accept-Encoding:可接受的文本压缩算法，如： gzip, deflate
+
+Accept-Language:支持语言，客户端浏览器的设置，如：zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3
+User- Agent:浏览器信息，如：Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0
+
+Cookie:服务器或客户端在上次设置的COOKIE，包括作用域名，过期时间，键与值
+大部分WEB服务器都会在第一次访问时在响应头上加Set-Cookie，
+指某些网站为了辨别用户身份、进行session跟踪而储存在用户本地终端上的数据（通常经过加密）如：BAIDUID=49415814CDBBB4CE65EC50EE4BB65E9A:FG=1; expires=Wed, 07-Nov-42 07:03:34 GMT; path=/; domain=.baidu.com
+
+Referer:从一个连接打开一个新页面，新页面的请求一般会加此信息，标名是从哪里跳过来的
+有的页面的打开历史链就可被挖掘出来，有利于分析用户行为与CPS分成
+
+Content-Type:响应的数据类型：text/html;charset=gbk
+</code></pre><ul>
+<li>常见响应首部</li>
+</ul>
+<pre><code>Content-Type：响应的数据类型：text/html;charset=gbk
+
+Content-Length：响应的数据体大小
+
+Content-Encoding：如果为文本、HTML信息，则使用的编码方式
+
+Date：当前服务器日期
+
+Server：服务器名
+
+Set- Cookie：第一次访问或服务设置COOKIE时，响应头里会有此信息，
+如BAIDUID=49415814CDBBB4CE65EC50EE4BB65E9A:FG=1; expires=Wed, 07-Nov-42 07:03:34 GMT; path=/; domain=.baidu.com
+</code></pre><ul>
+<li>Cache-Control , Expires分别为控制缓存的响应头和请求头，如果都出现在响应头里，按Cache-Controler计算，Cache-Controler有如下取值，Expires在Http1.1以上版本与Max-Age一样，用来控制缓存的失效日期</li>
+</ul>
+<pre><code>Public:当前系统任何登录的用户都可使用
+Private:当前系统登录的此用户进行缓存
+no-cache:不做缓存
+max-age:缓存指定秒数，如Cache-control: max-age=5
+表示当访问此网页后的5秒内再次访问不会去服务器
+</code></pre><p><br></p>
+<h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><br></p>
+<h4 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h4><ul>
+<li>web客户端经常会打开同一个站点的连接，这种现象称为连接本地性，因此http允许事务结束之后tcp连接依然保持在打开状态，以便为未来的http请求重用现在的连接，直到其中一端决定将其关闭为止，这样可以避开tcp的慢启动，保持打开状态的连接称为持久连接，持久连接有两种类型 1.0的keep-alive和1.1的persistent，非持久连接会在一个事务结束后被关闭</li>
+</ul>
+<ul>
+<li>实现keep-alive连接的客户端可以通过包含Connection:keep-alive首部请求将一条连接保持在打开状态，如果服务器愿意这么做，就在响应中包含相同的首部，否则客户端就将连接关闭，本质上keep-alive只是一种请求，连接两端可以在任意时刻关闭的keep-alive连接，并限制keep-alive连接处理事务的数量，可以使用keep-alive首部中用逗号分隔的选项来调节其行为，如下</li>
+</ul>
+<pre><code>timeout：表示服务器希望将连接保持在活跃状态的时间，并不是一个承诺值
+
+max：表示服务器还希望为多少个事务保持连接的活跃状态，并不是一个承诺值
+
+其他：支持任意未经处理的属性，用于测试调试
+</code></pre><ul>
+<li>keep-alive具有如下限制</li>
+</ul>
+<pre><code>不是默认使用，客户端必须发生Connection：keep-alive首部来激活
+如果没有响应返回这个首部，激活将失败
+
+实体部分必须有正确的content-length，否则无法检测一条报文的结束和另一报文的开始
+
+代理和网关必须执行Connection首部的规则，即删除connection首部
+</code></pre><ul>
+<li>实现persistent的客户端默认情况下是激活持久连接的，在事务处理结束之后要关闭连接，必须使用Connection:close首部，否则连接一直打开</li>
+</ul>
+<ul>
+<li>persistent也有限制如下</li>
+</ul>
+<pre><code>content-length必须正确，或者使用分块传输编码方式
+
+每个持久连接都只适用于一跳传输，也就是代理必须分别管理两端的持久连接
+
+不管Connection取什么值，两端都可以在任意时刻关闭连接，虽然这样做并不好
+</code></pre><p><br></p>
+<h4 id="管道化连接"><a href="#管道化连接" class="headerlink" title="管道化连接"></a>管道化连接</h4><ul>
+<li>1.1在持久连接的基础上可以使用请求管道，在响应到达之前将更多的请求放入队列，当第一条请求通过网络流向另一端的服务器时，下一条请求也可以发送，而不是等待响应</li>
+</ul>
+<ul>
+<li>管道化连接具有如下限制</li>
+</ul>
+<pre><code>如果http客户端无法确认连接是持久的，就不能使用管道
+
+http客户端必须做好连接被关闭的准备，发送所有未完成的管道化请求
+
+http客户端不可以用管道发送有副作用的请求，比如post，因为出错时管道化会阻碍客户端了解错误的是哪些请求
+</code></pre><p><br><br><strong>本篇完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[计算机网络系列 7 - TCP]]></title>
+      <url>/2018/11/09/NetTcp/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><strong>TCP提供一种面向连接的、可靠的字节流服务，包含如下组成要输</strong></p>
+<ul>
+<li>字节流服务，指数据在应用层看来是没有消息边界的，发送端可以多次写入不同大小的数据，接受方也可以多次读入不同大小的数据，读写次数及读写量不需要一致。tcp不会解读字节流里的内容，但它需要把字节流打散为ip可以携带的分组(也就是我们说的包)，每个分组对应一个序列号，该序列号是数据在整个字节流的偏移量</li>
+</ul>
+<ul>
+<li>校验和，tcp包含一个强制校验和来检测比特差错，与udp一样使用端到端的伪首部和函数来计算，被检出差错的包会被丢弃，不发生确认</li>
+</ul>
+<ul>
+<li>确认(ack) ，tcp会发送一个确认来表示收到了正确的数据，一般而言这个确认不是接受到报文段就立即发送的，因为tcp使用的ack字段是累加的，它代表共接收到多少字节，这样的设计可以减少发送报文的时间，并且使一个ack丢失时，后续的ack可以用来确认前面的报文段</li>
+</ul>
+<ul>
+<li>超时重传，tcp为每个滑动窗口设置一个重传计时器，在ack到达时更新，如果有一个确认没有被按时收到，那么报文段就会被重传</li>
+</ul>
+<ul>
+<li>全双工，数据可以向两个方向流动，两个方向相互独立，因此tcp需要为每个方向的数据都建立序列号。一个方向的报文段也用来承载相反方向数据的ack，同样是为了减少发送报文的时间</li>
+</ul>
+<p><br></p>
+<h3 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h3><p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fzkf0tfh8yj30r60f674s.jpg" alt=""></p>
+<ul>
+<li>端口号，作用与udp一致，tcp使四元组来对应一个socket</li>
+</ul>
+<ul>
+<li>序列号，标识了报文段中第一个字节在流中的偏移量，为32位无符号数，到达2^32-1后循环为0</li>
+</ul>
+<ul>
+<li>确认号，确认号实际上是期待接收的下一个序号，在ACK字段启用时才有效，通常在初始和结束以外的报文段中都有效，</li>
+</ul>
+<ul>
+<li>头部号，TCP头部通常是20字节长，带选项的话则可达60字节，因此头部长度是可变的</li>
+</ul>
+<ul>
+<li>窗口大小，用于tcp流量控制，这个窗口大小是字节数，窗口由ACK号指定的字节开始</li>
+</ul>
+<ul>
+<li>ACK，确认（确认号字段有效，建立连接后一般都启用），ACK不消耗序列号，不支持重传</li>
+</ul>
+<ul>
+<li>SYN，用于初始化一个连接的同步序号，建立一个新连接时，客户机向服务器发送的第一个报文段的SYN位字段被启用，序列号字段则为一个随机的初始序列号(ISN，随机是一种安全措施)，随后该方向的所有序列号的确然号都建立在这个ISN上面。SYN，FIN，以及应用字节都会消耗一个序列号(即数据的第一个字节序列号为ISN+1)，这意味着它们都支持重传</li>
+</ul>
+<ul>
+<li>CWR，拥塞窗口减（发送方降低发送速率）</li>
+</ul>
+<ul>
+<li>ECE，ECN回显（发送方接受到了一个更早的拥塞通告）</li>
+</ul>
+<ul>
+<li>URG，紧急（紧急指针字段有效，很少用）</li>
+</ul>
+<ul>
+<li>PSH，推送（接收方尽快给应用程序传送这个数据，没有被可靠的实现或使用）</li>
+</ul>
+<ul>
+<li>RST，重置连接（连接取消，回到listen，经常是因为错误）</li>
+</ul>
+<ul>
+<li>FIN，发送方已经结束向对方发送数据</li>
+</ul>
+<ul>
+<li>校验和，校验和覆盖了tcp头部和数据以及首部中的一些字段，是强制的，由发送方计算，接收方验证，使用的算法和ip，udp，icmp相同</li>
+</ul>
+<ul>
+<li>紧急指针，在URG字段启用时才有效，它是一个偏移量，加载序列号字段上面标识紧急数据的最后一个字节，作用是告诉接收方尽快接受这些数据</li>
+</ul>
+<ul>
+<li>选项字段，最常见的是最大段大小(MSS)，一般在每个端点发送的第一个报文段上指定，表示希望收到的报文段的最大值</li>
+</ul>
+<ul>
+<li>数据部分，数据部分本身也是可选的，连接建立，终止，确认时都有可能发送不带任何数据吧报文段</li>
+</ul>
+<p><br></p>
+<h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><strong>从这里开始才是tcp机制的重点</strong></p>
+<ul>
+<li>一个tcp连接的标识由一个四元组构成，包括两个ip地址和两个端口号，每个连接对应一对端点(或套接字)，当四元组完全重复时，端系统将禁止建立链接并返回一个错误</li>
+</ul>
+<ul>
+<li>一个tcp连接分为3个阶段：启动、传输、退出</li>
+</ul>
+<p><img src="http://wx2.sinaimg.cn/mw690/007vHOvngy1fztan4y7ucj30fs0i5jsk.jpg" alt=""></p>
+<p><br></p>
+<h4 id="连接打开"><a href="#连接打开" class="headerlink" title="连接打开"></a>连接打开</h4><ul>
+<li>建立连接需要完成以下步骤，一共包括三个报文段，因此也称为三次握手，这里将连接的主动建立方称为客户端，被动建立方称为服务器，这种方式属于常见的情况，还有一种服务器和客户端同时建立连接的情况</li>
+</ul>
+<ol>
+<li>客户端发送syn报文段，该报文段syn位置位，包含需要连接的端口号，seq数值为初始序列号isn，</li>
+<li>服务器发送syn + ack报文段，该报文段syn位和ack位置位，ack数值为isn + 1 ，seq数值为另一isn，因此syn报文段如果丢失，客户端也可以知道需要重传，该报文段表示服务器收到了请求</li>
+<li>客户端发送ack报文段，该报文段 ack 位置位，ack数值和seq数值为 各自方向上的isn +1，该报文段表示客户端收到了服务器的回应</li>
+</ol>
+<p><br></p>
+<h4 id="序列号"><a href="#序列号" class="headerlink" title="序列号"></a>序列号</h4><ul>
+<li>序列号用于解决报文接受顺序混乱的问题，在发送syn报文之前，都双方需要确定一个初始序列号</li>
+</ul>
+<ul>
+<li><p>初始序列号需要设计得难以预测，因为当攻击者使用伪装成用户，使用用户的ip时，如果可以推测出初始序列号，那么即使攻击者实际上收不到syn+ack报文段，也可以通过初始序列号发送正确的ack报文建立连接，并且发送数据</p>
+</li>
+<li><p>一般初始序列号的随机机制建立在时钟之上，Linux上为对每个连接为时钟设置由散列函数得出的偏移量</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="连接关闭"><a href="#连接关闭" class="headerlink" title="连接关闭"></a>连接关闭</h4><ul>
+<li>关闭连接需要完成以下步骤，一共包括四个报文段，因此也称为四次挥手，通常来说关闭连接的发起方也是客户端，不过web服务器在作出相应之后也可能发起一个关闭操作</li>
+</ul>
+<ol>
+<li>主动关闭方发送fin + ack报文段，ack数值和seq数值取决于前面数据传输的情况，这里假设分别为L和K</li>
+<li>被动关闭方发送ack报文段，ack数值为K+1，seq数值为L，表示已经接受到了关闭请求</li>
+<li>被动关闭方发送fin + ack报文段，ack数值为L，seq数值为K+1，表示被动方也决定关闭相反方向的连接</li>
+<li>主动关闭方发送ACK报文段，ack数值为L+1，seq数值为K，同样表示收到了对方的关闭请求，注意上述的两个fin报文段，如果没有收到响应的ack报文段，则就会重新传输</li>
+</ol>
+<p><br></p>
+<h4 id="连接半关闭"><a href="#连接半关闭" class="headerlink" title="连接半关闭"></a>连接半关闭</h4><ul>
+<li>值得注意的是上述的两个fin报文段，代表各自方向的关闭请求，如果没有收到响应的ack报文段，则就会重新发送fin报文段，但并不是两个传输方向都必须发送关闭请求，可以选择仅仅关闭传输的其中一个方向，这种状况被称为半关闭，对于关闭哪个方向，协议上也不做限制</li>
+</ul>
+<pre><code>int shutdown(int sockfd,int how);
+
+SHUT\_RD（0）：关闭sockfd上的读功能，此选项将不允许sockfd进行读操作。不允许接受
+
+SHUT\_WR（1）：关闭sockfd的写功能，此选项将不允许sockfd进行写操作。不允许发送
+
+SHUT\_RDWR（2）：关闭sockfd的读写功能。不允许发送和接受(和 close() 一样)
+
+int close(int fd);
+
+关闭读写，它将防止套接字上更多的数据的读写
+任何在另一端读写套接字的企图都将返回错误
+</code></pre><ul>
+<li>socket中半关闭的api对应的是shutdown(fd,1), 在操作系统的支持下shutdown本质上接受两个连接上的控制，普通关闭的方式为close(fd)，它的效果和 shutdown(fd,2) 一样，连接半关闭需要两个报文段，两个方向上的半关闭就相当于普通的关闭，只是在它们之间仍允许一个方向发送数据，注意某个方向的连接半关闭时，依然会发送ack报文段进行确认，只是该报文段不再携带数据</li>
+</ul>
+<ol>
+<li>主动关闭方发送fin + ack报文段，ack数值和seq数值取决于前面数据传输的情况，这里假设分别为L和K</li>
+<li>被动关闭方发送ack报文段，ack数值为K+1，seq数值为L，表示已经接受到了关闭请求</li>
+<li>被动关闭放仍可以发送数据报文段，但主动关闭方只能发送ack报文段</li>
+</ol>
+<p><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fztav6f70hj30fs0fkmxw.jpg" alt=""></p>
+<p><br></p>
+<h4 id="同时打开与关闭"><a href="#同时打开与关闭" class="headerlink" title="同时打开与关闭"></a>同时打开与关闭</h4><ul>
+<li>这种情况下双方必须都知道对方用于通信的ip和端口号，同时打开与关闭都需要四个报文段，并且报文段的发送接受一般是交叉进行的</li>
+</ul>
+<ul>
+<li>同时关闭连接和正常关闭连接基本没有区别，但同时开启连接时双方都需要发送一个syn和一个syn+ack报文段，用于发送请求和确认请求</li>
+</ul>
+<p><br></p>
+<h4 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h4><ul>
+<li>tcp的11个状态转换情况如下，这11个状态名称来自*nix和win上面的nestat命令的输出名称，下面只讲解一些比较重要的点</li>
+</ul>
+<p><img src="http://wx1.sinaimg.cn/mw690/987832a0gy1g00itnztknj20oi0jm0vi.jpg" alt=""></p>
+<ul>
+<li>SYN_RCVD返回LISTEN状态只有在SYN_RCVD是在LISTEN状态转换来的才是正确的，它的作用是让SYN_RCVD状态中的客户端接受到重置报文后返回LISTEN状态等待另一个连接请求</li>
+</ul>
+<ul>
+<li>TIME_WAIT状态，也称为2MSL状态，首先调用close()发起主动关闭的一方，在发送最后一个ack之后会进入time_wait的状态，保持2MSL时间(最大段生存期)之后才会正式关闭连接，需要TIME_WAIT的原因有两个，一个是为实现连接的可靠释放，因为最后一个ack可能丢失，这时被动关闭方会超时重发fin报文段同时使这个ack能重新发送，第二个原因是使旧的数据包在网络因过期而消失，这时为了避免之后使用相同四元组时建立的新连接接受到上一次连接的旧数据。在高并发的业务场景下可能会出现产生了大量TIME_WAIT的socket的问题，服务器可以使用SO_REUSEADDR来重用TIME_WAIT状态下的端口，或者更加合理的设置2MSL时间</li>
+</ul>
+<ul>
+<li>CLOSE_WAIT状态，当被动关闭方接受到FIN报文段时，在端系统未调用close之前都处于这种情况，正常情况下一般是还有数据没发送完，或者还没到关闭的时机，非正常情况则是程序员遗漏了close操作(多进程需要特别注意close，因为不同与shutdown，close受socket引用计数的影响)，这时往往会导致大量处于该状态的socket，最好是排查程序，另外还可以设置超时</li>
+</ul>
+<ul>
+<li>FIN_WAIT2状态，当主动关闭方发送完FIN报文段后，如果接受到的不是fin+ack，而是ack报文段时会进入该状态，因为还需要一个fin报文段才可以关闭连接，正常情况是在使用半关闭通信，KeepAlive ，或者发送方还没有发送完数据，非正常情况下则是客户端设计不合理，也可以使用超时来解决，这个超时不是协议规定的，但大部分系统都有实现，<a href="https://www.2cto.com/shouce/ApacheManual/misc/fin_wait_2.html" target="_blank" rel="external">详见</a></li>
+</ul>
+<ul>
+<li>RST报文段，tcp首部的rst位置位时即为重置报文段(socket上为SO_LINGER字段)，一般来说都是连接不正确导致的，比如对没有被监听的端口发送了连接请求，一般是客户端设错了本地端口，upd的情况是会导致一个不可达的icmp报文段，tcp则是使用rst报文段来完成相同的工作。RST可以用来强制释放一个连接，因为fin报文段需要在排队数据都发送完后才会被发送，但rst则会抛弃所有排队数据，fin被称为有序释放，rst被称为终止释放，终止释放有时被用于通信一端以外断开导致的半连接状态，当该段重启并再次连接时需要用RST回应旧连接的报文段，表示它对这些数据一无所知。rst对部分处在time_wait状态的接受端也适用，这时候将产生一个时间等待错误TWA，直接关闭连接，有些端系统在time_wait时不对RST做出任何反应</li>
+</ul>
+<p><br></p>
+<h3 id="TCP选项"><a href="#TCP选项" class="headerlink" title="TCP选项"></a>TCP选项</h3><ul>
+<li>tcp选项是由IANA维护的，每一个选项的头一个字节为种类，部分类型的选项长度是固定的，另外则是可变的，常见的tcp选项如下</li>
+</ul>
+<ol>
+<li>最大段大小MSS，允许对方发送的最大报文段，只记录数据字段，不包括tcp与ip头部，建立连接时每一方都需要使用该选项来说明允许的大小，否则默认为536字节，因为任何主机都只是需要能处理576字节(需要去掉最小头部)</li>
+<li>选择确认SACK，由于窗口滑动机制容易产生空洞，于是使用选择确认机制来通知发送方已接收到的数据块序列范围(SACK块)，SACK选项可以携带多个SACK块</li>
+<li>窗口放大WSCALE，用来将tcp窗口大小从16位扩展到32位</li>
+<li>时间戳TSPOT，用来发送2个4字节的时间戳，接收方可以利用这些时间戳计算往返时间，计算往返时间主要用于设置超时重传时间</li>
+<li>用户超时UTO，用来指明发送者在确认对方收到数据之前愿意等待ACK确认的时间</li>
+</ol>
+<p><br></p>
+<h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><ul>
+<li>tcp采用基于计时器的重传策略，每次重传使用二进制指数退避，即等待重传的时间为上一次间隔的一倍，我们把一个间隔称为RTO，RTO需要通过RTT来确定，tcp还使用两个阈值来决定是否继续重传同一个报文段，R1为重传次数，至少为3次，R2为所用时间，至少为100秒</li>
+</ul>
+<ul>
+<li>RTT：RTO不能大于RTT，避免数据报还未到达就重发，RTT的确定需要采集RTT样本，通常可以使用发送报文段和收到确认报文的时间间隔，并采用一定的算法得出比较合理的统计数值，这里不深入研究。每一个连接的rtt都独立估算，并且重传时钟会会对任何占用序列号的在传数据计时</li>
+</ul>
+<ul>
+<li>计时：一旦得到了估计的RTT，就可以设置RTO了，在记录报文段的序列号之后，tcp为报文段设置一个定时器，当收到该报文的ack，则将这个定时器取消，每一个新的数据报都需要一个新的计时器</li>
+</ul>
+<ul>
+<li>超时：若在一个RTO之内没有收到ack，那么就触发超时重传，超时重传还会导致tcp降低发送速率，一种方法是基于拥塞控制减小发送窗口的大小，另一种方法是增大RTO，即二进制指数退避</li>
+</ul>
+<p><br></p>
+<h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><ul>
+<li>接收方当收到失序的分组时，即收到序列号大于期待值的分组时，会发送冗余ack，当发送端接受到一定数量(dupthresh一般为3)的冗余ack就会引发快速重传，冗余ack通常也包括sack选项，用于表示有多少个空缺，导致失序分组的原因一般有两个，分组丢失或延迟到达，因为不能确定是哪一种情况，所以才需要设置dupthresh。快速重传也会触发拥塞控制机制</li>
+</ul>
+<p><br></p>
+<h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p><br></p>
+<h4 id="nagle算法"><a href="#nagle算法" class="headerlink" title="nagle算法"></a>nagle算法</h4><ul>
+<li>nagle算法是指任意时刻，最多只能有一个未被确认的小段，也就是小于MSS而且还没有收到ack的数据块，尽量搜集普通的小数据包合并成大的数据包，对于大于mss，或含有fin，或设置了TCP_NODELAY，或超时，或当前没有未确认小段时，数据包都是直接发送的</li>
+</ul>
+<pre><code>（1）如果包长度达到MSS，则允许发送；
+（2）如果该包含有FIN，则允许发送；
+（3）设置了TCP\_NODELAY选项，则允许发送；
+（4）未设置TCP\_CORK选项时，若所有发出去的小数据包（包长度小于MSS）均被确认，则允许发送；
+（5）上述条件都未满足，但发生了超时（一般为200ms），则立即发送。
+</code></pre><ul>
+<li>TCP_NODELAY本质是禁用nagle算法，TCP_CORK则是使用比nagle更加强制性的算法，它没有一个未被确认的小段的限制，会尽量的将数据包合并为一个MSS</li>
+</ul>
+<p><br></p>
+<h4 id="延迟确认"><a href="#延迟确认" class="headerlink" title="延迟确认"></a>延迟确认</h4><ul>
+<li>tcp一般不对每个数据包都返回ack，而是将ack和需要传输的数据结合发送，以减少数据包的数量</li>
+</ul>
+<ul>
+<li>延迟确认在大数据包传输中大量使用，但在小数据包传输中和nagle等算法配合可能不太令人满意，因为服务端在等待客户端的延迟ack时可能由于nagle而不能发送更多数据包</li>
+</ul>
+<p><br></p>
+<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><ul>
+<li>每个tcp都是双向连接，连接的收发数据是通过一组窗口结构维护的，每个连接的两端都都维护一个发送窗口和一个接受窗口，窗口以字节为管理单位，提供窗口的大小是由接受端的ack中的窗口大小字段控制的</li>
+</ul>
+<ul>
+<li>提供窗口结构如下，窗口边界不能左移，因为ack号有累积性不能返回，当ack增大时窗口大小不变时为右滑，窗口也有可能减小，当大小为零时，称为零窗口</li>
+</ul>
+<p><img src="http://wx1.sinaimg.cn/mw690/987832a0gy1g01pdy84wyj20hn0bbt93.jpg" alt=""></p>
+<ul>
+<li>接受窗口结构如下，该窗口内的字节没有区分，只要序列号不再窗口范围当中，报文段都会被抛弃，使用sack选项时窗口范围内的任何序列号都可以接受确认，若不使用sack，则只有左边界的序列号可以接受确认，左边界的序列号被确认时会导致窗口右滑</li>
+</ul>
+<p><img src="http://wx2.sinaimg.cn/mw690/987832a0gy1g01q1n2ynvj20hn0aujrm.jpg" alt=""></p>
+<ul>
+<li>比较特殊的情况是零窗口，它可以有效阻止发送端继续发送数据，当接收端可以接受数据时需要发送一个窗口更新ack报文段，它通常不包含任何数据。为了避免该报文段丢失，发送端会使用一个持续计时器来间歇性的发送窗口探测报文段查询接收端，它包含一个字节的数据，因此避免丢失</li>
+</ul>
+<p><br></p>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><ul>
+<li>并没有一种精确的方法可以知晓中间路由器的状况，tcp最常用的拥塞检测方法基于丢包，其他方法包括时延测量和显示拥塞通知，当检测当拥塞，tcp需要有效减缓tcp的发送</li>
+</ul>
+<ul>
+<li>tcp使用拥塞窗口cwnd来反应网络传输能力，它和接受端通知窗口awnd共同决定发送端窗口大小，不能大于两者中的较小值，由于cwnd不可能精确得到，因此一般使用慢启动来确定</li>
+</ul>
+<ul>
+<li>慢启动：慢启动一般在连接建立或检测到超时重传时使用，发送端长时间空闲时也可能使用，慢启动用于在启用拥塞避免之前逐步获取cwnd值，以及帮助tcp建立ack时钟。慢启动的初始值一般为1个SMSS(发送方最大段大小)，每接受到新序列号的ack，会以min(接收方新接受的数据量,SMSS)来增加cwnd值，当cwnd增加时，可发送数据包数量也会增加，因此初始值为1时，正常情况下cwnd会以1 2 4 8 .. 增长，因此理想状态下cwnd会以指数增长</li>
+</ul>
+<ul>
+<li>拥塞避免：为了避免慢启动中cwnd高速增长，tcp需要使用一种更加缓和的增长算法，它就是拥塞避免，公式如下，假设cwnd分k个包发送，数据接受完cwnd则增长了大约一个SMSS</li>
+</ul>
+<pre><code>cwnd=cwnd+SMSS\*SMSS/cwnd 
+cwnd=cwnd+(1/k)\*SMSS
+</code></pre><ul>
+<li>ssthresh：慢启动什么时候进入拥塞避免由慢启动阈值ssthresh确定，当cwnd值大于ssthresh时使用拥塞避免机制，ssthresh不是固定的，它会记录上次最好的窗口估计值，一般是从拥塞避免来的，当发送超时重传时，会导致ssthresh降低为大约cwnd值的一半，cwnd重新设置为1，重新进入慢启动过程，发生快速重传时则会把ssthresh设置为cwnd的一半，把cwnd再设置为ssthresh的值，重新进入拥塞避免阶段</li>
+</ul>
+<ul>
+<li>快速恢复：快速恢复建立在前面快速重传的情况下，TCP最后进入的不是拥塞避免阶段，而是快速恢复阶段，快速重传和快速恢复算法一般同时使用，但后者更加详细，也多一些步骤，快速恢复基于数据包守恒原则，只有当老数据包离开了网络后，才能向网络中发送一个新数据包，如果发送方收到一个重复的ack，那么就表明有一个数据包离开了网络</li>
+</ul>
+<pre><code>1.当收到3个重复ACK时，把ssthresh设置为cwnd的一半，把cwnd设置为ssthresh的值加3，然后重传丢失的报文段
+加3的原因是因为收到3个重复的ACK，表明有3个“老”的数据包离开了网络。 
+
+2.再收到重复的ACK时，拥塞窗口增加1。
+
+3.当收到新的数据包的ACK时，把cwnd设置为第一步中的ssthresh的值。
+原因是因为该不重复的好的ack表示失序问题已经解决
+该恢复过程已经结束，可以回到恢复之前的状态了，也即再次进入拥塞避免状态
+</code></pre><p><br><br><strong>本篇完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[计算机网络系列 6 - 运输层 & UDP]]></title>
+      <url>/2018/11/09/NetUdp/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h3><p><br></p>
+<h4 id="运输层服务"><a href="#运输层服务" class="headerlink" title="运输层服务"></a>运输层服务</h4><ul>
+<li>传输层提供两种协议，tcp和udp，udp提供不可靠无连接的服务，tcp提供可靠面向连接的服务（其实还有一个stcp，不过不在本文讨论范围）</li>
+</ul>
+<ul>
+<li>提供程到进程之间的逻辑通信，运输层在端系统而不是在路由器上实现，由于ip为不可靠服务（不确保交付和顺序），将ip扩展为两个端系统进程之间的这种交付服务称为多路复用与多路分解</li>
+</ul>
+<ul>
+<li>简单来说，运输层提供最低限度的服务包括，进程间的数据交付，差错检查，这两种也是udp提供的全部服务，而tcp还提供可靠数据传输（正确，有序）和拥塞控制</li>
+</ul>
+<p><br></p>
+<h4 id="多路分解复用-amp-端口号"><a href="#多路分解复用-amp-端口号" class="headerlink" title="多路分解复用 &amp; 端口号"></a>多路分解复用 &amp; 端口号</h4><ul>
+<li>运输层的数据实际上并不是直接交付给进程的，而是交付给对应的套接字，根据报文段中的首部信息将其定向到目标套接字就是多路分解</li>
+</ul>
+<ul>
+<li>相对的，为数据加上这些首部信息，然后投递到网络层就称为多路复用</li>
+</ul>
+<ul>
+<li>需要的字段包括源端口号，目的端口号和其他一些字段，端口号为两个字节，0到1023为受限端口号，1024到49151为注册端口号，49152到65535为动态端口或者私人端口，受限端口和注册端口可以在IANA的这个<a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml" target="_blank" rel="external">网站</a>查看，redhat旧版的<a href="http://cert.sjtu.edu.cn/doc/linux/ch-ports.html" target="_blank" rel="external">安全手册</a>也有提供常见的端口号，看一下下面这些就够了</li>
+</ul>
+<pre><code>HTTP协议代理服务器常用端口号：80/8080/3128/8081/9098
+
+SOCKS代理协议服务器常用端口号：1080
+
+FTP（文件传输）协议代理服务器常用端口号：20（控制端口）/tcp、21（数据传输端口）/tcp
+
+Telnet（远程登录）协议代理服务器常用端口号：23/tcp
+
+DNS（域名解析服务）默认端口号：53/udp
+
+HTTP服务器，默认端口号：80/tcp
+
+POP3 （邮局协议版本3）使用的端口号：110/tcp
+
+HTTPS（securely transferring web pages）服务器，默认端口号：443/tcp
+
+TFTP（Trivial File Transfer Protocol），默认端口号：69/udp
+
+SSH（安全登录）、SCP（文件传输）、端口号重定向，默认的端口号：22/tcp
+
+SMTP （Simple Mail Transfer Protocol），默认端口号：25/tcp
+
+POP3 Post Office Protocol（E-mail），默认端口号：110/tcp
+
+Webshpere应用程序默认端口号：9080
+
+webshpere管理工具，默认端口号：9090
+
+JBOSS，默认端口号：8080
+
+TOMCAT，默认端口号：8080
+
+WIN2003远程登录，默认端口号：3389
+
+Symantec AV/Filter for MSE,默认端口号：8081
+
+MSN Messenger的文件传输功能所使用的端口号：1863/tcp
+
+Oracle 数据库默认的端口号：1521/tcp
+
+ORACLE EMCTL，默认的端口号为1158
+
+Oracle XDB（XML 数据库），默认的端口号为8080
+
+Oracle XDB FTP服务，默认的端口号为2100
+
+MS SQL SERVER数据库server，默认的端口号为1433/tcp
+
+MS SQL SERVER数据库monitor，默认的端口号为1434/tcp
+
+Microsoft RDP 微软远程桌面使用的端口号：1863/tcp
+
+Symantec pcAnywhere 远程控制数据传输时使用的端口号：5631/tcp
+
+Symantec pcAnywhere 主控端扫描被控端时使用的端口号：5632/udp
+
+MS SQL Server使用的端口号：5000/tcp
+</code></pre><p><br></p>
+<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p><br></p>
+<h5 id="定向"><a href="#定向" class="headerlink" title="定向"></a>定向</h5><ul>
+<li>自顶向下上面说udp用两元组来确定一个socket，tcp用四元组来确定一个socket，报文段指定的元组的元素相同就会通过相同的套接字定向到相同的目的进程</li>
+</ul>
+<ul>
+<li>这个说法有点绕，而且不是很恰当，因为本质上不管多少元组，最多都只能定位到socket，操作系统保证同时建立(accept，Socket)创建socket时不会产生重复的socket，进程持有socket的描述符socketfd，因此可以监听到这些报文段，由于fd是共享资源，假如一个进程创建socket后fork了一个或多个子进程，那么哪个进程能拿到报文段取决于谁先读取数据，并且多个进程都可以往同一socket写数据，当然这种情况不常见，因为通常只有tcp链接中的监听socketfd(由Socket函数产生)才设计成在各个进程间共享，而它指向的socket是不用来传输数据的，只不过这种问题确实有可能发生，而且不只是读写，我们还要关注关闭socket的情况，socketfd是具有引用计数的，一个进程调用close只会让引用计数减一，只有减到0才会进行关闭，而调用shutdown则会不管计数直接关闭，因此不当使用close可能会引发大量的close_wait的socket导致端系统崩溃的问题</li>
+</ul>
+<p><br></p>
+<h5 id="五元组"><a href="#五元组" class="headerlink" title="五元组"></a>五元组</h5><ul>
+<li>在计算机网络中，五元组可以唯一确定一个会话，一个会话只会对应一对socket(源，目的)，五元组具体指的是下面这五个</li>
+</ul>
+<pre><code>src\_ip, 源ip
+src\_port，源端口
+dest\_ip，目的ip
+dest\_port，目的端口
+protocol\_type，协议类型
+</code></pre><ul>
+<li>知道这个有什么用呢，有的，我们可以推导一个会话能否成立，比如说，不同的协议能否运行在相同的端口呢，答案是可以的，<a href="https://www.jianshu.com/p/df9e55e94f95" target="_blank" rel="external">详见</a>，其他元组也是这样，都是很普通的情况了</li>
+</ul>
+<ul>
+<li>在进一步知道协议的情况下，比如tcp和udp，我们通常就使用四元组了，因为上面的 protocol_type 是已知的了（SOCK_STREAM，或者SOCK_DGRAM）</li>
+</ul>
+<p><br></p>
+<h5 id="二元组-amp-四元组"><a href="#二元组-amp-四元组" class="headerlink" title="二元组 &amp; 四元组"></a>二元组 &amp; 四元组</h5><p><strong>这一节的图片来自《unix网络编程》</strong></p>
+<ul>
+<li>细心的人会发现不管TCP还是UDP的首部一般都只有五元组中的源端口和目的端口，实际上程序接受一个UPD或TCP消息时，IP首部和udp，tcp首部都已经被剥掉，但五元组就是由这些首部共同构成的，不管什么时候都可以通过操作系统的接口获取(如果确实有)，<a href="https://blog.csdn.net/iicup/article/details/41041215?utm_source=blogxgwz3" target="_blank" rel="external">例子</a></li>
+</ul>
+<ul>
+<li>那么为什么说TCP的套接字是四元组而UDP套接字却是二元组呢，这里讲的其实是套接字的定向，先看TCP的情况，由于TCP是面向连接的传输服务，而一个连接自然就包含了一个四元组，因此建立一个链接就需要创建一个socket，也就是accept函数每次返回的是一个新的socket的描述符，需要四元组才能定向到这个socket</li>
+</ul>
+<p><br><br><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fzi7px6exej30u00vzgs7.jpg" alt=""></p>
+<ul>
+<li>再看UDP的情况，UDP是无连接的，更关键的是它是不可靠的，源ip和源端口无关紧要(同时udp协议中源端口号是可选的，可设置为0)，因此UDP的socket是可以复用的，也就是说目的ip和端口一致的报文段全都发往一个socket就行了，这个时候我们同样可以同过recvfrom获取到源地址</li>
+</ul>
+<p><br><br><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fzi7qar0kuj30z00rsdwn.jpg" alt=""></p>
+<ul>
+<li>最后看端口复用的情况，端口复用概念只存在于TCP的情况(毕竟udp一直都是复用的)，我们知道通常Socket里一个端口一个程序只能bind一次，多次bind一个端口，就叫做端口复用，我们可以使用setsockopt来设置端口复用，但端口复用本身是有限制的，它只是通知内核，如果端口被占用且TCP状态位于 TIME_WAIT ，就重用端口，否则将bind时将一直返回Error，这是由于socket本身只含有四元组，如果有同一时刻同一协议绑定相同端口，那么请求到来时就无法匹配到唯一的socket，这也导致了端口复用的应用上有一定难度，具体可以看，<a href="https://www.cnblogs.com/kex1n/p/7437290.html" target="_blank" rel="external">这里</a></li>
+</ul>
+<pre><code>setsockopt(sockfd, SOL\_SOCKET, SO\_REUSEADDR, (const voidvoid \*)&amp;opt, sizeof(opt));
+</code></pre><p><br></p>
+<h3 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h3><p><br></p>
+<h4 id="适用领域"><a href="#适用领域" class="headerlink" title="适用领域"></a>适用领域</h4><ul>
+<li>udp不提供向tcp那么完善的服务，但这也是udp的优点，它更加灵活低耗，应用采用udp的原因可能如下</li>
+</ul>
+<pre><code>可以更精细地控制什么时候发送数据，避免tcp中的拥塞控制和确认机制导致不必要的延迟和重传，保证实时应用的最小发送速率
+
+无需建立连接，不会引入建立连接的时延
+
+端系统开销小，无连接也就不需要维护连接状态，如缓存，拥塞控制参数，确认号等
+
+分组首部开销小，udp首部只有8字节的开销，tcp则为20字节
+</code></pre><ul>
+<li>使用udp的例子如下，有一个误区是实时流媒体都用udp，比如什么直播用的都是udp，或者由于web基于http所以视频播放都是基于tcp，实际上流视频不可能是那么简单的事情，硬要说的话，目前主流的web直播使用的是http-flv(基于http，自热也就基于tcp)，或则是http-flv + rtmp(同样基于tcp)，并且向http-flv靠拢是趋势，移动端上也是rtmp比较多，详细可以看<a href="https://www.zhihu.com/question/24034147" target="_blank" rel="external">这里</a>，或<a href="https://blog.csdn.net/xiaojun111111/article/details/79805344" target="_blank" rel="external">这里</a></li>
+</ul>
+<pre><code>NFS(网络文件系统协议)
+SNMP(简单网络管理协议)
+RIP(路由选择协议)
+DNS(域名解析协议，通常使用udp)
+</code></pre><p><br></p>
+<h4 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h4><p><img src="http://wx3.sinaimg.cn/mw690/007vHOvngy1fziwdregvoj30cm09xjri.jpg" alt=""></p>
+<ul>
+<li>端口号是协议间独立的，因为ip协议中的协议字段或ipv6中的下一个首部字段可以用于协议间的隔离，源端口号是可选的，如果发送方不提供端口号，那么设置为0</li>
+</ul>
+<ul>
+<li>长度是总长度，包括头部和数据部分，同时这个字段也是冗余的，因为通过ip和ipv6的数据报都可以简单计算出这个长度</li>
+</ul>
+<ul>
+<li>校验和是端到端的，是包含了ip头部中的源ip和目的ip的udp伪头部计算得来的</li>
+</ul>
+<p><br></p>
+<h4 id="校验和"><a href="#校验和" class="headerlink" title="校验和"></a>校验和</h4><p><br></p>
+<h5 id="校验出错"><a href="#校验出错" class="headerlink" title="校验出错"></a>校验出错</h5><ul>
+<li>先说一下校验出错时会发生什么，当一个数据报被检验出错时，端系统只是将其直接抛弃，这里就涉及到分片的问题，由长度字段可以算出udp的mtu在64k左右，但ethernet的mtu为1500，那么假如udp数据报的长度超过1500，就会导致分片，这个某个数据报发生任何差错都会无法重组，端系统会丢弃所有的分片，所以一般来说状态不好的端系统应该将数据长度限制在1464(去掉头部)以内</li>
+</ul>
+<ul>
+<li>ipv4的情况下校验和是可选的，ipv6则是强制的，但由于校验和计算是规定默认启用的，所以我们通常认为udp的差错控制是受保证的，如果校验和为0则认为不启用校验，如果计算出来的校验和正好为0，为避免歧义，将设置为全1(0xFFFF)_ </li>
+</ul>
+<p><br></p>
+<h5 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h5><ul>
+<li>udp的校验和并不是使用原本的数据报直接计算得出的，而是需要加上伪首部，这是因为udp要实现端到端的差错检测，而udp首部本身只有端口信息，伪首部本身不会被发送，只是计算时才使用，另外伪首部中包含有长度字段，这在udp中是冗余的，只是tcp中需要这个字段</li>
+</ul>
+<ul>
+<li>ipv4首部结构如下</li>
+</ul>
+<p><img src="http://wx1.sinaimg.cn/mw690/007vHOvngy1fzizqombk8j30h10foq38.jpg" alt=""></p>
+<ul>
+<li>ipv6伪首部结构如下</li>
+</ul>
+<p><img src="http://wx4.sinaimg.cn/mw690/007vHOvngy1fzj0c5h9uij30h6094wek.jpg" alt=""></p>
+<ul>
+<li>计算方法是</li>
+</ul>
+<pre><code>1 将校验和字段置0
+2 将每个16位的按位相加，如第17、18位出现的进位，将其值与第1，2位相加
+3 再将所得的结果取反码，最后得到的结果即为UDP校验和
+</code></pre><p><br><br><strong>本篇完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深入操作系统 6 - 构建 GDT & 进入保护模式]]></title>
       <url>/2018/11/08/OSGdtCreate/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -9319,6 +9232,93 @@ spin:
 jmp spin
 # If bootmain returns (it shouldn&apos;t), loop.
 </code></pre><p><strong>本文完</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[计算机网络系列 5 - 防火墙 & NAT]]></title>
+      <url>/2018/11/08/NetGateWayNAT/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><br></p>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><ul>
+<li>早期因特网发展时很少有人关心安全问题，如今要确保所有端系统中的问题都被修复已经非常困难，因此确保端系统免受攻击的焦点转为利用防火墙来过滤部分流量以限制流量流向端系统</li>
+</ul>
+<ul>
+<li>防火墙分为两类，包过滤防火墙和代理防火墙</li>
+</ul>
+<p><br></p>
+<h3 id="包过滤防火墙"><a href="#包过滤防火墙" class="headerlink" title="包过滤防火墙"></a>包过滤防火墙</h3><ul>
+<li>包过滤防火墙是一种路由器，能够过滤（丢弃）一些数据包，通常检查的范围如下，有些防火墙是无状态的，只是单独处理每一个包，有状态的防火墙可以关联已经到来或即将到来的数据报来推断流或数据报的信息，并且能够处理ip分片</li>
+</ul>
+<pre><code>源地址
+目的地址
+目的设备的端口号(请求类型)
+该数据包所属的协议(TCP、UDP等等)
+数据包的传输方向，向外传到因特网或向内传给局域网
+数据库中既定数据包的署名
+</code></pre><ul>
+<li>通常包过滤防火墙的配置如下，其中DMZ称为非军事区，DMZ子网和内网均能访问外网，外网和内网均能访问DMZ子网，但DMZ子网和外网都不能访问内网，这样在隔离内外网的情况下，内网依然可以利用DMZ提供一些对外服务，包过滤防火墙通过访问控制表ACL实现这些要求</li>
+</ul>
+<pre><code>| DMZ | -----------|       |
+                   | 包过滤 |---------| 外网 |
+                   | 防火墙 |
+| 内网 |  --------- |       |
+</code></pre><p><br></p>
+<h3 id="代理防火墙"><a href="#代理防火墙" class="headerlink" title="代理防火墙"></a>代理防火墙</h3><ul>
+<li>代理防火墙通常不是真正的路由器，没有ip转发的功能，而是运行应用层网关的主机，它在应用层中继两个连接的特点类型的流量，因此客户端通常只需要一定配置来连接防火墙，而不是实际连接到运行防火墙的物理终端</li>
+</ul>
+<ul>
+<li>常见的代理防火墙如：http代理防火墙(也叫web代理)用来提供web缓存，进行过滤过滤，或防止被过滤(如隧道代理)。SOCKS代理，可以用于web及以外的功能，如udp传输，ipv6寻址等</li>
+</ul>
+<pre><code>                     | 代理   |
+| 客户端 |----------- | 防火墙 |---------| 外网 |
+                     |       |
+</code></pre><p><br></p>
+<h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><ul>
+<li>NAT本质是一种允许在互联网的不同地方重复使用相同ip地址集的机制(设置了NAT之后网络可以被分为公网和私网两部分)，用于解决ip地址资源枯竭和问题和提高路由可扩展性，由于NAT本质是临时方案，因此这两个问题最终是被ipv6和cidr解决的(见前几篇)。NAT具有一些缺点，因为互联网上的设备无法直接访问私有地址的主机，连接双向的数据报都需要通过相同的NAT，NAT和互联网协议的基本宗旨相违背，它需要跟踪多个状态，因此操作会贯穿多个协议层，NAT面对的最重要的问题是分片的ip数据报中可能没有端口号，这导致NAT一般不能正确处理分片的情况，另一个问题是两个NAT系统中的内部主机如何通讯的问题，可以通过NAT穿越来解决。NAT的使用目前依然非常广泛，基本上被所有家用低端路由器支持</li>
+</ul>
+<ul>
+<li>NAT的工作原理就是重写通过路由器的数据报的识别信息，包括两个方向的ip地址和端口号，传出的数据报的源ip地址会变为NAT路由器面向Internet的网络接口地址而不是原始主机的接口地址，从互联网上的主机来看，数据报来自于具有全局路由ip的NAT路由器，而不是NAT内部的私有地址主机，大多数NAT路由器还同时执行转换和包过滤，包过滤的标准取决于NAT的动态状态</li>
+</ul>
+<ul>
+<li>传统的NAT包括：基本NAT和NAPT。基本NAT只执行IP地址的重写，本质上就是将私有地址改写为公共地址，该公共地址一般来自ips提供的地址池或公有地址访问，地址范围必须大于或等于希望同时访问Internet的主机数量，这种类型的NAT较少使用。NATP则使用传输层标识符（tcp和udp端口号，icmp查询标识符）来确定一个特点的数据包到底和NAT内部的哪台私有主机关联，这使得大量的内部主机可以同时访问互联网，但需要的公有地址往往只需一个，因此为了避免冲突有时需要重写端口号，我们说的NAT通常包含传统的NAT和NAPT</li>
+</ul>
+<ul>
+<li>地址池：原则上NAT内部可以使用任何ip地址，只是如果在私有范围内使用公共地址，可能导致公共范围的共用地址无法访问，因此一般使用10.0.0.0/8,172.16.0.0/12,192.168.0.0/16，NAT实现了一定的安全策略，几乎允许所有传出及其返回的流量通过，但几乎阻断所有传入的连接请求，这样可以抑制ip地址的“探测”攻击，对外隐藏内部的地址数量和配置</li>
+</ul>
+<p><br></p>
+<h3 id="NAT-amp-TCP-amp-UDP"><a href="#NAT-amp-TCP-amp-UDP" class="headerlink" title="NAT &amp; TCP &amp; UDP"></a>NAT &amp; TCP &amp; UDP</h3><ul>
+<li>tcp相关的内容在后面几篇，当NAT收到一个向外的syn报文段时，会将源ip地址修改为NAT路由器的外部接口的ip地址，并创建一个会话状态来记录连接，该状态至少包含一个端口号和一个源IP地址，这样NAT可以通过端口号来映射ip地址，在数据包出入NAT路由器时修改这些ip地址</li>
+</ul>
+<ul>
+<li>会话状态会在如下几个情况下被删除，双方交换fin报文段(正常关闭)，状态会在流量很少或收到rst报文段(非正常关闭)，NAT还会在传出一个syn报文段使设置连接计时器，如果ack未按时到达，状态会被删除，若ack按时到达则开启一个超长的会话计时器，当超时时会向内部节点发送探测报文，如果收到探测报文的ack就重置计时器，表示连接还处于激活状态，如果ack超时则删除会话状态</li>
+</ul>
+<ul>
+<li>NAT在处理udp时需要处理的问题和tcp大多数是一样的，但udp缺少连接建立和清除的过程，没有syn fin等标志位，因此NAT使用一个映射计时器来清除NAT的状态</li>
+</ul>
+<p><br></p>
+<h3 id="NAT穿越"><a href="#NAT穿越" class="headerlink" title="NAT穿越"></a>NAT穿越</h3><ul>
+<li>NAT穿越一般是指使用一个服务器作为多个NAT系统的中继来实现客户端之间的通信，因为NAT不允许为建立连接的外部请求，因此任一方都无法直接向对方建立请求，利用服务器建立连接的过程称为打洞，大致流程为两个客户端通过向外连接来访问服务器，这样就建立了两个NAT映射，服务器可以在客户端之间交换它们的外部寻址信息，一旦知道这个信息，客户端就可以进行直接连接</li>
+</ul>
+<ul>
+<li>具体的打洞流程如UNSAF和STUN之后如果有时间会进行补充</li>
+</ul>
+<p><br><br><strong>本篇完</strong></p>
 ]]></content>
       
         <categories>
