@@ -195,9 +195,7 @@ ImageLoadingProgressListener：加载进度回调
 <li>uil的分包还是很清晰的，主要包括了</li>
 </ul>
 <pre><code>utils：包括一些工具类
-
 cache包：包括disc和memory两部分，负责磁盘和内存缓存
-
 core包：核心功能包括以下部分
 assist：主要包括一些枚举和队列的实现
 decode：图片解码，将流转换为Bitmap，主要实现为BaseImageDecoder
@@ -206,7 +204,6 @@ download：负责网络，文件或资源图片的加载
 imageaware：代表显示图片的类，如ImageView或普通View等
 listener：回调接口
 process：对Bitmap进行预处理或后处理
-
 DefaultConfigurationFactory：生成默认option，如线程池，缓存管理实例等
 DisplayBitmapTask：展示图片的runnable
 LoadAndDisplayImageTask：加载并显示图片的runnable
@@ -244,7 +241,6 @@ ImageLoaderEngine：任务分发器，负责分发各类task给具体的线程�
 <li>核心方法displayImage实现如下</li>
 </ul>
 <pre><code>public void displayImage(String uri, ImageAware imageAware, DisplayImageOptions options,ImageSize targetSize, ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
-
     //1.检查配置和回调
     checkConfiguration();
     if (imageAware == null) {
@@ -487,58 +483,53 @@ private ImageDownloader getDownloader() {
     }
 }
 </code></pre><p><br></p>
-<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p><br></p>
-<h5 id="DiskCache"><a href="#DiskCache" class="headerlink" title="DiskCache"></a>DiskCache</h5><p><strong><a href="https://blog.csdn.net/mcc_19920603/article/details/50600690" target="_blank" rel="external">参考</a></strong></p>
-<ul>
-<li>DiskCache的实现分三种 LimitedAgeDiskCache，UnlimitedDiskCache，LruDiskCache，它们都继承自BaseDiskCache</li>
+<h4 id="MemoryCache"><a href="#MemoryCache" class="headerlink" title="MemoryCache"></a>MemoryCache</h4><ul>
+<li>不是所有缓存策略都有最大容量的限制，在有限制的情况下，默认为最大可用内存的8分之1，可设置</li>
 </ul>
 <ul>
-<li>LimitedAgeDiskCache，限制了缓存对象最长存活周期的磁盘缓存。在 get() 时判断如果缓存对象存活时间已经超过设置的最长时间，则删除。在 save() 时保存当存时间作为对象的创建时间</li>
+<li>内存策略，8种，但常用的不多，一般情况下其实只有LruMemoryCache是合适的，其他大多数是LimitedMemoryCache的子类，LimitedMemoryCache内部的强引用map使得子类返回的弱引用无意义，有的子类满容删除时是锁住和遍历map的entry，对于图片较多的应用效率很低，以下介绍这8种，注意MemoryCache是uil中的缓存类的接口，BaseMemoryCache是抽象基类，其子类LimitedMemoryCache也是抽象基类，但不是所有策略都由基类实现，因为这些基类实现得不是很好，只是保留着而已，我们使用的默认策略就是直接实现MemoryCache接口的，效果会好一些</li>
 </ul>
 <ul>
-<li>UnlimitedDiskCache，不限制缓存时间，没有添加新特性，只是使用了更准确的类名</li>
+<li>1.LimitedAgeMemoryCache：MemoryCache接口直接实现，使用HashMap记录存入的时间，get的时候，判断时间是否大于maxAge，如果是，那么就删掉这个缓存</li>
 </ul>
 <ul>
-<li>LruDiskCache限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素。内部依赖JakeWharton(但是没有任何署名)实现的DiskLruCache，限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素。通过缓存目录下名为journal的文件记录缓存的所有操作，并在缓存open时读取journal的文件内容存储到LinkedHashMap\<string, entry\=""> lruEntries中，后面get(String key)获取缓存内容时，会先从lruEntries中得到图片文件名返回文件。LRU 的实现跟上面内存缓存类似，lruEntries为new LinkedHashMap\<string, entry\="">(0, 0.75f, true)，LinkedHashMap 第三个参数表示是否需要根据访问顺序(accessOrder)排序，true 表示根据accessOrder排序，最近访问的跟最新加入的一样放到最后面，false 表示根据插入顺序排序。这里为 true 且缓存满时trimToSize()函数始终删除第一个元素，即始终删除最近最少访问的文件。</string,></string,></li>
+<li>2.LruMemoryCache：MemoryCache接口直接实现，自己实现的LruCache，准确的说是删除了sdk中LruCache中的一些统计缓存信息的方法，这里体现了和picasso的抉择不同，其实这一块虽然有用，但真的没什么人用</li>
+</ul>
+<ul>
+<li>3.FuzzyKeyMemoryCache：MemoryCache接口直接实现，不过是个包装类，内部还有一个MemoryCache引用，这个类接收一个Comparator对象，在put时比较是否已经存在Comparator认为相同的key，如果存在，删除旧的，提供一种减少无用缓存的机制，使用场景只适合原来key的图片不再使用的情况，因为get时依然是通过key获取的，如果，被删除了，还需要去重新获取</li>
+</ul>
+<ul>
+<li>4.WeakMemoryCache：一个BaseMemoryCache的实现类，BaseMemoryCache中使用Reference管理bitmap，没有容量限制，WeakMemoryCache将其限制为使用弱引用</li>
+</ul>
+<ul>
+<li>5.FIFOLimitedMemoryCache：一个LimitedMemoryCache的实现类，LimitedMemoryCache是BaseMemoryCache的另一个实现，限制了容量大小，但容量满时如何删除则没有实现，FIFOLimitedMemoryCache就将其时间为FIFO的，通过LinkedList，这个cache返回弱引用</li>
+</ul>
+<ul>
+<li>6.LRULimitedMemoryCache：同理，实现了LimitedMemoryCache，使用LinkedHashMap实现LRU机制，这个cache返回弱引用</li>
+</ul>
+<ul>
+<li>7.UsingFreqLimitedMemoryCache：同理，实现了LimitedMemoryCache，删除时会删除使用频率最小的bitmap，使用hashmap实现，hashmap记录了使用次数，所以所谓频率只是使用次数，并没有这么智能，减容效率也不高需要遍历entry查找应该丢弃的bitmap，这个cache返回弱引用</li>
+</ul>
+<ul>
+<li>8.LargestLimitedMemoryCache：同理，实现了LimitedMemoryCache，使用hashmap记录大小，删除时遍历找出最大的bitmap删除，这个cache返回弱引用</li>
 </ul>
 <p><br></p>
-<h5 id="MemoryCache"><a href="#MemoryCache" class="headerlink" title="MemoryCache"></a>MemoryCache</h5><ul>
-<li>实现有8种</li>
-</ul>
-<pre><code>WeakMemoryCache
-LargestLimitedMemoryCache
-UsingFreqLimitedMemoryCache
-LRULimitedMemoryCache
-FIFOLimitedMemoryCache
-LruMemoryCache
-LimitedAgeMemoryCache
-FuzzyKeyMemoryCache
-</code></pre><ul>
-<li>WeakMemoryCache，以WeakReference\<bitmap\>做为缓存 value 的内存缓存，实现了BaseMemoryCache。实现了BaseMemoryCache的createReference(Bitmap value)函数，直接返回一个new WeakReference\<bitmap\>(value)做为缓存value</bitmap\></bitmap\></li>
+<h4 id="DiskCache"><a href="#DiskCache" class="headerlink" title="DiskCache"></a>DiskCache</h4><ul>
+<li>BaseDiskCache: 抽象基类，实现了一些文件读写的逻辑，对缓存不设限</li>
 </ul>
 <ul>
-<li>LruMemoryCache，限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素，实现了MemoryCache。LRU(Least Recently Used) 为最近最少使用算法。以new LinkedHashMap\<string, bitmap\="">(0, 0.75f, true)作为缓存池</string,></li>
+<li>可用的磁盘缓存策略有三种</li>
 </ul>
 <ul>
-<li>FuzzyKeyMemoryCache，可以将某些原本不同的 key 看做相等，在 put 时删除这些相等的 key。使用包装模式，为MemoryCache添加了一个特性。在 put() 时利用Comparator遍历判断判断如果 key 在缓存中已有，则删除之前的元素</li>
+<li>1.UnlimitedDiskCache：其实就是BaseDiskCache，继承之后什么都没干，也就不设限了</li>
 </ul>
 <ul>
-<li>LimitedMemoryCache，限制总字节大小的内存缓存，继承自BaseMemoryCache的抽象类。会在 put() 函数中判断总体大小是否超出了上限，是则循环删除缓存对象直到小于上限。删除顺序由抽象函数removeNext决定，getSize表示每个bitmap大小，包括四个实现类</li>
+<li>2.LimitedAgeDiskCache：在get时获取文件的最后修改时间，记录到map中，并且如果和当前时间相差较大，则删除缓存，个人觉得在获取图片时删除缓存是本末倒置的，但是由于没有像DiskLruCache那样实现一个journal文件，所以也干不了别的事情</li>
 </ul>
-<pre><code>FIFOLimitedMemoryCache: 限制总字节大小，缓存满时优先删除先进入的元素
-
-LRULimitedMemoryCache:  限制总字节大小，缓存满时优先删除最近最少使用的元素
-通过new LinkedHashMap\&lt;String, Bitmap\&gt;(10, 1.1f, true)作为缓存池
-LinkedHashMap 第三个参数表示是否需要根据访问顺序(accessOrder)排序
-true 表示根据accessOrder排序，最近访问的跟最新加入的一样放到最后面
-false 表示根据插入顺序排
-
-LargestLimitedMemoryCache：限制总字节大小，会在缓存满时优先删除 size 最大的元素
-实现了LimitedMemoryCache缓存removeNext()函数，总是返回当前缓存中 size 最大的元素
-
-UsingFreqLimitedMemoryCache：限制总字节大小，会在缓存满时优先删除使用次数最少的元素
-实现了LimitedMemoryCache缓存removeNext()函数，总是返回当前缓存中使用次数最少的元素。
-</code></pre><p><br><br><strong>本篇完，另外看到一篇比较使用的零碎问题整理，<a href="https://www.jianshu.com/p/53d267d782f9" target="_blank" rel="external">详见</a></strong></p>
+<ul>
+<li>3.LruDiskCache：限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素。DiskLruCache，限制总字节大小的内存缓存，会在缓存满时优先删除最近最少使用的元素。通过缓存目录下名为journal的文件记录缓存的所有操作，并在缓存open时读取journal的文件内容存储到LinkedHashMap\ lruEntries中，后面get(String key)获取缓存内容时，会先从lruEntries中得到图片文件名返回文件。LRU 的实现跟上面内存缓存类似，lruEntries为new LinkedHashMap(0, 0.75f, true)，LinkedHashMap 第三个参数表示是否需要根据访问顺序(accessOrder)排序，true 表示根据accessOrder排序，最近访问的跟最新加入的一样放到最后面，false 表示根据插入顺序排序。这里为 true 且缓存满时trimToSize()函数始终删除第一个元素，即始终删除最近最少访问的文件</li>
+</ul>
+<p><br><br><strong>本篇完，另外看到一篇比较使用的零碎问题整理，<a href="https://www.jianshu.com/p/53d267d782f9" target="_blank" rel="external">详见</a></strong></p>
 ]]></content>
       
         <categories>
