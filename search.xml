@@ -3,6 +3,83 @@
   
     
     <entry>
+      <title><![CDATA[近期计划 & 学习资料]]></title>
+      <url>/2019/04/12/OtherPlan/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><strong>主要整理一下学习资料，方便自己和后来人学习</strong></p>
+<p><strong>5月份（或之前）去腾讯mxg实习，所在组主要做微信的业务功能和新技术的预研，似乎要了解的新技术比较多，需要提前学一下flutter，组件化，kotlin，除了组件化以外基本只学了一点没有深入过，这段时间捡回来</strong></p>
+<p><br></p>
+<h3 id="flutter"><a href="#flutter" class="headerlink" title="flutter"></a>flutter</h3><p><strong> 之前学过dart，flutter没有怎么学：<a href="https://tocreate.app/2018/10/27/EnvDartFlutter/" target="_blank" rel="external">Dart &amp; Flutter 环境搭建</a>，<a href="https://tocreate.app/2018/11/03/LangDart/" target="_blank" rel="external">dart语言</a></strong> </p>
+<p><strong>相对来说，flutter比较系统的教程还是比较少的</strong></p>
+<ul>
+<li>dart的官方<a href="%5C">教程</a>，<a href="http://dart.goodev.org/guides/language/effective-dart" target="_blank" rel="external">Effective Dart</a></li>
+</ul>
+<ul>
+<li>何小有，<a href="https://blog.csdn.net/hekaiyou/column/info/dart" target="_blank" rel="external">dart实例教程</a>，<a href="https://blog.csdn.net/hekaiyou/column/info/13593" target="_blank" rel="external">flutter教程</a>，写得非常详细，15年就开始实践dart和flutter，系统写教程，佩服</li>
+</ul>
+<ul>
+<li>wendux，国内flutter领域最知名的大牛，<a href="https://book.flutterchina.club" target="_blank" rel="external">flutter中文网</a>的创建和维护者，<a href="https://github.com/flutterchina/dio" target="_blank" rel="external">dio</a>的作者，他写的<a href="https://book.flutterchina.club/" target="_blank" rel="external">flutter实战</a>很适合入门</li>
+</ul>
+<ul>
+<li>掘金，目前国内的flutter开发者主要聚集在掘金，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">掘金flutter社区</a>，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">相关文章</a></li>
+</ul>
+<p><br></p>
+<h3 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h3><p><strong>组件化在工作室的项目已经实践了，不过其实用得很常规，没有什么黑科技</strong></p>
+<ul>
+<li><a href="https://book.douban.com/subject/30190188/" target="_blank" rel="external">《Android 组件化架构》</a>，入门其实很好，没有豆瓣上说得那么差，不过只适合入门，对已经上手的人基本没有新东西或者深入的内容</li>
+</ul>
+<ul>
+<li>路由这块可以看下 <a href="https://github.com/alibaba/ARouter" target="_blank" rel="external">Arouter</a> 和 <a href="https://github.com/mzule/ActivityRouter" target="_blank" rel="external">ActivityRouter</a> 实现，有时间的话补几篇源码分析和对比</li>
+</ul>
+<ul>
+<li><a href="https://tech.meituan.com/2018/03/16/meituan-food-delivery-android-architecture-evolution.html" target="_blank" rel="external">美团外卖Android平台化架构演进实践</a>， <a href="https://mp.weixin.qq.com/s/6Q818XA5FaHd7jJMFBG60w" target="_blank" rel="external">微信Android模块化架构重构实践</a></li>
+</ul>
+<p><br></p>
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><p><strong>很久以前kotlin语法只看到一半就放下了，最近会捡起来：<a href="https://tocreate.app/2018/03/29/kotlin/" target="_blank" rel="external">kotlin 系列 - 语法与特性</a></strong></p>
+<ul>
+<li>kotlin中文网的 <a href="https://www.kotlincn.net/docs/tutorials/" target="_blank" rel="external">教程</a></li>
+</ul>
+<ul>
+<li><a href="https://book.douban.com/subject/27093660/" target="_blank" rel="external">《Kotlin实战》</a> ，JetBrains团队参与的教程</li>
+</ul>
+<ul>
+<li>目前Android方面的实践还不太了解，<a href="https://juejin.im/welcome/android/Kotlin" target="_blank" rel="external">掘金</a>上的文章倒是挺多的，不好评价</li>
+</ul>
+<p><br></p>
+<h3 id="gradle"><a href="#gradle" class="headerlink" title="gradle"></a>gradle</h3><p><strong>一直想系统学习gradle，但一直都没有行动起来，很久以前买了gradle实战，老实说，从入门到懵逼</strong></p>
+<ul>
+<li><a href="">官方tutorials</a></li>
+</ul>
+<ul>
+<li><a href="">中文版</a>，版本比较旧</li>
+</ul>
+<p><br></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>总结一下性能优化</li>
+</ul>
+<ul>
+<li>复习一下自定义view</li>
+</ul>
+<p><br><br><strong> 完 </strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[UniversalImageLoader 详解]]></title>
       <url>/2019/03/18/UILAN/</url>
       <content type="html"><![CDATA[<p>-</p>

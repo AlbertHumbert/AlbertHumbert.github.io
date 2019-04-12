@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-03-20T03:45:17.786Z</updated>
+  <updated>2019-04-12T05:49:01.094Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>近期计划 &amp; 学习资料</title>
+    <link href="https://alberthumbert.github.io/2019/04/12/OtherPlan/"/>
+    <id>https://alberthumbert.github.io/2019/04/12/OtherPlan/</id>
+    <published>2019-04-12T01:57:10.000Z</published>
+    <updated>2019-04-12T05:49:01.094Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>UniversalImageLoader 详解</title>
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2018/12/10/OSsynchro/</id>
     <published>2018-12-10T14:56:38.000Z</published>
     <updated>2019-03-02T07:08:54.943Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 9 - 进程与线程</title>
-    <link href="https://alberthumbert.github.io/2018/12/02/OSProcess/"/>
-    <id>https://alberthumbert.github.io/2018/12/02/OSProcess/</id>
-    <published>2018-12-02T14:01:34.000Z</published>
-    <updated>2019-03-02T07:09:07.031Z</updated>
     
     <summary type="html">
     
