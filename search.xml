@@ -13,7 +13,10 @@
 <h3 id="flutter"><a href="#flutter" class="headerlink" title="flutter"></a>flutter</h3><p><strong> 之前学过dart，flutter没有怎么学：<a href="https://tocreate.app/2018/10/27/EnvDartFlutter/" target="_blank" rel="external">Dart &amp; Flutter 环境搭建</a>，<a href="https://tocreate.app/2018/11/03/LangDart/" target="_blank" rel="external">dart语言</a></strong> </p>
 <p><strong>相对来说，flutter比较系统的教程还是比较少的</strong></p>
 <ul>
-<li>dart的官方<a href="%5C">教程</a>，<a href="http://dart.goodev.org/guides/language/effective-dart" target="_blank" rel="external">Effective Dart</a></li>
+<li>了解flutter的全貌：<a href="https://www.youtube.com/watch?v=9FA3brRCz2Q" target="_blank" rel="external">dart</a>，<a href="https://www.youtube.com/watch?v=Mx-AllVZ1VY" target="_blank" rel="external">flutter</a>，<a href="https://www.youtube.com/watch?v=iPlPk43RbpA" target="_blank" rel="external">hotReload</a>，<a href="https://www.youtube.com/watch?v=zKXz3pUkw9A" target="_blank" rel="external">state</a></li>
+</ul>
+<ul>
+<li>dart的官方<a href="http://dart.goodev.org/guides/language/language-tour" target="_blank" rel="external">教程</a>，<a href="http://dart.goodev.org/guides/language/effective-dart" target="_blank" rel="external">Effective Dart</a></li>
 </ul>
 <ul>
 <li>何小有，<a href="https://blog.csdn.net/hekaiyou/column/info/dart" target="_blank" rel="external">dart实例教程</a>，<a href="https://blog.csdn.net/hekaiyou/column/info/13593" target="_blank" rel="external">flutter教程</a>，写得非常详细，15年就开始实践dart和flutter，系统写教程，佩服</li>
@@ -22,7 +25,13 @@
 <li>wendux，国内flutter领域最知名的大牛，<a href="https://book.flutterchina.club" target="_blank" rel="external">flutter中文网</a>的创建和维护者，<a href="https://github.com/flutterchina/dio" target="_blank" rel="external">dio</a>的作者，他写的<a href="https://book.flutterchina.club/" target="_blank" rel="external">flutter实战</a>很适合入门</li>
 </ul>
 <ul>
-<li>掘金，目前国内的flutter开发者主要聚集在掘金，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">掘金flutter社区</a>，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">相关文章</a></li>
+<li><p>掘金，目前国内的flutter开发者主要聚集在掘金，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">掘金flutter社区</a>，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">相关文章</a></p>
+</li>
+<li><p><a href="%20https://medium.com/flutter-io">medium</a>，国外的文章可以看这里</p>
+</li>
+</ul>
+<ul>
+<li>阿里的<a href="https://github.com/alibaba/flutter-go" target="_blank" rel="external">flutter go</a></li>
 </ul>
 <p><br></p>
 <h3 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h3><p><strong>组件化在工作室的项目已经实践了，不过其实用得很常规，没有什么黑科技</strong></p>
