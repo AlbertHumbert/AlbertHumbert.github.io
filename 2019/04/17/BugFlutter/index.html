@@ -12,7 +12,7 @@
     
     <title>
         
-            深入JVM系列 8 - HotSpot Runtime Overview | 
+            Flutter 踩坑记录 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="深入JVM系列 8 - HotSpot Runtime Overview | Albert&#39;s Blog">
+    <meta property="og:title" content="Flutter 踩坑记录 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
-        <meta property="article:published_time" content="1月 02, 2019" />
-        <meta property="article:modified_time" content="1月 03, 2019" />
+        <meta property="article:published_time" content="4月 17, 2019" />
+        <meta property="article:modified_time" content="4月 17, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="深入JVM系列 8 - HotSpot Runtime Overview | Albert&#39;s Blog">
+    <meta name="twitter:title" content="Flutter 踩坑记录 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "深入JVM系列 8 - HotSpot Runtime Overview",
-    "url": "https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html",
-    "datePublished": "1月 02, 2019",
-    "dateModified": "1月 03, 2019",
+    "headline": "Flutter 踩坑记录",
+    "url": "https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html",
+    "datePublished": "4月 17, 2019",
+    "dateModified": "4月 17, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#命令行参数处理"><span class="post-toc-number">1.</span> <span class="post-toc-text">命令行参数处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令行选项"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">命令行选项</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令行参数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">命令行参数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#虚拟机生命周期"><span class="post-toc-number">2.</span> <span class="post-toc-text">虚拟机生命周期</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#启动器"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">启动器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#虚拟机的启动操作"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">虚拟机的启动操作</span></a></li></ol></li></ol>
+        
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                深入JVM系列 8 - HotSpot Runtime Overview
+                Flutter 踩坑记录
             </p>
         </div>
 
@@ -392,7 +392,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Albert Humbert</strong>
-        <span>1月 02, 2019</span>
+        <span>4月 17, 2019</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=深入JVM系列 8 - HotSpot Runtime Overview&url=https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Flutter 踩坑记录&url=https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=深入JVM系列 8 - HotSpot Runtime Overview&url=https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Flutter 踩坑记录&url=https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -450,7 +450,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -459,7 +459,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html&title=深入JVM系列 8 - HotSpot Runtime Overview" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html&title=Flutter 踩坑记录" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=深入JVM系列 8 - HotSpot Runtime Overview&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Flutter 踩坑记录&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/01/02/JVMHotspotRuntime/index.html&text=深入JVM系列 8 - HotSpot Runtime Overview" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/04/17/BugFlutter/index.html&text=Flutter 踩坑记录" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -503,70 +503,7 @@
     
         <p>-</p>
 <a id="more"></a>
-<p><a href="https://tocreate.app/2018/09/05/jvm/" target="_blank" rel="external">本文为深入JVM系列的一部分</a></p>
-<p><strong>记录一些<a href="http://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html" target="_blank" rel="external">HotSpot Runtime Overview</a>中的要点</strong></p>
-<p><br></p>
-<h3 id="命令行参数处理"><a href="#命令行参数处理" class="headerlink" title="命令行参数处理"></a>命令行参数处理</h3><p><br></p>
-<h4 id="命令行选项"><a href="#命令行选项" class="headerlink" title="命令行选项"></a>命令行选项</h4><ul>
-<li>命令行选项和环境变量可以影响到HotSpot虚拟机的性能。其中有些选项直接由启动器处理（例如-server和-client），有些则是启动器先加工后交给虚拟机处理，但大部分选项还是由启动器直接交给虚拟机处理</li>
-</ul>
-<ul>
-<li>命令行选项分为3种</li>
-</ul>
-<pre><code>标准选项:
-所有的JVM实现都要支持标准选项，
-即使不同的版本也要稳定支持（不管选项是否被弃用)
-
-非标准选项:
-以-X开头的是非标准选项（并不能保证所有的JVM实现都支持该选项）
-非标准选项在后续的Java SDK版本有可能在你不知情的情况下就被修改
-
-开发者选项:
-以-XX开头的是开发者选项，这些选项通常需要特定的系统环境支持，
-并且可能需要访问系统配置参数的权限,一般用户并不推荐使用
-开发者选项也可能在你不知情的情况下被修改
-</code></pre><p><br></p>
-<h4 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h4><ul>
-<li>命令行参数可以设置虚拟机内部变量，这些变量都有默认值</li>
-</ul>
-<ul>
-<li>对于布尔类型的变量，命令行标记出现与否就可以控制该变量的值。对于-XX选项控制的布尔变量，在变量名前面加上+或者-分别可以设置该变量的值为true或者false</li>
-</ul>
-<ul>
-<li>对于那些需要额外参数的变量，有许多不同的方式进行参数传递。有些标记可以直接将参数放在标记名后面, 有些则需要用:或者=将标记名与参数隔开。很不幸，使用哪种传递方式要看具体是哪个标记。开发者标记（-XX标记）只有三种格式：-XX:+OptionName，-XX:-OptionName，和-XX:OptionName=。</li>
-</ul>
-<ul>
-<li>大部分用整数来表示大小的选项都可以使用k，m或者g作后缀来表示多少K，多少M或者多少G。通常是用在控制内存大小的参数上。</li>
-</ul>
-<p><br></p>
-<h3 id="虚拟机生命周期"><a href="#虚拟机生命周期" class="headerlink" title="虚拟机生命周期"></a>虚拟机生命周期</h3><p><br></p>
-<h4 id="启动器"><a href="#启动器" class="headerlink" title="启动器"></a>启动器</h4><ul>
-<li>在JavaSE中有几个HotSpot虚拟机的启动器，通常使用的是，Unix平台上的java命令，Windows平台上的java和javaw命令，不要和javaws混淆起来，javaws是一个基于网络的启动器</li>
-</ul>
-<p><br></p>
-<h4 id="虚拟机的启动操作"><a href="#虚拟机的启动操作" class="headerlink" title="虚拟机的启动操作"></a>虚拟机的启动操作</h4><ul>
-<li>解析命令行选项，一些选项由启动器自己处理，如-client和-server，它们被用来选择具体要加载的虚拟机库，其他的选项则包装在JavaVMInitArgs再传给虚拟机处理。</li>
-</ul>
-<ul>
-<li><p>如果没有在命令行显示指定堆的大小和编译器类型（client或者server）则需要计算一下</p>
-</li>
-<li><p>设置环境变量，例如LD_LIBRARY_PATH和CLASSPATH。</p>
-</li>
-<li><p>如果命令行没有指定Main-Class则从JAR包的manifest读取。</p>
-</li>
-<li><p>启动一个新线程并调用JNI_CreateJavaVM来创建虚拟机。注意：如果在原来的线程创建虚拟机将会大大降低定制虚拟机的能力，例如在Windows平台上栈的大小会受限制。</p>
-</li>
-<li><p>一旦虚拟机被创建并初始化，Main-Class就会被加载，并且启动器也能拿到Main-Class的main方法了。</p>
-</li>
-<li><p>通过CallStaticVoidMethod调用main方法。</p>
-</li>
-</ul>
-<ul>
-<li>执行完main方法后需要检查下是否有产生阻塞的异常，如果有则清除掉，并返回退出状态。通过调用ExceptionOccurred来进行清除，方法返回值为0表示成功，其他都表示失败。</li>
-</ul>
-<ul>
-<li>通过调用DetachCurrentThread来detach main线程DetachCurrentThread方法会减小线程计数，可以确保main线程不会再在虚拟机中执行操作并且没有活动的Java栈帧。之后就可以安全地调用DestroyJavaVM了</li>
-</ul>
+<p>### </p>
 
     
 
@@ -586,21 +523,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2019/01/02/ConcurBase/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2019/01/02/ProGuard/" id="post_nav-older" class="next-content">
+        <a href="/2019/04/12/OtherPlan/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

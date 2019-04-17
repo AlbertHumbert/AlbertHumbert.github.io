@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[Flutter 踩坑记录]]></title>
+      <url>/2019/04/17/BugFlutter/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[近期计划 & 学习资料]]></title>
       <url>/2019/04/12/OtherPlan/</url>
       <content type="html"><![CDATA[<p>-</p>
@@ -13,16 +36,15 @@
 <h3 id="flutter"><a href="#flutter" class="headerlink" title="flutter"></a>flutter</h3><p><strong> 之前学过dart，flutter没有怎么学：<a href="https://tocreate.app/2018/10/27/EnvDartFlutter/" target="_blank" rel="external">Dart &amp; Flutter 环境搭建</a>，<a href="https://tocreate.app/2018/11/03/LangDart/" target="_blank" rel="external">dart语言</a></strong> </p>
 <p><strong>相对来说，flutter比较系统的教程还是比较少的</strong></p>
 <ul>
-<li>了解flutter的全貌：<a href="https://www.youtube.com/watch?v=9FA3brRCz2Q" target="_blank" rel="external">dart</a>，<a href="https://www.youtube.com/watch?v=Mx-AllVZ1VY" target="_blank" rel="external">flutter</a>，<a href="https://www.youtube.com/watch?v=iPlPk43RbpA" target="_blank" rel="external">hotReload</a>，<a href="https://www.youtube.com/watch?v=zKXz3pUkw9A" target="_blank" rel="external">state</a></li>
-</ul>
-<ul>
-<li>dart的官方<a href="http://dart.goodev.org/guides/language/language-tour" target="_blank" rel="external">教程</a>，<a href="http://dart.goodev.org/guides/language/effective-dart" target="_blank" rel="external">Effective Dart</a></li>
+<li><p>了解flutter的全貌：<a href="https://www.youtube.com/watch?v=9FA3brRCz2Q" target="_blank" rel="external">dart</a>，<a href="https://www.youtube.com/watch?v=Mx-AllVZ1VY" target="_blank" rel="external">flutter</a>，<a href="https://www.youtube.com/watch?v=iPlPk43RbpA" target="_blank" rel="external">hotReload</a>，<a href="https://www.youtube.com/watch?v=zKXz3pUkw9A" target="_blank" rel="external">state</a></p>
+</li>
+<li><p>dart的官方<a href="http://dart.goodev.org/guides/language/language-tour" target="_blank" rel="external">教程</a>，<a href="http://dart.goodev.org/guides/language/effective-dart" target="_blank" rel="external">Effective Dart</a></p>
+</li>
+<li><p>wendux，国内flutter领域最知名的大牛，<a href="https://book.flutterchina.club" target="_blank" rel="external">flutter中文网</a>的创建和维护者，<a href="https://github.com/flutterchina/dio" target="_blank" rel="external">dio</a>的作者，他写的<a href="https://book.flutterchina.club/" target="_blank" rel="external">flutter实战</a>很适合入门</p>
+</li>
 </ul>
 <ul>
 <li>何小有，<a href="https://blog.csdn.net/hekaiyou/column/info/dart" target="_blank" rel="external">dart实例教程</a>，<a href="https://blog.csdn.net/hekaiyou/column/info/13593" target="_blank" rel="external">flutter教程</a>，写得非常详细，15年就开始实践dart和flutter，系统写教程，佩服</li>
-</ul>
-<ul>
-<li>wendux，国内flutter领域最知名的大牛，<a href="https://book.flutterchina.club" target="_blank" rel="external">flutter中文网</a>的创建和维护者，<a href="https://github.com/flutterchina/dio" target="_blank" rel="external">dio</a>的作者，他写的<a href="https://book.flutterchina.club/" target="_blank" rel="external">flutter实战</a>很适合入门</li>
 </ul>
 <ul>
 <li><p>掘金，目前国内的flutter开发者主要聚集在掘金，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">掘金flutter社区</a>，<a href="https://juejin.im/welcome/android/Flutter?sort=newest" target="_blank" rel="external">相关文章</a></p>
@@ -51,6 +73,9 @@
 </ul>
 <ul>
 <li><a href="https://book.douban.com/subject/27093660/" target="_blank" rel="external">《Kotlin实战》</a> ，JetBrains团队参与的教程</li>
+</ul>
+<ul>
+<li><a href="https://wangjiegulu.gitbooks.io/kotlin-for-android-developers-zh/content/" target="_blank" rel="external">《Kotlin for android developers》</a> ，也是官网推荐的书，已有中文翻译</li>
 </ul>
 <ul>
 <li>目前Android方面的实践还不太了解，<a href="https://juejin.im/welcome/android/Kotlin" target="_blank" rel="external">掘金</a>上的文章倒是挺多的，不好评价</li>
@@ -9674,7 +9699,7 @@ ifconfig br0 up  # 启动 br0
       <content type="html"><![CDATA[<p>-</p>
 <p>无聊的时候，学点 Dart</p>
 <a id="more"></a>
-<p><strong>如果想更全面地了解 dart2 的特性，可以查看官方<a href="https://api.dartlang.org/stable/2.0.0/index.html" target="_blank" rel="external">文档</a></strong></p>
+<p><strong>如果想更全面地了解 dart2 的特性，可以查看官方<a href="https://api.dartlang.org/stable/2.0.0/index.html" target="_blank" rel="external">文档</a></strong><br><strong>本文大部分是以前从官网摘要然后翻译来的，目前dart中文网已有翻译，建议去那里阅读</strong></p>
 <p><br></p>
 <h3 id="基本样例"><a href="#基本样例" class="headerlink" title="基本样例"></a>基本样例</h3><p><strong>可以在<a href="https://dartpad.cn/" target="_blank" rel="external">这里</a>运行代码（无需翻墙）</strong></p>
 <pre><code>// 函数定义
@@ -9880,15 +9905,12 @@ test[1]() = 2//错误，test不能修改
 <pre><code>// String -\&gt; int
 var one = int.parse(&apos;1&apos;);
 assert(one == 1);
-
 // String -\&gt; double
 var onePointOne = double.parse(&apos;1.1&apos;);
 assert(onePointOne == 1.1);
-
 // int -\&gt; String
 String oneAsString = 1.toString();
 assert(oneAsString == &apos;1&apos;);
-
 // double -\&gt; String
 String piAsString = 3.14159.toStringAsFixed(2);
 assert(piAsString == &apos;3.14&apos;);
@@ -9909,7 +9931,6 @@ var s4 = &quot;It&apos;s even easier to use the other delimiter.&quot;;
  assert(s1 ==
      &apos;String concatenation works even over &apos;
          &apos;line breaks.&apos;);
-
  var s2 = &apos;The + operator &apos; + &apos;works, as well.&apos;;
  assert(s2 == &apos;The + operator works, as well.&apos;);
 </code></pre><ul>
@@ -9919,19 +9940,16 @@ var s4 = &quot;It&apos;s even easier to use the other delimiter.&quot;;
 You can create
 multi-line strings like this one.
 \&apos;&apos;&apos;;
-
   var s2 = &quot;&quot;&quot;This is also a
 multi-line string.&quot;&quot;&quot;;
 </code></pre><ul>
 <li>嵌入表达式，使用 ${expression}，如果表达式是一个变量，可以去掉括号，该变量的toString函数会被用于转换字符串</li>
 </ul>
 <pre><code>var s = &apos;string interpolation&apos;;
-
  assert(&apos;Dart has $s, &apos;
      &apos;which is very handy.&apos; ==
      &apos;Dart has string interpolation, &apos;
      &apos;which is very handy.&apos;);
-
  assert(&apos;That deserves all caps. &apos;
      &apos;${s.toUpperCase()} is very handy!&apos; ==
      &apos;That deserves all caps. &apos;
@@ -9947,13 +9965,11 @@ multi-line string.&quot;&quot;&quot;;
   const aConstNum = 0;
   const aConstBool = true;
   const aConstString = &apos;a constant string&apos;;
-
 // These do NOT work in a const string.
   var aNum = 0;
   var aBool = true;
   var aString = &apos;a string&apos;;
   const aConstList = [1, 2, 3];
-
   const validConstString = &apos;$aConstNum $aConstBool $aConstString&apos;;
   const invalidConstString = &apos;$aNum $aBool $aString $aConstList&apos;;
 </code></pre><p><br></p>
@@ -9967,7 +9983,6 @@ multi-line string.&quot;&quot;&quot;;
 <pre><code>var list = [1, 2, 3];
 assert(list.length == 3);
 assert(list[1][4] == 2);
-
 list[1][5] = 1;
 assert(list[1][6] == 1);
 </code></pre><ul>
@@ -9986,8 +10001,7 @@ assert(list[1][6] == 1);
 &apos;first&apos;: &apos;partridge&apos;,
 &apos;second&apos;: &apos;turtledoves&apos;,
 &apos;fifth&apos;: &apos;golden rings&apos;
-</code></pre><p>  };</p>
-<p>  var nobleGases = {</p>
+</code></pre><p>  };<br>  var nobleGases = {</p>
 <pre><code>2: &apos;helium&apos;,
 10: &apos;neon&apos;,
 18: &apos;argon&apos;,
@@ -10001,7 +10015,6 @@ assert(list[1][6] == 1);
 gifts[&apos;first&apos;] = &apos;partridge&apos;;
 gifts[&apos;second&apos;] = &apos;turtledoves&apos;;
 gifts[&apos;fifth&apos;] = &apos;golden rings&apos;;
-
 var nobleGases = Map();
 nobleGases[2][8] = &apos;helium&apos;;
 nobleGases[10][9] = &apos;neon&apos;;
@@ -10030,7 +10043,6 @@ assert(gifts.length == 2);
   10: &apos;neon&apos;,
   18: &apos;argon&apos;,
 };
-
 // constantMap[2][10] = &apos;Helium&apos;; // 错误，只读 
 </code></pre><p><br></p>
 <h4 id="Runes"><a href="#Runes" class="headerlink" title="Runes"></a>Runes</h4><ul>
@@ -10039,7 +10051,6 @@ assert(gifts.length == 2);
 <pre><code>print(clapping);
 print(clapping.codeUnits);
 print(clapping.runes.toList());
-
 Runes input = new Runes(
     &apos;\u2665  \u{1f605}  \u{1f60e}  \u{1f47b}  \u{1f596}  \u{1f44d}&apos;);
 print(new String.fromCharCodes(input)); //web storm 的控制台中会输出 emoji
@@ -10081,7 +10092,6 @@ print(new String.fromCharCodes(input)); //web storm 的控制台中会输出 emo
 <pre><code>main() {
   test(b: 1, a: 2);
 }
-
 void test({int a, int b}) {}
 </code></pre><ul>
 <li>位置参数，使用中括号修饰的位置参数是可选参数，调用时不需要指明参数名，参数按声明的位置传入</li>
@@ -10089,9 +10099,7 @@ void test({int a, int b}) {}
 <pre><code>main() {
   test(1,2);
 }
-
 void test([int a,int b]){
-
 }
 </code></pre><ul>
 <li>必填参数可以和可选参数可以混用，但是可选参数需要放在必填参数后面</li>
@@ -10099,7 +10107,6 @@ void test([int a,int b]){
 <pre><code>main() {
   test(0,a: 1);
 }
-
 void test(int c,{int a} ) {
   print(a);
 }
@@ -10110,11 +10117,9 @@ void test(int c,{int a} ) {
   test(0,a: 1);
   doStuff();
 }
-
 void test(int c,{int a, int b = 3} ) {
   print(b); //3
 }
-
 void doStuff(
     {List&lt;int&gt; list = const [1, 2, 3],
     Map&lt;String, String&gt; gifts = const {
@@ -10139,11 +10144,9 @@ void doStuff(
 <pre><code>void main() { 
   list.forEach(printElement); //将函数 printElement 作为对象传递
 }
-
 void printElement(int element) {
   print(element);
 }
-
 var list = [1, 2, 3];
 </code></pre><ul>
 <li>函数可以作为对象声明</li>
@@ -10172,10 +10175,8 @@ var list = [1, 2, 3];
 <li>dart 是一门词法作用域语言，这意味着变量的作用域是在编译的词法分析阶段就用代码的布局决定了</li>
 </ul>
 <pre><code>bool topLevel = true;
-
 void main() {
   var insideMain = true;
-
   void myFunction() {
     var insideFunction = true;
 
@@ -10198,14 +10199,11 @@ void main() {
 Function makeAdder(num addBy) {
   return (num i) =\&gt; addBy + i;
 }
-
 void main() {
   // Create a function that adds 2.
   var add2 = makeAdder(2);
-
   // Create a function that adds 4.
   var add4 = makeAdder(4);
-
   assert(add2(3) == 5);
   assert(add4(3) == 7);
 }
@@ -10214,33 +10212,26 @@ void main() {
 <li>使用 == 测试函数是否相等，相等的函数必须属于同一个对象而不只是类</li>
 </ul>
 <pre><code>void foo() {} // A top-level function
-
 class A {
   static void bar() {} // A static method
   void baz() {} // An instance method
 }
-
 void main() {
   var x;
-
   // Comparing top-level functions.
   x = foo;
   assert(foo == x);
-
   // Comparing static methods.
   x = A.bar;
   assert(A.bar == x);
-
   // Comparing instance methods.
   var v = A(); // Instance #1 of A
   var w = A(); // Instance #2 of A
   var y = w;
   x = w.baz;
-
   // These closures refer to the same instance (#2),
   // so they&apos;re equal.
   assert(y.baz == x);
-
   // These closures refer to different instances,
   // so they&apos;re unequal.
   assert(v.baz != w.baz);
@@ -10693,7 +10684,6 @@ class Point {
   set bottom(num value) =\&gt; top = value - height;
 
   set right(num value) =\&gt; left = value - width;
-
       void getSize() {}
 }
 
