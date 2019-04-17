@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AS-创建-flutter-project-无响应"><span class="post-toc-number">1.</span> <span class="post-toc-text">AS 创建 flutter project 无响应</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Initializing-gradle"><span class="post-toc-number">2.</span> <span class="post-toc-text">Initializing gradle</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Could-not-resolve-com-android-tools-build-gradle-3-1-2"><span class="post-toc-number">3.</span> <span class="post-toc-text">Could not resolve com.android.tools.build:gradle:3.1.2</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AS-创建-flutter-project-无响应"><span class="post-toc-number">1.</span> <span class="post-toc-text">AS 创建 flutter project 无响应</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Initializing-gradle"><span class="post-toc-number">2.</span> <span class="post-toc-text">Initializing gradle</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Could-not-resolve-com-android-tools-build-gradle-3-1-2"><span class="post-toc-number">3.</span> <span class="post-toc-text">Could not resolve com.android.tools.build:gradle:3.1.2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用colors类时AS卡死"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用colors类时AS卡死</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -553,6 +553,15 @@ export flutter_storage_base_url=https://storage.flutter-io.cn
 9.卸载AS重装（代价挺大的，但确实csdn上确实有人这样解决类似问题）
 </code></pre><ul>
 <li>我是通过7.解决的，将项目的gradle配置设置为.gradle的dist中缓存的gradle版本，一个个尝试，同时gradle的classpath可能也需要更改，建议使用以前使用过的版本</li>
+</ul>
+<p><br></p>
+<h3 id="使用colors类时AS卡死"><a href="#使用colors类时AS卡死" class="headerlink" title="使用colors类时AS卡死"></a>使用colors类时AS卡死</h3><ul>
+<li><p>文档中的图片会导致联网下载，这个时候很容易卡死</p>
+</li>
+<li><p>设置 editor->general->code completion->show the documentation popup in xxx ms ,取消勾选，这个意思是自动补全时不要弹出右侧的文档窗口</p>
+</li>
+<li><p>取消勾选之后，光标放在类名处一段时间还是可以弹出文档的，所以不会有什么影响，不过弹出的时候该卡死还是会卡死，这样的类并不多，其他的比如rx里面有一些也会，不手贱就行，或者选择直接关闭这个功能</p>
+</li>
 </ul>
 <p><br><br><strong>持续更新</strong></p>
 
