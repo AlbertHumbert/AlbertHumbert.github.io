@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AS-创建-flutter-project-无响应"><span class="post-toc-number">1.</span> <span class="post-toc-text">AS 创建 flutter project 无响应</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Initializing-gradle"><span class="post-toc-number">2.</span> <span class="post-toc-text">Initializing gradle</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Could-not-resolve-com-android-tools-build-gradle-3-1-2"><span class="post-toc-number">3.</span> <span class="post-toc-text">Could not resolve com.android.tools.build:gradle:3.1.2</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -503,7 +503,58 @@
     
         <p>-</p>
 <a id="more"></a>
-<p>### </p>
+<p><br></p>
+<h3 id="AS-创建-flutter-project-无响应"><a href="#AS-创建-flutter-project-无响应" class="headerlink" title="AS 创建 flutter project 无响应"></a>AS 创建 flutter project 无响应</h3><ul>
+<li>这是在升级AS和flutter sdk之后遇到的</li>
+</ul>
+<ul>
+<li>第一次创建项目建议使用命令行</li>
+</ul>
+<pre><code>flutter create &lt;project_name&gt;
+</code></pre><ul>
+<li>然后运行，发现是package get卡住了，被墙了</li>
+</ul>
+<pre><code>flutter run
+</code></pre><ul>
+<li>配置镜像可以解决，问题是我老早在 etc/profile 里面配过了，才发现没有效果，可以 echo ${pub_hosted_url} 测一下，建议还是在默认的shell的配置文件里面设置，比如我使用的是.zshrc</li>
+</ul>
+<pre><code>export pub_hosted_url=https://pub.flutter-io.cn
+export flutter_storage_base_url=https://storage.flutter-io.cn
+</code></pre><p><br></p>
+<h3 id="Initializing-gradle"><a href="#Initializing-gradle" class="headerlink" title="Initializing gradle"></a>Initializing gradle</h3><ul>
+<li>永久停留在这一步，其实是在下载新版本的gradle，查看.gradle的dist目录会发现不论等多久大小都是 0 k，直接去官网下载对应版本，建议使用迅雷</li>
+</ul>
+<pre><code>https://services.gradle.org/distributions/
+</code></pre><ul>
+<li>然后将zip放进dist的对应文件夹中一个名称是乱码的子文件夹内，不需要解压，删除原有的xx.part文件（大概是这个，不记得了），重新build</li>
+</ul>
+<ul>
+<li>如果需要使用dist没有的gradle都可以这么做，比如升级gradle的时候</li>
+</ul>
+<p><br></p>
+<h3 id="Could-not-resolve-com-android-tools-build-gradle-3-1-2"><a href="#Could-not-resolve-com-android-tools-build-gradle-3-1-2" class="headerlink" title="Could not resolve com.android.tools.build:gradle:3.1.2"></a>Could not resolve com.android.tools.build:gradle:3.1.2</h3><ul>
+<li>这也是在升级AS和flutter sdk之后遇到的，我的情况，不论是在idea，as还是命令行编译都是这样</li>
+</ul>
+<ul>
+<li>github有这个issue，很多人都遇到这个问题，解决方法五花八门，估计很多因素都可以导致这个，所以建议都尝试一下，官方现在也没找到办法</li>
+</ul>
+<pre><code>https://github.com/flutter/flutter/issues/22470
+</code></pre><ul>
+<li>下面是一些可参考的解决办法，注意有一些做法是完全相反的</li>
+</ul>
+<pre><code>1.as配置 build tools-&gt;gradle-&gt;android stuido-&gt; 勾选 enable ... maven repo
+2.设代理
+3.关代理，并清除与google相关的host，以及关闭as中与代理相关的配置
+4.gradle 中添加 google()，适用于版本比较旧的AS，新版默认是有的
+5.gradle 中添加 mavenCentral()，在flutter sdk中进行用样的配置 路径为 /packages/flutter_tools/gradle/flutter.gradle
+6.升级gradle，见上文
+7.降级gradle，见下文
+8.降级flutter sdk(官网上有所有版本的下载链接)
+9.卸载AS重装（代价挺大的，但确实csdn上确实有人这样解决类似问题）
+</code></pre><ul>
+<li>我是通过7.解决的，将项目的gradle配置设置为.gradle的dist中缓存的gradle版本，一个个尝试，同时gradle的classpath可能也需要更改，建议使用以前使用过的版本</li>
+</ul>
+<p><br><br><strong>持续更新</strong></p>
 
     
 
