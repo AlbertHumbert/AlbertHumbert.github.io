@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alberthumbert.github.io/"/>
-  <updated>2019-04-17T14:16:12.791Z</updated>
+  <updated>2019-04-19T15:59:01.342Z</updated>
   <id>https://alberthumbert.github.io/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>kotlin 入门</title>
+    <link href="https://alberthumbert.github.io/2019/04/19/Langkotlin/"/>
+    <id>https://alberthumbert.github.io/2019/04/19/Langkotlin/</id>
+    <published>2019-04-19T14:33:18.000Z</published>
+    <updated>2019-04-19T15:59:01.342Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;-&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
+    
+    
+      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Flutter 踩坑记录</title>
     <link href="https://alberthumbert.github.io/2019/04/17/BugFlutter/"/>
     <id>https://alberthumbert.github.io/2019/04/17/BugFlutter/</id>
     <published>2019-04-17T08:21:51.000Z</published>
-    <updated>2019-04-17T14:16:12.791Z</updated>
+    <updated>2019-04-19T16:40:12.079Z</updated>
     
     <summary type="html">
     
@@ -40,7 +60,7 @@
     <link href="https://alberthumbert.github.io/2019/04/12/OtherPlan/"/>
     <id>https://alberthumbert.github.io/2019/04/12/OtherPlan/</id>
     <published>2019-04-12T01:57:10.000Z</published>
-    <updated>2019-04-17T09:17:43.831Z</updated>
+    <updated>2019-04-18T09:18:22.150Z</updated>
     
     <summary type="html">
     
@@ -381,26 +401,6 @@
     <id>https://alberthumbert.github.io/2019/01/02/ProGuard/</id>
     <published>2019-01-01T17:19:32.000Z</published>
     <updated>2019-03-02T07:00:37.848Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;-&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="dairy" scheme="https://alberthumbert.github.io/categories/dairy/"/>
-    
-    
-      <category term="notes" scheme="https://alberthumbert.github.io/tags/notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入操作系统 11 - 存储管理</title>
-    <link href="https://alberthumbert.github.io/2018/12/15/page/"/>
-    <id>https://alberthumbert.github.io/2018/12/15/page/</id>
-    <published>2018-12-15T06:55:29.000Z</published>
-    <updated>2019-01-03T09:42:08.017Z</updated>
     
     <summary type="html">
     

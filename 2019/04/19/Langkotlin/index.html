@@ -12,6 +12,8 @@
     
     <title>
         
+            kotlin 入门 | 
+        
         Albert&#39;s Blog
     </title>
 
@@ -33,8 +35,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Albert Humbert">
-    <meta name="description" itemprop="description" content="developing">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="-">
+    <meta name="keywords" content="null,notes">
 
     <!-- Site Verification -->
     
@@ -63,51 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Albert&#39;s Blog">
+    <meta property="og:title" content="kotlin 入门 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="developing">
-    
+    <meta property="og:description" content="-">
+    <meta property="og:article:tag" content="notes"> 
 
+    
+        <meta property="article:published_time" content="4月 19, 2019" />
+        <meta property="article:modified_time" content="4月 19, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Albert&#39;s Blog">
-    <meta name="twitter:description" content="developing">
+    <meta name="twitter:title" content="kotlin 入门 | Albert&#39;s Blog">
+    <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://alberthumbert.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://alberthumbert.github.io" />
+        <link rel="canonical" href="https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
+
+
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
-    "@type": "Website",
+    "@context": "https://schema.org",
+    "@type": "Article",
     "publisher": {
         "@type": "Organization",
         "name": "Albert&#39;s Blog",
         "logo": "/img/favicon.png"
     },
-    "url": "https://alberthumbert.github.io/index.html",
-    "image": {
-        "@type": "ImageObject",
-        "url": "/img/favicon.png"
+    "author": {
+        "@type": "Person",
+        "name": "Albert Humbert",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Paranoid Android"
     },
+    "headline": "kotlin 入门",
+    "url": "https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html",
+    "datePublished": "4月 19, 2019",
+    "dateModified": "4月 19, 2019",
+    "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://alberthumbert.github.io"
-    },
-    "description": "developing"
+    }
 }
 </script>
-
-
 
 
     
@@ -295,802 +308,604 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
+                    <!-- Post TOC -->
+
     
-        <!-- Paradox Header -->
-        <!-- Daily pic -->
-<div class="mdl-card mdl-shadow--2dp daily-pic mdl-cell mdl-cell--8-col index-top-block">
-
-    <!-- Pic & Slogan -->
-    <div class="mdl-card__media mdl-color-text--grey-50" style="background-image:url(/img/daily_pic.jpg)">
-        <p class="index-top-block-slogan"><a href="#">
-        
-            
-                Paranoid Android
-            
-        
-        </a></p>
-    </div>
-
-    <!-- Avatar & Name -->
-    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
-        <!-- Author Avatar -->
-        <div id="author-avatar">
-            <img src="/img/avatar.png" width="32px" height="32px" alt="avatar">
-        </div>
-        <div>
-            <strong>Albert Humbert</strong>
-        </div>
-    </div>
-</div>
-
-        <!-- Blog info -->
-<div class="mdl-card mdl-shadow--2dp something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop index-top-block">
-
-    <!-- Search -->
-    
-    <!-- Google -->
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" method="post" action="">
-        <label id="search-label" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent mdl-shadow--4dp" for="search">
-            <i class="material-icons mdl-color-text--white" role="presentation">search</i>
-        </label>
-
-        <form autocomplete="off" id="search-form" method="get" action="//google.com/search" accept-charset="UTF-8" class="mdl-textfield__expandable-holder" target="_blank">
-            <input class="mdl-textfield__input search-input" type="search" name="q" id="search" placeholder="">
-            <label id="search-form-label" class="mdl-textfield__label" for="search"></label>
-
-            <input type="hidden" name="sitesearch" value="https://alberthumbert.github.io">
-        </form>
-    </div>
-
-
-
-
-
-
-
-    <!-- LOGO -->
-    <div class="something-else-logo mdl-color--white mdl-color-text--grey-600">
-        <a href="#" target="_blank">
-            <img src="/img/logo.png" alt="logo" />
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
         </a>
     </div>
+    -->
 
-    <!-- Infomation -->
-    <div class="mdl-card__supporting-text meta meta--fill mdl-color-text--grey-600">
-        <!-- Blog Title -->
-        <div>
-            <strong>Albert&#39;s Blog</strong>
-        </div>
-        <div class="section-spacer"></div>
-
-        <!-- Pages -->
-        <button id="show-pages-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-            <i class="material-icons" role="presentation">view_carousel</i>
-            <span class="visuallyhidden">Pages</span>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="show-pages-button">
-            
-                <a class="index_share-link" href="/about" title="关于我">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        关于我
-                    </li>
-                </a>
-            
-                <a class="index_share-link" href="/tags" title="标签索引">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        标签索引
-                    </li>
-                </a>
-            
-                <a class="index_share-link" href="/links" title="友情链接">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        友情链接
-                    </li>
-                </a>
-            
-                <a class="index_share-link" href="/whatever" title="Writers &amp; Weirdos">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        Writers &amp; Weirdos
-                    </li>
-                </a>
-            
-        </ul>
-
-        <!-- Menu -->
-        <button id="menubtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-            <i class="material-icons" role="presentation">more_vert</i>
-            <span class="visuallyhidden">show menu</span>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="menubtn">
-            
-
-            
-
-            
-                <a class="index_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Albert&#39;s Blog&url=https://alberthumbert.github.io/&pic=&searchPic=false&style=simple" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到微博
-                    </li>
-                </a>
-            
-
-            
-                <a class="index_share-link" href="https://twitter.com/intent/tweet?text=Albert&#39;s Blog&url=https://alberthumbert.github.io/&via=Albert Humbert" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到 Twitter
-                    </li>
-                </a>
-            
-
-            
-                <a class="index_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/index.html" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到 Facebook
-                    </li>
-                </a>
-            
-
-            
-                <a class="index_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到 Google+
-                    </li>
-                </a>
-            
-
-            
-                <a class="index_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/&title=Albert&#39;s Blog" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到 LinkedIn
-                    </li>
-                </a>
-            
-
-            
-                <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=Albert&#39;s Blog&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/" target="_blank">
-                    <li class="mdl-menu__item">
-                        分享到 QQ
-                    </li>
-                </a>
-            
-
-            
-                <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/&text=Albert&#39;s Blog" target="_blank">
-                    <li class="mdl-menu__item">
-                        分享到 Telegram
-                    </li>
-                </a>
-            
-        </ul>
-    </div>
-</div>
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
 
     
-    <div class="locate-thumbnail-symbol"></div>
-
-    <!-- Pin on top -->
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#kotlin-基础"><span class="post-toc-number">2.</span> <span class="post-toc-text">kotlin 基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本要素：函数和变量"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">基本要素：函数和变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码块体"><span class="post-toc-number">2.1.1.1.</span> <span class="post-toc-text">代码块体</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#表达式体"><span class="post-toc-number">2.1.1.2.</span> <span class="post-toc-text">表达式体</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变量"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#省略类型"><span class="post-toc-number">2.1.2.1.</span> <span class="post-toc-text">省略类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符串模板"><span class="post-toc-number">2.1.2.2.</span> <span class="post-toc-text">字符串模板</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类和属性"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">类和属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#属性"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目录和包"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">目录和包</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#枚举和-when"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">枚举和 when</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明枚举"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">声明枚举</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-when"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">使用 when</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#when支持任意对象"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">when支持任意对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#不带参数的when"><span class="post-toc-number">2.3.4.</span> <span class="post-toc-text">不带参数的when</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#智能转换"><span class="post-toc-number">2.3.5.</span> <span class="post-toc-text">智能转换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#while-和-for"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">while 和 for</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#while"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">while</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代数字"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">迭代数字</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#区间和数列"><span class="post-toc-number">2.4.2.1.</span> <span class="post-toc-text">区间和数列</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代map"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">迭代map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检查区间"><span class="post-toc-number">2.4.4.</span> <span class="post-toc-text">检查区间</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kotlin中的异常"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">kotlin中的异常</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#try-catch-finally"><span class="post-toc-number">2.5.1.</span> <span class="post-toc-text">try catch finally</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#try-作为表达式"><span class="post-toc-number">2.5.2.</span> <span class="post-toc-text">try 作为表达式</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#函数的定义和调用"><span class="post-toc-number">3.</span> <span class="post-toc-text">函数的定义和调用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建集合"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">创建集合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#让函数更好调用"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">让函数更好调用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#命名参数"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">命名参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#默认参数值"><span class="post-toc-number">3.2.2.</span> <span class="post-toc-text">默认参数值</span></a></li></ol></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/04/19/Langkotlin/">kotlin 入门</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/04/19/Langkotlin/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>4月 19, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/04/17/BugFlutter/">Flutter 踩坑记录</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/04/17/BugFlutter/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>4月 17, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/04/12/OtherPlan/">近期计划 &amp; 学习资料</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/04/12/OtherPlan/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>4月 12, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/03/18/UILAN/">UniversalImageLoader 详解</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/03/18/UILAN/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>3月 18, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/01/28/AOSServiceInit/">Android 系统系列 Service启动流程</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/01/28/AOSServiceInit/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>1月 28, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/01/21/AOSHandler/">Android 系统系列 Looper &amp; handler 机制 回顾</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/01/21/AOSHandler/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>1月 21, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/01/18/AOSBinder/">Android 系统系列 Binder源码解析</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/01/18/AOSBinder/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>1月 18, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/01/18/AOSActivityInit/">Android 系统系列 Activity启动流程</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/01/18/AOSActivityInit/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>1月 18, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/01/18/JVMRuntime/">深入JVM系列 9 - hotspot 7 &amp; 8 运行时数据区</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/01/18/JVMRuntime/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>1月 18, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2019/01/16/AndroidID/">Android - 系统中的各种id</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            -
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2019/01/16/AndroidID/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Albert Humbert's avatar">
-            </div>
-            <div>
-                <strong>Albert Humbert</strong>
-                <span>1月 16, 2019</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/dairy/">dairy</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-    <!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_forward</i></button></a>
-        </nav>
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                kotlin 入门
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Albert Humbert</strong>
+        <span>4月 19, 2019</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/notes/">notes</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=kotlin 入门&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=kotlin 入门&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&via=Albert Humbert" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&title=kotlin 入门" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=kotlin 入门&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&text=kotlin 入门" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>-</p>
+<a id="more"></a>
+<p><a href="https://try.kotlinlang.org/" target="_blank" rel="external">你可以在这个网站中在线编译并运行kotlin代码</a></p>
+<p><br></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>kotlin是一门野心非常大的语言，它不但能与能与现有的java框架并存，向人证明它可以以更加简洁的方式代替java，还不断向着更多的领域发展。android开发者可以结合anko编写应用，永久告别xml，前端开发者可以编写kotlin代码然后编译成JavaScript，Kotlin_Native更是支持直接编译机器码在linux，ios，mac os上运行</li>
+</ul>
+<ul>
+<li>kotlin最大的特点是简洁的语法，自动类型推断与互操作性</li>
+</ul>
+<p><br></p>
+<h1 id="kotlin-基础"><a href="#kotlin-基础" class="headerlink" title="kotlin 基础"></a>kotlin 基础</h1><p><br></p>
+<h2 id="基本要素：函数和变量"><a href="#基本要素：函数和变量" class="headerlink" title="基本要素：函数和变量"></a>基本要素：函数和变量</h2><p><strong>构成kotlin程序的基本要素是函数和变量，这即是某些语言以及函数式编程中强调的“函数是第一等公民”的概念的体现</strong></p>
+<pre><code>fun main(args:Array&lt;String&gt;){
+    println(&quot;hello world&quot;)
+}
+</code></pre><ul>
+<li>上面是一个hello world的kotlin实现，从这个简单的例子中我们已经可以看到kotlin与java有很多不同</li>
+</ul>
+<pre><code>1.使用关键字 fun 声明一个函数，也就是方法
+2.参数类型写在名称的后面，与go语言如出一辙，对于能够自动推断类型的语言来说，我们总是更关注变量的名名称所表达的抽象含义而不是它的类型
+3.函数可以定义在文件的最外层，而不是类里面，你可以直接把这个函数放到任何一个kt文件中运行，不需要找到一个合适的花括号然后把它塞进去
+4.println代替了system.out.println，kotlin简化了很多这样啰嗦的代码
+5.可以省略代码结尾的分号，这点和python很像，你不用担心你的代码会被go编译器那样胡乱的添加上分号
+</code></pre><p><br></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><br></p>
+<h4 id="代码块体"><a href="#代码块体" class="headerlink" title="代码块体"></a>代码块体</h4><pre><code>fun max(a: Int, b: Int): Int {
+    return if (a &gt; b) a else b
+}
+</code></pre><ul>
+<li>函数以fun开头，然后是函数名和参数列表，参数类型写在参数名后，以冒号隔开，最后是冒号和返回类型</li>
+</ul>
+<ul>
+<li>注意在kotlin中大多数控制结果都是表达式，而不是语句，语句与表达式的最大区别在于表达式有值，允许直接嵌套使用</li>
+</ul>
+<p><br></p>
+<h4 id="表达式体"><a href="#表达式体" class="headerlink" title="表达式体"></a>表达式体</h4><pre><code>fun max(a: Int, b: Int): Int = if (a &gt; b) a else b
+</code></pre><ul>
+<li><p>表达式也可以作为一个完整的函数体，现在你知道为什么kotlin要把返回类型放在函数头的最后面了</p>
+</li>
+<li><p>我们说过kotlin支持自动类型推断，因此上面的代码还可以简洁一下</p>
+</li>
+</ul>
+<pre><code>fun max(a: Int, b: Int) = if (a \&gt; b) a else b
+</code></pre><ul>
+<li>在函数中支持表达式体的意义在于，向kotlin这种支持闭包的语言可以在任何地方将代码重用的粒度降到最细</li>
+</ul>
+<p><br></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><br></p>
+<h4 id="省略类型"><a href="#省略类型" class="headerlink" title="省略类型"></a>省略类型</h4><pre><code>val aString = &quot;I am String&quot;
+val aInt = 1;
+var aDouble = 2e6
+var aFloat:Float
+</code></pre><ul>
+<li>在Java(jdk 10之前)中，声明变量时必须在最前面写出变量类型，在kotlin中，你甚至都不需要给出类型，编译器根据初始化的值可以知道你要的是什么，如果你不想那么快赋值，那就必须给出变量类型了</li>
+</ul>
+<ul>
+<li>上面我们用到了var和val来声明变量，var表示可变引用，val表示不可变引用（final），并且val仅仅保证引用的不可变性，它指向的对象仍然是可变的</li>
+</ul>
+<pre><code>val aList = arrayListOf(&quot;java&quot;)
+aList.add(&quot;kotlin&quot;)
+</code></pre><ul>
+<li>你应该尽可能地使用val来声明所有的变量，这会让代码更安全，也更接近函数式编程的风格</li>
+</ul>
+<p><br></p>
+<h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h4><pre><code>val he = &quot;Albert&quot;
+val languages = arrayListOf(&quot;java&quot;)
+languages.add(&quot;kotlin&quot;)
+println(&quot;$he said, ${languages[1]} is the best language in the world &quot;)
+
+//猜猜输出什么？
+</code></pre><ul>
+<li>字符串模板的作用是允许字符串字面量中存在变量和表达式，这显然让字符串拼接显得更加简洁紧凑，易于理解</li>
+<li>在你的字符串中可以使用$中支持变量，使用${}支持表达式！</li>
+</ul>
+<p><br></p>
+<h2 id="类和属性"><a href="#类和属性" class="headerlink" title="类和属性"></a>类和属性</h2><p><strong>Java常为人诟病的一点就是创建一个类需要非常多的样板代码（特别是对于bean类而言），为此不少ide或插件都提供了自动生成getter，setter，构造器，代码模板，万能tab的功能</strong></p>
+<p><strong>但就像很多人认为的那样，某种程度上Java逐渐变成了一门“依赖ide”的语言</strong></p>
+<p><strong>kotlin的开发者们为了解决这些问题可谓下足了功夫</strong></p>
+<p><br></p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><pre><code>class Person(var name:String)
+</code></pre><ul>
+<li>上面这行kotlin代码展开成Java代码之后如下，你一定见过很多这样的Java代码，尽管从语法的角度来讲它们处处都有意义，但实际上你需要的关键词真的只有 class，Person，var，name ，String，这就是kotlin所谓的简洁，在kotlin当中，类通常很小</li>
+</ul>
+<pre><code>public class Person{
+    private String name;
+
+    public Person(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+}
+</code></pre><ul>
+<li>对于使用var修饰的属性，kotlin编译器会自动为其生成getter，setter，对于使用val修饰的属性，编译器则只生成getter，同时在访问和修改任何属性时，你不需要显式地调用它们的访问方法，对于构造方法而言，你也不用再写关键字new了</li>
+</ul>
+<pre><code>val albert = Person(&quot;Albert&quot;)
+albert.name = &quot;Albert Lin&quot;
+println(albert.name)
+</code></pre><ul>
+<li>所有属性都像Java中访问公有属性那样访问，但实际上走的是内部的getter和setter方法,当然这也包括了你所编写的getter和setter方法</li>
+</ul>
+<pre><code>class Rectangle(val height: Int, val width: Int) {
+    val isSquare: Boolean
+        get() {
+            return height == width
+        }
+
+    //也可以简化为val isSquare: Boolean get() = height == width
+}
+</code></pre><p><br></p>
+<h3 id="目录和包"><a href="#目录和包" class="headerlink" title="目录和包"></a>目录和包</h3><ul>
+<li>kotlin当中依然使用import和package关键字来组织代码结构，不同的是，在Java中，包结构需要与实际上的文件目录结构一致，kotlin则不做这种要求，你可以把所有文件都放到一个目录，只在package关键字后面声明它们所在的包</li>
+</ul>
+<ul>
+<li>在通常情况下，程序员依然应该使用Java那样去管理文件，但是对于那些短小的类而言,你应该按照具体职责将它们放到同一个文件中</li>
+</ul>
+<pre><code>package  com.linjiamin.kt.play
+class Rectangle(val height: Int, val width: Int) {
+    val isSquare: Boolean get() = height == width
+}
+class Person(var name:String)
+</code></pre><p><br></p>
+<h2 id="枚举和-when"><a href="#枚举和-when" class="headerlink" title="枚举和 when"></a>枚举和 when</h2><p><br></p>
+<h3 id="声明枚举"><a href="#声明枚举" class="headerlink" title="声明枚举"></a>声明枚举</h3><ul>
+<li>在kotlin当中，声明一个枚举类，需要 enum class 两个关键字</li>
+</ul>
+<pre><code>enum class Color{
+    RED,ORANGE,YELLOW,GREEN,BLUE,INDIGO,VIOLET
+}
+</code></pre><ul>
+<li>更常规的用法,并为其构造方法和其他特定的方法，注意枚举列表必须与其他方法用分号隔开，这是kotlin中唯一一个必须使用分号结尾的地方</li>
+</ul>
+<pre><code>enum class Color(val r: Int, val g: Int, val b: Int) {
+    RED(255, 9, 9), ORANGE(255, 165, 0),
+    GREEN(0, 255, 0), YELLOW(255, 255, 0),
+    BLUE(0, 0, 255), INDIGO(75, 0, 130), VIOLET(238, 130, 238);
+
+    fun rgb() = (r * 256 + g) * 256 + b
+}
+fun main(args:Array&lt;String&gt;){
+    println(Color.BLUE.rgb())
+}
+</code></pre><p><br></p>
+<h3 id="使用-when"><a href="#使用-when" class="headerlink" title="使用 when"></a>使用 when</h3><ul>
+<li>when 是 switch 的高级替代品</li>
+</ul>
+<ul>
+<li>when 不但是分支控制语句，还是一个表达式，因此它具有返回值,并且不需要使用break语句，同时这个例子也体现了kotlin可以在函数中声明函数</li>
+</ul>
+<pre><code>fun main(args: Array&lt;String&gt;) {
+    fun getColorName(color: Color) =
+            when (color) {
+                Color.RED -&gt; &quot;Red&quot;
+                Color.ORANGE -&gt; &quot;Orange&quot;
+                Color.GREEN -&gt; &quot;Green&quot;
+                Color.BLUE -&gt; &quot;Blue&quot;
+                Color.YELLOW -&gt; &quot;Yellow&quot;
+                Color.INDIGO -&gt; &quot;Indigo&quot;
+                Color.VIOLET -&gt; &quot;Violet&quot;
+            }
+
+    println(getColorName(Color.BLUE))
+}
+</code></pre><ul>
+<li>你可以使用列表的形式合并分支减少重复代码,使用import语句可以导入枚举类的所有常量，不再需要使用类名来引用</li>
+</ul>
+<pre><code>import com.linjiamin.kt.play.Color.\*
+fun main(args: Array&lt;String&gt;) {
+    fun getWarmth(color: Color) =
+            when (color) {
+                RED,
+                ORANGE,
+                YELLOW -&gt; &quot;warm&quot;
+
+                BLUE,
+                INDIGO,
+                VIOLET -&gt; &quot;cold&quot;
+
+                GREEN -&gt; &quot;neutral&quot;
+            }
+
+    println(getWarmth(Color.ORANGE))
+}
+</code></pre><p><br></p>
+<h3 id="when支持任意对象"><a href="#when支持任意对象" class="headerlink" title="when支持任意对象"></a>when支持任意对象</h3><ul>
+<li>在java中，case标签只支持枚举常量，字符串和数字字面量，而在 kotlin中，when支持所有对象,在下面这个例子当中，我们传入两个Color并使用setOf函数将他们合成为一个set对象，编译器能够推断出这种set共有多少种可能的情况</li>
+</ul>
+<pre><code>fun mix(c1: Color, c2: Color) =
+        when (setOf(c1, c2)) {
+            setOf(RED, YELLOW) -&gt; ORANGE
+            setOf(YELLOW, BLUE) -&gt; GREEN
+            setOf(BLUE, VIOLET) -&gt; INDIGO
+            else -&gt; throw Exception(&quot;Dirty Color&quot;)
+        }
+fun main(args: Array&lt;String&gt;) {
+    println(mix(RED,YELLOW))
+}
+</code></pre><p><br></p>
+<h3 id="不带参数的when"><a href="#不带参数的when" class="headerlink" title="不带参数的when"></a>不带参数的when</h3><ul>
+<li>在 when 当中 构造 setOf 会带来性能上的损耗，使用不带参数的when可以解决这种问题，但是可读性会下降</li>
+</ul>
+<pre><code>fun mixOptimized(c1: Color, c2: Color) = when {
+    (c1 == RED &amp;&amp; c2 == YELLOW) || (c1 == YELLOW &amp;&amp; c2 == RED) -&gt;
+        ORANGE
+
+    (c1 == YELLOW &amp;&amp; c2 == BLUE) || (c1 == BLUE &amp;&amp; c2 == YELLOW) -&gt;
+        GREEN
+
+    (c1 == BLUE &amp;&amp; c2 == VIOLET) || (c1 == VIOLET &amp;&amp; c2 == BLUE) -&gt;
+        INDIGO
+
+    else -&gt; throw Exception(&quot;dirty color&quot;)
+}
+fun main(args: Array&lt;String&gt;) {
+    println(mixOptimized(RED, YELLOW))
+}
+</code></pre><p><br></p>
+<h3 id="智能转换"><a href="#智能转换" class="headerlink" title="智能转换"></a>智能转换</h3><ul>
+<li>使用 is 关键字可以进行类型检查和自动转换类型，类似java中的instanceOf，但 is 显然更加简洁，注意在kotlin中，分支可以是代码块，这个时候代码块中的最后一个表达式会作为when表达式的值</li>
+</ul>
+<pre><code>class Dog {
+    fun bark() {
+        println(&quot;bark&quot;)
+    }
+}
+class Duck {
+    fun swim() {
+        println(&quot;swim&quot;)
+    }
+}
+fun test(animal: Any) = when (animal) {
+    is Dog -&gt; {
+        print(&quot;I am a dog,I can &quot;)
+        animal.bark()
+        &quot;wan !&quot;
+    }
+
+    is Duck -&gt; {
+        print(&quot;I am a duck,I can &quot;)
+        animal.swim()
+        &quot;ga !&quot;
+    }
+    else -&gt; throw IllegalArgumentException()
+}
+fun main(args: Array&lt;String&gt;) {
+    println(test(Dog()))
+    println(test(Duck()))
+}
+//输出
+//I am a dog,I can bark
+//wan !
+//I am a duck,I can swim
+//ga !
+</code></pre><p><br></p>
+<h2 id="while-和-for"><a href="#while-和-for" class="headerlink" title="while 和 for"></a>while 和 for</h2><p><br></p>
+<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><ul>
+<li>在 kotlin 中的 while 和 do while 结构和 java 没有任何区别，这里就不讲解了</li>
+</ul>
+<p><br></p>
+<h3 id="迭代数字"><a href="#迭代数字" class="headerlink" title="迭代数字"></a>迭代数字</h3><p><br></p>
+<h4 id="区间和数列"><a href="#区间和数列" class="headerlink" title="区间和数列"></a>区间和数列</h4><ul>
+<li><p>使用 in 可以使用在for中指示一个区间，在kotlin中区间是包含的，或者说闭合的</p>
+<p>  fun main(args: Array<string>) {</string></p>
+<pre><code>for(i in 1..100){
+    print(&quot; $i&quot;)
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<ul>
+<li>你觉得上面的操作没什么新意，那么看看这几行,kotlin中的迭代不仅支持数字区间还支持字符区间,在区间中可以指定步长，而数字区间中还可以使用downto指定方向</li>
+</ul>
+<pre><code>fun main(args: Array&lt;String&gt;) {
+    for(c in &apos;A&apos;..&apos;Z&apos; step 3 )
+        print(&quot;$c&quot;)
+}
+
+
+fun main(args: Array&lt;String&gt;) {
+    for(i in 100 downTo 1 step 3 )
+        print(&quot;$i&quot;)
+}
+</code></pre><ul>
+<li>更多时候我们需要的是半闭合的区间，这种时候可以使用 until 关键字,下面这个例子中100不会被输出</li>
+</ul>
+<pre><code>fun main(args: Array&lt;String&gt;) {
+    for(i in 0 until 100 )
+        print(&quot; $i&quot;)
+}
+</code></pre><p><br></p>
+<h3 id="迭代map"><a href="#迭代map" class="headerlink" title="迭代map"></a>迭代map</h3><ul>
+<li>for 循环允许展开迭代中的集合的元素，例如下面这个例子中将map的键值对存储到两个独立的变量当中，在这个例子中集合看起来更像数组，是的，kotlin中可以使用中括号来代替get和put方法</li>
+</ul>
+<pre><code>val binReps = TreeMap\&lt;Char,String\&gt;()
+fun test() {
+  for(c in &apos;a&apos; .. &apos;f&apos;){
+      val bin = Integer.toBinaryString(c.toInt())
+      binReps[c] = bin
+  }
+    for ((letter,binary) in binReps){
+        println(&quot;$letter = $binary&quot;)
+    }
+}
+
+val list = arrayListOf(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)
+fun test() {
+    for ((index,element) in list.withIndex()){
+        println(&quot;$index = $element&quot;)
+    }
+}
+</code></pre><p><br></p>
+<h3 id="检查区间"><a href="#检查区间" class="headerlink" title="检查区间"></a>检查区间</h3><ul>
+<li>使用in和!in可以检查区间中的成员，即检查某个值是否在区间当中</li>
+</ul>
+<pre><code>fun isLetter(c: Char) = c in &apos;a&apos;..&apos;z&apos; || c in &apos;A&apos;..&apos;z&apos;
+fun isNotDigit(c: Char) = c !in &apos;0&apos;..&apos;9&apos;
+fun main(args: Array&lt;String&gt;) {
+    print(isLetter(&apos;c&apos;))
+    print(isNotDigit(&apos;c&apos;))
+}
+</code></pre><p><br></p>
+<h2 id="kotlin中的异常"><a href="#kotlin中的异常" class="headerlink" title="kotlin中的异常"></a>kotlin中的异常</h2><ul>
+<li>kotlin中异常与java相似，不过不必使用new关键之来创建一个异常的实例，同时throw结构是一个表达式</li>
+</ul>
+<pre><code>val percentage = if (number in 0..100)
+    number
+else throw IllegalArgumentException(&quot;a percentage value must be between 0 and 100:$number&quot;)
+</code></pre><p><br></p>
+<h3 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try catch finally"></a>try catch finally</h3><ul>
+<li>kotlin不区分受检异常和未受检异常，因此不需要使用throw关键字来声明方法可能抛出的异常</li>
+</ul>
+<pre><code>fun readNumber(reader: BufferedReader) :Int? {
+
+    try {
+        val line = reader.readLine()
+        return Integer.parseInt(line)
+
+    }catch (e:NumberFormatException){
+        return null
+    }finally {
+        reader.close()
+    }
+}
+</code></pre><p><br></p>
+<h3 id="try-作为表达式"><a href="#try-作为表达式" class="headerlink" title="try 作为表达式"></a>try 作为表达式</h3><ul>
+<li>在kotlin中try和when以及if一样，引入了表达式，如果语句中包括多个表达式，那么最后一个表达式的值就是try表达式的值，如果中间抛出了异常，那么catch表达式的值就是最终的值</li>
+</ul>
+<pre><code>fun readNumber(reader: BufferedReader) {
+    val number = try {
+        Integer.parseInt(reader.readLine())
+    }catch (e:NumberFormatException){
+        null
+    }
+     print(number)
+}
+</code></pre><p><br></p>
+<h1 id="函数的定义和调用"><a href="#函数的定义和调用" class="headerlink" title="函数的定义和调用"></a>函数的定义和调用</h1><p><br></p>
+<h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h2><p><br></p>
+<h2 id="让函数更好调用"><a href="#让函数更好调用" class="headerlink" title="让函数更好调用"></a>让函数更好调用</h2><p><br></p>
+<h3 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h3><p><br></p>
+<h3 id="默认参数值"><a href="#默认参数值" class="headerlink" title="默认参数值"></a>默认参数值</h3>
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2019/04/17/BugFlutter/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -1412,12 +1227,6 @@ It will not impact the appearance and can give developers a lot of support :)
 
 
 
-
-    <!-- Swiftye -->
-    
-
-    <!-- Local Search-->
-    
 
 
 <!-- UC Browser Compatible -->

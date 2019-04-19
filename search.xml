@@ -3,28 +3,420 @@
   
     
     <entry>
+      <title><![CDATA[kotlin 入门]]></title>
+      <url>/2019/04/19/Langkotlin/</url>
+      <content type="html"><![CDATA[<p>-</p>
+<a id="more"></a>
+<p><a href="https://try.kotlinlang.org/" target="_blank" rel="external">你可以在这个网站中在线编译并运行kotlin代码</a></p>
+<p><br></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>kotlin是一门野心非常大的语言，它不但能与能与现有的java框架并存，向人证明它可以以更加简洁的方式代替java，还不断向着更多的领域发展。android开发者可以结合anko编写应用，永久告别xml，前端开发者可以编写kotlin代码然后编译成JavaScript，Kotlin_Native更是支持直接编译机器码在linux，ios，mac os上运行</li>
+</ul>
+<ul>
+<li>kotlin最大的特点是简洁的语法，自动类型推断与互操作性</li>
+</ul>
+<p><br></p>
+<h1 id="kotlin-基础"><a href="#kotlin-基础" class="headerlink" title="kotlin 基础"></a>kotlin 基础</h1><p><br></p>
+<h2 id="基本要素：函数和变量"><a href="#基本要素：函数和变量" class="headerlink" title="基本要素：函数和变量"></a>基本要素：函数和变量</h2><p><strong>构成kotlin程序的基本要素是函数和变量，这即是某些语言以及函数式编程中强调的“函数是第一等公民”的概念的体现</strong></p>
+<pre><code>fun main(args:Array&lt;String&gt;){
+    println(&quot;hello world&quot;)
+}
+</code></pre><ul>
+<li>上面是一个hello world的kotlin实现，从这个简单的例子中我们已经可以看到kotlin与java有很多不同</li>
+</ul>
+<pre><code>1.使用关键字 fun 声明一个函数，也就是方法
+2.参数类型写在名称的后面，与go语言如出一辙，对于能够自动推断类型的语言来说，我们总是更关注变量的名名称所表达的抽象含义而不是它的类型
+3.函数可以定义在文件的最外层，而不是类里面，你可以直接把这个函数放到任何一个kt文件中运行，不需要找到一个合适的花括号然后把它塞进去
+4.println代替了system.out.println，kotlin简化了很多这样啰嗦的代码
+5.可以省略代码结尾的分号，这点和python很像，你不用担心你的代码会被go编译器那样胡乱的添加上分号
+</code></pre><p><br></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><br></p>
+<h4 id="代码块体"><a href="#代码块体" class="headerlink" title="代码块体"></a>代码块体</h4><pre><code>fun max(a: Int, b: Int): Int {
+    return if (a &gt; b) a else b
+}
+</code></pre><ul>
+<li>函数以fun开头，然后是函数名和参数列表，参数类型写在参数名后，以冒号隔开，最后是冒号和返回类型</li>
+</ul>
+<ul>
+<li>注意在kotlin中大多数控制结果都是表达式，而不是语句，语句与表达式的最大区别在于表达式有值，允许直接嵌套使用</li>
+</ul>
+<p><br></p>
+<h4 id="表达式体"><a href="#表达式体" class="headerlink" title="表达式体"></a>表达式体</h4><pre><code>fun max(a: Int, b: Int): Int = if (a &gt; b) a else b
+</code></pre><ul>
+<li><p>表达式也可以作为一个完整的函数体，现在你知道为什么kotlin要把返回类型放在函数头的最后面了</p>
+</li>
+<li><p>我们说过kotlin支持自动类型推断，因此上面的代码还可以简洁一下</p>
+</li>
+</ul>
+<pre><code>fun max(a: Int, b: Int) = if (a \&gt; b) a else b
+</code></pre><ul>
+<li>在函数中支持表达式体的意义在于，向kotlin这种支持闭包的语言可以在任何地方将代码重用的粒度降到最细</li>
+</ul>
+<p><br></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><br></p>
+<h4 id="省略类型"><a href="#省略类型" class="headerlink" title="省略类型"></a>省略类型</h4><pre><code>val aString = &quot;I am String&quot;
+val aInt = 1;
+var aDouble = 2e6
+var aFloat:Float
+</code></pre><ul>
+<li>在Java(jdk 10之前)中，声明变量时必须在最前面写出变量类型，在kotlin中，你甚至都不需要给出类型，编译器根据初始化的值可以知道你要的是什么，如果你不想那么快赋值，那就必须给出变量类型了</li>
+</ul>
+<ul>
+<li>上面我们用到了var和val来声明变量，var表示可变引用，val表示不可变引用（final），并且val仅仅保证引用的不可变性，它指向的对象仍然是可变的</li>
+</ul>
+<pre><code>val aList = arrayListOf(&quot;java&quot;)
+aList.add(&quot;kotlin&quot;)
+</code></pre><ul>
+<li>你应该尽可能地使用val来声明所有的变量，这会让代码更安全，也更接近函数式编程的风格</li>
+</ul>
+<p><br></p>
+<h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h4><pre><code>val he = &quot;Albert&quot;
+val languages = arrayListOf(&quot;java&quot;)
+languages.add(&quot;kotlin&quot;)
+println(&quot;$he said, ${languages[1]} is the best language in the world &quot;)
+
+//猜猜输出什么？
+</code></pre><ul>
+<li>字符串模板的作用是允许字符串字面量中存在变量和表达式，这显然让字符串拼接显得更加简洁紧凑，易于理解</li>
+<li>在你的字符串中可以使用$中支持变量，使用${}支持表达式！</li>
+</ul>
+<p><br></p>
+<h2 id="类和属性"><a href="#类和属性" class="headerlink" title="类和属性"></a>类和属性</h2><p><strong>Java常为人诟病的一点就是创建一个类需要非常多的样板代码（特别是对于bean类而言），为此不少ide或插件都提供了自动生成getter，setter，构造器，代码模板，万能tab的功能</strong></p>
+<p><strong>但就像很多人认为的那样，某种程度上Java逐渐变成了一门“依赖ide”的语言</strong></p>
+<p><strong>kotlin的开发者们为了解决这些问题可谓下足了功夫</strong></p>
+<p><br></p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><pre><code>class Person(var name:String)
+</code></pre><ul>
+<li>上面这行kotlin代码展开成Java代码之后如下，你一定见过很多这样的Java代码，尽管从语法的角度来讲它们处处都有意义，但实际上你需要的关键词真的只有 class，Person，var，name ，String，这就是kotlin所谓的简洁，在kotlin当中，类通常很小</li>
+</ul>
+<pre><code>public class Person{
+    private String name;
+
+    public Person(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+}
+</code></pre><ul>
+<li>对于使用var修饰的属性，kotlin编译器会自动为其生成getter，setter，对于使用val修饰的属性，编译器则只生成getter，同时在访问和修改任何属性时，你不需要显式地调用它们的访问方法，对于构造方法而言，你也不用再写关键字new了</li>
+</ul>
+<pre><code>val albert = Person(&quot;Albert&quot;)
+albert.name = &quot;Albert Lin&quot;
+println(albert.name)
+</code></pre><ul>
+<li>所有属性都像Java中访问公有属性那样访问，但实际上走的是内部的getter和setter方法,当然这也包括了你所编写的getter和setter方法</li>
+</ul>
+<pre><code>class Rectangle(val height: Int, val width: Int) {
+    val isSquare: Boolean
+        get() {
+            return height == width
+        }
+
+    //也可以简化为val isSquare: Boolean get() = height == width
+}
+</code></pre><p><br></p>
+<h3 id="目录和包"><a href="#目录和包" class="headerlink" title="目录和包"></a>目录和包</h3><ul>
+<li>kotlin当中依然使用import和package关键字来组织代码结构，不同的是，在Java中，包结构需要与实际上的文件目录结构一致，kotlin则不做这种要求，你可以把所有文件都放到一个目录，只在package关键字后面声明它们所在的包</li>
+</ul>
+<ul>
+<li>在通常情况下，程序员依然应该使用Java那样去管理文件，但是对于那些短小的类而言,你应该按照具体职责将它们放到同一个文件中</li>
+</ul>
+<pre><code>package  com.linjiamin.kt.play
+class Rectangle(val height: Int, val width: Int) {
+    val isSquare: Boolean get() = height == width
+}
+class Person(var name:String)
+</code></pre><p><br></p>
+<h2 id="枚举和-when"><a href="#枚举和-when" class="headerlink" title="枚举和 when"></a>枚举和 when</h2><p><br></p>
+<h3 id="声明枚举"><a href="#声明枚举" class="headerlink" title="声明枚举"></a>声明枚举</h3><ul>
+<li>在kotlin当中，声明一个枚举类，需要 enum class 两个关键字</li>
+</ul>
+<pre><code>enum class Color{
+    RED,ORANGE,YELLOW,GREEN,BLUE,INDIGO,VIOLET
+}
+</code></pre><ul>
+<li>更常规的用法,并为其构造方法和其他特定的方法，注意枚举列表必须与其他方法用分号隔开，这是kotlin中唯一一个必须使用分号结尾的地方</li>
+</ul>
+<pre><code>enum class Color(val r: Int, val g: Int, val b: Int) {
+    RED(255, 9, 9), ORANGE(255, 165, 0),
+    GREEN(0, 255, 0), YELLOW(255, 255, 0),
+    BLUE(0, 0, 255), INDIGO(75, 0, 130), VIOLET(238, 130, 238);
+
+    fun rgb() = (r * 256 + g) * 256 + b
+}
+fun main(args:Array&lt;String&gt;){
+    println(Color.BLUE.rgb())
+}
+</code></pre><p><br></p>
+<h3 id="使用-when"><a href="#使用-when" class="headerlink" title="使用 when"></a>使用 when</h3><ul>
+<li>when 是 switch 的高级替代品</li>
+</ul>
+<ul>
+<li>when 不但是分支控制语句，还是一个表达式，因此它具有返回值,并且不需要使用break语句，同时这个例子也体现了kotlin可以在函数中声明函数</li>
+</ul>
+<pre><code>fun main(args: Array&lt;String&gt;) {
+    fun getColorName(color: Color) =
+            when (color) {
+                Color.RED -&gt; &quot;Red&quot;
+                Color.ORANGE -&gt; &quot;Orange&quot;
+                Color.GREEN -&gt; &quot;Green&quot;
+                Color.BLUE -&gt; &quot;Blue&quot;
+                Color.YELLOW -&gt; &quot;Yellow&quot;
+                Color.INDIGO -&gt; &quot;Indigo&quot;
+                Color.VIOLET -&gt; &quot;Violet&quot;
+            }
+
+    println(getColorName(Color.BLUE))
+}
+</code></pre><ul>
+<li>你可以使用列表的形式合并分支减少重复代码,使用import语句可以导入枚举类的所有常量，不再需要使用类名来引用</li>
+</ul>
+<pre><code>import com.linjiamin.kt.play.Color.\*
+fun main(args: Array&lt;String&gt;) {
+    fun getWarmth(color: Color) =
+            when (color) {
+                RED,
+                ORANGE,
+                YELLOW -&gt; &quot;warm&quot;
+
+                BLUE,
+                INDIGO,
+                VIOLET -&gt; &quot;cold&quot;
+
+                GREEN -&gt; &quot;neutral&quot;
+            }
+
+    println(getWarmth(Color.ORANGE))
+}
+</code></pre><p><br></p>
+<h3 id="when支持任意对象"><a href="#when支持任意对象" class="headerlink" title="when支持任意对象"></a>when支持任意对象</h3><ul>
+<li>在java中，case标签只支持枚举常量，字符串和数字字面量，而在 kotlin中，when支持所有对象,在下面这个例子当中，我们传入两个Color并使用setOf函数将他们合成为一个set对象，编译器能够推断出这种set共有多少种可能的情况</li>
+</ul>
+<pre><code>fun mix(c1: Color, c2: Color) =
+        when (setOf(c1, c2)) {
+            setOf(RED, YELLOW) -&gt; ORANGE
+            setOf(YELLOW, BLUE) -&gt; GREEN
+            setOf(BLUE, VIOLET) -&gt; INDIGO
+            else -&gt; throw Exception(&quot;Dirty Color&quot;)
+        }
+fun main(args: Array&lt;String&gt;) {
+    println(mix(RED,YELLOW))
+}
+</code></pre><p><br></p>
+<h3 id="不带参数的when"><a href="#不带参数的when" class="headerlink" title="不带参数的when"></a>不带参数的when</h3><ul>
+<li>在 when 当中 构造 setOf 会带来性能上的损耗，使用不带参数的when可以解决这种问题，但是可读性会下降</li>
+</ul>
+<pre><code>fun mixOptimized(c1: Color, c2: Color) = when {
+    (c1 == RED &amp;&amp; c2 == YELLOW) || (c1 == YELLOW &amp;&amp; c2 == RED) -&gt;
+        ORANGE
+
+    (c1 == YELLOW &amp;&amp; c2 == BLUE) || (c1 == BLUE &amp;&amp; c2 == YELLOW) -&gt;
+        GREEN
+
+    (c1 == BLUE &amp;&amp; c2 == VIOLET) || (c1 == VIOLET &amp;&amp; c2 == BLUE) -&gt;
+        INDIGO
+
+    else -&gt; throw Exception(&quot;dirty color&quot;)
+}
+fun main(args: Array&lt;String&gt;) {
+    println(mixOptimized(RED, YELLOW))
+}
+</code></pre><p><br></p>
+<h3 id="智能转换"><a href="#智能转换" class="headerlink" title="智能转换"></a>智能转换</h3><ul>
+<li>使用 is 关键字可以进行类型检查和自动转换类型，类似java中的instanceOf，但 is 显然更加简洁，注意在kotlin中，分支可以是代码块，这个时候代码块中的最后一个表达式会作为when表达式的值</li>
+</ul>
+<pre><code>class Dog {
+    fun bark() {
+        println(&quot;bark&quot;)
+    }
+}
+class Duck {
+    fun swim() {
+        println(&quot;swim&quot;)
+    }
+}
+fun test(animal: Any) = when (animal) {
+    is Dog -&gt; {
+        print(&quot;I am a dog,I can &quot;)
+        animal.bark()
+        &quot;wan !&quot;
+    }
+
+    is Duck -&gt; {
+        print(&quot;I am a duck,I can &quot;)
+        animal.swim()
+        &quot;ga !&quot;
+    }
+    else -&gt; throw IllegalArgumentException()
+}
+fun main(args: Array&lt;String&gt;) {
+    println(test(Dog()))
+    println(test(Duck()))
+}
+//输出
+//I am a dog,I can bark
+//wan !
+//I am a duck,I can swim
+//ga !
+</code></pre><p><br></p>
+<h2 id="while-和-for"><a href="#while-和-for" class="headerlink" title="while 和 for"></a>while 和 for</h2><p><br></p>
+<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><ul>
+<li>在 kotlin 中的 while 和 do while 结构和 java 没有任何区别，这里就不讲解了</li>
+</ul>
+<p><br></p>
+<h3 id="迭代数字"><a href="#迭代数字" class="headerlink" title="迭代数字"></a>迭代数字</h3><p><br></p>
+<h4 id="区间和数列"><a href="#区间和数列" class="headerlink" title="区间和数列"></a>区间和数列</h4><ul>
+<li><p>使用 in 可以使用在for中指示一个区间，在kotlin中区间是包含的，或者说闭合的</p>
+<p>  fun main(args: Array<string>) {</string></p>
+<pre><code>for(i in 1..100){
+    print(&quot; $i&quot;)
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<ul>
+<li>你觉得上面的操作没什么新意，那么看看这几行,kotlin中的迭代不仅支持数字区间还支持字符区间,在区间中可以指定步长，而数字区间中还可以使用downto指定方向</li>
+</ul>
+<pre><code>fun main(args: Array&lt;String&gt;) {
+    for(c in &apos;A&apos;..&apos;Z&apos; step 3 )
+        print(&quot;$c&quot;)
+}
+
+
+fun main(args: Array&lt;String&gt;) {
+    for(i in 100 downTo 1 step 3 )
+        print(&quot;$i&quot;)
+}
+</code></pre><ul>
+<li>更多时候我们需要的是半闭合的区间，这种时候可以使用 until 关键字,下面这个例子中100不会被输出</li>
+</ul>
+<pre><code>fun main(args: Array&lt;String&gt;) {
+    for(i in 0 until 100 )
+        print(&quot; $i&quot;)
+}
+</code></pre><p><br></p>
+<h3 id="迭代map"><a href="#迭代map" class="headerlink" title="迭代map"></a>迭代map</h3><ul>
+<li>for 循环允许展开迭代中的集合的元素，例如下面这个例子中将map的键值对存储到两个独立的变量当中，在这个例子中集合看起来更像数组，是的，kotlin中可以使用中括号来代替get和put方法</li>
+</ul>
+<pre><code>val binReps = TreeMap\&lt;Char,String\&gt;()
+fun test() {
+  for(c in &apos;a&apos; .. &apos;f&apos;){
+      val bin = Integer.toBinaryString(c.toInt())
+      binReps[c] = bin
+  }
+    for ((letter,binary) in binReps){
+        println(&quot;$letter = $binary&quot;)
+    }
+}
+
+val list = arrayListOf(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)
+fun test() {
+    for ((index,element) in list.withIndex()){
+        println(&quot;$index = $element&quot;)
+    }
+}
+</code></pre><p><br></p>
+<h3 id="检查区间"><a href="#检查区间" class="headerlink" title="检查区间"></a>检查区间</h3><ul>
+<li>使用in和!in可以检查区间中的成员，即检查某个值是否在区间当中</li>
+</ul>
+<pre><code>fun isLetter(c: Char) = c in &apos;a&apos;..&apos;z&apos; || c in &apos;A&apos;..&apos;z&apos;
+fun isNotDigit(c: Char) = c !in &apos;0&apos;..&apos;9&apos;
+fun main(args: Array&lt;String&gt;) {
+    print(isLetter(&apos;c&apos;))
+    print(isNotDigit(&apos;c&apos;))
+}
+</code></pre><p><br></p>
+<h2 id="kotlin中的异常"><a href="#kotlin中的异常" class="headerlink" title="kotlin中的异常"></a>kotlin中的异常</h2><ul>
+<li>kotlin中异常与java相似，不过不必使用new关键之来创建一个异常的实例，同时throw结构是一个表达式</li>
+</ul>
+<pre><code>val percentage = if (number in 0..100)
+    number
+else throw IllegalArgumentException(&quot;a percentage value must be between 0 and 100:$number&quot;)
+</code></pre><p><br></p>
+<h3 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try catch finally"></a>try catch finally</h3><ul>
+<li>kotlin不区分受检异常和未受检异常，因此不需要使用throw关键字来声明方法可能抛出的异常</li>
+</ul>
+<pre><code>fun readNumber(reader: BufferedReader) :Int? {
+
+    try {
+        val line = reader.readLine()
+        return Integer.parseInt(line)
+
+    }catch (e:NumberFormatException){
+        return null
+    }finally {
+        reader.close()
+    }
+}
+</code></pre><p><br></p>
+<h3 id="try-作为表达式"><a href="#try-作为表达式" class="headerlink" title="try 作为表达式"></a>try 作为表达式</h3><ul>
+<li>在kotlin中try和when以及if一样，引入了表达式，如果语句中包括多个表达式，那么最后一个表达式的值就是try表达式的值，如果中间抛出了异常，那么catch表达式的值就是最终的值</li>
+</ul>
+<pre><code>fun readNumber(reader: BufferedReader) {
+    val number = try {
+        Integer.parseInt(reader.readLine())
+    }catch (e:NumberFormatException){
+        null
+    }
+     print(number)
+}
+</code></pre><p><br></p>
+<h1 id="函数的定义和调用"><a href="#函数的定义和调用" class="headerlink" title="函数的定义和调用"></a>函数的定义和调用</h1><p><br></p>
+<h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h2><p><br></p>
+<h2 id="让函数更好调用"><a href="#让函数更好调用" class="headerlink" title="让函数更好调用"></a>让函数更好调用</h2><p><br></p>
+<h3 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h3><p><br></p>
+<h3 id="默认参数值"><a href="#默认参数值" class="headerlink" title="默认参数值"></a>默认参数值</h3>]]></content>
+      
+        <categories>
+            
+            <category> dairy </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Flutter 踩坑记录]]></title>
       <url>/2019/04/17/BugFlutter/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
 <p><br></p>
-<h3 id="AS-创建-flutter-project-无响应"><a href="#AS-创建-flutter-project-无响应" class="headerlink" title="AS 创建 flutter project 无响应"></a>AS 创建 flutter project 无响应</h3><ul>
+<h3 id="AS-创建-flutter-project-卡死"><a href="#AS-创建-flutter-project-卡死" class="headerlink" title="AS 创建 flutter project 卡死"></a>AS 创建 flutter project 卡死</h3><ul>
 <li>这是在升级AS和flutter sdk之后遇到的</li>
 </ul>
 <ul>
 <li>第一次创建项目建议使用命令行</li>
 </ul>
-<pre><code>flutter create &lt;project_name&gt;
+<pre><code>flutter create \&lt;project\_name\&gt;
 </code></pre><ul>
 <li>然后运行，发现是package get卡住了，被墙了</li>
 </ul>
 <pre><code>flutter run
 </code></pre><ul>
-<li>配置镜像可以解决，问题是我老早在 etc/profile 里面配过了，才发现没有效果，可以 echo ${pub_hosted_url} 测一下，建议还是在默认的shell的配置文件里面设置，比如我使用的是.zshrc</li>
+<li>配置镜像可以解决，这个在 etc/profile 里面配过了，但是没有效果，因为zsh默认不加载etc/profile，可以 echo ${pub_hosted_url} 测一下，建议还是在默认的shell的配置文件里面设置，比如我使用的是.zshrc</li>
 </ul>
-<pre><code>export pub_hosted_url=https://pub.flutter-io.cn
-export flutter_storage_base_url=https://storage.flutter-io.cn
-</code></pre><p><br></p>
+<pre><code>export pub\_hosted\_url=https://pub.flutter-io.cn
+export flutter\_storage\_base\_url=https://storage.flutter-io.cn
+</code></pre><ul>
+<li><p>如果需要终端走代理可以尝试下面，同时curl ip.sb 检测当前ip</p>
+<p>  export ALL_PROXY=socks5://账号:密码@127.0.0.1:1080</p>
+</li>
+</ul>
+<p><br></p>
 <h3 id="Initializing-gradle"><a href="#Initializing-gradle" class="headerlink" title="Initializing gradle"></a>Initializing gradle</h3><ul>
 <li>永久停留在这一步，其实是在下载新版本的gradle，查看.gradle的dist目录会发现不论等多久大小都是 0 k，直接去官网下载对应版本，建议使用迅雷</li>
 </ul>
@@ -46,11 +438,11 @@ export flutter_storage_base_url=https://storage.flutter-io.cn
 </code></pre><ul>
 <li>下面是一些可参考的解决办法，注意有一些做法是完全相反的</li>
 </ul>
-<pre><code>1.as配置 build tools-&gt;gradle-&gt;android stuido-&gt; 勾选 enable ... maven repo
+<pre><code>1.as配置 build tools-\&gt;gradle-\&gt;android stuido-\&gt; 勾选 enable ... maven repo
 2.设代理
 3.关代理，并清除与google相关的host，以及关闭as中与代理相关的配置
 4.gradle 中添加 google()，适用于版本比较旧的AS，新版默认是有的
-5.gradle 中添加 mavenCentral()，在flutter sdk中进行用样的配置 路径为 /packages/flutter_tools/gradle/flutter.gradle
+5.gradle 中添加 mavenCentral()，在flutter sdk中进行用样的配置 路径为 /packages/flutter\_tools/gradle/flutter.gradle
 6.升级gradle，见上文
 7.降级gradle，见下文
 8.降级flutter sdk(官网上有所有版本的下载链接)
@@ -61,6 +453,8 @@ export flutter_storage_base_url=https://storage.flutter-io.cn
 <p><br></p>
 <h3 id="使用colors类时AS卡死"><a href="#使用colors类时AS卡死" class="headerlink" title="使用colors类时AS卡死"></a>使用colors类时AS卡死</h3><ul>
 <li><p>文档中的图片会导致联网下载，这个时候很容易卡死</p>
+</li>
+<li><p>这个bug在3.3才会出现，3.4已经修复，3.4修复了30多个bug，并且更新侧重于使用体验和稳定性，个人觉得可以大胆更新，实在不想更新的也可以参看下面的解决办法</p>
 </li>
 <li><p>设置 editor->general->code completion->show the documentation popup in xxx ms ,取消勾选，这个意思是自动补全时不要弹出右侧的文档窗口</p>
 </li>
@@ -143,7 +537,7 @@ export flutter_storage_base_url=https://storage.flutter-io.cn
 <li><a href="">官方tutorials</a></li>
 </ul>
 <ul>
-<li><a href="">中文版</a>，版本比较旧</li>
+<li><a href="https://dongchuan.gitbooks.io/gradle-user-guide-/" target="_blank" rel="external">中文版</a>，版本比较旧</li>
 </ul>
 <p><br></p>
 <h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
@@ -15046,402 +15440,6 @@ Summary of actions:
 <p><br></p>
 <p><strong>全文完</strong></p>
 ]]></content>
-      
-        <categories>
-            
-            <category> dairy </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> notes </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[kotlin 系列 - 语法与特性]]></title>
-      <url>/2018/03/29/kotlin/</url>
-      <content type="html"><![CDATA[<p>-</p>
-<a id="more"></a>
-<p><strong>该系列主要是《Kotlin实战》（Kotlin in Action）的笔记以及个人的理解，对于移动端开发者有没有必要现在就去学kotlin之类的问题请读者自行考虑，开这个系列主要是由于个人兴趣</strong></p>
-<p><a href="https://try.kotlinlang.org/" target="_blank" rel="external">你可以在这个网站中在线编译并运行kotlin代码</a></p>
-<p><br></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><br></p>
-<h2 id="啥是Kotlin啊"><a href="#啥是Kotlin啊" class="headerlink" title="啥是Kotlin啊"></a>啥是Kotlin啊</h2><ul>
-<li>kotlin是一门野心非常大的语言，它不但能与能与现有的java框架并存，向人证明它可以以更加简洁的方式代替java，还不断向着更多的领域发展。android开发者可以结合anko编写应用，永久告别xml，前端开发者可以编写kotlin代码然后编译成JavaScript，Kotlin_Native更是支持直接编译机器码在linux，ios，mac os上运行</li>
-</ul>
-<ul>
-<li>kotlin最大的特点是简洁的语法，自动类型推断与互操作性</li>
-</ul>
-<ul>
-<li>再学习完kotlin的语法（糖）之后，再回来补充这章</li>
-</ul>
-<p><br></p>
-<h2 id="学kotlin干啥啊"><a href="#学kotlin干啥啊" class="headerlink" title="学kotlin干啥啊"></a>学kotlin干啥啊</h2><ul>
-<li>我宜家都唔知啊，想学就学咯</li>
-</ul>
-<p><br></p>
-<h1 id="kotlin-基础"><a href="#kotlin-基础" class="headerlink" title="kotlin 基础"></a>kotlin 基础</h1><p><br></p>
-<h2 id="基本要素：函数和变量"><a href="#基本要素：函数和变量" class="headerlink" title="基本要素：函数和变量"></a>基本要素：函数和变量</h2><p><strong>构成kotlin程序的基本要素是函数和变量，这即是某些语言以及函数式编程中强调的“函数是第一等公民”的概念的体现</strong></p>
-<pre><code>fun main(args:Array&lt;String&gt;){
-    println(&quot;hello world&quot;)
-}
-</code></pre><ul>
-<li>上面是一个hello world的kotlin实现，从这个简单的例子中我们已经可以看到kotlin与java有很多不同</li>
-</ul>
-<pre><code>1.使用关键字 fun 声明一个函数，也就是方法
-2.参数类型写在名称的后面，与go语言如出一辙，对于能够自动推断类型的语言来说，我们总是更关注变量的名名称所表达的抽象含义而不是它的类型
-3.函数可以定义在文件的最外层，而不是类里面，你可以直接把这个函数放到任何一个kt文件中运行，不需要找到一个合适的花括号然后把它塞进去
-4.println代替了system.out.println，kotlin简化了很多这样啰嗦的代码
-5.可以省略代码结尾的分号，这点和python很像，你不用担心你的代码会被go编译器那样胡乱的添加上分号
-</code></pre><p><br></p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><br></p>
-<h4 id="代码块体"><a href="#代码块体" class="headerlink" title="代码块体"></a>代码块体</h4><pre><code>fun max(a: Int, b: Int): Int {
-    return if (a &gt; b) a else b
-}
-</code></pre><ul>
-<li>函数以fun开头，然后是函数名和参数列表，参数类型写在参数名后，以冒号隔开，最后是冒号和返回类型</li>
-</ul>
-<ul>
-<li>注意在kotlin中大多数控制结果都是表达式，而不是语句，语句与表达式的最大区别在于表达式有值，允许直接嵌套使用</li>
-</ul>
-<p><br></p>
-<h4 id="表达式体"><a href="#表达式体" class="headerlink" title="表达式体"></a>表达式体</h4><pre><code>fun max(a: Int, b: Int): Int = if (a &gt; b) a else b
-</code></pre><ul>
-<li><p>表达式也可以作为一个完整的函数体，现在你知道为什么kotlin要把返回类型放在函数头的最后面了</p>
-</li>
-<li><p>我们说过kotlin支持自动类型推断，因此上面的代码还可以简洁一下</p>
-</li>
-</ul>
-<pre><code>fun max(a: Int, b: Int) = if (a \&gt; b) a else b
-</code></pre><ul>
-<li>在函数中支持表达式体的意义在于，向kotlin这种支持闭包的语言可以在任何地方将代码重用的粒度降到最细</li>
-</ul>
-<p><br></p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><br></p>
-<h4 id="省略类型"><a href="#省略类型" class="headerlink" title="省略类型"></a>省略类型</h4><pre><code>val aString = &quot;I am String&quot;
-val aInt = 1;
-var aDouble = 2e6
-var aFloat:Float
-</code></pre><ul>
-<li>在Java(jdk 10之前)中，声明变量时必须在最前面写出变量类型，在kotlin中，你甚至都不需要给出类型，编译器根据初始化的值可以知道你要的是什么，如果你不想那么快赋值，那就必须给出变量类型了</li>
-</ul>
-<ul>
-<li>上面我们用到了var和val来声明变量，var表示可变引用，val表示不可变引用（final），你应该尽可能地使用val来声明所有的变量，这会让代码更安全，也更接近函数式编程的风格。</li>
-</ul>
-<pre><code>val aList = arrayListOf(&quot;java&quot;)
-aList.add(&quot;kotlin&quot;)
-</code></pre><ul>
-<li>val仅仅保证引用的不可变性，它指向的对象仍然是可变的</li>
-</ul>
-<p><br></p>
-<h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h4><pre><code>val he = &quot;Albert&quot;
-val languages = arrayListOf(&quot;java&quot;)
-languages.add(&quot;kotlin&quot;)
-println(&quot;$he said, ${languages[1]} is the best language in the world &quot;)
-
-//猜猜输出什么？
-</code></pre><ul>
-<li>字符串模板的作用是允许字符串字面量中存在变量和表达式，这显然让字符串拼接显得更加简洁紧凑，易于理解</li>
-<li>在你的字符串中可以使用$中支持变量，使用${}支持表达式！</li>
-</ul>
-<p><br></p>
-<h2 id="类和属性"><a href="#类和属性" class="headerlink" title="类和属性"></a>类和属性</h2><p><strong>Java常为人诟病的一点就是创建一个类需要非常多的样板代码（特别是对于bean类而言），为此不少ide或插件都提供了自动生成getter，setter，构造器，代码模板，万能tab的功能</strong></p>
-<p><strong>但就像很多人认为的那样，某种程度上Java逐渐变成了一门“依赖ide”的语言</strong></p>
-<p><strong>kotlin的开发者们为了解决这些问题可谓下足了功夫</strong></p>
-<p><br></p>
-<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><pre><code>class Person(var name:String)
-</code></pre><ul>
-<li>上面这行kotlin代码展开成Java代码之后如下，你一定见过很多这样的Java代码，尽管从语法的角度来讲它们处处都有意义，但实际上你需要的关键词真的只有 class，Person，var，name ，String，这就是kotlin所谓的简洁，在kotlin当中，类通常很小</li>
-</ul>
-<pre><code>public class Person{
-    private String name;
-
-    public Person(String name){
-        this.name = name;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-}
-</code></pre><ul>
-<li>对于使用var修饰的属性，kotlin编译器会自动为其生成getter，setter，对于使用val修饰的属性，编译器则只生成getter，同时在访问和修改任何属性时，你不需要显式地调用它们的访问方法，对于构造方法而言，你也不用再写关键字new了</li>
-</ul>
-<pre><code>val albert = Person(&quot;Albert&quot;)
-albert.name = &quot;Albert Lin&quot;
-println(albert.name)
-</code></pre><ul>
-<li>所有属性都像Java中访问公有属性那样访问，但实际上走的是内部的getter和setter方法,当然这也包括了你所编写的getter和setter方法</li>
-</ul>
-<pre><code>class Rectangle(val height: Int, val width: Int) {
-    val isSquare: Boolean
-        get() {
-            return height == width
-        }
-
-    //也可以简化为val isSquare: Boolean get() = height == width
-}
-</code></pre><p><br></p>
-<h3 id="目录和包"><a href="#目录和包" class="headerlink" title="目录和包"></a>目录和包</h3><ul>
-<li>kotlin当中依然使用import和package关键字来组织代码结构，不同的是，在Java中，包结构需要与实际上的文件目录结构一致，kotlin则不做这种要求，你可以把所有文件都放到一个目录，只在package关键字后面声明它们所在的包</li>
-</ul>
-<ul>
-<li>在通常情况下，程序员依然应该使用Java那样去管理文件，但是对于那些短小的类而言,你应该按照具体职责将它们放到同一个文件中</li>
-</ul>
-<pre><code>package  com.linjiamin.kt.play
-class Rectangle(val height: Int, val width: Int) {
-    val isSquare: Boolean get() = height == width
-}
-class Person(var name:String)
-</code></pre><p><br></p>
-<h2 id="枚举和-when"><a href="#枚举和-when" class="headerlink" title="枚举和 when"></a>枚举和 when</h2><p><br></p>
-<h3 id="声明枚举"><a href="#声明枚举" class="headerlink" title="声明枚举"></a>声明枚举</h3><ul>
-<li>在kotlin当中，声明一个枚举类，需要 enum class 两个关键字</li>
-</ul>
-<pre><code>enum class Color{
-    RED,ORANGE,YELLOW,GREEN,BLUE,INDIGO,VIOLET
-}
-</code></pre><ul>
-<li>更常规的用法,并为其构造方法和其他特定的方法，注意枚举列表必须与其他方法用分号隔开，这是kotlin中唯一一个必须使用分号结尾的地方</li>
-</ul>
-<pre><code>enum class Color(val r: Int, val g: Int, val b: Int) {
-    RED(255, 9, 9), ORANGE(255, 165, 0),
-    GREEN(0, 255, 0), YELLOW(255, 255, 0),
-    BLUE(0, 0, 255), INDIGO(75, 0, 130), VIOLET(238, 130, 238);
-
-    fun rgb() = (r * 256 + g) * 256 + b
-}
-fun main(args:Array&lt;String&gt;){
-    println(Color.BLUE.rgb())
-}
-</code></pre><p><br></p>
-<h3 id="使用-when"><a href="#使用-when" class="headerlink" title="使用 when"></a>使用 when</h3><ul>
-<li>when 是 switch 的高级替代品</li>
-</ul>
-<ul>
-<li>when 不但是分支控制语句，还是一个表达式，因此它具有返回值,并且不需要使用break语句，同时这个例子也体现了kotlin可以在函数中声明函数</li>
-</ul>
-<pre><code>fun main(args: Array&lt;String&gt;) {
-    fun getColorName(color: Color) =
-            when (color) {
-                Color.RED -&gt; &quot;Red&quot;
-                Color.ORANGE -&gt; &quot;Orange&quot;
-                Color.GREEN -&gt; &quot;Green&quot;
-                Color.BLUE -&gt; &quot;Blue&quot;
-                Color.YELLOW -&gt; &quot;Yellow&quot;
-                Color.INDIGO -&gt; &quot;Indigo&quot;
-                Color.VIOLET -&gt; &quot;Violet&quot;
-            }
-
-    println(getColorName(Color.BLUE))
-}
-</code></pre><ul>
-<li>你可以使用列表的形式合并分支减少重复代码,使用import语句可以导入枚举类的所有常量，不再需要使用类名来引用</li>
-</ul>
-<pre><code>import com.linjiamin.kt.play.Color.\*
-fun main(args: Array&lt;String&gt;) {
-    fun getWarmth(color: Color) =
-            when (color) {
-                RED,
-                ORANGE,
-                YELLOW -&gt; &quot;warm&quot;
-
-                BLUE,
-                INDIGO,
-                VIOLET -&gt; &quot;cold&quot;
-
-                GREEN -&gt; &quot;neutral&quot;
-            }
-
-    println(getWarmth(Color.ORANGE))
-}
-</code></pre><p><br></p>
-<h3 id="when支持任意对象"><a href="#when支持任意对象" class="headerlink" title="when支持任意对象"></a>when支持任意对象</h3><ul>
-<li>在java中，case标签只支持枚举常量，字符串和数字字面量，而在 kotlin中，when支持所有对象,在下面这个例子当中，我们传入两个Color并使用setOf函数将他们合成为一个set对象，编译器能够推断出这种set共有多少种可能的情况</li>
-</ul>
-<pre><code>fun mix(c1: Color, c2: Color) =
-        when (setOf(c1, c2)) {
-            setOf(RED, YELLOW) -&gt; ORANGE
-            setOf(YELLOW, BLUE) -&gt; GREEN
-            setOf(BLUE, VIOLET) -&gt; INDIGO
-            else -&gt; throw Exception(&quot;Dirty Color&quot;)
-        }
-fun main(args: Array&lt;String&gt;) {
-    println(mix(RED,YELLOW))
-}
-</code></pre><p><br></p>
-<h3 id="不带参数的when"><a href="#不带参数的when" class="headerlink" title="不带参数的when"></a>不带参数的when</h3><ul>
-<li>在 when 当中 构造 setOf 会带来性能上的损耗，使用不带参数的when可以解决这种问题，但是可读性会下降</li>
-</ul>
-<pre><code>fun mixOptimized(c1: Color, c2: Color) = when {
-    (c1 == RED &amp;&amp; c2 == YELLOW) || (c1 == YELLOW &amp;&amp; c2 == RED) -&gt;
-        ORANGE
-
-    (c1 == YELLOW &amp;&amp; c2 == BLUE) || (c1 == BLUE &amp;&amp; c2 == YELLOW) -&gt;
-        GREEN
-
-    (c1 == BLUE &amp;&amp; c2 == VIOLET) || (c1 == VIOLET &amp;&amp; c2 == BLUE) -&gt;
-        INDIGO
-
-    else -&gt; throw Exception(&quot;dirty color&quot;)
-}
-fun main(args: Array&lt;String&gt;) {
-    println(mixOptimized(RED, YELLOW))
-}
-</code></pre><p><br></p>
-<h3 id="智能转换"><a href="#智能转换" class="headerlink" title="智能转换"></a>智能转换</h3><ul>
-<li>使用 is 关键字可以进行类型检查和自动转换类型，类似java中的instanceOf，但 is 显然更加简洁，注意在kotlin中，分支可以是代码块，这个时候代码块中的最后一个表达式会作为when表达式的值</li>
-</ul>
-<pre><code>class Dog {
-    fun bark() {
-        println(&quot;bark&quot;)
-    }
-}
-class Duck {
-    fun swim() {
-        println(&quot;swim&quot;)
-    }
-}
-fun test(animal: Any) = when (animal) {
-    is Dog -&gt; {
-        print(&quot;I am a dog,I can &quot;)
-        animal.bark()
-        &quot;wan !&quot;
-    }
-
-    is Duck -&gt; {
-        print(&quot;I am a duck,I can &quot;)
-        animal.swim()
-        &quot;ga !&quot;
-    }
-    else -&gt; throw IllegalArgumentException()
-}
-fun main(args: Array&lt;String&gt;) {
-    println(test(Dog()))
-    println(test(Duck()))
-}
-//输出
-//I am a dog,I can bark
-//wan !
-//I am a duck,I can swim
-//ga !
-</code></pre><p><br></p>
-<h2 id="while-和-for"><a href="#while-和-for" class="headerlink" title="while 和 for"></a>while 和 for</h2><p><br></p>
-<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><ul>
-<li>在 kotlin 中的 while 和 do while 结构和 java 没有任何区别，这里就不讲解了</li>
-</ul>
-<p><br></p>
-<h3 id="迭代数字"><a href="#迭代数字" class="headerlink" title="迭代数字"></a>迭代数字</h3><p><br></p>
-<h4 id="区间和数列"><a href="#区间和数列" class="headerlink" title="区间和数列"></a>区间和数列</h4><ul>
-<li><p>使用 in 可以使用在for中指示一个区间，在kotlin中区间是包含的，或者说闭合的</p>
-<p>  fun main(args: Array<string>) {</string></p>
-<pre><code>for(i in 1..100){
-    print(&quot; $i&quot;)
-}
-</code></pre><p>  }</p>
-</li>
-</ul>
-<ul>
-<li>你觉得上面的操作没什么新意，那么看看这几行,kotlin中的迭代不仅支持数字区间还支持字符区间,在区间中可以指定步长，而数字区间中还可以使用downto指定方向</li>
-</ul>
-<pre><code>fun main(args: Array&lt;String&gt;) {
-    for(c in &apos;A&apos;..&apos;Z&apos; step 3 )
-        print(&quot;$c&quot;)
-}
-
-
-fun main(args: Array&lt;String&gt;) {
-    for(i in 100 downTo 1 step 3 )
-        print(&quot;$i&quot;)
-}
-</code></pre><ul>
-<li>更多时候我们需要的是半闭合的区间，这种时候可以使用 until 关键字,下面这个例子中100不会被输出</li>
-</ul>
-<pre><code>fun main(args: Array&lt;String&gt;) {
-    for(i in 0 until 100 )
-        print(&quot; $i&quot;)
-}
-</code></pre><p><br></p>
-<h3 id="迭代map"><a href="#迭代map" class="headerlink" title="迭代map"></a>迭代map</h3><ul>
-<li>for 循环允许展开迭代中的集合的元素，例如下面这个例子中将map的键值对存储到两个独立的变量当中，在这个例子中集合看起来更像数组，是的，kotlin中可以使用中括号来代替get和put方法</li>
-</ul>
-<pre><code>val binReps = TreeMap\&lt;Char,String\&gt;()
-fun test() {
-  for(c in &apos;a&apos; .. &apos;f&apos;){
-      val bin = Integer.toBinaryString(c.toInt())
-      binReps[c] = bin
-  }
-    for ((letter,binary) in binReps){
-        println(&quot;$letter = $binary&quot;)
-    }
-}
-
-val list = arrayListOf(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)
-fun test() {
-    for ((index,element) in list.withIndex()){
-        println(&quot;$index = $element&quot;)
-    }
-}
-</code></pre><p><br></p>
-<h3 id="检查区间"><a href="#检查区间" class="headerlink" title="检查区间"></a>检查区间</h3><ul>
-<li>使用in和!in可以检查区间中的成员，即检查某个值是否在区间当中</li>
-</ul>
-<pre><code>fun isLetter(c: Char) = c in &apos;a&apos;..&apos;z&apos; || c in &apos;A&apos;..&apos;z&apos;
-fun isNotDigit(c: Char) = c !in &apos;0&apos;..&apos;9&apos;
-fun main(args: Array&lt;String&gt;) {
-    print(isLetter(&apos;c&apos;))
-    print(isNotDigit(&apos;c&apos;))
-}
-</code></pre><p><br></p>
-<h2 id="kotlin中的异常"><a href="#kotlin中的异常" class="headerlink" title="kotlin中的异常"></a>kotlin中的异常</h2><ul>
-<li>kotlin中异常与java相似，不过不必使用new关键之来创建一个异常的实例，同时throw结构是一个表达式</li>
-</ul>
-<pre><code>val percentage = if (number in 0..100)
-    number
-else throw IllegalArgumentException(&quot;a percentage value must be between 0 and 100:$number&quot;)
-</code></pre><p><br></p>
-<h3 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try catch finally"></a>try catch finally</h3><ul>
-<li>kotlin不区分受检异常和未受检异常，因此不需要使用throw关键字来声明方法可能抛出的异常</li>
-</ul>
-<pre><code>fun readNumber(reader: BufferedReader) :Int? {
-
-    try {
-        val line = reader.readLine()
-        return Integer.parseInt(line)
-
-    }catch (e:NumberFormatException){
-        return null
-    }finally {
-        reader.close()
-    }
-}
-</code></pre><p><br></p>
-<h3 id="try-作为表达式"><a href="#try-作为表达式" class="headerlink" title="try 作为表达式"></a>try 作为表达式</h3><ul>
-<li>在kotlin中try和when以及if一样，引入了表达式，如果语句中包括多个表达式，那么最后一个表达式的值就是try表达式的值，如果中间抛出了异常，那么catch表达式的值就是最终的值</li>
-</ul>
-<pre><code>fun readNumber(reader: BufferedReader) {
-    val number = try {
-        Integer.parseInt(reader.readLine())
-    }catch (e:NumberFormatException){
-        null
-    }
-     print(number)
-}
-</code></pre><p><br></p>
-<h1 id="函数的定义和调用"><a href="#函数的定义和调用" class="headerlink" title="函数的定义和调用"></a>函数的定义和调用</h1><p><br></p>
-<h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h2><p><br></p>
-<h2 id="让函数更好调用"><a href="#让函数更好调用" class="headerlink" title="让函数更好调用"></a>让函数更好调用</h2><p><br></p>
-<h3 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h3><p><br></p>
-<h3 id="默认参数值"><a href="#默认参数值" class="headerlink" title="默认参数值"></a>默认参数值</h3>]]></content>
       
         <categories>
             
