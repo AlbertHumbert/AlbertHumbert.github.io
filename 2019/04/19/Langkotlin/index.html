@@ -12,7 +12,7 @@
     
     <title>
         
-            kotlin 入门 | 
+            kotlin 语法详解 | 
         
         Albert&#39;s Blog
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://alberthumbert.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="kotlin 入门 | Albert&#39;s Blog">
+    <meta property="og:title" content="kotlin 语法详解 | Albert&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="-">
     <meta property="og:article:tag" content="notes"> 
 
     
         <meta property="article:published_time" content="4月 19, 2019" />
-        <meta property="article:modified_time" content="4月 20, 2019" />
+        <meta property="article:modified_time" content="4月 21, 2019" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="kotlin 入门 | Albert&#39;s Blog">
+    <meta name="twitter:title" content="kotlin 语法详解 | Albert&#39;s Blog">
     <meta name="twitter:description" content="-">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -110,10 +110,10 @@
         },
         "description": "Paranoid Android"
     },
-    "headline": "kotlin 入门",
+    "headline": "kotlin 语法详解",
     "url": "https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html",
     "datePublished": "4月 19, 2019",
-    "dateModified": "4月 20, 2019",
+    "dateModified": "4月 21, 2019",
     "description": "-",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -335,7 +335,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#kotlin-基础"><span class="post-toc-number">2.</span> <span class="post-toc-text">kotlin 基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本要素：函数和变量"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">基本要素：函数和变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主函数"><span class="post-toc-number">2.1.1.1.</span> <span class="post-toc-text">主函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码块体"><span class="post-toc-number">2.1.1.2.</span> <span class="post-toc-text">代码块体</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#表达式体"><span class="post-toc-number">2.1.1.3.</span> <span class="post-toc-text">表达式体</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变量"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#省略类型"><span class="post-toc-number">2.1.2.1.</span> <span class="post-toc-text">省略类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符串模板"><span class="post-toc-number">2.1.2.2.</span> <span class="post-toc-text">字符串模板</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类和属性"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">类和属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#属性"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目录和包"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">目录和包</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#枚举和-when"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">枚举和 when</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明枚举"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">声明枚举</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-when"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">使用 when</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#when支持任意对象"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">when支持任意对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#不带参数的when"><span class="post-toc-number">2.3.4.</span> <span class="post-toc-text">不带参数的when</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#智能转换"><span class="post-toc-number">2.3.5.</span> <span class="post-toc-text">智能转换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#while-和-for"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">while 和 for</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#while"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">while</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代数字"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">迭代数字</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#区间和数列"><span class="post-toc-number">2.4.2.1.</span> <span class="post-toc-text">区间和数列</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代map"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">迭代map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检查区间"><span class="post-toc-number">2.4.4.</span> <span class="post-toc-text">检查区间</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kotlin中的异常"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">kotlin中的异常</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#try-catch-finally"><span class="post-toc-number">2.5.1.</span> <span class="post-toc-text">try catch finally</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#try-作为表达式"><span class="post-toc-number">2.5.2.</span> <span class="post-toc-text">try 作为表达式</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#函数的定义和调用"><span class="post-toc-number">3.</span> <span class="post-toc-text">函数的定义和调用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建集合"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">创建集合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#让函数更好调用"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">让函数更好调用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#命名参数"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">命名参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#默认参数值"><span class="post-toc-number">3.2.2.</span> <span class="post-toc-text">默认参数值</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数和变量"><span class="post-toc-number">2.</span> <span class="post-toc-text">函数和变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#基础"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">基础</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主函数-main"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">主函数 main</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码块体"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">代码块体 {}</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#表达式体"><span class="post-toc-number">2.1.4.</span> <span class="post-toc-text">表达式体 =</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变量-var-val"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">变量 var val</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#省略类型"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">省略类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符串模板"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">字符串模板 ${}</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类和属性"><span class="post-toc-number">3.</span> <span class="post-toc-text">类和属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#属性-field"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">属性 field</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#包-import-package"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">包 import package</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#枚举-enum"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">枚举 enum</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分支-when"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">分支 when</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#when-支持任意对象"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">when 支持任意对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#when-不带参数"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">when 不带参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#智能转换"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">智能转换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#迭代和区间"><span class="post-toc-number">4.</span> <span class="post-toc-text">迭代和区间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#while"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">while</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#区间-in"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">区间 in</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#map-迭代"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">map 迭代</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#in-检查区间"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">in 检查区间</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#异常"><span class="post-toc-number">5.</span> <span class="post-toc-text">异常</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#try-catch-finally"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">try catch finally</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#try-表达式"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">try 表达式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#集合"><span class="post-toc-number">6.</span> <span class="post-toc-text">集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#xxxOf"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">xxxOf</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#扩展方法"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">扩展方法</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -373,7 +373,7 @@
         
     
             <p class="article-headline-p">
-                kotlin 入门
+                kotlin 语法详解
             </p>
         </div>
 
@@ -432,7 +432,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=kotlin 入门&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=kotlin 语法详解&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -441,7 +441,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=kotlin 入门&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&via=Albert Humbert" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=kotlin 语法详解&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&via=Albert Humbert" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +468,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&title=kotlin 入门" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&title=kotlin 语法详解" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=kotlin 入门&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Albert&#39;s Blog&title=kotlin 语法详解&summary=developing&pics=https://alberthumbert.github.io/img/favicon.png&url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&text=kotlin 入门" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://alberthumbert.github.io/2019/04/19/Langkotlin/index.html&text=kotlin 语法详解" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -505,15 +505,16 @@
 <a id="more"></a>
 <p><a href="https://try.kotlinlang.org/" target="_blank" rel="external">你可以在这个网站中在线编译并运行kotlin代码</a></p>
 <p><br></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li>kotlin是一门野心非常大的语言，它不但能与能与现有的java框架并存，向人证明它可以以更加简洁的方式代替java，还不断向着更多的领域发展。android开发者可以结合anko编写应用，永久告别xml，前端开发者可以编写kotlin代码然后编译成JavaScript，Kotlin_Native更是支持直接编译机器码在linux，ios，mac os上运行</li>
 </ul>
 <ul>
 <li>kotlin最大的特点是简洁的语法，自动类型推断与互操作性</li>
 </ul>
 <p><br></p>
-<h1 id="kotlin-基础"><a href="#kotlin-基础" class="headerlink" title="kotlin 基础"></a>kotlin 基础</h1><p><br></p>
-<h2 id="基本要素：函数和变量"><a href="#基本要素：函数和变量" class="headerlink" title="基本要素：函数和变量"></a>基本要素：函数和变量</h2><p><strong>构成kotlin程序的基本要素是函数和变量，这即是某些语言以及函数式编程中强调的“函数是第一等公民”的概念的体现</strong></p>
+<h2 id="函数和变量"><a href="#函数和变量" class="headerlink" title="函数和变量"></a>函数和变量</h2><p><br></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><br></p>
+<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><p><strong>构成kotlin程序的基本要素是函数和变量，这即是某些语言以及函数式编程中强调的“函数是第一等公民”的概念的体现</strong></p>
 <pre><code>fun main(args:Array&lt;String&gt;){
     println(&quot;hello world&quot;)
 }
@@ -526,14 +527,17 @@
 4.println代替了system.out.println，kotlin简化了很多这样啰嗦的代码
 5.可以省略代码结尾的分号，这点和python很像，你不用担心你的代码会被go编译器那样胡乱的添加上分号
 </code></pre><p><br></p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><br></p>
-<h4 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h4><ul>
-<li><p>两种写法</p>
-<p>  fun main(){<br>  //…<br>  }<br>  fun main(Array<string>){<br>  //…<br>  }</string></p>
-</li>
+<h4 id="主函数-main"><a href="#主函数-main" class="headerlink" title="主函数 main"></a>主函数 main</h4><ul>
+<li>两种写法</li>
 </ul>
-<p><br></p>
-<h4 id="代码块体"><a href="#代码块体" class="headerlink" title="代码块体"></a>代码块体</h4><pre><code>fun max(a: Int, b: Int): Int {
+<pre><code>fun main(){
+//...
+}
+fun main(Array&lt;String&gt;){
+//...
+}
+</code></pre><p><br></p>
+<h4 id="代码块体"><a href="#代码块体" class="headerlink" title="代码块体 {}"></a>代码块体 {}</h4><pre><code>fun max(a: Int, b: Int): Int {
     return if (a &gt; b) a else b
 }
 </code></pre><ul>
@@ -543,7 +547,7 @@
 <li>注意在kotlin中大多数控制结果都是表达式，而不是语句，语句与表达式的最大区别在于表达式有值，允许直接嵌套使用</li>
 </ul>
 <p><br></p>
-<h4 id="表达式体"><a href="#表达式体" class="headerlink" title="表达式体"></a>表达式体</h4><pre><code>fun max(a: Int, b: Int): Int = if (a &gt; b) a else b
+<h4 id="表达式体"><a href="#表达式体" class="headerlink" title="表达式体 ="></a>表达式体 =</h4><pre><code>fun max(a: Int, b: Int): Int = if (a &gt; b) a else b
 </code></pre><ul>
 <li><p>表达式也可以作为一个完整的函数体，现在你知道为什么kotlin要把返回类型放在函数头的最后面了</p>
 </li>
@@ -555,7 +559,7 @@
 <li>在函数中支持表达式体的意义在于，向kotlin这种支持闭包的语言可以在任何地方将代码重用的粒度降到最细</li>
 </ul>
 <p><br></p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><br></p>
+<h3 id="变量-var-val"><a href="#变量-var-val" class="headerlink" title="变量 var val"></a>变量 var val</h3><p><br></p>
 <h4 id="省略类型"><a href="#省略类型" class="headerlink" title="省略类型"></a>省略类型</h4><pre><code>val aString = &quot;I am String&quot;
 val aInt = 1;
 var aDouble = 2e6
@@ -572,7 +576,7 @@ aList.add(&quot;kotlin&quot;)
 <li>你应该尽可能地使用val来声明所有的变量，这会让代码更安全，也更接近函数式编程的风格</li>
 </ul>
 <p><br></p>
-<h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h4><pre><code>val he = &quot;Albert&quot;
+<h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板 ${}"></a>字符串模板 ${}</h4><pre><code>val he = &quot;Albert&quot;
 val languages = arrayListOf(&quot;java&quot;)
 languages.add(&quot;kotlin&quot;)
 println(&quot;$he said, ${languages[1]} is the best language in the world &quot;)
@@ -589,7 +593,7 @@ println(&quot;$he said, ${languages[1]} is the best language in the world &quot;
 <p><strong>但就像很多人认为的那样，某种程度上Java逐渐变成了一门“依赖ide”的语言</strong></p>
 <p><strong>kotlin的开发者们为了解决这些问题可谓下足了功夫</strong></p>
 <p><br></p>
-<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><pre><code>class Person(var name:String)
+<h3 id="属性-field"><a href="#属性-field" class="headerlink" title="属性 field"></a>属性 field</h3><pre><code>class Person(var name:String)
 </code></pre><ul>
 <li>上面这行kotlin代码展开成Java代码之后如下，你一定见过很多这样的Java代码，尽管从语法的角度来讲它们处处都有意义，但实际上你需要的关键词真的只有 class，Person，var，name ，String，这就是kotlin所谓的简洁，在kotlin当中，类通常很小</li>
 </ul>
@@ -697,7 +701,7 @@ var isSquare: Boolean =false
         var a = isSquare
     }
 </code></pre><p><br></p>
-<h3 id="目录和包"><a href="#目录和包" class="headerlink" title="目录和包"></a>目录和包</h3><ul>
+<h3 id="包-import-package"><a href="#包-import-package" class="headerlink" title="包 import package"></a>包 import package</h3><ul>
 <li>kotlin当中依然使用import和package关键字来组织代码结构，不同的是，在Java中，包结构需要与实际上的文件目录结构一致，kotlin则不做这种要求，你可以把所有文件都放到一个目录，只在package关键字后面声明它们所在的包</li>
 </ul>
 <ul>
@@ -709,8 +713,7 @@ class Rectangle(val height: Int, val width: Int) {
 }
 class Person(var name:String)
 </code></pre><p><br></p>
-<h2 id="枚举和-when"><a href="#枚举和-when" class="headerlink" title="枚举和 when"></a>枚举和 when</h2><p><br></p>
-<h3 id="声明枚举"><a href="#声明枚举" class="headerlink" title="声明枚举"></a>声明枚举</h3><ul>
+<h3 id="枚举-enum"><a href="#枚举-enum" class="headerlink" title="枚举 enum"></a>枚举 enum</h3><ul>
 <li>在kotlin当中，声明一个枚举类，需要 enum class 两个关键字</li>
 </ul>
 <pre><code>enum class Color{
@@ -730,7 +733,7 @@ fun main(args:Array&lt;String&gt;){
     println(Color.BLUE.rgb())
 }
 </code></pre><p><br></p>
-<h3 id="使用-when"><a href="#使用-when" class="headerlink" title="使用 when"></a>使用 when</h3><ul>
+<h3 id="分支-when"><a href="#分支-when" class="headerlink" title="分支 when"></a>分支 when</h3><ul>
 <li>when 是 switch 的高级替代品</li>
 </ul>
 <ul>
@@ -774,7 +777,7 @@ fun main(args: Array&lt;String&gt;) {
 <li>在java 12(预览版，需使用参数开启)当中已经在switch中提供了上面这两个例子中一模一样的特性，下面为java暂时不会提供的特性，估计以后也不太可能提供这样的语法糖</li>
 </ul>
 <p><br></p>
-<h3 id="when支持任意对象"><a href="#when支持任意对象" class="headerlink" title="when支持任意对象"></a>when支持任意对象</h3><ul>
+<h3 id="when-支持任意对象"><a href="#when-支持任意对象" class="headerlink" title="when 支持任意对象"></a>when 支持任意对象</h3><ul>
 <li>在java中，case标签只支持枚举常量，字符串和数字字面量，而在 kotlin中，when支持所有对象,在下面这个例子当中，我们传入两个Color并使用setOf函数将他们合成为一个set对象，编译器能够推断出这种set共有多少种可能的情况，但注意当前版本中下面的else不是必须的，也就是说不必列出所有可能的情况</li>
 </ul>
 <pre><code>fun mix(c1: Color, c2: Color) =
@@ -788,7 +791,7 @@ fun main(args: Array&lt;String&gt;) {
     println(mix(RED,YELLOW))
 }
 </code></pre><p><br></p>
-<h3 id="不带参数的when"><a href="#不带参数的when" class="headerlink" title="不带参数的when"></a>不带参数的when</h3><ul>
+<h3 id="when-不带参数"><a href="#when-不带参数" class="headerlink" title="when 不带参数"></a>when 不带参数</h3><ul>
 <li>在 when 当中 构造 setOf 会带来性能上的损耗，使用不带参数的when可以解决这种问题，但是可读性会下降，else同样不是必须的</li>
 </ul>
 <pre><code>fun mixOptimized(c1: Color, c2: Color) = when {
@@ -808,7 +811,7 @@ fun main(args: Array&lt;String&gt;) {
 }
 </code></pre><p><br></p>
 <h3 id="智能转换"><a href="#智能转换" class="headerlink" title="智能转换"></a>智能转换</h3><ul>
-<li>使用 is 关键字可以进行类型检查和自动转换类型，类似java中的instanceOf，但 is 显然更加简洁，注意在kotlin中，分支可以是代码块，这个时候代码块中的最后一个表达式会作为when表达式的值</li>
+<li>使用 is 关键字可以进行类型检查和自动转换类型，类似java中的instanceOf，但 is 显然更加简洁</li>
 </ul>
 <pre><code>class Dog {
     fun bark() {
@@ -843,24 +846,29 @@ fun main(args: Array&lt;String&gt;) {
 //wan !
 //I am a duck,I can swim
 //ga !
+</code></pre><ul>
+<li>注意在kotlin中，分支可以是代码块，这个时候代码块中的最后一个表达式会作为when表达式的值，实际上在局部定义域中可以放入下面这样的代码，除了最后一行有可能作为表达式的值以外，其他都是无意义的</li>
+</ul>
+<pre><code>1
+1.0
+&quot;1&quot;
+true
 </code></pre><p><br></p>
-<h2 id="while-和-for"><a href="#while-和-for" class="headerlink" title="while 和 for"></a>while 和 for</h2><p><br></p>
+<h2 id="迭代和区间"><a href="#迭代和区间" class="headerlink" title="迭代和区间"></a>迭代和区间</h2><p><br></p>
 <h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><ul>
 <li>在 kotlin 中的 while 和 do while 结构和 java 没有任何区别，这里就不讲解了</li>
 </ul>
 <p><br></p>
-<h3 id="迭代数字"><a href="#迭代数字" class="headerlink" title="迭代数字"></a>迭代数字</h3><p><br></p>
-<h4 id="区间和数列"><a href="#区间和数列" class="headerlink" title="区间和数列"></a>区间和数列</h4><ul>
-<li><p>使用 in 可以使用在for中指示一个区间，在kotlin中区间是包含的，或者说闭合的</p>
-<p>  fun main(args: Array<string>) {</string></p>
-<pre><code>for(i in 1..100){
-    print(&quot; $i&quot;)
-}
-</code></pre><p>  }</p>
-</li>
+<h3 id="区间-in"><a href="#区间-in" class="headerlink" title="区间 in"></a>区间 in</h3><ul>
+<li>使用 in 可以使用在for中指示一个区间，在kotlin中区间是包含的，或者说闭合的</li>
 </ul>
-<ul>
-<li>你觉得上面的操作没什么新意，那么看看这几行,kotlin中的迭代不仅支持数字区间还支持字符区间,在区间中可以指定步长，而数字区间中还可以使用downto指定方向</li>
+<pre><code>fun main(args: Array&lt;String&gt;) {
+    for(i in 1..100){
+        print(&quot; $i&quot;)
+    }
+}
+</code></pre><ul>
+<li>上面的操作没什么新意，看看下面这几行，kotlin 中的迭代区间不仅支持数字还支持字符，在区间可以使用downto指定方向，使用step指定步长</li>
 </ul>
 <pre><code>fun main(args: Array&lt;String&gt;) {
     for(c in &apos;A&apos;..&apos;Z&apos; step 3 )
@@ -878,15 +886,15 @@ fun main(args: Array&lt;String&gt;) {
         print(&quot; $i&quot;)
 }
 </code></pre><p><br></p>
-<h3 id="迭代map"><a href="#迭代map" class="headerlink" title="迭代map"></a>迭代map</h3><ul>
+<h3 id="map-迭代"><a href="#map-迭代" class="headerlink" title="map 迭代"></a>map 迭代</h3><ul>
 <li>for 循环允许展开迭代中的集合的元素，例如下面这个例子中将map的键值对存储到两个独立的变量当中，在这个例子中集合看起来更像数组，是的，kotlin中可以使用中括号来代替get和put方法</li>
 </ul>
-<pre><code>val binReps = TreeMap\&lt;Char,String\&gt;()
+<pre><code>val binReps = TreeMap&lt;Char,String&gt;()
 fun test() {
-  for(c in &apos;a&apos; .. &apos;f&apos;){
-      val bin = Integer.toBinaryString(c.toInt())
-      binReps[c] = bin
-  }
+    for(c in &apos;a&apos; .. &apos;f&apos;){
+        val bin = Integer.toBinaryString(c.toInt())
+        binReps[c] = bin
+    }
     for ((letter,binary) in binReps){
         println(&quot;$letter = $binary&quot;)
     }
@@ -894,11 +902,11 @@ fun test() {
 val list = arrayListOf(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)
 fun test() {
     for ((index,element) in list.withIndex()){
-        println(&quot;$index = $element&quot;)
+            println(&quot;$index = $element&quot;)
     }
 }
 </code></pre><p><br></p>
-<h3 id="检查区间"><a href="#检查区间" class="headerlink" title="检查区间"></a>检查区间</h3><ul>
+<h3 id="in-检查区间"><a href="#in-检查区间" class="headerlink" title="in 检查区间"></a>in 检查区间</h3><ul>
 <li>使用in和!in可以检查区间中的成员，即检查某个值是否在区间当中</li>
 </ul>
 <pre><code>fun isLetter(c: Char) = c in &apos;a&apos;..&apos;z&apos; || c in &apos;A&apos;..&apos;z&apos;
@@ -908,8 +916,8 @@ fun main(args: Array&lt;String&gt;) {
     print(isNotDigit(&apos;c&apos;))
 }
 </code></pre><p><br></p>
-<h2 id="kotlin中的异常"><a href="#kotlin中的异常" class="headerlink" title="kotlin中的异常"></a>kotlin中的异常</h2><ul>
-<li>kotlin中异常与java相似，不过不必使用new关键之来创建一个异常的实例，同时throw结构是一个表达式</li>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
+<li>kotlin中异常与java相似，不过不必使用new关键字来创建一个异常的实例，同时throw结构是一个表达式</li>
 </ul>
 <pre><code>val percentage = if (number in 0..100)
     number
@@ -930,7 +938,7 @@ else throw IllegalArgumentException(&quot;a percentage value must be between 0 a
     }
 }
 </code></pre><p><br></p>
-<h3 id="try-作为表达式"><a href="#try-作为表达式" class="headerlink" title="try 作为表达式"></a>try 作为表达式</h3><ul>
+<h3 id="try-表达式"><a href="#try-表达式" class="headerlink" title="try 表达式"></a>try 表达式</h3><ul>
 <li>在kotlin中try和when以及if一样，引入了表达式，如果语句中包括多个表达式，那么最后一个表达式的值就是try表达式的值，如果中间抛出了异常，那么catch表达式的值就是最终的值</li>
 </ul>
 <pre><code>fun readNumber(reader: BufferedReader) {
@@ -939,13 +947,32 @@ else throw IllegalArgumentException(&quot;a percentage value must be between 0 a
     }catch (e:NumberFormatException){
         null
     }
-     print(number)
+    print(number)
 </code></pre><p><br></p>
-<h1 id="函数的定义和调用"><a href="#函数的定义和调用" class="headerlink" title="函数的定义和调用"></a>函数的定义和调用</h1><p><br></p>
-<h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h2><p><br></p>
-<h2 id="让函数更好调用"><a href="#让函数更好调用" class="headerlink" title="让函数更好调用"></a>让函数更好调用</h2><p><br></p>
-<h3 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h3><p><br></p>
-<h3 id="默认参数值"><a href="#默认参数值" class="headerlink" title="默认参数值"></a>默认参数值</h3>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p><br></p>
+<h3 id="xxxOf"><a href="#xxxOf" class="headerlink" title="xxxOf"></a>xxxOf</h3><ul>
+<li>使用 xxxOf 可以直接创建集合实例，对于map这种基于键值对的集合，使用to关键字</li>
+</ul>
+<pre><code>var arrayList = arrayListOf(1, 2, 3)
+var hashSet = hashSetOf(1, 2, 3)
+var hashmap = hashMapOf(1 to &quot;one&quot;, 2 to &quot;two&quot;, 3 to &quot;3&quot;)
+
+var list = listOf(1,2,3)
+var set = setOf(1,2,3)
+var map = mapOf(1 to &quot;one&quot;, 2 to &quot;two&quot;, 3 to &quot;3&quot;)
+</code></pre><ul>
+<li>kotlin没有使用自己的集合类，而是直接使用了java的集合类，比如arrayList，hashSet这种指定了明确类型的就对应到指定的类，list，set，map则对应到，arraylist，linkedHashSet，linkedHashMap</li>
+</ul>
+<pre><code>println(list.javaClass)
+</code></pre><p><br></p>
+<h3 id="扩展方法"><a href="#扩展方法" class="headerlink" title="扩展方法"></a>扩展方法</h3><ul>
+<li>除了java集合中本来提供的方法外，kotlin还添加了许多很方便的方法以供调用</li>
+</ul>
+<pre><code>println(list.first())
+println(list.last())
+println(list.max())
+println(list.asReversed())
+</code></pre>
     
 
     
