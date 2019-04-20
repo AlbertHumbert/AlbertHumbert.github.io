@@ -476,7 +476,8 @@ var map = mapOf(1 to &quot;one&quot;, 2 to &quot;two&quot;, 3 to &quot;3&quot;)
 println(list.last())
 println(list.max())
 println(list.asReversed())
-</code></pre>]]></content>
+</code></pre><p><br><br><strong>本篇未完</strong></p>
+]]></content>
       
         <categories>
             
@@ -513,14 +514,13 @@ println(list.asReversed())
 </code></pre><ul>
 <li>配置镜像可以解决，这个在 etc/profile 里面配过了，但是没有效果，因为zsh默认不加载etc/profile，可以 echo ${pub_hosted_url} 测一下，建议还是在默认的shell的配置文件里面设置，比如我使用的是.zshrc</li>
 </ul>
-<pre><code>export pub\_hosted\_url=https://pub.flutter-io.cn
-export flutter\_storage\_base\_url=https://storage.flutter-io.cn
+<pre><code>export pub_hosted_url=https://pub.flutter-io.cn
+export flutter_storage_base_url=https://storage.flutter-io.cn
 </code></pre><ul>
-<li><p>如果需要终端走代理可以尝试下面，同时curl ip.sb 检测当前ip</p>
-<p>  export ALL_PROXY=socks5://账号:密码@127.0.0.1:1080</p>
-</li>
+<li>如果需要终端走代理可以尝试下面，同时curl ip.sb 检测当前ip</li>
 </ul>
-<p><br></p>
+<pre><code>export ALL_PROXY=socks5://账号:密码@127.0.0.1:1080
+</code></pre><p><br></p>
 <h3 id="Initializing-gradle"><a href="#Initializing-gradle" class="headerlink" title="Initializing gradle"></a>Initializing gradle</h3><ul>
 <li>永久停留在这一步，其实是在下载新版本的gradle，查看.gradle的dist目录会发现不论等多久大小都是 0 k，直接去官网下载对应版本，建议使用迅雷</li>
 </ul>
