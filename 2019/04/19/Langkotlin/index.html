@@ -1107,9 +1107,54 @@ get() {
 }
 </code></pre><p><br></p>
 <h3 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h3><ul>
-<li>给已有的类提供扩展的函数</li>
+<li>给已有的类提供扩展的函数，只是在普通的函数声明中的名称之前加上 类名. 即可，在方法体中使用this来访问对象，但依然受访问权限的限制，比如可能无法访问prviate或protected成员和函数</li>
 </ul>
-<p><br><br><strong>本篇未完</strong></p>
+<pre><code>fun String.lastChar():Char = this.get(this.length-1)
+
+//...
+
+fun main(){
+    println(&quot;a&quot;.lastChar())
+}
+</code></pre><ul>
+<li>扩展函数和成员函数之间都可以互相调用</li>
+</ul>
+<pre><code>fun AAA.aTest(){
+
+}
+
+fun AAA.BTest(){
+    this.aTest()
+}
+</code></pre><ul>
+<li>类的扩展函数同样被编译为静态函数，只是第一个参数是类的实例，其他规则和包扩展函数一致，这里不重复</li>
+</ul>
+<ul>
+<li>同样也可以对属性进行扩展，由于并不能实际给类添加属性，因此内部并没有实际的空间来存储这个属性的值，所以扩展属性不能初始化，也不能使用field关键字。kotlin实战中的例子不是很好，书中说不可变类型不能使用var，这非常容易让人误解，实际上不管什么类型，从语法上都是可以使用var和val的，只是对于不可变类型，一般没有可以修改属性的方法，同时内部属性通常为final，所以常规实现中我们在set函数中无法做到修改对象的属性，对于可变类型，就没有这种约束，我们可以修改它的属性。以上只针对不借用其他对象来手动存储的情况。</li>
+</ul>
+<pre><code>//不可变类
+//val.
+val String.lastChar: Char
+get() = get(length-1)
+
+//var
+var String.lastChar: Char
+get() = get(length-1)
+set(value:Char){
+//nothing we can do here
+}
+
+fun main(){
+    println(&quot;a&quot;.lastChar)
+}
+
+//可变类
+var StringBuilder.lastChar: Char
+get() = get(length-1)
+set(value:Char){
+    this.setCharAt(length-1,value)
+}
+</code></pre><p><br><br><strong>本篇未完</strong></p>
 
     
 
