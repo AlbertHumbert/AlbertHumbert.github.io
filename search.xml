@@ -698,7 +698,10 @@ infix fun Int.fillTo(other: Int): Array&lt;Int&gt; {
 <li>对于pair和其他key value的地方我们可以使用类似js中的解构声明来创建类实例</li>
 </ul>
 <pre><code>val(number,name) = 1 to &quot;one&quot;
-</code></pre><p><br><br><strong>本篇未完</strong></p>
+</code></pre><p><br></p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p><br></p>
+<h3 id="正则扩展"><a href="#正则扩展" class="headerlink" title="正则扩展"></a>正则扩展</h3><p><br></p>
+<h3 id="三重引号"><a href="#三重引号" class="headerlink" title="三重引号"></a>三重引号</h3><p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       
         <categories>
