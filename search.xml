@@ -13,7 +13,7 @@
 <li>kotlin是一门野心非常大的语言，它不但能与能与现有的java框架并存，向人证明它可以以更加简洁的方式代替java，还不断向着更多的领域发展。android开发者可以结合anko编写应用，永久告别xml，前端开发者可以编写kotlin代码然后编译成JavaScript，Kotlin_Native更是支持直接编译机器码在linux，ios，mac os上运行</li>
 </ul>
 <ul>
-<li>kotlin最大的特点是简洁的语法，自动类型推断与互操作性</li>
+<li>kotlin最大的特点是简洁的语法，自动类型推断，互操作性，成吨语法糖</li>
 </ul>
 <p><br></p>
 <h2 id="函数和变量"><a href="#函数和变量" class="headerlink" title="函数和变量"></a>函数和变量</h2><p><br></p>
