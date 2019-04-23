@@ -15,6 +15,9 @@
 <ul>
 <li>kotlin最大的特点是简洁的语法，自动类型推断，互操作性，成吨语法糖</li>
 </ul>
+<ul>
+<li>java中已有并且在kotlin中相同的特性不会拿出来讲</li>
+</ul>
 <p><br></p>
 <h2 id="函数和变量"><a href="#函数和变量" class="headerlink" title="函数和变量"></a>函数和变量</h2><p><br></p>
 <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><br></p>
@@ -93,7 +96,7 @@ println(&quot;$he said, ${languages[1]} is the best language in the world &quot;
 </li>
 </ul>
 <p><br></p>
-<h2 id="类和属性"><a href="#类和属性" class="headerlink" title="类和属性"></a>类和属性</h2><p><strong>Java常为人诟病的一点就是创建一个类需要非常多的样板代码（特别是对于bean类而言），为此不少ide或插件都提供了自动生成getter，setter，构造器，代码模板，万能tab的功能</strong></p>
+<h2 id="类基础和属性"><a href="#类基础和属性" class="headerlink" title="类基础和属性"></a>类基础和属性</h2><p><strong>Java常为人诟病的一点就是创建一个类需要非常多的样板代码（特别是对于bean类而言），为此不少ide或插件都提供了自动生成getter，setter，构造器，代码模板，万能tab的功能</strong></p>
 <p><strong>但就像很多人认为的那样，某种程度上Java逐渐变成了一门“依赖ide”的语言</strong></p>
 <p><strong>kotlin的开发者们为了解决这些问题可谓下足了功夫</strong></p>
 <p><br></p>
@@ -689,7 +692,7 @@ set(value:Char){
 }
 </code></pre><p><br></p>
 <h3 id="中缀和解构"><a href="#中缀和解构" class="headerlink" title="中缀和解构"></a>中缀和解构</h3><ul>
-<li>我们在使用map时遇到过to来构造键值对，实际上to不是一个关键字，而是一个特殊的函数，只不过需要使用中缀调用，中缀函数和类扩展函数的声明类似，只是需要在前面加入infix关键字</li>
+<li>infix：我们在使用map时遇到过to来构造键值对，实际上to不是一个关键字，而是一个特殊的函数，只不过需要使用中缀调用，中缀函数和类扩展函数的声明类似，只是需要在前面加入infix关键字</li>
 </ul>
 <pre><code>fun main() {
     val array = 1 fillTo 100
@@ -716,11 +719,11 @@ infix fun Int.fillTo(other: Int): Array&lt;Int&gt; {
 </code></pre><p><br></p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p><br></p>
 <h3 id="正则扩展"><a href="#正则扩展" class="headerlink" title="正则扩展"></a>正则扩展</h3><ul>
-<li>string 支持和java相同的正则功能，不过对于常用的split函数，kotlin更加人性化，类似 . | 等在正则中使用的符号会被当做普通的字符来使用，同时支持可变参数</li>
+<li>split：string 支持和java相同的正则功能，不过对于常用的split函数，kotlin更加人性化，类似 . | 等在正则中使用的符号会被当做普通的字符来使用，同时支持可变参数</li>
 </ul>
 <pre><code>println(&quot;a.b.c-d|e&quot;.split(&quot;.&quot;,&quot;-&quot;,&quot;|&quot;))
 </code></pre><ul>
-<li>相对的如果想要使用正则字符串，则可以通过string的扩展函数toRegex，转化为正则对应的类</li>
+<li>Regex：相对的如果想要使用正则字符串，则可以通过string的扩展函数toRegex，转化为正则对应的类</li>
 </ul>
 <pre><code>println(&quot;a.b.c-d-e&quot;.split(&quot;\\.|-&quot;.toRegex()))
 </code></pre><p><br></p>
@@ -740,7 +743,7 @@ infix fun Int.fillTo(other: Int): Array&lt;Int&gt; {
     /
     &quot;&quot;
 </code></pre><ul>
-<li>string还提供了一个很方便的trimMargin扩展函数，可以将三重字符串中的字符用空格和特殊字符串将整体内容移动到合适的位置，在需要使用的时候调用该函数进行还原</li>
+<li>trimMargin：string还提供了一个很方便的trimMargin扩展函数，可以将三重字符串中的字符用空格和特殊字符串将整体内容移动到合适的位置，在需要使用的时候调用该函数进行还原</li>
 </ul>
 <pre><code>var str =
     &quot;&quot;&quot;
@@ -756,7 +759,124 @@ infix fun Int.fillTo(other: Int): Array&lt;Int&gt; {
     &quot;&quot;&quot;
 
 println(str.trimMargin(&quot;|&quot;))
-</code></pre><p><br><br><strong>本篇未完</strong></p>
+</code></pre><p><br></p>
+<h2 id="类和接口"><a href="#类和接口" class="headerlink" title="类和接口"></a>类和接口</h2><p><strong>kotlin的类和接口和java中的类和接口具有一定的区别，比如接口可以包含属性，嵌套类默认不是内部类，类同时提供默认了</strong></p>
+<p><br></p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><ul>
+<li>kotlin和java中接口类似，只是用冒号替代了implements和extends关键字，同时提供了override关键字，override关键字是强制要求的，如果缺少将不能通过编译</li>
+</ul>
+<pre><code>interface  Clickable{
+    fun click()
+}
+
+
+class Button:Clickable{
+
+    override fun click() = println(&quot;click&quot;)
+
+}
+</code></pre><ul>
+<li>接口中支持默认函数，不同于java8的默认方法，它不需要default关键字，注意不管是在kotlin还是在java当中，如果类或接口相关联的多个接口中有相同的函数（方法），则该类或接口必须对该函数（方法）进行重写，否则编译不通过</li>
+</ul>
+<pre><code>interface  Clickable{
+    fun click() = println(&quot;default&quot;)
+}
+</code></pre><p><br></p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><ul>
+<li>open &amp; final：kotlin使用open和final关键字来表面类是否允许继承以及函数是否允许重写，若不声明则默认为final，这是基于如果没有为继承做好准备就不应该提供继承功能这种思想而设计的，子类默认还是final的，但子类中重写子父类的函数默认是open的，除非显式指定为final</li>
+</ul>
+<pre><code>open class Button: Clickable{
+    override fun click(){}
+    open fun disable(){}
+}
+
+class SubButton: Button() {
+    override fun disable(){}
+}
+</code></pre><ul>
+<li>abstract：kotlin支持和java类似的abstract关键字，没有需要特别注意的地方</li>
+</ul>
+<pre><code>abstract class Button: Clickable{ 
+
+    override fun click(){}
+    abstract fun animate()
+}
+</code></pre><p><br></p>
+<h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><ul>
+<li>protected：kotlin支持 public protected private 修饰符，作用与java中的类似，需要关注的是默认的修饰符是public而不是protected，并且protected的行为与java有差异，protected只提供类自身和子类范围的可见性而不提供包级别的可见性，同时限制于之前提到的protected的实现机制，扩展函数也不允许访问private和protected属性</li>
+</ul>
+<pre><code>open class Button : Clickable {
+     protected val aProtectedField: Int = 0
+}
+
+
+class Test {
+    fun test() {
+        var obj = Button()
+        //报错
+        obj.aProtectedField
+    }
+}
+</code></pre><ul>
+<li>internal：另外kotlin还支持internal关键字，用于将类型限制在模块范围内，类似dart提供的特性，模块也就是idea或android studio中的module，本质是一组一起编译的文件，可以在函数或类级别上使用internal关键字</li>
+</ul>
+<pre><code>internal class ClassInAnotherMoudle{
+    internal fun test(){
+        println()
+    }
+}
+</code></pre><p><br></p>
+<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><ul>
+<li>inner：kotlin支持类似java中的内部类和静态内部类，但kotlin中并没有static关键字，因为在kotlin中定义在一个class中的class默认是嵌套类（类比java中的静态内部类），如果需要指定为内部类则需要使用inner关键字，嵌套类不会持有外部类的引用，因此更加有利于实现序列化和反序列化</li>
+</ul>
+<pre><code>class Button : Clickable {
+
+    var aField: Int = 0
+
+    inner class Test {
+
+        fun test{ aField = 1 }
+
+        fun getOuter():Button = this@Button
+    }
+}
+</code></pre><ul>
+<li>this@：在内部类获取外部类的引用不是使用java中的 类型.this 而是使用 this@类型</li>
+</ul>
+<p><br></p>
+<h3 id="封装类"><a href="#封装类" class="headerlink" title="封装类"></a>封装类</h3><ul>
+<li>在使用when控制分支时，如果使用了when的返回值，则需要覆盖所有分支情况，因此通常需要使用else关键字处理省缺的情况，这样在软件迭代过程中很出现漏判的情况，kotlin提供了解决这种问题的方法</li>
+</ul>
+<pre><code>interface Expr
+
+class Num(val value: Int) : Expr
+
+class Sum(val left: Expr, val right: Expr) : Expr
+
+
+fun eval(e: Expr): Int = when (e) {
+
+    is Num -&gt; e.value
+    is Sum -&gt; eval(e.right) + eval(e.left)
+    else -&gt; throw IllegalArgumentException()
+}
+</code></pre><ul>
+<li>sealed：使用封装类将需要的类型全部定义为嵌套类，则不需要指定所有分支，但注意前提条件是指定为sealed的类型没有其嵌套类以外的子类，sealed可以使添加新类型之后，未经过处理的when语句报错，而不是像上一段代码一样正常通过。注意sealed修饰的类默认是open的</li>
+</ul>
+<pre><code>sealed class Expr{
+
+class Num(val value: Int) : Expr()
+class Sum(val left: Expr, val right: Expr) : Expr()
+}
+
+fun eval(e: Expr): Int = when (e) {
+
+    is Expr.Num -&gt; e.value
+    is Expr.Sum -&gt; eval(e.right) + eval(e.left)
+}
+</code></pre><p><br></p>
+<h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><p><br></p>
+<h2 id="lambda和序列"><a href="#lambda和序列" class="headerlink" title="lambda和序列"></a>lambda和序列</h2><p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       
         <categories>
