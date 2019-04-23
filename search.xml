@@ -673,6 +673,21 @@ set(value:Char){
     this.setCharAt(length-1,value)
 }
 </code></pre><p><br></p>
+<h3 id="局部函数"><a href="#局部函数" class="headerlink" title="局部函数"></a>局部函数</h3><ul>
+<li>相比java，kotlin支持真正的闭包，在函数当中可以定义局部函数，局部函数可以调用外部函数中的局部变量，局部函数在扩展函数，get set函数中都适用</li>
+</ul>
+<pre><code>fun checkUser(user:User) {
+
+    val throwEx = true
+    fun checkEmpty(str:String){
+        if(str.isEmpty()){
+           if(throwEx)throw IllegalArgumentException()
+        }
+    }
+    checkEmpty(user.name)
+    checkEmpty(user.address)
+}
+</code></pre><p><br></p>
 <h3 id="中缀和解构"><a href="#中缀和解构" class="headerlink" title="中缀和解构"></a>中缀和解构</h3><ul>
 <li>我们在使用map时遇到过to来构造键值对，实际上to不是一个关键字，而是一个特殊的函数，只不过需要使用中缀调用，中缀函数和类扩展函数的声明类似，只是需要在前面加入infix关键字</li>
 </ul>
@@ -699,9 +714,49 @@ infix fun Int.fillTo(other: Int): Array&lt;Int&gt; {
 </ul>
 <pre><code>val(number,name) = 1 to &quot;one&quot;
 </code></pre><p><br></p>
-<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p><br></p>
-<h3 id="正则扩展"><a href="#正则扩展" class="headerlink" title="正则扩展"></a>正则扩展</h3><p><br></p>
-<h3 id="三重引号"><a href="#三重引号" class="headerlink" title="三重引号"></a>三重引号</h3><p><br><br><strong>本篇未完</strong></p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p><br></p>
+<h3 id="正则扩展"><a href="#正则扩展" class="headerlink" title="正则扩展"></a>正则扩展</h3><ul>
+<li>string 支持和java相同的正则功能，不过对于常用的split函数，kotlin更加人性化，类似 . | 等在正则中使用的符号会被当做普通的字符来使用，同时支持可变参数</li>
+</ul>
+<pre><code>println(&quot;a.b.c-d|e&quot;.split(&quot;.&quot;,&quot;-&quot;,&quot;|&quot;))
+</code></pre><ul>
+<li>相对的如果想要使用正则字符串，则可以通过string的扩展函数toRegex，转化为正则对应的类</li>
+</ul>
+<pre><code>println(&quot;a.b.c-d-e&quot;.split(&quot;\\.|-&quot;.toRegex()))
+</code></pre><p><br></p>
+<h3 id="三重引号"><a href="#三重引号" class="headerlink" title="三重引号"></a>三重引号</h3><ul>
+<li>三重引号可以用于避免转义字符，并且三重字符串中包括了缩进，可以包括换行</li>
+</ul>
+<pre><code>var str =
+    &quot;&quot;&quot;
+    .
+    &quot;&quot;
+    \AAAA
+    [BBBBB
+    ////
+    ///
+    //
+    /
+    /
+    &quot;&quot;
+</code></pre><ul>
+<li>string还提供了一个很方便的trimMargin扩展函数，可以将三重字符串中的字符用空格和特殊字符串将整体内容移动到合适的位置，在需要使用的时候调用该函数进行还原</li>
+</ul>
+<pre><code>var str =
+    &quot;&quot;&quot;
+    |.
+    |&quot;&quot;
+    |\AAAA
+    |[BBBBB
+    |////
+    |///
+    |//
+    |/
+    |/
+    &quot;&quot;&quot;
+
+println(str.trimMargin(&quot;|&quot;))
+</code></pre><p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       
         <categories>
