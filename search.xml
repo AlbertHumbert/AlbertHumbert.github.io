@@ -207,6 +207,16 @@ var isSquare: Boolean =false
     private fun test(){
         var a = isSquare
     }
+</code></pre><ul>
+<li>如果需要限制访问权限，可以使用在get和set方法前使用修饰符，注意get的修饰符需要与属性前的修饰符一直，而set的修饰符访问权限需要小于或等于属性前的修饰符</li>
+</ul>
+<pre><code>var isSquare: Boolean = width == height &amp;&amp; width * height != 0
+    get() {
+        return width == height
+    }
+ private set(value) {
+        field = value
+    }
 </code></pre><p><br></p>
 <h3 id="包-import-package"><a href="#包-import-package" class="headerlink" title="包 import package"></a>包 import package</h3><ul>
 <li>kotlin当中依然使用import和package关键字来组织代码结构，不同的是，在Java中，包结构需要与实际上的文件目录结构一致，kotlin则不做这种要求，你可以把所有文件都放到一个目录，只在package关键字后面声明它们所在的包</li>
@@ -841,7 +851,7 @@ class Test {
     }
 }
 </code></pre><ul>
-<li>this@：在内部类获取外部类的引用不是使用java中的 类型.this 而是使用 this@类型</li>
+<li>this@：在内部类获取外部类的引用不是使用java中的 类型.this 而是使用 this@ 类型</li>
 </ul>
 <p><br></p>
 <h3 id="封装类"><a href="#封装类" class="headerlink" title="封装类"></a>封装类</h3><ul>
@@ -875,8 +885,115 @@ fun eval(e: Expr): Int = when (e) {
     is Expr.Sum -&gt; eval(e.right) + eval(e.left)
 }
 </code></pre><p><br></p>
-<h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><p><br></p>
-<h2 id="lambda和序列"><a href="#lambda和序列" class="headerlink" title="lambda和序列"></a>lambda和序列</h2><p><br><br><strong>本篇未完</strong></p>
+<h3 id="主构造方法"><a href="#主构造方法" class="headerlink" title="主构造方法"></a>主构造方法</h3><ul>
+<li>在kotlin中可以使用非常简短的代码生成一个构造完整的类，下面的代码其实是主构造函数的简略形式，所有类都包含一个主构造函数</li>
+</ul>
+<pre><code>class User(val nickname:String)
+</code></pre><ul>
+<li>constructor &amp; init：上面的代码展开之后其实是这样子的，constructor用于声明一个构造函数，当用在类声明的行中说明是主构造函数，当用在类内部时则是从构造函数。init关键字类似java中的初始化块，因为在class的代码块体内只能做属性的声明和初始化语句，以及函数的声明和定义，而init闭包中可以有普通的逻辑代码，可以处理复杂的初始化情况，当然对于简单的情况则完全可以省略</li>
+</ul>
+<pre><code>class User constructor(nickname:String){
+    val nickname:String 
+
+    init {
+        this.nickname = nickname
+    }
+}
+
+//等价于
+class User constructor(nickname:String){
+    val nickname:String = nickname
+}
+
+//等价于
+class User constructor(val nickname: String)
+
+//等价于
+class User (val nickname: String)
+</code></pre><ul>
+<li>和普通函数一样，构造函数也支持使用默认参数</li>
+</ul>
+<pre><code>class User (val nickname: String = &quot;&quot;)
+</code></pre><ul>
+<li>如果子类的主构造函数需要调用父类的主构造函数，则可以直接在父类声明之后调用，如果子类没有提供任何构造函数或只声明了主构造函数，则需要显示调用父类的构造函数，当一个基类没有声明任何构造函数，编译器将会自动生成一个没有参数的构造函数，即()</li>
+</ul>
+<pre><code>open class Person (val nickname: String){
+    //...
+}
+
+class User (nickname:String): Person(nickname)
+</code></pre><ul>
+<li>如果希望类不能被外部实例化（用于静态工具或单例）则可以使用private关键字</li>
+</ul>
+<pre><code>class User private constructor() : Person()
+
+//报错
+val usr = User()
+</code></pre><p><br></p>
+<h3 id="从构造方法"><a href="#从构造方法" class="headerlink" title="从构造方法"></a>从构造方法</h3><ul>
+<li>为了给一个类提供更多的构造函数，可以使用从构造函数，不像主构造函数，从构造函数可以定义多个，需要调用同一类的其他构造函数可以使用this关键字，同时init关键字依然可以使用</li>
+</ul>
+<pre><code>class User{
+
+    init{
+        //...
+    }
+
+    constructor(aInt:Int){
+        //...
+    }
+
+    constructor(aInt:Int,aStr:String):this(aInt,aStr,false){
+        //...
+    }
+
+    constructor(aInt:Int,aString:String,aBoolean:Boolean){
+        //...
+    }
+}
+</code></pre><ul>
+<li>如果一个类具有主构造函数，则从构造函数必须调用主构造函数</li>
+</ul>
+<pre><code>class User(){
+
+    constructor(aInt:Int) : this() {
+        //...
+    }
+}
+</code></pre><ul>
+<li>另外一个特殊的限制是，如果父类没有无参的构造函数，则子类的从构造函数必须调用super或者this，这里的无参构造函数即可以是父类的主构造函数又可以是从构造函数</li>
+</ul>
+<pre><code>class NewUser: User {
+
+    constructor(aInt:Int,aBoolean:Boolean) : super(aInt) {
+
+        //...
+    }
+}
+</code></pre><p><br></p>
+<h3 id="接口属性"><a href="#接口属性" class="headerlink" title="接口属性"></a>接口属性</h3><ul>
+<li>kotlin的接口中允许声明属性，但这种属性声明是抽象的，需要由实现类来实现，实现的方法由三种，通过主构造函数，通过属性覆盖，通过get函数，注意其中get函数的实现，不会为属性创建空间</li>
+</ul>
+<pre><code>interface User{
+    val nickname:String
+}
+
+class User1(override var nickname:String):User
+
+class User3 :User{
+    override val nickname = &quot;&quot;
+}
+
+class User2 :User{
+    override val nickname:String
+    get() = &quot;&quot;
+}
+</code></pre><p><br></p>
+<h2 id="lambda和序列"><a href="#lambda和序列" class="headerlink" title="lambda和序列"></a>lambda和序列</h2><p><br></p>
+<h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
+<li>kotlin中的文档注释和java中的文档注释一样以/和两个星号开头，差别在于kotlin中的文档注释使用markdown语法而不是html，另外引用声明使用中括号表示</li>
+</ul>
+<p><br><br><strong>本篇未完</strong></p>
 ]]></content>
       
         <categories>
