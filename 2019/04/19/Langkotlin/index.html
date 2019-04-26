@@ -1794,6 +1794,22 @@ val person = people.find { it.age &gt; 30 }
 )
 val map = people.groupBy(getAge)
 println(map)
+</code></pre><ul>
+<li>flatten，用于将多个集合合并成为一个</li>
+</ul>
+<pre><code>    val listOfList = listOf(
+        listOf(1, 2, 3)
+        , listOf(4, 5, 6)
+        , listOf(7, 8, 9)
+    )
+
+    println(listOfList.flatten())
+//输出 [1, 2, 3, 4, 5, 6, 7, 8, 9]
+</code></pre><ul>
+<li>flatMap，用于将集合中的元素通过某种方式构造集合，然后将每个元素得到的新结合合并，通常用于将一个集合装换为其他内容的集合</li>
+</ul>
+<pre><code>val list = listOf(&quot;123&quot;,&quot;45&quot;,&quot;6789&quot;)
+println(list.flatMap { it.toList() })
 </code></pre><p><br></p>
 <h3 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h3><p><br></p>
 <h2 id="可空性"><a href="#可空性" class="headerlink" title="可空性"></a>可空性</h2><ul>
