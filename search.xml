@@ -835,7 +835,7 @@ class Test {
     }
 }
 </code></pre><p><br></p>
-<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><ul>
+<h3 id="内部类-inner"><a href="#内部类-inner" class="headerlink" title="内部类 inner"></a>内部类 inner</h3><ul>
 <li>inner：kotlin支持类似java中的内部类和静态内部类，但kotlin中并没有static关键字，因为在kotlin中定义在一个class中的class默认是嵌套类（类比java中的静态内部类），如果需要指定为内部类则需要使用inner关键字，嵌套类不会持有外部类的引用，因此更加有利于实现序列化和反序列化</li>
 </ul>
 <pre><code>class Button : Clickable {
@@ -853,7 +853,7 @@ class Test {
 <li>this@：在内部类获取外部类的引用不是使用java中的 类型.this 而是使用 this@ 类型</li>
 </ul>
 <p><br></p>
-<h3 id="封装类"><a href="#封装类" class="headerlink" title="封装类"></a>封装类</h3><ul>
+<h3 id="封装类-sealed"><a href="#封装类-sealed" class="headerlink" title="封装类 sealed"></a>封装类 sealed</h3><ul>
 <li>在使用when控制分支时，如果使用了when的返回值，则需要覆盖所有分支情况，因此通常需要使用else关键字处理省缺的情况，这样在软件迭代过程中很出现漏判的情况，kotlin提供了解决这种问题的方法</li>
 </ul>
 <pre><code>interface Expr
@@ -1047,7 +1047,7 @@ class User(val name:String){
     }
 }
 </code></pre><p><br></p>
-<h3 id="数据类"><a href="#数据类" class="headerlink" title="数据类"></a>数据类</h3><ul>
+<h3 id="数据类-data"><a href="#数据类-data" class="headerlink" title="数据类 data"></a>数据类 data</h3><ul>
 <li>data：java的idea通常都提供快捷生成toString，equals方法的功能，但在kotlin当中则直接提供了语言层面上的支持，使用data关键字声明为数据类即可，数据类非常适合用于我们java中的bean（pojo）类</li>
 </ul>
 <pre><code>fun main() {
@@ -1058,7 +1058,7 @@ class User(val name:String){
 
 data class Client(val name:String,val postalCode:Int)
 </code></pre><p><br></p>
-<h3 id="类委托"><a href="#类委托" class="headerlink" title="类委托"></a>类委托</h3><ul>
+<h3 id="类委托-by"><a href="#类委托-by" class="headerlink" title="类委托 by"></a>类委托 by</h3><ul>
 <li>如果不依赖语言特性，在kotlin使用装饰器模式是想下面这个样子的，非常繁琐</li>
 </ul>
 <pre><code>class DelegatingCollection&lt;T&gt; : Collection&lt;T&gt; {
@@ -1083,7 +1083,7 @@ data class Client(val name:String,val postalCode:Int)
     }
 }
 </code></pre><p><br></p>
-<h3 id="对象类声明"><a href="#对象类声明" class="headerlink" title="对象类声明"></a>对象类声明</h3><ul>
+<h3 id="对象类声明-object"><a href="#对象类声明-object" class="headerlink" title="对象类声明 object"></a>对象类声明 object</h3><ul>
 <li>object：object关键字用于在声明类的同时创建唯一实例，原本在class内部中的语法都适用，在顶层object声明对象可以像其他顶层对象一样访问</li>
 </ul>
 <pre><code>fun main() {
@@ -1114,7 +1114,7 @@ data class Person(val name:String){
     }
 }
 </code></pre><p><br></p>
-<h3 id="伴生对象"><a href="#伴生对象" class="headerlink" title="伴生对象"></a>伴生对象</h3><ul>
+<h3 id="伴生对象-companion"><a href="#伴生对象-companion" class="headerlink" title="伴生对象 companion"></a>伴生对象 companion</h3><ul>
 <li>引用嵌套类对象声明，看起来像在引用一个类的静态成员，但是kotlin中类并不能拥有静态成员，实际上kotlin也没有static关键字，但可以使用伴生对象实现类似的语法功能</li>
 </ul>
 <pre><code>fun main() {
@@ -1229,7 +1229,7 @@ var oldest = people.maxBy{ it.age }
     println(&quot;$clientErrors $serverErrors&quot;)
 }
 </code></pre><p><br></p>
-<h3 id="成员引用"><a href="#成员引用" class="headerlink" title="成员引用"></a>成员引用</h3><ul>
+<h3 id="成员引用"><a href="#成员引用" class="headerlink" title="成员引用 ::"></a>成员引用 ::</h3><ul>
 <li>kotlin可以像java一样使用 :: 将函数转换为lambda表达式，如果使用的是顶层函数，则 :: 前面不需要类名</li>
 </ul>
 <pre><code>data class Person(val name: String, val age: Int)
@@ -1247,6 +1247,20 @@ fun main() {
 <pre><code>var creator = ::Person
 var obj = creator(&quot;&quot;,0)
 </code></pre><p><br></p>
+<h3 id="SAM-构造方法"><a href="#SAM-构造方法" class="headerlink" title="SAM 构造方法"></a>SAM 构造方法</h3><ul>
+<li>SAM构造方法允许我们使用lambda表达式来实现函数式接口，也就是Runnable和OnClickListener这样的接口，这样可以实现实例重用</li>
+</ul>
+<pre><code>fun main() {
+    runnable.run()
+}
+
+val runnable = Runnable {
+    println(&quot;run&quot;)
+}
+</code></pre><ul>
+<li>需要注意的是SAM构造方法创建对象和使用object声明创建对象是有区别的，因为lambda本质上被视为代码块，因此lambda表达式内部不允许使用this关键字，所以做不到传出自身的引用，如果需要使用this，请改用object声明</li>
+</ul>
+<p><br></p>
 <h3 id="集合函数式api"><a href="#集合函数式api" class="headerlink" title="集合函数式api"></a>集合函数式api</h3><ul>
 <li>filter，对集合中满足判断式的元素进行过滤得到新集合</li>
 </ul>
@@ -1315,7 +1329,42 @@ println(map)
 <pre><code>val list = listOf(&quot;123&quot;,&quot;45&quot;,&quot;6789&quot;)
 println(list.flatMap { it.toList() })
 </code></pre><p><br></p>
-<h3 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h3><p><br></p>
+<h3 id="序列-sequence"><a href="#序列-sequence" class="headerlink" title="序列 sequence"></a>序列 sequence</h3><ul>
+<li>类似filter和map的操作都会返回一个新的集合，如果较多或者操作或者元素较多，则会带来不必要的消耗</li>
+</ul>
+<pre><code>people.map(Person::name)
+    .filter { it.startsWith(&quot;A&quot;) }
+</code></pre><ul>
+<li>asSequence：可以使用asSequence将操作变成序列，对序列进行链式操作不会创建额外的集合来保存过程中产生的中间结果，序列的操作分为中间操作和末端操作，中间操作返回的是另一个序列，末端操作返回的是一个结果，中间操作都是惰性的。如下面的map和filter就是中间操作，而toList就是末端操作</li>
+</ul>
+<pre><code>people.asSequence()
+    .map(Person::name)
+    .filter { it.startsWith(&quot;A&quot;) }
+    .toList()
+</code></pre><ul>
+<li>在不调用末端操作时中间操作是不会执行的</li>
+</ul>
+<pre><code>//没有输出    
+listOf(1, 2, 3, 4).asSequence()
+        .map { println(&quot;do map&quot;);it * it }
+        .filter { println(&quot;do filter&quot;);it % 2 == 0 }
+</code></pre><ul>
+<li>惰性还有一个好处是，序列会依次对每个元素进行所有的操作，对于find这样并非需要访问所有元素的末端操作，则可以忽略不需要访问的元素，另外一些中间操作可以作为后续操作的先决条件，比如filter这样的操作优先执行可以减少操作的总次数</li>
+</ul>
+<pre><code>listOf(1, 2, 3, 4).asSequence()
+    .map { println(&quot;do map&quot;);it * it }
+    .filter { println(&quot;do filter&quot;);it % 2 == 0 }
+    .find { it == 4 }
+</code></pre><ul>
+<li>generateSequence：使用generateSequence可以不依赖集合类来创建一个序列，创建一个序列需要一个称谓seed的起始值（可以直接传入其值，也可以传入一个lambda表达式），还需要一个用于获取下一个元素的lambda表达式</li>
+</ul>
+<pre><code>println(
+        //或者generateSequence({0}, { it + 1 })
+    generateSequence(0) { it + 1 }
+        .takeWhile { it &lt; 100 }
+        .sum()
+)
+</code></pre><p><br></p>
 <h2 id="可空性"><a href="#可空性" class="headerlink" title="可空性"></a>可空性</h2><ul>
 <li>编译检查</li>
 </ul>
