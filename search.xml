@@ -168,7 +168,7 @@ fun main() {
 </code></pre><ul>
 <li>具体来说，原因是在get和set方法中，get和set的自动调用依然是开启的，所以容易出现以下情况。注意有的情况lint无法检测出来，同时只有运行时访问到该属性时才会抛出StackOverflowError。本来get和set方法中就不应该有过多复杂的操作，尽量使用fiel关键字，谨慎调用其他方法即可</li>
 </ul>
-<pre><code>//无限递归get，ide有提示    
+<pre><code>//无限递归get，ide有提示  
 var isSquare: Boolean = false
         get() {
             if (isSquare) return true
@@ -625,7 +625,7 @@ fun test() {
 </code></pre><ul>
 <li>包扩展函数的实现原理是生成将函数编译为带对应静态方法的java类，类名默认为首字母大写的文件名+Kt，也可以使用 @file:JvmName(\“类名\”)进行自定义</li>
 </ul>
-<pre><code>//in join.kt        
+<pre><code>//in join.kt  
 JoinKt.joinToString();
 </code></pre><ul>
 <li>同样可以给已有的包提供扩展的属性，可以指定为val或var，get set特性的在这里依然支持，如果需要指定常量（java中的public static final）可以使用const val，const val不支持get set特性</li>
@@ -991,9 +991,9 @@ class User2 :User{
 </ul>
 <pre><code>package kotlin
 
-/**
+/\*\*
  * The root of the Kotlin class hierarchy. Every Kotlin class has [Any] as a superclass.
- */
+ \*/
 public open class Any {
     /**
      * Indicates whether some other object is &quot;equal to&quot; this one. Implementations must fulfil the following
@@ -1121,7 +1121,6 @@ data class Person(val name:String){
     Person.fromJson(&quot;{ ... }&quot;)
 }
 
-
 class Person(val name:String){
     companion object{
         fun fromJson(jsonText:String) : Person = 
@@ -1137,18 +1136,18 @@ class Person(val name:String){
     }
 }
 </code></pre><ul>
-<li><p>伴生对象可以有父类或实现接口，同时可以使用其命名添加扩展函数</p>
-<p>  class Person(val name:String){</p>
-<pre><code>companion object: Test() {
-    var aInt:Int = 1
-    fun fromJson(jsonText:String) : Person = Person(&quot;&quot;)
-}
-</code></pre><p>  }</p>
-<p>  fun Person.Companion.meth(){</p>
-<p>  }</p>
-</li>
+<li>伴生对象可以有父类或实现接口，同时可以使用其命名添加扩展函数</li>
 </ul>
-<ul>
+<pre><code>class Person(val name:String){
+    companion object: Test() {
+        var aInt:Int = 1
+        fun fromJson(jsonText:String) : Person = Person(&quot;&quot;)
+    }
+}
+
+fun Person.Companion.meth(){
+}
+</code></pre><ul>
 <li>object还可以用于声明匿名内部类，与java不同函数中的局部变量可以被匿名内部类访问和修改，不需要被final限制</li>
 </ul>
 <pre><code>window.addMouseListener(object : MouseAdapter(){
@@ -1161,7 +1160,7 @@ class Person(val name:String){
     }
 })
 
-    var count = 0
+var count = 0
 val listener = object : MouseAdapter(){
     override fun mouseClicked(e: MouseEvent?) {
         count ++
@@ -1199,16 +1198,16 @@ window.addMouseListener(listener)
 <li>简化：kotlin中使用lambda时支持一定的简化，表达式是最后一个参数，花括号可以移动到小括号的后面，当表达式是唯一参数时小括号可以省略，同时lambda支持类型推断，无需指明类型，而且如果表达式是唯一参数那么可以直接使用默认的参数命名it。注意如果表达式是用变量存储的话，类型声明就不可以省略，因为无法推断</li>
 </ul>
 <pre><code>//最完整的写法    
-var oldest = people.maxBy({ p: Person -&gt; p.age })
+var oldest = people.maxBy({ p: Person -\&gt; p.age })
 
 //1.因为表达式是最后一个参数
-var oldest = people.maxBy(){ p: Person -&gt; p.age }
+var oldest = people.maxBy(){ p: Person -\&gt; p.age }
 
 //2.因为表达式是唯一的参数
-var oldest = people.maxBy{ p: Person -&gt; p.age }
+var oldest = people.maxBy{ p: Person -\&gt; p.age }
 
 //3.因为可以进行类型推断
-var oldest = people.maxBy{ p -&gt; p.age }
+var oldest = people.maxBy{ p -\&gt; p.age }
 
 //4.编译器提供默认命名参数it，因此命名也不需要
 var oldest = people.maxBy{ it.age }
@@ -1258,9 +1257,73 @@ val runnable = Runnable {
     println(&quot;run&quot;)
 }
 </code></pre><ul>
-<li>需要注意的是SAM构造方法创建对象和使用object声明创建对象是有区别的，因为lambda本质上被视为代码块，因此lambda表达式内部不允许使用this关键字，所以做不到传出自身的引用，如果需要使用this，请改用object声明</li>
+<li>需要注意的是SAM构造方法创建对象和使用object声明创建对象是有区别的，因为普通lambda本质上被视为代码块，因此普通lambda表达式内部不允许使用this关键字，做不到传出自身的引用，如果需要使用this，请改用object声明。另外在扩展函数时使用的lambda是一种特殊的情况，被称为带接受者的lambda，我们将在后面讲解这种情况</li>
 </ul>
 <p><br></p>
+<h3 id="带接受者的lambda"><a href="#带接受者的lambda" class="headerlink" title="带接受者的lambda"></a>带接受者的lambda</h3><ul>
+<li>之前我们看过如何静态地声明类扩展函数，也可以动态地实现这种效果，下面动态声明了一个类的扩展函数并调用，该扩展函数的声明使用到了一种特殊的lambda，它是带接受者（也就是this）的，表达式中的this与静态声明的扩展函数中的this一致，指向的是被扩展的类的实例，可以省略。这个特性看起来有点多余，但它可以实现一些很重要的功能</li>
+</ul>
+<pre><code>fun main() {
+
+    val newMeth:AClass.()-&gt;Boolean = {
+        this.oldMeth()
+        println(&quot;newMeth&quot;)
+        true
+    }
+    val t = AClass().newMeth()
+}
+
+class AClass{
+
+    fun oldMeth(){
+        println(&quot;oldMeth&quot;)
+    }
+}
+</code></pre><p><br></p>
+<h3 id="with"><a href="#with" class="headerlink" title="with"></a>with</h3><ul>
+<li>有时候我们会经常对同一个对象进行操作，这个时候需要不但重复变量的名称，这时代码显得臃肿，不直观，特别是在变量名比较长的情况下</li>
+</ul>
+<pre><code>fun main() {
+
+    println(alphabet())
+}
+
+fun alphabet():String{
+
+    val result = StringBuilder()
+    for(letter in &apos;A&apos; .. &apos;Z&apos;){
+        result.append(letter)
+    }
+
+    result.append(&quot;\n now i know the alphabet&quot;)
+    return result.toString()
+}
+</code></pre><ul>
+<li>with：使用with可以对上述情况进行简化，with是一个顶层函数，而不是内置在语法中的特性</li>
+</ul>
+<pre><code>fun alphabet():String = with(StringBuilder()){
+    for(letter in &apos;A&apos; .. &apos;Z&apos;){
+        append(letter)
+    }
+
+    append(&quot;\n now I know the alphabet&quot;)
+    toString()
+}
+</code></pre><ul>
+<li>with的实现基于带接受者的lambda，从函数声明可以看出这一点</li>
+</ul>
+<pre><code>public inline fun &lt;T, R&gt; with(receiver: T, block: T.() -&gt; R): R 
+</code></pre><p><br></p>
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><ul>
+<li>apply与with类似，只是apply返回的是被用于函数扩展的实例，这对于初始化对象的情况非常合适</li>
+</ul>
+<pre><code>fun alphabet()=StringBuilder().apply { 
+    for (letter in &apos;A&apos; .. &apos;Z&apos;){
+        append(letter)
+    }
+    append(&quot;\n now I know the alphabet&quot;)
+}.toString()
+</code></pre><p><br></p>
 <h3 id="集合函数式api"><a href="#集合函数式api" class="headerlink" title="集合函数式api"></a>集合函数式api</h3><ul>
 <li>filter，对集合中满足判断式的元素进行过滤得到新集合</li>
 </ul>
@@ -1344,7 +1407,7 @@ println(list.flatMap { it.toList() })
 </code></pre><ul>
 <li>在不调用末端操作时中间操作是不会执行的</li>
 </ul>
-<pre><code>//没有输出    
+<pre><code>//没有输出  
 listOf(1, 2, 3, 4).asSequence()
         .map { println(&quot;do map&quot;);it * it }
         .filter { println(&quot;do filter&quot;);it % 2 == 0 }
@@ -1365,8 +1428,15 @@ listOf(1, 2, 3, 4).asSequence()
         .sum()
 )
 </code></pre><p><br></p>
-<h2 id="可空性"><a href="#可空性" class="headerlink" title="可空性"></a>可空性</h2><ul>
-<li>编译检查</li>
+<h2 id="可空性"><a href="#可空性" class="headerlink" title="可空性"></a>可空性</h2><p><br></p>
+<h3 id="非空类型"><a href="#非空类型" class="headerlink" title="非空类型"></a>非空类型</h3><ul>
+<li>kotlin当中null也作为类型检查的一部分，默认情况下，所有类型都是非空的，所以当显式赋值为null时会报错</li>
+</ul>
+<pre><code>    var a:String
+//Error:(14, 9) Kotlin: Null can not be a value of a non-null type String
+a = null 
+</code></pre><ul>
+<li>对于函数调用也是如此，无法将null传给普通声明的参数</li>
 </ul>
 <pre><code>fun main() {
     strLen(null)
@@ -1374,14 +1444,45 @@ listOf(1, 2, 3, 4).asSequence()
 }
 
 fun strLen(s:String) = s.length
-</code></pre><ul>
-<li>可空类型</li>
+</code></pre><p><br></p>
+<h3 id="可空类型"><a href="#可空类型" class="headerlink" title="可空类型"></a>可空类型</h3><ul>
+<li>可空类型：如果需要赋值null时，可以使用 ？进行可空类型声明</li>
 </ul>
-<pre><code>fun main() {
+<pre><code>var a:String?
+fun main() {
     strLen(null)
 }
-
 fun strLen(s:String?) = s?.length
+</code></pre><ul>
+<li>可空类型并不是简单地可以存储null值而已，因为编译器已经知道了变量很可能为空，因此可以做更严格的编译检查</li>
+</ul>
+<ul>
+<li>不能直接调用其函数</li>
+</ul>
+<pre><code>fun strLenSafe(s:String?) = s.length
+</code></pre><ul>
+<li>不能直接赋值给非空类型</li>
+</ul>
+<pre><code>val x: String? = null
+val y: String = x
+</code></pre><ul>
+<li>不能直接传给非空参数</li>
+</ul>
+<pre><code>fun main() {
+
+    val x: String? = null
+    strLen(x)
+}
+
+fun strLen(s:String)=s.length
+</code></pre><p><br></p>
+<h3 id="安全调用运算符"><a href="#安全调用运算符" class="headerlink" title="安全调用运算符 .?"></a>安全调用运算符 .?</h3><ul>
+<li>我们需要一些特定的操作来使得上面对可空类型的调用可以工作，最直接的是添加判空，但这样的语句非常啰嗦，kotlin中可以使用安全调用运算符来简化这种语句</li>
+</ul>
+<pre><code>val x: String? = null
+if (x != null) {
+    strLen(x)
+}
 </code></pre><p><br></p>
 <h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
 <li>kotlin中的文档注释和java中的文档注释一样以/和两个星号开头，差别在于kotlin中的文档注释使用markdown语法而不是html，另外引用声明使用中括号表示</li>
