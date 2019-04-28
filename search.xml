@@ -1599,7 +1599,8 @@ export flutter_storage_base_url=https://storage.flutter-io.cn
       <url>/2019/04/12/OtherPlan/</url>
       <content type="html"><![CDATA[<p>-</p>
 <a id="more"></a>
-<p><strong>主要整理一下学习资料，方便自己和后来人学习</strong></p>
+<p><strong>最近又转组了，下面的技术应该用不太到，可能主要还是c++，不过这篇还是保留吧</strong></p>
+<p><strong>整理一下学习资料，方便自己和后来人学习</strong></p>
 <p><strong>5月份（或之前）去腾讯mxg实习，所在组主要做微信的业务功能和新技术的预研，似乎要了解的新技术比较多，需要提前学一下flutter，组件化，kotlin，除了组件化以外基本只学了一点没有深入过，这段时间捡回来</strong></p>
 <p><br></p>
 <h3 id="flutter"><a href="#flutter" class="headerlink" title="flutter"></a>flutter</h3><p><strong> 之前学过dart，flutter没有怎么学：<a href="https://tocreate.app/2018/10/27/EnvDartFlutter/" target="_blank" rel="external">Dart &amp; Flutter 环境搭建</a>，<a href="https://tocreate.app/2018/11/03/LangDart/" target="_blank" rel="external">dart语言</a></strong> </p>
