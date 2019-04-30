@@ -1426,7 +1426,7 @@ if (x != null) {
     strLen(x)
 }
 </code></pre><ul>
-<li>?.: 安全调用运算符，用于调用可空类型的函数（虽然非空类型也可以使用），可以理解为上面判空形式的简写，但注意安全调用在对象为null时，表达式的值也为null</li>
+<li>?.: 安全调用运算符，用于调用可空类型的函数或获取属性（虽然非空类型也可以使用），可以理解为上面判空形式的简写，但注意安全调用在对象为null时，表达式的值也为null</li>
 </ul>
 <pre><code>fun main() {
     printAllCaps(&quot;abc&quot;)
@@ -1437,7 +1437,18 @@ fun printAllCaps(s:String?){
     val allCaps: String? = s?.toUpperCase()
     println(allCaps)
 }
+</code></pre><ul>
+<li>安全调用运算符也可以用于获取属性</li>
+</ul>
+<pre><code>    person.manager?.name
+
+class Employee(val name: String, val manager: Employee?)
+</code></pre><ul>
+<li>安全调用运算符可以嵌套使用</li>
+</ul>
+<pre><code>person.manager?.manager?.manager?.manager
 </code></pre><p><br></p>
+<h3 id="Elvis-运算符"><a href="#Elvis-运算符" class="headerlink" title="Elvis 运算符: ?:"></a>Elvis 运算符: ?:</h3><p><br></p>
 <h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
 <li>kotlin中的文档注释和java中的文档注释一样以/和两个星号开头，差别在于kotlin中的文档注释使用markdown语法而不是html，另外引用声明使用中括号表示</li>
 </ul>
