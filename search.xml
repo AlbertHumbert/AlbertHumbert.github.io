@@ -145,7 +145,6 @@ println(albert.name)
             return width == height
         }
 }
-
 fun main() {
     val p = Rectangle(1,1)
     assert(p.isSquare)
@@ -174,13 +173,11 @@ var isSquare: Boolean = false
             if (isSquare) return true
             return false
         }
-
 //无限递归set，ide有提示
 var isSquare: Boolean = false
         set(value) {
             isSquare = value
         }
-
 //get与set循环造成栈溢出，ide无提示
 var isSquare: Boolean =false
         get() {
@@ -195,7 +192,6 @@ var isSquare: Boolean =false
                 field = value
             }
         }
-
 //get与普通方法循环造成栈溢出，ide无提示
     var isSquare: Boolean =false
         get() {
@@ -494,7 +490,6 @@ println(list.asReversed())
 <li>使用 参数名 = 参数值 可以显式指定参数名称，让代码可读性更强，一旦一个参数使用了命名，随后的参数都需要命名，开始命名之后，参数的位置就不重要了，不需要按函数声明的顺序一样传入</li>
 </ul>
 <pre><code>fun main() {
-
     println(joinToString(
             listOf(1, 2, 3)
             , separator = &quot;,&quot;
@@ -503,15 +498,12 @@ println(list.asReversed())
         )
     )
 }
-
-
 fun &lt;T&gt; joinToString(
     collection: Collection&lt;T&gt;,
     separator: String,
     prefix: String,
     postfix: String
 ): String {
-
     val result = StringBuilder(prefix)
     for ((index, element) in collection.withIndex()) {
         if (index &gt; 0) result.append(separator)
@@ -527,15 +519,12 @@ fun &lt;T&gt; joinToString(
 <pre><code>fun main() {
     println(joinToString(listOf(1, 2, 3)))
 }
-
-
 fun &lt;T&gt; joinToString(
     collection: Collection&lt;T&gt;,
     separator: String = &quot;,&quot;,
     prefix: String = &quot;[&quot;,
     postfix: String = &quot;]&quot;
 ): String {
-
     val result = StringBuilder(prefix)
     for ((index, element) in collection.withIndex()) {
         if (index &gt; 0) result.append(separator)
@@ -554,7 +543,6 @@ fun &lt;T&gt; joinToString(
     postfix: String = &quot;]&quot;,
     test: Boolean = false
 ): String {
-
     return &quot;&quot;
 }
 </code></pre><ul>
@@ -563,7 +551,6 @@ fun &lt;T&gt; joinToString(
 <pre><code>fun main() {
     println(joinToString(listOf(1, 2, 3),prefix = &quot;[&quot;))
 }
-
 fun &lt;T&gt; joinToString(
     collection: Collection&lt;T&gt;,
     separator: String = &quot;,&quot;,
@@ -571,7 +558,6 @@ fun &lt;T&gt; joinToString(
     postfix: String = &quot;]&quot;,
     test:Int = 0
 ): String {
-
     val result = StringBuilder(prefix)
     for ((index, element) in collection.withIndex()) {
         if (index &gt; 0) result.append(separator)
@@ -580,8 +566,6 @@ fun &lt;T&gt; joinToString(
     result.append(postfix)
     return result.toString()
 }
-
-
 fun &lt;T&gt; joinToString(
     collection: Collection&lt;T&gt;,
     separator: String = &quot;,&quot;,
@@ -589,7 +573,6 @@ fun &lt;T&gt; joinToString(
     test: Boolean = false,
     postfix: String = &quot;]&quot;
 ): String {
-
     return &quot;&quot;
 }
 </code></pre><p><br></p>
@@ -598,9 +581,7 @@ fun &lt;T&gt; joinToString(
 </ul>
 <pre><code>fun test(vararg values:Int){
 }
-
 fun main(){
-
     test(1,2,3)
 
     var array = intArrayOf(1,2,3)
@@ -612,13 +593,10 @@ fun main(){
 <li>给已有的包提供扩展的函数，在一个独立的文件中将package指定为需要扩展的包即可，这时候函数不属于任何类，在需要调用时直接import即可，比起java中常见的util类，由于不用使用类名，相对简洁，同时也减少了重复功能的函数，因为这样的函数相对容易查找。</li>
 </ul>
 <pre><code>package strings
-
 fun &lt;T&gt; joinToString ...
-
 import strings.\*
 //或者
 import strings.joinToString
-
 fun test() {
     joinToString()
 }
@@ -631,7 +609,6 @@ JoinKt.joinToString();
 <li>同样可以给已有的包提供扩展的属性，可以指定为val或var，get set特性的在这里依然支持，如果需要指定常量（java中的public static final）可以使用const val，const val不支持get set特性</li>
 </ul>
 <pre><code>package strings
-
 var test:Int = 0
 get() {
     return field
@@ -641,9 +618,7 @@ get() {
 <li>给已有的类提供扩展的函数，只是在普通的函数声明中的名称之前加上 类名. 即可，在方法体中使用this来访问对象，但依然受访问权限的限制，比如可能无法访问prviate或protected成员和函数</li>
 </ul>
 <pre><code>fun String.lastChar():Char = this.get(this.length-1)
-
 //...
-
 fun main(){
     println(&quot;a&quot;.lastChar())
 }
@@ -651,9 +626,7 @@ fun main(){
 <li>扩展函数和成员函数之间都可以互相调用</li>
 </ul>
 <pre><code>fun AAA.aTest(){
-
 }
-
 fun AAA.BTest(){
     this.aTest()
 }
@@ -667,18 +640,15 @@ fun AAA.BTest(){
 //val.
 val String.lastChar: Char
 get() = get(length-1)
-
 //var
 var String.lastChar: Char
 get() = get(length-1)
 set(value:Char){
 //nothing we can do here
 }
-
 fun main(){
     println(&quot;a&quot;.lastChar)
 }
-
 //可变类
 var StringBuilder.lastChar: Char
 get() = get(length-1)
@@ -690,7 +660,6 @@ set(value:Char){
 <li>相比java，kotlin支持真正的闭包，在函数当中可以定义局部函数，局部函数可以调用外部函数中的局部变量，局部函数在扩展函数，get set函数中都适用</li>
 </ul>
 <pre><code>fun checkUser(user:User) {
-
     val throwEx = true
     fun checkEmpty(str:String){
         if(str.isEmpty()){
@@ -708,9 +677,7 @@ set(value:Char){
     val array = 1 fillTo 100
     println(array[2])
 }
-
 infix fun Int.fillTo(other: Int): Array&lt;Int&gt; {
-
     val result = Array(init = {0}, size = other - this)
 
     for (i in this until other) {
@@ -778,12 +745,8 @@ println(str.trimMargin(&quot;|&quot;))
 <pre><code>interface  Clickable{
     fun click()
 }
-
-
 class Button:Clickable{
-
     override fun click() = println(&quot;click&quot;)
-
 }
 </code></pre><ul>
 <li>接口中支持默认函数，不同于java8的默认方法，它不需要default关键字，注意不管是在kotlin还是在java当中，如果类或接口相关联的多个接口中有相同的函数（方法），则该类或接口必须对该函数（方法）进行重写，否则编译不通过</li>
@@ -799,7 +762,6 @@ class Button:Clickable{
     override fun click(){}
     open fun disable(){}
 }
-
 class SubButton: Button() {
     override fun disable(){}
 }
@@ -817,8 +779,6 @@ class SubButton: Button() {
 <pre><code>open class Button : Clickable {
      protected val aProtectedField: Int = 0
 }
-
-
 class Test {
     fun test() {
         var obj = Button()
@@ -839,7 +799,6 @@ class Test {
 <li>inner：kotlin支持类似java中的内部类和静态内部类，但kotlin中并没有static关键字，因为在kotlin中定义在一个class中的class默认是嵌套类（类比java中的静态内部类），如果需要指定为内部类则需要使用inner关键字，嵌套类不会持有外部类的引用，因此更加有利于实现序列化和反序列化</li>
 </ul>
 <pre><code>class Button : Clickable {
-
     var aField: Int = 0
 
     inner class Test {
@@ -857,14 +816,9 @@ class Test {
 <li>在使用when控制分支时，如果使用了when的返回值，则需要覆盖所有分支情况，因此通常需要使用else关键字处理省缺的情况，这样在软件迭代过程中很出现漏判的情况，kotlin提供了解决这种问题的方法</li>
 </ul>
 <pre><code>interface Expr
-
 class Num(val value: Int) : Expr
-
 class Sum(val left: Expr, val right: Expr) : Expr
-
-
 fun eval(e: Expr): Int = when (e) {
-
     is Num -&gt; e.value
     is Sum -&gt; eval(e.right) + eval(e.left)
     else -&gt; throw IllegalArgumentException()
@@ -876,9 +830,7 @@ fun eval(e: Expr): Int = when (e) {
 class Num(val value: Int) : Expr()
 class Sum(val left: Expr, val right: Expr) : Expr()
 }
-
 fun eval(e: Expr): Int = when (e) {
-
     is Expr.Num -&gt; e.value
     is Expr.Sum -&gt; eval(e.right) + eval(e.left)
 }
@@ -897,15 +849,12 @@ fun eval(e: Expr): Int = when (e) {
         this.nickname = nickname
     }
 }
-
 //等价于
 class User constructor(nickname:String){
     val nickname:String = nickname
 }
-
 //等价于
 class User constructor(val nickname: String)
-
 //等价于
 class User (val nickname: String)
 </code></pre><ul>
@@ -918,13 +867,11 @@ class User (val nickname: String)
 <pre><code>open class Person (val nickname: String){
     //...
 }
-
 class User (nickname:String): Person(nickname)
 </code></pre><ul>
 <li>如果希望类不能被外部实例化（用于静态工具或单例）则可以使用private关键字</li>
 </ul>
 <pre><code>class User private constructor() : Person()
-
 //报错
 val usr = User()
 </code></pre><p><br></p>
@@ -952,7 +899,6 @@ val usr = User()
 <li>如果一个类具有主构造函数，则从构造函数必须调用主构造函数</li>
 </ul>
 <pre><code>class User(){
-
     constructor(aInt:Int) : this() {
         //...
     }
@@ -961,7 +907,6 @@ val usr = User()
 <li>另外一个特殊的限制是，如果父类没有无参的构造函数，则子类的从构造函数必须调用super或者this，这里的无参构造函数即可以是父类的主构造函数又可以是从构造函数</li>
 </ul>
 <pre><code>class NewUser: User {
-
     constructor(aInt:Int,aBoolean:Boolean) : super(aInt) {
 
         //...
@@ -974,13 +919,10 @@ val usr = User()
 <pre><code>interface User{
     val nickname:String
 }
-
 class User1(override var nickname:String):User
-
 class User3 :User{
     override val nickname = &quot;&quot;
 }
-
 class User2 :User{
     override val nickname:String
     get() = &quot;&quot;
@@ -1197,7 +1139,7 @@ window.addMouseListener(listener)
 </code></pre><ul>
 <li>简化：kotlin中使用lambda时支持一定的简化，表达式是最后一个参数，花括号可以移动到小括号的后面，当表达式是唯一参数时小括号可以省略，同时lambda支持类型推断，无需指明类型，而且如果表达式是唯一参数那么可以直接使用默认的参数命名it。注意如果表达式是用变量存储的话，类型声明就不可以省略，因为无法推断</li>
 </ul>
-<pre><code>//最完整的写法    
+<pre><code>//最完整的写法  
 var oldest = people.maxBy({ p: Person -\&gt; p.age })
 
 //1.因为表达式是最后一个参数
@@ -1312,7 +1254,7 @@ fun alphabet():String{
 </code></pre><ul>
 <li>with的实现基于带接受者的lambda，从函数声明可以看出这一点</li>
 </ul>
-<pre><code>public inline fun &lt;T, R&gt; with(receiver: T, block: T.() -&gt; R): R 
+<pre><code>public inline fun \&lt;T, R\&gt; with(receiver: T, block: T.() -\&gt; R): R 
 </code></pre><p><br></p>
 <h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><ul>
 <li>apply与with类似，只是apply返回的是被用于函数扩展的实例，这对于初始化对象的情况非常合适</li>
@@ -1476,12 +1418,24 @@ val y: String = x
 
 fun strLen(s:String)=s.length
 </code></pre><p><br></p>
-<h3 id="安全调用运算符"><a href="#安全调用运算符" class="headerlink" title="安全调用运算符 .?"></a>安全调用运算符 .?</h3><ul>
+<h3 id="安全调用运算符"><a href="#安全调用运算符" class="headerlink" title="安全调用运算符 ?."></a>安全调用运算符 ?.</h3><ul>
 <li>我们需要一些特定的操作来使得上面对可空类型的调用可以工作，最直接的是添加判空，但这样的语句非常啰嗦，kotlin中可以使用安全调用运算符来简化这种语句</li>
 </ul>
 <pre><code>val x: String? = null
 if (x != null) {
     strLen(x)
+}
+</code></pre><ul>
+<li>?.: 安全调用运算符，用于调用可空类型的函数（虽然非空类型也可以使用），可以理解为上面判空形式的简写，但注意安全调用在对象为null时，表达式的值也为null</li>
+</ul>
+<pre><code>fun main() {
+    printAllCaps(&quot;abc&quot;)
+    printAllCaps(null)
+}
+
+fun printAllCaps(s:String?){
+    val allCaps: String? = s?.toUpperCase()
+    println(allCaps)
 }
 </code></pre><p><br></p>
 <h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
