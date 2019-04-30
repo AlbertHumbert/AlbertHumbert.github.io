@@ -1448,7 +1448,17 @@ class Employee(val name: String, val manager: Employee?)
 </ul>
 <pre><code>person.manager?.manager?.manager?.manager
 </code></pre><p><br></p>
-<h3 id="Elvis-运算符"><a href="#Elvis-运算符" class="headerlink" title="Elvis 运算符: ?:"></a>Elvis 运算符: ?:</h3><p><br></p>
+<h3 id="Elvis-运算符"><a href="#Elvis-运算符" class="headerlink" title="Elvis 运算符: ?:"></a>Elvis 运算符: ?:</h3><ul>
+<li>Elvis: 用于赋值时为null提供替代的值</li>
+</ul>
+<pre><code>fun foo(s:String?){
+    val t:String = s?:&quot;&quot;
+}
+</code></pre><ul>
+<li>Elvis可以像上面一样将可空类型转换成非空类型，在这种用法时默认不可为null，当然null作为替换值其实没有意义</li>
+</ul>
+<pre><code>val t:String = s?:null
+</code></pre><p><br></p>
 <h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
 <li>kotlin中的文档注释和java中的文档注释一样以/和两个星号开头，差别在于kotlin中的文档注释使用markdown语法而不是html，另外引用声明使用中括号表示</li>
 </ul>
