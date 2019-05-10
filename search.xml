@@ -1443,7 +1443,7 @@ val t:String? = s?:null//正确
 </ul>
 <pre><code>fun isEmployee(obj: Any?):Boolean {
 
-//或 val e = obj as?Employee?: Employee(&quot;&quot;,null)
+//或 val e = obj as? Employee?: Employee(&quot;&quot;,null)
     val e = obj as?Employee?: return false 
 //as? 匹配成功之后即可以调用对应类型的属性和函数
     println(e.name)
@@ -1463,9 +1463,150 @@ fun test(obj: Any?){
     //val a = obj!!
 }
 </code></pre><p><br></p>
-<h3 id="let函数"><a href="#let函数" class="headerlink" title="let函数"></a>let函数</h3><p><br></p>
-<h3 id="延迟初始化"><a href="#延迟初始化" class="headerlink" title="延迟初始化"></a>延迟初始化</h3><p><br></p>
-<h3 id="可空性扩展"><a href="#可空性扩展" class="headerlink" title="可空性扩展"></a>可空性扩展</h3><p><br></p>
+<h3 id="let函数"><a href="#let函数" class="headerlink" title="let函数"></a>let函数</h3><ul>
+<li>let: 用于将对象传递到lambda函数当中，let与安全调用运算符一起使用，可以很方便地对一个可空类型进行频繁的操作</li>
+</ul>
+<pre><code>fun main() {
+    val obj:String? = null
+    obj?.let { send(it) }
+
+    val map:HashMap&lt;String,String&gt;? = null
+    map?.let { 
+        it.clear()
+        it.put(&quot;&quot;,&quot;&quot;)
+    }
+}
+
+fun send(obj:String){
+}
+</code></pre><p><br></p>
+<h3 id="延迟初始化-lateinit"><a href="#延迟初始化-lateinit" class="headerlink" title="延迟初始化 lateinit"></a>延迟初始化 lateinit</h3><ul>
+<li>lateinit：用于进行延迟初始化，由于通常情况下kotlin要求所有字段在构造阶段初始化，有些需要在其他方法中初始化的字段，虽然我们可以使用可空类型赋值为null，但这样每次访问时就需要使用?或!!等操作，而使用 lateinit 则可以直接使用非空类型并且不需要马上初始化</li>
+</ul>
+<pre><code>class Test{
+    lateinit var str:String
+}
+
+fun main() {
+    val test = Test()
+    //test.str = &quot;&quot;
+    //Exception in thread &quot;main&quot; kotlin.UninitializedPropertyAccessException
+    println(test.str)
+}
+</code></pre><ul>
+<li>需要注意的是lateinit的字段在初始化前是不可以访问的，甚至不可以对他进行判空，只要访问了，就会抛出异常</li>
+</ul>
+<p><br></p>
+<h3 id="可空类性扩展函数"><a href="#可空类性扩展函数" class="headerlink" title="可空类性扩展函数"></a>可空类性扩展函数</h3><ul>
+<li>可以为可空类型添加特殊的扩展函数，这种函数在对象为空的情况下依然可以直接调用，而不需要添加安全调用运算符和其他操作</li>
+</ul>
+<pre><code>fun main() {
+    val str:String? = null
+
+    println(str.isNullOrBlank())
+}
+
+fun String?.isNullOrBlank():Boolean = 
+    this == null || this.isBlank()
+</code></pre><p><br></p>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p><br></p>
+<h3 id="平台类型"><a href="#平台类型" class="headerlink" title="平台类型"></a>平台类型</h3><ul>
+<li>平台类型指java当中不知道是否为空的类型，这个时候kotlin允许使用可空也允许使用非空类型来指向其实例，这种情况下，如果调用了空对象的属性或函数，则会抛出nullpointer异常</li>
+</ul>
+<pre><code>val a = Person().getName()
+println(a.length) //nullpointer
+</code></pre><ul>
+<li>在继承java类时，重写方法可以将参数指定为可空或非空，原理类似上文</li>
+</ul>
+<p><br></p>
+<h3 id="可空基本类型"><a href="#可空基本类型" class="headerlink" title="可空基本类型"></a>可空基本类型</h3><ul>
+<li>kotlin当中不区分基本类型和包装类型，统一使用一种类型，同时为这些类型提供了很多便利的函数，大多数情况下kotlin当中的基本类型都会被编译成java中的基本类型，因此不用担心效率问题</li>
+</ul>
+<pre><code>val a = 10000
+val b = a.coerceIn(0,1)
+</code></pre><ul>
+<li>不过当使用可空类型时就不可以用java中的基本类型来表示了，因为需要存储null值，泛型也是如此。注意对于可空类型，只有确定其为非空之后才可以</li>
+</ul>
+<p><br></p>
+<h3 id="数字转换"><a href="#数字转换" class="headerlink" title="数字转换"></a>数字转换</h3><ul>
+<li>在kotlin当中基本类型之间赋值不会自动进行类型转换，而需要调用转换函数</li>
+</ul>
+<pre><code>val i = 1
+val l:Long = i
+
+val l:Long = i.toLong()
+</code></pre><ul>
+<li>对于参数类型也是如此需要手动调用转换函数</li>
+</ul>
+<pre><code>val x = 1
+println(x.toLong() in listOf(1L, 2L, 3L))
+</code></pre><ul>
+<li>当表达式具有多种类型时，则编译器则会进行自动转换，同时由于我们使用类型推断，通常不用太关心这样的细节</li>
+</ul>
+<pre><code>val x:Int = 1
+val y:Long = 1
+val z = x+y
+</code></pre><ul>
+<li>字面常量支持使用下划线</li>
+</ul>
+<pre><code>fun main() {
+    val x = 1_100_111
+    println(x)
+}
+</code></pre><p><br></p>
+<h3 id="unit类型"><a href="#unit类型" class="headerlink" title="unit类型"></a>unit类型</h3><ul>
+<li>Unit：类似java的void，kotlin当中如果一个函数没有需要显式指明的返回值，则使用Unit声明，如果我们显式地指明它们则是下面这样的，Unit也是一种实际的类型，但它只有一个唯一的实例 Unit，这就是它名称的由来</li>
+</ul>
+<pre><code>fun main() {
+    val unit = test()
+}
+
+fun test():Unit{
+    println(&quot;1&quot;)
+    return Unit
+}
+</code></pre><ul>
+<li>像void一样，编译器会自动为我们添加返回语句</li>
+</ul>
+<pre><code>fun main() {
+    test()
+}
+
+fun test() {
+    println(&quot;1&quot;)
+}
+</code></pre><p><br></p>
+<h3 id="nothing"><a href="#nothing" class="headerlink" title="nothing"></a>nothing</h3><ul>
+<li>Nothing：用于真正不需要返回值的函数，这种函数不需要返回值的原因是无法返回，函数内部不能使用return关键字，只有函数中有抛出异常或者死循环才能编译通过</li>
+</ul>
+<pre><code>fun fail(message: String): Nothing {
+
+   throw IllegalStateException(message)
+}
+
+fun fail(message: String): Nothing {
+
+    while (true){
+    }
+}
+</code></pre><ul>
+<li>可以尝试接受这种返回值，但实际上函数永远不会返回</li>
+</ul>
+<pre><code>val a :Nothing = fail(&quot;&quot;)
+</code></pre><ul>
+<li>一种很方便的用法是在Elvis运算符中</li>
+</ul>
+<pre><code>fun fail(message: String): Nothing {
+
+    throw IllegalStateException(message)
+}
+
+fun main() {
+
+    val str:String? = null
+    val address = str?: fail(&quot;no address&quot;)
+}
+</code></pre><p><br></p>
 <h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
 <li>kotlin中的文档注释和java中的文档注释一样以/和两个星号开头，差别在于kotlin中的文档注释使用markdown语法而不是html，另外引用声明使用中括号表示</li>
 </ul>
