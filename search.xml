@@ -1703,7 +1703,7 @@ operator fun Point.minus(other: Int): Point {
     return Point(x - other, y - other)
 }
 </code></pre><ul>
-<li>算术运算符的函数名对应如下</li>
+<li>算术运算符的函数名对应如下，kotlin并不支持重载位运算符</li>
 </ul>
 <pre><code>* : times
 / : div
@@ -1810,15 +1810,51 @@ operator fun Point.set(index: Int, value:Int) {
     }
 }
 </code></pre><ul>
-<li>in，</li>
+<li>in，可以使用in来判断元素是否在一个集合当中，我们也可以重载它来实现类似的功能</li>
+</ul>
+<pre><code>fun main() {
+
+    val rect = Rectangle(Point(20,20),Point(50,50))
+
+    println(Point(20,20) in rect)
+}
+
+
+data class Rectangle(val upperLeft: Point, val lowerRight:Point)
+
+operator fun Rectangle.contains(p: Point): Boolean {
+    return p.x in upperLeft.x until lowerRight.x
+            &amp;&amp; p.y in upperLeft.y until lowerRight.y
+}
+</code></pre><ul>
+<li>rangeTo，..运算符对应的函数，用来返回一个区间，通常我们不需要自己直接去实现这个函数，实现comparable接口既可以直接使用..运算符</li>
 </ul>
 <ul>
-<li>rangeTo</li>
+<li>iterator，为指定的区间添加iterator函数，则可以在for循环中使用in并自定义迭代器</li>
 </ul>
-<ul>
-<li>iterator</li>
-</ul>
-<p><br></p>
+<pre><code>operator fun ClosedRange&lt;LocalDate&gt;.iterator(): Iterator&lt;LocalDate&gt; =
+    object : Iterator&lt;LocalDate&gt; {
+
+        var current = start
+
+        override fun hasNext() = current &lt;= endInclusive
+
+        override fun next() = current.apply {
+            current = plusDays(1)
+        }
+    }
+
+fun main() {
+
+
+    val dayOffs =
+        LocalDate.ofYearDay(2017, 1)..LocalDate.ofYearDay(2017, 3)
+
+    for (dayOff in dayOffs){
+        println(dayOff)
+    }
+}
+</code></pre><p><br></p>
 <h3 id="解构声明和组件函数"><a href="#解构声明和组件函数" class="headerlink" title="解构声明和组件函数"></a>解构声明和组件函数</h3><p><br></p>
 <h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p><br></p>
 <h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p><br></p>
