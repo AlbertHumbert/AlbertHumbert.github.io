@@ -1607,6 +1607,215 @@ fun main() {
     val address = str?: fail(&quot;no address&quot;)
 }
 </code></pre><p><br></p>
+<h2 id="集合-1"><a href="#集合-1" class="headerlink" title="集合"></a>集合</h2><p><br></p>
+<h3 id="可空性-1"><a href="#可空性-1" class="headerlink" title="可空性"></a>可空性</h3><ul>
+<li>kotlin的泛型当中支持可空类型和非空类型，所以在非空类型的集合中不允许加入null</li>
+</ul>
+<pre><code>val list = ArrayList&lt;Int&gt;()
+list.add(null) //报错
+
+val list = ArrayList&lt;Int?&gt;()
+list.add(null) //正常
+</code></pre><p><br></p>
+<h3 id="只读-可变"><a href="#只读-可变" class="headerlink" title="只读 可变"></a>只读 可变</h3><ul>
+<li>kotlin中将只读集合和可变集合分离，准确的说，可变集合接口一般是只读集合接口的子接口，前者扩展了修改数据的函数，这样的效果是我们可以通过函数参数判断集合是否会被修改，在集合的层级结构当中可变集合以Mutable开头比如MutableList，只读集合则为一般的集合类型名称比如List</li>
+</ul>
+<pre><code>fun read(collection: Collection&lt;Int&gt;) {
+    println(collection)
+}
+
+fun write(mutableCollection : MutableCollection&lt;Int&gt;){
+    mutableCollection.add(1)
+}
+
+    var list:List&lt;Int&gt; = listOf(1,2,3)
+    var mutableList:MutableList&lt;Int&gt; = mutableListOf(1,2,3)
+
+    read(list)
+    read(mutableListOf(1,2,3))
+
+    write(list)//报错
+    write(mutableList)
+</code></pre><ul>
+<li>kotlin环境下，java中的集合类如ArrayList，实现了kotlin当中的可变接口所以可以像上文一样使用，实际上如mutableListOf这样的函数内部调用的就是ArrayList</li>
+</ul>
+<pre><code>val list:List&lt;Int&gt; = ArrayList()
+val mutableList:MutableList&lt;Int&gt; = ArrayList()
+</code></pre><ul>
+<li>注意如果需要将集合传给java方法则可以直接传递，不需要任何额外的操作，但是java方法可以任意修改集合，不管是否可变，但是当我们使用kotlin重写java当中的方法时，可以修改参数为可变或不可变类型，以及指定是否可空</li>
+</ul>
+<p><br></p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
+<li>array：kotlin中的数组使用支持泛型的类型Array，并提供了一些扩展方法</li>
+</ul>
+<pre><code>fun main() {
+
+    val letters = Array&lt;String&gt;(26){
+        i -&gt; (&apos;a&apos;+i).toString()
+    }
+
+    println(letters.joinToString(&quot; &quot;))
+}
+</code></pre><ul>
+<li>和其他泛型的情况一样，类型参数会转换为对象类型，如果需要使用真正的基本类型的数组，kotlin还提供了专门的数据类型 IntArray, ByteArray，等等</li>
+</ul>
+<pre><code>val array:IntArray = intArrayOf(1,2,3)
+</code></pre><p><br></p>
+<h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h2><p><br></p>
+<h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><ul>
+<li>operator：在kotlin当中运算符与特定的函数名绑定，使用operator可以进行运算符重载</li>
+</ul>
+<pre><code>fun main() {
+
+
+    val point = Point(1,1) + Point(2,2)
+
+    //Point(x=3, y=3)
+    println(point)
+}
+
+
+data class Point(val x: Int, val y: Int) {
+
+    operator fun plus(other: Point): Point {
+        return Point(x + other.x, y + other.y)
+    }
+}
+</code></pre><ul>
+<li>也可以使用扩展函数来进行运算符重载</li>
+</ul>
+<pre><code>operator fun Point.minus(other: Point): Point {
+    return Point(x - other.x, y - other.y)
+}
+</code></pre><ul>
+<li>运算符重载时通常不限制参数类型，可以自己选择合适的类型</li>
+</ul>
+<pre><code>fun main() {
+
+    val point = Point(1, 1) - 1   //Point(x=3, y=3)
+    println(point)
+}
+
+
+data class Point(val x: Int, val y: Int)
+
+operator fun Point.minus(other: Int): Point {
+    return Point(x - other, y - other)
+}
+</code></pre><ul>
+<li>算术运算符的函数名对应如下</li>
+</ul>
+<pre><code>* : times
+/ : div
+% : mod
++ : plus
+- : minus
+</code></pre><p><br></p>
+<h3 id="复合运算符"><a href="#复合运算符" class="headerlink" title="复合运算符"></a>复合运算符</h3><ul>
+<li>类似+=，-=的运算符也支持重载，但注意如果重载了-，+这样的运算符则可以直接使用复合运算符，如果即重载了同样的算术运算符又重载了同样的复合运算符，则会报错</li>
+</ul>
+<pre><code>var point = Point(1, 1) 
+point-=1
+</code></pre><ul>
+<li>ArrayList等集合重载了复合运算符，可以如下添加元素</li>
+</ul>
+<pre><code>val numbers = arrayListOf(1,2,3)
+numbers +=4
+println(numbers)//[1, 2, 3, 4]
+</code></pre><ul>
+<li>复合运算符对应的名称即在算术运算符后加上Assign，如timesAssign，plusAssign</li>
+</ul>
+<p><br></p>
+<h3 id="一元运算符重载"><a href="#一元运算符重载" class="headerlink" title="一元运算符重载"></a>一元运算符重载</h3><ul>
+<li>重载一元运算符不需要参数，注意自增自减在对象的左边和右边时的特性和一般语言中的一致，也是支持的</li>
+</ul>
+<pre><code>fun main() {
+    val point =  Point(1,1)
+    var test = -point;
+}
+
+operator fun Point.unaryMinus():Point{
+    return Point(-x,-y)
+}
+</code></pre><ul>
+<li>一元运算符对应的函数名如下</li>
+</ul>
+<pre><code>+ : unaryPlus
+- : unaryMinus
+! : not
+++ : inc
+-- : dec
+</code></pre><p><br></p>
+<h3 id="比较运算符重载"><a href="#比较运算符重载" class="headerlink" title="比较运算符重载"></a>比较运算符重载</h3><ul>
+<li>equals，对应 == ，由于该函数已经在 any 中实现了，因此不能使用扩展函数实现它，注意java中的==运算符对应kotlin的===运算符，===运算符不允许重载</li>
+</ul>
+<pre><code>fun main() {
+    println(Point(1,1) == Point(1,1))
+}
+
+
+data class Point(val x: Int, val y: Int) {
+
+    override fun equals(other: Any?): Boolean {
+        if (other === this) {
+            return true
+        }
+
+        if (other !is Point) {
+            return false
+        }
+
+        return other.x == x &amp;&amp; other.y == y
+    }
+}
+</code></pre><ul>
+<li>compareTo，对应 > \&lt; ==，但注意需要实现Comparable接口，并且，如果重载了equals函数，则equals会覆盖Comparable的==</li>
+</ul>
+<pre><code>fun main() {
+    println(Person(&quot;&quot;,&quot;&quot;) &lt; Person(&quot;&quot;,&quot;&quot;))
+}
+
+data class Person(val firstName:String,val lastName:String) : Comparable&lt;Person&gt;{
+    override fun compareTo(other: Person):Int{
+        return compareValuesBy(this,other,Person::lastName,Person::firstName)
+    }
+}
+</code></pre><p><br></p>
+<h3 id="集合与区间的约定"><a href="#集合与区间的约定" class="headerlink" title="集合与区间的约定"></a>集合与区间的约定</h3><ul>
+<li>get，set，对应中括号，类似map的集合就是实现了这样的函数，我们可以在普通的类上使用这种运算符，注意参数的类型和数量并没有限定，多个参数在调用时同样以逗号分隔</li>
+</ul>
+<pre><code>fun main() {
+    println(Point(1,2)[0]) //1
+}
+
+operator fun Point.get(index: Int): Int {
+    return when (index) {
+        0 -&gt; x
+        1 -&gt; y
+        else -&gt;
+            throw  IndexOutOfBoundsException(&quot;invalid coordinate $index&quot;)
+    }
+}
+
+fun main() {
+    println(Point(1,2)[0]) //1
+}
+
+operator fun Point.set(index: Int, value:Int) {
+    return when (index) {
+        0 -&gt; x = value
+        1 -&gt; y = value
+        else -&gt;
+            throw  IndexOutOfBoundsException(&quot;invalid coordinate $index&quot;)
+    }
+}
+</code></pre><p><br></p>
+<h2 id="特殊命名函数"><a href="#特殊命名函数" class="headerlink" title="特殊命名函数"></a>特殊命名函数</h2><p><br></p>
+<h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p><br></p>
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p><br></p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><br></p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p><br></p>
+<h2 id="DSL"><a href="#DSL" class="headerlink" title="DSL"></a>DSL</h2><p><br></p>
 <h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
 <li>kotlin中的文档注释和java中的文档注释一样以/和两个星号开头，差别在于kotlin中的文档注释使用markdown语法而不是html，另外引用声明使用中括号表示</li>
 </ul>
@@ -1648,12 +1857,12 @@ fun main() {
 </code></pre><ul>
 <li>配置镜像可以解决，这个在 etc/profile 里面配过了，但是没有效果，因为zsh默认不加载etc/profile，可以 echo ${pub_hosted_url} 测一下，建议还是在默认的shell的配置文件里面设置，比如我使用的是.zshrc</li>
 </ul>
-<pre><code>export pub_hosted_url=https://pub.flutter-io.cn
-export flutter_storage_base_url=https://storage.flutter-io.cn
+<pre><code>export pub\_hosted\_url=https://pub.flutter-io.cn
+export flutter\_storage\_base\_url=https://storage.flutter-io.cn
 </code></pre><ul>
 <li>如果需要终端走代理可以尝试下面，同时curl ip.sb 检测当前ip</li>
 </ul>
-<pre><code>export ALL_PROXY=socks5://账号:密码@127.0.0.1:1080
+<pre><code>export ALL\_PROXY=socks5://账号:密码@127.0.0.1:1080
 </code></pre><p><br></p>
 <h3 id="Initializing-gradle"><a href="#Initializing-gradle" class="headerlink" title="Initializing gradle"></a>Initializing gradle</h3><ul>
 <li>永久停留在这一步，其实是在下载新版本的gradle，查看.gradle的dist目录会发现不论等多久大小都是 0 k，直接去官网下载对应版本，建议使用迅雷</li>
@@ -1698,6 +1907,9 @@ export flutter_storage_base_url=https://storage.flutter-io.cn
 </li>
 <li><p>取消勾选之后，光标放在类名处一段时间还是可以弹出文档的，所以不会有什么影响，不过弹出的时候该卡死还是会卡死，这样的类并不多，其他的比如rx里面有一些也会，不手贱就行，或者选择直接关闭这个功能</p>
 </li>
+</ul>
+<h3 id="AS-3-4更新-gradle"><a href="#AS-3-4更新-gradle" class="headerlink" title="AS 3.4更新 gradle"></a>AS 3.4更新 gradle</h3><ul>
+<li>以前AS下不了gradle，只要手动下载到.gradle下对应版本的名称为乱码的文件夹下就可以了，然而3.4根本就不生成这个文件夹了，直接在设置中修改使用本地gradle（use local gradle ..），本地gradle同样手动下载就可以了</li>
 </ul>
 <p><br><br><strong>持续更新</strong></p>
 ]]></content>
