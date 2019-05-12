@@ -1809,8 +1809,17 @@ operator fun Point.set(index: Int, value:Int) {
             throw  IndexOutOfBoundsException(&quot;invalid coordinate $index&quot;)
     }
 }
-</code></pre><p><br></p>
-<h2 id="特殊命名函数"><a href="#特殊命名函数" class="headerlink" title="特殊命名函数"></a>特殊命名函数</h2><p><br></p>
+</code></pre><ul>
+<li>in，</li>
+</ul>
+<ul>
+<li>rangeTo</li>
+</ul>
+<ul>
+<li>iterator</li>
+</ul>
+<p><br></p>
+<h3 id="解构声明和组件函数"><a href="#解构声明和组件函数" class="headerlink" title="解构声明和组件函数"></a>解构声明和组件函数</h3><p><br></p>
 <h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p><br></p>
 <h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p><br></p>
 <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><br></p>
