@@ -1726,7 +1726,7 @@ println(numbers)//[1, 2, 3, 4]
 <li>复合运算符对应的名称即在算术运算符后加上Assign，如timesAssign，plusAssign</li>
 </ul>
 <p><br></p>
-<h3 id="一元运算符重载"><a href="#一元运算符重载" class="headerlink" title="一元运算符重载"></a>一元运算符重载</h3><ul>
+<h3 id="一元运算符"><a href="#一元运算符" class="headerlink" title="一元运算符"></a>一元运算符</h3><ul>
 <li>重载一元运算符不需要参数，注意自增自减在对象的左边和右边时的特性和一般语言中的一致，也是支持的</li>
 </ul>
 <pre><code>fun main() {
@@ -1746,7 +1746,7 @@ operator fun Point.unaryMinus():Point{
 ++ : inc
 -- : dec
 </code></pre><p><br></p>
-<h3 id="比较运算符重载"><a href="#比较运算符重载" class="headerlink" title="比较运算符重载"></a>比较运算符重载</h3><ul>
+<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><ul>
 <li>equals，对应 == ，由于该函数已经在 any 中实现了，因此不能使用扩展函数实现它，注意java中的==运算符对应kotlin的===运算符，===运算符不允许重载</li>
 </ul>
 <pre><code>fun main() {
@@ -1855,8 +1855,12 @@ fun main() {
     }
 }
 </code></pre><p><br></p>
-<h3 id="解构声明和组件函数"><a href="#解构声明和组件函数" class="headerlink" title="解构声明和组件函数"></a>解构声明和组件函数</h3><p><br></p>
+<h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><p><br></p>
+<h3 id="解构声明"><a href="#解构声明" class="headerlink" title="解构声明"></a>解构声明</h3><p><br></p>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p><br></p>
 <h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p><br></p>
+<h3 id="delegate"><a href="#delegate" class="headerlink" title="delegate"></a>delegate</h3><p><br></p>
+<h3 id="by-lazy"><a href="#by-lazy" class="headerlink" title="by lazy()"></a>by lazy()</h3><p><br></p>
 <h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p><br></p>
 <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><br></p>
 <h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p><br></p>
