@@ -1856,14 +1856,71 @@ fun main() {
 }
 </code></pre><p><br></p>
 <h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><p><br></p>
-<h3 id="解构声明"><a href="#解构声明" class="headerlink" title="解构声明"></a>解构声明</h3><p><br></p>
-<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p><br></p>
+<h3 id="解构声明"><a href="#解构声明" class="headerlink" title="解构声明"></a>解构声明</h3><ul>
+<li>componentX：类似js中的解构声明，componentX是一种特殊的运算符重载函数，用于声明变量所对应的属性，对于数据类型，编译器会自动为属性生成这样的函数，component后面的数字对应于变量的序号</li>
+</ul>
+<pre><code>class Point(var x: Int, var y: Int) {
+
+    operator fun component1() =x
+
+    operator fun component2()= y
+
+}
+
+fun main() {
+    var p = Point(10,20)
+    val(x,y) = p
+    println(x)
+    println(y)
+}
+</code></pre><ul>
+<li>解构属性最有趣的一点是他可以实现类似 go 当中的多返回值函数，虽然，这只是从调用方的角度来看，函数本身的实现依然是返回带解构声明的对象。还有一点是，集合当中已经实现了解构，因此可以直接作用在集合对象上面</li>
+</ul>
+<pre><code>fun splitFileName(fullName:String):NameComponents{
+    val (name,ext) = fullName.split(&quot;.&quot;,limit = 2)
+    return NameComponents(name,ext)
+}
+
+fun main() {
+    val (name,ext) = splitFileName(&quot;example.kt&quot;)
+    println(name)
+    println(ext)
+}
+</code></pre><p><br></p>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><ul>
+<li>可以直接在循环中使用解构，对于多个需要迭代的值不需要像java那样记录位置了</li>
+</ul>
+<pre><code>fun main() {
+    printEntries(mapOf(&quot;oracle&quot; to &quot;java&quot;,&quot;jetbrains&quot; to &quot;kotlin&quot;))
+}
+
+
+fun printEntries(map:Map&lt;String,String&gt;){
+    for ((key,value) in map){
+        println(&quot;$key -&gt; $value&quot;)
+    }
+}
+</code></pre><p><br></p>
 <h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p><br></p>
 <h3 id="delegate"><a href="#delegate" class="headerlink" title="delegate"></a>delegate</h3><p><br></p>
-<h3 id="by-lazy"><a href="#by-lazy" class="headerlink" title="by lazy()"></a>by lazy()</h3><p><br></p>
+<h3 id="by-lazy"><a href="#by-lazy" class="headerlink" title="by lazy()"></a>by lazy()</h3><ul>
+<li>这是一种基于委托的懒加载方式，可以保证多线程下不重复加载，只能用于val引用，可以很方便的实现单例</li>
+</ul>
+<pre><code>class Person(val name:String){
+    val emails by lazy { loadEmails(this) }
+
+    private fun loadEmails(person: Person): Any {
+        Thread.sleep(1000)
+        return Any()
+    }
+}
+</code></pre><p><br></p>
 <h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p><br></p>
 <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><br></p>
-<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p><br></p>
+<h2 id="注解和反射"><a href="#注解和反射" class="headerlink" title="注解和反射"></a>注解和反射</h2><p><br></p>
+<h3 id="注解声明"><a href="#注解声明" class="headerlink" title="注解声明"></a>注解声明</h3><p><br></p>
+<h3 id="KAPI"><a href="#KAPI" class="headerlink" title="KAPI"></a>KAPI</h3><p>## </p>
+<p><br></p>
 <h2 id="DSL"><a href="#DSL" class="headerlink" title="DSL"></a>DSL</h2><p><br></p>
 <h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
 <li>kotlin中的文档注释和java中的文档注释一样以/和两个星号开头，差别在于kotlin中的文档注释使用markdown语法而不是html，另外引用声明使用中括号表示</li>
