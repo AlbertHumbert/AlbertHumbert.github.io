@@ -1902,7 +1902,47 @@ fun printEntries(map:Map&lt;String,String&gt;){
 }
 </code></pre><p><br></p>
 <h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p><br></p>
-<h3 id="delegate"><a href="#delegate" class="headerlink" title="delegate"></a>delegate</h3><p><br></p>
+<h3 id="by"><a href="#by" class="headerlink" title="by"></a>by</h3><ul>
+<li>by：上文中有提到by在类声明中的用法，by也可以使用在属性的声明上</li>
+</ul>
+<pre><code>fun main() {
+    val p = Person()
+    p.name = &quot;testName&quot;
+    println(p.name)
+}
+
+class Person {
+    var name by Delegate()
+}
+
+class Delegate{
+
+    var realValue:String = &quot;&quot;
+
+    operator fun getValue(person: Person, property: KProperty&lt;*&gt;): String {
+        println(&quot;get&quot;)
+        return realValue
+    }
+
+    operator fun setValue(person: Person, property: KProperty&lt;*&gt;, str: String) {
+        println(&quot;set&quot;)
+        realValue = str
+  }
+}
+</code></pre><ul>
+<li>集合类本身实现了getValue和setValue，对于需要动态扩展属性的场景可以使用集合进行委托</li>
+</ul>
+<pre><code>class Person {
+
+    private val _attribute = hashMapOf&lt;String,String&gt;()
+
+    fun setAttribute(attrName:String,value:String){
+        _attribute[attrName] = value
+    }
+
+    val name:String by _attribute
+}
+</code></pre><p><br></p>
 <h3 id="by-lazy"><a href="#by-lazy" class="headerlink" title="by lazy()"></a>by lazy()</h3><ul>
 <li>这是一种基于委托的懒加载方式，可以保证多线程下不重复加载，只能用于val引用，可以很方便的实现单例</li>
 </ul>
